@@ -1,0 +1,818 @@
+# Copyright (C) 2015 WooThemes / SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Customer/Order CSV Export 3.10.1\n"
+"Report-Msgid-Bugs-To: https://support.woothemes.com/hc/\n"
+"POT-Creation-Date: 2014-07-28 22:46:29+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:168
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:169
+msgid "CSV Export"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:190
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:282
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:688
+msgid "Export"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:191
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:202
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:302
+msgid "Action failed. Please refresh the page and retry."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:228
+msgid "Your settings have been saved."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:374
+msgid "No %s found to export"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:390
+msgid "Save settings"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:411
+msgid "Export Status"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:442
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:513
+msgid "Exported"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:442
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:512
+msgid "Not Exported"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:461
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:479
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:566
+msgid "Download to CSV"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:518
+msgid "Show all orders"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:564
+msgid "Mark exported"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:565
+msgid "Mark not exported"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:678
+msgid "The next export is scheduled on <code>%s</code>"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:680
+msgid "The export is not scheduled."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:694
+msgid "Export Orders or Customers"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:697
+msgid "Orders"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:698
+msgid "Customers"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:706
+msgid "Export Options"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:712
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:855
+msgid "Order Statuses"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:713
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:856
+msgid "Orders with these statuses will be included in the export."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:723
+msgid "Start Date"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:724
+msgid ""
+"Start date of customers or orders to include in the exported file, in the "
+"format <code>YYYY-MM-DD.</code>"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:730
+msgid "End Date"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:731
+msgid ""
+"End date of customers or orders to include in the exported file, in the "
+"format <code>YYYY-MM-DD.</code>"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:737
+msgid "Limit Records"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:738
+msgid ""
+"Limit the number of rows to be exported. Use this option when exporting "
+"very large files that are unable to complete in a single attempt."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:747
+msgid "Offset Records"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:748
+msgid ""
+"Set the number of records to be skipped in this export. Use this option "
+"when exporting very large files that are unable to complete in a single "
+"attempt."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:761
+msgid "Export Format"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:767
+msgid "Order Export Format"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:768
+msgid ""
+"Default is a new format for v3.0, Import matches the Customer/Order CSV "
+"Import plugin format, and legacy is prior to version 3"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:771
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:786
+msgid "Default"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:772
+msgid "Default - One Row per Item"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:773
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:787
+msgid "CSV Import"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:774
+msgid "Legacy - One Row per Item"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:775
+msgid "Legacy - Single Column for all Items"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:782
+msgid "Customer Export Format"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:783
+msgid ""
+"Default is a new format for v3.0, Import matches the Customer/Order CSV "
+"Import plugin format, Legacy is prior to version 3"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:788
+msgid "Legacy"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:795
+msgid "Order Export Filename"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:796
+msgid ""
+"The filename for exported orders. Merge variables: %%timestamp%%, "
+"%%order_ids%%"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:804
+msgid "Customer Export Filename"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:805
+msgid "The filename for exported customers. Merge variables: %%timestamp%%"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:814
+msgid "Automated Export Settings"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:820
+msgid "Automatically Export Orders"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:821
+msgid ""
+"Enable this to automatically export orders via the method & schedule "
+"selected."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:824
+msgid "Disabled"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:825
+msgid "via FTP"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:826
+msgid "via HTTP POST"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:827
+msgid "via Email"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:834
+msgid "Export Start Time"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:835
+msgid "Any new orders will start exporting at this time."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:836
+msgid "Local time is <code>%s</code>."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:845
+msgid "Export Interval (in minutes)*"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:846
+msgid "Any new orders will be exported on this schedule."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:847
+msgid "Required in order to schedule the automatic export."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:868
+msgid "FTP Settings"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:874
+msgid "Server Address"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:875
+msgid "The address of the remote FTP server to upload to."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:882
+msgid "Username"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:883
+msgid "The username for the remote FTP server."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:890
+msgid "Password"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:891
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:899
+msgid "The password for the remote FTP server."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:898
+msgid "Port"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:907
+msgid "Initial Path"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:908
+msgid ""
+"The initial path for the remote FTP server with trailing slash, but "
+"excluding leading slash."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:915
+msgid "Security"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:916
+msgid "Select the security type for the remote FTP server."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:919
+msgid "None"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:920
+msgid "FTP with Implicit SSL"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:921
+msgid "FTP with Explicit TLS/SSL"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:922
+msgid "SFTP (FTP over SSH)"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:929
+msgid "Passive Mode"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:930
+msgid ""
+"Enable passive mode if you are having issues connecting to FTP, especially "
+"if you see \"PORT command successful\" in the error log."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:937
+msgid "Test FTP"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:946
+msgid "HTTP POST Settings"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:952
+msgid "HTTP POST URL"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:953
+msgid "Enter the URL to POST the exported CSV to."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:960
+msgid "Test HTTP POST"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:969
+msgid "Email Settings"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:975
+msgid "Recipient(s)"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:976
+msgid ""
+"Enter recipients (comma separated) the exported CSV should be emailed to. "
+"Defaults to <em>%s</em>."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:983
+msgid "Email Subject"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:984
+msgid "Enter the email subject."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:985
+msgid "[%s] Order CSV Export"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:991
+msgid "Test Email"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:1004
+msgid "Subscriptions Options"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:1010
+msgid "Export Subscriptions Orders Only"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:1011
+msgid "Export subscription orders"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:1018
+msgid "Export renewal orders"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-csv-export-admin.php:1052
+msgid "Please save your settings before testing"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:142
+msgid "Order ID"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:143
+msgid "Date"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:144
+msgid "Order Status"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:145
+msgid "Shipping"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:146
+msgid "Shipping Tax"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:147
+msgid "Fees"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:148
+msgid "Fee Tax"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:149
+msgid "Tax"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:150
+msgid "Cart Discount"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:151
+msgid "Order Discount"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:152
+msgid "Order Total"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:153
+msgid "Payment Method"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:154
+msgid "Shipping Method"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:155
+msgid "Billing First Name"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:156
+msgid "Billing Last Name"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:157
+msgid "Billing Email"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:158
+msgid "Billing Phone"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:159
+msgid "Billing Address 1"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:160
+msgid "Billing Address 2"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:161
+msgid "Billing Post code"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:162
+msgid "Billing City"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:163
+msgid "Billing State"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:164
+msgid "Billing Country"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:165
+msgid "Billing Company"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:166
+msgid "Shipping First Name"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:167
+msgid "Shipping Last Name"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:168
+msgid "Shipping Address 1"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:169
+msgid "Shipping Address 2"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:170
+msgid "Shipping Post code"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:171
+msgid "Shipping City"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:172
+msgid "Shipping State"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:173
+msgid "Shipping Country"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:174
+msgid "Shipping Company"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:175
+msgid "Customer Note"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:181
+msgid "Item SKU"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:182
+msgid "Item Name"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:183
+msgid "Item Variation"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:184
+msgid "Item Amount"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:185
+msgid "Row Price"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:190
+msgid "Order Items"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:194
+msgid "Download Permissions Granted"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:195
+msgid "Order notes"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:196
+msgid "Coupons"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:525
+msgid "ID"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:526
+msgid "First Name"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:527
+msgid "Last Name"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:528
+msgid "Email"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:529
+msgid "Phone"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:530
+msgid "Address"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:531
+msgid "Address 2"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:532
+msgid "Post code"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:533
+msgid "City"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:534
+msgid "State"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:535
+msgid "Country"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:536
+msgid "Company"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-cron.php:74
+msgid "Every %d minutes"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-handler.php:178
+#: includes/class-wc-customer-order-csv-export-handler.php:217
+msgid "Invalid Export Method: %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-handler.php:223
+msgid "Test was successful!"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-handler.php:230
+msgid "Test failed: %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-handler.php:325
+msgid "downloaded."
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-handler.php:329
+msgid "uploaded to remote server."
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-handler.php:333
+msgid "POSTed to remote server."
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-handler.php:337
+msgid "emailed."
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-handler.php:348
+msgid "Order exported to CSV and successfully %s"
+msgstr ""
+
+#: includes/export-methods/class-wc-customer-order-csv-export-method-email.php:121
+msgid "Order Export for %s"
+msgstr ""
+
+#: includes/export-methods/ftp/abstract-wc-customer-order-csv-export-method-file-transfer.php:83
+msgid "FTP Username is blank."
+msgstr ""
+
+#: includes/export-methods/ftp/abstract-wc-customer-order-csv-export-method-file-transfer.php:91
+msgid "FTP Server is blank."
+msgstr ""
+
+#: includes/export-methods/ftp/abstract-wc-customer-order-csv-export-method-file-transfer.php:97
+msgid "FTP Port is blank."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:64
+msgid "Could not initialize cURL."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:93
+msgid "Could not set cURL option: %s"
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:121
+#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:117
+msgid "Could not open php://temp for writing."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:139
+msgid "Could not upload file. cURL Error: [%s] - %s"
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:85
+msgid "Could not set passive mode"
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:158
+msgid "FTP error: %s"
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:55
+msgid "SSH2 Extension is not installed, cannot connect via SFTP."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:79
+msgid "Could not setup SFTP link"
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:106
+msgid "Could not write data from CSV."
+msgstr ""
+
+#: lib/skyverge/woocommerce/class-sv-wc-admin-notice-handler.php:196
+msgid "Dismiss"
+msgstr ""
+
+#: lib/skyverge/woocommerce/class-sv-wc-plugin.php:192
+msgid "You cannot clone instances of %s."
+msgstr ""
+
+#: lib/skyverge/woocommerce/class-sv-wc-plugin.php:201
+msgid "You cannot unserialize instances of %s."
+msgstr ""
+
+#: lib/skyverge/woocommerce/class-sv-wc-plugin.php:321
+msgid ""
+"%s requires the %s PHP extension to function.  Contact your host or server "
+"administrator to configure and install the missing extension."
+msgid_plural ""
+"%s requires the following PHP extensions to function: %s.  Contact your "
+"host or server administrator to configure and install the missing "
+"extensions."
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/skyverge/woocommerce/class-sv-wc-plugin.php:341
+msgid ""
+"%s requires the %s PHP function to exist.  Contact your host or server "
+"administrator to configure and install the missing function."
+msgid_plural ""
+"%s requires the following PHP functions to exist: %s.  Contact your host or "
+"server administrator to configure and install the missing functions."
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/skyverge/woocommerce/class-sv-wc-plugin.php:376
+msgid "Docs"
+msgstr ""
+
+#: lib/skyverge/woocommerce/class-sv-wc-plugin.php:381
+msgid "Support"
+msgstr ""
+
+#: lib/skyverge/woocommerce/class-sv-wc-plugin.php:631
+msgid "Configure"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Customer/Order CSV Export"
+msgstr ""
+
+#: woocommerce-customer-order-csv-export.php:193
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: woocommerce-customer-order-csv-export.php:198
+msgid "You have taken too long, please go back and try again."
+msgstr ""
+
+#: woocommerce-customer-order-csv-export.php:286
+msgid ""
+"Thanks for installing the Customer/Order CSV Export plugin! To get started, "
+"please %sset your export format%s. "
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.woothemes.com/products/ordercustomer-csv-export/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Easily download customers & orders in CSV format and automatically export "
+"FTP or HTTP POST on a recurring schedule"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooThemes / SkyVerge"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.woothemes.com"
+msgstr ""
+
+#: includes/class-wc-customer-order-csv-export-compatibility.php:355
+#: includes/class-wc-customer-order-csv-export-compatibility.php:423
+msgctxt "hash before the order number"
+msgid "#"
+msgstr ""

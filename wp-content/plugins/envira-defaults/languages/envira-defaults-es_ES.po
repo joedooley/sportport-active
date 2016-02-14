@@ -1,0 +1,104 @@
+# Copyright (C) 2015 Envira Gallery - Defaults Addon
+# This file is distributed under the same license as the Envira Gallery - Defaults Addon package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Envira Gallery - Defaults Addon 1.0.3\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/envira-defaults\n"
+"POT-Creation-Date: 2015-12-01 17:32+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-12-01 18:04+0100\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.6\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es_ES\n"
+
+#: envira-defaults.php:175 envira-defaults.php:194 envira-defaults.php:245
+#: envira-defaults.php:264
+msgid "Envira Default Settings"
+msgstr "Ajustes predeterminados de Envira"
+
+#: includes/admin/ajax.php:69 includes/admin/ajax.php:108
+msgid "Inherit Config from:"
+msgstr "Heredar configuración de:"
+
+#: includes/admin/ajax.php:71 includes/admin/ajax.php:110
+msgid "(Use Envira Default Settings)"
+msgstr "(Use los ajustes predeterminados de Envira)"
+
+#: includes/admin/ajax.php:82
+msgid "Create Gallery"
+msgstr "Crear galería"
+
+#: includes/admin/ajax.php:121
+msgid "Create Album"
+msgstr "Crear álbum"
+
+#: includes/admin/metaboxes.php:139
+msgid "Default Settings"
+msgstr "Ajustes predeterminados"
+
+#: includes/admin/metaboxes.php:160
+msgid ""
+"This gallery and its settings will be used as defaults for any new gallery "
+"you create on this site. Any of these settings can be overwritten on an "
+"individual gallery basis via template tag arguments or shortcode parameters. "
+"<a href=\"%s\" title=\"Click here for Defaults Addon documentation.\" target="
+"\"_blank\">Click here for Defaults Addon documentation.</a>"
+msgstr ""
+"Esta galería y sus ajustes se utilizan como valores predeterminados para "
+"cualquier nueva galería que se cree en este sitio. Cualquiera de estos "
+"ajustes pueden sobrescribirse en la galería, de forma individual mediante  "
+"los argumentos de la etiqueta de plantilla o mediante los parámetros de "
+"código corto. <a href=\"%s\" title=\"Haga clic aquí para obtener la "
+"documentación del complemento Defaults.\" target = \"_ blank\"> Haga clic "
+"aquí para obtener la documentación del complemento Defaults. </a>"
+
+#: includes/admin/metaboxes.php:163
+msgid ""
+"This album and its settings will be used as defaults for any new album you "
+"create on this site. Any of these settings can be overwritten on an "
+"individual album basis via template tag arguments or shortcode parameters. "
+"<a href=\"%s\" title=\"Click here for Defaults Addon documentation.\" target="
+"\"_blank\">Click here for Defaults Addon documentation.</a>"
+msgstr ""
+"Este álbum y sus ajustes se utilizan como valores predeterminados para "
+"cualquier nuevo álbum que se cree en este sitio. Cualquiera de estos ajustes "
+"pueden sobrescribirse en el álbum, de forma individual mediante  los "
+"argumentos de la etiqueta de plantilla o mediante los parámetros de código "
+"corto. <a href=\"%s\" title=\"Haga clic aquí para obtener la documentación "
+"del complemento Defaults.\" target = \"_ blank\"> Haga clic aquí para "
+"obtener la documentación del complemento Defaults. </a>"
+
+#: includes/admin/table.php:105
+msgid "Create a new Album"
+msgstr "Crear un nuevo álbum"
+
+#: includes/admin/table.php:113
+msgid "Create a new Gallery"
+msgstr "Crear una nueva galería"
+
+#. Plugin Name of the plugin/theme
+msgid "Envira Gallery - Defaults Addon"
+msgstr "Envira Gallery - Complemento Defaults"
+
+#. Plugin URI of the plugin/theme
+msgid "http://enviragallery.com"
+msgstr "http://enviragallery.com"
+
+#. Description of the plugin/theme
+msgid ""
+"Enables defaults to be set and inherited by new Envira galleries and albums."
+msgstr ""
+"Activa las características predeterminadas para ajustar y que sean heredadas "
+"por las nuevas galerías y álbumes de Envira."
+
+#. Author of the plugin/theme
+msgid "Thomas Griffin"
+msgstr "Thomas Griffin"
+
+#. Author URI of the plugin/theme
+msgid "http://thomasgriffinmedia.com"
+msgstr "http://thomasgriffinmedia.com"

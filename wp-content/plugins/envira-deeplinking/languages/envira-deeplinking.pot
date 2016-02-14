@@ -1,0 +1,43 @@
+# Copyright (C) 2016 Envira Gallery - Deeplinking Addon
+# This file is distributed under the same license as the Envira Gallery - Deeplinking Addon package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Envira Gallery - Deeplinking Addon 1.0.7\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/envira-"
+"deeplinking\n"
+"POT-Creation-Date: 2016-01-28 16:42:15+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/admin/metaboxes.php:55
+msgid "Enable Deeplinking?"
+msgstr ""
+
+#: includes/admin/metaboxes.php:59
+msgid ""
+"Enables or disables deeplinking capabilities for gallery lightbox images."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Envira Gallery - Deeplinking Addon"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://enviragallery.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Enables deeplinking capabilities for Envira galleries."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Thomas Griffin"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://thomasgriffinmedia.com"
+msgstr ""

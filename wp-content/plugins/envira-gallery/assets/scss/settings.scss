@@ -1,0 +1,337 @@
+/* ==========================================================================
+   Settings Styles
+   ========================================================================== */
+#envira-gallery-settings {
+	/**
+	* Clearing
+	*/
+	.envira-clear {
+	    clear: both;
+	
+		&:after {
+		    clear: both;
+		    content: '.';
+		    display: block;
+		    height: 0;
+		    line-height: 0;
+		    overflow: auto;
+		    visibility: hidden;
+		    zoom: 1;
+		}
+	}
+
+	.envira-gallery {
+	    margin: 15px 0 20px;
+	}
+
+	/**
+	* Setting Tabs
+	*/
+	#envira-tabs-nav {
+	    list-style: none;
+	    margin: 0 0 10px;
+	    padding: 0;
+	    border-bottom: 1px solid #cecece;
+	
+		li {
+		    float: left;
+		    margin: 0 10px -1px 0;
+
+			a {
+			    display: block;
+			    padding: 10px 12px 7px;
+			    font-size: 18px;
+			    color: #aaa;
+			    font-weight: 300;
+			    text-decoration: none;
+			    outline: none;
+
+			    &:hover {
+			    	color: #21759b;
+			    }
+			}
+
+			/**
+			* Active Tab
+			*/
+			&.envira-active {
+				a {
+				    border: 1px solid #cecece;
+				    border-bottom-color: #f1f1f1;
+				    -moz-border-radius: 3px 3px 0 0;
+				    -webkit-border-radius: 3px 3px 0 0;
+				    border-radius: 3px 3px 0 0;
+				    color: #21759b;
+				    padding-top: 9px;
+				}
+			}
+		}
+	}
+
+	/**
+	* Tab Panels
+	*/
+	.envira-tab {
+	    display: none;
+
+	    /**
+	    * Active Tab Panel
+	    */
+	    &.envira-active {
+	    	display: block;
+	    }
+
+	    th {
+	    	width: 210px;
+    		padding-right: 0;
+	    }
+
+	    input[type="text"],
+		input[type="number"],
+		input[type="password"],
+		select,
+		textarea {
+		    width: 350px;
+		    padding-right: 0;
+		}
+	}
+
+	/**
+	* Refresh
+	*/
+	#envira-gallery-refresh-submit {
+    	vertical-align: baseline;
+	}
+}
+
+/* ==========================================================================
+   Addons Styles
+   ========================================================================== */
+
+#envira-addons-area {
+    margin-top: 20px;
+
+    /**
+    * Addon
+    */
+	.envira-addon {
+		border: 1px solid #ccc;
+		background: #fff;
+		border-radius: 3px;
+		float: left;
+		margin: 0 2% 2% 0;
+		min-height: 400px;
+		padding: 20px;
+		text-align: center;
+		width: 32%;
+		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+
+		&:nth-child(3n) {
+			margin-right: 0;
+		}
+		&:nth-child(3n+1) {
+			clear: both;
+		}
+
+		/**
+		* Thumbnail Image
+		*/
+		.envira-addon-thumb {
+			border-radius: 3px;
+			box-shadow: 0 0 3px rgba( 0, 0, 0, .35 );
+			height: auto;
+			margin: 0 auto;
+			max-width: 100%;
+			width: auto;
+		}
+
+		/**
+		* Success and Error Messages
+		*/
+		.envira-addon-message,
+		.envira-addon-error {
+			position: relative;
+			float: left;
+			width: 100%;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			border-radius: 3px;
+			margin: 0 0 10px 0;
+			padding: 10px 6px;
+			text-align: left;
+
+			/**
+			* Active Addon
+			*/
+			&.envira-addon-active {
+				background: #cbeca0;
+				border: 1px solid #97b48a;
+			}
+
+			/**
+			* Inactive Addon
+			*/
+			&.envira-addon-inactive {
+				background: #ffffe0;
+				border: 1px solid #e6db55;
+			}
+
+			/**
+			* Not Installed Addon
+			*/
+			&.envira-addon-not-installed {
+				background: #eaeaea;
+				border: 1px solid #dadada;
+			}
+
+			span.addon-status {
+				float: left;
+				font-weight: bold;
+			}
+			a.button {
+				float: right;
+				margin-right: 30px;
+			}
+			span.envira-gallery-spinner {
+				position: absolute;
+				bottom: 15px;
+				right: 0;
+			}
+		}
+
+		/**
+		* Action
+		*/
+		.envira-addon-action {
+			display: inline;
+			float: right;
+
+			.button-primary {
+				margin: -5px 0 0 0;
+			}
+		}
+
+		/**
+		* Error
+		*/
+		.envira-addon-error {
+			background: #ffebe8;
+			border: 1px solid #c00;
+			margin-top: 10px;
+
+			.wrap {
+				margin: 0;
+			}
+
+			.icon32 {
+				display: none;
+			}
+
+			h2 {
+				padding: 0;
+			}
+
+			.form-table th {
+				padding: 10px 0;
+				width: 30% !important;
+			}
+
+			.form-table input[type="text"],
+			.envira-addon .envira-addon-error .form-table input[type="password"] {
+				width: 100% !important;
+			}
+
+			p.submit {
+				padding: 0;
+			}
+		}
+
+		/**
+		* Description
+		*/
+		p {
+			color: #2f2f2f;
+			font-size: 13px;
+			margin: 10px 0 0;
+			text-shadow: 0 1px #fff;
+		}
+	}
+}
+
+/* ==========================================================================
+   Responsive Addons Styles
+   ========================================================================== */
+@media only screen and (max-width: 1050px) {
+	#envira-addons-area {
+		/**
+	    * Addons - 2 Column
+	    */
+		.envira-addon {
+			width: 49%;
+			min-height: 300px;
+
+			&:nth-child(2n) {
+				margin-right: 0;
+			}
+			&:nth-child(2n+1) {
+				clear: both;
+			}
+
+			&:nth-child(3n) {
+				margin-right: 2%;
+			}
+			&:nth-child(3n+1) {
+				clear: none;
+			}
+		}
+	}
+}
+@media only screen and (max-width: 782px) {
+	#envira-addons-area {
+		.envira-addon {
+			/**
+			* Action
+			*/
+			.envira-addon-action {
+				.button-primary {
+					margin: -7px 0 0 0;
+				}
+			}
+		}
+	}
+}
+@media only screen and (max-width: 630px) {
+	#envira-addons-area {
+		.envira-addon {
+			/**
+			* Messages
+			*/
+			.envira-addon-message {
+				float: left;
+				width: 100%;
+				margin: 0 0 10px 0;
+
+				span.addon-status {
+					display: block;
+					width: 100%;
+					margin: 0 0 5px 0;
+					text-align: center;
+				}
+				div.envira-addon-action {
+					clear: both;
+					display: block;
+					width: 100%;
+					text-align: center;
+
+					.button-primary {
+						clear: both;
+						float: none;
+						margin: 0 auto;
+					}
+				}
+			}
+		}
+	}
+}

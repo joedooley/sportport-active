@@ -1,0 +1,33 @@
+/*------------------------------------------------------------------
+[ Improved Sale Badges for WooCommerce ADMIN]
+
+[Table of contents]
+
+1.Includes
+2.Admin
+-------------------------------------------------------------------*/
+
+@import url('colors.css');
+@import url('style.css');
+
+/*------------------------------------------------------------------
+[Admin]
+-------------------------------------------------------------------*/
+
+#isb_preview {
+	display:block;
+	width:200px;
+	height:200px;
+	background-image:url(../images/product.gif);
+	background-position:center center;
+	background-repeat:no-repeat;
+	background-color:#fff;
+	border:1px solid #ddd;
+	margin-left:20px;
+	position:relative;
+}
+.wc_settings_isb_title {
+	display:block;
+	font-weight:bold;
+	padding:12px;
+}

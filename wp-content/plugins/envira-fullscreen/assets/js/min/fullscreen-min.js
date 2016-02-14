@@ -1,0 +1,8 @@
+/**
+ * @preserve jquery.fullscreen 1.1.5
+ * https://github.com/kayahr/jquery-fullscreen-plugin
+ * Copyright (C) 2012-2013 Klaus Reimer <k@ailis.de>
+ * Licensed under the MIT license
+ * (See http://www.opensource.org/licenses/mit-license)
+ */
+!function(){function e(e){var l,n,r;return this.length?(l=this[0],l.ownerDocument?r=l.ownerDocument:(r=l,l=r.documentElement),null==e?r.exitFullscreen||r.webkitExitFullscreen||r.webkitCancelFullScreen||r.msExitFullscreen||r.mozCancelFullScreen?(e=!!(r.fullscreenElement||r.msFullscreenElement||r.webkitIsFullScreen||r.mozFullScreen),e?r.fullscreenElement||r.webkitFullscreenElement||r.webkitCurrentFullScreenElement||r.msFullscreenElement||r.mozFullScreenElement||e:e):null:e?(n=l.requestFullscreen||l.webkitRequestFullscreen||l.webkitRequestFullScreen||l.msRequestFullscreen||l.mozRequestFullScreen,n&&n.call(l),this):(n=r.exitFullscreen||r.webkitExitFullscreen||r.webkitCancelFullScreen||r.msExitFullscreen||r.mozCancelFullScreen,n&&n.call(r),this)):this}function l(){return e.call(this,!e.call(this))}function n(e){jQuery(document).trigger(new jQuery.Event("fullscreenchange"))}function r(e){jQuery(document).trigger(new jQuery.Event("fullscreenerror"))}function u(){var e,l,u;e=document,e.webkitCancelFullScreen?(l="webkitfullscreenchange",u="webkitfullscreenerror"):e.msExitFullscreen?(l="MSFullscreenChange",u="MSFullscreenError"):e.mozCancelFullScreen?(l="mozfullscreenchange",u="mozfullscreenerror"):(l="fullscreenchange",u="fullscreenerror"),jQuery(document).bind(l,n),jQuery(document).bind(u,r)}jQuery.fn.fullScreen=e,jQuery.fn.toggleFullScreen=l,u()}();

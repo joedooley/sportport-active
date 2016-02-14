@@ -1,0 +1,82 @@
+# Copyright (C) 2015 Envira Gallery - Dynamic Addon
+# This file is distributed under the same license as the Envira Gallery - Dynamic Addon package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Envira Gallery - Dynamic Addon 1.0.8\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/envira-dynamic\n"
+"POT-Creation-Date: 2015-12-01 20:27+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-12-01 21:38+0100\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.6\n"
+"Last-Translator: José Luis Pérez-Lozana <joseluis.perez.lozana@gmail.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es_ES\n"
+
+#: envira-dynamic.php:175 envira-dynamic.php:194
+msgid "Envira Dynamic Gallery"
+msgstr "Galería Dinámica Envira"
+
+#: envira-dynamic.php:245 envira-dynamic.php:264
+msgid "Envira Dynamic Album"
+msgstr "Álbum dinámico Envira"
+
+#: includes/admin/metaboxes.php:139
+msgid "Dynamic"
+msgstr "Dinámica"
+
+#: includes/admin/metaboxes.php:160
+msgid ""
+"This gallery and its settings will be used as defaults for any dynamic "
+"gallery you create on this site. Any of these settings can be overwritten on "
+"an individual gallery basis via template tag arguments or shortcode "
+"parameters. <a href=\"%s\" title=\"Click here for Dynamic Addon "
+"documentation.\" target=\"_blank\">Click here for Dynamic Addon "
+"documentation.</a>"
+msgstr ""
+"Esta galería y sus ajustes se utilizan como valores predeterminados para "
+"cualquier galería dinámica que cree en este sitio. Cualquiera de estos "
+"ajustes puede sobrescribirse en cualquier galería mediante los argumentos de "
+"la etiqueta de plantilla de la galería o de parámetros de código corto. <a "
+"href=\"%s\" title=\"Haga clic aquí para ver la documentación del complemento "
+"Dynamic.\" target =\"_ blank\"> Haga clic aquí para ver la documentación del "
+"complemento Dynamic.</a>"
+
+#: includes/admin/metaboxes.php:163
+msgid ""
+"This album and its settings will be used as defaults for any dynamic album "
+"you create on this site. Any of these settings can be overwritten on an "
+"individual album basis via template tag arguments or shortcode parameters. "
+"<a href=\"%s\" title=\"Click here for Dynamic Addon documentation.\" target="
+"\"_blank\">Click here for Dynamic Addon documentation.</a>"
+msgstr ""
+"Este álbum y sus ajustes se utilizan como valores predeterminados para "
+"cualquier álbum dinámico que cree en este sitio. Cualquiera de estos ajustes "
+"puede sobrescribirse en cualquier álbum mediante los argumentos de la "
+"etiqueta de plantilla o de parámetros de código corto. <a href=\"%s\" title="
+"\"Haga clic aquí para ver la documentación del complemento Dynamic.\" target "
+"=\"_ blank\"> Haga clic aquí para ver la documentación del complemento "
+"Dynamic . </a>"
+
+#. Plugin Name of the plugin/theme
+msgid "Envira Gallery - Dynamic Addon"
+msgstr "Envira Gallery - Complemento Dynamic"
+
+#. Plugin URI of the plugin/theme
+msgid "http://enviragallery.com"
+msgstr "http://enviragallery.com"
+
+#. Description of the plugin/theme
+msgid "Enables dynamic gallery generation for Envira galleries and albums."
+msgstr ""
+"Permite la generación dinámica de una galería para galerías y álbumes Envira."
+
+#. Author of the plugin/theme
+msgid "Thomas Griffin"
+msgstr "Thomas Griffin"
+
+#. Author URI of the plugin/theme
+msgid "http://thomasgriffinmedia.com"
+msgstr "http://thomasgriffinmedia.com"

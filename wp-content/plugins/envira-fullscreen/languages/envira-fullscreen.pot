@@ -1,0 +1,56 @@
+# Copyright (C) 2015 Envira Gallery - Fullscreen Addon
+# This file is distributed under the same license as the Envira Gallery - Fullscreen Addon package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Envira Gallery - Fullscreen Addon 1.0.5\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/envira-fullscreen\n"
+"POT-Creation-Date: 2015-12-10 16:12:34+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/admin/metaboxes.php:61 includes/admin/metaboxes.php:101
+msgid "Enable Fullscreen View?"
+msgstr ""
+
+#: includes/admin/metaboxes.php:65
+msgid ""
+"Enables or disables native fullscreen mode (for browsers that support it) "
+"for the gallery."
+msgstr ""
+
+#: includes/admin/metaboxes.php:105
+msgid ""
+"Enables or disables native fullscreen mode (for browsers that support it) "
+"for each gallery in the Album. Requires Lightbox to be enabled."
+msgstr ""
+
+#: includes/global/shortcode-album.php:146
+#: includes/global/shortcode-gallery.php:146
+msgid "Toggle Fullscreen"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Envira Gallery - Fullscreen Addon"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://enviragallery.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Enables fullscreen capabilities (for browsers that support it) for Envira "
+"galleries."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Thomas Griffin"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://thomasgriffinmedia.com"
+msgstr ""

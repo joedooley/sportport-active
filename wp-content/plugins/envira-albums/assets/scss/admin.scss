@@ -1,0 +1,49 @@
+/**
+* Quick Edit - hide items
+*/
+body.post-type-envira_album {
+	td.colspanchange {
+		/**
+		* Left Col
+		*/
+		fieldset.inline-edit-col-left {
+			div.inline-edit-col {
+				label {
+					display: none;
+				}
+				
+				/* Title */
+				label:nth-child(2) {
+					display: block;
+				}
+				
+				/* Slug */
+				label:nth-child(3) {
+					display: none;
+				}
+				
+				/* Date */
+				label:nth-child(4) {
+					display: none;
+				}
+				
+				/* Date */
+				.inline-edit-date {
+					display: none;
+				}
+				
+				/* Password/Private */
+				.inline-edit-group {
+					display: none;
+				}
+			}
+		}
+		
+		/**
+		* Right Col
+		*/
+		fieldset.inline-edit-col-right {
+			display: none;
+		}
+	}
+}

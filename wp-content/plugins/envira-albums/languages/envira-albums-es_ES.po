@@ -1,0 +1,873 @@
+# Copyright (C) 2015 Envira Gallery - Albums Addon
+# This file is distributed under the same license as the Envira Gallery - Albums Addon package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Envira Gallery - Albums Addon 1.2.3.5\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/envira-albums\n"
+"POT-Creation-Date: 2015-12-06 18:45+0100\n"
+"PO-Revision-Date: 2015-12-06 18:48+0100\n"
+"Last-Translator: José Luis Pérez-Lozana <joseluis.perez.lozana@gmail.com>\n"
+"Language-Team: \n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.6\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: envira-albums.php:169
+msgid ""
+"The <strong>%s Addon</strong> requires the Envira Standalone addon. Please "
+"install and activate the Standalone Addon."
+msgstr ""
+"El <strong>% s Complemento </ strong> requiere el complemento Envira "
+"Standalone. Por favor, instale y active el complemento Standalone."
+
+#: includes/admin/ajax.php:110
+msgid "No Galleries found matching the given search terms."
+msgstr ""
+"No hay galerías que se ajusten a los términos de búsqueda introducidos."
+
+#: includes/admin/editor.php:75
+msgid "Add Album"
+msgstr "Añadir álbum"
+
+#: includes/admin/editor.php:132
+msgid "Choose Your Album"
+msgstr "Elija su álbum"
+
+#: includes/admin/editor.php:150 includes/global/widget.php:163
+msgid "Album ID #%s"
+msgstr "Id de álbum"
+
+#: includes/admin/editor.php:167
+msgid "Helpful Tips"
+msgstr "Consejos útiles"
+
+#: includes/admin/editor.php:168
+msgid "Choosing Your Album"
+msgstr "Eligiendo su álbum"
+
+#: includes/admin/editor.php:169
+msgid ""
+"To choose your album, simply click on one of the boxes to the left. The "
+"\"Insert Album\" button will be activated once you have selected an album."
+msgstr ""
+"Para elegir un álbum, simplemente haga clic en una de las casillas de la "
+"izquierda. El botón \"Insertar Álbum\" se activará una vez que haya "
+"seleccionado un álbum."
+
+#: includes/admin/editor.php:170
+msgid "Inserting Your Album"
+msgstr "Insertando el álbum"
+
+#: includes/admin/editor.php:171
+msgid ""
+"To insert your album into the editor, click on the \"Insert Album\" button "
+"below."
+msgstr ""
+"Para insertar el álbum en el editor, haga clic en el botón \"Insertar Álbum"
+"\" de abajo."
+
+#: includes/admin/editor.php:183
+msgid "Cancel Album Insertion"
+msgstr "Cancelar inserción de álbum"
+
+#: includes/admin/editor.php:186
+msgid "Insert Album"
+msgstr "Insertar álbum"
+
+#: includes/admin/metaboxes.php:162
+msgid "Are you sure you want to remove this gallery from the album?"
+msgstr "¿Está seguro que quiere quitar esta galería del álbum?"
+
+#: includes/admin/metaboxes.php:165
+msgid "Saving"
+msgstr "Guardando"
+
+#: includes/admin/metaboxes.php:219
+msgid "Envira Album Settings"
+msgstr "Ajustes de álbum de Envira "
+
+#: includes/admin/metaboxes.php:323
+msgid "Galleries"
+msgstr "Galerías"
+
+#: includes/admin/metaboxes.php:324
+msgid " Config"
+msgstr "Configuración"
+
+#: includes/admin/metaboxes.php:325
+msgid "Lightbox"
+msgstr "Lightbox"
+
+#: includes/admin/metaboxes.php:326
+msgid "Thumbnails"
+msgstr "Miniaturas"
+
+#: includes/admin/metaboxes.php:327
+msgid "Mobile"
+msgstr "Móvil"
+
+#: includes/admin/metaboxes.php:328
+msgid " Misc"
+msgstr "Varios"
+
+#: includes/admin/metaboxes.php:354
+msgid "Album Type"
+msgstr "Tipo de álbum"
+
+#: includes/admin/metaboxes.php:376
+msgid "Default"
+msgstr "Predeterminado"
+
+#: includes/admin/metaboxes.php:427
+msgid "Drop galleries here"
+msgstr "Arrastra las galerías aquí"
+
+#: includes/admin/metaboxes.php:474
+msgid "Available Galleries"
+msgstr "Galerías disponibles"
+
+#: includes/admin/metaboxes.php:476
+msgid ""
+"Displaying the most recent Envira Galleries. Please use the search box to "
+"display all matching Envira Galleries."
+msgstr ""
+"Se muestran las galerías Envira más recientes. Por favor, utilice el cuadro "
+"de búsqueda para mostrar todas las galerías Envira que coincidan con sus "
+"criterios."
+
+#: includes/admin/metaboxes.php:481
+msgid "Search Galleries"
+msgstr "Buscar galerías"
+
+#: includes/admin/metaboxes.php:482
+msgid "Add Selected Galleries to Album"
+msgstr "Añadir las galerías seleccionadas al álbum"
+
+#: includes/admin/metaboxes.php:560
+msgid "Remove Gallery from Album"
+msgstr "Borrar galerías del álbum"
+
+#: includes/admin/metaboxes.php:561
+msgid "Modify Gallery"
+msgstr "Modificar galería"
+
+#: includes/admin/metaboxes.php:594
+msgid "(click the icon to open and close the overlay dialog)"
+msgstr "(haga clic en el icono para abrir y cerrar el diálogo superpuesto)"
+
+#: includes/admin/metaboxes.php:595
+msgid "Click here to view meta information about this gallery."
+msgstr "Haga clic aquí para ver la meta información de esta galería."
+
+#: includes/admin/metaboxes.php:597
+msgid ""
+"You can place this album anywhere into your posts, pages, custom post types "
+"or widgets by using <strong>one</strong> the shortcode(s) below:"
+msgstr ""
+"Puede colocar este álbum en cualquier lugar en sus entradas, páginas, tipos "
+"de entradas personalizadas o widgets utilizando <strong> uno </ strong> de "
+"los códigos cortos siguientes:"
+
+#: includes/admin/metaboxes.php:602
+msgid ""
+"You can also place this album into your template files by using <strong>one</"
+"strong> the template tag(s) below:"
+msgstr ""
+"También puede colocar este álbum en sus archivos de plantilla mediante el "
+"uso de <strong> se </ strong> la etiqueta (s) siguiente plantilla:"
+
+#: includes/admin/metaboxes.php:648
+msgid "Edit previous media item"
+msgstr "Editar elemento multimedia anterior"
+
+#: includes/admin/metaboxes.php:651
+msgid "Edit next media item"
+msgstr "Editar elemento multimedia siguiente"
+
+#: includes/admin/metaboxes.php:657
+msgid "Edit Metadata"
+msgstr "Editar metadatos"
+
+#: includes/admin/metaboxes.php:699
+msgid "Sets the image to display on this gallery's cover."
+msgstr "Define la imagen que aparecerá en la portada de esta galería."
+
+#: includes/admin/metaboxes.php:708
+msgid "Album Cover"
+msgstr "Portada del álbum"
+
+#: includes/admin/metaboxes.php:709
+msgid ""
+"To choose the image to display as your album cover, click on an image to the "
+"left."
+msgstr ""
+"Para elegir la imagen que se muestra como su portada del álbum, haga clic en "
+"una imagen de la izquierda."
+
+#: includes/admin/metaboxes.php:711
+msgid "Gallery Titles"
+msgstr "Títulos de galería"
+
+#: includes/admin/metaboxes.php:712
+msgid ""
+"To display a different gallery title than its default, enter the title in "
+"the Gallery Title field."
+msgstr ""
+"Para mostrar un título galería diferente a su valor predeterminado, escriba "
+"el título en el campo título de la galería."
+
+#: includes/admin/metaboxes.php:723 includes/admin/posttype.php:76
+#: includes/global/widget.php:148
+msgid "Title"
+msgstr "Título"
+
+#: includes/admin/metaboxes.php:729
+msgid "Caption"
+msgstr "Pie"
+
+#: includes/admin/metaboxes.php:746
+msgid "Alt Text"
+msgstr "texto alternativo"
+
+#: includes/admin/metaboxes.php:757
+msgid "Save Metadata"
+msgstr "Guardar metadatos"
+
+#: includes/admin/metaboxes.php:762
+msgid "Saved."
+msgstr "Guardado."
+
+#: includes/admin/metaboxes.php:790
+msgid ""
+"The settings below adjust the basic configuration options for the album."
+msgstr ""
+"Los ajustes siguientes modifican las opciones de configuración básicas para "
+"el álbum."
+
+#: includes/admin/metaboxes.php:795
+msgid "Number of Album Columns"
+msgstr "Número de columnas del álbum"
+
+#: includes/admin/metaboxes.php:803
+msgid "Determines the number of columns in the album."
+msgstr "Determina el número de columnas en el álbum."
+
+#: includes/admin/metaboxes.php:810
+msgid "Display Back to Album Link?"
+msgstr "¿Volver a mostrar el enlace del álbum?"
+
+#: includes/admin/metaboxes.php:814
+msgid ""
+"If enabled and Lightbox is disabled, when the visitor clicks on a Gallery in "
+"this Album, they will see a link at the top of the Gallery to return back to "
+"this Album."
+msgstr ""
+"Si se activa y lightbox está desactivado, cuando el usuario haga clic en una "
+"galería de este álbum, verá un enlace en la parte superior de la Galería "
+"para volver al álbum."
+
+#: includes/admin/metaboxes.php:821
+msgid "Display Album Description?"
+msgstr "¿Mostrar la descripción del álbum?"
+
+#: includes/admin/metaboxes.php:829
+msgid "Choose to display a description above or below this album's galleries."
+msgstr ""
+"Seleccione si quiere mostrar una descripción encima o debajo de las galerías "
+"de este álbum."
+
+#: includes/admin/metaboxes.php:836
+msgid "Album Description"
+msgstr "Descripción del álbum"
+
+#: includes/admin/metaboxes.php:851
+msgid "The description to display for this album."
+msgstr "Descripción que se mostrará en este álbum."
+
+#: includes/admin/metaboxes.php:858
+msgid "Display Gallery Titles?"
+msgstr "¿Mostrar títulos de las galerías?"
+
+#: includes/admin/metaboxes.php:862
+msgid "Displays gallery titles below each gallery image."
+msgstr "Muestra los títulos debajo de la imagen de cada galería. "
+
+#: includes/admin/metaboxes.php:869
+msgid "Display Gallery Captions?"
+msgstr "¿Mostrar pies de las galerías?"
+
+#: includes/admin/metaboxes.php:873
+msgid "Displays gallery captions below each gallery image."
+msgstr "Muestra los pies debajo de cada imagen de la galería. "
+
+#: includes/admin/metaboxes.php:880
+msgid "Display Gallery Image Count"
+msgstr "Mostrar el contador de imágenes de la galería"
+
+#: includes/admin/metaboxes.php:884
+msgid "Displays the number of images in each gallery below each gallery image."
+msgstr ""
+"Muestra el número de imágenes en cada galería debajo de la imagen de la "
+"galería."
+
+#: includes/admin/metaboxes.php:891
+msgid "Column Gutter Width"
+msgstr "Ancho de separación de columnas"
+
+#: includes/admin/metaboxes.php:894 includes/admin/metaboxes.php:903
+#: includes/admin/metaboxes.php:915 includes/admin/metaboxes.php:924
+#: includes/admin/metaboxes.php:1171 includes/admin/metaboxes.php:1180
+#: includes/admin/metaboxes.php:1234
+msgid "px"
+msgstr "px"
+
+#: includes/admin/metaboxes.php:895
+msgid "Sets the space between the columns (defaults to 10)."
+msgstr "Establece el espacio entre las columnas (por defecto 10)."
+
+#: includes/admin/metaboxes.php:900
+msgid "Margin Below Each Image"
+msgstr "Margen debajo de cada imagen"
+
+#: includes/admin/metaboxes.php:904
+msgid "Sets the space below each item in the album."
+msgstr "Establece el espacio debajo de cada elemento en el álbum."
+
+#: includes/admin/metaboxes.php:912
+msgid "Image Dimensions"
+msgstr "Dimensiones de la imagen"
+
+#: includes/admin/metaboxes.php:916
+msgid ""
+"You should adjust these dimensions based on the number of columns in your "
+"album."
+msgstr ""
+"Debe ajustar estas dimensiones en función del número de columnas en su álbum."
+
+#: includes/admin/metaboxes.php:921 includes/admin/metaboxes.php:1231
+msgid "Mobile Dimensions"
+msgstr "Dimensiones para móvil"
+
+#: includes/admin/metaboxes.php:925
+msgid "These will be the sizes used for albums displayed on mobile devices."
+msgstr ""
+"Estas serán las dimensiones utilizadas para los álbumes cuando se ven en "
+"dispositivos móviles."
+
+#: includes/admin/metaboxes.php:930
+msgid "Crop Images?"
+msgstr "¿Recortar imágenes?"
+
+#: includes/admin/metaboxes.php:934
+msgid ""
+"If enabled, forces images to exactly match the sizes defined above for Image "
+"Dimensions and Mobile Dimensions."
+msgstr ""
+"Si se activa, fuerza que las imágenes coincidan exactamente con los tamaños "
+"definidos previamente para las dimensiones de imagen y las dimensiones para "
+"móviles."
+
+#: includes/admin/metaboxes.php:935
+msgid "If disabled, images will be resized to maintain their aspect ratio."
+msgstr ""
+"Si está desactivada, las imágenes serán redimensionadas para mantener su "
+"relación de aspecto."
+
+#: includes/admin/metaboxes.php:941
+msgid "Set Dimensions on Images?"
+msgstr "¿Establecer las dimensiones de las imágenes?"
+
+#: includes/admin/metaboxes.php:945
+msgid ""
+"Enables or disables the width and height attributes on the img element. Only "
+"needs to be enabled if you need to meet Google Pagespeeds requirements."
+msgstr ""
+"Activa o desactiva los atributos de anchura y altura de los atributos en el "
+"elemento imagen. Sólo se necesita activarlo si es necesario cumplir con los "
+"requisitos de Google Pagespeeds."
+
+#: includes/admin/metaboxes.php:950
+msgid "Enable Isotope?"
+msgstr "¿Activar isótopo?"
+
+#: includes/admin/metaboxes.php:954
+msgid ""
+"Enables or disables isotope/masonry layout support for the main gallery "
+"images."
+msgstr ""
+"Activa o desactiva la compatibilidad en el diseño de isótopos / masonry para "
+"las imágenes de la galería."
+
+#: includes/admin/metaboxes.php:959
+msgid "Enable CSS Animations?"
+msgstr "¿Activar animaciones CSS?"
+
+#: includes/admin/metaboxes.php:963
+msgid "Enables CSS animations when loading the main gallery images."
+msgstr ""
+"Activa las animaciones CSS cuando se cargan las  imágenes de la galería."
+
+#: includes/admin/metaboxes.php:986
+msgid "The settings below adjust the lightbox outputs and displays."
+msgstr ""
+"Los siguientes ajustes configuran la visualización y las características de "
+"lightbox."
+
+#: includes/admin/metaboxes.php:991 includes/admin/metaboxes.php:1242
+msgid "Enable Lightbox?"
+msgstr "¿Activar lightbox?"
+
+#: includes/admin/metaboxes.php:995
+msgid ""
+"If checked, displays the Gallery in a lightbox when the album cover image is "
+"clicked."
+msgstr ""
+"Si se selecciona, cuando se hace click en la portada del álbum, muestra la "
+"galería en lightbox."
+
+#: includes/admin/metaboxes.php:1000
+msgid "Album Lightbox Theme"
+msgstr "Tema lightbox de álbum"
+
+#: includes/admin/metaboxes.php:1008
+msgid "Sets the theme for the album lightbox display."
+msgstr "Establece el tema que se muestra en el lightbox del álbum."
+
+#: includes/admin/metaboxes.php:1013
+msgid "Caption Position"
+msgstr "Posición del pie"
+
+#: includes/admin/metaboxes.php:1021
+msgid "Sets the display of the lightbox image's caption."
+msgstr "Establece la forma de visualizar el pie de la imagen en lightbox."
+
+#: includes/admin/metaboxes.php:1026 includes/admin/metaboxes.php:1269
+msgid "Enable Gallery Arrows?"
+msgstr "¿Activar las flechas en la galería?"
+
+#: includes/admin/metaboxes.php:1030
+msgid "Enables or disables the gallery lightbox navigation arrows."
+msgstr "Activa o desactiva las flechas de navegación en la galería lightbox."
+
+#: includes/admin/metaboxes.php:1035
+msgid "Gallery Arrow Position"
+msgstr "Posición de la flecha en la galería."
+
+#: includes/admin/metaboxes.php:1043
+msgid "Sets the position of the gallery lightbox navigation arrows."
+msgstr ""
+"Establece la posición de las flechas de navegación de la galería lightbox."
+
+#: includes/admin/metaboxes.php:1048
+msgid "Enable Keyboard Navigation?"
+msgstr "¿Activar navegación por teclado?"
+
+#: includes/admin/metaboxes.php:1052
+msgid "Enables or disables keyboard navigation in the gallery lightbox."
+msgstr "Activa o desactiva la navegación por teclado en la galería lightbox."
+
+#: includes/admin/metaboxes.php:1057
+msgid "Enable Mousewheel Navigation?"
+msgstr "¿Activar navegación con la rueda del ratón?"
+
+#: includes/admin/metaboxes.php:1061
+msgid "Enables or disables mousewheel navigation in the gallery."
+msgstr "Activa o desactiva la navegación con la rueda del ratón en la galería."
+
+#: includes/admin/metaboxes.php:1066 includes/admin/metaboxes.php:1278
+msgid "Enable Gallery Toolbar?"
+msgstr "¿Activar la barra de tareas en la galería?"
+
+#: includes/admin/metaboxes.php:1070
+msgid "Enables or disables the gallery lightbox toolbar."
+msgstr "Activa o desactiva la barra de tareas en la galería lightbox."
+
+#: includes/admin/metaboxes.php:1075
+msgid "Display Title in Gallery Toolbar?"
+msgstr "¿Mostrar el título de la galería en la barra de tareas?"
+
+#: includes/admin/metaboxes.php:1079
+msgid "Display the gallery title in the lightbox toolbar."
+msgstr "Muestra el título de la galería en la barra de tareas de lightbox."
+
+#: includes/admin/metaboxes.php:1084
+msgid "Gallery Toolbar Position"
+msgstr "Posición de la barra de tareas en la galería"
+
+#: includes/admin/metaboxes.php:1092
+msgid "Sets the position of the lightbox toolbar."
+msgstr "Establece la posición de la barra de tareas lightbox."
+
+#: includes/admin/metaboxes.php:1097
+msgid "Keep Aspect Ratio?"
+msgstr "¿Mantener relación de aspecto?"
+
+#: includes/admin/metaboxes.php:1101
+msgid ""
+"If enabled, images will always resize based on the original aspect ratio."
+msgstr ""
+"Si se activa, las imágenes se redimensionarán siempre manteniendo la "
+"relación de aspecto."
+
+#: includes/admin/metaboxes.php:1106
+msgid "Loop Gallery Navigation?"
+msgstr "¿Navegación en bucle en la galería?"
+
+#: includes/admin/metaboxes.php:1110
+msgid ""
+"Enables or disables infinite navigation cycling of the lightbox gallery."
+msgstr ""
+"Activa o desactiva una navegación infinita en bucle de  la galería lightbox."
+
+#: includes/admin/metaboxes.php:1115
+msgid "Lightbox Transition Effect"
+msgstr "Efectos de transición lightbox"
+
+#: includes/admin/metaboxes.php:1123
+msgid "Type of transition between images in the lightbox view."
+msgstr "Tipo de transición entre imágenes en la visualización lightbox."
+
+#: includes/admin/metaboxes.php:1128
+msgid "HTML5 Output?"
+msgstr "¿Salida HTML5?"
+
+#: includes/admin/metaboxes.php:1132
+msgid ""
+"If enabled, uses data-envirabox-gallery instead of rel attributes for W3C "
+"HTML5 validation."
+msgstr ""
+"Si se activa, usa data-envirabox-gallery en lugar de atributos relativos "
+"para validación W3C HTML5."
+
+#: includes/admin/metaboxes.php:1154
+msgid ""
+"If enabled, thumbnails are generated automatically inside the lightbox. The "
+"settings below adjust the thumbnail views for the gallery lightbox display."
+msgstr ""
+"Si se activa, se generan automáticamente las miniaturas dentro de lightbox. "
+"Los ajustes siguientes configuran la forma de verse las miniaturas en la "
+"galería lightbox."
+
+#: includes/admin/metaboxes.php:1159 includes/admin/metaboxes.php:1287
+msgid "Enable Gallery Thumbnails?"
+msgstr "¿Activar miniaturas en la galería?"
+
+#: includes/admin/metaboxes.php:1163
+msgid "Enables or disables the gallery lightbox thumbnails."
+msgstr "Activa o desactiva las miniaturas en la galería lightbox."
+
+#: includes/admin/metaboxes.php:1168
+msgid "Gallery Thumbnails Width"
+msgstr "Ancho de miniaturas de la galería"
+
+#: includes/admin/metaboxes.php:1172
+msgid "Sets the width of each lightbox thumbnail."
+msgstr "Establece el ancho de cada miniatura lightbox."
+
+#: includes/admin/metaboxes.php:1177
+msgid "Gallery Thumbnails Height"
+msgstr "Alto de miniaturas de la galería"
+
+#: includes/admin/metaboxes.php:1181
+msgid "Sets the height of each lightbox thumbnail."
+msgstr "Establece la altura de cada miniatura lightbox."
+
+#: includes/admin/metaboxes.php:1186
+msgid "Gallery Thumbnails Position"
+msgstr "Posición de miniaturas de lightbox"
+
+#: includes/admin/metaboxes.php:1194
+msgid "Sets the position of the lightbox thumbnails."
+msgstr "Establece la posición de las miniaturas lightbox."
+
+#: includes/admin/metaboxes.php:1216
+msgid ""
+"The settings below adjust configuration options for the gallery and lightbox "
+"when viewed on a mobile device."
+msgstr ""
+"Los siguientes ajustes configuran las opciones de la galería y de lightbox "
+"cuando se ven en un móvil."
+
+#: includes/admin/metaboxes.php:1222
+msgid "Create Mobile Album Images?"
+msgstr "¿Crear álbum de imágenes para móvil?"
+
+#: includes/admin/metaboxes.php:1226
+msgid "Enables or disables creating specific images for mobile devices."
+msgstr ""
+"Activa o desactiva la creación de imágenes específicas para dispositivos "
+"móviles."
+
+#: includes/admin/metaboxes.php:1235
+msgid "These will be the sizes used for images displayed on mobile devices."
+msgstr ""
+"Estos serán los tamaños utilizados para las imágenes que aparecen en "
+"dispositivos móviles."
+
+#: includes/admin/metaboxes.php:1246
+msgid "Enables or disables the gallery lightbox on mobile devices."
+msgstr "Activa o desactiva la galería lightbox en dispositivos móviles."
+
+#: includes/admin/metaboxes.php:1251
+msgid "Enable Gallery Touchwipe?"
+msgstr "¿Activar Touchwipe en la galería?"
+
+#: includes/admin/metaboxes.php:1255
+msgid ""
+"Enables or disables touchwipe support for the gallery lightbox on mobile "
+"devices."
+msgstr ""
+"Activa o desactiva las funciones touchwipe para la galería lightbox en "
+"dispositivos móviles."
+
+#: includes/admin/metaboxes.php:1260
+msgid "Close Lightbox on Swipe Up?"
+msgstr "¿Cerrar Lightbox deslizando el dedo hacia arriba?"
+
+#: includes/admin/metaboxes.php:1264
+msgid ""
+"Enables or disables closing the Lightbox when the user swipes up on mobile "
+"devices."
+msgstr ""
+"Activa o desactiva el cierre de Lightbox cuando el usuario desliza el dedo "
+"hacia arriba en los dispositivos móviles."
+
+#: includes/admin/metaboxes.php:1273
+msgid ""
+"Enables or disables the gallery lightbox navigation arrows on mobile devices."
+msgstr ""
+"Activa o desactiva las flechas de navegación de la galería lightbox en "
+"dispositivos móviles."
+
+#: includes/admin/metaboxes.php:1282
+msgid "Enables or disables the gallery lightbox toolbar on mobile devices."
+msgstr ""
+"Activa o desactiva la barra de herramientas de la galería lightbox en "
+"dispositivos móviles."
+
+#: includes/admin/metaboxes.php:1291
+msgid "Enables or disables the gallery lightbox thumbnails on mobile devices."
+msgstr ""
+"Activa o desactiva las miniaturas de la galería lightbox en dispositivos "
+"móviles."
+
+#: includes/admin/metaboxes.php:1314
+msgid "The settings below adjust the miscellaneous settings for the album."
+msgstr "Los siguientes ajustes configuran diversos ajustes de los álbumes."
+
+#: includes/admin/metaboxes.php:1319
+msgid "Album Title"
+msgstr "Titulo del álbum"
+
+#: includes/admin/metaboxes.php:1323
+msgid "Internal album title for identification in the admin."
+msgstr "Título interno del álbum para identificación en administración."
+
+#: includes/admin/metaboxes.php:1328
+msgid "Album Slug"
+msgstr "Slug del álbum"
+
+#: includes/admin/metaboxes.php:1332
+msgid ""
+"<strong>Unique</strong> internal album slug for identification and advanced "
+"album queries."
+msgstr ""
+"Slug interno<strong> único </ strong>   para la identificación y consultas "
+"de álbum avanzadas."
+
+#: includes/admin/metaboxes.php:1337
+msgid "Import/Export Album"
+msgstr "Importar/Exportar álbum"
+
+#: includes/admin/metaboxes.php:1347
+msgid "Import Album"
+msgstr "Importar álbum"
+
+#: includes/admin/metaboxes.php:1354
+msgid "Export Album"
+msgstr "Exportar álbum"
+
+#: includes/admin/metaboxes.php:1360
+msgid "Enable RTL Support?"
+msgstr "¿Activar funciones RTL?"
+
+#: includes/admin/metaboxes.php:1364
+msgid "Enables or disables RTL support in Envira for right-to-left languages."
+msgstr ""
+"Activa o desactiva funciones RTL en Envira para idiomas que se escriben de "
+"derecha a izquierda."
+
+#: includes/admin/metaboxes.php:1446
+msgid "Do not display"
+msgstr "No mostrar"
+
+#: includes/admin/metaboxes.php:1450
+msgid "Display above galleries"
+msgstr "Mostrar por encima de las galerías"
+
+#: includes/admin/metaboxes.php:1454
+msgid "Display below galleries"
+msgstr "Mostrar por debajo de las galerías"
+
+#: includes/admin/posttype.php:77
+msgid "Shortcode"
+msgstr "Código corto"
+
+#: includes/admin/posttype.php:78
+msgid "Function"
+msgstr "Función"
+
+#: includes/admin/posttype.php:79
+msgid "Number of Galleries"
+msgstr "Número de galerías"
+
+#: includes/admin/posttype.php:80
+msgid "Last Modified"
+msgstr "Últimas modificadas"
+
+#: includes/admin/posttype.php:81
+msgid "Date"
+msgstr "Fecha"
+
+#: includes/admin/posttype.php:159 includes/admin/posttype.php:162
+msgid "Envira album updated."
+msgstr "Álbum Envira actualizado."
+
+#: includes/admin/posttype.php:160
+msgid "Envira album custom field updated."
+msgstr "Campo personalizado de álbum Envira actualizado."
+
+#: includes/admin/posttype.php:161
+msgid "Envira album custom field deleted."
+msgstr "Campo personalizado de álbum Envira borrado."
+
+#: includes/admin/posttype.php:163
+msgid "Envira album restored to revision from %s."
+msgstr "álbum Envira restaurado desde la revisión %s."
+
+#: includes/admin/posttype.php:164
+msgid "Envira album published."
+msgstr "álbum Envira publicado."
+
+#: includes/admin/posttype.php:165
+msgid "Envira album saved."
+msgstr "Álbum Envira guardado."
+
+#: includes/admin/posttype.php:166
+msgid "Envira album submitted."
+msgstr "Álbum Envira enviado."
+
+#: includes/admin/posttype.php:167
+msgid "Envira album scheduled for: <strong>%1$s</strong>."
+msgstr "Álbum Envira programado para: <strong>%1$s</ strong>."
+
+#: includes/admin/posttype.php:167
+msgid "M j, Y @ G:i"
+msgstr "j \\d\\e\\ F \\d\\e\\ Y @ G:i"
+
+#: includes/admin/posttype.php:168
+msgid "Envira album draft updated."
+msgstr "Borrador de álbum Envira actualizado."
+
+#: includes/global/posttype.php:49
+msgid "Envira Albums"
+msgstr "Álbumes Envira"
+
+#: includes/global/posttype.php:50 includes/global/widget.php:64
+msgid "Envira Album"
+msgstr "Álbum Envira"
+
+#: includes/global/posttype.php:51
+msgid "Add New"
+msgstr "Añadir nuevo"
+
+#: includes/global/posttype.php:52
+msgid "Add New Envira Album"
+msgstr "Añadir nuevo álbum Envira"
+
+#: includes/global/posttype.php:53
+msgid "Edit Envira Album"
+msgstr "Editar álbum Envira"
+
+#: includes/global/posttype.php:54
+msgid "New Envira Album"
+msgstr "Nuevo álbum Envira"
+
+#: includes/global/posttype.php:55
+msgid "View Envira Album"
+msgstr "Ver álbum Envira"
+
+#: includes/global/posttype.php:56
+msgid "Search Envira Albums"
+msgstr "Buscar álbum Envira"
+
+#: includes/global/posttype.php:57
+msgid "No Envira albums found."
+msgstr "No se han encontrado álbumes Envira."
+
+#: includes/global/posttype.php:58
+msgid "No Envira albums found in trash."
+msgstr "No se han encontrado álbumes Envira en la papelera."
+
+#: includes/global/posttype.php:60
+msgid "Albums"
+msgstr "Álbumes"
+
+#: includes/global/shortcode.php:144
+msgid "Back to Album"
+msgstr "Volver al álbum"
+
+#: includes/global/shortcode.php:289
+msgid "Photo"
+msgid_plural "Photos"
+msgstr[0] "Foto"
+msgstr[1] "Fotos"
+
+#: includes/global/shortcode.php:453
+msgid "The requested content cannot be loaded.<br/>Please try again later.</p>"
+msgstr ""
+"El contenido solicitado no se puede cargar. <br/> Por favor, inténtelo de "
+"nuevo más tarde.</ P>"
+
+#: includes/global/shortcode.php:454 includes/global/shortcode.php:832
+msgid "Close"
+msgstr "Cerrar"
+
+#: includes/global/shortcode.php:455 includes/global/shortcode.php:822
+msgid "Next"
+msgstr "Siguiente"
+
+#: includes/global/shortcode.php:456 includes/global/shortcode.php:818
+msgid "Previous"
+msgstr "Anterior"
+
+#: includes/global/widget.php:52
+msgid "Place an Envira album into a widgetized area."
+msgstr "Coloca un álbum Envira en la zona de widgets."
+
+#: includes/global/widget.php:153
+msgid "Album"
+msgstr "Álbum"
+
+#. Plugin Name of the plugin/theme
+msgid "Envira Gallery - Albums Addon"
+msgstr "Envira Gallery - Complemento Albums"
+
+#. Plugin URI of the plugin/theme
+msgid "http://enviragallery.com"
+msgstr "http://enviragallery.com"
+
+#. Description of the plugin/theme
+msgid "Enables album capabilities for Envira galleries."
+msgstr "Activa capacidades de álbumes para galerías Envira."
+
+#. Author of the plugin/theme
+msgid "Thomas Griffin"
+msgstr "Thomas Griffin"
+
+#. Author URI of the plugin/theme
+msgid "http://thomasgriffinmedia.com"
+msgstr "http://thomasgriffinmedia.com"

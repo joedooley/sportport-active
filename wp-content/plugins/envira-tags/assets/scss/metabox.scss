@@ -1,0 +1,78 @@
+/**
+* Metabox
+*/
+.envira-tags {
+	#envira-tag {
+		float: right;
+		width: 75%;
+		margin-top: 0;
+				
+		/**
+		* Existing tags
+		*/
+		div.tagchecklist {
+			span {
+				margin-right: 25px;
+				min-width: 1px;
+				min-height: 20px;
+				line-height: 20px;
+			}
+		}
+		
+		/**
+		* Inputs and Buttons
+		*/
+		input#new-tag-envira-tag {
+			width: 100%;
+			margin: -12px 0 0 0;
+			padding-right: 50px;
+		}
+		input.tagadd {
+			position: absolute;
+			margin: -12px 0 0 0;
+			right: 0;
+		}
+	}
+	
+	/**
+	* Choose from the most used tags
+	*/	
+	a#link-envira-tag {
+		display: none;
+	}
+
+	/**
+	* Most Popular Tags
+	*/
+	p.the-tagcloud {
+		clear: both;
+		float: right;
+		width: 65%;
+		margin: 0;
+		padding: 0;
+	}
+}
+
+/**
+* Settings Tab
+*/
+tr#envira-config-tags-filtering-box {
+	/**
+	* Choose from the most used tags
+	*/	
+	a#link-envira-tag {
+		display: none;
+	}	
+}
+
+/**
+* Responsive Media Queries
+*/
+@media only screen and (max-width: 959px) {
+	label.envira-tags {
+		#envira-tag {
+			float: left;
+			width: 100%;
+		}
+	}	
+}

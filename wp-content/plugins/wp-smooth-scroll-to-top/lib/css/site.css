@@ -1,0 +1,65 @@
+@charset "utf-8";
+@font-face {
+font-family:wpsstt;
+src:url(../font/wpsstt.eot);
+src:url(../font/wpsstt.eot?#iefix) format('embedded-opentype'), url(../font/wpsstt.woff) format('woff'), url(../font/wpsstt.ttf) format('truetype'), url(../font/wpsstt.svg#wpssttregular) format('svg');
+font-weight:400;
+font-style:normal
+}
+.cr_fix {
+	display:none!important
+}
+.wpsstt_btn {
+	position:fixed;
+	z-index:999;
+	bottom:14px;
+	cursor:pointer;
+	display:block;
+	font-family:wpsstt!important;
+	font-size:24px;
+	line-height:40px;
+	color:#fff;
+	width:40px;
+	text-align:center;
+	background:#41A62A;
+-webkit-transition:all .3s ease 0s;
+-moz-transition:all .3s ease 0s;
+-ms-transition:all .3s ease 0s;
+-o-transition:all .3s ease 0s;
+transition:all .3s ease 0s
+}
+.wpsstt_3d {
+	box-shadow:0 4px 0
+}
+.wpsstt_3d:hover {
+	box-shadow:0 1px 0;
+	bottom:11px!important
+}
+.wpsstt_border {
+	border:1px solid #24890d
+}
+.wpsstt_semitransparent {
+	-ms-filter:"alpha(Opacity=80)";
+	filter:alpha(opacity=80);
+	opacity:.8
+}
+.wpsstt_semitransparent:hover {
+	-ms-filter:"alpha(Opacity=100)";
+	filter:alpha(opacity=100);
+	opacity:1
+}
+.wpsstt_right {
+	right:10px
+}
+.wpsstt_left {
+	left:10px
+}
+.wpsstt_roundedcorners {
+	border-radius:4px
+}
+.wpsstt_rounde {
+	border-radius:50px
+}
+.wpsstt_autojs {
+	display:none
+}

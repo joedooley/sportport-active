@@ -1,0 +1,19 @@
+/**
+* Quick Edit - Show Slug Option
+*/
+body.post-type-envira,
+body.post-type-envira_album {
+	td.colspanchange {
+		/**
+		* Left Col
+		*/
+		fieldset.inline-edit-col-left {
+			div.inline-edit-col {
+				/* Slug */
+				label:nth-child(3) {
+					display: block;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,85 @@
+# Copyright (C) 2015 Envira Gallery - Standalone Addon
+# This file is distributed under the same license as the Envira Gallery - Standalone Addon package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Envira Gallery - Standalone Addon 1.0.9\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/envira-"
+"standalone\n"
+"POT-Creation-Date: 2015-11-18 15:45+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-11-18 16:00+0100\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.6\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es_ES\n"
+
+#: envira-standalone.php:115
+msgid ""
+"The <strong>%s</strong> requires Envira Gallery 1.0.9 or later to work. "
+"Please update Envira Gallery to use this addon."
+msgstr ""
+"La <strong>%s</strong> requiere Envira Gallery 1.0.9 o superior para que "
+"funcione. Por favor, actualice Envira Gallery para usar este complemento."
+
+#: envira-standalone.php:172
+msgid "Standalone"
+msgstr "Standalone"
+
+#: envira-standalone.php:196
+msgid "Gallery Slug "
+msgstr "Slug de la galería"
+
+#: envira-standalone.php:201
+msgid "The slug to prefix to all Envira Galleries."
+msgstr "El slug que precede a todas las galerías Envira."
+
+#: envira-standalone.php:207
+msgid "Album Slug "
+msgstr "Slug de album"
+
+#: envira-standalone.php:211
+msgid "The slug to prefix to all Envira Albums."
+msgstr "El slug que precede a todos los álbumes de Envira."
+
+#: envira-standalone.php:216
+msgid "Save"
+msgstr "Guardar"
+
+#: envira-standalone.php:341
+msgid "The nonce field is invalid."
+msgstr "El campo nonce no es valido."
+
+#: envira-standalone.php:356
+msgid "Slug updated successfully!"
+msgstr "¡Actualización de slug con éxito!"
+
+#: envira-standalone.php:371
+msgid ""
+"The slug is either missing, contains invalid characters or used by a Post "
+"Type. Please enter a different slug."
+msgstr ""
+"Esta ausente el slug, contiene caracteres no validos o está siendo usado "
+"por tipo de Post. Por favor introduzca un slug diferente. "
+
+#. Plugin Name of the plugin/theme
+msgid "Envira Gallery - Standalone Addon"
+msgstr "Envira Gallery - Complemento Standalone"
+
+#. Plugin URI of the plugin/theme
+msgid "http://enviragallery.com"
+msgstr "http://enviragallery.com"
+
+#. Description of the plugin/theme
+msgid "Enables unique URL access points for Envira galleries."
+msgstr "Activa puntos de acceso de URL única para galerías Envira."
+
+#. Author of the plugin/theme
+msgid "Thomas Griffin"
+msgstr "Thomas Griffin"
+
+#. Author URI of the plugin/theme
+msgid "http://thomasgriffinmedia.com"
+msgstr "http://thomasgriffinmedia.com"

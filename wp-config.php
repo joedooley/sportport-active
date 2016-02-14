@@ -93,7 +93,7 @@ else:
     define('DB_USER',          'database_username');
     define('DB_PASSWORD',      'database_password');
     define('DB_HOST',          'database_host');
-    define('DB_CHARSET',       'utf8');
+    define('DB_CHARSET', 'utf8');
     define('DB_COLLATE',       '');
     define('AUTH_KEY',         'put your unique phrase here');
     define('SECURE_AUTH_KEY',  'put your unique phrase here');
@@ -124,7 +124,7 @@ $table_prefix = 'wp_';
  * de_DE.mo to wp-content/languages and set WPLANG to 'de_DE' to enable German
  * language support.
  */
-define('WPLANG', '');
+
 
 /**
  * For developers: WordPress debugging mode.
@@ -139,6 +139,12 @@ define('WPLANG', '');
 if ( ! defined( 'WP_DEBUG' ) ) {
     define('WP_DEBUG', false);
 }
+
+define('WPCACHEHOME', '/srv/bindings/6a73891ea08745ea958ca11e899d29ad/code/wp-content/plugins/wp-super-cache/');
+define('AUTOSAVE_INTERVAL', 600);
+define('WP_POST_REVISIONS', 1);
+define('WP_CRON_LOCK_TIMEOUT', 120);
+define('WP_AUTO_UPDATE_CORE', true);
 
 /* That's all, stop editing! Happy Pressing. */
 

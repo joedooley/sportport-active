@@ -1,0 +1,68 @@
+# Copyright (C) 2015 Envira Gallery - Slideshow Addon
+# This file is distributed under the same license as the Envira Gallery - Slideshow Addon package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Envira Gallery - Slideshow Addon 1.0.4\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/envira-slideshow\n"
+"POT-Creation-Date: 2015-11-18 15:24+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-11-18 15:44+0100\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.6\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es_ES\n"
+
+#: envira-slideshow.php:139
+msgid "Slideshow"
+msgstr "Presentación"
+
+#: envira-slideshow.php:176
+msgid "The settings below adjust the slideshow settings for the gallery."
+msgstr "Los siguientes ajustes configuran las presentaciones de la galería."
+
+#: envira-slideshow.php:181
+msgid "Enable Gallery Slideshow?"
+msgstr "¿Activar la presentación de la galería?"
+
+#: envira-slideshow.php:185
+msgid "Enables or disables the gallery lightbox slideshow."
+msgstr "Activa o desactiva la presentación de la galería lightbox."
+
+#: envira-slideshow.php:190
+msgid "Autoplay the Slideshow?"
+msgstr "¿Auto-proyectar la presentación?"
+
+#: envira-slideshow.php:194
+msgid "Enables or disables autoplaying the slideshow on lightbox open."
+msgstr "Activa o desactiva la auto-proyección de la presentación cuando está abierto lightbox."
+
+#: envira-slideshow.php:199
+msgid "Slideshow Speed"
+msgstr "Velocidad de presentación"
+
+#: envira-slideshow.php:203
+msgid "Sets the speed of the gallery lightbox slideshow."
+msgstr "Seleccione la velocidad de la presentación de la galería lightbox."
+
+#: envira-slideshow.php:308 envira-slideshow.php:331
+msgid "Start Slideshow"
+msgstr "Comenzar presentación"
+
+#. Plugin Name of the plugin/theme
+msgid "Envira Gallery - Slideshow Addon"
+msgstr "Envira Gallery - Complemento de presentación."
+
+#. Plugin URI of the plugin/theme
+msgid "http://enviragallery.com"
+msgstr "http://enviragallery.com"
+
+#. Description of the plugin/theme
+msgid "Enables slideshows for Envira galleries."
+msgstr "Activa las presentaciones para las galerías Envira."
+
+#. Author of the plugin/theme
+msgid "Thomas Griffin"
+msgstr "Thomas Griffin"

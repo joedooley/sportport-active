@@ -1,0 +1,118 @@
+# Copyright (C) 2016 Envira Gallery - Pagination Addon
+# This file is distributed under the same license as the Envira Gallery - Pagination Addon package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Envira Gallery - Pagination Addon 1.1.2\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/envira-pagination\n"
+"POT-Creation-Date: 2016-01-28 16:42:20+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/admin/metaboxes.php:75
+msgid "« Previous"
+msgstr ""
+
+#: includes/admin/metaboxes.php:76
+msgid "Next »"
+msgstr ""
+
+#: includes/admin/metaboxes.php:96
+msgid "Above Images"
+msgstr ""
+
+#: includes/admin/metaboxes.php:100
+msgid "Below Images"
+msgstr ""
+
+#: includes/admin/metaboxes.php:104
+msgid "Above and Below Images"
+msgstr ""
+
+#: includes/admin/metaboxes.php:122
+msgid "Pagination"
+msgstr ""
+
+#: includes/admin/metaboxes.php:159
+msgid "The settings below adjust the Pagination settings."
+msgstr ""
+
+#: includes/admin/metaboxes.php:164
+msgid "Enable Pagination?"
+msgstr ""
+
+#: includes/admin/metaboxes.php:168
+msgid "Enables or disables Pagination."
+msgstr ""
+
+#: includes/admin/metaboxes.php:174
+msgid "Pagination Position"
+msgstr ""
+
+#: includes/admin/metaboxes.php:182
+msgid "Choose where to display Pagination."
+msgstr ""
+
+#: includes/admin/metaboxes.php:187
+msgid "Images per Page"
+msgstr ""
+
+#: includes/admin/metaboxes.php:191
+msgid "The number of images to display on each page."
+msgstr ""
+
+#: includes/admin/metaboxes.php:196
+msgid "Display Previous and Next Links?"
+msgstr ""
+
+#: includes/admin/metaboxes.php:200
+msgid ""
+"Displays Previous and Next links either side of the numerical pagination."
+msgstr ""
+
+#: includes/admin/metaboxes.php:206
+msgid "Previous Link Label"
+msgstr ""
+
+#: includes/admin/metaboxes.php:210
+msgid "The text to display when the Previous Link is displayed."
+msgstr ""
+
+#: includes/admin/metaboxes.php:216
+msgid "Next Link Label"
+msgstr ""
+
+#: includes/admin/metaboxes.php:220
+msgid "The text to display when the Next Link is displayed."
+msgstr ""
+
+#: includes/admin/metaboxes.php:226
+msgid "Scroll to Gallery?"
+msgstr ""
+
+#: includes/admin/metaboxes.php:230
+msgid "If enabled, scrolls / jumps to the gallery when the pagination is used."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Envira Gallery - Pagination Addon"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://enviragallery.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Enables pagination capabilities for Envira galleries and albums."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Thomas Griffin"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://thomasgriffinmedia.com"
+msgstr ""
