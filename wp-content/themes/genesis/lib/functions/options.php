@@ -214,9 +214,9 @@ function genesis_custom_field( $field, $output_pattern = '%s' ) {
 function genesis_get_custom_field( $field, $post_id = null ) {
 
 	//* Use get_the_ID() if no $post_id is specified
-	$post_id = ( null !== $post_id ? $post_id : get_the_ID() );
+	$post_id = empty( $post_id ) ? get_the_ID() : $post_id;
 
-	if ( null === $post_id ) {
+	if ( ! $post_id ) {
 		return '';
 	}
 

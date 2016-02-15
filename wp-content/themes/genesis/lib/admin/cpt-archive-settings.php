@@ -73,7 +73,8 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 				'noindex'     => 0,
 				'nofollow'    => 0,
 				'noarchive'   => 0,
-			)
+			),
+			$this->post_type->name
 		);
 
 		$this->create( $page_id, $menu_ops, $page_ops, $settings_field, $default_settings );
@@ -163,13 +164,28 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 		?>
 		<p><?php printf( __( 'View the <a href="%s">%s archive</a>.', 'genesis' ), get_post_type_archive_link( $this->post_type->name ), $this->post_type->name ); ?></p>
 
-		<p><label for="<?php $this->field_id( 'headline' ); ?>"><b><?php _e( 'Archive Headline', 'genesis' ); ?></b></label></p>
-		<p><input class="large-text" type="text" name="<?php $this->field_name( 'headline' ); ?>" id="<?php $this->field_id( 'headline' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'headline' ) ); ?>" /></p>
-		<p class="description"><?php _e( 'Leave empty if you do not want to display a headline.', 'genesis' ); ?></p>
+		<table class="form-table">
+		<tbody>
 
-		<p><label for="<?php $this->field_id( 'intro_text' ); ?>"><b><?php _e( 'Archive Intro Text', 'genesis' ); ?></b></label></p>
-		<p><textarea class="widefat" rows="5" cols="30" name="<?php $this->field_name( 'intro_text' ); ?>" id="<?php $this->field_id( 'intro_text' ); ?>"><?php echo esc_textarea( $this->get_field_value( 'intro_text' ) ); ?></textarea></p>
-		<p class="description"><?php _e( 'Leave empty if you do not want to display any intro text.', 'genesis' ); ?></p>
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'headline' ); ?>"><b><?php _e( 'Archive Headline', 'genesis' ); ?></b></label></th>
+				<td>
+					<p><input class="large-text" type="text" name="<?php $this->field_name( 'headline' ); ?>" id="<?php $this->field_id( 'headline' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'headline' ) ); ?>" /></p>
+					<p class="description"><?php _e( 'Leave empty if you do not want to display a headline.', 'genesis' ); ?></p>
+				</td>
+			</tr>
+
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'intro_text' ); ?>"><b><?php _e( 'Archive Intro Text', 'genesis' ); ?></b></label></th>
+				<td>
+					<p><textarea class="widefat" rows="5" cols="30" name="<?php $this->field_name( 'intro_text' ); ?>" id="<?php $this->field_id( 'intro_text' ); ?>"><?php echo esc_textarea( $this->get_field_value( 'intro_text' ) ); ?></textarea></p>
+					<p class="description"><?php _e( 'Leave empty if you do not want to display any intro text.', 'genesis' ); ?></p>
+				</td>
+			</tr>
+
+		</tbody>
+		</table>
+
 		<?php
 	}
 
@@ -186,27 +202,51 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 	 */
 	public function seo_box() {
 		?>
-		<p><label for="<?php $this->field_id( 'doctitle' ); ?>"><b><?php _e( 'Custom Document Title', 'genesis' ); ?></b></label></p>
-		<p><input class="large-text" type="text" name="<?php $this->field_name( 'doctitle' ); ?>" id="<?php $this->field_id( 'doctitle' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'doctitle' ) ); ?>" /></p>
 
-		<p><label for="<?php $this->field_id( 'doctitle' ); ?>"><b><?php _e( 'Meta Description', 'genesis' ); ?></b></label></p>
-		<p><input class="large-text" type="text" name="<?php $this->field_name( 'description' ); ?>" id="<?php $this->field_id( 'description' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'description' ) ); ?>" /></p>
+		<table class="form-table">
+		<tbody>
 
-		<p><label for="<?php $this->field_id( 'doctitle' ); ?>"><b><?php _e( 'Meta Keywords', 'genesis' ); ?></b></label></p>
-		<p><input class="large-text" type="text" name="<?php $this->field_name( 'keywords' ); ?>" id="<?php $this->field_id( 'keywords' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'keywords' ) ); ?>" /></p>
-		<p class="description"><?php _e( 'Comma separated list', 'genesis' ); ?></p>
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'doctitle' ); ?>"><b><?php _e( 'Custom Document Title', 'genesis' ); ?></th>
+				<td>
+					<p><input class="large-text" type="text" name="<?php $this->field_name( 'doctitle' ); ?>" id="<?php $this->field_id( 'doctitle' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'doctitle' ) ); ?>" /></p>
+				</td>
+			</tr>
 
-		<h4><?php _e( 'Robots Meta Tags:', 'genesis' ); ?></h4>
-		<p>
-			<label for="<?php $this->field_id( 'noindex' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'noindex' ); ?>" id="<?php $this->field_id( 'noindex' ); ?>" value="1" <?php checked( $this->get_field_value( 'noindex' ) ); ?> />
-			<?php printf( __( 'Apply %s to this archive', 'genesis' ), genesis_code( 'noindex' ) ); ?> <a href="http://yoast.com/articles/robots-meta-tags/" target="_blank">[?]</a></label><br />
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'doctitle' ); ?>"><b><?php _e( 'Meta Description', 'genesis' ); ?></th>
+				<td>
+					<p><input class="large-text" type="text" name="<?php $this->field_name( 'description' ); ?>" id="<?php $this->field_id( 'description' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'description' ) ); ?>" /></p>
+				</td>
+			</tr>
 
-			<label for="<?php $this->field_id( 'nofollow' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'nofollow' ); ?>" id="<?php $this->field_id( 'nofollow' ); ?>" value="1" <?php checked( $this->get_field_value( 'nofollow' ) ); ?> />
-			<?php printf( __( 'Apply %s to this archive', 'genesis' ), genesis_code( 'nofollow' ) ); ?> <a href="http://yoast.com/articles/robots-meta-tags/" target="_blank">[?]</a></label><br />
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'doctitle' ); ?>"><b><?php _e( 'Meta Keywords', 'genesis' ); ?></th>
+				<td>
+					<p><input class="large-text" type="text" name="<?php $this->field_name( 'keywords' ); ?>" id="<?php $this->field_id( 'keywords' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'keywords' ) ); ?>" /></p>
+					<p class="description"><?php _e( 'Comma separated list', 'genesis' ); ?></p>
+				</td>
+			</tr>
 
-			<label for="<?php $this->field_id( 'noarchive' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'noarchive' ); ?>" id="<?php $this->field_id( 'noarchive' ); ?>" value="1" <?php checked( $this->get_field_value( 'noarchive' ) ); ?> />
-			<?php printf( __( 'Apply %s to this archive', 'genesis' ), genesis_code( 'noarchive' ) ); ?> <a href="http://yoast.com/articles/robots-meta-tags/" target="_blank">[?]</a></label>
-		</p>
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Robots Meta Tags:', 'genesis' ); ?></th>
+				<td>
+					<p>
+						<label for="<?php $this->field_id( 'noindex' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'noindex' ); ?>" id="<?php $this->field_id( 'noindex' ); ?>" value="1" <?php checked( $this->get_field_value( 'noindex' ) ); ?> />
+						<?php printf( __( 'Apply %s to this archive', 'genesis' ), genesis_code( 'noindex' ) ); ?> <a href="http://yoast.com/articles/robots-meta-tags/" target="_blank">[?]</a></label><br />
+
+						<label for="<?php $this->field_id( 'nofollow' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'nofollow' ); ?>" id="<?php $this->field_id( 'nofollow' ); ?>" value="1" <?php checked( $this->get_field_value( 'nofollow' ) ); ?> />
+						<?php printf( __( 'Apply %s to this archive', 'genesis' ), genesis_code( 'nofollow' ) ); ?> <a href="http://yoast.com/articles/robots-meta-tags/" target="_blank">[?]</a></label><br />
+
+						<label for="<?php $this->field_id( 'noarchive' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'noarchive' ); ?>" id="<?php $this->field_id( 'noarchive' ); ?>" value="1" <?php checked( $this->get_field_value( 'noarchive' ) ); ?> />
+						<?php printf( __( 'Apply %s to this archive', 'genesis' ), genesis_code( 'noarchive' ) ); ?> <a href="http://yoast.com/articles/robots-meta-tags/" target="_blank">[?]</a></label>
+					</p>
+				</td>
+			</tr>
+
+		</tbody>
+		</table>
+
 		<?php
 	}
 
@@ -226,18 +266,33 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 		$layout = $this->get_field_value( 'layout' );
 
 		?>
-		<fieldset class="genesis-layout-selector">
-			<legend class="screen-reader-text"><?php _e( 'Layout Settings', 'genesis' ); ?></legend>
 
-			<p><input type="radio" class="default-layout" name="<?php $this->field_name( 'layout' ); ?>" id="default-layout" value="" <?php checked( $layout, '' ); ?> /> <label class="default" for="default-layout"><?php printf( __( 'Default Layout set in <a href="%s">Theme Settings</a>', 'genesis' ), menu_page_url( 'genesis', 0 ) ); ?></label></p>
-			<?php genesis_layout_selector( array( 'name' => $this->get_field_name( 'layout' ), 'selected' => $layout, 'type' => 'site' ) ); ?>
+		<table class="form-table">
+		<tbody>
 
-		</fieldset>
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Select Layout', 'genesis' ); ?></th>
+				<td>
+					<fieldset class="genesis-layout-selector">
+						<legend class="screen-reader-text"><?php _e( 'Layout Settings', 'genesis' ); ?></legend>
 
-		<br class="clear" />
+						<p><input type="radio" class="default-layout" name="<?php $this->field_name( 'layout' ); ?>" id="default-layout" value="" <?php checked( $layout, '' ); ?> /> <label class="default" for="default-layout"><?php printf( __( 'Default Layout set in <a href="%s">Theme Settings</a>', 'genesis' ), menu_page_url( 'genesis', 0 ) ); ?></label></p>
+						<?php genesis_layout_selector( array( 'name' => $this->get_field_name( 'layout' ), 'selected' => $layout, 'type' => 'site' ) ); ?>
 
-		<p><label for="<?php $this->field_id( 'body_class' ); ?>"><b><?php _e( 'Custom Body Class', 'genesis' ); ?></b></label></p>
-		<p><input class="large-text" type="text" name="<?php $this->field_name( 'body_class' ); ?>" id="<?php $this->field_id( 'body_class' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'body_class' ) ); ?>" /></p>
+					</fieldset>
+				</td>
+			</tr>
+
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'body_class' ); ?>"><b><?php _e( 'Custom Body Class', 'genesis' ); ?></b></label></th>
+				<td>
+					<p><input class="large-text" type="text" name="<?php $this->field_name( 'body_class' ); ?>" id="<?php $this->field_id( 'body_class' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'body_class' ) ); ?>" /></p>
+				</td>
+			</tr>
+
+		</tbody>
+		</table>
+
 		<?php
 	}
 

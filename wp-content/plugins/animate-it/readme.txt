@@ -3,7 +3,7 @@ Contributors: eleopard
 Tags: css3 animation, animate.css, jquery, on scroll animation, delay, infinite, entry exit, iteration
 Requires at least: 3.9
 Tested up to: 4.4.2
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GNU General Public License version 2 or later
 License URI: http://www.gnu.org/copyleft/gpl.html
 
@@ -54,6 +54,14 @@ Percentage scroll offset can be set from Settings-> Animate It! menu in the admi
 = Hiding horizontal and vertical scroll bar? =
 Settings to show or hide vertical or horizontal scroll bar are available at  Settings-> Animate It! menu in the admin area.
 
+= Animation applied using older plugin and class generator won't work?  =
+If animation applied using class generator or older plugin wont work, Please do the following:
+If using shortcode:
+Add duration="1" (you can add 1 to 12) as one of the attribute of the shortcode.
+
+If using class generator:
+Add duration class ( duration1 to duration12 ) along with the other classes. or use the class generator one more time to generate same animation classes.
+
 == Screenshots ==
 
 1. **Animate Button** - Add animation blocks in WordPress Post and Pages using the Animate It! button.
@@ -68,6 +76,9 @@ Settings to show or hide vertical or horizontal scroll bar are available at  Set
 
 
 == Changelog ==
+
+= Version 2.0.1 =
+* Minor changes to handle higher load time
 
 = Version 2.0.0 =
 * New Feature to create Entry Exit Animation sequence

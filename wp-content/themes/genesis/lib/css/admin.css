@@ -80,12 +80,11 @@ hr.div {
 
 .genesis-metaboxes {
 	box-sizing: border-box;
-	max-width: 690px;
+
 	padding-bottom: 20px;
 }
 
-.genesis-metaboxes h1,
-.genesis-metaboxes h2 {
+.genesis-metaboxes h1 {
 	float: left;
 }
 
@@ -122,7 +121,7 @@ hr.div {
 }
 
 .genesis-metaboxes fieldset {
-	margin-top: 1em;
+	margin-top: 0;
 }
 
 .genesis-metaboxes legend {

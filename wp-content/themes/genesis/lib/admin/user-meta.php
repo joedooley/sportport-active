@@ -228,6 +228,10 @@ add_action( 'edit_user_profile', 'genesis_user_layout_fields' );
  */
 function genesis_user_layout_fields( $user ) {
 
+	if ( ! current_theme_supports( 'genesis-archive-layouts' ) ) {
+		return;
+	}
+
 	if ( ! current_user_can( 'edit_users', $user->ID ) )
 		return false;
 

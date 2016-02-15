@@ -594,7 +594,7 @@ function genesis_paged_rel() {
 	if ( ! is_singular() ) {
 
 		$prev = $paged > 1 ? get_previous_posts_page_link() : $prev;
-		$next = $paged < $wp_query->max_num_pages ? get_next_posts_page_link() : $next;
+		$next = $paged < $wp_query->max_num_pages ? get_next_posts_page_link( $wp_query->max_num_pages ) : $next;
 
 	} else {
 

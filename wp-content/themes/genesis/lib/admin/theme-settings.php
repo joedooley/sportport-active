@@ -492,28 +492,39 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	function info_box() {
 
 		?>
-		<p><strong><?php _e( 'Version:', 'genesis' ); ?></strong> <?php $this->field_value( 'theme_version' ); ?> &#x000B7; <strong><?php _e( 'Released:', 'genesis' ); ?></strong> <?php echo PARENT_THEME_RELEASE_DATE; ?></p>
+		<table class="form-table">
+		<tbody>
 
-		<?php if ( current_theme_supports( 'genesis-auto-updates' ) ) : ?>
-		<p><span class="description"><?php sprintf( __( 'This can be helpful for diagnosing problems with your theme when seeking assistance in the <a href="%s" target="_blank">support forums</a>.', 'genesis' ), 'http://www.studiopress.com/support/' ); ?></span></p>
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Version', 'genesis' ); ?></th>
+				<td><?php $this->field_value( 'theme_version' ); ?></td>
+			</tr>
 
-		<p>
-			<label for="<?php $this->field_id( 'update' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'update' ); ?>" id="<?php $this->field_id( 'update' ); ?>" value="1"<?php checked( $this->get_field_value( 'update' ) ) . disabled( is_super_admin(), 0 ); ?> />
-			<?php _e( 'Enable Automatic Updates', 'genesis' ); ?></label>
-		</p>
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Released:', 'genesis' ); ?></th>
+				<td>
+					<?php echo PARENT_THEME_RELEASE_DATE; ?>
+					<p><span class="description"><?php sprintf( __( 'This can be helpful for diagnosing problems with your theme when seeking assistance in the <a href="%s" target="_blank">support forums</a>.', 'genesis' ), 'http://www.studiopress.com/support/' ); ?></span></p>
+				</td>
+			</tr>
 
-		<div id="genesis_update_notification_setting">
-			<p>
-				<label for="<?php $this->field_id( 'update_email' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'update_email' ); ?>" id="<?php $this->field_id( 'update_email' ); ?>" value="1"<?php checked( $this->get_field_value( 'update_email' ) ) . disabled( is_super_admin(), 0 ); ?> />
-				<?php _e( 'Notify', 'genesis' ); ?></label>
-				<input type="text" name="<?php $this->field_name( 'update_email_address' ); ?>" id="<?php $this->field_id( 'update_email_address' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'update_email_address' ) ); ?>" size="30"<?php disabled( 0, is_super_admin() ); ?> />
-				<label for="<?php $this->field_id( 'update_email_address' ); ?>"><span class="screen-reader-text"><?php _e( 'Send an e-mail to this address ', 'genesis' ); ?></span><?php _e( 'when updates are available', 'genesis' ); ?></label>
-			</p>
+			<?php if ( current_theme_supports( 'genesis-auto-updates' ) ) : ?>
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Updates', 'genesis' ); ?></th>
+				<td>
+					<p><label for="<?php $this->field_id( 'update' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'update' ); ?>" id="<?php $this->field_id( 'update' ); ?>" value="1"<?php checked( $this->get_field_value( 'update' ) ) . disabled( is_super_admin(), 0 ); ?> />
+					<?php _e( 'Enable Automatic Updates', 'genesis' ); ?></label></p>
 
-			<p><span class="description"><?php _e( 'If you provide an email address above, you will be notified via email when a new version of Genesis is available.', 'genesis' ); ?></span></p>
-		</div>
+					<p><input type="text" name="<?php $this->field_name( 'update_email_address' ); ?>" id="<?php $this->field_id( 'update_email_address' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'update_email_address' ) ); ?>" placeholder="<?php _e( 'Email address', 'genesis' ); ?>" size="30"<?php disabled( 0, is_super_admin() ); ?> /><br />
+					<span class="description"><label for="<?php $this->field_id( 'update_email_address' ); ?>"><?php _e( 'If you provide an email address above, you will be notified via email when a new version of Genesis is available.', 'genesis' ); ?></label></span></p>
+				</td>
+			</tr>
+			<?php endif; ?>
+
+		</tbody>
+		</table>
+
 		<?php
-		endif;
 
 	}
 
@@ -553,22 +564,78 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 		$current = $this->get_field_value( 'style_selection' );
 		$styles  = get_theme_support( 'genesis-style-selector' );
 		?>
-		<p>
-			<label for="<?php $this->field_id( 'style_selection' ); ?>"><?php _e( 'Color Style:', 'genesis' ); ?></label>
-			<select name="<?php $this->field_name( 'style_selection' ); ?>" id="<?php $this->field_id( 'style_selection' ); ?>">
-				<option value=""><?php _e( 'Default', 'genesis' ); ?></option>
-				<?php
-				if ( ! empty( $styles ) ) {
-					$styles = array_shift( $styles );
-					foreach ( (array) $styles as $style => $title ) {
-						?><option value="<?php echo esc_attr( $style ); ?>"<?php selected( $current, $style ); ?>><?php echo esc_html( $title ); ?></option><?php
-					}
-				}
-				?>
-			</select>
-		</p>
 
-		<p><span class="description"><?php _e( 'Please select the color style from the drop down list and save your settings.', 'genesis' ); ?></span></p>
+		<table class="form-table">
+		<tbody>
+
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'style_selection' ); ?>"><?php _e( 'Color Style:', 'genesis' ); ?></label></th>
+				<td>
+					<p><select name="<?php $this->field_name( 'style_selection' ); ?>" id="<?php $this->field_id( 'style_selection' ); ?>">
+						<option value=""><?php _e( 'Default', 'genesis' ); ?></option>
+						<?php
+						if ( ! empty( $styles ) ) {
+							$styles = array_shift( $styles );
+							foreach ( (array) $styles as $style => $title ) {
+								?><option value="<?php echo esc_attr( $style ); ?>"<?php selected( $current, $style ); ?>><?php echo esc_html( $title ); ?></option><?php
+							}
+						}
+						?>
+					</select></p>
+
+					<p><span class="description"><?php _e( 'Please select the color style from the drop down list and save your settings.', 'genesis' ); ?></span></p>
+				</td>
+			</tr>
+
+		</tbody>
+		</table>
+
+		<?php
+
+	}
+
+	/**
+	 * Callback for Theme Settings Custom Feeds meta box.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
+	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
+	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
+	 *
+	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
+	 */
+	function feeds_box() {
+
+		?>
+		<table class="form-table">
+		<tbody>
+
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'feed_uri' ); ?>"><?php _e( 'Enter your custom feed URL:', 'genesis' ); ?></label></th>
+				<td>
+					<p><input type="text" name="<?php $this->field_name( 'feed_uri' ); ?>" class="regular-text" id="<?php $this->field_id( 'feed_uri' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'feed_uri' ) ); ?>" /></p>
+					<p><label for="<?php $this->field_id( 'redirect_feed' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'redirect_feed' ); ?>" id="<?php $this->field_id( 'redirect_feed' ); ?>" value="1"<?php checked( $this->get_field_value( 'redirect_feed' ) ); ?> /><?php _e( 'Redirect Custom Feed?', 'genesis' ); ?></label></p>
+				</td>
+			</tr>
+
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'comments_feed_uri' ); ?>"><?php _e( 'Enter your custom comments feed URL:', 'genesis' ); ?></label></th>
+				<td>
+					<p><input type="text" name="<?php $this->field_name( 'comments_feed_uri' ); ?>" class="regular-text" id="<?php $this->field_id( 'comments_feed_uri' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'comments_feed_uri' ) ); ?>" /></p>
+					<p><label for="<?php $this->field_id( 'redirect_comments_feed' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'redirect_comments_feed' ); ?>" id="<?php $this->field_id( 'redirect_comments_feed' ); ?>" value="1"<?php checked( $this->get_field_value( 'redirect_comments__feed' ) ); ?> /><?php _e( 'Redirect Custom Comments Feed?', 'genesis' ); ?></label></p>
+				</td>
+			</tr>
+
+			<tr valign="top">
+				<th scope="row"></th>
+				<td>
+					<p><span class="description"><?php printf( __( 'If your custom feed(s) are not handled by Feedblitz or Feedburner, do not use the redirect options.', 'genesis' ) ); ?></span></p>
+				</td>
+			</tr>
+
+		</tbody>
+		</table>
 		<?php
 
 	}
@@ -590,14 +657,24 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	function layout_box() {
 
 		?>
-		<fieldset class="genesis-layout-selector">
-			<legend class="screen-reader-text"><?php _e( 'Default Layout', 'genesis' ); ?></legend>
+		<table class="form-table">
+		<tbody>
 
-			<?php genesis_layout_selector( array( 'name' => $this->get_field_name( 'site_layout' ), 'selected' => $this->get_field_value( 'site_layout' ), 'type' => 'site' ) );?>
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Select Default Layout', 'genesis' ); ?></th>
+				<td>
+					<fieldset class="genesis-layout-selector">
+					<legend class="screen-reader-text"><?php _e( 'Default Layout', 'genesis' ); ?></legend>
 
-		</fieldset>
+					<?php genesis_layout_selector( array( 'name' => $this->get_field_name( 'site_layout' ), 'selected' => $this->get_field_value( 'site_layout' ), 'type' => 'site' ) );?>
 
-		<br class="clear" />
+					</fieldset>
+					<br class="clear" />
+				</td>
+			</tr>
+
+		</tbody>
+		</table>
 		<?php
 
 	}
@@ -615,13 +692,21 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	function header_box() {
 		?>
 
-		<p><?php _e( 'Use for site title/logo:', 'genesis' ); ?>
-			<label for="<?php $this->field_name( 'blog_title' ); ?>" class="screen-reader-text"><?php _e( 'Use for site title/logo:', 'genesis' ); ?></label>
-			<select name="<?php $this->field_name( 'blog_title' ); ?>" id="<?php $this->field_name( 'blog_title' ); ?>">
-				<option value="text"<?php selected( $this->get_field_value( 'blog_title' ), 'text' ); ?>><?php _e( 'Dynamic text', 'genesis' ); ?></option>
-				<option value="image"<?php selected( $this->get_field_value( 'blog_title' ), 'image' ); ?>><?php _e( 'Image logo', 'genesis' ); ?></option>
-			</select>
-		</p>
+		<table class="form-table">
+		<tbody>
+
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_name( 'blog_title' ); ?>"><?php _e( 'Use for site title/logo:', 'genesis' ); ?></label></th>
+				<td>
+					<select name="<?php $this->field_name( 'blog_title' ); ?>" id="<?php $this->field_name( 'blog_title' ); ?>">
+						<option value="text"<?php selected( $this->get_field_value( 'blog_title' ), 'text' ); ?>><?php _e( 'Dynamic text', 'genesis' ); ?></option>
+						<option value="image"<?php selected( $this->get_field_value( 'blog_title' ), 'image' ); ?>><?php _e( 'Image logo', 'genesis' ); ?></option>
+					</select>
+				</td>
+			</tr>
+
+		</tbody>
+		</table>
 
 		<?php
 
@@ -640,128 +725,56 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
 	 */
 	function nav_box() {
-
-		if ( ! genesis_html5() ) : ?>
-
-		<p>
-			<input type = "checkbox" name="<?php $this->field_name( 'superfish' ); ?>" id="<?php $this->field_id( 'superfish' ); ?>" value="1"<?php checked( $this->get_field_value( 'superfish' ) ); ?> />
-			<label for="<?php $this->field_id( 'superfish' ); ?>"><?php _e( 'Load Superfish Script?', 'genesis' ); ?></label>
-		</p>
-
-		<?php
-		endif;
-
-		if ( genesis_nav_menu_supported( 'primary' ) ) : ?>
-
-		<h4><?php _e( 'Primary Navigation Extras', 'genesis' ); ?></h4>
-
-		<?php if ( ! has_nav_menu( 'primary' ) ) : ?>
-
-		<p><span class="description"><?php printf( __( 'In order to view the Primary navigation menu settings, you must build a <a href="%s">custom menu</a>, then assign it to the Primary Menu Location.', 'genesis' ), admin_url( 'nav-menus.php' ) ); ?></span></p>
-
-		<?php else : ?>
-
-		<div id="genesis_nav_extras_settings">
-			<p>
-				<label for="<?php $this->field_id( 'nav_extras' ); ?>"><?php _e( 'Display the following:', 'genesis' ); ?></label>
-				<select name="<?php $this->field_name( 'nav_extras' ); ?>" id="<?php $this->field_id( 'nav_extras' ); ?>">
-					<option value=""><?php _e( 'None', 'genesis' ) ?></option>
-					<option value="date"<?php selected( $this->get_field_value( 'nav_extras' ), 'date' ); ?>><?php _e( 'Today\'s date', 'genesis' ); ?></option>
-					<option value="rss"<?php selected( $this->get_field_value( 'nav_extras' ), 'rss' ); ?>><?php _e( 'RSS feed links', 'genesis' ); ?></option>
-					<option value="search"<?php selected( $this->get_field_value( 'nav_extras' ), 'search' ); ?>><?php _e( 'Search form', 'genesis' ); ?></option>
-					<option value="twitter"<?php selected( $this->get_field_value( 'nav_extras' ), 'twitter' ); ?>><?php _e( 'Twitter link', 'genesis' ); ?></option>
-				</select>
-			</p>
-			<div id="genesis_nav_extras_twitter">
-				<p>
-					<label for="<?php $this->field_id( 'nav_extras_twitter_id' ); ?>"><?php _e( 'Enter Twitter ID:', 'genesis' ); ?></label>
-					<input type="text" name="<?php $this->field_name( 'nav_extras_twitter_id' ); ?>" id="<?php $this->field_id( 'nav_extras_twitter_id' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'nav_extras_twitter_id' ) ); ?>" size="27" />
-				</p>
-				<p>
-					<label for="<?php $this->field_id( 'nav_extras_twitter_text' ); ?>"><?php _e( 'Twitter Link Text:', 'genesis' ); ?></label>
-					<input type="text" name="<?php $this->field_name( 'nav_extras_twitter_text' ); ?>" id="<?php $this->field_id( 'nav_extras_twitter_text' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'nav_extras_twitter_text' ) ); ?>" size="27" />
-				</p>
-			</div>
-		</div>
-		<?php
-		endif;
-		endif;
-	}
-
-	/**
-	 * Callback for Theme Settings Custom Feeds meta box.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
-	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
-	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
-	 *
-	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
-	 */
-	function feeds_box() {
-
 		?>
-		<p>
-			<label for="<?php $this->field_id( 'feed_uri' ); ?>"><?php _e( 'Enter your custom feed URL:', 'genesis' ); ?></label><br />
-			<input type="text" name="<?php $this->field_name( 'feed_uri' ); ?>" class="regular-text" id="<?php $this->field_id( 'feed_uri' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'feed_uri' ) ); ?>" />
 
-			<label for="<?php $this->field_id( 'redirect_feed' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'redirect_feed' ); ?>" id="<?php $this->field_id( 'redirect_feed' ); ?>" value="1"<?php checked( $this->get_field_value( 'redirect_feed' ) ); ?> />
-			<?php _e( 'Redirect Custom Feed?', 'genesis' ); ?></label>
-		</p>
+		<table class="form-table">
+		<tbody>
 
-		<p>
-			<label for="<?php $this->field_id( 'comments_feed_uri' ); ?>"><?php _e( 'Enter your custom comments feed URL:', 'genesis' ); ?></label><br />
-			<input type="text" name="<?php $this->field_name( 'comments_feed_uri' ); ?>" class="regular-text" id="<?php $this->field_id( 'comments_feed_uri' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'comments_feed_uri' ) ); ?>" />
+			<?php if ( ! genesis_html5() ) : ?>
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Superfish', 'genesis' ); ?></th>
+				<td>
+					<p><input type = "checkbox" name="<?php $this->field_name( 'superfish' ); ?>" id="<?php $this->field_id( 'superfish' ); ?>" value="1"<?php checked( $this->get_field_value( 'superfish' ) ); ?> />
+					<label for="<?php $this->field_id( 'superfish' ); ?>"><?php _e( 'Load Superfish Script?', 'genesis' ); ?></label></p>
+				</td>
+			</tr>
+			<?php endif; ?>
 
-			<label for="<?php $this->field_id( 'redirect_comments_feed' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'redirect_comments_feed' ); ?>" id="<?php $this->field_id( 'redirect_comments_feed' ); ?>" value="1"<?php checked( $this->get_field_value( 'redirect_comments__feed' ) ); ?> />
-			<?php _e( 'Redirect Custom Comments Feed?', 'genesis' ); ?></label>
-		</p>
+			<?php if ( genesis_nav_menu_supported( 'primary' ) ) : ?>
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'nav_extras' ); ?>"><?php _e( 'Primary Navigation Extras', 'genesis' ); ?></label></th>
+				<td>
+					<?php if ( ! has_nav_menu( 'primary' ) ) : ?>
+						<p><span class="description"><?php printf( __( 'In order to view the Primary navigation menu settings, you must build a <a href="%s">custom menu</a>, then assign it to the Primary Menu Location.', 'genesis' ), admin_url( 'nav-menus.php' ) ); ?></span></p>
+					<?php else : ?>
+						<div id="genesis_nav_extras_settings">
+							<p>
+								<select name="<?php $this->field_name( 'nav_extras' ); ?>" id="<?php $this->field_id( 'nav_extras' ); ?>">
+									<option value=""><?php _e( 'None', 'genesis' ) ?></option>
+									<option value="date"<?php selected( $this->get_field_value( 'nav_extras' ), 'date' ); ?>><?php _e( 'Today\'s date', 'genesis' ); ?></option>
+									<option value="rss"<?php selected( $this->get_field_value( 'nav_extras' ), 'rss' ); ?>><?php _e( 'RSS feed links', 'genesis' ); ?></option>
+									<option value="search"<?php selected( $this->get_field_value( 'nav_extras' ), 'search' ); ?>><?php _e( 'Search form', 'genesis' ); ?></option>
+									<option value="twitter"<?php selected( $this->get_field_value( 'nav_extras' ), 'twitter' ); ?>><?php _e( 'Twitter link', 'genesis' ); ?></option>
+								</select>
+							</p>
+							<div id="genesis_nav_extras_twitter">
+								<p>
+									<label for="<?php $this->field_id( 'nav_extras_twitter_id' ); ?>"><?php _e( 'Enter Twitter ID:', 'genesis' ); ?></label>
+									<input type="text" name="<?php $this->field_name( 'nav_extras_twitter_id' ); ?>" id="<?php $this->field_id( 'nav_extras_twitter_id' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'nav_extras_twitter_id' ) ); ?>" size="27" />
+								</p>
+								<p>
+									<label for="<?php $this->field_id( 'nav_extras_twitter_text' ); ?>"><?php _e( 'Twitter Link Text:', 'genesis' ); ?></label>
+									<input type="text" name="<?php $this->field_name( 'nav_extras_twitter_text' ); ?>" id="<?php $this->field_id( 'nav_extras_twitter_text' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'nav_extras_twitter_text' ) ); ?>" size="27" />
+								</p>
+							</div>
+						</div>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<?php endif; ?>
 
-		<p><span class="description"><?php printf( __( 'If your custom feed(s) are not handled by Feedblitz or Feedburner, do not use the redirect options.', 'genesis' ) ); ?></span></p>
-		<?php
-
-	}
-
-	/**
-	 * Callback for Theme Settings Comments meta box.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
-	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
-	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
-	 *
-	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
-	 */
-	function comments_box() {
-
-		?>
-		<fieldset>
-			<legend class="screen-reader-text"><?php _e( 'Enable Comments', 'genesis' ); ?></legend>
-
-			<?php _e( 'Enable Comments', 'genesis' ); ?>
-			<label for="<?php $this->field_id( 'comments_posts' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'comments_posts' ); ?>" id="<?php $this->field_id( 'comments_posts' ); ?>" value="1"<?php checked( $this->get_field_value( 'comments_posts' ) ); ?> />
-			<?php _e( 'on posts?', 'genesis' ); ?></label>
-
-			<label for="<?php $this->field_id( 'comments_pages' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'comments_pages' ); ?>" id="<?php $this->field_id( 'comments_pages' ); ?>" value="1"<?php checked( $this->get_field_value( 'comments_pages' ) ); ?> />
-			<?php _e( 'on pages?', 'genesis' ); ?></label>
-
-		</fieldset>
-
-		<fieldset>
-			<legend class="screen-reader-text"><?php _e( 'Enable Trackbacks', 'genesis' ); ?></legend>
-
-			<?php _e( 'Enable Trackbacks', 'genesis' ); ?>
-			<label for="<?php $this->field_id( 'trackbacks_posts' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'trackbacks_posts' ); ?>" id="<?php $this->field_id( 'trackbacks_posts' ); ?>" value="1"<?php checked( $this->get_field_value( 'trackbacks_posts' ) ); ?> />
-			<?php _e( 'on posts?', 'genesis' ); ?></label>
-
-			<label for="<?php $this->field_id( 'trackbacks_pages' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'trackbacks_pages' ); ?>" id="<?php $this->field_id( 'trackbacks_pages' ); ?>" value="1"<?php checked( $this->get_field_value( 'trackbacks_pages' ) ); ?> />
-			<?php _e( 'on pages?', 'genesis' ); ?></label>
-
-		</fieldset>
-
-		<p><span class="description"><?php _e( 'Comments and Trackbacks can also be disabled on a per post/page basis when creating/editing posts/pages.', 'genesis' ); ?></span></p>
+		</tbody>
+		</table>
 		<?php
 
 	}
@@ -780,41 +793,102 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	function breadcrumb_box() {
 
 		?>
-		<h4><?php _e( 'Enable Breadcrumbs on:', 'genesis' ); ?></h4>
+		<table class="form-table">
+		<tbody>
 
-		<fieldset>
-		<legend class="screen-reader-text"><?php _e( 'Enable Breadcrumbs on:', 'genesis' ); ?></legend>
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Enable Breadcrumbs on:', 'genesis' ); ?></th>
+				<td>
+					<fieldset>
+					<legend class="screen-reader-text"><?php _e( 'Enable Breadcrumbs on:', 'genesis' ); ?></legend>
 
-			<?php if ( 'page' === get_option( 'show_on_front' ) ) : ?>
-				<label for="<?php $this->field_id( 'breadcrumb_front_page' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_front_page' ); ?>" id="<?php $this->field_id( 'breadcrumb_front_page' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_front_page' ) ); ?> />
-				<?php _e( 'Front Page', 'genesis' ); ?></label>
+						<?php if ( 'page' === get_option( 'show_on_front' ) ) : ?>
+							<p><label for="<?php $this->field_id( 'breadcrumb_front_page' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_front_page' ); ?>" id="<?php $this->field_id( 'breadcrumb_front_page' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_front_page' ) ); ?> />
+							<?php _e( 'Front Page', 'genesis' ); ?></label></p>
 
-				<label for="<?php $this->field_id( 'breadcrumb_posts_page' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_posts_page' ); ?>" id="<?php $this->field_id( 'breadcrumb_posts_page' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_posts_page' ) ); ?> />
-				<?php _e( 'Posts Page', 'genesis' ); ?></label>
-			<?php else : ?>
-				<label for="<?php $this->field_id( 'breadcrumb_home' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_home' ); ?>" id="<?php $this->field_id( 'breadcrumb_home' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_home' ) ); ?> />
-				<?php _e( 'Homepage', 'genesis' ); ?></label>
-			<?php endif; ?>
+							<p><label for="<?php $this->field_id( 'breadcrumb_posts_page' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_posts_page' ); ?>" id="<?php $this->field_id( 'breadcrumb_posts_page' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_posts_page' ) ); ?> />
+							<?php _e( 'Posts Page', 'genesis' ); ?></label></p>
+						<?php else : ?>
+							<p><label for="<?php $this->field_id( 'breadcrumb_home' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_home' ); ?>" id="<?php $this->field_id( 'breadcrumb_home' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_home' ) ); ?> />
+							<?php _e( 'Homepage', 'genesis' ); ?></label></p>
+						<?php endif; ?>
 
-			<label for="<?php $this->field_id( 'breadcrumb_single' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_single' ); ?>" id="<?php $this->field_id( 'breadcrumb_single' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_single' ) ); ?> />
-			<?php _e( 'Posts', 'genesis' ); ?></label>
+						<p><label for="<?php $this->field_id( 'breadcrumb_single' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_single' ); ?>" id="<?php $this->field_id( 'breadcrumb_single' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_single' ) ); ?> />
+						<?php _e( 'Single Posts', 'genesis' ); ?></label></p>
 
-			<label for="<?php $this->field_id( 'breadcrumb_page' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_page' ); ?>" id="<?php $this->field_id( 'breadcrumb_page' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_page' ) ); ?> />
-			<?php _e( 'Pages', 'genesis' ); ?></label>
+						<p><label for="<?php $this->field_id( 'breadcrumb_page' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_page' ); ?>" id="<?php $this->field_id( 'breadcrumb_page' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_page' ) ); ?> />
+						<?php _e( 'Pages', 'genesis' ); ?></label></p>
 
-			<label for="<?php $this->field_id( 'breadcrumb_archive' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_archive' ); ?>" id="<?php $this->field_id( 'breadcrumb_archive' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_archive' ) ); ?> />
-			<?php _e( 'Archives', 'genesis' ); ?></label>
+						<p><label for="<?php $this->field_id( 'breadcrumb_archive' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_archive' ); ?>" id="<?php $this->field_id( 'breadcrumb_archive' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_archive' ) ); ?> />
+						<?php _e( 'Archives', 'genesis' ); ?></label></p>
 
-			<label for="<?php $this->field_id( 'breadcrumb_404' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_404' ); ?>" id="<?php $this->field_id( 'breadcrumb_404' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_404' ) ); ?> />
-			<?php _e( '404 Page', 'genesis' ); ?></label>
+						<p><label for="<?php $this->field_id( 'breadcrumb_404' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_404' ); ?>" id="<?php $this->field_id( 'breadcrumb_404' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_404' ) ); ?> />
+						<?php _e( '404 Page', 'genesis' ); ?></label></p>
 
-			<label for="<?php $this->field_id( 'breadcrumb_attachment' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_attachment' ); ?>" id="<?php $this->field_id( 'breadcrumb_attachment' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_attachment' ) ); ?> />
-			<?php _e( 'Attachment Page', 'genesis' ); ?></label>
+						<p><label for="<?php $this->field_id( 'breadcrumb_attachment' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_attachment' ); ?>" id="<?php $this->field_id( 'breadcrumb_attachment' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_attachment' ) ); ?> />
+						<?php _e( 'Attachment/Media', 'genesis' ); ?></label></p>
 
-		</fieldset>
+					</fieldset>
+				</td>
+			</tr>
 
+		</tbody>
+		</table>
+		<?php
 
-		<p><span class="description"><?php _e( 'Breadcrumbs are a great way of letting your visitors find out where they are on your site with just a glance. You can enable/disable them on certain areas of your site.', 'genesis' ); ?></span></p>
+	}
+
+	/**
+	 * Callback for Theme Settings Comments meta box.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
+	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
+	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
+	 *
+	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
+	 */
+	function comments_box() {
+
+		?>
+		<table class="form-table">
+		<tbody>
+
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Enable Comments', 'genesis' ); ?></th>
+				<td>
+				<fieldset>
+					<legend class="screen-reader-text"><?php _e( 'Enable Comments', 'genesis' ); ?></legend>
+
+					<p><label for="<?php $this->field_id( 'comments_posts' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'comments_posts' ); ?>" id="<?php $this->field_id( 'comments_posts' ); ?>" value="1"<?php checked( $this->get_field_value( 'comments_posts' ) ); ?> />
+					<?php _e( 'on posts?', 'genesis' ); ?></label></p>
+
+					<p><label for="<?php $this->field_id( 'comments_pages' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'comments_pages' ); ?>" id="<?php $this->field_id( 'comments_pages' ); ?>" value="1"<?php checked( $this->get_field_value( 'comments_pages' ) ); ?> />
+					<?php _e( 'on pages?', 'genesis' ); ?></label></p>
+
+				</fieldset>
+				</td>
+			</tr>
+
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Enable Trackbacks', 'genesis' ); ?></th>
+				<td>
+				<fieldset>
+					<legend class="screen-reader-text"><?php _e( 'Enable Trackbacks', 'genesis' ); ?></legend>
+
+					<p><label for="<?php $this->field_id( 'trackbacks_posts' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'trackbacks_posts' ); ?>" id="<?php $this->field_id( 'trackbacks_posts' ); ?>" value="1"<?php checked( $this->get_field_value( 'trackbacks_posts' ) ); ?> />
+					<?php _e( 'on posts?', 'genesis' ); ?></label></p>
+
+					<p><label for="<?php $this->field_id( 'trackbacks_pages' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'trackbacks_pages' ); ?>" id="<?php $this->field_id( 'trackbacks_pages' ); ?>" value="1"<?php checked( $this->get_field_value( 'trackbacks_pages' ) ); ?> />
+					<?php _e( 'on pages?', 'genesis' ); ?></label></p>
+
+				</fieldset>
+				</td>
+			</tr>
+
+		</tbody>
+		</table>
 		<?php
 
 	}
@@ -834,69 +908,80 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	function post_archives_box() {
 
 		?>
-		<p>
-			<label for="<?php $this->field_id( 'content_archive' ); ?>"><?php _e( 'Select one of the following:', 'genesis' ); ?></label>
-			<select name="<?php $this->field_name( 'content_archive' ); ?>" id="<?php $this->field_id( 'content_archive' ); ?>">
-			<?php
-			$archive_display = apply_filters(
-				'genesis_archive_display_options',
-				array(
-					'full'     => __( 'Display post content', 'genesis' ),
-					'excerpts' => __( 'Display post excerpts', 'genesis' ),
-				)
-			);
-			foreach ( (array) $archive_display as $value => $name )
-				echo '<option value="' . esc_attr( $value ) . '"' . selected( $this->get_field_value( 'content_archive' ), esc_attr( $value ), false ) . '>' . esc_html( $name ) . '</option>' . "\n";
-			?>
-			</select>
-		</p>
+		<table class="form-table">
+		<tbody>
 
-		<div id="genesis_content_limit_setting">
-			<p>
-				<label for="<?php $this->field_id( 'content_archive_limit' ); ?>"><?php _e( 'Limit content to', 'genesis' ); ?>
-				<input type="text" name="<?php $this->field_name( 'content_archive_limit' ); ?>" class="small-text" id="<?php $this->field_id( 'content_archive_limit' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'content_archive_limit' ) ); ?>" />
-				<?php _e( 'characters', 'genesis' ); ?></label>
-			</p>
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'content_archive' ); ?>"><?php _e( 'Display', 'genesis' ); ?></label></th>
+				<td>
+					<select name="<?php $this->field_name( 'content_archive' ); ?>" id="<?php $this->field_id( 'content_archive' ); ?>">
+					<?php
+					$archive_display = apply_filters(
+						'genesis_archive_display_options',
+						array(
+							'full'     => __( 'Entry content', 'genesis' ),
+							'excerpts' => __( 'Entry excerpts', 'genesis' ),
+						)
+					);
+					foreach ( (array) $archive_display as $value => $name )
+						echo '<option value="' . esc_attr( $value ) . '"' . selected( $this->get_field_value( 'content_archive' ), esc_attr( $value ), false ) . '>' . esc_html( $name ) . '</option>' . "\n";
+					?>
+					</select>
+				</td>
+			</tr>
 
-			<p><span class="description"><?php _e( 'Using this option will limit the text and strip all formatting from the text displayed. To use this option, choose "Display post content" in the select box above.', 'genesis' ); ?></span></p>
-		</div>
+			<tr id="genesis_content_limit_setting" valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'content_archive_limit' ); ?>"><?php _e( 'Limit content to', 'genesis' ); ?></label></th>
+				<td>
+					<input type="text" name="<?php $this->field_name( 'content_archive_limit' ); ?>" class="small-text" id="<?php $this->field_id( 'content_archive_limit' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'content_archive_limit' ) ); ?>" />
+					<?php _e( 'characters', 'genesis' ); ?>
+				</td>
+			</tr>
 
-		<p>
-			<label for="<?php $this->field_id( 'content_archive_thumbnail' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'content_archive_thumbnail' ); ?>" id="<?php $this->field_id( 'content_archive_thumbnail' ); ?>" value="1"<?php checked( $this->get_field_value( 'content_archive_thumbnail' ) ); ?> />
-			<?php _e( 'Include the Featured Image?', 'genesis' ); ?></label>
-		</p>
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Featured Image', 'genesis' ); ?></th>
+				<td>
+					<p><label for="<?php $this->field_id( 'content_archive_thumbnail' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'content_archive_thumbnail' ); ?>" id="<?php $this->field_id( 'content_archive_thumbnail' ); ?>" value="1"<?php checked( $this->get_field_value( 'content_archive_thumbnail' ) ); ?> />
+			<?php _e( 'Include the Featured Image?', 'genesis' ); ?></label></p>
 
-		<div id="genesis_image_extras">
-			<p>
-				<label for="<?php $this->field_id( 'image_size' ); ?>"><?php _e( 'Image Size:', 'genesis' ); ?></label>
-				<select name="<?php $this->field_name( 'image_size' ); ?>" id="<?php $this->field_id( 'image_size' ); ?>">
-				<?php
-				$sizes = genesis_get_image_sizes();
-				foreach ( (array) $sizes as $name => $size )
-					echo '<option value="' . esc_attr( $name ) . '"' . selected( $this->get_field_value( 'image_size' ), $name, FALSE ) . '>' . esc_html( $name ) . ' (' . absint( $size['width'] ) . ' &#x000D7; ' . absint( $size['height'] ) . ')</option>' . "\n";
-				?>
-				</select>
-			</p>
+					<div id="genesis_image_extras">
+						<p>
+							<label for="<?php $this->field_id( 'image_size' ); ?>"><?php _e( 'Image Size:', 'genesis' ); ?></label>
+							<select name="<?php $this->field_name( 'image_size' ); ?>" id="<?php $this->field_id( 'image_size' ); ?>">
+							<?php
+							$sizes = genesis_get_image_sizes();
+							foreach ( (array) $sizes as $name => $size )
+								echo '<option value="' . esc_attr( $name ) . '"' . selected( $this->get_field_value( 'image_size' ), $name, FALSE ) . '>' . esc_html( $name ) . ' (' . absint( $size['width'] ) . ' &#x000D7; ' . absint( $size['height'] ) . ')</option>' . "\n";
+							?>
+							</select>
+						</p>
 
-			<p>
-				<label for="<?php $this->field_id( 'image_alignment' ); ?>"><?php _e( 'Image Alignment:', 'genesis' ); ?></label>
-				<select name="<?php $this->field_name( 'image_alignment' ); ?>" id="<?php $this->field_id( 'image_alignment' ); ?>">
-					<option value=""><?php _e( '- None -', 'genesis' ) ?></option>
-					<option value="alignleft" <?php selected( $this->get_field_value( 'image_alignment' ), 'alignleft' ); ?>><?php _e( 'Left', 'genesis' ) ?></option>
-					<option value="alignright" <?php selected( $this->get_field_value( 'image_alignment' ), 'alignright' ); ?>><?php _e( 'Right', 'genesis' ) ?></option>
-				</select>
-			</p>
-		</div>
+						<p>
+							<label for="<?php $this->field_id( 'image_alignment' ); ?>"><?php _e( 'Image Alignment:', 'genesis' ); ?></label>
+							<select name="<?php $this->field_name( 'image_alignment' ); ?>" id="<?php $this->field_id( 'image_alignment' ); ?>">
+								<option value=""><?php _e( '- None -', 'genesis' ) ?></option>
+								<option value="alignleft" <?php selected( $this->get_field_value( 'image_alignment' ), 'alignleft' ); ?>><?php _e( 'Left', 'genesis' ) ?></option>
+								<option value="alignright" <?php selected( $this->get_field_value( 'image_alignment' ), 'alignright' ); ?>><?php _e( 'Right', 'genesis' ) ?></option>
+							</select>
+						</p>
+					</div>
+				</td>
+			</tr>
 
-		<p>
-			<label for="<?php $this->field_id( 'posts_nav' ); ?>"><?php _e( 'Select Post Navigation Technique:', 'genesis' ); ?></label>
-			<select name="<?php $this->field_name( 'posts_nav' ); ?>" id="<?php $this->field_id( 'posts_nav' ); ?>">
-				<option value="prev-next"<?php selected( 'prev-next', $this->get_field_value( 'posts_nav' ) ); ?>><?php _e( 'Previous / Next', 'genesis' ); ?></option>
-				<option value="numeric"<?php selected( 'numeric', $this->get_field_value( 'posts_nav' ) ); ?>><?php _e( 'Numeric', 'genesis' ); ?></option>
-			</select>
-		</p>
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'posts_nav' ); ?>"><?php _e( 'Entry Pagination', 'genesis' ); ?></label></th>
+				<td>
+					<p><select name="<?php $this->field_name( 'posts_nav' ); ?>" id="<?php $this->field_id( 'posts_nav' ); ?>">
+						<option value="prev-next"<?php selected( 'prev-next', $this->get_field_value( 'posts_nav' ) ); ?>><?php _e( 'Previous / Next', 'genesis' ); ?></option>
+						<option value="numeric"<?php selected( 'numeric', $this->get_field_value( 'posts_nav' ) ); ?>><?php _e( 'Numeric', 'genesis' ); ?></option>
+					</select></p>
 
-		<p><span class="description"><?php _e( 'These options will affect any blog listings page, including archive, author, blog, category, search, and tag pages.', 'genesis' ); ?></span></p>
+					<p><span class="description"><?php _e( 'These options will affect any blog listings page, including archive, author, blog, category, search, and tag pages.', 'genesis' ); ?></span></p>
+				</td>
+			</tr>
+
+		</tbody>
+		</table>
 		<?php
 
 	}
@@ -916,25 +1001,37 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 
 		?>
 		<p><span class="description"><?php _e( 'These settings apply to any page given the "Blog" page template, not the homepage or post archive pages.', 'genesis' ); ?></span></p>
+		<table class="form-table">
+		<tbody>
 
-		<hr class="div" />
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Display Category', 'genesis' ); ?></th>
+				<td>
+					<p><label for="<?php $this->field_id( 'blog_cat' ); ?>" class="screen-reader-text"><?php _e( 'Display which category:', 'genesis' ); ?></label>
+					<?php wp_dropdown_categories( array( 'selected' => $this->get_field_value( 'blog_cat' ), 'name' => $this->get_field_name( 'blog_cat' ), 'orderby' => 'Name', 'hierarchical' => 1, 'show_option_all' => __( 'All Categories', 'genesis' ), 'hide_empty' => '0' ) ); ?></p>
+				</td>
+			</tr>
 
-		<p>
-			<label for="<?php $this->field_id( 'blog_cat' ); ?>"><?php _e( 'Display which category:', 'genesis' ); ?></label>
-			<?php wp_dropdown_categories( array( 'selected' => $this->get_field_value( 'blog_cat' ), 'name' => $this->get_field_name( 'blog_cat' ), 'orderby' => 'Name', 'hierarchical' => 1, 'show_option_all' => __( 'All Categories', 'genesis' ), 'hide_empty' => '0' ) ); ?>
-		</p>
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'blog_cat_exclude' ); ?>"><?php _e( 'Exclude Categories', 'genesis' ); ?></label></th>
+				<td>
+					<p>
+					<input type="text" name="<?php $this->field_name( 'blog_cat_exclude' ); ?>" class="regular-text" id="<?php $this->field_id( 'blog_cat_exclude' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'blog_cat_exclude' ) ); ?>" />
+					<br /><small><strong><?php _e( 'Category IDs, comma separated - 1,2,3 for example', 'genesis' ); ?></strong></small>
+					</p>
+				</td>
+			</tr>
 
-		<p>
-			<label for="<?php $this->field_id( 'blog_cat_exclude' ); ?>"><?php _e( 'Exclude the following Category IDs:', 'genesis' ); ?><br />
-				<input type="text" name="<?php $this->field_name( 'blog_cat_exclude' ); ?>" class="regular-text" id="<?php $this->field_id( 'blog_cat_exclude' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'blog_cat_exclude' ) ); ?>" />
-				<br /><small><strong><?php _e( 'Comma separated - 1,2,3 for example', 'genesis' ); ?></strong></small>
-			</label>
-		</p>
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'blog_cat_num' ); ?>"><?php _e( 'Posts per Page', 'genesis' ); ?></label></th>
+				<td>
+					<input type="text" name="<?php $this->field_name( 'blog_cat_num' ); ?>" id="<?php $this->field_id( 'blog_cat_num' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'blog_cat_num' ) ); ?>" size="2" />
+				</td>
+			</tr>
 
-		<p>
-			<label for="<?php $this->field_id( 'blog_cat_num' ); ?>"><?php _e( 'Number of Posts to Show:', 'genesis' ); ?></label>
-			<input type="text" name="<?php $this->field_name( 'blog_cat_num' ); ?>" id="<?php $this->field_id( 'blog_cat_num' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'blog_cat_num' ) ); ?>" size="2" />
-		</p>
+		</tbody>
+		</table>
+
 		<?php
 
 	}
@@ -953,23 +1050,27 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	function scripts_box() {
 
 		?>
-		<p>
-			<label for="<?php $this->field_id( 'header_scripts' ); ?>"><?php printf( __( 'Enter scripts or code you would like output to %s:', 'genesis' ), genesis_code( 'wp_head()' ) ); ?></label>
-		</p>
+		<table class="form-table">
+		<tbody>
 
-		<textarea name="<?php $this->field_name( 'header_scripts' ); ?>" class="large-text" id="<?php $this->field_id( 'header_scripts' ); ?>" cols="78" rows="8"><?php echo esc_textarea( $this->get_field_value( 'header_scripts' ) ); ?></textarea>
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'header_scripts' ); ?>"><?php _e( 'Header Scripts', 'genesis' ); ?></label></th>
+				<td>
+					<p><textarea name="<?php $this->field_name( 'header_scripts' ); ?>" class="large-text" id="<?php $this->field_id( 'header_scripts' ); ?>" cols="78" rows="8"><?php echo esc_textarea( $this->get_field_value( 'header_scripts' ) ); ?></textarea></p>
+					<p><span class="description"><?php printf( __( 'This code will output immediately before the closing %s tag in the document source.', 'genesis' ), genesis_code( '</head>' ) ); ?></span></p>
+				</td>
+			</tr>
 
-		<p><span class="description"><?php printf( __( 'The %1$s hook executes immediately before the closing %2$s tag in the document source.', 'genesis' ), genesis_code( 'wp_head()' ), genesis_code( '</head>' ) ); ?></span></p>
+			<tr valign="top">
+				<th scope="row"><label for="<?php $this->field_id( 'footer_scripts' ); ?>"><?php _e( 'Footer Scripts', 'genesis' ); ?></label></th>
+				<td>
+					<p><textarea name="<?php $this->field_name( 'footer_scripts' ); ?>" class="large-text" id="<?php $this->field_id( 'footer_scripts' ); ?>" cols="78" rows="8"><?php echo esc_textarea( $this->get_field_value( 'footer_scripts' ) ); ?></textarea></p>
+					<p><span class="description"><?php printf( __( 'This code will output immediately before the closing %s tag in the document source.', 'genesis' ), genesis_code( '</body>' ) ); ?></span></p>
+				</td>
+			</tr>
 
-		<hr class="div" />
-
-		<p>
-			<label for="<?php $this->field_id( 'footer_scripts' ); ?>"><?php printf( __( 'Enter scripts or code you would like output to %s:', 'genesis' ), genesis_code( 'wp_footer()' ) ); ?></label>
-		</p>
-
-		<textarea name="<?php $this->field_name( 'footer_scripts' ); ?>" class="large-text" id="<?php $this->field_id( 'footer_scripts' ); ?>" cols="78" rows="8"><?php echo esc_textarea( $this->get_field_value( 'footer_scripts' ) ); ?></textarea>
-
-		<p><span class="description"><?php printf( __( 'The %1$s hook executes immediately before the closing %2$s tag in the document source.', 'genesis' ), genesis_code( 'wp_footer()' ), genesis_code( '</body>' ) ); ?></span></p>
+		</tbody>
+		</table>
 		<?php
 
 	}

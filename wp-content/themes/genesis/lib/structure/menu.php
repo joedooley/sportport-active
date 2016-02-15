@@ -34,7 +34,11 @@ add_filter( 'nav_menu_link_attributes', 'genesis_nav_menu_link_attributes', 10, 
  */
 function genesis_nav_menu_link_attributes( $atts, $item, $args ) {
 
-	return genesis_parse_attr( 'nav-link', $atts );
+	if ( genesis_html5() ) {
+		$atts = genesis_parse_attr( 'nav-link', $atts );
+	}
+
+	return $atts;
 
 }
 

@@ -130,7 +130,7 @@ function genesis_featured_image_post_class( $classes ) {
 
     $image = genesis_get_image();
 
-    if ( $image && ! in_array( 'has-post-thumbnail', $classes ) ) {
+    if ( $image && ! is_singular() && genesis_get_option( 'content_archive_thumbnail' ) && ! in_array( 'has-post-thumbnail', $classes ) ) {
         $classes[] = 'has-post-thumbnail';
     }
 

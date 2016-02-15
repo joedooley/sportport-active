@@ -3,7 +3,7 @@
  * Plugin Name: Animate It!
  * Plugin URI: http://www.eleopard.in
  * Description: It will allow user to add CSS Animations
- * Version: 2.0.0
+ * Version: 2.0.1
  * Author: eLEOPARD Design Studios
  * Author URI: http://www.eleopard.in
  * License: GNU General Public License version 2 or later; see LICENSE.txt
@@ -34,6 +34,14 @@ class EDS_Animate {
 	
 	public static $abs_file = null;
 	
+	var $in_animations = array("bounceIn","bounceInDown","bounceInLeft","bounceInRight",
+                    	"bounceInUp","fadeIn","fadeInDown","fadeInDownBig","fadeInLeft",
+                    	"fadeInLeftBig","fadeInRight","fadeInRightBig","fadeInUp","fadeInUpBig",
+                    	"rotateIn","rotateInDownLeft","rotateInDownRight","rotateInUpLeft",
+                    	"rotateInUpRight","slideInUp","slideInDown","slideInLeft","slideInRight",
+                    	"zoomIn","zoomInDown","zoomInLeft","zoomInRight","zoomInUp","flipInX",
+                    	"flipInY","lightSpeedIn","rollIn");
+						
 	public function __construct( $file_loc ) {	
 		
 		self::$abs_file = $file_loc;
@@ -409,11 +417,17 @@ class EDS_Animate {
 		
 		if( !$enable ) {
 			return '';
-		}		
-		
+		}	
+			
+		$hide_on_load_css_class = '';
+		$entry_animation = isset( $attributes['entry_animation_type'] ) ? $attributes['entry_animation_type']: '';
+						
+		if( 'scroll' == $attributes['animate_on'] || 'load' == $attributes['animate_on'] ) {
+			$hide_on_load_css_class = ( in_array( $entry_animation, $this->in_animations ) ) ? 'edsanimate-sis-hidden' : '';
+		}
 		$content = array(
-				'<div class="eds-animate ', isset( $attributes['custom_css_class'] ) ? $attributes['custom_css_class'] : '', '"',
-				' data-eds-entry-animation="', isset( $attributes['entry_animation_type'] ) ? $attributes['entry_animation_type']: '', '"',
+				'<div class="eds-animate ', $hide_on_load_css_class, ' ', isset( $attributes['custom_css_class'] ) ? $attributes['custom_css_class'] : '', '"',
+				' data-eds-entry-animation="', $entry_animation, '"',
 				' data-eds-entry-delay="', isset( $attributes['entry_delay'] ) ? $attributes['entry_delay'] : '', '"',
 				' data-eds-entry-duration="', isset( $attributes['entry_duration'] ) ? $attributes['entry_duration'] : '', '"',
 				' data-eds-entry-timing="', isset( $attributes['entry_timing'] ) ? $attributes['entry_timing'] : '', '"',

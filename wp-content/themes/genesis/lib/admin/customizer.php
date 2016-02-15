@@ -256,9 +256,9 @@ class Genesis_Customizer extends Genesis_Customizer_Base {
 			'breadcrumb_home'       => __( 'Breadcrumbs on Homepage', 'genesis' ),
 			'breadcrumb_front_page' => __( 'Breadcrumbs on Front Page', 'genesis' ),
 			'breadcrumb_posts_page' => __( 'Breadcrumbs on Posts Page', 'genesis' ),
-			'breadcrumb_single'     => __( 'Breadcrumbs on Single', 'genesis' ),
-			'breadcrumb_page'       => __( 'Breadcrumbs on Page', 'genesis' ),
-			'breadcrumb_archive'    => __( 'Breadcrumbs on Archive', 'genesis' ),
+			'breadcrumb_single'     => __( 'Breadcrumbs on Single Posts', 'genesis' ),
+			'breadcrumb_page'       => __( 'Breadcrumbs on Pages', 'genesis' ),
+			'breadcrumb_archive'    => __( 'Breadcrumbs on Archives', 'genesis' ),
 			'breadcrumb_404'        => __( 'Breadcrumbs on 404 Page', 'genesis' ),
 			'breadcrumb_attachment' => __( 'Breadcrumbs on Attachment/Media', 'genesis' ),
 		);
@@ -266,6 +266,18 @@ class Genesis_Customizer extends Genesis_Customizer_Base {
 		$priority = 1;
 
 		foreach ( $settings as $setting => $label ) {
+
+			if ( 'breadcrumb_front_page' == $setting || 'breadcrumb_posts_page' == $setting ) {
+				if ( 'page' !== get_option( 'show_on_front' ) ) {
+					continue;
+				}
+			}
+
+			if ( 'breadcrumb_home' == $setting ) {
+				if ( 'page' === get_option( 'show_on_front' ) ) {
+					continue;
+				}
+			}
 
 			$wp_customize->add_setting(
 				$this->get_field_name( $setting ),

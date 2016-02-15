@@ -1,13 +1,5 @@
 ( function( $, document, window){
 	
-	var inAnimations = ["bounceIn","bounceInDown","bounceInLeft","bounceInRight",
-                    	"bounceInUp","fadeIn","fadeInDown","fadeInDownBig","fadeInLeft",
-                    	"fadeInLeftBig","fadeInRight","fadeInRightBig","fadeInUp","fadeInUpBig",
-                    	"rotateIn","rotateInDownLeft","rotateInDownRight","rotateInUpLeft",
-                    	"rotateInUpRight","slideInUp","slideInDown","slideInLeft","slideInRight",
-                    	"zoomIn","zoomInDown","zoomInLeft","zoomInRight","zoomInUp","flipInX",
-                    	"flipInY","lightSpeedIn","rollIn"];
-	
 	var edsWObj = $(window);
 	$.fn.initEDSAnimateBlock = function() {
 		
@@ -115,7 +107,6 @@
 		if( "load" == this.data('edsAnimateOn') ) {			
 			this.edsInit();			
 		} else if( "scroll" == this.data('edsAnimateOn') ) {			
-			( inAnimations.indexOf( this.data('edsEntryAnimation') ) != -1 ) ? this.addClass( 'edsanimate-sis-hidden' ) : '';
 			this.edsScrollOffset = this.data('edsScrollOffset');			
 			edsWObj.on("scroll", $.throttle( 250, this.checkPosition ) );
 			this.checkPosition();

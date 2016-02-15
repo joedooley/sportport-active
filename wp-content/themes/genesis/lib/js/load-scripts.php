@@ -29,6 +29,7 @@ function genesis_register_scripts() {
 	wp_register_script( 'superfish-compat', GENESIS_JS_URL . "/menu/superfish.compat$suffix.js", array( 'jquery' ), PARENT_THEME_VERSION, true );
 	wp_register_script( 'skip-links',  GENESIS_JS_URL . "/skip-links.js" );
 	wp_register_script( 'drop-down-menu',  GENESIS_JS_URL . "/drop-down-menu.js", array( 'jquery' ), PARENT_THEME_VERSION, true );
+	wp_register_script( 'html5shiv', GENESIS_JS_URL . "/html5shiv$suffix.js", array(), '3.7.3' );
 
 
 }
@@ -48,6 +49,7 @@ add_action( 'wp_enqueue_scripts', 'genesis_load_scripts' );
  */
 function genesis_load_scripts() {
 
+	global $wp_scripts;
 
 	//* If a single post or page, threaded comments are enabled, and comments are open
 	if ( is_singular() && get_option( 'thread_comments' ) && comments_open() )
@@ -70,6 +72,9 @@ function genesis_load_scripts() {
 		wp_enqueue_script( 'skip-links' );
 	}
 
+	//* HTML5 shiv
+	#wp_enqueue_script( 'html5shiv' );
+	#$wp_scripts->add_data( 'html5shiv', 'conditional', 'lt IE 9' );
 
 }
 
@@ -89,7 +94,9 @@ function genesis_html5_ie_fix() {
 	if ( ! genesis_html5() )
 		return;
 
-	echo '<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->' . "\n";
+	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+	printf( '<!--[if lt IE 9]><script src="%s"></script><![endif]-->' . "\n", GENESIS_JS_URL . "/html5shiv$suffix.js" );
 
 }
 
@@ -148,7 +155,7 @@ function genesis_load_admin_js() {
 
 	$strings = array(
 		'categoryChecklistToggle' => __( 'Select / Deselect All', 'genesis' ),
-		'saveAlert'               => __('The changes you made will be lost if you navigate away from this page.', 'genesis'),
+		'saveAlert'               => __( 'The changes you made will be lost if you navigate away from this page.', 'genesis' ),
 		'confirmUpgrade'          => __( 'Updating Genesis will overwrite the current installed version of Genesis. Are you sure you want to update?. "Cancel" to stop, "OK" to update.', 'genesis' ),
 		'confirmReset'            => __( 'Are you sure you want to reset?', 'genesis' ),
 	);
@@ -164,7 +171,6 @@ function genesis_load_admin_js() {
 		// Select toggles
 		'nav_extras'                => array( '#genesis-settings\\[nav_extras\\]', '#genesis_nav_extras_twitter', 'twitter' ),
 		'content_archive'           => array( '#genesis-settings\\[content_archive\\]', '#genesis_content_limit_setting', 'full' ),
-
 	);
 
 	wp_localize_script( 'genesis_admin_js', 'genesis_toggles', apply_filters( 'genesis_toggles', $toggles ) );

@@ -11,6 +11,7 @@
  * @link    http://my.studiopress.com/themes/genesis/
  */
 
+
 /**
  * Deprecated. Echo custom rel="author" link tag.
  *

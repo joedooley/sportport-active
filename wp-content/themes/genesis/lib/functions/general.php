@@ -58,7 +58,7 @@ function genesis_admin_redirect( $page, array $query_args = array() ) {
 
 }
 
-add_action( 'template_redirect', 'genesis_custom_field_redirect' );
+add_action( 'template_redirect', 'genesis_custom_field_redirect', 20 );
 /**
  * Redirect singular page to an alternate URL.
  *
@@ -257,7 +257,7 @@ function genesis_get_global_post_type_name( $post_type_name = '' ) {
  * - are set to show in the admin menu,
  * - have an archive enabled,
  * - not one of the built-in types,
- * - support "genesis-cpt-archive-settings".
+ * - support "genesis-cpt-archives-settings".
  *
  * This last item means that if you're using an archive template and don't want Genesis interfering with it with these
  * archive settings, then don't add the support. This support check is handled in
@@ -362,6 +362,11 @@ function genesis_html5() {
  * @return bool True if current theme supports genesis-accessibility, or an specific feature of it, false otherwise.
  */
 function genesis_a11y( $arg = 'screen-reader-text' ) {
+
+	//* No a11y if not html5
+	if ( ! genesis_html5() ) {
+		return false;
+	}
 
 	$feature = 'genesis-accessibility';
 
