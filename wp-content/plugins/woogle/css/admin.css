@@ -1,0 +1,38 @@
+.woogle-icon {
+	width: 100%;
+	max-width: 20px;
+}
+
+.woogle-status {
+	width: 100%;
+	max-width: 20px;
+	min-width: 15px;
+}
+
+.woogle-status.updated {
+
+}
+
+.woogle-status.not-updated {
+
+}
+
+.woogle-status.expired {
+
+}
+
+.woogle-status.n-a {
+	
+}
+
+#woogle_product_data span.description {
+	clear: both;
+	display: block;
+}
+
+.ui-autocomplete {
+	max-width: 500px;
+	max-height:250px;
+	overflow-x: auto;
+	overflow-y:auto;
+}
