@@ -1,1 +1,0 @@
-jQuery(document).ready(function($){$(".variations_form").on("woocommerce_variation_has_changed",function(o){var t=$(this).closest("div.enviratope").attr("id");setTimeout(function(){$("#"+t).enviratope("layout")},500)})});
