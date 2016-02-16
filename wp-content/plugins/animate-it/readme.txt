@@ -3,7 +3,7 @@ Contributors: eleopard
 Tags: css3 animation, animate.css, jquery, on scroll animation, delay, infinite, entry exit, iteration
 Requires at least: 3.9
 Tested up to: 4.4.2
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GNU General Public License version 2 or later
 License URI: http://www.gnu.org/copyleft/gpl.html
 
@@ -57,10 +57,10 @@ Settings to show or hide vertical or horizontal scroll bar are available at  Set
 = Animation applied using older plugin and class generator won't work?  =
 If animation applied using class generator or older plugin wont work, Please do the following:
 If using shortcode:
-Add duration="1" (you can add 1 to 12) as one of the attribute of the shortcode.
+Add duration="1" (you can add 1 to 20) as one of the attribute of the shortcode.
 
 If using class generator:
-Add duration class ( duration1 to duration12 ) along with the other classes. or use the class generator one more time to generate same animation classes.
+Add duration class ( duration1 to duration20 ) along with the other classes. or use the class generator one more time to generate same animation classes.
 
 == Screenshots ==
 
@@ -76,6 +76,9 @@ Add duration class ( duration1 to duration12 ) along with the other classes. or 
 
 
 == Changelog ==
+
+= Version 2.0.2 =
+* Minor fixes to support infinite animation added using older version
 
 = Version 2.0.1 =
 * Minor changes to handle higher load time

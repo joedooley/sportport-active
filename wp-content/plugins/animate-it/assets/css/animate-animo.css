@@ -275,6 +275,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	-webkit-perspective: 1000;
 }
 
+.animated.infinite {
+ -webkit-animation-iteration-count: infinite;
+ animation-iteration-count: infinite;
+}
+
 @-webkit-keyframes flash {
 	0%, 50%, 100% {opacity: 1;}	
 	25%, 75% {opacity: 0;}
