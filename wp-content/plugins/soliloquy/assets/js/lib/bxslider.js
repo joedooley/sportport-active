@@ -320,13 +320,20 @@
 
 			// Added by Thomas
             if (slider.settings.keyboard && !slider.settings.ticker) {
-                $(document).on('keydown', function(e){
-                    if (e.keyCode == 39) {
-                        clickNextBind(e);
+                $( 'body' ).on('keydown', function(e) {
+                	// Added by Tim
+                	// Check the target (focused) element - if it's an input or textarea, don't do anything
+                	// otherwise the user can't use arrow keys within inputs or textareas
+                	if ( e.target.type == 'textarea' || e.target.type == 'input' ) {
+                		return;
+                	}
+
+                	// If here, OK to change slide
+                    if ( e.keyCode == 39 ) {
+                        clickNextBind( e );
                         return false;
-                    }
-                    else if (e.keyCode == 37) {
-                        clickPrevBind(e);
+                    } else if ( e.keyCode == 37 ) {
+                        clickPrevBind( e );
                         return false;
                     }
                 });

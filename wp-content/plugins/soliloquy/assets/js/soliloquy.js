@@ -1,6 +1,7 @@
 /**
 * soliloquy.js is a placeholder, which CodeKit attaches the following JS files to, before compiling as min/soliloquy-min.js:
 * - lib/bxslider.js
+* - lib/mousewheel.js
 *
 * To load more JS resources:
 * - Add them to the lib subfolder
@@ -50,8 +51,8 @@ function soliloquyYouTubeOnStateChange(event){
         }
     }
 
-    // If the video is playing, pause the slider.
-    if ( event.data === YT.PlayerState.PLAYING ) {
+    // If the video is playing or buffering, pause the slider.
+    if ( event.data === YT.PlayerState.PLAYING || event.data === YT.PlayerState.BUFFERING ) {
         if ( soliloquy_slider[id] ) {
             soliloquy_slider[id].stopAuto();
         }

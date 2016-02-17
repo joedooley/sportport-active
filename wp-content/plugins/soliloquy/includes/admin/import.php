@@ -164,20 +164,22 @@ class Soliloquy_Import {
     public function run_import( $data, $post_id ) {
 
         // Prepare variables.
-        $slider = false;
-        $i      = 0;
+        $slider = $data;
+        $slider['slider'] = array();
 
         // Loop through the slider items and import each item individually.
         foreach ( (array) $data['slider'] as $id => $item ) {
-            // If just starting, use the base data imported. Otherwise, use the updated data after each import.
-            if ( 0 === $i ) {
-                $slider = $this->import_slider_item( $id, $item, $data, $post_id );
-            } else {
-                $slider = $this->import_slider_item( $id, $item, $slider, $post_id );
-            }
 
-            // Increment the iterator.
-            $i++;
+            // Store image locally and get its properties
+            $image = $this->import_slider_item( $id, $item, $data, $post_id );
+
+            // Replace image in $item
+            $item['id'] = $image['attachment_id'];
+            $item['src'] = $image['url'];
+
+            // Store in new slider
+            $slider['slider'][ $image['attachment_id'] ] = $item;
+
         }
 
         // Return the newly imported slider data.
@@ -194,36 +196,41 @@ class Soliloquy_Import {
      * @param array $item   Data for the item being imported.
      * @param array $slider Array of slider data being imported.
      * @param int $post_id  The post ID the slider is being imported to.
-     * @return array $data  Modified slider data based on import status of image.
+     * @return array        New Image src
      */
     public function import_slider_item( $id, $item, $data, $post_id ) {
 
         // If no image data was found, the image doesn't exist on the server.
         $image = wp_get_attachment_image_src( $id );
+        $new_image = array(
+            'url'           => '',
+            'attachment_id' => 0,
+        );
+
         if ( ! $image ) {
             // We need to stream our image from a remote source.
             if ( empty( $item['src'] ) ) {
                 $this->errors[] = __( 'No valid URL found for the image ID #' . $id . '.', 'soliloquy' );
-
-                // Unset it from the slider data for meta saving.
-                $data = $this->purge_image_from_slider( $id, $data );
             } else {
                 // Stream the image from a remote URL.
-                $data = $this->import_remote_image( $item['src'], $data, $post_id, $id );
+                $new_image = $this->import_remote_image( $item['src'], $data, $post_id, $id, true );
             }
         } else {
             // The image already exists. If the URLs don't match, stream the image into the slider.
             if ( $image[0] !== $item['src'] ) {
                 // Stream the image from a remote URL.
-                $data = $this->import_remote_image( $item['src'], $data, $post_id, $id );
+                $new_image = $this->import_remote_image( $item['src'], $data, $post_id, $id, true );
             } else {
-                // The URLs match. We can simply update data and continue.
-                $this->update_slider_checker( $attach_id, $post_id );
+                // URLs match. Nothing more to do
+                $new_image = array(
+                    'url'           => $item['src'],
+                    'attachment_id' => $id,
+                );
             }
         }
 
-        // Return the modified slider data.
-        return apply_filters( 'soliloquy_imported_image_data', $data, $id, $item, $post_id );
+        // Return the imported image details
+        return apply_filters( 'soliloquy_imported_image_data', $new_image, $id, $item, $post_id );
 
     }
 

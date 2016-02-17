@@ -73,18 +73,17 @@ class Soliloquy_Metaboxes {
      */
     public function meta_box_styles() {
 
-        if ( 'post' !== get_current_screen()->base ) {
+        if ( isset( get_current_screen()->base ) && 'post' !== get_current_screen()->base ) {
             return;
         }
-
-        // We always need to load metabox.css so we fix 4.0 styling on media grid
-        // Load necessary metabox styles.
-        wp_register_style( $this->base->plugin_slug . '-metabox-style', plugins_url( 'assets/css/metabox.css', $this->base->file ), array(), $this->base->version );
-        wp_enqueue_style( $this->base->plugin_slug . '-metabox-style' );
 
         if ( isset( get_current_screen()->post_type ) && in_array( get_current_screen()->post_type, $this->get_skipped_posttypes() ) ) {
             return;
         }
+
+        // Load necessary metabox styles.
+        wp_register_style( $this->base->plugin_slug . '-metabox-style', plugins_url( 'assets/css/metabox.css', $this->base->file ), array(), $this->base->version );
+        wp_enqueue_style( $this->base->plugin_slug . '-metabox-style' );
         
         // If WordPress version < 4.0, add attachment-details-modal-support.css
         // This contains the 4.0 CSS to make the attachment window display correctly
@@ -93,6 +92,10 @@ class Soliloquy_Metaboxes {
             wp_register_style( $this->base->plugin_slug . '-attachment-details-modal-support', plugins_url( 'assets/css/attachment-details-modal-support.css', $this->base->file ), array(), $this->base->version );
             wp_enqueue_style( $this->base->plugin_slug . '-attachment-details-modal-support' );
         }
+
+        // Modal CSS is used for any modals to deal with grids and close buttons, since their styling changes from 4.3
+        wp_register_style( $this->base->plugin_slug . '-modal-style', plugins_url( 'assets/css/modal.css', $this->base->file ), array(), $this->base->version );
+        wp_enqueue_style( $this->base->plugin_slug . '-modal-style' );
 
         // Fire a hook to load in custom metabox styles.
         do_action( 'soliloquy_metabox_styles' );
@@ -123,9 +126,26 @@ class Soliloquy_Metaboxes {
         // Set the post_id for localization.
         $post_id = isset( $post->ID ) ? $post->ID : (int) $id;
 
-        // Load necessary metabox scripts.
+        // Sortables
         wp_enqueue_script( 'jquery-ui-sortable' );
-        wp_enqueue_media( array( 'post' => $post_id ) );
+        
+        // Image Uploader
+        wp_enqueue_media( array( 
+            'post' => $post_id, 
+        ) );
+        add_filter( 'plupload_init', array( $this, 'plupload_init' ) );
+        wp_register_script( $this->base->plugin_slug . '-media-uploader', plugins_url( 'assets/js/media-uploader.js', $this->base->file ), array( 'jquery' ), $this->base->version, true );
+        wp_enqueue_script( $this->base->plugin_slug . '-media-uploader' );
+        wp_localize_script( 
+            $this->base->plugin_slug . '-media-uploader',
+            'soliloquy_media_uploader',
+            array(
+                'ajax'           => admin_url( 'admin-ajax.php' ),
+                'id'             => $post_id,
+                'load_image'     => wp_create_nonce( 'soliloquy-load-image' ),
+                'media_position' => get_option( 'soliloquy_slide_position' ),
+            )
+        );
 
         // Load necessary metabox scripts.
         wp_enqueue_script( 'plupload-handlers' );
@@ -142,7 +162,6 @@ class Soliloquy_Metaboxes {
             array(
                 'ajax'           => admin_url( 'admin-ajax.php' ),
                 'change_nonce'   => wp_create_nonce( 'soliloquy-change-type' ),
-                'slider'         => esc_attr__( 'Click Here to Insert Slides from Other Sources', 'soliloquy' ),
                 'id'             => $post_id,
                 'width'          => Soliloquy_Common::get_instance()->get_config_default( 'slider_width' ),
                 'height'         => Soliloquy_Common::get_instance()->get_config_default( 'slider_height' ),
@@ -155,10 +174,8 @@ class Soliloquy_Metaboxes {
                 'insert_nonce'   => wp_create_nonce( 'soliloquy-insert-images' ),
                 'inserting'      => __( 'Inserting...', 'soliloquy' ),
                 'library_search' => wp_create_nonce( 'soliloquy-library-search' ),
-                'load_image'     => wp_create_nonce( 'soliloquy-load-image' ),
                 'load_slider'    => wp_create_nonce( 'soliloquy-load-slider' ),
                 'path'           => plugin_dir_path( 'assets' ),
-                'plupload'       => $this->get_plupload_init( $post_id ),
                 'refresh_nonce'  => wp_create_nonce( 'soliloquy-refresh' ),
                 'remove'         => __( 'Are you sure you want to remove this slide from the slider?', 'soliloquy' ),
                 'remove_nonce'   => wp_create_nonce( 'soliloquy-remove-slide' ),
@@ -185,9 +202,7 @@ class Soliloquy_Metaboxes {
         wp_enqueue_script( 'jquery-form-conditionals' );
 
         // If on an Soliloquy post type, add custom CSS for hiding specific things.
-        if ( isset( get_current_screen()->post_type ) && 'soliloquy' == get_current_screen()->post_type ) {
-            add_action( 'admin_head', array( $this, 'meta_box_css' ) );
-        }
+        add_action( 'admin_head', array( $this, 'meta_box_css' ) );
 
         // Fire a hook to load custom metabox scripts.
         do_action( 'soliloquy_metabox_scripts' );
@@ -195,62 +210,31 @@ class Soliloquy_Metaboxes {
     }
 
     /**
-     * Returns custom plupload init properties for the media uploader.
-     *
-     * @since 1.0.0
-     *
-     * @param int $post_id The current post ID.
-     * @return array       Array of plupload init data.
-     */
-    public function get_plupload_init( $post_id ) {
+    * Amends the default Plupload parameters for initialising the Media Uploader, to ensure
+    * the uploaded image is attached to our Soliloquy CPT
+    *
+    * @since 1.0.0
+    *
+    * @param array $params Params
+    * @return array Params
+    */
+    public function plupload_init( $params ) {
 
-        // Prepare $_POST form variables and apply backwards compat filter.
-        $post_params = array(
-            'post_id'  => $post_id,
-            '_wpnonce' => wp_create_nonce( 'media-form' ),
-            'type'     => '',
-            'tab'      => '',
-            'short'    => 3
-        );
-        $post_params = apply_filters( 'upload_post_params', $post_params );
+        global $post_ID;
 
-        // Prepare upload size parameters.
-        $max_upload_size = wp_max_upload_size();
+        // Define the Soliloquy ID, so Plupload attaches the uploaded images
+        // to this Slider
+        $params['multipart_params']['post_id'] = $post_ID;
 
-        // Prepare the plupload init array.
-        $plupload_init = array(
-            'runtimes'            => 'html5,silverlight,flash,html4',
-            'browse_button'       => 'soliloquy-plupload-browse-button',
-            'container'           => 'soliloquy-plupload-upload-ui',
-            'drop_element'        => 'soliloquy-drag-drop-area',
-            'file_data_name'      => 'async-upload',
-            'multiple_queues'     => true,
-            'max_file_size'       => $max_upload_size . 'b',
-            'url'                 => admin_url( 'async-upload.php' ),
-            'flash_swf_url'       => includes_url( 'js/plupload/plupload.flash.swf' ),
-            'silverlight_xap_url' => includes_url( 'js/plupload/plupload.silverlight.xap' ),
-            'filters'             => array(
-                array(
-                    'title'       => __( 'Allowed Files', 'soliloquy' ),
-                    'extensions'  => '*'
-                ),
-            ),
-            'multipart'           => true,
-            'urlstream_upload'    => true,
-            'multipart_params'    => $post_params,
-            'resize'              => false
-        );
+        // Build an array of supported file types for Plupload
+        $supported_file_types = Soliloquy_Common::get_instance()->get_supported_filetypes();
 
-        // If we are on a mobile device, disable multi selection.
-        if ( wp_is_mobile() ) {
-            $plupload_init['multi_selection'] = false;
-        }
-
-        // Apply backwards compat filter.
-        $plupload_init = apply_filters( 'plupload_init', $plupload_init );
+        // Assign supported file types and return
+        $params['filters']['mime_types'] = $supported_file_types;
 
         // Return and apply a custom filter to our init data.
-        return apply_filters( 'soliloquy_plupload_init', $plupload_init, $post_id );
+        $params = apply_filters( 'soliloquy_plupload_init', $params, $post_ID );
+        return $params;
 
     }
 
@@ -500,7 +484,7 @@ class Soliloquy_Metaboxes {
     public function do_default_display( $post ) {
         
         // Output the custom media upload form.
-        Soliloquy_Media::get_instance()->media_upload_form();
+        Soliloquy_Media::get_instance()->media_upload_form( $post->ID );
 
         // Prepare output data.
         $slider_data = get_post_meta( $post->ID, '_sol_slider_data', true );
@@ -630,8 +614,16 @@ class Soliloquy_Metaboxes {
                             <span class="spinner soliloquy-spinner"></span>
                         </div>
                     </div>
-                    <?php $library = get_posts( array( 'post_type' => 'attachment', 'post_mime_type' => 'image', 'post_status' => 'inherit', 'posts_per_page' => 20 ) ); ?>
-                    <?php if ( $library ) : ?>
+                    <?php 
+                    $library = get_posts( array( 
+                        'post_type' => 'attachment', 
+                        'post_mime_type' => 'image', 
+                        'post_status' => 'inherit', 
+                        'posts_per_page' => 20,
+                        'suppress_filters' => false, // Required for WPML Media to stop spitting out dupes
+                    ) );
+
+                    if ( $library ) : ?>
                     <ul class="attachments soliloquy-slider">
                     <?php foreach ( (array) $library as $image ) :
                         $has_slider = get_post_meta( $image->ID, '_sol_has_slider', true );
@@ -913,6 +905,24 @@ class Soliloquy_Metaboxes {
                             <span class="description"><?php _e( 'Pauses the slider (if set to autostart) when a visitor hovers over the slider.', 'soliloquy' ); ?></span>
                         </td>
                     </tr>
+                    <tr id="soliloquy-config-resume-box">
+                        <th scope="row">
+                            <label for="soliloquy-config-pause"><?php _e( 'Pause on Navigation?', 'soliloquy' ); ?></label>
+                        </th>
+                        <td>
+                            <input id="soliloquy-config-pause" type="checkbox" name="_soliloquy[pause]" value="<?php echo $this->get_config( 'pause', $this->get_config_default( 'pause' ) ); ?>" <?php checked( $this->get_config( 'pause', $this->get_config_default( 'pause' ) ), 1 ); ?> />
+                            <span class="description"><?php _e( 'To resume autoplay after arrows/control nav are used, disable this option.', 'soliloquy' ); ?></span>
+                        </td>
+                    </tr>
+                    <tr id="soliloquy-config-mousewheel-box">
+                        <th scope="row">
+                            <label for="soliloquy-config-mousewheel"><?php _e( 'Enable Mousewheel Navigation?', 'soliloquy' ); ?></label>
+                        </th>
+                        <td>
+                            <input id="soliloquy-config-mousewheel" type="checkbox" name="_soliloquy[mousewheel]" value="<?php echo $this->get_config( 'mousewheel', $this->get_config_default( 'mousewheel' ) ); ?>" <?php checked( $this->get_config( 'mousewheel', $this->get_config_default( 'mousewheel' ) ), 1 ); ?> />
+                            <span class="description"><?php _e( 'Enables or disables mousewheel navigation in the slider.', 'soliloquy' ); ?></span>
+                        </td>
+                    </tr>
                     <tr id="soliloquy-config-loop-box">
                         <th scope="row">
                             <label for="soliloquy-config-loop"><?php _e( 'Loop Slider?', 'soliloquy' ); ?></label>
@@ -964,7 +974,7 @@ class Soliloquy_Metaboxes {
                         </th>
                         <td>
                             <input id="soliloquy-config-dimensions" type="checkbox" name="_soliloquy[dimensions]" value="<?php echo $this->get_config( 'dimensions', $this->get_config_default( 'dimensions' ) ); ?>" <?php checked( $this->get_config( 'dimensions', $this->get_config_default( 'dimensions' ) ), 1 ); ?> />
-                            <span class="description"><?php _e( 'Enables or disables the width and height attributes on the img element. Only needs to be enabled if you need to meet Google Pagespeeds requirements.', 'soliloquy' ); ?></span>
+                            <span class="description"><?php _e( 'Enables or disables the width and height attributes on the img element. Only needs to be enabled if you need to meet Google Pagespeeds requirements, or if you\'re using Photon CDN and having issues with slider images displaying.', 'soliloquy' ); ?></span>
                         </td>
                     </tr>
                     <tr id="soliloquy-config-slider-box">
@@ -1224,6 +1234,8 @@ class Soliloquy_Metaboxes {
         $settings['config']['pauseplay']     = isset( $_POST['_soliloquy']['pauseplay'] ) ? 1 : 0;
         $settings['config']['mobile_caption']= isset( $_POST['_soliloquy']['mobile_caption'] ) ? 1 : 0;
         $settings['config']['hover']         = isset( $_POST['_soliloquy']['hover'] ) ? 1 : 0;
+        $settings['config']['pause']         = isset( $_POST['_soliloquy']['pause'] ) ? 1 : 0;
+        $settings['config']['mousewheel']    = isset( $_POST['_soliloquy']['mousewheel'] ) ? 1 : 0;
         $settings['config']['slider']        = isset( $_POST['_soliloquy']['slider'] ) ? 1 : 0;
         $settings['config']['mobile']        = isset( $_POST['_soliloquy']['mobile'] ) ? 1 : 0;
         $settings['config']['mobile_width']  = absint( $_POST['_soliloquy']['mobile_width'] );

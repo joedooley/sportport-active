@@ -163,7 +163,7 @@ class Soliloquy_Updater {
 
 		// Run update check by pinging the external API. If it fails, return the default update object.
 		if ( ! $this->update ) {
-	        $this->update = $this->perform_remote_request( 'get-plugin-update', array( 'tgm-updater-plugin' => $this->plugin_slug ) );
+            $this->update = $this->perform_remote_request( 'get-plugin-update', array( 'tgm-updater-plugin' => $this->plugin_slug ) );
 	        if ( ! $this->update || ! empty( $this->update->error ) ) {
 		        $this->update = false;
 	            return $value;

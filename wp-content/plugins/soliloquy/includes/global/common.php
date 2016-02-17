@@ -320,6 +320,8 @@ class Soliloquy_Common {
             'pauseplay'         => 0,
             'mobile_caption'    => 0,
             'hover'             => 0,
+            'pause'             => 1,
+            'mousewheel'        => 0,
             'keyboard'          => 1,
             'css'               => 1,
             'loop'              => 1,
@@ -336,6 +338,28 @@ class Soliloquy_Common {
         );
         return apply_filters( 'soliloquy_defaults', $defaults, $post_id );
 
+    }
+
+    /**
+     * Returns an array of supported file type groups and file types
+     *
+     * @since 2.4.3
+     *
+     * @return array Supported File Types
+     */
+    public function get_supported_filetypes() {
+
+        $supported_file_types = array(
+            array(
+                'title'     => __( 'Image Files', 'soliloquy' ),
+                'extensions'=> 'jpg,jpeg,jpe,gif,png,bmp,tif,tiff,JPG,JPEG,JPE,GIF,PNG,BMP,TIF,TIFF',
+            ),
+        );
+
+        // Allow Developers and Addons to filter the supported file types
+        $supported_file_types = apply_filters( 'soliloquy_supported_file_types', $supported_file_types );
+
+        return $supported_file_types;
     }
 
     /**

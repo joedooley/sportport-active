@@ -63,11 +63,7 @@
             }
         });
 
-        // Load plupload if necessary.
-        var soliloquy_uploader;
-        if ( $('input[name="_soliloquy[type]"]').length > 0 && 'default' == $('input[name="_soliloquy[type]"]:checked').val() ) {
-            soliloquyPlupload();
-        }
+        
 
         // Handle the meta icon helper.
         if ( 0 !== $('.soliloquy-helper-needed').length ) {
@@ -111,7 +107,7 @@
                     // Append the response data.
                     if ( 'default' == response.type ) {
                         $('#soliloquy-slider-main').html(response.html);
-                        soliloquyPlupload();
+                        // soliloquyPlupload();
                     } else {
                         $('#soliloquy-slider-main').html(response.html);
                     }
@@ -803,163 +799,6 @@
                 },
                 'json'
             );
-        }
-
-        // Function to initialize plupload.
-        function soliloquyPlupload() {
-            // Append the custom loading progress bar.
-            $('#soliloquy .drag-drop-inside').append('<div class="soliloquy-progress-bar"><div></div></div>');
-
-            // Prepare variables.
-            soliloquy_uploader     = new plupload.Uploader(soliloquy_metabox.plupload);
-            var soliloquy_bar      = $('#soliloquy .soliloquy-progress-bar'),
-                soliloquy_progress = $('#soliloquy .soliloquy-progress-bar div'),
-                soliloquy_output   = $('#soliloquy-output');
-
-            // Only move forward if the uploader is present.
-            if ( soliloquy_uploader ) {
-                // Append a link to use images from the user's media library.
-                $('#soliloquy .max-upload-size').append(' <a class="soliloquy-media-library button button-primary" href="#" title="' + soliloquy_metabox.slider + '" style="vertical-align: baseline;">' + soliloquy_metabox.slider + '</a>');
-
-                soliloquy_uploader.bind('Init', function(up) {
-                    var uploaddiv = $('#soliloquy-plupload-upload-ui');
-
-                    // If drag and drop, make that happen.
-                    if ( up.features.dragdrop && ! $(document.body).hasClass('mobile') ) {
-                        uploaddiv.addClass('drag-drop');
-                        $('#soliloquy-drag-drop-area').bind('dragover.wp-uploader', function(){
-                            uploaddiv.addClass('drag-over');
-                        }).bind('dragleave.wp-uploader, drop.wp-uploader', function(){
-                            uploaddiv.removeClass('drag-over');
-                        });
-                    } else {
-                        uploaddiv.removeClass('drag-drop');
-                        $('#soliloquy-drag-drop-area').unbind('.wp-uploader');
-                    }
-
-                    // If we have an HTML4 runtime, hide the flash bypass.
-                    if ( up.runtime == 'html4' )
-                        $('.upload-flash-bypass').hide();
-                });
-
-                // Initialize the uploader.
-                soliloquy_uploader.init();
-
-                // Bind to the FilesAdded event to show the progess bar.
-                soliloquy_uploader.bind('FilesAdded', function(up, files){
-                    var hundredmb = 100 * 1024 * 1024,
-                        max       = parseInt(up.settings.max_file_size, 10);
-
-                    // Remove any errors.
-                    $('#soliloquy-upload-error').html('');
-
-                    // Show the progress bar.
-                    $(soliloquy_bar).show().css('display', 'block');
-
-                    // Upload the files.
-                    plupload.each(files, function(file){
-                        if ( max > hundredmb && file.size > hundredmb && up.runtime != 'html5' ) {
-                            soliloquyUploadError( up, file, true );
-                        }
-                    });
-
-                    // Refresh and start.
-                    up.refresh();
-                    up.start();
-                });
-
-                // Bind to the UploadProgress event to manipulate the progress bar.
-                soliloquy_uploader.bind('UploadProgress', function(up, file){
-                    $(soliloquy_progress).css('width', up.total.percent + '%');
-                });
-
-                // Bind to the FileUploaded event to set proper UI display for slider.
-                soliloquy_uploader.bind('FileUploaded', function(up, file, info){
-                    // Make an ajax request to generate and output the image in the slider UI.
-                    $.post(
-                        soliloquy_metabox.ajax,
-                        {
-                            action:  'soliloquy_load_image',
-                            nonce:   soliloquy_metabox.load_image,
-                            id:      info.response,
-                            post_id: soliloquy_metabox.id
-                        },
-                        function(res){
-                            soliloquyRefresh();
-                        },
-                        'json'
-                    );
-                });
-
-                // Bind to the UploadComplete event to hide and reset the progress bar.
-                soliloquy_uploader.bind('UploadComplete', function(){
-                    $(soliloquy_bar).hide().css('display', 'none');
-                    $(soliloquy_progress).removeAttr('style');
-                });
-
-                // Bind to any errors and output them on the screen.
-                soliloquy_uploader.bind('Error', function(up, error) {
-	                var hundredmb = 100 * 1024 * 1024,
-                        error_el  = $('#soliloquy-upload-error'),
-                        max;
-                    switch (error.code) {
-                        case plupload.FAILED:
-                        case plupload.FILE_EXTENSION_ERROR:
-                            error_el.html('<p class="error">' + pluploadL10n.upload_failed + '</p>');
-                            break;
-                        case plupload.FILE_SIZE_ERROR:
-                        	soliloquyUploadError(up, error.file);
-                            break;
-                        case plupload.IMAGE_FORMAT_ERROR:
-                            wpFileError(error.file, pluploadL10n.not_an_image);
-                            break;
-                        case plupload.IMAGE_MEMORY_ERROR:
-                            wpFileError(error.file, pluploadL10n.image_memory_exceeded);
-                            break;
-                        case plupload.IMAGE_DIMENSIONS_ERROR:
-                            wpFileError(error.file, pluploadL10n.image_dimensions_exceeded);
-                            break;
-                        case plupload.GENERIC_ERROR:
-                            wpQueueError(pluploadL10n.upload_failed);
-                            break;
-                        case plupload.IO_ERROR:
-                            max = parseInt(uploader.settings.max_file_size, 10);
-
-                            if ( max > hundredmb && error.file.size > hundredmb )
-                                wpFileError(error.file, pluploadL10n.big_upload_failed.replace('%1$s', '<a class="uploader-html" href="#">').replace('%2$s', '</a>'));
-                            else
-                                wpQueueError(pluploadL10n.io_error);
-                            break;
-                        case plupload.HTTP_ERROR:
-                            wpQueueError(pluploadL10n.http_error);
-                            break;
-                        case plupload.INIT_ERROR:
-                            $('.media-upload-form').addClass('html-uploader');
-                            break;
-                        case plupload.SECURITY_ERROR:
-                            wpQueueError(pluploadL10n.security_error);
-                            break;
-                        default:
-                            soliloquyUploadError(up, error.file);
-                            break;
-                    }
-                    up.refresh();
-                });
-            }
-        }
-
-        // Function for displaying file upload errors.
-        function soliloquyUploadError( up, file, over100mb ) {
-            var message;
-
-            if ( over100mb ) {
-                message = pluploadL10n.big_upload_queued.replace('%s', file.name) + ' ' + pluploadL10n.big_upload_failed.replace('%1$s', '<a class="uploader-html" href="#">').replace('%2$s', '</a>');
-            } else {
-                message = pluploadL10n.file_exceeds_size_limit.replace('%s', file.name);
-			}
-			
-            $('#soliloquy-upload-error').html('<div class="error fade"><p>' + message + '</p></div>');
-            up.removeFile(file);
         }
     });
 }(jQuery));

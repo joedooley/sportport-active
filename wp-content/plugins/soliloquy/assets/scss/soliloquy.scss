@@ -84,6 +84,11 @@
 }
 .soliloquy-container a {
     outline: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -ms-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;
 }
 .soliloquy-container .soliloquy-item, .soliloquy-container .soliloquy-wrapper {
     width: 100%;
@@ -122,6 +127,12 @@
     outline: 0;
     width: 100%;
     position: relative;
+}
+.soliloquy-container .soliloquy-clone {
+    display: none;
+}
+.soliloquy-carousel .soliloquy-container .soliloquy-clone {
+    display: block;
 }
 .soliloquy-container .soliloquy-image {
     max-width: 100%;

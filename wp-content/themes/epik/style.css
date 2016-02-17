@@ -5782,6 +5782,46 @@ body.home .woocommerce ul.product_list_widget li img { width: 90px; }
     margin-bottom: 0 !important;
 }
 
+div.soliloquy-container .soliloquy-caption .soliloquy-caption-inside {
+    background: transparent;
+}
 
+div.soliloquy-container .slider-heading {
+    text-transform: uppercase;
+    white-space: nowrap;
+    line-height: 70px;
+    border-width: 0px;
+    margin: 0px;
+    padding: 10px 0px;
+    letter-spacing: 0px;
+    font-weight: 800;
+    font-size: 70px;
+    opacity: 1;
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform-origin: 50% 50% 0px;
+}
 
+div.soliloquy-container .soliloquy-caption  .soliloquy-caption-inside {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 530px;
+}
 
+div.soliloquy-container .soliloquy-caption-inside > div {
+    display: inline-block;
+    margin: 230px;
+}
+
+.slide-1 .slider-copy.black {
+    text-align: right;
+    color: #000;
+}
+
+.slide-1 .slider-copy {
+    text-align: left;
+    line-height: 1.5;
+    text-transform: uppercase;
+    color: #000;
+    font-size: 16px;
+}
