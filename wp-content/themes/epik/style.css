@@ -5802,15 +5802,30 @@ div.soliloquy-container .slider-heading {
 }
 
 div.soliloquy-container .soliloquy-caption  .soliloquy-caption-inside {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 530px;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    padding-top: 10%;
 }
 
+@media only screen and (max-width: 960px) {
+    div.soliloquy-container .soliloquy-caption  .soliloquy-caption-inside {
+        display: none;
+    }
+}
+
+
 div.soliloquy-container .soliloquy-caption-inside > div {
-    display: inline-block;
-    margin: 230px;
+    margin: 0 16%;
 }
 
 .slide-1 .slider-copy.black {
@@ -5824,4 +5839,14 @@ div.soliloquy-container .soliloquy-caption-inside > div {
     text-transform: uppercase;
     color: #000;
     font-size: 16px;
+}
+
+.slide-1 .slider-right > p {
+    width: 300px;
+}
+
+@media only screen and (max-width: 480px) {
+    div.soliloquy-container .soliloquy-controls-direction {
+        display: none !important;
+    }
 }

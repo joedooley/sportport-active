@@ -24,6 +24,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	opacity:1;
 }
 
+.animated {
+   -webkit-animation-duration: 1s;
+      -moz-animation-duration: 1s;
+        -ms-animation-duration: 1s;
+          -o-animation-duration: 1s;
+}
 
 /*Delay classes*/
 .delay1 {
