@@ -14,7 +14,7 @@ function epik_enqueue_scripts_styles() {
 	wp_enqueue_style( 'dashicons' );
 	wp_enqueue_style( 'google-font', '//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', array(), PARENT_THEME_VERSION );
 	wp_enqueue_style( 'prefix-font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css', array(), '4.0.3' );
-	
+
 }
 
 //* Add Image upload to WordPress Theme Customizer
@@ -22,7 +22,7 @@ add_action( 'customize_register', 'epik_customizer' );
 function epik_customizer(){
 
 	require_once( get_stylesheet_directory() . '/lib/customize.php' );
-	
+
 }
 
 //* Include Section Image CSS
@@ -38,16 +38,16 @@ add_theme_support( 'genesis-responsive-viewport' );
 add_theme_support( 'custom-background' );
 
 // Create additional color style options
-add_theme_support( 'genesis-style-selector', array( 
-	'epik-black' 		=>	__( 'Black', 'epik' ),	
+add_theme_support( 'genesis-style-selector', array(
+	'epik-black' 		=>	__( 'Black', 'epik' ),
 	'epik-blue' 		=>	__( 'Blue', 'epik' ),
 	'epik-darkblue'		=>	__( 'Dark Blue', 'epik' ),
-	'epik-gray' 		=> 	__( 'Gray', 'epik' ),	
+	'epik-gray' 		=> 	__( 'Gray', 'epik' ),
 	'epik-green' 		=> 	__( 'Green', 'epik' ),
-	'epik-orange' 		=> 	__( 'Orange', 'epik' ), 
+	'epik-orange' 		=> 	__( 'Orange', 'epik' ),
 	'epik-pink' 		=> 	__( 'Pink', 'epik' ),
-	'epik-purple' 		=> 	__( 'Purple', 'epik' ), 
-	'epik-red' 			=> 	__( 'Red', 'epik' ),	 
+	'epik-purple' 		=> 	__( 'Purple', 'epik' ),
+	'epik-red' 			=> 	__( 'Red', 'epik' ),
 ) );
 
 //* Add support for custom header
@@ -58,7 +58,7 @@ add_theme_support( 'custom-header', array(
 	'header-text'     => false,
 ) );
 
-// Add new image sizes 
+// Add new image sizes
 add_image_size( 'featured-img', 730, 420, TRUE );
 add_image_size( 'featured-page', 341, 173, TRUE );
 add_image_size( 'portfolio-thumbnail', 264, 200, TRUE );
@@ -94,17 +94,17 @@ function after_header_wrap() {
 }
 
 //* Hooks after-entry widget area to single posts
-add_action( 'genesis_after_entry', 'after_entry_widget', 5  ); 
+add_action( 'genesis_after_entry', 'after_entry_widget', 5  );
 function after_entry_widget() {
- 
+
     if ( ! is_singular( 'post' ) )
     	return;
- 
+
     genesis_widget_area( 'after-entry', array(
 		'before' => '<div class="after-entry widget-area"><div class="wrap">',
 		'after'  => '</div></div>',
     ) );
- 
+
 }
 
 // Customize search form input box text
@@ -113,52 +113,52 @@ function custom_search_text($text) {
     return esc_attr( 'Search...' );
 }
 
-add_action( 'admin_menu', 'epik_theme_settings_init', 15 ); 
-/** 
- * This is a necessary go-between to get our scripts and boxes loaded 
- * on the theme settings page only, and not the rest of the admin 
- */ 
-function epik_theme_settings_init() { 
-    global $_genesis_admin_settings; 
-     
-    add_action( 'load-' . $_genesis_admin_settings->pagehook, 'epik_add_portfolio_settings_box', 20 ); 
-} 
+add_action( 'admin_menu', 'epik_theme_settings_init', 15 );
+/**
+ * This is a necessary go-between to get our scripts and boxes loaded
+ * on the theme settings page only, and not the rest of the admin
+ */
+function epik_theme_settings_init() {
+    global $_genesis_admin_settings;
 
-// Add Portfolio Settings box to Genesis Theme Settings 
-function epik_add_portfolio_settings_box() { 
-    global $_genesis_admin_settings; 
-     
-    add_meta_box( 'genesis-theme-settings-epik-portfolio', __( 'Portfolio Page Settings', 'epik' ), 'epik_theme_settings_portfolio',     $_genesis_admin_settings->pagehook, 'main' ); 
-}  
-	
-/** 
+    add_action( 'load-' . $_genesis_admin_settings->pagehook, 'epik_add_portfolio_settings_box', 20 );
+}
+
+// Add Portfolio Settings box to Genesis Theme Settings
+function epik_add_portfolio_settings_box() {
+    global $_genesis_admin_settings;
+
+    add_meta_box( 'genesis-theme-settings-epik-portfolio', __( 'Portfolio Page Settings', 'epik' ), 'epik_theme_settings_portfolio',     $_genesis_admin_settings->pagehook, 'main' );
+}
+
+/**
  * Adds Portfolio Options to Genesis Theme Settings Page
- */ 	
+ */
 function epik_theme_settings_portfolio() { ?>
 
 	<p><?php _e("Display which category:", 'genesis'); ?>
 	<?php wp_dropdown_categories(array('selected' => genesis_get_option('epik_portfolio_cat'), 'name' => GENESIS_SETTINGS_FIELD.'[epik_portfolio_cat]', 'orderby' => 'Name' , 'hierarchical' => 1, 'show_option_all' => __("All Categories", 'genesis'), 'hide_empty' => '0' )); ?></p>
-	
+
 	<p><?php _e("Exclude the following Category IDs:", 'genesis'); ?><br />
 	<input type="text" name="<?php echo GENESIS_SETTINGS_FIELD; ?>[epik_portfolio_cat_exclude]" value="<?php echo esc_attr( genesis_get_option('epik_portfolio_cat_exclude') ); ?>" size="40" /><br />
 	<small><strong><?php _e("Comma separated - 1,2,3 for example", 'genesis'); ?></strong></small></p>
-	
+
 	<p><?php _e('Number of Posts to Show', 'genesis'); ?>:
 	<input type="text" name="<?php echo GENESIS_SETTINGS_FIELD; ?>[epik_portfolio_cat_num]" value="<?php echo esc_attr( genesis_option('epik_portfolio_cat_num') ); ?>" size="2" /></p>
-	
+
 	<p><span class="description"><?php _e('<b>NOTE:</b> The Portfolio Page displays the "Portfolio Page" image size plus the excerpt or full content as selected below.', 'epik'); ?></span></p>
-	
+
 	<p><?php _e("Select one of the following:", 'genesis'); ?>
 	<select name="<?php echo GENESIS_SETTINGS_FIELD; ?>[epik_portfolio_content]">
 		<option style="padding-right:10px;" value="full" <?php selected('full', genesis_get_option('epik_portfolio_content')); ?>><?php _e("Display post content", 'genesis'); ?></option>
 		<option style="padding-right:10px;" value="excerpts" <?php selected('excerpts', genesis_get_option('epik_portfolio_content')); ?>><?php _e("Display post excerpts", 'genesis'); ?></option>
 	</select></p>
-	
+
 	<p><label for="<?php echo GENESIS_SETTINGS_FIELD; ?>[epik_portfolio_content_archive_limit]"><?php _e('Limit content to', 'genesis'); ?></label> <input type="text" name="<?php echo GENESIS_SETTINGS_FIELD; ?>[epik_portfolio_content_archive_limit]" id="<?php echo GENESIS_SETTINGS_FIELD; ?>[epik_portfolio_content_archive_limit]" value="<?php echo esc_attr( genesis_option('epik_portfolio_content_archive_limit') ); ?>" size="3" /> <label for="<?php echo GENESIS_SETTINGS_FIELD; ?>[epik_portfolio_content_archive_limit]"><?php _e('characters', 'genesis'); ?></label></p>
-	
+
 	<p><span class="description"><?php _e('<b>NOTE:</b> Using this option will limit the text and strip all formatting from the text displayed. To use this option, choose "Display post content" in the select box above.', 'genesis'); ?></span></p>
 <?php
-}	
+}
 
 //* Add support for 3-column footer widgets
 add_theme_support( 'genesis-footer-widgets', 3 );
@@ -280,70 +280,70 @@ remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
  * on how to more fully integrate WooCommerce into Genesis
 */
 /* WooCommerce Integration */
- 
+
 remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
- 
+
 add_action('woocommerce_before_main_content', 'vr_theme_wrapper_start', 10);
 add_action('woocommerce_after_main_content', 'vr_theme_wrapper_end', 10);
- 
+
 function vr_theme_wrapper_start() {
- 
+
  // Remove .entry class from WooCommerce div content container
  function vr_post_class( $wp_classes, $extra_classes )
  {
      // List of the only WP generated classes that are not allowed
      $blacklist = array( 'entry' );
- 
+
      // Blacklist result:
      $wp_classes = array_diff( $wp_classes, $blacklist );
- 
+
      // Add the extra classes back untouched
      return array_merge( $wp_classes, (array) $extra_classes );
  }
  add_filter( 'post_class', 'vr_post_class', 10, 2 );
- 
+
  // Add 'page' class to <article>
  function vr_extra_article_class( $attributes ) {
    $attributes['class'] = $attributes['class']. ' page';
      return $attributes;
  }
  add_filter( 'genesis_attr_entry', 'vr_extra_article_class' );
- 
+
  // Add containers around content
  do_action( 'genesis_before_entry' );
- 
+
  printf( '<article %s>', genesis_attr( 'entry' ) );
- 
+
  // uncomment to add post/page title
  /* do_action( 'genesis_entry_header' ); */
- 
+
  // uncomment to add by-lines
  /* do_action( 'genesis_before_entry_content' ); */
- 
+
  printf( '<div %s>', genesis_attr( 'entry-content' ) );
 }
- 
+
 function vr_theme_wrapper_end() {
  echo '</div>';
- 
+
  do_action( 'genesis_after_entry_content' );
- 
+
  // Uncomment to display categories & tags
  /* do_action( 'genesis_entry_footer' ); */
- 
+
  echo '</article>';
- 
+
  do_action( 'genesis_after_entry' );
 }
- 
+
 add_theme_support( 'genesis-connect-woocommerce' );
 add_theme_support('woocommerce');
- 
+
 
 /**
  * see http://www.carriedils.com/woocommerce-genesis-important-style/ about
- * when using Woo and Genesis, we want Genesis CSS to load later 
+ * when using Woo and Genesis, we want Genesis CSS to load later
  * Remove Genesis child theme style sheet
  * @uses  genesis_meta  <genesis/lib/css/load-styles.php>
 */
@@ -357,7 +357,7 @@ add_action( 'wp_enqueue_scripts', 'genesis_enqueue_main_stylesheet', 15 );
 
 /**
  * Add floating logo
-*/ 
+*/
 
 add_action( 'genesis_before', 'add_logo_div' );
 
@@ -400,67 +400,26 @@ return $args;
 /* Add body class to every page with a category */
 
 function pn_body_class_add_categories( $classes ) {
- 
+
 	// Only proceed if we're on a single post page
 	if ( !is_single() )
 		return $classes;
- 
+
 	// Get the categories that are assigned to this post
 	$post_categories = get_the_category();
- 
+
 	// Loop over each category in the $categories array
 	foreach( $post_categories as $current_category ) {
- 
+
 		// Add the current category's slug to the $body_classes array
 		$classes[] = 'category-' . $current_category->slug;
- 
+
 	}
- 
+
 	// Finally, return the $body_classes array
 	return $classes;
 }
 add_filter( 'body_class', 'pn_body_class_add_categories' );
-
-/**
-* Plugin Name: Envira Gallery - Image Captions below Thumbnails
-* Plugin URI: http://enviragallery.com
-* Version: 1.0
-* Author: Tim Carr
-* Author URI: http://www.n7studios.co.uk
-* Description: Display captions below images
-*/
-
-/**
-* Display image captions below thumbnails
-*
-* @param string	$output	Output HTML
-* @param int $id Image Attachment ID
-* @param array $item Image Data
-* @param array $data Gallery Data
-* @param int $i Image Count
-* @return string Output HTML
-*/
-function envira_gallery_image_captions( $output, $id, $item, $data, $i ) {
-	
-	// IDs of galleries to display captions on
-	$galleriesToShowCaptions = array(
-		391,
-		392	
-	);
-	
-	// Check if we need to display captions on this gallery
-	if ( !in_array( $data['id'], $galleriesToShowCaptions ) ) {
-		return $output;
-	}
-
-	if ( isset( $item['caption'] )) {
-		$output .= '<span class="caption">' . $item['caption'] . '</span>';
-	}
-
-	return $output;
-	
-}
-add_action( 'envira_gallery_output_after_link', 'envira_gallery_image_captions', 10, 5 );
 
 
 //* END GRITEYE CUSTOM ================================================================
@@ -471,7 +430,7 @@ add_action( 'envira_gallery_output_after_link', 'envira_gallery_image_captions',
 add_action( 'genesis_before', 'spa_google_tag_manager' );
 /**
  * Add required Google Tag Manager script
- * after the opening <body> tag. Needed for 
+ * after the opening <body> tag. Needed for
  * Google Tag Manager for WordPress plugin.
  *
  * @return 		void
@@ -479,7 +438,7 @@ add_action( 'genesis_before', 'spa_google_tag_manager' );
  *
  */
 function spa_google_tag_manager() {
-	if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { 
+	if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) {
 		gtm4wp_the_gtm_tag();
 	}
 }
