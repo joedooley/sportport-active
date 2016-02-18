@@ -5845,8 +5845,4 @@ div.soliloquy-container .soliloquy-caption-inside > div {
     width: 300px;
 }
 
-@media only screen and (max-width: 480px) {
-    div.soliloquy-container .soliloquy-controls-direction {
-        display: none !important;
-    }
-}
+
