@@ -66,10 +66,42 @@ else:
     /**#@-*/
 
     /** A couple extra tweaks to help things run well on Pantheon. **/
-    if (isset($_SERVER['HTTP_HOST'])) {
-      define('WP_HOME', 'http://' . $_SERVER['HTTP_HOST']);
-      define('WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST']);
+    /**  Modified settings for SSL and Cloudflare DNS **/
+    if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
+      if ($_ENV['PANTHEON_ENVIRONMENT'] === 'dev') {
+        $domain = 'dev.sportportactive.com';
+      }
+      if ($_ENV['PANTHEON_ENVIRONMENT'] === 'test') {
+        $domain = 'test.sportportactive.com';
+      }
+      if ($_ENV['PANTHEON_ENVIRONMENT'] === 'live') {
+        $domain = 'www.sportportactive.com';
+      }
+      else {
+        # Fallback value for multidev or other environments.
+        # This covers environment-sitename.pantheon.io domains
+        # that are generated per environment.
+        $domain = $_SERVER['HTTP_HOST'];
+      }
+
+      # Define constants for WordPress on Pantheon.
+      define('WP_HOME', 'https://' . $domain);
+      define('WP_SITEURL', 'https://' . $domain);
+
     }
+
+    // Require HTTPS, www.
+    if (isset($_SERVER['PANTHEON_ENVIRONMENT']) &&
+      $_SERVER['PANTHEON_ENVIRONMENT'] === 'live') {
+      if ($_SERVER['HTTP_HOST'] != 'www.sportportactive.com' ||
+          !isset($_SERVER['HTTP_X_SSL']) ||
+          $_SERVER['HTTP_X_SSL'] != 'ON' ) {
+        header('HTTP/1.0 301 Moved Permanently');
+        header('Location: https://www.sportportactive.com'. $_SERVER['REQUEST_URI']);
+        exit();
+      }
+    }
+    
     // Don't show deprecations; useful under PHP 5.5
     error_reporting(E_ALL ^ E_DEPRECATED);
     // Force the use of a safe temp directory when in a container
@@ -140,11 +172,10 @@ if ( ! defined( 'WP_DEBUG' ) ) {
     define('WP_DEBUG', false);
 }
 
-define('WPCACHEHOME', '/srv/bindings/6a73891ea08745ea958ca11e899d29ad/code/wp-content/plugins/wp-super-cache/');
+
 define('AUTOSAVE_INTERVAL', 600);
 define('WP_POST_REVISIONS', 1);
-define('WP_CRON_LOCK_TIMEOUT', 120);
-define('WP_AUTO_UPDATE_CORE', true);
+
 
 /* That's all, stop editing! Happy Pressing. */
 
