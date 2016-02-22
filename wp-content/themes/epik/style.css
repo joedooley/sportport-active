@@ -518,27 +518,35 @@ body.page-template-page_blog .post-image.entry-image {
 	text-transform: uppercase; }
 
 .sp-start-graph {
-	color: #C22;
-	font-size: 1.5em;
-	line-height: 1.35;
-	margin-bottom: 15px; }
+	background: #F93;
+	font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: #FFF;
+	font-size: 1.2em;
+	line-height: 1.4;
+	margin: 15px 0 18px 0;
+	padding: 15px 20px 16px 20px; }
+
+.sp-start-graph a,
+.sp-close-graph a { color: #FE8 !important; }
+.sp-start-graph a:hover,
+.sp-close-graph a:hover { color: #FFF !important; }
 
 .sp-intro-graph {
 	display: inline-block;
-	font-family: ralewaymedium, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	color: #C22;
+	font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: #E70;
 	font-size: 1.2em;
 	line-height: 1.42;
-	margin: 12px 0 12px 0; }
+	margin: 4px 0 12px 0; }
 
 .sp-start-graph h2 {
 	margin-bottom: 0; }
 
 .sp-close-graph {
 	background: #F93;
-	font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-family: ralewaymedium, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	color: #FFF;
-	font-size: 1.2em;
+	font-size: 1.1em;
 	line-height: 1.4;
 	margin: 15px 0 35px 0;
 	padding: 15px 20px 20px 20px; }
@@ -5846,5 +5854,3 @@ div.soliloquy-container .soliloquy-caption-inside > div {
 .slide-1 .slider-right > p {
     width: 300px;
 }
-
-
