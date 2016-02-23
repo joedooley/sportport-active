@@ -14,13 +14,6 @@
 
 */
 
-/* comment
-body.sport { display: block; }
-
-
-
-*/
-
 /* Table of Contents
 
 	- HTML5 Reset
@@ -523,7 +516,7 @@ body.page-template-page_blog .post-image.entry-image {
 	text-transform: uppercase; }
 
 .sp-start-graph {
-	background: #F93;
+	background: #FF9933;
 	font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	color: #FFF;
 	font-size: 1.2em;
