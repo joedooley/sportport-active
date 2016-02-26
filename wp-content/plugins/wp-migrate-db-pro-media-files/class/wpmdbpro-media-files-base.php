@@ -232,12 +232,16 @@ class WPMDBPro_Media_Files_Base extends WPMDBPro_Addon {
 		// Get file paths from attachments
 		foreach ( $local_media_attachments['attachments'] as $blog_id => $attachments ) {
 			foreach ( $attachments as $attachment ) {
-				$local_media_attachment_files[] = $attachment['file'];
-				$last_attachment_id             = $attachment['ID'];
+				if ( ! empty( $attachment['file_size'] ) ) {
+					$local_media_attachment_files[] = $attachment['file'];
+					$last_attachment_id             = $attachment['ID'];
+				}
 
 				if ( isset( $attachment['sizes'] ) && ! empty( $attachment['sizes'] ) ) {
 					foreach ( $attachment['sizes'] as $size ) {
-						$local_media_attachment_files[] = $size['file'];
+						if ( ! empty( $size['file_size'] ) ) {
+							$local_media_attachment_files[] = $size['file'];
+						}
 					}
 				}
 			}

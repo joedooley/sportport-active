@@ -69,7 +69,7 @@ class WPMDBPro_Media_Files_Remote extends WPMDBPro_Media_Files_Base {
 		$return['remote_total_attachments'] = $this->get_local_attachments_count();
 		$return['remote_uploads_url']       = $upload_url;
 		$return['blogs']                    = serialize( $this->get_blogs() );
-		$return['remote_max_upload_size']   = wp_max_upload_size();
+		$return['remote_max_upload_size']   = $this->get_max_upload_size();
 
 		$result = $this->end_ajax( serialize( $return ) );
 

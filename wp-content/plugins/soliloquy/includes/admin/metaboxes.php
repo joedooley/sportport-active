@@ -526,14 +526,14 @@ class Soliloquy_Metaboxes {
         ?>
         <div class="soliloquy-meta-helper <?php echo $class; ?>">
             <span class="soliloquy-meta-close-text"><?php _e( '(click the icon to open and close the overlay dialog)', 'soliloquy' ); ?></span>
-            <a href="#" class="soliloquy-meta-icon" title="<?php esc_attr__( 'Click here to view meta information about this slider.', 'soliloquy' ); ?>"></a>
+            <a href="#" class="soliloquy-meta-icon" title="<?php esc_attr_e( 'Click here to view meta information about this slider.', 'soliloquy' ); ?>"></a>
             <div class="soliloquy-meta-information">
-                <p><?php _e( 'You can place this slider anywhere into your posts, pages, custom post types or widgets by using <strong>one</strong> the shortcode(s) below:', 'soliloquy' ); ?></p>
+                <p><?php _e( 'You can place this slider anywhere into your posts, pages, custom post types or widgets by using <strong>one</strong> of the shortcode(s) below:', 'soliloquy' ); ?></p>
                 <code><?php echo '[soliloquy id="' . $post->ID . '"]'; ?></code>
                 <?php if ( ! empty( $slider_data['config']['slug'] ) ) : ?>
                     <br><code><?php echo '[soliloquy slug="' . $slider_data['config']['slug'] . '"]'; ?></code>
                 <?php endif; ?>
-                <p><?php _e( 'You can also place this slider into your template files by using <strong>one</strong> the template tag(s) below:', 'soliloquy' ); ?></p>
+                <p><?php _e( 'You can also place this slider into your template files by using <strong>one</strong> of the template tag(s) below:', 'soliloquy' ); ?></p>
                 <code><?php echo 'if ( function_exists( \'soliloquy\' ) ) { soliloquy( \'' . $post->ID . '\' ); }'; ?></code>
                 <?php if ( ! empty( $slider_data['config']['slug'] ) ) : ?>
                     <br><code><?php echo 'if ( function_exists( \'soliloquy\' ) ) { soliloquy( \'' . $slider_data['config']['slug'] . '\', \'slug\' ); }'; ?></code>
@@ -675,7 +675,7 @@ class Soliloquy_Metaboxes {
                     <div class="media-sidebar">
                         <div class="soliloquy-meta-sidebar">
                             <h3><?php _e( 'Helpful Tips', 'soliloquy' ); ?></h3>
-                            <strong>Creating Video Slides</strong>
+                            <strong><?php _e( 'Creating Video Slides', 'soliloquy' ); ?></strong>
                             <p><?php _e( 'Video links can be from either YouTube, Vimeo, Wistia or local videos. They <strong>must</strong> follow one of the formats listed below:', 'soliloquy' ) ?></p>
                             
                             <div class="soliloquy-accepted-urls">                               

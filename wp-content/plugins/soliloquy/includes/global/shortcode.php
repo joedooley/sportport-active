@@ -472,7 +472,7 @@ class Soliloquy_Shortcode {
         $output  = apply_filters( 'soliloquy_output_before_link', $output, $id, $item, $data, $i );
         
         // Filter CSS classes to apply to the link
-        $classes = apply_filters( 'soliloquy_get_video_slide_link_classes', array( 'soliloquy-video-link' ), $id, $item, $data, $i );
+        $classes = apply_filters( 'soliloquy_get_video_slide_link_classes', array( 'soliloquy-video-link', 'soliloquy-link' ), $id, $item, $data, $i );
 
         $output .= '<a href="#" class="' . implode( ' ', $classes ) . '" title="' . esc_attr( $item['title'] ) . '"' . apply_filters( 'soliloquy_output_link_attr', '', $id, $item, $data, $i ) . '>';
 
@@ -941,7 +941,6 @@ class Soliloquy_Shortcode {
                         soliloquy_container_<?php echo $data['id']; ?>.find('.soliloquy-controls').addClass('soliloquy-hide');
                     }
                     soliloquy_<?php echo $data['id']; ?>.find('.soliloquy-item:not(.soliloquy-clone):eq(' + currentIndex + ')').addClass('soliloquy-active-slide').attr('aria-hidden','false');
-                    soliloquy_container_<?php echo $data['id']; ?>.find('.soliloquy-clone').find('*').removeAttr('id');
 
                     soliloquy_container_<?php echo $data['id']; ?>.find('.soliloquy-controls-direction').attr('aria-label','carousel buttons').attr('aria-controls', '<?php echo 'soliloquy-container-' . $data['id']; ?>');
                     soliloquy_container_<?php echo $data['id']; ?>.find('.soliloquy-controls-direction a.soliloquy-prev').attr('aria-label','previous');
