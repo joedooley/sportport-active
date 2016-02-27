@@ -1,0 +1,111 @@
+/*!
+    Theme Name: Epik
+    Theme URI: http://appfinite.com/themes/epik
+	Description: Epik is a mobile responsive and HTML5 theme built for the Genesis Framework.
+    Author: Appfinite
+    Author URI: http://www.appfinite.com/
+
+    Version: 1.4.1
+
+	Tags: black, blue, default, gray, green, orange, pink, purple, red, one-column, two-columns, three-columns, fixed-width, custom-menu, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready
+
+    Template: genesis
+    Template Version: 2.0
+
+*/
+
+/*! Table of Contents
+
+	- HTML5 Reset
+		- Baseline Reset
+		- Box Sizing
+		- Float Clearing
+	- Defaults
+		- Typographical Elements
+		- Headings
+		- Objects
+		- Forms
+		- Buttons
+		- Message Boxes
+		- Circles
+		- Pricing Plans
+	- Structure and Layout
+		- Site Containers
+		- Column Widths and Positions
+		- Column Classes
+	- Common Classes
+		- WordPress
+		- Genesis
+		- Titles
+	- Widgets
+		- Slider Wide
+		- Slider
+		- Slider Misc
+		- Welcome
+		- Welcome Feature 1-3
+		- Home Feature BG
+		- Home Feature BG Alt
+		- Home Feature BG Dark
+		- Home Features
+			- Home Feature (1-14)
+		- Home Bottom Message
+		- Featured Page and Featured Post
+	- Plugins
+		- Genesis eNews Extended
+		- Genesis Latest Tweets
+		- Gravity Forms
+		- Jetpack
+	- Site Header
+		- Title Area
+		- Widget Area
+	- Site Navigation
+		- Header Navigation
+		- Primary Navigation
+		- Secondary Navigation
+	- Content Area
+		- Entries
+		- Pagination
+		- Comments
+	- Sidebars
+	- Portfolio
+	- Miscellaneous
+	- Footer Widgets
+	- Site Footer
+	- Theme Colors
+		- Black
+		- Blue
+		- Dark Blue
+		- Gray
+		- Green
+		- Orange
+		- Pink
+		- Purple
+		- Red
+	- Media Queries
+		- max-width: 1180px
+		- max-width: 1023px
+		- max-width: 960px
+		- max-width: 767px
+		- max-width: 580px
+		- max-width: 480px
+
+*/
+
+// Importing Bourbon, Neat, Refills and _grid_settings.scss
+@import "vendors/bourbon/bourbon";
+@import "base/base";
+@import "base/grid-settings";
+@import "vendors/neat/neat";
+
+
+
+
+// Original Styles
+@import "orig-styles";
+
+
+
+// Main layout
+@import "pages/pages";
+@import "components/components";
+@import "layout/layout";

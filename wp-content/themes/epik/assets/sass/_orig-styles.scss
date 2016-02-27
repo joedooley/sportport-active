@@ -1,97 +1,4 @@
-/*
-    Theme Name: Epik
-    Theme URI: http://appfinite.com/themes/epik
-	Description: Epik is a mobile responsive and HTML5 theme built for the Genesis Framework.
-    Author: Appfinite
-    Author URI: http://www.appfinite.com/
-
-    Version: 1.4.1
-
-	Tags: black, blue, default, gray, green, orange, pink, purple, red, one-column, two-columns, three-columns, fixed-width, custom-menu, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready
-
-    Template: genesis
-    Template Version: 2.0
-
-*/
-
-/* Table of Contents
-
-	- HTML5 Reset
-		- Baseline Reset
-		- Box Sizing
-		- Float Clearing
-	- Defaults
-		- Typographical Elements
-		- Headings
-		- Objects
-		- Forms
-		- Buttons
-		- Message Boxes
-		- Circles
-		- Pricing Plans
-	- Structure and Layout
-		- Site Containers
-		- Column Widths and Positions
-		- Column Classes
-	- Common Classes
-		- WordPress
-		- Genesis
-		- Titles
-	- Widgets
-		- Slider Wide
-		- Slider
-		- Slider Misc
-		- Welcome
-		- Welcome Feature 1-3
-		- Home Feature BG
-		- Home Feature BG Alt
-		- Home Feature BG Dark
-		- Home Features
-			- Home Feature (1-14)
-		- Home Bottom Message
-		- Featured Page and Featured Post
-	- Plugins
-		- Genesis eNews Extended
-		- Genesis Latest Tweets
-		- Gravity Forms
-		- Jetpack
-	- Site Header
-		- Title Area
-		- Widget Area
-	- Site Navigation
-		- Header Navigation
-		- Primary Navigation
-		- Secondary Navigation
-	- Content Area
-		- Entries
-		- Pagination
-		- Comments
-	- Sidebars
-	- Portfolio
-	- Miscellaneous
-	- Footer Widgets
-	- Site Footer
-	- Theme Colors
-		- Black
-		- Blue
-		- Dark Blue
-		- Gray
-		- Green
-		- Orange
-		- Pink
-		- Purple
-		- Red
-	- Media Queries
-		- max-width: 1180px
-		- max-width: 1023px
-		- max-width: 960px
-		- max-width: 767px
-		- max-width: 580px
-		- max-width: 480px
-
-*/
-
-/* Be sure font declaration is BEFORE HTML reset */
+/*! Be sure font declaration is BEFORE HTML reset */
 @import url("MyFontsWebfontsKit/MyFontsWebfontsKit.css");
 @import url("raleway/raleway.css");
 @import url("velino-text/velino-text.css");
@@ -101,18 +8,17 @@
 @import url("fira-condensed/fira-condensed.css");
 @import url("open-sans-condensed/open-sans-condensed.css");
 
-/*
-HTML5 Reset
+/*! HTML5 Reset
 ---------------------------------------------------------------------------------------------------- */
 
-/* Baseline Reset (normalize.css 2.1.2)
+/*! Baseline Reset (normalize.css 2.1.2)
 	Link: http://necolas.github.com/normalize.css/
 --------------------------------------------- */
 
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,video{display:inline-block}audio:not([controls]){display:none;height:0}[hidden]{display:none}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}a:focus{outline:thin dotted}a:active,a:hover{outline:0}h1{font-size:2em;margin:.67em 0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}mark{background:#ff0;color:#000}code,kbd,pre,samp{font-family:monospace,serif;font-size:1em}pre{white-space:pre-wrap}q{quotes:"\201C" "\201D" "\2018" "\2019"}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:0}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}button,input{line-height:normal}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}
 
 
-/* Box Sizing
+/*! Box Sizing
 --------------------------------------------- */
 
 *,
@@ -122,7 +28,7 @@ input[type="search"] {
 	box-sizing:         border-box;
 }
 
-/* Float Clearing
+/*! Float Clearing
 --------------------------------------------- */
 
 .archive-pagination:before,
@@ -158,7 +64,7 @@ input[type="search"] {
 	display: table;
 }
 
-/* MY CUSTOM CODE START ==================================================== */
+/*! MY CUSTOM CODE START ==================================================== */
 
 body.new-product-a .entry-title { color: #0CE !important; }
 
@@ -171,7 +77,7 @@ body.new-product-a .entry-title:before {
 	float: left;
 	background-repeat: no-repeat; }
 
-/* AUTHORIZE.NET & SECURITY ---------------------------------------- */
+/*! AUTHORIZE.NET & SECURITY ---------------------------------------- */
 
 .AuthorizeNetSeal {
 	float: left;
@@ -189,7 +95,7 @@ body.new-product-a .entry-title:before {
 	margin: 0 0 0 0;
 	color: #AB1; }
 
-/* .review-only ---------------------------------------- */
+/*! .review-only ---------------------------------------- */
 
 body.review-only { background: #FFF; }
 
@@ -212,7 +118,7 @@ body.review-only .breadcrumb {
 	border-left: 3px solid #999;
 	border-right: 3px solid #CCC; }
 
-/* body.inspire [x69] ---------------------------------------- */
+/*! body.inspire [x69] ---------------------------------------- */
 
 body.inspire { background: #FFF; }
 body.inspire .head-wrap {
@@ -268,13 +174,13 @@ body.inspire .grey-boxed {
 	-moz-box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24);
 	box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24); }
 
-/* Hide Purchase Options */
+/*! Hide Purchase Options */
 body.inspire .woocommerce ul.products li.product .button,
 body.inspire ul.products li.product .categories { display: none; }
 body.inspire .woocommerce-page.columns-1 ul.products li.product,
 body.inspire .woocommerce.columns-1 ul.products li.product { margin-bottom: 0; }
 
-/* body.gallery [x68] ---------------------------------------- */
+/*! body.gallery [x68] ---------------------------------------- */
 
 body.gallery { background: #FFF; }
 body.gallery .entry-title {
@@ -298,73 +204,9 @@ body.gallery .grey-boxed {
 	-moz-box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24);
 	box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24); }
 
-/* Envira Gallery [x64] ---------------------------------------- */
 
-/* Below is for SUBTLE theme */
-.envira-gallery-theme-subtle .envira-gallery-item .envira-gallery-item-inner {
-	border-radius: 0 !important;
-	padding: 0 !important;
-	border: none !important; }
-/* end SUBTLE theme */
 
-/* for Tags Filters: */
-.envira-tags-filter-list li.envira-tags-filter,
-.envira-tags-filter-list li.envira-tag-filter {
-	list-style: none;
-	margin: 6px 4px 12px 0 !important; }
-.envira-tags-filter-list li.envira-tags-filter a,
-.envira-tags-filter-list li.envira-tag-filter a {
-	background: #FFF;
-	font-size: 11px;
-	padding: 6px 8px 5px 8px;
-	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;
-	border: 1px solid #CCC;
-	color: #000;
-	text-transform: uppercase;
-	text-decoration: none; }
-.envira-tags-filter-list li.envira-tags-filter a:hover,
-.envira-tags-filter-list li.envira-tag-filter a:hover {
-	background: #FA5; }
-/* end Tags Filters: */
-
-.envirabox-skin { padding: 1px !important; } /* Controls amount of white border on pop-up */
-
-.envira-gallery-wrap .envira-gallery-public.envira-gallery-css-animations .envira-gallery-item img {
-   transition: all .2s ease-in-out;
-}
-.envira-gallery-wrap .envira-gallery-public.envira-gallery-css-animations .envira-gallery-item:hover img {
-   transform: scale(1.1); }
-
-.envira-gallery-wrap .envira-gallery-public.envira-gallery-css-animations .envira-gallery-item,
-.envira-gallery-wrap .envira-gallery-public.envira-gallery-css-animations .envira-gallery-item .envira-gallery-item-inner { overflow: hidden; }
-
-div.envira-pagination {
-	width: 100%;
-	text-align: right;
-	margin: 0 5px 0 0; }
-
-.envira-gallery-wrap .envira-gallery-public.envira-clear { margin: 0; }
-
-div.envira-pagination span.page-numbers, div.envira-pagination a.page-numbers {
-    display: inline-block;
-    height: 40px;
-    padding: 0 15px;
-    line-height: 38px;
-    text-align: center;
-    text-decoration: none;
-    margin: 0 0 0 0;
-    color: #808080;
-    background: #fff;
-    border: 1px solid #BBB;
-    font-size: 16px;
-	border-radius: 25px; }
-
-.envira-gallery-theme-subtle .envira-pagination span.current {
-	background: #FA5 !important;
-	color: #FFF !important; }
-
-/* main.content SITEWIDE RULES [x31] ---------------------------------------- */
+/*! main.content SITEWIDE RULES [x31] ---------------------------------------- */
 
 .content[role="main"] .entry {
 	background: rgba(255, 255, 255, 0.25);
@@ -394,7 +236,7 @@ div.envira-pagination span.page-numbers, div.envira-pagination a.page-numbers {
 
 .content[role="main"] .entry img { margin: 6px 20px 5px 0; }
 
-/* LOGO FLOAT DIVs START -------------------------------------------- */
+/*! LOGO FLOAT DIVs START -------------------------------------------- */
 
 .sp-logo-div {
     position: absolute;
@@ -414,7 +256,7 @@ z-index: 99999; }
     top:30px;
     right:15px; }
 
-/* -------------------------------------------- */
+/*! -------------------------------------------- */
 
 h1 { font-size: 28px; }
 h2 { font-size: 23px; }
@@ -430,7 +272,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .welcome-icon { color: #FFF; font-size: 50px; }
 
-/* SALE [x41] ---------------------------------------- */
+/*! SALE [x41] ---------------------------------------- */
 
 ins {
 	font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -447,9 +289,9 @@ body.single-product .price .amount {
 	color: #F30;
 	font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif; }
 
-/* CUSTOM BODY CSS [x28] ======================================= */
+/*! CUSTOM BODY CSS [x28] ======================================= */
 
-/* CUSTOM BODY BLOG (.page-template-page_blog) [x60] ---------------------------------------- */
+/*! CUSTOM BODY BLOG (.page-template-page_blog) [x60] ---------------------------------------- */
 
 body.sp-blog-post { background: #FFF !important; }
 
@@ -478,7 +320,7 @@ body.page-template-page_blog .post-image.entry-image {
 	padding:0 0 .75em 0;
 	border-bottom: 1px solid #D3DCEB; }
 
-/* sp-blockquote [x61] ---------------------------------------- */
+/*! sp-blockquote [x61] ---------------------------------------- */
 
 .sp-blockquote-holder {
 	float: right;
@@ -506,7 +348,7 @@ body.page-template-page_blog .post-image.entry-image {
 	font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	color: #567; }
 
-/* sp-start-graph [x62] ---------------------------------------- */
+/*! sp-start-graph [x62] ---------------------------------------- */
 
 .blog-post-sub {
 	font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -549,7 +391,7 @@ body.page-template-page_blog .post-image.entry-image {
 	margin: 15px 0 35px 0;
 	padding: 15px 20px 20px 20px; }
 
-/* sp-blog-table [x63] ---------------------------------------- */
+/*! sp-blog-table [x63] ---------------------------------------- */
 
 table.sp-blog-table {
 	width: 100%;
@@ -574,7 +416,7 @@ table.sp-blog-table td.bold-left {
 	width: 30%;
 	text-transform: uppercase; }
 
-/* FONT AWESOME BLOG POST ICONS [x70] ---------------------------------------- */
+/*! FONT AWESOME BLOG POST ICONS [x70] ---------------------------------------- */
 .fa-2x {
 	background: #FFF;
 	color: rgba(255, 153, 51, 0.74);
@@ -596,12 +438,12 @@ table.sp-blog-table td.bold-left {
 .icon-grey-med { color: #999; }
 .icon-grey-dark { color: #666; }
 
-/* CUSTOM BODY GARMENT-TECH [x38] ---------------------------------------- */
+/*! CUSTOM BODY GARMENT-TECH [x38] ---------------------------------------- */
 
 body.category-garment-technology { background: rgba(211, 226, 238, 0.42); }
 body.category-garment-technology .post-image { width: 160px; }
 
-/* OTHER CUSTOM BODY ---------------------------------------- */
+/*! OTHER CUSTOM BODY ---------------------------------------- */
 
 body.category-science { background: rgba(238, 238, 187, 0.44); }
 
@@ -625,7 +467,7 @@ body.intro-welcome .content[role="main"] .entry-title a {
 	font-weight: normal;
 	color: #000; }
 
-/* garment-technology SECTION DETAILS [X36] -------------------------------------------- */
+/*! garment-technology SECTION DETAILS [X36] -------------------------------------------- */
 
 .entry-box {
 	background: rgba(255, 255, 255, 0.40);
@@ -740,7 +582,7 @@ img.small-fabrics-icon {
 	height: 52px;
 	margin: 1px 10px 4px 0; }
 
-/* Secondary Sidebar NOT USED */
+/*! Secondary Sidebar NOT USED */
 
 .sidebar-secondary {
 	float: left;
@@ -750,7 +592,7 @@ img.small-fabrics-icon {
 	float: right;
 }
 
-/* .HOME CUSTOMIZATION START [x21] -------------------------------------------- */
+/*! .HOME CUSTOMIZATION START [x21] -------------------------------------------- */
 
 .home-show-1-wrap, .home-show-2-wrap, .home-show-3-wrap {
 	padding: 5px 0 2px 0;
@@ -847,29 +689,29 @@ img.small-fabrics-icon {
 	padding: 7px 0;
 	text-decoration: none; }
 
-/* ADD SHADOWS TO PRODUCTS on CATEGORY and SHOP PAGES [x34] ---------------------------------------- */
+/*! ADD SHADOWS TO PRODUCTS on CATEGORY and SHOP PAGES [x34] ---------------------------------------- */
 
 .woocommerce ul.products li.product a img {
 	-webkit-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
 	-moz-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
 	box-shadow: 0px 9px 20px -12px rgba(0,0,0,1); }
 
-/* WOO PRODUCT-CATEGORY CUSTOM [x33] ---------------------------------------- */
+/*! WOO PRODUCT-CATEGORY CUSTOM [x33] ---------------------------------------- */
 
 body.tax-product_cat .breadcrumb { display: none; }
 body.tax-product_cat .sidebar { display: none; }
 body.tax-product_cat .content { width: 100%; }
 .woocommerce table.shop_table td { font-size: 15px; }
 
-/* Special (maybe temporary) code for vertex arm bands [x65] ---------------- */
-/* NOTE: Using product IDs ---------------- */
+/*! Special (maybe temporary) code for vertex arm bands [x65] ---------------- */
+/*! NOTE: Using product IDs ---------------- */
 body.postid-462 .product_meta,
 body.postid-473 .product_meta,
 body.postid-476 .product_meta,
 body.postid-479 .product_meta {
 	margin-bottom: 5em; }
 
-/* WOOCOMMERCE-CART and CHECKOUT CUSTOM [x37] ---------------------------------------- */
+/*! WOOCOMMERCE-CART and CHECKOUT CUSTOM [x37] ---------------------------------------- */
 
 tr.shipping { background: #FFFDD5; }
 
@@ -914,7 +756,7 @@ tr.cart_item { background: #EEE; }
 a.checkout-button.button.alt.wc-forward { width: 150px; }
 .pp_gallery ul { display: none; } /* hide thumbnails in popup windows * /
 
-/* CUSTOM BODY WOOCOMMERCE-PAGE START [x23] ---------------------------------------- */
+/*! CUSTOM BODY WOOCOMMERCE-PAGE START [x23] ---------------------------------------- */
 
 body.woocommerce-page { background: #FFF; }
 body.woocommerce-page .content { font-size: 12px; }
@@ -944,7 +786,7 @@ table.product-features-grid td {
 
 body.woocommerce-page select { width: 200px; }
 
-/* WOOCOMMERCE BUTTONS */
+/*! WOOCOMMERCE BUTTONS */
 
 .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit {
 	border-radius: 20px;
@@ -958,7 +800,7 @@ body.woocommerce-page select { width: 200px; }
 	margin: 0;
 	float: right; }
 
-/* ------------------------------ */
+/*! ------------------------------ */
 
 .woocommerce ul.products li.product .price {
 	color: #000 !important;
@@ -1001,13 +843,13 @@ body.woocommerce-page .variations_form.cart {
 	color: #F93;
 	font-weight: normal; }
 
-/* ADDS RULES TO MAIN PRODUCT IMAGES */
+/*! ADDS RULES TO MAIN PRODUCT IMAGES */
 body.woocommerce-page .attachment-shop_single.wp-post-image,
 body.woocommerce-page .attachment-shop_thumbnail,
 .woocommerce img, .woocommerce-page img {
 	border: 1px solid #888; }
 
-/* REMOVES RULES FROM SIDEBAR IMAGES */
+/*! REMOVES RULES FROM SIDEBAR IMAGES */
 body.woocommerce-page .attachment-shop_single.wp-post-image .sidebar-primary img,
 body.woocommerce-page .attachment-shop_thumbnail .sidebar-primary img,
 .woocommerce img, .woocommerce-page img .sidebar-primary img {
@@ -1018,7 +860,7 @@ body.woocommerce-page .posted_in a {
 	text-transform: uppercase;
 	color: #5AF; }
 
-/* ----- Description Tabs ----- */
+/*! ----- Description Tabs ----- */
 
 .woocommerce-tabs img.alignleft {
 	width: 42px;
@@ -1056,11 +898,11 @@ body.woocommerce-page .related.products h2:after {
 	color: #F93;
 	font-family: ralewayheavy, 'Helvetica Neue', Helvetica, Arial, sans-serif }
 
-/* ---------------------------------------- */
+/*! ---------------------------------------- */
 
-/* CUSTOM BODY TECHNOLOGY START [x27] ---------------------------------------- */
+/*! CUSTOM BODY TECHNOLOGY START [x27] ---------------------------------------- */
 
-/*--- Technology Orange ---*/
+/*!--- Technology Orange ---*/
 
 body.technology { background: #FA5; }
 
@@ -1078,9 +920,9 @@ body.technology .sp-logo-div {
 	color: #000;
 	margin-top: 20px;}
 
-/* ---------------------------------------- */
+/*! ---------------------------------------- */
 
-/* CUSTOM BODY TESTIMONIAL START (x22A) ---------------------------------------- */
+/*! CUSTOM BODY TESTIMONIAL START (x22A) ---------------------------------------- */
 
 body.category-testimonials { background: #ACE; }
 
@@ -1115,7 +957,7 @@ body.category-testimonials  .content .entry-title a {
 body.category-testimonials img.alignleft.post-image.entry-image {
 	display: none; }
 
-/* ----- .quote-bubble-right ----- */
+/*! ----- .quote-bubble-right ----- */
 
 body.category-testimonials  .entry-footer { padding: 0; }
 
@@ -1160,7 +1002,7 @@ body.category-testimonials .quote-bubble-left:after {
 	border-color: transparent #FFF;
 	color: #000; }
 
-/* ----- Author ----- */
+/*! ----- Author ----- */
 
 body.category-testimonials .quote-author-right {
 	float: right;
@@ -1174,16 +1016,16 @@ body.category-testimonials .quote-author-left {
 	color: #000;
 	font-size: 14px; }
 
-/* HOME CUSTOM TESTIMONIALS SIDEBAR [x22B] ------------------------ */
+/*! HOME CUSTOM TESTIMONIALS SIDEBAR [x22B] ------------------------ */
 
 body.category-testimonials .sidebar .entry-content p {
 	background: transparent;
 	margin: 0;
 	padding: 0; }
 
-/* ---------------------------------------- */
+/*! ---------------------------------------- */
 
-/* HOME CUSTOM WOOCOMMERCE PRODUCTS [x24] ------------------------ */
+/*! HOME CUSTOM WOOCOMMERCE PRODUCTS [x24] ------------------------ */
 
 .home-tag {
 	font-size: 14px;
@@ -1212,9 +1054,9 @@ body.category-testimonials .sidebar .entry-content p {
 
 body.home .woocommerce img { border: none; }
 
-/* ---------------------------------------- */
+/*! ---------------------------------------- */
 
-/* BODY.HOME CUSTOM START [x25] ------------------------ */
+/*! BODY.HOME CUSTOM START [x25] ------------------------ */
 
 body.home .head-wrap { margin: 0; }
 
@@ -1267,7 +1109,7 @@ body.home .product-title {
 
 body.home .amount { display: none; }
 
-/* TABLE on HOME PAGE for 20% SALE FEB 2016 ---------------------------------------- */
+/*! TABLE on HOME PAGE for 20% SALE FEB 2016 ---------------------------------------- */
 
 body.home table { margin: 0 auto 1em auto; }
 
@@ -1284,7 +1126,7 @@ body.home table th img, body.home table td img {
 	padding: 0 0 0 0;
 	margin: 0 0 0 0; }
 
-/* ---------------------------------------- */
+/*! ---------------------------------------- */
 
 .shop-head {
 	font-family: ralewaylight, 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -1298,23 +1140,23 @@ body.home table th img, body.home table td img {
 	font-family: ralewayextrabold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-/* ---------------------------------------- */
+/*! ---------------------------------------- */
 
-/* CUSTOM COLOR CLASSES START ---------------------------------------- */
+/*! CUSTOM COLOR CLASSES START ---------------------------------------- */
 
 	.white { color: #FFF; }
 
-/* ---------------------------------------- */
+/*! ---------------------------------------- */
 
-/* CUSTOM FONT-RELATED START ---------------------------------------- */
+/*! CUSTOM FONT-RELATED START ---------------------------------------- */
 
 .home-feature-fa {  /*--- Font Awesome ---*/
 	color: #FFF;
 	padding: 10px 0 0 0; }
 
-/* ---------------------------------------- */
+/*! ---------------------------------------- */
 
-/* SPEECH BUBBLES (in section .home-feature-9) ---------------------------------------- */
+/*! SPEECH BUBBLES (in section .home-feature-9) ---------------------------------------- */
 
 .home-quote {  /*--- in .home-feature-11 ---*/
   position:relative;
@@ -1326,10 +1168,10 @@ body.home table th img, body.home table td img {
   -moz-border-radius:10px;
   border-radius:10px; }
 
-/* display of quote author (alternatively use a class on the element following the blockquote) */
+/*! display of quote author (alternatively use a class on the element following the blockquote) */
 .example-right + p {margin:15px 0 2em 85px; font-style:italic;}
 
-/* creates the triangle */
+/*! creates the triangle */
 .home-quote:after {
   content:"";
   position:absolute;
@@ -1353,9 +1195,9 @@ body.home table th img, body.home table td img {
 	text-align: right;
 }
 
-/* ---------------------------------------- */
+/*! ---------------------------------------- */
 
-/* START .METIS (Hover Labels for Slider Navigation Circles) ---------------------------- */
+/*! START .METIS (Hover Labels for Slider Navigation Circles) ---------------------------- */
 
 .metis .tp-bullet-title {
 	font-size: 13px;
@@ -1363,9 +1205,9 @@ body.home table th img, body.home table td img {
 	text-transform: uppercase;
 }
 
-/* ---------------------------------------- */
+/*! ---------------------------------------- */
 
-/* SITE-WIDE CUSTOMIZATION .CONTENT + .SIDEBAR  [x26] ---------------------------- */
+/*! SITE-WIDE CUSTOMIZATION .CONTENT + .SIDEBAR  [x26] ---------------------------- */
 
 body.testimonials .sidebar .entry-content {
 	border-bottom: 1px solid #FFF; }
@@ -1397,7 +1239,7 @@ body.category-testimonials .sidebar .entry-content {
 	padding: 0;
 	margin: 0; }
 
-/* --------- BACK TO TOP -------- */
+/*! --------- BACK TO TOP -------- */
 
 .wpsstt_btn {
 	width: 42px !important;
@@ -1413,13 +1255,13 @@ body.category-testimonials .sidebar .entry-content {
 .wpsstt_roundedcorners {
 	border-radius: 25px !important; }
 
-/* MY CUSTOM CODE END ======================================================= */
+/*! MY CUSTOM CODE END ======================================================= */
 
-/*
+/*!
 Defaults
 ---------------------------------------------------------------------------------------------------- */
 
-/* Typographical Elements --------------------------------------------- */
+/*! Typographical Elements --------------------------------------------- */
 
 html {
 	font-size: 100%; /* 16px browser default */
@@ -1577,7 +1419,7 @@ cite {
     padding: 10px 0 0;
 }
 
-/* Objects
+/*! Objects
 --------------------------------------------- */
 
 embed,
@@ -1597,7 +1439,7 @@ img {
 	border: none;
 }
 
-/* Forms
+/*! Forms
 --------------------------------------------- */
 
 .wpcf7-form {
@@ -1671,7 +1513,7 @@ input[type="search"]::-webkit-search-results-button {
 	display: none;
 }
 
-/* Buttons
+/*! Buttons
 --------------------------------------------- */
 
 a.button {
@@ -1795,7 +1637,7 @@ a.button.red {
 	color: #fff !important;
 }
 
-/* Message Boxes
+/*! Message Boxes
 --------------------------------------------- */
 
 .download-box {
@@ -1943,7 +1785,7 @@ a.button.red {
 	padding: 30px;
 }
 
-/* Circles */
+/*! Circles */
 
 .circle {
 	border-radius: 20px;
@@ -1962,7 +1804,7 @@ a.button.red {
 }
 
 
-/*
+/*!
 20 Pricing Plans
 ---------------------------------------------------------------------------------------------------- */
 
@@ -2073,11 +1915,11 @@ a.button.red {
 }
 
 
-/*
+/*!
 Structure and Layout
 ---------------------------------------------------------------------------------------------------- */
 
-/* Site Containers
+/*! Site Containers
 --------------------------------------------- */
 
 .wrap {
@@ -2094,10 +1936,10 @@ Structure and Layout
 	padding-top: 0;
 }
 
-/* Column Widths and Positions
+/*! Column Widths and Positions
 --------------------------------------------- */
 
-/* Wrapping div for .content and .sidebar-primary */
+/*! Wrapping div for .content and .sidebar-primary */
 
 .content-sidebar-sidebar .content-sidebar-wrap,
 .sidebar-content-sidebar .content-sidebar-wrap,
@@ -2114,7 +1956,7 @@ Structure and Layout
 	float: right;
 }
 
-/* Content  */
+/*! Content  */
 
 .content {
 	float: right;
@@ -2138,7 +1980,7 @@ Structure and Layout
 	width: 100%;
 }
 
-/* Column Classes
+/*! Column Classes
 	Link: http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css
 --------------------------------------------- */
 
@@ -2195,11 +2037,11 @@ Structure and Layout
 }
 
 
-/*
+/*!
 Common Classes
 ---------------------------------------------------------------------------------------------------- */
 
-/* WordPress
+/*! WordPress
 --------------------------------------------- */
 
 .avatar {
@@ -2276,7 +2118,7 @@ img.alignright,
 	text-align: center;
 }
 
-/* Genesis
+/*! Genesis
 --------------------------------------------- */
 
 .breadcrumb {
@@ -2321,7 +2163,7 @@ img.alignright,
 	margin-right: 24px;
 }
 
-/* Titles
+/*! Titles
 --------------------------------------------- */
 
 .entry-title {
@@ -2375,11 +2217,11 @@ img.alignright,
 	font-weight: normal;
 	line-height: 1.2; }
 
-/*
+/*!
 Widgets
 ---------------------------------------------------------------------------------------------------- */
 
-/* Slider Wide
+/*! Slider Wide
 --------------------------------------------- */
 
 .slider-wide {
@@ -2407,7 +2249,7 @@ Widgets
 	max-width: 100% !important;
 }
 
-/* Slider
+/*! Slider
 --------------------------------------------- */
 
 .slider	{
@@ -2425,7 +2267,7 @@ Widgets
 	margin: 0 0 20px;
 }*/
 
-/* Slider Misc
+/*! Slider Misc
 --------------------------------------------- */
 
 #genesis-responsive-slider {
@@ -2475,7 +2317,7 @@ Widgets
 }
 
 
-/*
+/*!
 Welcome
 ---------------------------------------------------------------------------------------------------- */
 
@@ -2508,7 +2350,7 @@ Welcome
 	border-bottom: 1px solid #555;
 }
 
-/* Welcome Wide */
+/*! Welcome Wide */
 
 .welcome-wide {
 	background: #27A;
@@ -2533,7 +2375,7 @@ Welcome
 	text-align: center;
 	padding: 7px 0 0 40px; }
 
-/* Welcome Feature 1-3 */
+/*! Welcome Feature 1-3 */
 
 .welcome-features {
 	background: #345;
@@ -2620,7 +2462,7 @@ Welcome
 	font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif }
 
 
-/*
+/*!
 Home Feature BG
 ---------------------------------------------------------------------------------------------------- */
 
@@ -2683,7 +2525,7 @@ Home Feature BG
 }
 
 
-/*
+/*!
 Home Feature BG Alt
 ---------------------------------------------------------------------------------------------------- */
 
@@ -2745,7 +2587,7 @@ Home Feature BG Alt
 }
 
 
-/*
+/*!
 Home Feature BG Dark
 ---------------------------------------------------------------------------------------------------- */
 
@@ -2818,13 +2660,13 @@ Home Feature BG Dark
 	color: #BBB; }
 
 
-/*
+/*!
 Home Features
 ---------------------------------------------------------------------------------------------------- */
 
-/* Home Feature Classes */
+/*! Home Feature Classes */
 
-/*You can add background images/colors to each section of the homepage by adding them to the classes below.
+/*!You can add background images/colors to each section of the homepage by adding them to the classes below.
 */
 
 .hf1,
@@ -2892,7 +2734,7 @@ Home Features
 	color: #FFF;
 	margin: 0 0 0 0; }
 
-/* Home Feature 1 */
+/*! Home Feature 1 */
 
 .home-feature-1 {
 	float: left;
@@ -2911,7 +2753,7 @@ Home Features
 	line-height: 28px;
 }
 
-/* Home Feature 2 */
+/*! Home Feature 2 */
 
 .home-feature-2 {
 	float: right;
@@ -2930,7 +2772,7 @@ Home Features
 	line-height: 28px;
 }
 
-/* Home Feature 3 */
+/*! Home Feature 3 */
 
 .home-feature-3 {
 	background: #FFF;
@@ -2946,7 +2788,7 @@ Home Features
 	overflow: hidden;
 }
 
-/* Home Feature 4 */
+/*! Home Feature 4 */
 
 .home-feature-4 {
 	margin: 5px 0 5px 0;
@@ -2964,7 +2806,7 @@ Home Features
 	overflow: hidden;
 }
 
-/* Home Feature 5 */
+/*! Home Feature 5 */
 .home-feature-5 {
 	margin: 5px 0 5px 0;
 	width: 100%;
@@ -2978,7 +2820,7 @@ Home Features
 	overflow: hidden;
 }
 
-/* Home Feature 6 */
+/*! Home Feature 6 */
 
 .home-feature-6 {
 	margin: 0;
@@ -2990,7 +2832,7 @@ Home Features
 	overflow: hidden;
 }
 
-/* Home Feature 7 */
+/*! Home Feature 7 */
 
 .home-feature-7 {
 	margin: 0;
@@ -3002,7 +2844,7 @@ Home Features
 	overflow: hidden;
 }
 
-/* Home Feature 8 */
+/*! Home Feature 8 */
 
 .home-feature-8 {
 	margin: 25px 0 15px 0;
@@ -3013,7 +2855,7 @@ Home Features
 	overflow: hidden;
 }
 
-/* Home Feature 9 */
+/*! Home Feature 9 */
 
 .home-feature-9 {
 	clear: both;
@@ -3031,7 +2873,7 @@ Home Features
 	line-height: 38px;
 }
 
-/* Home Feature 10 */
+/*! Home Feature 10 */
 
 .home-feature-10 {
 	float: left;
@@ -3044,7 +2886,7 @@ Home Features
 	overflow: hidden;
 }
 
-/* Home Feature 11 */
+/*! Home Feature 11 */
 
 .home-feature-11 {
 	float: left;
@@ -3057,7 +2899,7 @@ Home Features
 	overflow: hidden;
 }
 
-/* Home Feature 12 */
+/*! Home Feature 12 */
 
 .home-feature-12 {
 	float: left;
@@ -3070,7 +2912,7 @@ Home Features
 	overflow: hidden;
 }
 
-/* Home Feature 13 */
+/*! Home Feature 13 */
 
 .home-feature-13 {
 	float: right;
@@ -3082,7 +2924,7 @@ Home Features
 	margin: 0 0 5px;
 	overflow: hidden; }
 
-/* Home Feature 14 */
+/*! Home Feature 14 */
 
 .home-feature-14 {
 	margin: 0;
@@ -3093,7 +2935,7 @@ Home Features
 	margin: 0 0 15px 30px;
 	overflow: hidden; }
 
-/* Home Feature h4 */
+/*! Home Feature h4 */
 
 .home-feature-3 h4,
 .home-feature-4 h4,
@@ -3114,7 +2956,7 @@ Home Features
 	font-weight: 400;
 }
 
-/* Featured Page and Featured Post
+/*! Featured Page and Featured Post
 --------------------------------------------- */
 
 .featured-content .entry {
@@ -3137,11 +2979,11 @@ Home Features
 	border: none; }
 
 
-/*
+/*!
 Plugins
 ---------------------------------------------------------------------------------------------------- */
 
-/* Genesis eNews Extended [X42] [NOTE: CSS Already Included]
+/*! Genesis eNews Extended [X42] [NOTE: CSS Already Included]
 --------------------------------------------- */
 
 .enews-widget .widgettitle {
@@ -3192,14 +3034,14 @@ Plugins
 	border-radius: 0;
 	margin: 0 0 6px 0; }
 
-/* Genesis Latest Tweets
+/*! Genesis Latest Tweets
 --------------------------------------------- */
 
 .latest-tweets ul li {
 	margin-bottom: 16px;
 }
 
-/* Gravity Forms
+/*! Gravity Forms
 --------------------------------------------- */
 
 div.gform_wrapper input[type="email"],
@@ -3223,15 +3065,8 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 	font-size: 18px;
 }
 
-/* Jetpack
---------------------------------------------- */
 
-img#wpstats {
-	display: none;
-}
-
-
-/*
+/*!
 Site Header
 ---------------------------------------------------------------------------------------------------- */
 
@@ -3253,7 +3088,7 @@ background-repeat: no-repeat;
 	padding: 16px 0;
 }
 
-/* Title Area
+/*! Title Area
 --------------------------------------------- */
 
 .title-area {
@@ -3296,7 +3131,7 @@ background-repeat: no-repeat;
 	display: none;
 }
 
-/* Full width header, no widgets */
+/*! Full width header, no widgets */
 
 .header-full-width .title-area,
 .header-full-width .site-title {
@@ -3309,7 +3144,7 @@ background-repeat: no-repeat;
 	text-indent: -9999px;
 }
 
-/* Logo, hide text */
+/*! Logo, hide text */
 
 .header-image .site-header .wrap {
 	padding: 0;
@@ -3321,7 +3156,7 @@ background-repeat: no-repeat;
 	width: 100%;
 }
 
-/* Widget Area
+/*! Widget Area
 --------------------------------------------- */
 
 .site-header .widget-area {
@@ -3344,7 +3179,7 @@ background-repeat: no-repeat;
 }
 
 
-/*
+/*!
 Site Navigation
 ---------------------------------------------------------------------------------------------------- */
 
@@ -3470,7 +3305,7 @@ Site Navigation
 	width: 100%;
 }
 
-/* Site Header Navigation
+/*! Site Header Navigation
 --------------------------------------------- */
 
 .site-header .genesis-nav-menu a {
@@ -3487,7 +3322,7 @@ Site Navigation
 	color: #FFF;
 }
 
-/* Primary Navigation
+/*! Primary Navigation
 --------------------------------------------- */
 
 .nav-primary {
@@ -3511,7 +3346,7 @@ Site Navigation
 	color: #aaa;
 }
 
-/* Secondary Navigation
+/*! Secondary Navigation
 --------------------------------------------- */
 
 .nav-secondary {
@@ -3547,7 +3382,7 @@ Site Navigation
 	margin: -34px 0 0 201px;
 }
 
-/* Responsive Menu
+/*! Responsive Menu
 --------------------------------------------- */
 
 .responsive-menu-icon {
@@ -3564,11 +3399,11 @@ Site Navigation
 	margin: 0 auto;
 }
 
-/*
+/*!
 Content Area
 ---------------------------------------------------------------------------------------------------- */
 
-/* Entries
+/*! Entries
 --------------------------------------------- */
 
 .entry {  /*--- [x50] ---*/
@@ -3688,7 +3523,7 @@ Content Area
 	font-size: 12px;
 }
 
-/* After Entry widget
+/*! After Entry widget
 --------------------------------------------- */
 
 .after-entry {
@@ -3731,7 +3566,7 @@ Content Area
 	width: auto;
 }
 
-/* Pagination
+/*! Pagination
 --------------------------------------------- */
 
 .archive-pagination,
@@ -3760,7 +3595,7 @@ Content Area
 	background: #1e1e1e;
 }
 
-/* Comments
+/*! Comments
 --------------------------------------------- */
 
 .entry-comments,
@@ -3834,7 +3669,7 @@ li.comment ul li {
 }
 
 
-/*
+/*!
 Sidebars
 ---------------------------------------------------------------------------------------------------- */
 
@@ -3877,7 +3712,7 @@ Sidebars
 	text-transform: uppercase;
 	color: #27A; }
 
-/*
+/*!
 Portfolio
 ---------------------------------------------------------------------------------------------------- */
 
@@ -3959,7 +3794,7 @@ Portfolio
 }
 
 
-/*
+/*!
 Miscellaneous
 ---------------------------------------------------------------------------------------------------- */
 
@@ -4001,7 +3836,7 @@ Miscellaneous
 	padding: 40px 20px 10px;
 }
 
-/* Content Align (Left & Right) */
+/*! Content Align (Left & Right) */
 
 .feature-left {
 	float: left;
@@ -4018,7 +3853,7 @@ Miscellaneous
 	margin-top: 80px;
 }
 
-/* Check List */
+/*! Check List */
 
 .check-list {
 	list-style: none;
@@ -4050,7 +3885,7 @@ Miscellaneous
 }
 
 
-/*
+/*!
 Footer Widgets
 ---------------------------------------------------------------------------------------------------- */
 
@@ -4130,7 +3965,7 @@ Footer Widgets
 	padding: 0;
 }
 
-/*
+/*!
 Site Footer
 ---------------------------------------------------------------------------------------------------- */
 
@@ -4161,11 +3996,11 @@ Site Footer
 }
 
 
-/*
+/*!
 16 Theme Colors
 ---------------------------------------------------------------------------------------------------- */
 
-/* Epik Black
+/*! Epik Black
 --------------------------------------------- */
 
 .epik-black .head-wrap,
@@ -4239,7 +4074,7 @@ Site Footer
 	background: #222;
 }
 
-/* Epik Blue
+/*! Epik Blue
 --------------------------------------------- */
 
 .epik-blue a {
@@ -4371,7 +4206,7 @@ Site Footer
 	background: #1887e5;
 }
 
-/* Epik Dark Blue
+/*! Epik Dark Blue
 --------------------------------------------- */
 
 .epik-darkblue a {
@@ -4507,7 +4342,7 @@ Site Footer
 	color: #fff;
 }
 
-/* Epik Gray
+/*! Epik Gray
 --------------------------------------------- */
 
 .epik-gray a {
@@ -4643,7 +4478,7 @@ Site Footer
 	color: #fff;
 }
 
-/* Epik Green
+/*! Epik Green
 --------------------------------------------- */
 
 .epik-green a {
@@ -4775,7 +4610,7 @@ Site Footer
 	background: #9dcb2a;
 }
 
-/* Epik Orange
+/*! Epik Orange
 --------------------------------------------- */
 
 .epik-orange a {
@@ -4907,7 +4742,7 @@ Site Footer
 	background: #ff7e00;
 }
 
-/* Epik Pink
+/*! Epik Pink
 --------------------------------------------- */
 
 .epik-pink a {
@@ -5039,7 +4874,7 @@ Site Footer
 	background: #ff55a9;
 }
 
-/* Epik Purple
+/*! Epik Purple
 --------------------------------------------- */
 
 .epik-purple a {
@@ -5171,7 +5006,7 @@ Site Footer
 	background: #8542c4;
 }
 
-/* Epik Red
+/*! Epik Red
 --------------------------------------------- */
 
 .epik-red a {
@@ -5304,9 +5139,9 @@ Site Footer
 }
 
 
-/* Media Queries (All are defaults. */
+/*! Media Queries (All are defaults. */
 
-/* Desktops, laptops and iPads (landscape)
+/*! Desktops, laptops and iPads (landscape)
 --------------------------------------------- */
 
 @media only screen and (max-width: 1180px) {
@@ -5356,7 +5191,7 @@ Site Footer
 
 }
 
-/* iPads (portrait)
+/*! iPads (portrait)
 --------------------------------------------- */
 
 @media only screen and (max-width: 1023px) {
@@ -5457,7 +5292,7 @@ Site Footer
 
 }
 
-/* iPad/Tablets (portrait and landscape)
+/*! iPad/Tablets (portrait and landscape)
 --------------------------------------------- */
 
 @media only screen and (max-width: 960px) {
@@ -5468,7 +5303,7 @@ Site Footer
 
 }
 
-/* iPhones (portrait and landscape) [x40]
+/*! iPhones (portrait and landscape) [x40]
 --------------------------------------------- */
 
 @media only screen and (max-width: 767px) {
@@ -5501,60 +5336,60 @@ Site Footer
 		width: 100%;
 	}
 
- /*---PK---*/
+ /*!---PK---*/
 .sp-logo-div { display: none; }
- /*--------*/
+ /*!--------*/
 .head-wrap {
 background-image: url(//sportportactive.com/wp-content/uploads/2015/10/SportPort-Logo-for-Cell.png);
 background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: 3px 10px; }
- /*--------*/
+ /*!--------*/
 .welcome-wide .widget .kim-button {
 	width: 100%;
 	margin: 0 0 15px 0; }
- /*--------*/
+ /*!--------*/
 .site-header .widget-area { text-align: right; }
- /*--------*/
+ /*!--------*/
 body.home .woocommerce ul.product_list_widget li { width: 16.5%; }
- /*--------*/
+ /*!--------*/
 body.home .woocommerce ul.product_list_widget li img { width: 90px; }
- /*--------*/
+ /*!--------*/
 .welcome-wide .wrap { padding: 15px; }
- /*--------*/
+ /*!--------*/
 .welcome-wide .widget p {
 	text-align: center;
 	padding: 10px;
 	margin: 0 0 6px 0; }
- /*--------*/
+ /*!--------*/
 .home-feature-4 {
 	font-size: 18px;
 	letter-spacing: .1em;
 	color: #79A;
 	padding-bottom: 8px; }
- /*--------*/
+ /*!--------*/
 .hf8 {
 	font-size: 18px;
 	letter-spacing: .1em;
 	color: #79A;
 	margin: 10px 0; }
- /*--------*/
+ /*!--------*/
 .hf14 .head {
 	font-size: 18px;
 	letter-spacing: .1em;
 	color: #FFF;
 	margin: 10px 0; }
- /*--------*/
+ /*!--------*/
 .home-feature-bg-alt .featuredpage .page, .home-feature-bg-alt .featuredpost .post {
 	width: 100%;
 	padding: 0 1.5em 0 0; }
- /*--------*/
+ /*!--------*/
 .home-feature-bg-dark .wrap { padding: 5px; }
-/*---------*/
+/*!---------*/
 .tp-caption.NotGeneric-SubTitle, .NotGeneric-SubTitle { display: none; }
-/*----------*/
+/*!----------*/
 .wpsstt_btn { margin: 4px; }
- /*---PK---*/
+ /*!---PK---*/
 
 	.genesis-nav-menu.responsive-menu {
 		display: none;
@@ -5783,7 +5618,7 @@ body.home .woocommerce ul.product_list_widget li img { width: 90px; }
 }
 
 
-/* ## Joe Dooley - Developing Designs
+/*! ## Joe Dooley - Developing Designs
 ------------------------------------------------ */
 
 #soliloquy-container-2148 {

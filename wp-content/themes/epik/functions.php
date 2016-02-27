@@ -10,7 +10,7 @@ define( 'CHILD_THEME_URL', 'http://appfinite.com/themes/epik' );
 add_action( 'wp_enqueue_scripts', 'epik_enqueue_scripts_styles' );
 function epik_enqueue_scripts_styles() {
 
-	wp_enqueue_script( 'epik-responsive-menu', get_bloginfo( 'stylesheet_directory' ) . '/js/responsive-menu.js', array( 'jquery' ), '1.0.0' );
+	wp_enqueue_script( 'epik-responsive-menu', get_bloginfo( 'stylesheet_directory' ) . '/assets/js/responsive-menu.js', array( 'jquery' ), '1.0.0' );
 	wp_enqueue_style( 'dashicons' );
 	wp_enqueue_style( 'google-font', '//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', array(), PARENT_THEME_VERSION );
 	wp_enqueue_style( 'prefix-font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css', array(), '4.0.3' );
@@ -371,7 +371,7 @@ function add_logo_div() {
 } // End add_logo_div()
 
 /* Disable WordPress Admin Bar for all users but admins. */
-  show_admin_bar(false);
+ // show_admin_bar(false);
 
 
 //* Modify breadcrumb arguments.

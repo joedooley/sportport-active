@@ -1,0 +1,28 @@
+{
+  "name": "gulp-wptheme-dev",
+  "version": "1.0.0",
+  "description": "Gulp tasks for WordPress Theme Development",
+  "license": "GPL-3.0",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.7.11",
+    "css-mqpacker": "^3.1.0",
+    "gulp": "^3.8.11",
+    "gulp-bower": "^0.0.13",
+    "gulp-cache": "^0.2.10",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-postcss": "^6.0.1",
+    "gulp-concat": "^2.6.0",
+    "require-dir": "^0.3.0",
+    "gulp-sass": "^2.0.4",
+    "autoprefixer": "^6.3.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "postcss-pxtorem": "^2.3.2",
+    "gulp-wp-pot": "^1.1.0",
+    "gulp-sort": "^1.1.1"
+  }
+}
