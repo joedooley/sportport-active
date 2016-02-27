@@ -17,7 +17,7 @@ gulp.task( 'scripts' , function() {
         .pipe( jshint( '.jshintrc' ) )
         .pipe( jshint.reporter( 'default' ) )
         .pipe( sourcemaps.init() )
-            .pipe( concat( config.output ) )
+        .pipe( concat( config.output ) )
         .pipe( sourcemaps.write() )
         .pipe( gulp.dest( config.dest ) )
         .pipe( notify( { message: config.message } ) )
