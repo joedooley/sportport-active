@@ -9,7 +9,7 @@ module.exports = {
 
   i18n: {
     src: sources.code,
-    textdomain: 'sportport-active-theme',
+    textdomain: 'sportport-active',
     dest: '../languages/',
     message: 'i18n tasks complete.'
   },

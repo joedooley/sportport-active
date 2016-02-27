@@ -2,9 +2,19 @@
 //* Start the engine
 require_once( get_template_directory() . '/lib/init.php' );
 
+//* Include Customizer files
+require_once( get_stylesheet_directory() . '/assets/functions/admin/customize.php' );
+include_once( get_stylesheet_directory() . '/assets/functions/admin/output.php' );
+
+//* Include widgets.php
+require_once( get_stylesheet_directory() . '/assets/functions/widgets.php' );
+
+
 //* Child theme (do not remove)
 define( 'CHILD_THEME_NAME', 'Epik Theme', 'epik' );
 define( 'CHILD_THEME_URL', 'http://appfinite.com/themes/epik' );
+define( 'CHILD_THEME_VERSION', '1.0' );
+
 
 //* Enqueue Scripts/Styles
 add_action( 'wp_enqueue_scripts', 'epik_enqueue_scripts_styles' );
@@ -16,17 +26,6 @@ function epik_enqueue_scripts_styles() {
 	wp_enqueue_style( 'prefix-font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css', array(), '4.0.3' );
 
 }
-
-//* Add Image upload to WordPress Theme Customizer
-add_action( 'customize_register', 'epik_customizer' );
-function epik_customizer(){
-
-	require_once( get_stylesheet_directory() . '/lib/customize.php' );
-
-}
-
-//* Include Section Image CSS
-include_once( get_stylesheet_directory() . '/lib/output.php' );
 
 //* Add HTML5 markup structure
 add_theme_support( 'html5' );
@@ -72,6 +71,9 @@ add_theme_support( 'genesis-structural-wraps', array(
 	'footer-widgets',
 	'footer',
 ) );
+
+//* Add support for 3-column footer widgets
+add_theme_support( 'genesis-footer-widgets', 3 );
 
 // Reposition the Secondary Navigation
 remove_action( 'genesis_after_header', 'genesis_do_subnav' ) ;
@@ -160,115 +162,7 @@ function epik_theme_settings_portfolio() { ?>
 <?php
 }
 
-//* Add support for 3-column footer widgets
-add_theme_support( 'genesis-footer-widgets', 3 );
 
-// Register widget areas
-genesis_register_sidebar( array(
-	'id'			=> 'slider-wide',
-	'name'			=> __( 'Slider Wide', 'epik' ),
-	'description'	=> __( 'This is the wide slider section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'slider',
-	'name'			=> __( 'Slider', 'epik' ),
-	'description'	=> __( 'This is the slider section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'welcome-wide',
-	'name'			=> __( 'Welcome Wide', 'epik' ),
-	'description'	=> __( 'This is the Wide (full width) section of the Welcome area.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'welcome-feature-1',
-	'name'			=> __( 'Welcome Feature #1', 'epik' ),
-	'description'	=> __( 'This is the first column of the Welcome feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'welcome-feature-2',
-	'name'			=> __( 'Welcome Feature #2', 'epik' ),
-	'description'	=> __( 'This is the second column of the Welcome feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'welcome-feature-3',
-	'name'			=> __( 'Welcome Feature #3', 'epik' ),
-	'description'	=> __( 'This is the third column of the Welcome feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'home-feature-1',
-	'name'			=> __( 'Home Feature #1 (Left)', 'epik' ),
-	'description'	=> __( 'This is the first column of the feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'home-feature-2',
-	'name'			=> __( 'Home Feature #2 (Right)', 'epik' ),
-	'description'	=> __( 'This is the second column of the feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'home-feature-3',
-	'name'			=> __( 'Home Feature #3 (Gray)', 'epik' ),
-	'description'	=> __( 'This is the 3rd column of the feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'home-feature-4',
-	'name'			=> __( 'Home Feature #4 (White)', 'epik' ),
-	'description'	=> __( 'This is the 4th column of the feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'home-feature-5',
-	'name'			=> __( 'Home Feature #5 (Dark Gray)', 'epik' ),
-	'description'	=> __( 'This is the 5th column of the feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'home-feature-6',
-	'name'			=> __( 'Home Feature #6 (White)', 'epik' ),
-	'description'	=> __( 'This is the 6th column of the feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'home-feature-7',
-	'name'			=> __( 'Home Feature #7 (Gray)', 'epik' ),
-	'description'	=> __( 'This is the 7th column of the feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'home-feature-8',
-	'name'			=> __( 'Home Feature #8 (White)', 'epik' ),
-	'description'	=> __( 'This is the 8th column of the feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'home-feature-9',
-	'name'			=> __( 'Home Feature #9 (Gray)', 'epik' ),
-	'description'	=> __( 'This is the 9th column of the feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'home-feature-10',
-	'name'			=> __( 'Home Feature #10', 'epik' ),
-	'description'	=> __( 'This is the 10th column of the feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'home-feature-11',
-	'name'			=> __( 'Home Feature #11', 'epik' ),
-	'description'	=> __( 'This is the 11th column of the feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'home-feature-12',
-	'name'			=> __( 'Home Feature #12', 'epik' ),
-	'description'	=> __( 'This is the 12th column of the feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'home-feature-13',
-	'name'			=> __( 'Home Feature #13', 'epik' ),
-	'description'	=> __( 'This is the 13th column of the feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'home-feature-14',
-	'name'			=> __( 'Home Feature #14 (White)', 'epik' ),
-	'description'	=> __( 'This is the 14th column of the feature section of the homepage.', 'epik' ),
-) );
-genesis_register_sidebar( array(
-	'id'			=> 'after-entry',
-	'name'			=> __( 'After Entry', 'epik' ),
-	'description'	=> __( 'This widget will show up at the very end of each post.', 'epik' ),
-) );
 
 //* GRITEYE CUSTOM CODE BELOW ========================================================================
 
@@ -358,6 +252,7 @@ add_action( 'wp_enqueue_scripts', 'genesis_enqueue_main_stylesheet', 15 );
 /**
  * Add floating logo
 */
+
 
 add_action( 'genesis_before', 'add_logo_div' );
 
