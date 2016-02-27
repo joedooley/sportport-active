@@ -15,7 +15,8 @@ function epik_home_genesis_meta() {
 
 			if ( ! wp_is_mobile() ) {
 
-				wp_enqueue_script( 'parallax-script', get_bloginfo( 'stylesheet_directory' ) . '/assets/js/parallax.js', array( 'jquery' ), '1.0.0' );
+				wp_enqueue_script( 'parallax-script', get_bloginfo( 'stylesheet_directory' ) . '/assets/js/custom/single/parallax.js', array( 'jquery' ), '1.0
+				.0' );
 			}
 
 		}

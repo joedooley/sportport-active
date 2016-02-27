@@ -19,7 +19,7 @@ define( 'CHILD_THEME_VERSION', '1.0' );
 add_action( 'wp_enqueue_scripts', 'epik_enqueue_scripts_styles' );
 function epik_enqueue_scripts_styles() {
 
-	wp_enqueue_script( 'epik-responsive-menu', get_bloginfo( 'stylesheet_directory' ) . '/assets/js/responsive-menu.js', array( 'jquery' ), '1.0.0' );
+	wp_enqueue_script( 'epik-responsive-menu', get_bloginfo( 'stylesheet_directory' ) . '/assets/js/custom.min.js', array( 'jquery' ), '1.0.0' );
 	wp_enqueue_style( 'dashicons' );
 	wp_enqueue_style( 'google-font', '//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', array(), PARENT_THEME_VERSION );
 	wp_enqueue_style( 'prefix-font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css', array(), '4.0.3' );
