@@ -3,7 +3,6 @@
 require_once( get_template_directory() . '/lib/init.php' );
 
 //* Include Customizer files
-require_once( get_stylesheet_directory() . '/assets/functions/admin/customize.php' );
 include_once( get_stylesheet_directory() . '/assets/functions/admin/output.php' );
 
 //* Include widgets.php
@@ -25,6 +24,12 @@ function epik_enqueue_scripts_styles() {
 	wp_enqueue_style( 'google-font', '//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', array(), PARENT_THEME_VERSION );
 	wp_enqueue_style( 'prefix-font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css', array(), '4.0.3' );
 
+}
+
+//* Add Image upload to WordPress Theme Customizer
+add_action( 'customize_register', 'epik_customizer' );
+function epik_customizer() {
+	require_once( get_stylesheet_directory() . '/assets/functions/admin/customize.php' );
 }
 
 //* Add HTML5 markup structure
