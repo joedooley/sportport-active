@@ -1,0 +1,123 @@
+/*!
+Site Navigation
+---------------------------------------------------------------------------------------------------- */
+
+.genesis-nav-menu {
+	clear: both;
+	color: #ccc;
+	font-size: 13px;
+	font-weight: 600;
+	letter-spacing: 1px;
+	line-height: 1.5;
+	margin: 12px 0 0 0;
+	padding: 0;
+	width: 100%;
+	text-transform: uppercase;
+	letter-spacing: .2em;
+	font-size: 11px;
+}
+
+.genesis-nav-menu .menu-item {
+	float: left;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+}
+
+.genesis-nav-menu a {
+	border: none;
+	color: #fff;
+	display: block;
+	font-weight: 400;
+	padding: 13px;
+	position: relative;
+}
+
+.nav-primary .genesis-nav-menu a {
+	color: #fff;
+	padding: 13px 26px 13px 0;
+}
+
+.genesis-nav-menu a:hover,
+.genesis-nav-menu .current-menu-item > a,
+.genesis-nav-menu .sub-menu .current-menu-item > a:hover {
+	text-decoration: none;
+}
+
+.genesis-nav-menu .sub-menu .current-menu-item > a {
+	color: #aaa;
+}
+
+.genesis-nav-menu > .menu-item > a {
+}
+
+.genesis-nav-menu .sub-menu {
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+	left: -9999px;
+	margin: 0;
+	opacity: 0;
+	padding: 0;
+	position: absolute;
+	-webkit-transition: opacity .4s ease-in-out;
+	-moz-transition: opacity .4s ease-in-out;
+	-ms-transition: opacity .4s ease-in-out;
+	-o-transition: opacity .4s ease-in-out;
+	transition: opacity .4s ease-in-out;
+	width: 202px;
+	z-index: 99;
+}
+
+.genesis-nav-menu .sub-menu a {
+	background: #f93;
+	color: #fff;
+	letter-spacing: .2em;
+	padding: 13px;
+	position: relative;
+	width: 200px;
+	border-bottom: 1px solid #fff;
+}
+
+.genesis-nav-menu .sub-menu .sub-menu {
+	margin: -45px 0 0 201px;
+}
+
+.genesis-nav-menu .menu-item:hover {
+	position: static;
+}
+
+.genesis-nav-menu .menu-item:hover > .sub-menu {
+	left: auto;
+	opacity: 1;
+}
+
+
+.genesis-nav-menu > .right {
+	display: inline-block;
+	float: right;
+	list-style-type: none;
+	padding: 13px 0 13px 20px;
+}
+
+.genesis-nav-menu > .right > a {
+	background: none;
+	padding: 0;
+}
+
+.genesis-nav-menu > .rss > a {
+	margin-left: 48px;
+}
+
+.genesis-nav-menu > .search {
+	padding: 0;
+}
+
+.genesis-nav-menu > .search input {
+	padding: 6px;
+}
+
+.genesis-nav-menu .search-form {
+	width: 100%;
+}

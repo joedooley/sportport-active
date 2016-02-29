@@ -1,7 +1,7 @@
 /*!
     Theme Name: Epik
     Theme URI: http://appfinite.com/themes/epik
-	Description: Epik is a mobile responsive and HTML5 theme built for the Genesis Framework.
+	  Description: Epik is a mobile responsive and HTML5 theme built for the Genesis Framework.
     Author: Appfinite
     Author URI: http://www.appfinite.com/
 
@@ -106,6 +106,8 @@
 
 
 // Main layout
-@import "pages/pages";
 @import "components/components";
+@import "pages/pages";
 @import "layout/layout";
+@import "plugins/plugins";
+

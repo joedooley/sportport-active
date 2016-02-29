@@ -1,0 +1,16 @@
+/*! Responsive Menu
+--------------------------------------------- */
+
+.responsive-menu-icon {
+	cursor: pointer;
+	display: none;
+	margin: 20px 0 -10px 5%;
+}
+
+.responsive-menu-icon::before {
+	color: #fff;
+	// content: "\f333";
+	content: url("/wp-content/uploads/2015/09/Responsive-Menu-Icon-White-02.png");
+	// font: normal 32px/1 'dashicons';
+	margin: 0 auto;
+}

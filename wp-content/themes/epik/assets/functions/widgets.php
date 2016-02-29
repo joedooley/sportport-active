@@ -2,6 +2,11 @@
 
 // Register widget areas
 genesis_register_sidebar( array(
+	'id'          => 'before-header',
+	'name'        => __( 'Before Header', 'epik' ),
+	'description' => __( 'This is the section before the header.', 'epik' ),
+) );
+genesis_register_sidebar( array(
 	'id'          => 'slider-wide',
 	'name'        => __( 'Slider Wide', 'epik' ),
 	'description' => __( 'This is the wide slider section of the homepage.', 'epik' ),
@@ -106,3 +111,41 @@ genesis_register_sidebar( array(
 	'name'        => __( 'After Entry', 'epik' ),
 	'description' => __( 'This widget will show up at the very end of each post.', 'epik' ),
 ) );
+
+
+
+//* Hooks after-entry widget area to single posts
+add_action( 'genesis_after_entry', 'after_entry_widget', 5 );
+function after_entry_widget() {
+
+	if ( ! is_singular( 'post' ) ) {
+		return;
+	}
+
+	genesis_widget_area( 'after-entry', array(
+		'before' => '<div class="after-entry widget-area"><div class="wrap">',
+		'after'  => '</div></div>',
+	) );
+
+}
+
+
+add_action( 'genesis_before', 'spa_pro_before_header' );
+/**
+ * Load an ad section before .site-inner.
+ *
+ * @since   1.0.0
+ *
+ * @return  null if the before-header sidebar isn't active.
+ */
+function spa_pro_before_header() {
+	//* Return early if we have no ad.
+	if ( ! is_active_sidebar( 'before-header' ) ) {
+		return;
+	}
+
+	echo '<div class="before-header">';
+	dynamic_sidebar( 'before-header' );
+	echo '</div>';
+}
+
