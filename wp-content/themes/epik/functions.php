@@ -17,6 +17,9 @@ require_once( get_stylesheet_directory() . '/assets/functions/genesis.php' );
 //* Include scripts-and-styles.php
 require_once( get_stylesheet_directory() . '/assets/functions/scripts-and-styles.php' );
 
+//* Include woocommerce.php
+require_once( get_stylesheet_directory() . '/assets/functions/woocommerce.php' );
+
 
 //* Child theme (do not remove)
 define( 'CHILD_THEME_NAME', 'Epik Theme', 'epik' );
@@ -191,3 +194,5 @@ function spa_google_tag_manager() {
 		gtm4wp_the_gtm_tag();
 	}
 }
+
+
