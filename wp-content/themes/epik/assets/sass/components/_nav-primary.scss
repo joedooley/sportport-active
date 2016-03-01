@@ -2,34 +2,37 @@
 
 .nav-primary {
 	float: right;
+	margin-top: 2px;
 
 	@include media($xlarge-screen-up) {
-		float: none;
-	}
-}
-
-.nav-primary .genesis-nav-menu {
-	@include align-items(stretch);
-	@include display(inline-flex);
-	@include flex-direction(row);
-	@include justify-content(flex-start);
-
-	@include media($xlarge-screen-up) {
-		@include justify-content(center);
-
+		width: 100%;
 	}
 
+	a {
+		color: #fff;
+		font-size: em(14);
+		text-decoration: none;
+		//color: green;
+
+		&:hover,
+		&:focus,
+		&:active {
+			color: #fff;
+			font-family: ralewayheavy, 'Helvetica Neue', sans-serif;
+		}
+	}
+
 }
 
-.nav-primary a:hover,
-.nav-primary .current-menu-item > a {
-	color: #aaa;
+.nav-primary .genesis-nav-menu li.last a {
+	padding-right: 0;
 }
 
-.nav-primary .genesis-nav-menu > .right > a {
-	background: none;
+.nav-primary .sub-menu {
+	border-top: 1px solid #ddd;
+	z-index: 1;
 }
 
-.nav-primary .sub-menu a:hover {
-	color: #aaa;
+.nav-primary .genesis-nav-menu li li {
+	margin-left: 0;
 }

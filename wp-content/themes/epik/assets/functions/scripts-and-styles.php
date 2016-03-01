@@ -27,12 +27,12 @@ function spa_scripts_styles() {
 	);
 
 
-//	wp_enqueue_style(
-//		'ionicons',
-//		'//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css',
-//		array(),
-//		CHILD_THEME_VERSION
-//	);
+	wp_enqueue_style(
+		'ionicons',
+		'//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css',
+		array(),
+		CHILD_THEME_VERSION
+	);
 
 	wp_enqueue_style(
 		'dashicons'
@@ -62,6 +62,17 @@ function spa_scripts_styles() {
 //		true
 //	);
 
+	$output = array(
+		'mainMenu' => __( 'Menu', 'epik' ),
+		//'subMenu'  => __( 'Menu', 'epik' ),
+	);
+
+
+	wp_localize_script(
+		'spa-custom-scripts',
+		'DigitalL10n',
+		$output
+	);
 
 
 }

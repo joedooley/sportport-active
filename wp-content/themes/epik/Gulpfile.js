@@ -9,8 +9,8 @@
  */
 
 // Project configuration
-var project      = 'thin-places-tour', // Project name, used for build zip.
-    //url       = http://thinplacestour.dev/, // Local Development URL for BrowserSync. Change as-needed.
+var project      = 'sportport-active', // Project name, used for build zip.
+    url          = 'https://sportport.dev/', // Local Development URL for BrowserSync. Change as-needed.
     bower        = './bower_components/', // Not truly using this yet, more or less playing right now. TO-DO Place in Dev
     build        = 'dist/', // Files that you want to package into a zip go here
     buildInclude = [
@@ -41,7 +41,7 @@ var project      = 'thin-places-tour', // Project name, used for build zip.
 
 var imagesSRC         = './assets/images/raw/**/*.{png,jpg,gif,svg}'; // Source folder of images which should be optimized.
 var imagesDestination = './assets/images/'; // Destination folder of optimized images. Must be different from the imagesSRC folder.
-var projecturl        = 'thinplacestour.dev'; // Project URL. Could be something like localhost:8888.
+var projecturl        = 'sportport.dev'; // Project URL. Could be something like localhost:8888.
 
 
 var styleSRC         = './assets/sass/style.scss'; // Path to main .scss file.
@@ -70,10 +70,10 @@ const AUTOPREFIXER_BROWSERS = [
 
 
 var gulp         = require('gulp'),
-    //browserSync     = require('browser-sync'),
-    //reload          = browserSync.reload,
+    browserSync  = require('browser-sync'),
+    reload       = browserSync.reload,
     connect      = require('gulp-connect'),
-    //gulpLoadPlugins = require('gulp-load-plugins'),
+    gulpLoadPlugins = require('gulp-load-plugins'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss    = require('gulp-uglifycss'),
     filter       = require('gulp-filter'),
@@ -84,7 +84,7 @@ var gulp         = require('gulp'),
     concat       = require('gulp-concat'),
     notify       = require('gulp-notify'),
     cmq          = require('gulp-combine-media-queries'),
-    //runSequence     = require('gulp-run-sequence'),
+    runSequence  = require('gulp-run-sequence'),
     sass         = require('gulp-sass'),
     plugins      = require('gulp-load-plugins')({camelize: true}),
     ignore       = require('gulp-ignore'), // Helps with ignoring files and directories in our run tasks
@@ -100,29 +100,36 @@ var gulp         = require('gulp'),
  * Asynchronous browser syncing of assets across multiple devices!! Watches for changes to js, image and php files
  * Although, I think this is redundant, since we have a watch task that does this already.
  */
-/*gulp.task('browser-sync', function() {
- var files = [
- '**//*.php
- '**//*.{png,jpg,gif,svg}'
- ];
- browserSync.init(files, {
 
- // Read here http://www.browsersync.io/docs/options/
- proxy: url,
-
- // port: 8080,
-
- // Tunnel the Browsersync server through a random Public URL
- // tunnel: true,
-
- // Attempt to use the URL "http://my-private-site.localtunnel.me"
- // tunnel: "ppress",
-
- // Inject CSS changes
- injectChanges: true
-
- });
- });*/
+// gulp.task('browser-sync', ['styles'], function() {
+//
+// 	var files = [
+// 		'**//*.php',
+// 		'**//*.{png,jpg,gif,svg}'
+// 	];
+//
+// 	browserSync.init(files, {
+//
+// 		// Read here http://www.browsersync.io/docs/options/
+// 		proxy: url,
+//
+// 		// port: 8080,
+//
+// 		// Tunnel the Browsersync server through a random Public URL
+//         // tunnel: true,
+//
+//         // Attempt to use the URL "http://my-private-site.localtunnel.me"
+//         // tunnel: "ppress",
+//
+// 	    // Inject CSS changes
+//         injectChanges: true
+//
+// 	});
+//
+// 	gulp.watch("assets/sass/*.scss", ['styles']);
+// 	gulp.watch("assets/functions/*.php").on('change', browserSync.reload);
+//
+// });
 
 
 /**
@@ -156,6 +163,7 @@ gulp.task('styles', function () {
 
 		.pipe(sourcemaps.write(styleDestination))
 		.pipe(gulp.dest(styleDestination))
+		// .pipe(reload({stream: true})) // Inject Styles when style file is created
 
 
 		.pipe(rename({suffix: '.min'}))
@@ -163,7 +171,7 @@ gulp.task('styles', function () {
 			maxLineLen: 10
 		}))
 		.pipe(gulp.dest(styleDestination))
-		//.pipe( browserSync.stream() )
+		// .pipe(reload({stream: true})) // Inject Styles when min style file is created
 		.pipe(notify({message: 'TASK: "styles" Completed!', onLast: true}))
 });
 
@@ -313,18 +321,23 @@ gulp.task('buildZip', function () {
 
 // Package Distributable Theme
 gulp.task('build', function (cb) {
-	gulp.watch('styles', 'cleanup', 'vendogulp stylesrsJs', 'scriptsJs', 'buildFiles', 'buildImages', 'buildZip', 'cleanupFinal', cb);
+	gulp.watch('styles', 'cleanup', 'vendorsJs', 'scriptsJs', 'buildFiles', 'buildImages', 'buildZip', 'cleanupFinal', cb);
 });
 
 
-// Watch Task
+// Watch Task with BrowserSync
+// gulp.task('default', ['styles', 'vendorsJs', 'scriptsJs', 'images', 'browser-sync'], function () {
+// 	gulp.watch('./assets/images/raw/**/*', ['images']);
+// 	gulp.watch('./assets/sass/*.scss', ['styles']);
+// 	gulp.watch('./assets/js/**/*.js', ['scriptsJs', browserSync.reload]);
+// });
+//
+
+
+// Watch Task without BrowserSync
 gulp.task('default', ['styles', 'vendorsJs', 'scriptsJs', 'images'], function () {
 	gulp.watch('./assets/images/raw/**/*', ['images']);
 	gulp.watch('./assets/sass/*.scss', ['styles']);
 	gulp.watch('./assets/js/**/*.js', ['scriptsJs']);
 });
-
-
-
-
 

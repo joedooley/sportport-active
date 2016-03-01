@@ -1,9 +1,11 @@
 /*! ## Components
 --------------------------- */
 
-@import "widgets";
 @import "header";
+@import "navigation";
 @import "nav-primary";
 @import "nav-secondary";
-@import "navigation";
 @import "responsive-nav";
+
+
+@import "widgets";

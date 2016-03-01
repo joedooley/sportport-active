@@ -3,7 +3,7 @@ $base-font-family: $helvetica;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
-$base-font-size: 1em;
+$base-font-size: 62.5%;
 
 // Line height
 $base-line-height: 1.5;
@@ -19,7 +19,7 @@ $base-z-index: 0;
 $blue: #1565c0;
 $dark-gray: #333;
 $medium-gray: #999;
-$light-gray: #ddd;
+$light-gray: rgba(211, 220, 235, 0.59);
 
 // Font Colors
 $base-font-color: $dark-gray;
@@ -40,3 +40,5 @@ $form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $l
 // Animations
 $base-duration: 150ms;
 $base-timing: ease;
+
+

@@ -29,9 +29,8 @@ function spa_add_theme_support() {
 
 
 	add_theme_support( 'genesis-structural-wraps', array(
-		'before-header',
 		'header',
-		//'nav',
+		'nav',
 		'subnav',
 		'inner',
 		'footer-widgets',
