@@ -32,7 +32,7 @@ function spa_header_inline_logo( $title, $inside, $wrap ) {
 
 	$logo = '<img src="' . get_stylesheet_directory_uri() . '/images/logo.png" alt="' . esc_attr(
 			get_bloginfo(
-				'name' ) ) . '" title="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="320" height="31" />';
+				'name' ) ) . '" title="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="317" height="91" />';
 
 	$inside = sprintf( '<a href="%s" title="%s">%s</a>', trailingslashit( home_url() ), esc_attr( get_bloginfo( 'name' ) ), $logo );
 

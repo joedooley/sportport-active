@@ -195,9 +195,3 @@ function spa_google_tag_manager() {
 	}
 }
 
-
-add_action( 'woocommerce_single_product_summary', 'dev_designs_show_sku', 5 );
-function dev_designs_show_sku() {
-	global $product;
-	echo $product->get_sku();
-}

@@ -53,8 +53,8 @@
 		padding-top: 10px;
 		position: relative;
 		right: 0;
-		z-index: 1000;
 		width: 100%;
+		z-index: 1000;
 	}
 
 	.menu-toggle:before,
@@ -66,8 +66,6 @@
 		margin: 0 auto;
 		padding-right: 10px;
 		text-rendering: auto;
-		-webkit-transform: translate(0, 0);
-		-ms-transform: translate(0, 0);
 		transform: translate(0, 0);
 		vertical-align: middle;
 	}
@@ -86,8 +84,6 @@
 		display: inline-block;
 		font: normal 16px/1 'ionicons';
 		text-rendering: auto;
-		-webkit-transform: translate(0, 0);
-		-ms-transform: translate(0, 0);
 		transform: translate(0, 0);
 	}
 
@@ -98,8 +94,8 @@
 	.js .genesis-nav-menu .menu-item {
 		display: block;
 		float: none;
-		margin-top: 1px;
 		margin-bottom: 1px;
+		margin-top: 1px;
 		position: relative;
 		text-align: left;
 	}
@@ -144,18 +140,19 @@
 	}
 
 	.js .genesis-nav-menu .sub-menu a {
-		border: none;
+		border-bottom: 1px solid $base-border-color;
 	}
 
 	.js nav button:hover,
 	.js .menu-toggle:hover,
 	.js .nav-primary {
-		color: #1e1e1e;
+		color: #fff;
+		font-weight: bold;
 	}
 
 	.js nav button:focus,
 	.js .menu-toggle:focus {
-		color: #e85555;
+		color: #fff;
 	}
 
 }
