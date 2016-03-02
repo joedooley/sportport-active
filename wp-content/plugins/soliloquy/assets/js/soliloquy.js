@@ -201,17 +201,21 @@ function soliloquyLocalVids(data, id, width, height, holder, $){
     if (data.volume === 1) {
         features.push('volume');
     }
-
+    if (data.fullscreen === 1) {
+        features.push('fullscreen');
+    }
+    
     // Init MediaElementPlayer
     soliloquy_local[id] = new MediaElementPlayer( 'video#' + holder, {
         features: features,
         success: function( mediaElement, domObject ) {
-            if (data.autoplay === 1) {
-                mediaElement.addEventListener('canplay', function() {
-                    // Player is ready
-                    mediaElement.play();
-                }, false);
+
+            if (data.autoplay == 1) {
+	            
+				mediaElement.play();
+
             }
+            
         }
     });
 

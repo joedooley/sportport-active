@@ -359,17 +359,6 @@
 * RTL
 */
 .soliloquy-rtl {
-	/**
-	* Pager
-	* - add margin to first child
-	* - remove margin from last child
-	*/
-	.soliloquy-pager-item:first-child {
-		margin-left: 7px;
-	}
-	.soliloquy-pager-item:last-child {
-		margin-left: 0;
-	}
 	
 	/**
 	* Direction Controls
@@ -394,7 +383,31 @@
 		float: right !important;
 	}
 }
-
+body.rtl{
+	
+	/**
+	* Direction Controls
+	* - swap left + right controls over
+	*/
+	.soliloquy-next {
+		left: 10px;
+		right: auto;
+		background-image: url(images/left.png);
+	}
+	.soliloquy-prev {
+		right: 10px;
+		left: auto;
+		background-image: url(images/right.png);
+	}
+	
+	/**
+	* Thumbnails
+	* - float right so they display
+	*/
+	.soliloquy-thumbnails-item {
+		float: right !important;
+	}	
+}
 /**
 * Thumbnails
 */
