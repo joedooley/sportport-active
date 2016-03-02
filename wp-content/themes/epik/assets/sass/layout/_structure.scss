@@ -1,0 +1,93 @@
+// Site Structure and Layout
+
+// Site Containers
+
+.wrap {
+	margin: 0 auto;
+	max-width: 1140px;
+
+	@include media($xxlarge-screen-up) {
+		max-width: 960px;
+	}
+}
+
+.site-inner {
+	clear: both;
+	margin: 60px auto 0;
+	padding: 0 60px 0 100px;
+
+	@include media($xlarge-screen-up) {
+
+		.site-inner {
+			background: none;
+			padding-left: 5%;
+			padding-right: 5%;
+		}
+
+	}
+}
+
+
+// Column Widths and Positions for Sidebar Layouts
+
+.content-sidebar-sidebar .content-sidebar-wrap,
+.sidebar-content-sidebar .content-sidebar-wrap,
+.sidebar-sidebar-content .content-sidebar-wrap {
+	width: 920px;
+
+	@include media($xxlarge-screen-up) {
+		width: 740px;
+	}
+}
+
+.content-sidebar-sidebar .content-sidebar-wrap {
+	float: left;
+}
+
+.sidebar-content-sidebar .content-sidebar-wrap,
+.sidebar-sidebar-content .content-sidebar-wrap {
+	float: right;
+}
+
+// Content Area
+
+.content {
+	float: right;
+	font-size: 15px;
+	width: 710px;
+
+	@include media($xxlarge-screen-up) {
+		// width: 620px;
+		// PK
+	}
+}
+
+.content-sidebar .content,
+.content-sidebar-sidebar .content,
+.sidebar-content-sidebar .content {
+	float: left;
+}
+
+.content-sidebar-sidebar .content,
+.sidebar-content-sidebar .content,
+.sidebar-sidebar-content .content {
+	width: 520px;
+
+	@include media($xxlarge-screen-up) {
+		width: 400px;
+	}
+}
+
+.full-width-content .content {
+	width: 100%;
+}
+
+@include media($xxlarge-screen-up) {
+	.sidebar-primary {
+		width: 300px;
+	}
+}
+
+
+
+

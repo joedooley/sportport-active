@@ -12,10 +12,18 @@
 	.title-area {
 		float: left;
 
+		@include media($xxlarge-screen) {
+			width: 300px;
+		}
+
 		.site-title {
 			margin: 0;
 
-			img {
+			@include media($xlarge-screen-up) {
+				text-align: center;
+			}
+
+				img {
 				position: relative;
 				z-index: 999;
 				top: 30px;

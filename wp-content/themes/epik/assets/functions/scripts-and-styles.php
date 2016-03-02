@@ -20,31 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 function spa_scripts_styles() {
 
 	wp_enqueue_style(
-		'google-font',
-		'//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700',
-		array(),
-		PARENT_THEME_VERSION
-	);
-
-
-	wp_enqueue_style(
 		'ionicons',
 		'//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css',
 		array(),
 		CHILD_THEME_VERSION
 	);
-
-	wp_enqueue_style(
-		'dashicons'
-	);
-
-	wp_enqueue_style(
-		'spa-font-awesome',
-		'//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css',
-		array(),
-		'4.0.3'
-	);
-
 
 	wp_enqueue_script(
 		'spa-custom-scripts',
@@ -73,8 +53,7 @@ function spa_scripts_styles() {
 		'DigitalL10n',
 		$output
 	);
-
-
+	
 }
 
 

@@ -1,0 +1,42 @@
+{
+    "key": "group_56d6ca913f1da",
+    "title": "Theme Settings",
+    "fields": [
+        {
+            "key": "field_56d6caa912d7a",
+            "label": "Free Shipping Notification",
+            "name": "free_shipping_notification",
+            "type": "wysiwyg",
+            "instructions": "Update the free shipping notification in the before header section here.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "theme-general-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1456917909
+}

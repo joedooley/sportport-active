@@ -20,6 +20,9 @@ require_once( get_stylesheet_directory() . '/assets/functions/scripts-and-styles
 //* Include woocommerce.php
 require_once( get_stylesheet_directory() . '/assets/functions/woocommerce.php' );
 
+//* Include theme-options-page.php
+require_once( get_stylesheet_directory() . '/assets/functions/admin/theme-options-page.php' );
+
 
 //* Child theme (do not remove)
 define( 'CHILD_THEME_NAME', 'Epik Theme', 'epik' );
