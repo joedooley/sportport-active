@@ -1,0 +1,254 @@
+# Copyright (C) 2015 Team Yoast
+# This file is distributed under the GPL v3.
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress SEO News 3.0\n"
+"Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
+"POT-Creation-Date: 2015-11-18 12:50:46+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Yoast Translate Team <translations@yoast.com>\n"
+"Language-Team: Yoast Translate <translations@yoast.com>\n"
+"X-Generator: grunt-wp-i18n 0.4.9\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+
+#: classes/class-admin-page.php:16
+msgid ""
+"You will generally only need XML News sitemap when your website is included "
+"in Google News."
+msgstr ""
+
+#: classes/class-admin-page.php:17
+msgid "You can find your news sitemap here: %1$sXML News sitemap%2$s"
+msgstr ""
+
+#: classes/class-admin-page.php:20
+msgid "Google News Publication Name"
+msgstr ""
+
+#: classes/class-admin-page.php:23
+msgid "Default Genre"
+msgstr ""
+
+#: classes/class-admin-page.php:49
+msgid "Default Keywords"
+msgstr ""
+
+#: classes/class-admin-page.php:50
+msgid ""
+"It might be wise to add some of Google's suggested keywords to all of your "
+"posts, add them as a comma separated list. Find the list here:"
+msgstr ""
+
+#: classes/class-admin-page.php:52
+msgid "Only use featured image for XML News sitemap, ignore images in post."
+msgstr ""
+
+#: classes/class-admin-page.php:61
+msgid "Post Types to include in News Sitemap and Editors&#39; Pick RSS"
+msgstr ""
+
+#: classes/class-admin-page.php:73
+msgid "Post categories to exclude"
+msgstr ""
+
+#: classes/class-admin-page.php:84 classes/class-meta-box.php:76
+msgid "Editors' Pick"
+msgstr ""
+
+#: classes/class-admin-page.php:89
+msgid "Editors' Pick Image"
+msgstr ""
+
+#: classes/class-admin-page.php:91
+msgid "Upload Image"
+msgstr ""
+
+#: classes/class-admin-page.php:94
+msgid ""
+"You can find your Editors' Pick RSS feed here: %1$sEditors' Pick RSS "
+"Feed%2$s"
+msgstr ""
+
+#: classes/class-admin-page.php:95
+msgid ""
+"You can submit your Editors' Pick RSS feed here: %1$sSubmit Editors' Pick "
+"RSS Feed%2$s"
+msgstr ""
+
+#: classes/class-javascript-strings.php:9
+msgid "Choose image."
+msgstr ""
+
+#: classes/class-meta-box.php:33
+msgid "Exclude from News Sitemap"
+msgstr ""
+
+#: classes/class-meta-box.php:39
+msgid "Meta News Keywords"
+msgstr ""
+
+#: classes/class-meta-box.php:40
+msgid ""
+"Comma separated list of the keywords this article aims at, use a maximum of "
+"10 keywords."
+msgstr ""
+
+#: classes/class-meta-box.php:46
+msgid "Google News Genre"
+msgstr ""
+
+#: classes/class-meta-box.php:47
+msgid "Genre to show in Google News Sitemap."
+msgstr ""
+
+#: classes/class-meta-box.php:55
+msgid "Original Source"
+msgstr ""
+
+#: classes/class-meta-box.php:56
+msgid ""
+"Is this article the original source of this news? If not, please enter the "
+"URL of the original source here. If there are multiple sources, please "
+"separate them by a pipe symbol: | ."
+msgstr ""
+
+#: classes/class-meta-box.php:62
+msgid "Stock Tickers"
+msgstr ""
+
+#: classes/class-meta-box.php:63
+msgid ""
+"A comma-separated list of up to 5 stock tickers of the companies, mutual "
+"funds, or other financial entities that are the main subject of the "
+"article. Each ticker must be prefixed by the name of its stock exchange, "
+"and must match its entry in Google Finance. For example, \"NASDAQ:AMAT\" "
+"(but not \"NASD:AMAT\"), or \"BOM:500325\" (but not \"BOM:RIL\")."
+msgstr ""
+
+#: classes/class-meta-box.php:69
+msgid "Standout"
+msgstr ""
+
+#: classes/class-meta-box.php:77
+msgid ""
+"Editors' Picks enables you to provide up to five links to original news "
+"content you believe represents your organization’s best journalistic work "
+"at any given moment, and potentially have it displayed on the Google News "
+"homepage or select section pages."
+msgstr ""
+
+#: classes/class-meta-box.php:126 classes/class-meta-box.php:138
+msgid "Google News"
+msgstr ""
+
+#: classes/class-meta-box.php:205
+msgid ""
+"If your news organization breaks a big story, or publishes an extraordinary "
+"work of journalism, you can indicate this by using the standout tag."
+msgstr ""
+
+#: classes/class-meta-box.php:209
+msgid ""
+"Note: Google has a limit of %d stand out tags per seven days. Using more "
+"tags can cause removal from Google news. See for more information <a "
+"href=\"https://support.google.com/news/publisher/answer/191283?hl=en\">this "
+"Google page</a>."
+msgstr ""
+
+#: classes/class-meta-box.php:221
+msgid "You've used %s/%s standout tags in the last 7 days."
+msgstr ""
+
+#: wpseo-news.php:191
+msgid "Settings"
+msgstr ""
+
+#: wpseo-news.php:230
+msgid "Yoast WordPress SEO:"
+msgstr ""
+
+#: wpseo-news.php:230 wpseo-news.php:231
+msgid "News SEO"
+msgstr ""
+
+#: wpseo-news.php:283
+msgid ""
+"Please %sinstall &amp; activate WordPress SEO by Yoast%s and then enable "
+"its XML sitemap functionality to allow the WordPress SEO News module to "
+"work."
+msgstr ""
+
+#: wpseo-news.php:292
+msgid ""
+"Please upgrade WordPress to the latest version to allow WordPress and the "
+"WordPress SEO News module to work properly."
+msgstr ""
+
+#: wpseo-news.php:301
+msgid ""
+"Please upgrade the WordPress SEO plugin to the latest version to allow the "
+"WordPress SEO News module to work."
+msgstr ""
+
+#: wpseo-news.php:344
+msgid "None"
+msgstr ""
+
+#: wpseo-news.php:345
+msgid "Press Release"
+msgstr ""
+
+#: wpseo-news.php:346
+msgid "Satire"
+msgstr ""
+
+#: wpseo-news.php:347
+msgid "Blog"
+msgstr ""
+
+#: wpseo-news.php:348
+msgid "Op-Ed"
+msgstr ""
+
+#: wpseo-news.php:349
+msgid "Opinion"
+msgstr ""
+
+#: wpseo-news.php:350
+msgid "User Generated"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WordPress SEO News"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://yoast.com/wordpress/plugins/news-seo/#utm_source=wpadmin&utm_medium="
+"plugin&utm_campaign=wpseonewsplugin"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Google News plugin for the WordPress SEO plugin"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Team Yoast"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://yoast.com/"
+msgstr ""

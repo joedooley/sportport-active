@@ -1,0 +1,75 @@
+[
+    {
+        "name": "xrstf/composer-php52",
+        "version": "v1.0.19",
+        "version_normalized": "1.0.19.0",
+        "source": {
+            "type": "hg",
+            "url": "https://bitbucket.org/xrstf/composer-php52",
+            "reference": "9a4a9c46d0347b39bf9159815301dc66fc25324e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://bitbucket.org/xrstf/composer-php52/get/9a4a9c46d0347b39bf9159815301dc66fc25324e.zip",
+            "reference": "9a4a9c46d0347b39bf9159815301dc66fc25324e",
+            "shasum": ""
+        },
+        "time": "2015-10-01 14:11:58",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-default": "1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "xrstf\\Composer52": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "homepage": "http://www.xrstf.de/"
+    },
+    {
+        "name": "yoast/wp-helpscout",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Yoast/wp-helpscout.git",
+            "reference": "61d402a7f89ea4d55bbb477c739151d69840e5ee"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Yoast/wp-helpscout/zipball/61d402a7f89ea4d55bbb477c739151d69840e5ee",
+            "reference": "61d402a7f89ea4d55bbb477c739151d69840e5ee",
+            "shasum": ""
+        },
+        "time": "2016-02-26 13:11:02",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/"
+            ],
+            "files": [
+                "src/functions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0+"
+        ],
+        "authors": [
+            {
+                "name": "Team Yoast",
+                "email": "support@yoast.com",
+                "homepage": "https://yoast.com"
+            }
+        ],
+        "description": "A package to integrate the helpscout beacon into WordPress"
+    }
+]

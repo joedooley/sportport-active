@@ -1,0 +1,497 @@
+<h1>Local SEO</h1>
+
+<p>Requires at least: 3.4<br />
+	Tested up to: 4.0<br />
+	Stable tag: 1.3.3</p>
+
+<h2>Description</h2>
+
+<p>Local Search module for Yoast SEO plugin of yoast.com.</p>
+
+<h1>Changelog</h1>
+
+<h2>Trunk</h2>
+
+<h2>1.3.3</h2>
+
+<li>Enhancements:
+
+<ul>
+<li>Updated translations for 10 languages</li>
+
+<h2>1.3.2</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>When selecting quarters in opening hours, it isn&rsquo;t displayed as &ldquo;closed&rdquo; anymore</li>
+			<li>Copying data from an existing location now works properly</li>
+		</ul>
+	</li>
+	<li>Enhancements:
+
+		<ul>
+			<li>Removed the current location from the &lsquo;copy data from another location&rsquo; drop down</li>
+			<li>Expanded the importer with opening hours</li>
+			<li>In the locations post edit screen, you can now drag the Google Maps pin to a different location</li>
+			<li>Added an option to the store locator to show the nearest location if no locations are found in the searchradius</li>
+			<li>Added a nonce check to import</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.3.1</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Fixed unability to save 2 sets of openinghours</li>
+			<li>Fixed issue where multiple locations or change of slug gave a 404.</li>
+			<li>Fixed issue where business URL input field did not contain the correct URL</li>
+			<li>Don&rsquo;t display number of results in store locator when no search is performed yet</li>
+			<li>Fixed attachment upload when adding URL&rsquo;s for images in CSV import</li>
+			<li>Fixed: Checkbox to use 24h format in metabox doesn&rsquo;t work when using multiple locations</li>
+			<li>Fixed: business url was not being saved</li>
+			<li>show_email wasn&rsquo;t being set to false, when not selecting it in the shortcode popup</li>
+			<li>Business types were not saved correctly in metabox (musing ultiple locations)</li>
+		</ul>
+	</li>
+	<li>Enhancements:
+
+		<ul>
+			<li>Hide import options when not using multiple locations</li>
+			<li>Change link in Address (and store locator results) into &ldquo;Business URL&rdquo; option, with fallback to permalink</li>
+			<li>Add option to make maps scrollable (or not)</li>
+			<li>Added several new Schema.org markups (Residences, Governent Buildings, Chruches etc.)</li>
+			<li>Added radius to &ldquo;Show store locator&rdquo; popup</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.3.0.3</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>24-h format for opening hours works again</li>
+			<li>Fixes sitemap URL&rsquo;s for servers which needs index.php in permalink structure</li>
+			<li>Option added for hiding business name (remember doing this will break Schema.org markup, since itemprop=&ldquo;name&rdquo; is a required attribute)</li>
+			<li>Hide &ldquo;Show route&rdquo; when not selected from popup.</li>
+		</ul>
+	</li>
+	<li>Enhancements:
+
+		<ul>
+			<li>Properly minify admin CSS scripts.</li>
+		</ul>
+	</li>
+	<li>i18n
+
+		<ul>
+			<li>Updated es_ES, nl_NL and ru_RU</li>
+			<li>Added de_DE, fr_FR and tr_TK</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.3.0.2</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Fix error that prevented properly recognizing current version.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.3.0.1</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Fixed fatal error when saving single location</li>
+			<li>Fixed &ldquo;Non-static method&rdquo; notice</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.3.0</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Mismatched itemprop=&ldquo;email&rdquo; for URL&rsquo;s now changed to itemprop=&ldquo;url&rdquo;</li>
+			<li>Manually changing lat/long coordinates is working again</li>
+		</ul>
+	</li>
+	<li>Enhancements:
+
+		<ul>
+			<li>Add {zipcode} {city}, {state} address format</li>
+			<li>Added html elements to address lines</li>
+			<li>Added possibility to change author of location</li>
+			<li>Added &ldquo;all locations&rdquo; option to Address button in edit-pages to show all locations</li>
+		</ul>
+	</li>
+	<li>Code changes
+
+		<ul>
+			<li>Classes and instances of classes renamed to be more consistent with WP SEO</li>
+			<li>Separated some funciotnality in different classes</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.2.2.2</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Video sitemap was breaking after update 1.2.2.1. We fixed that now.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.2.2.1</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Due to changes in sitemaps to be more in line with other WordPress SEO sitemaps, geo_sitemap.xml was not working anymore. Added now a redirect to redirect geo_sitemap.xml to geo-sitemap.xml</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.2.2</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Fixes fatal error in metabox when having no internet connection</li>
+			<li>Updates lat.long coordinates after changing address of location</li>
+			<li>Force slug for locations CPT, even when blank in admin bug</li>
+			<li>Notice fix in widget when location has no lat/long coordinates</li>
+		</ul>
+	</li>
+	<li>Enhancements:
+
+		<ul>
+			<li>Possibility to add default country to imporve searches from store locator (it adds the country to the search query)</li>
+			<li>Show meesage when route cannot be calculated</li>
+			<li>Pre-select location when adding short codes via popup</li>
+			<li>Add filter to time-frame in Opening Hours</li>
+			<li>Added parameter to shortcode that prevents mouse scrolling</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.2.1</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Fixed: Store locator routing function was broke</li>
+			<li>Some addresses were not reverse geocoded well by the route planner.</li>
+		</ul>
+	</li>
+	<li>Enhancements:
+
+		<ul>
+			<li>Load text domain through filter now, so you can overrule standard translations. (Thanks to Timo Leiniö and http://geertdedeckere.be/article/loading-wordpress-language-files-the-right-way)</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.2.1</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Fixed: Store locator gave unexpected results with a lot of locations</li>
+			<li>Store locator popup checkboxes didn&rsquo;t work correctly. Now they do. The scrollbar is gone too.</li>
+			<li>Fixed: When some locations don&rsquo;t have geo locations, map with all locations fails</li>
+			<li>Fixed: Map failed when some locations don&rsquo;t have lat/long coordinates</li>
+		</ul>
+	</li>
+	<li>Enhancements:
+
+		<ul>
+			<li>Added documentation for CSV import</li>
+			<li>Routeplanner on mobile phones opens now in maps.google.com, which results in opening in the Google Maps app (if installed)</li>
+		</ul>
+	</li>
+	<li>i18n
+
+		<ul>
+			<li>Updated .pot file</li>
+			<li>Updated ru_RU translation</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.2</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Checkbox &lsquo;Hide closed days&rsquo; in widget-admin now works.</li>
+			<li>Added filter &lsquo;wpseo_local_location_route_title_name&rsquo; for title &lsquo;route&rsquo; of widget and shortcode</li>
+			<li>Added esc_html to filter &lsquo;wpseo_local_location_title_tag_name&rsquo;</li>
+			<li>Replaced WPSEO_LOCAL_URL constants by using plugins_url() so that it can be filtered (where needed)</li>
+		</ul>
+	</li>
+	<li>Enhancements:
+
+		<ul>
+			<li>Added a store locator. Gives you the possibility to let people search for the neirest store/office</li>
+			<li>Added a custom taxonomy for categorizing your locations</li>
+			<li>You can enter custom URL&rsquo;s for your locations now</li>
+			<li>Better icons for adding shortcodes</li>
+			<li>Better UI for selecting the map style when adding a map shortcode</li>
+			<li>Added possibility to add comma separated ID&rsquo;s to wpseo_map shortcode for selectively showing locations on a map</li>
+			<li>Added a second field for a phone number (office, mobile etc.)</li>
+			<li>Allow HTML in the &ldquo;Extra comment&rdquo; field in the Address and Opening Hours widgets</li>
+		</ul>
+	</li>
+	<li>i18n:
+
+		<ul>
+			<li>Updated .pot file</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.1.7</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>When outputting opening hours on its own, don&rsquo;t add schema.org</li>
+			<li>When using the &ldquo;insert address&rdquo; button it inserts the entire address with phone, country, fax, ect whether or not it&rsquo;s checked.</li>
+			<li>When &ldquo;hide closing days&rdquo; isn&rsquo;t checked it still hides them.</li>
+			<li>Added page layout options for Genesis themes</li>
+			<li>Added quarters for the opening hours</li>
+			<li>Added shortcode ( [wpseo_all_locations] ) to display all your locations at once.</li>
+		</ul>
+	</li>
+	<li>Enhancements:
+
+		<ul>
+			<li>Added icons to shortcode buttons</li>
+			<li>Added opening hours shortcode button
+
+				<ul>
+					<li>Allow license key to be set by constant WPSEO_LOCAL_LICENSE. Key will be hidden if valid.</li>
+				</ul>
+			</li>
+			<li>Created option to show URL in address detail and in info-box in Google Map</li>
+			<li>Deleted unnecessary files</li>
+		</ul>
+	</li>
+	<li>i18n:
+
+		<ul>
+			<li>Updated hu_HU &amp; ru_RU</li>
+			<li>Updated .pot file</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.1.6</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Apostrophe in company name created issues. Not anymore</li>
+			<li>Setting Unit system works again</li>
+			<li>When specifying a business type and saving, the chosen business type is now selected.</li>
+			<li>Opening hours now display correctly if the opening hours are set to two sets, and only one set is used</li>
+		</ul>
+	</li>
+	<li>Enhancements:
+
+		<ul>
+			<li>Shortcodes can now be inserted visually (button opens popup with settings)</li>
+			<li>Google Maps is now responsive (fluid width)</li>
+			<li>Hide link in popup box (Google Map) when there&rsquo;s just one location</li>
+			<li>Added comment box in the address and opening hours widgets, for extra (optional) comments.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.1.5</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Make sure maps work on https.</li>
+			<li>Improve JS output.</li>
+			<li>Fix several widget bugs.</li>
+		</ul>
+	</li>
+	<li>Enhancements:
+
+		<ul>
+			<li>Remove jQuery dependency.</li>
+			<li>Move JS to external file.</li>
+		</ul>
+	</li>
+	<li>i18n:
+
+		<ul>
+			<li>Updated ru_RU translation.</li>
+			<li>Added Swedish and Polish.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.1.4</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Allow more values in shortcodes to set stuff to false.</li>
+			<li>Fix bounds for Maps.</li>
+		</ul>
+	</li>
+	<li>Enhancements:
+
+		<ul>
+			<li>Make maps output search engine indexable links too.</li>
+		</ul>
+	</li>
+	<li>i18n:
+
+		<ul>
+			<li>Added ru_RU translation.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.1.3</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Fix activation hook to work on add_option instead of just update_option, so activation works immediately.</li>
+			<li>Multiple maps embedded on one page now work properly.</li>
+			<li>Dropdowns with chosen script now line out properly.</li>
+			<li>Google Maps geocoder script + maps embed scripts now properly enqueued and outputted in footer instead of within content.</li>
+			<li>Maps shortcode output bug fixed.</li>
+		</ul>
+	</li>
+	<li>Inline documentation:
+
+		<ul>
+			<li>Added link to FAQ entry about schema.org business types.</li>
+		</ul>
+	</li>
+	<li>Enhancements:
+
+		<ul>
+			<li>Added back LocalBusiness business type to top of business type select.</li>
+			<li>You can now use &ldquo;Current location&rdquo; for widgets, so you can use them on the locations pages. They&rsquo;ll output nothing outside of locations.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.1.2</h2>
+
+<ul>
+	<li>i18n
+
+		<ul>
+			<li>Added da_DK, hu_HU, it_IT and nl_NL translations.</li>
+		</ul>
+	</li>
+	<li>Bugfixes
+
+		<ul>
+			<li>Fix <code>class_exists</code> check to actually check for the right class (props
+				<a href="http://ryanmccue.info/">Ryan McCue</a>).
+			</li>
+			<li>Make both front and backend classes global so methods can be used outside the plugin (props
+				<a href="http://ryanmccue.info/">Ryan McCue</a>).
+			</li>
+			<li>Fix overwriting of <code>$args</code> variable which broke widgets.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.1.1</h2>
+
+<ul>
+	<li>Bugfixes:
+
+		<ul>
+			<li>Make updater actually work&hellip;</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.1</h2>
+
+<ul>
+	<li>Enhancements:
+
+		<ul>
+			<li>Added hide_closed option to opening hours shortcode and widgets.</li>
+			<li>Added option to show fax number and email address in both shortcode and widget.</li>
+			<li>Improved UI for opening hours.</li>
+			<li>Switched to a better endpoint for Google Maps Geocode API.</li>
+			<li>Added state to KML file output.</li>
+		</ul>
+	</li>
+	<li>Bugfixes:
+
+		<ul>
+			<li>&ldquo;undefined&rdquo; URL in maps shortcode and widgets.</li>
+			<li>Fixed several notices.</li>
+			<li>Values &ldquo;off&rdquo; and &ldquo;no&rdquo; now properly work for shortcodes.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h2>1.0</h2>
+
+<ul>
+	<li>Initial version.</li>
+</ul>
+

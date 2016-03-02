@@ -227,7 +227,6 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-weight: normal; }
 
-.welcome-icon { color: #FFF; font-size: 50px; }
 
 /*! SALE [x41] ---------------------------------------- */
 
@@ -2535,22 +2534,8 @@ Miscellaneous
 
 @media only screen and (max-width: 1023px) {
 
-	.content,
-	.content-sidebar-sidebar .content,
-	.content-sidebar-sidebar .content-sidebar-wrap,
-	.sidebar-content-sidebar .content,
-	.sidebar-content-sidebar .content-sidebar-wrap,
-	.sidebar-primary,
-	.sidebar-secondary,
-	.sidebar-sidebar-content .content,
-	.sidebar-sidebar-content .content-sidebar-wrap,
-	.title-area,
-	.wrap {
-		width: 100%;
-	}
 
 	.slider .wrap,
-	.welcome .wrap,
 	.home-feature-bg .wrap,
 	.home-feature-bg-alt .wrap,
 	.home-feature-bg-dark .wrap,
@@ -2619,21 +2604,7 @@ Miscellaneous
 	}
 
 
-.welcome-wide .widget .kim-button {
-	width: 100%;
-	margin: 0 0 15px 0; }
- /*!--------*/
-body.home .woocommerce ul.product_list_widget li { width: 16.5%; }
- /*!--------*/
-body.home .woocommerce ul.product_list_widget li img { width: 90px; }
- /*!--------*/
-.welcome-wide .wrap { padding: 15px; }
- /*!--------*/
-.welcome-wide .widget p {
-	text-align: center;
-	padding: 10px;
-	margin: 0 0 6px 0; }
- /*!--------*/
+
 .home-feature-4 {
 	font-size: 18px;
 	letter-spacing: .1em;
@@ -2721,9 +2692,6 @@ body.home .woocommerce ul.product_list_widget li img { width: 90px; }
 		text-align: none;
 	}
 
-	.welcome-feature-1,
-	.welcome-feature-2,
-	.welcome-feature-3,
 	.home-feature-1,
 	.home-feature-2,
 	.home-feature-3,

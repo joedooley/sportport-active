@@ -60,12 +60,20 @@
 		// width: 620px;
 		// PK
 	}
+
+	@include media($xlarge-screen-up) {
+		width: 100%;
+	}
 }
 
 .content-sidebar .content,
 .content-sidebar-sidebar .content,
 .sidebar-content-sidebar .content {
 	float: left;
+
+	@include media($xlarge-screen-up) {
+
+	}
 }
 
 .content-sidebar-sidebar .content,
@@ -76,6 +84,11 @@
 	@include media($xxlarge-screen-up) {
 		width: 400px;
 	}
+
+	@include media($xlarge-screen-up) {
+		width: 100%;
+	}
+
 }
 
 .full-width-content .content {
@@ -86,8 +99,20 @@
 	.sidebar-primary {
 		width: 300px;
 	}
+
+	@include media($xlarge-screen-up) {
+		
+	}
 }
 
-
+.content-sidebar-sidebar .content-sidebar-wrap,
+.sidebar-content-sidebar .content-sidebar-wrap,
+.sidebar-primary,
+.sidebar-secondary,
+.sidebar-sidebar-content .content-sidebar-wrap,
+.title-area,
+.wrap {
+	width: 100%;
+}
 
 
