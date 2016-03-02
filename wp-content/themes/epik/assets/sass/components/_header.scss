@@ -1,29 +1,26 @@
-/*! Site Header
----------------------------------------------------------------------------------------------------- */
+// Site Header
 
 .site-header {
 	background-color: #567;
 	border-bottom: 1px solid $base-border-color;
-	padding: 20px 0;
 	width: 100%;
-	max-height: 90px;
 
 	@include media($xlarge-screen-up) {
-		max-height: none;
+		padding-bottom: 30px;
 	}
 
-		.site-title img {
-		z-index: 999;
+	.title-area {
+		float: left;
+
+		.site-title {
+			margin: 0;
+
+			img {
+				position: relative;
+				z-index: 999;
+				top: 30px;
+			}
+
+		}
 	}
 }
-
-
-
-/*! Title Area
---------------------------------------------- */
-
-.title-area {
-	float: left;
-}
-
-

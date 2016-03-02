@@ -3735,24 +3735,21 @@ Miscellaneous
     width: 60%; } }
 /*! ## Components
 --------------------------- */
-/*! Site Header
----------------------------------------------------------------------------------------------------- */
 .site-header {
   background-color: #567;
   border-bottom: 1px solid rgba(211, 220, 235, 0.59);
-  padding: 20px 0;
-  width: 100%;
-  max-height: 90px; }
+  width: 100%; }
   @media screen and (max-width: 1023px) {
     .site-header {
-      max-height: none; } }
-  .site-header .site-title img {
-    z-index: 999; }
-
-/*! Title Area
---------------------------------------------- */
-.title-area {
-  float: left; }
+      padding-bottom: 30px; } }
+  .site-header .title-area {
+    float: left; }
+    .site-header .title-area .site-title {
+      margin: 0; }
+      .site-header .title-area .site-title img {
+        position: relative;
+        z-index: 999;
+        top: 30px; }
 
 /*!
 Site Navigation
@@ -3795,7 +3792,8 @@ Site Navigation
   border: 1px solid #eee;
   border-top: 0;
   padding: 15px;
-  position: relative; }
+  position: relative;
+  font-size: 70%; }
 
 .genesis-nav-menu .menu-item:hover {
   position: static; }
@@ -3806,7 +3804,7 @@ Site Navigation
 
 .nav-primary {
   float: right;
-  margin-top: 2px; }
+  margin-top: 1.5625em; }
   @media screen and (max-width: 1023px) {
     .nav-primary {
       width: 100%; } }
@@ -3816,7 +3814,7 @@ Site Navigation
     text-decoration: none; }
     .nav-primary a:hover, .nav-primary a:focus, .nav-primary a:active {
       color: #fff;
-      font-family: ralewayheavy, 'Helvetica Neue', sans-serif; }
+      font-weight: bold; }
 
 .nav-primary .genesis-nav-menu li.last a {
   padding-right: 0; }
@@ -3907,7 +3905,7 @@ Site Navigation
 
   .menu-toggle:before,
   .menu-toggle.activated:before {
-    color: #1e1e1e;
+    color: #fff;
     content: "\f130";
     display: inline-block;
     font: normal 20px/1 'ionicons';
@@ -3926,6 +3924,7 @@ Site Navigation
     z-index: 100; }
 
   .sub-menu-toggle:before {
+    color: #fff;
     content: "\f3d0";
     display: inline-block;
     font: normal 16px/1 'ionicons';
@@ -3976,7 +3975,7 @@ Site Navigation
     margin: 0; }
 
   .js .genesis-nav-menu .sub-menu a {
-    border: none; }
+    border-bottom: 1px solid rgba(211, 220, 235, 0.59); }
 
   .js nav button:hover,
   .js .menu-toggle:hover,

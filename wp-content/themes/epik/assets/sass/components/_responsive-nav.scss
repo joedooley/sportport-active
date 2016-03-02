@@ -59,7 +59,7 @@
 
 	.menu-toggle:before,
 	.menu-toggle.activated:before {
-		color: #1e1e1e;
+		color: #fff;
 		content: "\f130";
 		display: inline-block;
 		font: normal 20px/1 'ionicons';
@@ -80,6 +80,7 @@
 	}
 
 	.sub-menu-toggle:before {
+		color: #fff;
 		content: "\f3d0";
 		display: inline-block;
 		font: normal 16px/1 'ionicons';

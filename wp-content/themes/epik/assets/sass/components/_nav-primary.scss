@@ -2,7 +2,7 @@
 
 .nav-primary {
 	float: right;
-	margin-top: 2px;
+	margin-top: em(25);
 
 	@include media($xlarge-screen-up) {
 		width: 100%;
@@ -12,13 +12,12 @@
 		color: #fff;
 		font-size: em(14);
 		text-decoration: none;
-		//color: green;
 
 		&:hover,
 		&:focus,
 		&:active {
 			color: #fff;
-			font-family: ralewayheavy, 'Helvetica Neue', sans-serif;
+			font-weight: bold;
 		}
 	}
 
