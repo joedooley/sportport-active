@@ -1,0 +1,14 @@
+body.woocommerce div.product form.cart .variations label {
+	color: #567;
+
+	select {
+		font-size: em(16);
+		min-width: 0;
+	}
+}
+
+body.woocommerce div.product form.cart .woocommerce-variation-description p,
+body.woocommerce .quantity .qty {
+	font-size: em(16);
+	color: #333;
+}

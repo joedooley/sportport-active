@@ -9,6 +9,10 @@
 	@include media($xxlarge-screen-up) {
 		max-width: 960px;
 	}
+
+	@include media($xlarge-screen-up) {
+		width: 100%;
+	}
 }
 
 .site-inner {
@@ -17,14 +21,11 @@
 	padding: 0 60px 0 100px;
 
 	@include media($xlarge-screen-up) {
-
-		.site-inner {
-			background: none;
-			padding-left: 5%;
-			padding-right: 5%;
-		}
-
+		background: none;
+		padding-left: 5%;
+		padding-right: 5%;
 	}
+
 }
 
 
@@ -38,6 +39,11 @@
 	@include media($xxlarge-screen-up) {
 		width: 740px;
 	}
+
+	@include media($xlarge-screen-up) {
+		width: 100%;
+	}
+
 }
 
 .content-sidebar-sidebar .content-sidebar-wrap {
@@ -71,9 +77,6 @@
 .sidebar-content-sidebar .content {
 	float: left;
 
-	@include media($xlarge-screen-up) {
-
-	}
 }
 
 .content-sidebar-sidebar .content,
@@ -101,18 +104,9 @@
 	}
 
 	@include media($xlarge-screen-up) {
-		
+		width: 100%;
 	}
 }
 
-.content-sidebar-sidebar .content-sidebar-wrap,
-.sidebar-content-sidebar .content-sidebar-wrap,
-.sidebar-primary,
-.sidebar-secondary,
-.sidebar-sidebar-content .content-sidebar-wrap,
-.title-area,
-.wrap {
-	width: 100%;
-}
 
 

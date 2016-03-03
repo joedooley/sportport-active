@@ -16,6 +16,10 @@
 			width: 300px;
 		}
 
+		@include media($xlarge-screen-up) {
+			width: 100%;
+		}
+
 		.site-title {
 			margin: 0;
 
@@ -23,7 +27,7 @@
 				text-align: center;
 			}
 
-				img {
+			img {
 				position: relative;
 				z-index: 999;
 				top: 30px;

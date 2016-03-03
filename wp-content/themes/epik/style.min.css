@@ -87,7 +87,10 @@
 		- max-width: 580px
 		- max-width: 480px
 
-*/@import url("MyFontsWebfontsKit/MyFontsWebfontsKit.css");@import url("raleway/raleway.css");@import url("velino-text/velino-text.css");@import url("velino-text-condensed/velino-text-condensed.css");@import url("velino-text-italic/velino-text-italic.css");@import url("snasm/snasm.css");@import url("fira-condensed/fira-condensed.css");@import url("open-sans-condensed/open-sans-condensed.css");button,input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:none;-moz-appearance:none;appearance:none;background-color:#1565c0;border:0;border-radius:3px;color:#fff;cursor:pointer;display:inline-block;font-family:"Helvetica Neue","Helvetica","Roboto","Arial",sans-serif;font-size:62.5%;-webkit-font-smoothing:antialiased;font-weight:600;line-height:1;padding:.75em 1.5em;text-decoration:none;-webkit-transition:background-color 150ms ease;transition:background-color 150ms ease;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;vertical-align:middle;white-space:nowrap}
+*/@import url("MyFontsWebfontsKit/MyFontsWebfontsKit.css");@import url("raleway/raleway.css");@import url("velino-text/velino-text.css");@import url("velino-text-condensed/velino-text-condensed.css");@import url("velino-text-italic/velino-text-italic.css");@import url("snasm/snasm.css");@import url("fira-condensed/fira-condensed.css");@import url("open-sans-condensed/open-sans-condensed.css");.archive-pagination::before,.clearfix::before,.entry::before,.entry-pagination::before,.footer-widgets::before,.nav-primary::before,.nav-secondary::before,.site-container::before,.site-footer::before,.site-header::before,.site-inner::before,.wrap::before{content:" ";display:table}
+.archive-pagination::after,.clearfix::after,.entry::after,.entry-pagination::after,.footer-widgets::after,.nav-primary::after,.nav-secondary::after,.site-container::after,.site-footer::after,.site-header::after,.site-inner::after,.wrap::after{clear:both;content:" ";display:table}
+.clear{clear:both}
+button,input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:none;-moz-appearance:none;appearance:none;background-color:#1565c0;border:0;border-radius:3px;color:#fff;cursor:pointer;display:inline-block;font-family:"Helvetica Neue","Helvetica","Roboto","Arial",sans-serif;font-size:62.5%;-webkit-font-smoothing:antialiased;font-weight:600;line-height:1;padding:.75em 1.5em;text-decoration:none;-webkit-transition:background-color 150ms ease;transition:background-color 150ms ease;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;vertical-align:middle;white-space:nowrap}
 button:hover,button:focus,input[type="button"]:hover,input[type="button"]:focus,input[type="reset"]:hover,input[type="reset"]:focus,input[type="submit"]:hover,input[type="submit"]:focus{background-color:#11519a;color:#fff}
 button:disabled,input[type="button"]:disabled,input[type="reset"]:disabled,input[type="submit"]:disabled{cursor:not-allowed;opacity:.5}
 button:disabled:hover,input[type="button"]:disabled:hover,input[type="reset"]:disabled:hover,input[type="submit"]:disabled:hover{background-color:#1565c0}
@@ -153,7 +156,7 @@ fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
 legend{border:0;padding:0}
 button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
 button,input{line-height:normal}
-button,select{text-transform:none}
+button,select{text-transform:uppercase}
 button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
 button[disabled],html input[disabled]{cursor:default}
 input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
@@ -162,9 +165,6 @@ input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit
 button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
 textarea{overflow:auto;vertical-align:top}
 table{border-collapse:collapse;border-spacing:0}
-/*! Float Clearing
---------------------------------------------- */.archive-pagination:before,.clearfix:before,.entry:before,.entry-pagination:before,.footer-widgets:before,.nav-primary:before,.nav-secondary:before,.site-container:before,.site-footer:before,.site-header:before,.site-inner:before,.wrap:before{content:" ";display:table}
-.archive-pagination:after,.clearfix:after,.entry:after,.entry-pagination:after,.footer-widgets:after,.nav-primary:after,.nav-secondary:after,.site-container:after,.site-footer:after,.site-header:after,.site-inner:after,.wrap:after{clear:both;content:" ";display:table}
 /*! MY CUSTOM CODE START ==================================================== */body.new-product-a .entry-title{color:#0CE !important}
 body.new-product-a .entry-title:before{background-image:url(//sportportactive.com/wp-content/uploads/2016/01/Turquoise.png);display:inline-block;content:"";width:270px;height:270px;float:left;background-repeat:no-repeat}
 /*! AUTHORIZE.NET & SECURITY ---------------------------------------- */.AuthorizeNetSeal{float:left;margin:0 12px 0 0 !important}
@@ -197,16 +197,13 @@ body.gallery .grey-boxed{border:1px solid #333;padding:13px 20px;margin:0 0 5px 
 .content[role="main"] .entry-content p{margin:0 0 7px 0}
 .content[role="main"] .entry-footer{padding:0 40px 0 30px}
 .content[role="main"] .entry img{margin:6px 20px 5px 0}
-/*! LOGO FLOAT DIVs START -------------------------------------------- */.sp-logo-div{position:absolute;top:15px;left:40px;width:127px;height:148px;background-image:url(//sportportactive.com/wp-content/uploads/2015/09/SportPort-Symbol-Floater-Orange-Main-Shadow.png);background-repeat:no-repeat;background-position:center right;z-index:99999}
-.sp-logo-div img{position:absolute;width:175px;height:203px;top:30px;right:15px}
-/*! -------------------------------------------- */h1{font-size:28px}
+h1{font-size:28px}
 h2{font-size:23px}
 h3{font-size:18px}
 h4{font-size:15px;margin:15px 0 5px 0}
 h5{font-size:12px}
 h6{font-size:10px}
 h1,h2,h3,h4,h5,h6{font-family:ralewaysemibold,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:normal}
-.welcome-icon{color:#FFF;font-size:50px}
 /*! SALE [x41] ---------------------------------------- */ins{font-family:ralewaybold,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:normal;font-size:24px;color:#08D;text-decoration:none;margin-left:5px}
 .amount{font-weight:normal}
 body.single-product .price .amount{font-size:1.2em;color:#F30;font-family:ralewaybold,'Helvetica Neue',Helvetica,Arial,sans-serif}
@@ -322,16 +319,15 @@ body.woocommerce-page .footer-widgets img{border:0}
 body.woocommerce-page .page-title{font-family:ralewaybold,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:normal;color:#000;font-size:32px;margin:0 0 15px 0}
 body.woocommerce-page .page-title:before{content:"SportPort "}
 table.product-features-grid{font-size:13px;width:95%}
-table.product-features-grid td{width:48%;padding:0 25px 8px 0;vertical-align:middle;border-width:0;border-style:none}
-body.woocommerce-page select{width:200px}
-/*! WOOCOMMERCE BUTTONS */.woocommerce a.button,.woocommerce button.button,.woocommerce input.button,.woocommerce #respond input#submit{border-radius:20px;font-weight:normal;background:#F93 !important;color:#FFF !important;padding:.618em 1em .5em 1em !important;font-size:12px !important}
+table.product-features-grid td{border:0 none;padding:0 25px 8px 0;vertical-align:middle;width:48%}
+/*! WOOCOMMERCE BUTTONS */.woocommerce a.button,.woocommerce button.button,.woocommerce input.button,.woocommerce #respond input#submit{border-radius:20px;font-weight:normal;background:#F93 !important;color:#FFF !important}
 .woocommerce ul.products li.product .button{margin:0;float:right}
 /*! ------------------------------ */.woocommerce ul.products li.product .price{color:#000 !important;font-size:16px;margin-top:5px;text-align:right;margin-right:8px}
 .woocommerce ul.products li.product a img{margin:0}
 .woocommerce ul.products li.product h3{background:#89A;height:6em;padding:8px 8px;font-size:12px;font-weight:normal;text-align:center;display:inline-block;width:100%;color:#FFF;line-height:1.5}
-body.woocommerce-page .entry-content .entry-title{font-family:velino_text_lightlight,Georgia,'Times Roman',serif;font-weight:normal;font-size:3em;letter-spacing:-.2px;color:#567;line-height:1.2;border-top:0;border-bottom:0}
+body.woocommerce-page .entry-content .entry-title{border-bottom:0;border-top:0;color:#567;font-family:velino_text_lightlight,Georgia,'Times Roman',serif;font-size:3em;font-weight:normal;letter-spacing:-.2px;line-height:1.2}
 body.woocommerce-page .summary p{font-size:14px;margin:0 0 6px 0}
-body.woocommerce-page .variations_form.cart{font-size:14px;color:#F93;font-weight:normal}
+body.woocommerce-page .variations_form.cart{color:#F93;font-size:14px;font-weight:normal}
 /*! ADDS RULES TO MAIN PRODUCT IMAGES */body.woocommerce-page .attachment-shop_single.wp-post-image,body.woocommerce-page .attachment-shop_thumbnail,.woocommerce img,.woocommerce-page img{border:1px solid #888}
 /*! REMOVES RULES FROM SIDEBAR IMAGES */body.woocommerce-page .attachment-shop_single.wp-post-image .sidebar-primary img,body.woocommerce-page .attachment-shop_thumbnail .sidebar-primary img,.woocommerce img,.woocommerce-page img .sidebar-primary img{border:0}
 body.woocommerce-page .posted_in a{font-family:ralewaybold,'Helvetica Neue',Helvetica,Arial,sans-serif;text-transform:uppercase;color:#5AF}
@@ -343,7 +339,7 @@ body.woocommerce-page .woocommerce-tabs h4{border-bottom:1px solid #999;margin:0
 body.woocommerce-page .content[role="main"] .entry-content{border:0;margin-top:0}
 body.woocommerce-page .related.products h2:after{content:" exclusively from SportPort";color:#F93;font-family:ralewayheavy,'Helvetica Neue',Helvetica,Arial,sans-serif}
 /*! ---------------------------------------- *//*! CUSTOM BODY TECHNOLOGY START [x27] ---------------------------------------- *//*!--- Technology Orange ---*/body.technology{background:#FA5}
-body.technology .sp-logo-div{background-image:url(//sportportactive.com/newsite/wp-content/uploads/2015/08/SportPort-Symbol-Floater-White-184-H-Shadow.png)}
+body.technology .sp-logo-div{background-image:url(/wp-content/uploads/2015/08/SportPort-Symbol-Floater-White-184-H-Shadow.png)}
 #tech-layers-animation{background:rgba(255,255,255,0.24);width:100%;height:290px;border:1px solid #FFF;text-align:center;padding-top:100px;color:#000;margin-top:20px}
 /*! ---------------------------------------- *//*! CUSTOM BODY TESTIMONIAL START (x22A) ---------------------------------------- */body.category-testimonials{background:#ACE}
 body.category-testimonials .entry{background:#ACE;margin:0 0 2.2em 0;padding:0}
@@ -363,13 +359,10 @@ body.category-testimonials .quote-author-left{float:left;margin:28px 0 0 30px;co
 .tag-plus{font-size:24px;font-family:ralewayextralight,'Helvetica Neue',Helvetica,Arial,sans-serif;margin-top:3px;padding:6px;position:relative;top:.15em;color:BBB}
 .woocommerce ul.cart_list,.woocommerce ul.product_list_widget{display:inline-block;clear:both;padding:0 0 15px 0;line-height:0}
 body.home .woocommerce img{border:0}
-/*! ---------------------------------------- *//*! BODY.HOME CUSTOM START [x25] ------------------------ */body.home .head-wrap{margin:0}
-body.home .sp-logo-div{position:absolute;top:22px;left:27px;width:175px;height:203px;background-image:url(//sportportactive.com/wp-content/uploads/2015/08/SportPort-Symbol-Floater-184-H-Shadow.png);background-repeat:no-repeat;background-position:center right;z-index:99999}
-body.home .woocommerce ul.product_list_widget li{float:left;background:#FFF;margin:0 3px 0 6px;padding:0;width:18.4%;border:1px solid #888}
+/*! ---------------------------------------- *//*! BODY.HOME CUSTOM START [x25] ------------------------ */body.home .woocommerce ul.product_list_widget li{float:left;background:#FFF;margin:0 3px 0 6px;padding:0;width:18.4%;border:1px solid #888}
 body.home .woocommerce ul.product_list_widget li a{color:#999;font-weight:100 !important;font-size:12px;background:#FFF;box-shadow:0 9px 20px -12px black}
 body.home .woocommerce ul.product_list_widget li img{width:148px;float:none;margin:0}
 body.home .product-title{background:#89A;padding:18px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;width:100%;color:#FFF}
-body.home .amount{display:none}
 /*! TABLE on HOME PAGE for 20% SALE FEB 2016 ---------------------------------------- */body.home table a{font-family:ralewayextrabold,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#27A}
 body.home table th,body.home table td{text-align:center;background:#FFF;padding:0 10px}
 body.home table th img,body.home table td img{padding:0;margin:0}
@@ -377,13 +370,12 @@ body.home table th img,body.home table td img{padding:0;margin:0}
 .shop-head strong{font-family:ralewayextrabold,'Helvetica Neue',Helvetica,Arial,sans-serif}
 /*! ---------------------------------------- *//*! CUSTOM COLOR CLASSES START ---------------------------------------- */.white{color:#FFF}
 /*! ---------------------------------------- *//*! CUSTOM FONT-RELATED START ---------------------------------------- */.home-feature-fa{color:#FFF;padding:10px 0 0 0}
-/*! ---------------------------------------- *//*! SPEECH BUBBLES (in section .home-feature-9) ---------------------------------------- */.home-quote{position:relative;padding:15px 15px 1px 15px;margin:0;color:#000;background:#FFF;border-radius:10px}
+/*! ---------------------------------------- *//*! SPEECH BUBBLES (in section .home-feature-9) ---------------------------------------- */.home-quote{background:#FFF;border-radius:10px;color:#000;margin:0;padding:15px 15px 1px 15px;position:relative}
 /*! display of quote author (alternatively use a class on the element following the blockquote) */.example-right+p{margin:15px 0 2em 85px;font-style:italic}
 /*! creates the triangle */.home-quote:after{content:"";position:absolute;bottom:-30px;right:70px;border-width:0 50px 50px 0;border-style:solid;border-color:transparent #FFF;display:block;width:0}
 .home-quote p{font-size:14px}
 .home-quote a{color:#F93}
 .quote-author{margin:10px 15px 2em 85px;font-size:11px;text-align:right}
-/*! ---------------------------------------- *//*! START .METIS (Hover Labels for Slider Navigation Circles) ---------------------------- */.metis .tp-bullet-title{font-size:13px;padding:2px 12px;text-transform:uppercase}
 /*! ---------------------------------------- *//*! SITE-WIDE CUSTOMIZATION .CONTENT + .SIDEBAR  [x26] ---------------------------- */body.testimonials .sidebar .entry-content{border-bottom:1px solid #FFF}
 .sidebar .entry-content,body.category-testimonials .sidebar .entry-content{padding:0;margin:0}
 .sidebar .entry-content p{font-size:13px;margin:12px 0 12px 0}
@@ -422,18 +414,16 @@ cite{font-style:normal}
 img{height:auto;width:auto}
 .format-gallery #gallery-1 img{border:0}
 /*! Forms
---------------------------------------------- */.wpcf7-form{font-size:13px}
-input,select,textarea{box-shadow:0 1px 3px #eee;-moz-box-shadow:0 1px 3px #eee;-webkit-box-shadow:0 1px 3px #eee;background:#fff;border:1px solid #ddd;border-radius:6px;color:#999;font-family:ralewaymedium,'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;padding:12px;width:615px}
+--------------------------------------------- */input,textarea{background:#fff;border:1px solid #ddd;border-radius:6px;box-shadow:0 1px 3px #eee;color:#999;font-family:ralewaymedium,'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;padding:12px;width:615px}
 input:focus,textarea:focus{border:1px solid #aaa;outline:0}
-::-moz-placeholder{color:#999}
 ::-webkit-input-placeholder{color:#999}
 button,input[type="button"],input[type="reset"],input[type="submit"],.entry-content .sp-button,.entry-content .sp-button a{background:#F93;border:0;color:#fff;cursor:pointer;font-weight:300;letter-spacing:1px;padding:8px 15px;width:auto;border-radius:30px;font-size:13px;text-decoration:none}
 .footer-widgets button,.footer-widgets input[type="button"],.footer-widgets input[type="reset"],.footer-widgets input[type="submit"]{background:#111}
-button:hover,input:hover[type="button"],input:hover[type="reset"],input:hover[type="submit"]{-moz-transition:all .5s ease;-o-transition:all .5s ease;-webkit-transition:all .5s ease;opacity:.7;-webkit-transition:all .5s ease;transition:all .5s ease}
+button:hover,input:hover[type="button"],input:hover[type="reset"],input:hover[type="submit"]{opacity:.7;-webkit-transition:all .5s ease;transition:all .5s ease}
 input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-results-button{display:none}
 /*! Buttons
---------------------------------------------- */a.button{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:inline-block;font-size:13px;font-weight:400;line-height:13px;margin:0 0 10px;padding:8px 20px;text-decoration:none}
-a.button:hover{-moz-transition:all .5s ease;-o-transition:all .5s ease;-webkit-transition:all .5s ease;color:#fff !important;opacity:.7;-webkit-transition:all .5s ease;transition:all .5s ease}
+--------------------------------------------- */a.button{border-radius:3px;display:inline-block;font-size:13px;font-weight:400;line-height:13px;margin:0 0 10px;padding:8px 20px;text-decoration:none}
+a.button:hover{color:#fff !important;opacity:.7;-webkit-transition:all .5s ease;transition:all .5s ease}
 a.button.small{background-color:#303236;color:#fff;font-size:13px;font-weight:bold;line-height:13px;padding:8px 20px}
 a.button.medium{background-color:#303236;color:#fff;font-size:16px;line-height:26px;padding:8px 20px}
 a.button.large{background-color:#303236;color:#fff;font-size:18px;line-height:24px;padding:16px 32px}
@@ -449,8 +439,8 @@ a.button.pink{background-color:#ff55a9 !important;border:1px solid #c14080 !impo
 a.button.purple{background-color:#7154c4 !important;border:1px solid #594299 !important;color:#fff !important}
 a.button.red{background-color:#d91420 !important;border:1px solid #a8271e !important;color:#fff !important}
 /*! Message Boxes
---------------------------------------------- */.download-box{box-shadow:0 2px 2px 0 #ddd;-moz-box-shadow:0 2px 2px 0 #ddd;-webkit-box-shadow:0 2px 2px 0 #ddd;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;background:#d2eac2 url(images/download-arrow.png) no-repeat 10px 15px;border:1px solid #a7d28a;color:#689c2a;margin:0 2px 20px;padding:14px 15px 20px 55px}
-.info-box{box-shadow:0 2px 2px 0 #ddd;-moz-box-shadow:0 2px 2px 0 #ddd;-webkit-box-shadow:0 2px 2px 0 #ddd;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;background:#cae0ec url(images/info-button.png) no-repeat 10px 15px;border:1px solid #aec3ce;color:#08557e;margin:0 2px 20px;padding:17px 15px 20px 55px}
+--------------------------------------------- */.download-box{box-shadow:0 2px 2px 0 #ddd;border-radius:3px;background:#d2eac2 url(images/download-arrow.png) no-repeat 10px 15px;border:1px solid #a7d28a;color:#689c2a;margin:0 2px 20px;padding:14px 15px 20px 55px}
+.info-box{box-shadow:0 2px 2px 0 #ddd;border-radius:3px;background:#cae0ec url(images/info-button.png) no-repeat 10px 15px;border:1px solid #aec3ce;color:#08557e;margin:0 2px 20px;padding:17px 15px 20px 55px}
 .alert-box{box-shadow:0 2px 2px 0 #ddd;-moz-box-shadow:0 2px 2px 0 #ddd;-webkit-box-shadow:0 2px 2px 0 #ddd;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;background:#f2dbdb url(images/alert-button.png) no-repeat 10px 15px;border:1px solid #eab4b4;color:#c8001c;margin:0 2px 20px;padding:17px 15px 20px 55px}
 .note-box{box-shadow:0 2px 2px 0 #ddd;-moz-box-shadow:0 2px 2px 0 #ddd;-webkit-box-shadow:0 2px 2px 0 #ddd;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;background:#ffec97 url(images/note-button.png) no-repeat 10px 15px;border:1px solid #ded5af;color:#ac670e;margin:0 2px 20px;padding:17px 15px 20px 55px}
 .black-box{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;background:#000;color:#fff;font-weight:300;margin:0 2px 20px;padding:30px}
@@ -478,22 +468,8 @@ a.button.red{background-color:#d91420 !important;border:1px solid #a8271e !impor
 .plan-list{margin:0 0 20px;overflow:hidden}
 .plan-list li,.entry-content .plan-list li{list-style:none;margin:0 0 20px}
 .plan-button{clear:both}
-.plan-button a,.entry-content .plan-button a{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;background:#303236;color:#fff;font-size:18px;font-weight:400;padding:6px 25px 8px}
-.plan-button a:hover{-moz-transition:all .5s ease;-o-transition:all .5s ease;-webkit-transition:all .5s ease;opacity:.7;-webkit-transition:all .5s ease;transition:all .5s ease;text-decoration:underline}
-/*!
-Structure and Layout
----------------------------------------------------------------------------------------------------- *//*! Site Containers
---------------------------------------------- */.wrap{margin:0 auto;max-width:1140px}
-.site-inner{clear:both;padding:0 60px 0 100px}
-.home .site-inner{padding-top:0}
-/*! Column Widths and Positions
---------------------------------------------- *//*! Wrapping div for .content and .sidebar-primary */.content-sidebar-sidebar .content-sidebar-wrap,.sidebar-content-sidebar .content-sidebar-wrap,.sidebar-sidebar-content .content-sidebar-wrap{width:920px}
-.content-sidebar-sidebar .content-sidebar-wrap{float:left}
-.sidebar-content-sidebar .content-sidebar-wrap,.sidebar-sidebar-content .content-sidebar-wrap{float:right}
-/*! Content  */.content{float:right;width:710px;font-size:15px}
-.content-sidebar .content,.content-sidebar-sidebar .content,.sidebar-content-sidebar .content{float:left}
-.content-sidebar-sidebar .content,.sidebar-content-sidebar .content,.sidebar-sidebar-content .content{width:520px}
-.full-width-content .content{width:100%}
+.plan-button a,.entry-content .plan-button a{border-radius:3px;background:#303236;color:#fff;font-size:18px;font-weight:400;padding:6px 25px 8px}
+.plan-button a:hover{opacity:.7;-webkit-transition:all .5s ease;transition:all .5s ease;text-decoration:underline}
 /*! Column Classes
 	Link: http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css
 --------------------------------------------- */.five-sixths,.four-sixths,.one-fourth,.one-half,.one-sixth,.one-third,.three-fourths,.three-sixths,.two-fourths,.two-sixths,.two-thirds{float:left;margin-left:2.564102564102564%}
@@ -529,7 +505,7 @@ img.alignright,.wp-caption.alignright{margin:0 0 0 10px}
 .author-box p{margin:0}
 .author-box .avatar{margin-right:24px}
 /*! Titles
---------------------------------------------- */.entry-title{margin-bottom:0;padding:0 40px 0 20px;line-height:1.1;font-weight:normal;font-size:2em;font-family:ralewaymedium,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#567;letter-spacing:-.2px}
+--------------------------------------------- */.entry-title{margin-bottom:0;padding:0 40px 0 20px;line-height:1.1;font-weight:normal;font-size:2em;font-family:ralewaymedium,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#567;letter-spacing:-0.2px}
 .entry-title a{color:#567;font-weight:normal;text-decoration:none}
 .sidebar .widgettitle a{color:#333}
 .entry-title a:hover{color:#6BC;text-decoration:none}
@@ -545,120 +521,6 @@ Widgets
 .slider-wide .widget{margin:0}
 .slider-wide .flexslider .slides img{width:100% !important}
 .slider-wide .flexslider{max-width:100% !important}
-/*! Slider
---------------------------------------------- */.slider{display:none}
-/*! Slider Misc
---------------------------------------------- */#genesis-responsive-slider{background:none !important;border:none !important;margin:0 auto;padding:0 !important;position:relative}
-.flexslider{background:none !important}
-.flex-direction-nav li .prev{left:0 !important}
-.flex-direction-nav li .next{right:0 !important}
-.flex-control-nav{margin:12px 0 0 !important}
-#genesis-responsive-slider li a{-webkit-transition:none;transition:none}
-#genesis-slider{background-color:#fff !important;border:medium none !important;margin:0 auto !important;padding:0 !important}
-.slider-previous,.slider-previous:hover{margin-left:10px !important}
-.slider-next,.slider-next:hover{margin-right:10px !important}
-/*!
-Welcome
----------------------------------------------------------------------------------------------------- */.welcome{background:#567;clear:both;margin:0 auto;border-top:2px solid #FFF}
-.welcome .widgettitle{font-size:36px;font-weight:300;line-height:46px}
-.welcome h4{color:#fff}
-.welcome p{color:#BBB}
-.welcome a{color:#fff}
-.welcome .entry-header .entry-meta{border-bottom:1px solid #555}
-/*! Welcome Wide */.welcome-wide{background:#27A;clear:both;text-align:center;color:#FFF}
-.welcome-wide .wrap{margin:0 auto;overflow:hidden;padding:8px 0 0 0;width:100%;font-size:12px}
-.welcome-wide .widget p{margin:0 0 20px 0;overflow:hidden;color:#FFF;font-size:15px;font-weight:normal;text-align:center;padding:7px 0 0 40px}
-/*! Welcome Feature 1-3 */.welcome-features{background:#345;overflow:hidden;width:100%;border-top:1px solid #CCC}
-.welcome-features .wrap{margin:0 auto;overflow:hidden;padding:0;width:1140px}
-.welcome-features .widget{margin:0;overflow:hidden;text-align:center}
-.welcome-features h4{font-size:20px;line-height:26px}
-.welcome-feature-1{float:left;margin:0 2% 0 0;width:32%;background:#345}
-.welcome-feature-2{float:left;margin:0 2% 0 0;width:32%;background:#345}
-.welcome-feature-3{float:right;width:32%;background:#345}
-.welcome-feature-1 .widgettitle,.welcome-feature-2 .widgettitle,.welcome-feature-3 .widgettitle{font-size:24px;letter-spacing:.11em;background:#234;color:#F93;margin:6px 0 0 0;padding:0;text-align:center}
-.welcome-feature-1 h4,.welcome-feature-2 h4,.welcome-feature-3 h4{color:#fff;font-weight:400;line-height:26px;margin:10px 0;padding:0}
-.welcome-feature-1 p,.welcome-feature-2 p,.welcome-feature-3 p{margin:0;color:#FFF;font-weight:100 !important;padding:0 10px 8px 10px;line-height:1.4em}
-.welcome-feature-1 p,.welcome-feature-2 p{padding:0 10px 8px 10px}
-.welcome-feature-3 p{padding:0 10px 10px 10px}
-.welcome-feature-1 p strong,.welcome-feature-2 p strong,.welcome-feature-3 p strong{font-family:ralewaybold,'Helvetica Neue',Helvetica,Arial,sans-serif}
-/*!
-Home Feature BG
----------------------------------------------------------------------------------------------------- */.home-feature-bg{overflow:hidden}
-.home-feature-bg .wrap{background:#CDE;margin:0 auto;overflow:hidden;padding:0;width:1140px;text-align:center !important}
-.home-feature-bg .featuredpage .page,.home-feature-bg .featuredpost .post{float:left;margin:0;overflow:hidden;padding:0 0 5px}
-.home-feature-bg .featuredpage .page h2,.home-feature-bg .featuredpost .post h2{margin:10px 0}
-.home-feature-bg .featuredpage .page h2 a,.home-feature-bg .featuredpost .post h2 a{font-size:15px}
-.home-feature-bg .featuredpage img,.home-feature-bg .featuredpost img{background:0;border:0;padding:0}
-.home-feature-bg .featuredpage img:hover,.home-feature-bg .featuredpost img:hover{opacity:.7;-webkit-transition:all .5s ease;transition:all .5s ease}
-.home-feature-bg .byline,.home-feature-bg .byline{font-size:11px !important;line-height:15px !important;margin:0 0 8px !important}
-.home-feature-bg p{margin:0 0 25px}
-/*!
-Home Feature BG Alt
----------------------------------------------------------------------------------------------------- */.home-feature-bg-alt{background:#CDE;margin:0}
-.home-feature-bg-alt .alignleft{margin:0 12px 0 0}
-.home-feature-bg-alt .wrap{margin:0 auto;overflow:hidden;padding:0;width:1140px}
-.home-feature-bg-alt .featuredpage .page,.home-feature-bg-alt .featuredpost .post{float:left;margin:0 1em 0 0;overflow:hidden;padding:0 0 5px;width:30%}
-.home-feature-bg-alt .featuredpage img,.home-feature-bg-alt .featuredpost img{background:0;border:0;padding:0;border:1px solid #FFF;border-radius:20px}
-.home-feature-bg-alt .featuredpage img:hover,.home-feature-bg-alt .featuredpost img:hover{opacity:.7;-webkit-transition:all .5s ease;transition:all .5s ease}
-.home-feature-bg-alt .byline,.home-feature-bg-alt .byline{font-size:11px !important;line-height:15px !important;margin:0 0 8px !important}
-.home-feature-bg-alt p{font-size:12px;margin:0}
-.home-feature-bg-alt .entry-header .entry-meta{border-bottom:1px solid #ddd}
-/*!
-Home Feature BG Dark
----------------------------------------------------------------------------------------------------- */.home-feature-bg-dark{background:#303236;color:#DDD;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.home-feature-bg-dark .wrap{margin:0 auto;overflow:hidden;height:36px;padding:0;width:1140px}
-.home-feature-bg-dark .featuredpage .page,.home-feature-bg-dark .featuredpost .post{float:left;margin:0;overflow:hidden;padding:0 0 5px;width:300px}
-.home-feature-bg-dark .featuredpage .page h2 a,.home-feature-bg-dark .featuredpost .post h2 a{font-size:15px}
-.home-feature-bg-dark .featuredpage img,.home-feature-bg-dark .featuredpost img{background:0;border:0;padding:0}
-.home-feature-bg-dark .featuredpage img:hover,.home-feature-bg-dark .featuredpost img:hover{opacity:.7;-webkit-transition:all .5s ease;transition:all .5s ease}
-.home-feature-bg-dark .byline,.home-feature-bg-dark .byline{font-size:11px !important;line-height:15px !important;margin:0 0 8px !important}
-.home-feature-bg-dark h1,.home-feature-bg-dark h2,.home-feature-bg-dark h3,.home-feature-bg-dark h4,.home-feature-bg-dark h5,.home-feature-bg-dark h6{color:#fff}
-.home-feature-bg-dark p{color:#aaa;margin:0 0 20px}
-.home-feature-bg-dark a{color:#BBB}
-/*!
-Home Features
----------------------------------------------------------------------------------------------------- *//*! Home Feature Classes *//*!You can add background images/colors to each section of the homepage by adding them to the classes below.
-*/.hf1,.hf3,.hf4,.hf5,.hf6,.hf7,.hf8,.hf9,.hf14{-webkit-background-size:cover;-moz-background-size:cover;background-attachment:fixed;background-position:50% 0;background-repeat:no-repeat;background-size:cover}
-.hf3{background:#FFF;padding:12px 0 0 0}
-.hf4{background:#FFF;font-size:30px}
-.hf5{background:#567;font-size:13px;text-align:center}
-.hf8{text-align:center;font-family:ralewaylight,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:100;font-size:25px;letter-spacing:.3em;color:#9AC}
-.hf9{margin:0;background:#CDE}
-.hf14{text-align:center;background:#ABC;padding:30px 0 0 0}
-.hf14 .head{font-family:ralewaylight,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:100;font-size:25px;letter-spacing:.3em;color:#FFF;margin:0}
-/*! Home Feature 1 */.home-feature-1{float:left;margin:0 20px 0 0;width:45%}
-.home-feature-1 .widget{margin:0 0 40px;overflow:hidden}
-.home-feature-1 .widgettitle{font-size:24px;font-weight:400;line-height:28px}
-/*! Home Feature 2 */.home-feature-2{float:right;margin:0;width:45%}
-.home-feature-2 .widget{margin:0 0 40px;overflow:hidden}
-.home-feature-2 .widgettitle{font-size:24px;font-weight:400;line-height:28px}
-/*! Home Feature 3 */.home-feature-3{background:#FFF;clear:both;margin:0 auto;overflow:hidden;padding:0;text-align:center}
-.home-feature-3 .widget{margin:0 0 0 1.2%;overflow:hidden}
-/*! Home Feature 4 */.home-feature-4{margin:5px 0 5px 0;width:100%;font-family:ralewaylight,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:100;font-size:25px;text-align:center;letter-spacing:.3em;color:#9BC}
-.home-feature-4 .widget{margin:0;overflow:hidden}
-/*! Home Feature 5 */.home-feature-5{margin:5px 0 5px 0;width:100%;color:#CCC;text-align:center;letter-spacing:.04em}
-.home-feature-5 .widget{margin:0;overflow:hidden}
-/*! Home Feature 6 */.home-feature-6{margin:0;width:100%}
-.home-feature-6 .widget{margin:0 0 40px;overflow:hidden}
-/*! Home Feature 7 */.home-feature-7{margin:0;width:100%}
-.home-feature-7 .widget{margin:0 0 40px;overflow:hidden}
-/*! Home Feature 8 */.home-feature-8{margin:25px 0 15px 0;width:100%}
-.home-feature-8 .widget{overflow:hidden}
-/*! Home Feature 9 */.home-feature-9{clear:both;text-align:center}
-.home-feature-9 .widget{margin:0 0 40px;overflow:hidden}
-.home-feature-9 h4{font-size:32px;font-weight:400;line-height:38px}
-/*! Home Feature 10 */.home-feature-10{float:left;margin:0 1.3% 0 0;width:24%}
-.home-feature-10 .widget{margin:0 0 5px;overflow:hidden}
-/*! Home Feature 11 */.home-feature-11{float:left;margin:0 1.3% 0 0;width:24%}
-.home-feature-11 .widget{margin:0 0 5px;overflow:hidden}
-/*! Home Feature 12 */.home-feature-12{float:left;margin:0 1.3% 0 0;width:24%}
-.home-feature-12 .widget{margin:0 0 5px;overflow:hidden}
-/*! Home Feature 13 */.home-feature-13{float:right;margin:0;width:24%}
-.home-feature-13 .widget{margin:0 0 5px;overflow:hidden}
-/*! Home Feature 14 */.home-feature-14{margin:0;text-align:center;width:100%}
-.home-feature-14 .widget{margin:0 0 15px 30px;overflow:hidden}
-/*! Home Feature h4 */.home-feature-3 h4,.home-feature-4 h4,.home-feature-5 h4,.home-feature-6 h4,.home-feature-7 h4,.home-feature-8 h4,.home-feature-9 h4,.home-feature-14 h4{font-size:36px;font-weight:300}
-.home-feature-10 h4,.home-feature-11 h4,.home-feature-12 h4,.home-feature-13 h4{font-size:24px;font-weight:400}
 /*! Featured Page and Featured Post
 --------------------------------------------- */.featured-content .entry{margin-bottom:20px;padding:0 0 20px}
 .featured-content .entry-title{border:0;font-size:18px;line-height:1.5;margin:10px 0}
@@ -668,7 +530,7 @@ Home Features
 Content Area
 ---------------------------------------------------------------------------------------------------- *//*! Entries
 --------------------------------------------- */.entry{background:rgba(255,255,255,0.5);margin:0 3px 10px 0;padding:0 16px 16px 16px}
-.home .entry{box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;background:0}
+.home .entry{box-shadow:none;background:0}
 .content .entry-content{padding:10px 10px 0 20px;overflow:hidden}
 .home .entry-content{padding:0 0 20px}
 .entry-content a{font-family:ralewaysemibold,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#18D;text-decoration:underline}
@@ -719,8 +581,7 @@ li.comment ul li{border-radius:0;border-left:1px solid #ddd}
 .form-allowed-tags{background:#d3dceb;font-size:14px;padding:24px}
 /*!
 Miscellaneous
----------------------------------------------------------------------------------------------------- */.clear{clear:both}
-.clear-line{border-bottom:1px solid #eee;clear:both;margin-bottom:26px}
+---------------------------------------------------------------------------------------------------- */.clear-line{border-bottom:1px solid #eee;clear:both;margin-bottom:26px}
 .line-pre::before,.line-pre::after,.line::before,.line::after{content:''}
 .line-number,.gist .line-data>.line-pre{line-height:1.2}
 .tagcloud a{background:#e3e3e3;float:left;padding:3px 10px;margin:0 2px 5px}
@@ -733,18 +594,8 @@ Miscellaneous
 .check-list li{padding:0 0 0 30px}
 .video-container{height:0;overflow:hidden;padding-bottom:56.25%;padding-top:30px;position:relative}
 .video-container iframe,.video-container object,.video-container embed{left:0;height:100%;position:absolute;top:0;width:100%}
-/*! Media Queries (All are defaults. *//*! Desktops, laptops and iPads (landscape)
---------------------------------------------- */@media only screen and (max-width:1180px){.wrap{max-width:960px}
-.content-sidebar-sidebar .content-sidebar-wrap,.sidebar-content-sidebar .content-sidebar-wrap,.sidebar-sidebar-content .content-sidebar-wrap{width:740px}
-.sidebar-content-sidebar .content,.sidebar-sidebar-content .content,.content-sidebar-sidebar .content{width:400px}
-.sidebar-primary,.title-area{width:300px}
-.hf1,.hf3,.hf4,.hf5,.hf6,.hf7,.hf8,.hf9,.hf14{background-position:top;background-size:auto}
-}/*! iPads (portrait)
---------------------------------------------- */@media only screen and (max-width:1023px){.content,.content-sidebar-sidebar .content,.content-sidebar-sidebar .content-sidebar-wrap,.sidebar-content-sidebar .content,.sidebar-content-sidebar .content-sidebar-wrap,.sidebar-primary,.sidebar-secondary,.sidebar-sidebar-content .content,.sidebar-sidebar-content .content-sidebar-wrap,.title-area,.wrap{width:100%}
-.slider .wrap,.welcome .wrap,.home-feature-bg .wrap,.home-feature-bg-alt .wrap,.home-feature-bg-dark .wrap,.footer-widgets .wrap{width:90%}
-.site-inner{padding-left:5%;padding-right:5%}
-.site-inner{background:0}
-.site-title{text-align:center}
+/*! iPads (portrait)
+--------------------------------------------- */@media only screen and (max-width:1023px){.slider .wrap,.home-feature-bg .wrap,.home-feature-bg-alt .wrap,.home-feature-bg-dark .wrap,.footer-widgets .wrap{width:90%}
 .sidebar .widget.enews-widget{padding:40px}
 .wp-caption{width:100% !important}
 .footer-widgets .widget{margin-bottom:40px}
@@ -752,12 +603,7 @@ Miscellaneous
 --------------------------------------------- */@media only screen and (max-width:960px){.feature-margin{margin:0}
 }/*! iPhones (portrait and landscape) [x40]
 --------------------------------------------- */@media only screen and (max-width:767px){.home-feature-3,.home-feature-4,.home-bottom-sidebar-1,.home-bottom-sidebar-2,.home-bottom-sidebar-3,.home-bottom-sidebar-4,.footer-widgets-1,.footer-widgets-2,.footer-widgets-3,.five-sixths,.four-fifths,.four-sixths,.one-fifth,.one-fourth,.one-half,.one-sixth,.one-third,.three-fifths,.three-fourths,.three-sixths,.two-fifths,.two-fourths,.two-sixths,.two-thirds{margin:0;width:100%}
-.welcome-wide .widget .kim-button{width:100%;margin:0 0 15px 0}
-/*!--------*/body.home .woocommerce ul.product_list_widget li{width:16.5%}
-/*!--------*/body.home .woocommerce ul.product_list_widget li img{width:90px}
-/*!--------*/.welcome-wide .wrap{padding:15px}
-/*!--------*/.welcome-wide .widget p{text-align:center;padding:10px;margin:0 0 6px 0}
-/*!--------*/.home-feature-4{font-size:18px;letter-spacing:.1em;color:#79A;padding-bottom:8px}
+.home-feature-4{font-size:18px;letter-spacing:.1em;color:#79A;padding-bottom:8px}
 /*!--------*/.hf8{font-size:18px;letter-spacing:.1em;color:#79A;margin:10px 0}
 /*!--------*/.hf14 .head{font-size:18px;letter-spacing:.1em;color:#FFF;margin:10px 0}
 /*!--------*/.home-feature-bg-alt .featuredpage .page,.home-feature-bg-alt .featuredpost .post{width:100%;padding:0 1.5em 0 0}
@@ -774,17 +620,23 @@ Miscellaneous
 .home-feature-10 img,.home-feature-11 img,.home-feature-12 img,.home-feature-13 img{width:100%}
 .plan-col,.plan-col-popular{float:none;margin:0 auto 40px;width:80%}
 }@media only screen and (max-width:580px){.home .wrap{text-align:none}
-.welcome-feature-1,.welcome-feature-2,.welcome-feature-3,.home-feature-1,.home-feature-2,.home-feature-3,.home-feature-4,.home-feature-1,.home-feature-2,.home-feature-3,.home-feature-4,.home-feature-5,.home-feature-6,.home-feature-7,.home-feature-8,.home-feature-9,.home-feature-10,.home-feature-11,.home-feature-12,.home-feature-13,.home-feature-14{margin:0 auto;text-align:center;width:100%}
+.home-feature-1,.home-feature-2,.home-feature-3,.home-feature-4,.home-feature-1,.home-feature-2,.home-feature-3,.home-feature-4,.home-feature-5,.home-feature-6,.home-feature-7,.home-feature-8,.home-feature-9,.home-feature-10,.home-feature-11,.home-feature-12,.home-feature-13,.home-feature-14{margin:0 auto;text-align:center;width:100%}
 .feature-left{float:none;margin:0 auto;text-align:center;width:100%}
 .feature-right{float:none;margin:40px auto 0;text-align:center;width:100%}
 }@media only screen and (max-width:480px){.content .portfolio{text-align:center;width:100%}
 .content .portfolio .post-image{width:100%}
 .content .portfolio .more-link{margin:20px auto 0;padding:6px;width:60%}
 }/*! ## Components
---------------------------- *//*! Site Header
----------------------------------------------------------------------------------------------------- */.site-header{background-color:#567;width:100%;padding:20px 0;border-bottom:1px solid rgba(211,220,235,0.59)}
-/*! Title Area
---------------------------------------------- */.title-area{float:left}
+--------------------------- */.before-header{background-color:rgba(211,220,235,0.59);text-align:center}
+.before-header .free-shipping-notification{font-weight:bold;margin-bottom:0;padding:5px 0;text-transform:uppercase}
+@media screen and (max-width:480px){.before-header .free-shipping-notification{font-size:80%}
+}.site-header{background-color:#567;border-bottom:1px solid rgba(211,220,235,0.59);width:100%}
+@media screen and (max-width:1023px){.site-header{padding-bottom:30px}
+}.site-header .title-area{float:left}
+@media screen and (min-width:1180px){.site-header .title-area{width:300px}
+}.site-header .title-area .site-title{margin:0}
+@media screen and (max-width:1023px){.site-header .title-area .site-title{text-align:center}
+}.site-header .title-area .site-title img{position:relative;z-index:999;top:30px}
 /*!
 Site Navigation
 ---------------------------------------------------------------------------------------------------- */.genesis-nav-menu{clear:both;line-height:1;width:100%}
@@ -793,13 +645,13 @@ Site Navigation
 .genesis-nav-menu .sub-menu{background-color:#f93;left:-9999px;opacity:0;position:absolute;letter-spacing:.2em;border-bottom:1px solid rgba(211,220,235,0.59)}
 .genesis-nav-menu .sub-menu,.genesis-nav-menu .sub-menu a{width:180px}
 .genesis-nav-menu .sub-menu .sub-menu{margin:-44px 0 0 179px}
-.genesis-nav-menu .sub-menu a{border:1px solid #eee;border-top:0;padding:15px;position:relative}
+.genesis-nav-menu .sub-menu a{border:1px solid #eee;border-top:0;padding:15px;position:relative;font-size:70%}
 .genesis-nav-menu .menu-item:hover{position:static}
 .genesis-nav-menu .menu-item:hover>.sub-menu{left:auto;opacity:1}
-.nav-primary{float:right;margin-top:2px}
+.nav-primary{float:right;margin-top:1.5625em}
 @media screen and (max-width:1023px){.nav-primary{width:100%}
-}.nav-primary a{color:#fff;font-size:.875em;text-decoration:none;color:green}
-.nav-primary a:hover,.nav-primary a:focus{color:#fff;font-family:ralewayheavy,'Helvetica Neue',sans-serif}
+}.nav-primary a{color:#fff;font-size:.875em;text-decoration:none}
+.nav-primary a:hover,.nav-primary a:focus,.nav-primary a:active{color:#fff;font-weight:bold}
 .nav-primary .genesis-nav-menu li.last a{padding-right:0}
 .nav-primary .sub-menu{border-top:1px solid #ddd;z-index:1}
 .nav-primary .genesis-nav-menu li li{margin-left:0}
@@ -818,12 +670,12 @@ Site Navigation
 .js nav.pagination{display:block}
 .menu-toggle,.sub-menu-toggle{background:0;border-radius:0;border-width:0;color:#1e1e1e;display:block;margin:0 auto;overflow:hidden;text-align:center;visibility:visible}
 .menu-toggle:hover,.menu-toggle:focus,.sub-menu-toggle:hover,.sub-menu-toggle:focus{background:0;border-width:0}
-.menu-toggle{padding-bottom:0;padding-top:10px;position:relative;right:0;z-index:1000;width:100%}
-.menu-toggle:before,.menu-toggle.activated:before{color:#1e1e1e;content:"\f130";display:inline-block;font:normal 20px/1 'ionicons';margin:0 auto;padding-right:10px;text-rendering:auto;-webkit-transform:translate(0,0);transform:translate(0,0);vertical-align:middle}
+.menu-toggle{padding-bottom:0;padding-top:10px;position:relative;right:0;width:100%;z-index:1000}
+.menu-toggle:before,.menu-toggle.activated:before{color:#fff;content:"\f130";display:inline-block;font:normal 20px/1 'ionicons';margin:0 auto;padding-right:10px;text-rendering:auto;-webkit-transform:translate(0,0);transform:translate(0,0);vertical-align:middle}
 .sub-menu-toggle{float:right;padding:8px 18px;position:absolute;right:0;top:0;z-index:100}
-.sub-menu-toggle:before{content:"\f3d0";display:inline-block;font:normal 16px/1 'ionicons';text-rendering:auto;-webkit-transform:translate(0,0);transform:translate(0,0)}
+.sub-menu-toggle:before{color:#fff;content:"\f3d0";display:inline-block;font:normal 16px/1 'ionicons';text-rendering:auto;-webkit-transform:translate(0,0);transform:translate(0,0)}
 .sub-menu-toggle.activated:before{content:"\f3d8"}
-.js .genesis-nav-menu .menu-item{display:block;float:none;margin-top:1px;margin-bottom:1px;position:relative;text-align:left}
+.js .genesis-nav-menu .menu-item{display:block;float:none;margin-bottom:1px;margin-top:1px;position:relative;text-align:left}
 .js .genesis-nav-menu .menu-item:hover{position:relative}
 .js .genesis-nav-menu .menu-item a{border:0;padding:10px;width:100%}
 .js .genesis-nav-menu .menu-item a:hover,.js .genesis-nav-menu .sub-menu{border:0}
@@ -831,13 +683,88 @@ Site Navigation
 .js .genesis-nav-menu>.menu-item-has-children>a:after{content:none}
 .js .genesis-nav-menu .sub-menu{clear:both;display:none;margin:0;opacity:1;padding-left:15px;position:static;width:100%}
 .js .genesis-nav-menu .sub-menu .sub-menu{margin:0}
-.js .genesis-nav-menu .sub-menu a{border:0}
-.js nav button:hover,.js .menu-toggle:hover,.js .nav-primary{color:#1e1e1e}
-.js nav button:focus,.js .menu-toggle:focus{color:#e85555}
-}.before-header{text-align:center}
-.before-header p{margin-bottom:0}
-/*! ## Pages
---------------------------- *//*! Portfolio
+.js .genesis-nav-menu .sub-menu a{border-bottom:1px solid rgba(211,220,235,0.59)}
+.js nav button:hover,.js .menu-toggle:hover,.js .nav-primary{color:#fff;font-weight:bold}
+.js nav button:focus,.js .menu-toggle:focus{color:#fff}
+}.home-feature-3 .woocommerce ul.products li.product,.home-feature-3 .woocommerce-page ul.products li.product{width:29%}
+.home-feature-bg{overflow:hidden}
+.home-feature-bg .wrap{background:#cde;margin:0 auto;overflow:hidden;padding:0;max-width:1140px;text-align:center !important}
+.home-feature-bg .featuredpage .page,.home-feature-bg .featuredpost .post{float:left;margin:0;overflow:hidden;padding:0 0 5px}
+.home-feature-bg .featuredpage .page h2,.home-feature-bg .featuredpost .post h2{margin:10px 0}
+.home-feature-bg .featuredpage .page h2 a,.home-feature-bg .featuredpost .post h2 a{font-size:15px}
+.home-feature-bg .featuredpage img,.home-feature-bg .featuredpost img{background:0;border:0;padding:0}
+.home-feature-bg .featuredpage img:hover,.home-feature-bg .featuredpost img:hover{opacity:.7;-webkit-transition:all .5s ease;transition:all .5s ease}
+.home-feature-bg .byline,.home-feature-bg .byline{font-size:11px !important;line-height:15px !important;margin:0 0 8px !important}
+.home-feature-bg p{margin:0 0 25px}
+/*!
+Home Feature BG Alt
+---------------------------------------------------------------------------------------------------- */.home-feature-bg-alt{background:#cde;margin:0}
+.home-feature-bg-alt .alignleft{margin:0 12px 0 0}
+.home-feature-bg-alt .wrap{margin:0 auto;overflow:hidden;padding:0;width:1140px}
+.home-feature-bg-alt .featuredpage .page,.home-feature-bg-alt .featuredpost .post{float:left;margin:0 1em 0 0;overflow:hidden;padding:0 0 5px;width:30%}
+.home-feature-bg-alt .featuredpage img,.home-feature-bg-alt .featuredpost img{background:0;border:0;padding:0;border:1px solid #fff;border-radius:20px}
+.home-feature-bg-alt .featuredpage img:hover,.home-feature-bg-alt .featuredpost img:hover{opacity:.7;-webkit-transition:all .5s ease;transition:all .5s ease}
+.home-feature-bg-alt .byline,.home-feature-bg-alt .byline{font-size:11px !important;line-height:15px !important;margin:0 0 8px !important}
+.home-feature-bg-alt p{font-size:12px;margin:0}
+.home-feature-bg-alt .entry-header .entry-meta{border-bottom:1px solid #ddd}
+/*!
+Home Feature BG Dark
+---------------------------------------------------------------------------------------------------- */.home-feature-bg-dark{background:#303236;color:#ddd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.home-feature-bg-dark .wrap{margin:0 auto;overflow:hidden;height:36px;padding:0;width:1140px}
+.home-feature-bg-dark .featuredpage .page,.home-feature-bg-dark .featuredpost .post{float:left;margin:0;overflow:hidden;padding:0 0 5px;width:300px}
+.home-feature-bg-dark .featuredpage .page h2 a,.home-feature-bg-dark .featuredpost .post h2 a{font-size:15px}
+.home-feature-bg-dark .featuredpage img,.home-feature-bg-dark .featuredpost img{background:0;border:0;padding:0}
+.home-feature-bg-dark .featuredpage img:hover,.home-feature-bg-dark .featuredpost img:hover{opacity:.7;-webkit-transition:all .5s ease;transition:all .5s ease}
+.home-feature-bg-dark .byline,.home-feature-bg-dark .byline{font-size:11px !important;line-height:15px !important;margin:0 0 8px !important}
+.home-feature-bg-dark h1,.home-feature-bg-dark h2,.home-feature-bg-dark h3,.home-feature-bg-dark h4,.home-feature-bg-dark h5,.home-feature-bg-dark h6{color:#fff}
+.home-feature-bg-dark p{color:#aaa;margin:0 0 20px}
+.home-feature-bg-dark a{color:#bbb}
+/*!
+Home Features
+---------------------------------------------------------------------------------------------------- *//*! Home Feature Classes *//*!You can add background images/colors to each section of the homepage by adding them to the classes below.
+*/.hf1,.hf3,.hf4,.hf5,.hf6,.hf7,.hf8,.hf9,.hf14{background-attachment:fixed;background-position:50% 0;background-repeat:no-repeat;background-size:cover}
+.hf3{background:#fff;padding:12px 0 0 0}
+.hf4{background:#fff;font-size:30px}
+.hf5{background:#567;font-size:13px;text-align:center}
+.hf8{text-align:center;font-family:ralewaylight,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:100;font-size:25px;letter-spacing:.3em;color:#9ac}
+.hf9{margin:0;background:#cde}
+.hf14{text-align:center;background:#abc;padding:30px 0 0 0}
+.hf14 .head{font-family:ralewaylight,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:100;font-size:25px;letter-spacing:.3em;color:#fff;margin:0}
+/*! Home Feature 1 */.home-feature-1{float:left;margin:0 20px 0 0;width:45%}
+.home-feature-1 .widget{margin:0 0 40px;overflow:hidden}
+.home-feature-1 .widgettitle{font-size:24px;font-weight:400;line-height:28px}
+/*! Home Feature 2 */.home-feature-2{float:right;margin:0;width:45%}
+.home-feature-2 .widget{margin:0 0 40px;overflow:hidden}
+.home-feature-2 .widgettitle{font-size:24px;font-weight:400;line-height:28px}
+/*! Home Feature 3 */.home-feature-3{background:#fff;clear:both;margin:0 auto;overflow:hidden;padding:0;text-align:center}
+.home-feature-3 .widget{margin:0 0 0 1.2%;overflow:hidden}
+/*! Home Feature 4 */.home-feature-4{margin:5px 0 5px 0;width:100%;font-family:ralewaylight,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:100;font-size:25px;text-align:center;letter-spacing:.3em;color:#9bc}
+.home-feature-4 .widget{margin:0;overflow:hidden}
+/*! Home Feature 5 */.home-feature-5{margin:5px 0 5px 0;width:100%;color:#ccc;text-align:center;letter-spacing:.04em}
+.home-feature-5 .widget{margin:0;overflow:hidden}
+/*! Home Feature 6 */.home-feature-6{margin:0;width:100%}
+.home-feature-6 .widget{margin:0 0 40px;overflow:hidden}
+/*! Home Feature 7 */.home-feature-7{margin:0;width:100%}
+.home-feature-7 .widget{margin:0 0 40px;overflow:hidden}
+/*! Home Feature 8 */.home-feature-8{margin:25px 0 15px 0;width:100%}
+.home-feature-8 .widget{overflow:hidden}
+/*! Home Feature 9 */.home-feature-9{clear:both;text-align:center}
+.home-feature-9 .widget{margin:0 0 40px;overflow:hidden}
+.home-feature-9 h4{font-size:32px;font-weight:400;line-height:38px}
+/*! Home Feature 10 */.home-feature-10{float:left;margin:0 1.3% 0 0;width:24%}
+.home-feature-10 .widget{margin:0 0 5px;overflow:hidden}
+/*! Home Feature 11 */.home-feature-11{float:left;margin:0 1.3% 0 0;width:24%}
+.home-feature-11 .widget{margin:0 0 5px;overflow:hidden}
+/*! Home Feature 12 */.home-feature-12{float:left;margin:0 1.3% 0 0;width:24%}
+.home-feature-12 .widget{margin:0 0 5px;overflow:hidden}
+/*! Home Feature 13 */.home-feature-13{float:right;margin:0;width:24%}
+.home-feature-13 .widget{margin:0 0 5px;overflow:hidden}
+/*! Home Feature 14 */.home-feature-14{margin:0;text-align:center;width:100%}
+.home-feature-14 .widget{margin:0 0 15px 30px;overflow:hidden}
+/*! Home Feature h4 */.home-feature-3 h4,.home-feature-4 h4,.home-feature-5 h4,.home-feature-6 h4,.home-feature-7 h4,.home-feature-8 h4,.home-feature-9 h4,.home-feature-14 h4{font-size:36px;font-weight:300}
+.home-feature-10 h4,.home-feature-11 h4,.home-feature-12 h4,.home-feature-13 h4{font-size:24px;font-weight:400}
+@media screen and (max-width:1180px){.hf1,.hf3,.hf4,.hf5,.hf6,.hf7,.hf8,.hf9,.hf14{background-position:top;background-size:auto}
+}/*! Portfolio
 ---------------------------------------------------------------------------------------------------- */.entry-portfolio{margin:0 0 40px;padding:0}
 .content .portfolio{background:#fff;float:left;margin:0 2% 40px 0 !important;overflow:hidden;padding:0;width:23%}
 .portfolio .post-image{margin:0}
@@ -850,8 +777,28 @@ Site Navigation
 .content .portfolio .more-link:hover{background:#555;color:#fff}
 .portfolio .entry-content{padding:0 20px 0}
 .portfolio .entry-footer{background:0;padding:0}
+body.woocommerce div.product form.cart .variations label{color:#567}
+body.woocommerce div.product form.cart .variations label select{font-size:1em;min-width:0}
+body.woocommerce div.product form.cart .woocommerce-variation-description p,body.woocommerce .quantity .qty{font-size:1em;color:#333}
 /*! ## Layout
---------------------------- *//*! Sidebars
+--------------------------- */.wrap{margin:0 auto;max-width:1140px}
+@media screen and (max-width:1180px){.wrap{max-width:960px}
+}.site-inner{clear:both;margin:60px auto 0;padding:0 60px 0 100px}
+@media screen and (max-width:1023px){.site-inner .site-inner{background:0;padding-left:5%;padding-right:5%}
+}.content-sidebar-sidebar .content-sidebar-wrap,.sidebar-content-sidebar .content-sidebar-wrap,.sidebar-sidebar-content .content-sidebar-wrap{width:920px}
+@media screen and (max-width:1180px){.content-sidebar-sidebar .content-sidebar-wrap,.sidebar-content-sidebar .content-sidebar-wrap,.sidebar-sidebar-content .content-sidebar-wrap{width:740px}
+}.content-sidebar-sidebar .content-sidebar-wrap{float:left}
+.sidebar-content-sidebar .content-sidebar-wrap,.sidebar-sidebar-content .content-sidebar-wrap{float:right}
+.content{float:right;font-size:15px;width:710px}
+@media screen and (max-width:1023px){.content{width:100%}
+}.content-sidebar .content,.content-sidebar-sidebar .content,.sidebar-content-sidebar .content{float:left}
+.content-sidebar-sidebar .content,.sidebar-content-sidebar .content,.sidebar-sidebar-content .content{width:520px}
+@media screen and (max-width:1180px){.content-sidebar-sidebar .content,.sidebar-content-sidebar .content,.sidebar-sidebar-content .content{width:400px}
+}@media screen and (max-width:1023px){.content-sidebar-sidebar .content,.sidebar-content-sidebar .content,.sidebar-sidebar-content .content{width:100%}
+}.full-width-content .content{width:100%}
+@media screen and (max-width:1180px){.sidebar-primary{width:300px}
+}.content-sidebar-sidebar .content-sidebar-wrap,.sidebar-content-sidebar .content-sidebar-wrap,.sidebar-primary,.sidebar-secondary,.sidebar-sidebar-content .content-sidebar-wrap,.title-area,.wrap{width:100%}
+/*! Sidebars
 ---------------------------------------------------------------------------------------------------- */.sidebar{color:#666;font-size:13px}
 .sidebar p:last-child,.sidebar ul{margin:0}
 .sidebar li{list-style-type:none;margin-bottom:6px;padding:0;word-wrap:break-word}

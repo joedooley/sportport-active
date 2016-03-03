@@ -15,11 +15,7 @@
 	Link: http://necolas.github.com/normalize.css/
 --------------------------------------------- */
 
-article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,video{display:inline-block}audio:not([controls]){display:none;height:0}[hidden]{display:none}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}a:focus{outline:thin dotted}a:active,a:hover{outline:0}h1{font-size:2em;margin:.67em 0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}mark{background:#ff0;color:#000}code,kbd,pre,samp{font-family:monospace,serif;font-size:1em}pre{white-space:pre-wrap}q{quotes:"\201C" "\201D" "\2018" "\2019"}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:0}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}button,input{line-height:normal}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}
-
-
-
-
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,video{display:inline-block}audio:not([controls]){display:none;height:0}[hidden]{display:none}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}a:focus{outline:thin dotted}a:active,a:hover{outline:0}h1{font-size:2em;margin:.67em 0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}mark{background:#ff0;color:#000}code,kbd,pre,samp{font-family:monospace,serif;font-size:1em}pre{white-space:pre-wrap}q{quotes:"\201C" "\201D" "\2018" "\2019"}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:0}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}button,input{line-height:normal}button,select{text-transform:uppercase}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}
 
 /*! MY CUSTOM CODE START ==================================================== */
 
@@ -127,8 +123,6 @@ body.inspire .woo-float-left .woo-inspire-shop a:hover {
 body.inspire .grey-boxed {
 	border: 1px solid #CCC;
 	padding: 4px;
-	-webkit-box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24);
-	-moz-box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24);
 	box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24); }
 
 /*! Hide Purchase Options */
@@ -157,8 +151,6 @@ body.gallery .grey-boxed {
 	border: 1px solid #333;
 	padding: 13px 20px;
 	margin: 0 0 5px 8px;
-	-webkit-box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24);
-	-moz-box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24);
 	box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24); }
 
 
@@ -193,27 +185,6 @@ body.gallery .grey-boxed {
 
 .content[role="main"] .entry img { margin: 6px 20px 5px 0; }
 
-/*! LOGO FLOAT DIVs START -------------------------------------------- */
-
-.sp-logo-div {
-    position: absolute;
-    top: 15px;
-    left: 40px;
-    width: 127px;
-    height: 148px;
-    background-image: url(//sportportactive.com/wp-content/uploads/2015/09/SportPort-Symbol-Floater-Orange-Main-Shadow.png);
-background-repeat: no-repeat;
-background-position: center right;
-z-index: 99999; }
-
-.sp-logo-div img {
-    position:absolute;
-    width:175px;
-    height:203px;
-    top:30px;
-    right:15px; }
-
-/*! -------------------------------------------- */
 
 h1 { font-size: 28px; }
 h2 { font-size: 23px; }
@@ -504,7 +475,6 @@ img.small-fabrics-icon {
 	background: none; }
 
 .sidebar .widget-wrap {
-	/*border-bottom: 1px solid #9ab;*/
 	margin: 6px 0 0 0;
 	padding: 0 0 8px 0; }
 
@@ -648,8 +618,6 @@ img.small-fabrics-icon {
 /*! ADD SHADOWS TO PRODUCTS on CATEGORY and SHOP PAGES [x34] ---------------------------------------- */
 
 .woocommerce ul.products li.product a img {
-	-webkit-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
-	-moz-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
 	box-shadow: 0px 9px 20px -12px rgba(0,0,0,1); }
 
 /*! WOO PRODUCT-CATEGORY CUSTOM [x33] ---------------------------------------- */
@@ -734,23 +702,23 @@ table.product-features-grid {
 	width: 95%; }
 
 table.product-features-grid td {
-	width: 48%;
+	border: 0 none;
 	padding: 0 25px 8px 0;
 	vertical-align: middle;
-	border-width: 0;
-	border-style: none; }
+	width: 48%;
+}
 
-body.woocommerce-page select { width: 200px; }
 
 /*! WOOCOMMERCE BUTTONS */
 
-.woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit {
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce #respond input#submit {
 	border-radius: 20px;
 	font-weight: normal;
 	background: #F93 !important;
-	color: #FFF !important;
-	padding: .618em 1em .5em 1em !important;
-	font-size: 12px !important; }
+	color: #FFF !important; }
 
 .woocommerce ul.products li.product .button {
 	margin: 0;
@@ -781,22 +749,22 @@ body.woocommerce-page select { width: 200px; }
 	line-height: 1.5; }
 
 body.woocommerce-page .entry-content .entry-title {
-	font-family: velino_text_lightlight, Georgia, 'Times Roman', serif;
-	font-weight: normal;
-	font-size: 3em;
-	letter-spacing: -.2px;
-	color: #567;
-	line-height: 1.2;
+	border-bottom: none;
 	border-top: none;
-	border-bottom: none; }
+	color: #567;
+	font-family: velino_text_lightlight, Georgia, 'Times Roman', serif;
+	font-size: 3em;
+	font-weight: normal;
+	letter-spacing: -.2px;
+	line-height: 1.2; }
 
 body.woocommerce-page .summary p {
 	font-size: 14px;
 	margin: 0 0 6px 0; }
 
 body.woocommerce-page .variations_form.cart {
-	font-size: 14px;
 	color: #F93;
+	font-size: 14px;
 	font-weight: normal; }
 
 /*! ADDS RULES TO MAIN PRODUCT IMAGES */
@@ -863,7 +831,7 @@ body.woocommerce-page .related.products h2:after {
 body.technology { background: #FA5; }
 
 body.technology .sp-logo-div {
-    background-image: url(//sportportactive.com/newsite/wp-content/uploads/2015/08/SportPort-Symbol-Floater-White-184-H-Shadow.png);
+    background-image: url(/wp-content/uploads/2015/08/SportPort-Symbol-Floater-White-184-H-Shadow.png);
 }
 
 #tech-layers-animation {
@@ -1014,19 +982,6 @@ body.home .woocommerce img { border: none; }
 
 /*! BODY.HOME CUSTOM START [x25] ------------------------ */
 
-body.home .head-wrap { margin: 0; }
-
-body.home .sp-logo-div {
-    position: absolute;
-    top: 22px;
-    left: 27px;
-    width: 175px;
-    height: 203px;
-    background-image: url(//sportportactive.com/wp-content/uploads/2015/08/SportPort-Symbol-Floater-184-H-Shadow.png);
-background-repeat: no-repeat;
-background-position: center right;
-z-index: 99999; }
-
 body.home .woocommerce ul.product_list_widget li {
 	float: left;
 	background: #FFF;
@@ -1063,7 +1018,6 @@ body.home .product-title {
 	color: #FFF;
 }
 
-body.home .amount { display: none; }
 
 /*! TABLE on HOME PAGE for 20% SALE FEB 2016 ---------------------------------------- */
 
@@ -1114,14 +1068,12 @@ body.home table th img, body.home table td img {
 /*! SPEECH BUBBLES (in section .home-feature-9) ---------------------------------------- */
 
 .home-quote {  /*--- in .home-feature-11 ---*/
-  position:relative;
-  padding:15px 15px 1px 15px;
-  margin:0;
-  color:#000;
-  background:#FFF;
-  -webkit-border-radius:10px;
-  -moz-border-radius:10px;
-  border-radius:10px; }
+	background:#FFF;
+	border-radius:10px;
+	color:#000;
+	margin:0;
+	padding:15px 15px 1px 15px;
+	position:relative; }
 
 /*! display of quote author (alternatively use a class on the element following the blockquote) */
 .example-right + p {margin:15px 0 2em 85px; font-style:italic;}
@@ -1148,16 +1100,6 @@ body.home table th img, body.home table td img {
 	margin: 10px 15px 2em 85px;
 	font-size: 11px;
 	text-align: right;
-}
-
-/*! ---------------------------------------- */
-
-/*! START .METIS (Hover Labels for Slider Navigation Circles) ---------------------------- */
-
-.metis .tp-bullet-title {
-	font-size: 13px;
-	padding: 2px 12px;
-	text-transform: uppercase;
 }
 
 /*! ---------------------------------------- */
@@ -1224,7 +1166,6 @@ html {
 
 body {
 	background: rgba(211, 220, 235, 0.59);
-/* NOTE: This is where the very light grey in the demo comes from! */
 	color: #333;
 	font-family: ralewayregular, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 18px;
@@ -1238,16 +1179,7 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-	-webkit-transition: all 0.1s ease-in-out;
-	-moz-transition:    all 0.1s ease-in-out;
-	-ms-transition:     all 0.1s ease-in-out;
-	-o-transition:      all 0.1s ease-in-out;
-	transition:         all 0.1s ease-in-out;
-}
-
-::-moz-selection {
-	background: #333;
-	color: #fff;
+	transition: all 0.1s ease-in-out;
 }
 
 ::selection {
@@ -1397,16 +1329,11 @@ img {
 /*! Forms
 --------------------------------------------- */
 
-.wpcf7-form {
-	font-size: 13px; }
-
-input, select, textarea {
-	box-shadow: 0 1px 3px #eee;
-	-moz-box-shadow: 0 1px 3px #eee;
-	-webkit-box-shadow: 0 1px 3px #eee;
+input, textarea {
 	background: #fff;
 	border: 1px solid #ddd;
 	border-radius: 6px;
+	box-shadow: 0 1px 3px #eee;
 	color: #999;
 	font-family: ralewaymedium, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 13px;
@@ -1417,10 +1344,6 @@ input:focus,
 textarea:focus {
 	border: 1px solid #aaa;
 	outline: none;
-}
-
-::-moz-placeholder {
-	color: #999;
 }
 
 ::-webkit-input-placeholder {
@@ -1456,11 +1379,8 @@ button:hover,
 input:hover[type="button"],
 input:hover[type="reset"],
 input:hover[type="submit"] {
-	-moz-transition:all .5s ease;
-	-o-transition:all .5s ease;
-	-webkit-transition:all .5s ease;
 	opacity: .7;
-	transition:all .5s ease;
+	transition: all .5s ease;
 }
 
 input[type="search"]::-webkit-search-cancel-button,
@@ -1473,8 +1393,6 @@ input[type="search"]::-webkit-search-results-button {
 
 a.button {
 	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
     display: inline-block;
     font-size: 13px;
     font-weight: 400;
@@ -1485,9 +1403,6 @@ a.button {
 }
 
 a.button:hover {
-	-moz-transition:all .5s ease;
-	-o-transition:all .5s ease;
-	-webkit-transition:all .5s ease;
 	color: #fff !important;
 	opacity: .7;
 	transition:all .5s ease;
@@ -1597,11 +1512,7 @@ a.button.red {
 
 .download-box {
     box-shadow: 0 2px 2px 0 #ddd;
-    -moz-box-shadow: 0 2px 2px 0 #ddd;
-    -webkit-box-shadow: 0 2px 2px 0 #ddd;
     border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
 	background: #d2eac2 url(images/download-arrow.png) no-repeat 10px 15px;
 	border: 1px solid #a7d28a;
     color: #689c2a;
@@ -1611,11 +1522,7 @@ a.button.red {
 
 .info-box {
     box-shadow: 0 2px 2px 0 #ddd;
-    -moz-box-shadow: 0 2px 2px 0 #ddd;
-    -webkit-box-shadow: 0 2px 2px 0 #ddd;
     border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
 	background: #cae0ec url(images/info-button.png) no-repeat 10px 15px;
 	border: 1px solid #aec3ce;
     color: #08557e;
@@ -1851,8 +1758,6 @@ a.button.red {
 .plan-button a,
 .entry-content .plan-button a {
 	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
 	background: #303236;
 	color: #fff;
 	font-size: 18px;
@@ -1861,9 +1766,6 @@ a.button.red {
 }
 
 .plan-button a:hover {
-	-moz-transition:all .5s ease;
-	-o-transition:all .5s ease;
-	-webkit-transition:all .5s ease;
 	opacity: .7;
 	transition:all .5s ease;
 	text-decoration: underline;
@@ -1960,7 +1862,6 @@ Common Classes
 	width: 1px;
 }
 
-.sticky { }
 
 img.centered,
 .aligncenter {
@@ -1998,8 +1899,6 @@ img.alignright,
 	text-align: center;
 }
 
-.gallery-caption { }
-
 .widget_calendar table {
 	width: 100%;
 }
@@ -2022,18 +1921,6 @@ img.alignright,
 
 .archive-description p { margin: 0 0 22px 0; }
 
-.archive-description,
-.author-box {
-	/*background: #fff;
-	margin-bottom: 40px;
-}
-
-.archive-description,
-.author-box  {
-	margin-bottom: 40px;
-	padding: 40px 40px 24px;*/  /*--- Commented out this and above PK ---*/
-}
-
 .author-box-title {
 	display: none;
 	color: #333;
@@ -2042,8 +1929,6 @@ img.alignright,
 	text-transform: uppercase;
 	margin-bottom: 4px;
 }
-
-.author-box a {}
 
 .author-box p {
 	margin: 0;
@@ -2064,7 +1949,7 @@ img.alignright,
 	font-size: 2em;
 	font-family: ralewaymedium, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	color: #567;
-	letter-spacing: -.2px; }
+	letter-spacing: -0.2px; }
 
 .entry-title a {
 	color: #567;
@@ -2186,8 +2071,6 @@ Content Area
 
 .home .entry {
 	box-shadow: none;
-	-moz-box-shadow: none;
-	-webkit-box-shadow: none;
 	background: none;
 }
 
@@ -2433,16 +2316,9 @@ li.comment ul li {
 	padding: 24px;
 }
 
-
-
-
-
-
 /*!
 Miscellaneous
 ---------------------------------------------------------------------------------------------------- */
-
-
 
 .clear-line {
 	border-bottom: 1px solid #eee;
