@@ -2,28 +2,32 @@
 
 // Site Containers
 
+.site-inner,
 .wrap {
 	margin: 0 auto;
-	max-width: 1140px;
+	max-width: 1200px;
 
 	@include media($xxlarge-screen-up) {
 		max-width: 960px;
 	}
 
 	@include media($xlarge-screen-up) {
-		width: 100%;
+		width: 800px;
+	}
+
+	@include media($large-screen-up) {
+		width: 100%; 
+		padding-left: 5%;
+		padding-right: 5%;
 	}
 }
 
 .site-inner {
 	clear: both;
-	margin: 60px auto 0;
-	padding: 0 60px 0 100px;
+	padding-top: 60px;
 
 	@include media($xlarge-screen-up) {
 		background: none;
-		padding-left: 5%;
-		padding-right: 5%;
 	}
 
 }
@@ -34,7 +38,7 @@
 .content-sidebar-sidebar .content-sidebar-wrap,
 .sidebar-content-sidebar .content-sidebar-wrap,
 .sidebar-sidebar-content .content-sidebar-wrap {
-	width: 920px;
+	width: 980px;
 
 	@include media($xxlarge-screen-up) {
 		width: 740px;
@@ -60,11 +64,10 @@
 .content {
 	float: right;
 	font-size: 15px;
-	width: 710px;
+	width: 800px;
 
 	@include media($xxlarge-screen-up) {
-		// width: 620px;
-		// PK
+		 width: 620px;
 	}
 
 	@include media($xlarge-screen-up) {
@@ -82,11 +85,7 @@
 .content-sidebar-sidebar .content,
 .sidebar-content-sidebar .content,
 .sidebar-sidebar-content .content {
-	width: 520px;
-
-	@include media($xxlarge-screen-up) {
-		width: 400px;
-	}
+	width: 580px;
 
 	@include media($xlarge-screen-up) {
 		width: 100%;
@@ -98,8 +97,12 @@
 	width: 100%;
 }
 
-@include media($xxlarge-screen-up) {
-	.sidebar-primary {
+.sidebar-primary {
+	background: none;
+	float: right;
+	width: 360px;
+
+	@include media($xxlarge-screen-up) {
 		width: 300px;
 	}
 
@@ -108,5 +111,20 @@
 	}
 }
 
+// Secondary Sidebar
+
+.sidebar-secondary {
+	float: left;
+	width: 180px;
+
+	@include media($xlarge-screen-up) {
+		width: 100%;
+	}
+
+}
+
+.content-sidebar-sidebar .sidebar-secondary {
+	float: right;
+}
 
 
