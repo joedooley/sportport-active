@@ -88,3 +88,4 @@ function genesiswooc_archive_product_loop() {
 }
 
 genesis();
+

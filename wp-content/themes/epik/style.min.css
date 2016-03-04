@@ -258,7 +258,6 @@ img.small-fabrics-icon{width:52px;box-shadow:0 9px 20px -12px black;border:1px s
 .snasm-footer-wrap{text-align:right;margin:20px 0 0 0;padding:15px 0 0 0;border-top:1px solid #999;letter-spacing:.085em}
 .snasm-footer-reg-italic{font-family:SnasmRg-Italic,'Helvetica Neue',Helvetica,Arial,sans-serif}
 .snasm-footer-light-italic{font-family:SnasmLt-Italic,'Helvetica Neue',Helvetica,Arial,sans-serif}
-.sidebar-primary{float:right;width:300px;margin-left:10px;background:0}
 .sidebar .widget-wrap{margin:6px 0 0 0;padding:0 0 8px 0}
 .sidebar .widget{margin:0;overflow:hidden;padding:0}
 .sidebar .more-from-category{font-size:12px;font-family:ralewaysemibold,'Helvetica Neue',Helvetica,Arial,sans-serif;text-align:right;border-bottom:1px solid #CCC;padding:3px 0 6px 0}
@@ -267,8 +266,6 @@ img.small-fabrics-icon{width:52px;box-shadow:0 9px 20px -12px black;border:1px s
 .sidebar-primary .entry-title{margin:0 0 4px 0}
 .sidebar-primary .entry-content p{margin:0 0 6px 0}
 .sidebar-primary img{float:left;height:52px;margin:1px 10px 4px 0}
-/*! Secondary Sidebar NOT USED */.sidebar-secondary{float:left;width:180px}
-.content-sidebar-sidebar .sidebar-secondary{float:right}
 /*! .HOME CUSTOMIZATION START [x21] -------------------------------------------- */.home-show-1-wrap,.home-show-2-wrap,.home-show-3-wrap{padding:5px 0 2px 0;border-left:1px solid #777;border-right:1px solid #555;border-bottom:1px solid #000}
 .home-show-head-1,.home-show-head-1 a,.home-show-head-2,.home-show-head-2 a,.home-show-head-3,.home-show-head-3 a{font-family:ralewaylight,'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:20px;font-weight:100;letter-spacing:.06em;margin:6px 0 0 0;padding:0;text-align:center !important;text-decoration:none !important}
 .home-show-head-1,.home-show-head-1 a{color:#F33 !important}
@@ -599,41 +596,17 @@ Miscellaneous
 .sidebar .widget.enews-widget{padding:40px}
 .wp-caption{width:100% !important}
 .footer-widgets .widget{margin-bottom:40px}
-}/*! iPad/Tablets (portrait and landscape)
---------------------------------------------- */@media only screen and (max-width:960px){.feature-margin{margin:0}
-}/*! iPhones (portrait and landscape) [x40]
---------------------------------------------- */@media only screen and (max-width:767px){.home-feature-3,.home-feature-4,.home-bottom-sidebar-1,.home-bottom-sidebar-2,.home-bottom-sidebar-3,.home-bottom-sidebar-4,.footer-widgets-1,.footer-widgets-2,.footer-widgets-3,.five-sixths,.four-fifths,.four-sixths,.one-fifth,.one-fourth,.one-half,.one-sixth,.one-third,.three-fifths,.three-fourths,.three-sixths,.two-fifths,.two-fourths,.two-sixths,.two-thirds{margin:0;width:100%}
-.home-feature-4{font-size:18px;letter-spacing:.1em;color:#79A;padding-bottom:8px}
-/*!--------*/.hf8{font-size:18px;letter-spacing:.1em;color:#79A;margin:10px 0}
-/*!--------*/.hf14 .head{font-size:18px;letter-spacing:.1em;color:#FFF;margin:10px 0}
-/*!--------*/.home-feature-bg-alt .featuredpage .page,.home-feature-bg-alt .featuredpost .post{width:100%;padding:0 1.5em 0 0}
-/*!--------*/.home-feature-bg-dark .wrap{padding:5px}
-/*!---------*/.tp-caption.NotGeneric-SubTitle,.NotGeneric-SubTitle{display:none}
-/*!----------*/.wpsstt_btn{margin:4px}
-/*!---PK---*/.feature-left,.feature-right{width:45%}
-.home-feature-10,.home-feature-12{width:48%}
-.home-feature-11,.home-feature-13{float:right;margin:0;width:48%}
-.home-feature-12{clear:both}
-.search-form{width:80%}
-.content .portfolio{width:48%}
-.content .portfolio .post-image{width:100%}
-.home-feature-10 img,.home-feature-11 img,.home-feature-12 img,.home-feature-13 img{width:100%}
-.plan-col,.plan-col-popular{float:none;margin:0 auto 40px;width:80%}
-}@media only screen and (max-width:580px){.home .wrap{text-align:none}
-.home-feature-1,.home-feature-2,.home-feature-3,.home-feature-4,.home-feature-1,.home-feature-2,.home-feature-3,.home-feature-4,.home-feature-5,.home-feature-6,.home-feature-7,.home-feature-8,.home-feature-9,.home-feature-10,.home-feature-11,.home-feature-12,.home-feature-13,.home-feature-14{margin:0 auto;text-align:center;width:100%}
-.feature-left{float:none;margin:0 auto;text-align:center;width:100%}
-.feature-right{float:none;margin:40px auto 0;text-align:center;width:100%}
 }@media only screen and (max-width:480px){.content .portfolio{text-align:center;width:100%}
 .content .portfolio .post-image{width:100%}
 .content .portfolio .more-link{margin:20px auto 0;padding:6px;width:60%}
-}/*! ## Components
---------------------------- */.before-header{background-color:rgba(211,220,235,0.59);text-align:center}
+}.before-header{background-color:rgba(211,220,235,0.59);text-align:center}
 .before-header .free-shipping-notification{font-weight:bold;margin-bottom:0;padding:5px 0;text-transform:uppercase}
-@media screen and (max-width:480px){.before-header .free-shipping-notification{font-size:80%}
+@media screen and (max-width:480px){.before-header .free-shipping-notification{font-size:70%}
 }.site-header{background-color:#567;border-bottom:1px solid rgba(211,220,235,0.59);width:100%}
 @media screen and (max-width:1023px){.site-header{padding-bottom:30px}
 }.site-header .title-area{float:left}
 @media screen and (min-width:1180px){.site-header .title-area{width:300px}
+}@media screen and (max-width:1023px){.site-header .title-area{width:100%}
 }.site-header .title-area .site-title{margin:0}
 @media screen and (max-width:1023px){.site-header .title-area .site-title{text-align:center}
 }.site-header .title-area .site-title img{position:relative;z-index:999;top:30px}
@@ -686,8 +659,12 @@ Site Navigation
 .js .genesis-nav-menu .sub-menu a{border-bottom:1px solid rgba(211,220,235,0.59)}
 .js nav button:hover,.js .menu-toggle:hover,.js .nav-primary{color:#fff;font-weight:bold}
 .js nav button:focus,.js .menu-toggle:focus{color:#fff}
-}.home-feature-3 .woocommerce ul.products li.product,.home-feature-3 .woocommerce-page ul.products li.product{width:29%}
-.home-feature-bg{overflow:hidden}
+}.archive .woocommerce nav.woocommerce-breadcrumb{border-bottom:1px solid #9ab;color:#567;font-size:.8125em;margin-right:.9375em;padding-right:.9375em;text-align:right}
+.home-feature-3 .woocommerce ul.products li.product,.home-feature-3 .woocommerce-page ul.products li.product{width:29%}
+@media screen and (max-width:768px){.home-feature-3 .woocommerce ul.products li.product,.home-feature-3 .woocommerce-page ul.products li.product{width:48%}
+}@media screen and (max-width:480px){.home-feature-3 .woocommerce ul.products li.product,.home-feature-3 .woocommerce-page ul.products li.product{width:100%}
+}@media screen and (max-width:1023px){.home .wrap{width:auto}
+}.home-feature-bg{overflow:hidden}
 .home-feature-bg .wrap{background:#cde;margin:0 auto;overflow:hidden;padding:0;max-width:1140px;text-align:center !important}
 .home-feature-bg .featuredpage .page,.home-feature-bg .featuredpost .post{float:left;margin:0;overflow:hidden;padding:0 0 5px}
 .home-feature-bg .featuredpage .page h2,.home-feature-bg .featuredpost .post h2{margin:10px 0}
@@ -700,7 +677,7 @@ Site Navigation
 Home Feature BG Alt
 ---------------------------------------------------------------------------------------------------- */.home-feature-bg-alt{background:#cde;margin:0}
 .home-feature-bg-alt .alignleft{margin:0 12px 0 0}
-.home-feature-bg-alt .wrap{margin:0 auto;overflow:hidden;padding:0;width:1140px}
+.home-feature-bg-alt .wrap{margin:0 auto;overflow:hidden;padding:0}
 .home-feature-bg-alt .featuredpage .page,.home-feature-bg-alt .featuredpost .post{float:left;margin:0 1em 0 0;overflow:hidden;padding:0 0 5px;width:30%}
 .home-feature-bg-alt .featuredpage img,.home-feature-bg-alt .featuredpost img{background:0;border:0;padding:0;border:1px solid #fff;border-radius:20px}
 .home-feature-bg-alt .featuredpage img:hover,.home-feature-bg-alt .featuredpost img:hover{opacity:.7;-webkit-transition:all .5s ease;transition:all .5s ease}
@@ -764,6 +741,31 @@ Home Features
 /*! Home Feature h4 */.home-feature-3 h4,.home-feature-4 h4,.home-feature-5 h4,.home-feature-6 h4,.home-feature-7 h4,.home-feature-8 h4,.home-feature-9 h4,.home-feature-14 h4{font-size:36px;font-weight:300}
 .home-feature-10 h4,.home-feature-11 h4,.home-feature-12 h4,.home-feature-13 h4{font-size:24px;font-weight:400}
 @media screen and (max-width:1180px){.hf1,.hf3,.hf4,.hf5,.hf6,.hf7,.hf8,.hf9,.hf14{background-position:top;background-size:auto}
+}@media screen and (max-width:480px){.hf3,.hf8,.hf9{padding:0 5%}
+}/*! iPad/Tablets (portrait and landscape)
+--------------------------------------------- */@media only screen and (max-width:960px){.feature-margin{margin:0}
+}/*! iPhones (portrait and landscape) [x40]
+--------------------------------------------- */@media only screen and (max-width:767px){.home-feature-3,.home-feature-4,.home-bottom-sidebar-1,.home-bottom-sidebar-2,.home-bottom-sidebar-3,.home-bottom-sidebar-4,.footer-widgets-1,.footer-widgets-2,.footer-widgets-3,.five-sixths,.four-fifths,.four-sixths,.one-fifth,.one-fourth,.one-half,.one-sixth,.one-third,.three-fifths,.three-fourths,.three-sixths,.two-fifths,.two-fourths,.two-sixths,.two-thirds{margin:0;width:100%}
+.home-feature-4{font-size:18px;letter-spacing:.1em;color:#79a;padding-bottom:8px}
+/*!--------*/.hf8{font-size:18px;letter-spacing:.1em;color:#79a;padding:10px 0 30px}
+/*!--------*/.hf14 .head{font-size:18px;letter-spacing:.1em;color:#fff;margin:10px 0}
+/*!--------*/.home-feature-bg-alt .featuredpage .page,.home-feature-bg-alt .featuredpost .post{width:100%;padding:0 1.5em 0 0}
+/*!--------*/.home-feature-bg-dark .wrap{padding:5px}
+/*!---------*/.tp-caption.NotGeneric-SubTitle,.NotGeneric-SubTitle{display:none}
+/*!----------*/.wpsstt_btn{margin:4px}
+/*!---PK---*/.feature-left,.feature-right{width:45%}
+.home-feature-10,.home-feature-12{width:48%}
+.home-feature-11,.home-feature-13{float:right;margin:0;width:48%}
+.home-feature-12{clear:both}
+.search-form{width:80%}
+.content .portfolio{width:48%}
+.content .portfolio .post-image{width:100%}
+.home-feature-10 img,.home-feature-11 img,.home-feature-12 img,.home-feature-13 img{width:100%}
+.plan-col,.plan-col-popular{float:none;margin:0 auto 40px;width:80%}
+}@media only screen and (max-width:580px){.home .wrap{text-align:none}
+.home-feature-1,.home-feature-2,.home-feature-3,.home-feature-4,.home-feature-1,.home-feature-2,.home-feature-3,.home-feature-4,.home-feature-5,.home-feature-6,.home-feature-7,.home-feature-8,.home-feature-9,.home-feature-10,.home-feature-11,.home-feature-12,.home-feature-13,.home-feature-14{margin:0 auto;text-align:center;width:100%}
+.feature-left{float:none;margin:0 auto;text-align:center;width:100%}
+.feature-right{float:none;margin:40px auto 0;text-align:center;width:100%}
 }/*! Portfolio
 ---------------------------------------------------------------------------------------------------- */.entry-portfolio{margin:0 0 40px;padding:0}
 .content .portfolio{background:#fff;float:left;margin:0 2% 40px 0 !important;overflow:hidden;padding:0;width:23%}
@@ -781,23 +783,30 @@ body.woocommerce div.product form.cart .variations label{color:#567}
 body.woocommerce div.product form.cart .variations label select{font-size:1em;min-width:0}
 body.woocommerce div.product form.cart .woocommerce-variation-description p,body.woocommerce .quantity .qty{font-size:1em;color:#333}
 /*! ## Layout
---------------------------- */.wrap{margin:0 auto;max-width:1140px}
-@media screen and (max-width:1180px){.wrap{max-width:960px}
-}.site-inner{clear:both;margin:60px auto 0;padding:0 60px 0 100px}
-@media screen and (max-width:1023px){.site-inner .site-inner{background:0;padding-left:5%;padding-right:5%}
-}.content-sidebar-sidebar .content-sidebar-wrap,.sidebar-content-sidebar .content-sidebar-wrap,.sidebar-sidebar-content .content-sidebar-wrap{width:920px}
+--------------------------- */.site-inner,.wrap{margin:0 auto;max-width:1200px}
+@media screen and (max-width:1180px){.site-inner,.wrap{max-width:960px}
+}@media screen and (max-width:1023px){.site-inner,.wrap{width:800px}
+}@media screen and (max-width:800px){.site-inner,.wrap{width:100%;padding-left:5%;padding-right:5%}
+}.site-inner{clear:both;padding-top:60px}
+@media screen and (max-width:1023px){.site-inner{background:0}
+}.content-sidebar-sidebar .content-sidebar-wrap,.sidebar-content-sidebar .content-sidebar-wrap,.sidebar-sidebar-content .content-sidebar-wrap{width:980px}
 @media screen and (max-width:1180px){.content-sidebar-sidebar .content-sidebar-wrap,.sidebar-content-sidebar .content-sidebar-wrap,.sidebar-sidebar-content .content-sidebar-wrap{width:740px}
+}@media screen and (max-width:1023px){.content-sidebar-sidebar .content-sidebar-wrap,.sidebar-content-sidebar .content-sidebar-wrap,.sidebar-sidebar-content .content-sidebar-wrap{width:100%}
 }.content-sidebar-sidebar .content-sidebar-wrap{float:left}
 .sidebar-content-sidebar .content-sidebar-wrap,.sidebar-sidebar-content .content-sidebar-wrap{float:right}
-.content{float:right;font-size:15px;width:710px}
-@media screen and (max-width:1023px){.content{width:100%}
+.content{float:right;font-size:15px;width:800px}
+@media screen and (max-width:1180px){.content{width:620px}
+}@media screen and (max-width:1023px){.content{width:100%}
 }.content-sidebar .content,.content-sidebar-sidebar .content,.sidebar-content-sidebar .content{float:left}
-.content-sidebar-sidebar .content,.sidebar-content-sidebar .content,.sidebar-sidebar-content .content{width:520px}
-@media screen and (max-width:1180px){.content-sidebar-sidebar .content,.sidebar-content-sidebar .content,.sidebar-sidebar-content .content{width:400px}
-}@media screen and (max-width:1023px){.content-sidebar-sidebar .content,.sidebar-content-sidebar .content,.sidebar-sidebar-content .content{width:100%}
+.content-sidebar-sidebar .content,.sidebar-content-sidebar .content,.sidebar-sidebar-content .content{width:580px}
+@media screen and (max-width:1023px){.content-sidebar-sidebar .content,.sidebar-content-sidebar .content,.sidebar-sidebar-content .content{width:100%}
 }.full-width-content .content{width:100%}
+.sidebar-primary{background:0;float:right;width:360px}
 @media screen and (max-width:1180px){.sidebar-primary{width:300px}
-}.content-sidebar-sidebar .content-sidebar-wrap,.sidebar-content-sidebar .content-sidebar-wrap,.sidebar-primary,.sidebar-secondary,.sidebar-sidebar-content .content-sidebar-wrap,.title-area,.wrap{width:100%}
+}@media screen and (max-width:1023px){.sidebar-primary{width:100%}
+}.sidebar-secondary{float:left;width:180px}
+@media screen and (max-width:1023px){.sidebar-secondary{width:100%}
+}.content-sidebar-sidebar .sidebar-secondary{float:right}
 /*! Sidebars
 ---------------------------------------------------------------------------------------------------- */.sidebar{color:#666;font-size:13px}
 .sidebar p:last-child,.sidebar ul{margin:0}

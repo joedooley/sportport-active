@@ -1,0 +1,22 @@
+body.woocommerce nav.woocommerce-breadcrumb {
+	border-bottom: 1px solid #9ab;
+	color: #567;
+	font-size: em(12);
+	margin-right: em(15);
+	padding-bottom: em(15);
+	padding-right: em(15);
+	text-align: right;
+
+	a {
+		text-decoration: none;
+
+		&:first-child {
+			color: #000;
+		}
+
+		&:hover {
+			color: #888;
+			text-decoration: underline;
+		}
+	}
+}
