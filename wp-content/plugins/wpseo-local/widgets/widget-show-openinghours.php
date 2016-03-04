@@ -1,10 +1,8 @@
 <?php
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("WPSEO_Show_OpeningHours");' ) );
-
 class WPSEO_Show_OpeningHours extends WP_Widget {
 	/** constructor */
-	function WPSEO_Show_OpeningHours() {
+	function __construct() {
 		$widget_options = array(
 			'classname'   => 'WPSEO_Show_OpeningHours',
 			'description' => __( 'Shows opening hours of locations in Schema.org standards.', 'yoast-local-seo' )
@@ -32,6 +30,7 @@ class WPSEO_Show_OpeningHours extends WP_Widget {
 			'before_title' => $args['before_title'],
 			'after_title'  => $args['after_title'],
 			'hide_closed'  => $instance['hide_closed'] ? 1 : 0,
+			'show_days'    => $instance['show_days'],
 		);
 
 		$location_data = $wpseo_local_core->get_location_data( $location_id );
@@ -74,6 +73,7 @@ class WPSEO_Show_OpeningHours extends WP_Widget {
 		$instance['location_id'] = esc_attr( $new_instance['location_id'] );
 		$instance['hide_closed'] = esc_attr( $new_instance['hide_closed'] );
 		$instance['comment']     = esc_attr( $new_instance['comment'] );
+		$instance['show_days']   = $new_instance['show_days'];
 
 		return $instance;
 	}
@@ -84,6 +84,7 @@ class WPSEO_Show_OpeningHours extends WP_Widget {
 		$location_id = ! empty( $instance['location_id'] ) ? esc_attr( $instance['location_id'] ) : '';
 		$hide_closed = ! empty( $instance['hide_closed'] ) && esc_attr( $instance['hide_closed'] ) == '1';
 		$comment     = ! empty( $instance['comment'] ) ? esc_attr( $instance['comment'] ) : '';
+		$show_days   = ! empty( $instance['show_days'] ) ? $instance['show_days'] : '';
 		?>
 		<p>
 			<label
@@ -118,6 +119,22 @@ class WPSEO_Show_OpeningHours extends WP_Widget {
 			</p>
 		<?php } ?>
 		<p>
+			<?php _e( 'Show days', 'yoast-seo-local' ); ?>:<br>
+			<?php
+			$days = array(
+				'sunday' => __( 'Sunday', 'yoast-local-seo' ),
+				'monday' => __( 'Monday', 'yoast-local-seo' ),
+				'tuesday' => __( 'Tuesday', 'yoast-local-seo' ),
+				'wednesday' => __( 'Wednesday', 'yoast-local-seo' ),
+				'thursday' => __( 'Thursday', 'yoast-local-seo' ),
+				'friday' => __( 'Friday', 'yoast-local-seo' ),
+				'saturday' => __( 'Saturday', 'yoast-local-seo' ),
+			);
+			foreach( $days as $key => $day ) {
+				echo '<label for="' . $this->get_field_id( 'show_days' . $key ) . '"><input type="checkbox" id="' . $this->get_field_id( 'show_days' . $key ) . '" value="' . $key . '" name="' . $this->get_field_name( 'show_days[]' ) . '" ' . ( ! empty( $show_days ) ? ( in_array( $key, $show_days ) ? 'checked' : '' ) : 'checked' ) . ' />' . $day . '</label><br>';
+			} ?>
+		</p>
+		<p>
 			<label for="<?php echo $this->get_field_id( 'hide_closed' ); ?>">
 				<input id="<?php echo $this->get_field_id( 'hide_closed' ); ?>"
 							 name="<?php echo $this->get_field_name( 'hide_closed' ); ?>" type="checkbox"
@@ -133,5 +150,4 @@ class WPSEO_Show_OpeningHours extends WP_Widget {
 
 	<?php
 	}
-
 }

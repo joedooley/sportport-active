@@ -2,7 +2,7 @@ News SEO for WordPress SEO
 ==========================
 Requires at least: 4.0
 Tested up to: 4.4
-Stable tag: 3.0
+Stable tag: 3.1
 Depends: wordpress-seo
 
 
@@ -23,6 +23,16 @@ Installation
 
 Changelog
 =========
+
+### 3.1: March 2nd, 2016
+
+* Bugfixes
+	* Fixes a bug where our license manager could sometimes not reach our licensing system due to problems with ssl.
+
+* Enhancements
+	* Makes sure users don't have to reactivate their license after updating or disabling/enabling the plugin.
+	* Adds a support beacon on the News SEO settings page enabling users to ask for support from the WordPress backend.
+	* Contains a few performance optimizations.
 
 ### 3.0: November 18th, 2015
 

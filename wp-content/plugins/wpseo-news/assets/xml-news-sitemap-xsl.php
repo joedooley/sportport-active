@@ -1,21 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="2.0" 
-                xmlns:html="http://www.w3.org/TR/REC-html40"
-				xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-                xmlns:s="http://www.sitemaps.org/schemas/sitemap/0.9"
-                xmlns:n="http://www.google.com/schemas/sitemap-news/0.9"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>'?>
+<xsl:stylesheet version="2.0"
+	xmlns:html="http://www.w3.org/TR/REC-html40"
+	xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+	xmlns:s="http://www.sitemaps.org/schemas/sitemap/0.9"
+	xmlns:n="http://www.google.com/schemas/sitemap-news/0.9"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes"/>
 	<xsl:template match="/">
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>XML News Sitemap</title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-				<script type="text/javascript" src="http://cdn.yoast.com/js/jquery.tablesorter.min.js"></script>
+				<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+				<script type="text/javascript" src="<?php echo plugins_url( 'js/jquery.tablesorter.min.js', WPSEO_FILE ) ?>"></script>
 				<script	type="text/javascript"><![CDATA[
-					$(document).ready(function() { 
-				        $("#sitemap").tablesorter( { widgets: ['zebra'] } ); 
+					jQuery(document).ready(function() {
+				        jQuery("#sitemap").tablesorter( { widgets: ['zebra'] } );
 					});
 				]]></script>
 				<style type="text/css">
@@ -84,7 +85,7 @@
 					</p>
 					<p class="expl">
 						This sitemap contains <xsl:value-of select="count(s:urlset/s:url)"/> URLs.
-					</p>			
+					</p>
 					<table id="sitemap" cellpadding="3">
 						<thead>
 							<tr>

@@ -10,11 +10,16 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	private $max_standouts = 7;
 
 	public function __construct() {
+		global $pagenow;
+
 		$this->options = WPSEO_News::get_options();
 
 		add_filter( 'wpseo_save_metaboxes', array( $this, 'save' ), 10, 1 );
 		add_action( 'add_meta_boxes', array( $this, 'add_tab_hooks' ) );
-		add_filter( 'add_extra_wpseo_meta_fields', array( $this, 'add_meta_fields_to_wpseo_meta' ) );
+
+		if ( $pagenow === 'post.php' || $pagenow === 'post-new.php' ) {
+			add_filter( 'add_extra_wpseo_meta_fields', array( $this, 'add_meta_fields_to_wpseo_meta' ) );
+		}
 	}
 
 	/**

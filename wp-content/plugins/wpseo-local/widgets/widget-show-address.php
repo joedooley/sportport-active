@@ -1,10 +1,8 @@
 <?php
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("WPSEO_Show_Address");' ) );
-
 class WPSEO_Show_Address extends WP_Widget {
 	/** constructor */
-	function WPSEO_Show_Address() {
+	function __construct() {
 		$widget_options = array(
 			'classname'   => 'WPSEO_Show_Address',
 			'description' => __( 'Shows address of locations in Schema.org standards.', 'yoast-local-seo' )
@@ -25,6 +23,7 @@ class WPSEO_Show_Address extends WP_Widget {
 		$show_vat           = !empty( $instance['show_vat'] ) && $instance['show_vat'] == '1';
 		$show_tax           = !empty( $instance['show_tax'] ) && $instance['show_tax'] == '1';
 		$show_coc           = !empty( $instance['show_coc'] ) && $instance['show_coc'] == '1';
+		$show_logo          = !empty( $instance['show_logo'] ) && $instance['show_logo'] == '1';
 		$show_opening_hours = !empty( $instance['show_opening_hours'] ) && $instance['show_opening_hours'] == '1';
 		$hide_closed		= !empty( $instance['hide_closed'] ) && $instance['hide_closed'] == '1';
 		$show_oneline       = !empty( $instance['show_oneline'] ) && $instance['show_oneline'] == '1';
@@ -54,6 +53,7 @@ class WPSEO_Show_Address extends WP_Widget {
 			'show_vat'           => $show_vat,
 			'show_tax'           => $show_tax,
 			'show_coc'           => $show_coc,
+			'show_logo'          => $show_logo,
 			'show_opening_hours' => $show_opening_hours,
 			'hide_closed'		 => $hide_closed,
 			'oneline'            => $show_oneline,
@@ -88,6 +88,7 @@ class WPSEO_Show_Address extends WP_Widget {
 		$instance['show_vat']           = esc_attr( $new_instance['show_vat'] );
 		$instance['show_tax']           = esc_attr( $new_instance['show_tax'] );
 		$instance['show_coc']           = esc_attr( $new_instance['show_coc'] );
+		$instance['show_logo']          = esc_attr( $new_instance['show_logo'] );
 		$instance['show_opening_hours'] = esc_attr( $new_instance['show_opening_hours'] );
 		$instance['hide_closed'] 		= esc_attr( $new_instance['hide_closed'] );
 		$instance['show_oneline']       = esc_attr( $new_instance['show_oneline'] );
@@ -109,6 +110,7 @@ class WPSEO_Show_Address extends WP_Widget {
 		$show_vat           = !empty( $instance['show_vat'] ) && esc_attr( $instance['show_vat'] ) == '1';
 		$show_tax           = !empty( $instance['show_tax'] ) && esc_attr( $instance['show_tax'] ) == '1';
 		$show_coc           = !empty( $instance['show_coc'] ) && esc_attr( $instance['show_coc'] ) == '1';
+		$show_logo          = !empty( $instance['show_logo'] ) && esc_attr( $instance['show_logo'] ) == '1';
 		$show_opening_hours = !empty( $instance['show_opening_hours'] ) && esc_attr( $instance['show_opening_hours'] ) == '1';
 		$hide_closed		= !empty( $instance['hide_closed'] ) && esc_attr( $instance['hide_closed'] ) == '1';
 		$show_oneline       = !empty( $instance['show_oneline'] ) && esc_attr( $instance['show_oneline'] ) == '1';
@@ -193,6 +195,14 @@ class WPSEO_Show_Address extends WP_Widget {
 					   name="<?php echo $this->get_field_name( 'show_email' ); ?>" type="checkbox"
 					   value="1" <?php echo !empty( $show_email ) ? ' checked="checked"' : ''; ?> />
 				<?php _e( 'Show email address', 'yoast-local-seo' ); ?>
+			</label>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'show_logo' ); ?>">
+				<input id="<?php echo $this->get_field_id( 'show_logo' ); ?>"
+				       name="<?php echo $this->get_field_name( 'show_logo' ); ?>" type="checkbox"
+				       value="1" <?php echo !empty( $show_logo ) ? ' checked="checked"' : ''; ?> />
+				<?php _e( 'Show logo', 'yoast-local-seo' ); ?>
 			</label>
 		</p>
 		<p>

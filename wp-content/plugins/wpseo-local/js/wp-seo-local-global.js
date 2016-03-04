@@ -72,16 +72,32 @@ jQuery(document).ready(function($) {
             $( '#' + to_id ).css('display','inline');
         }
     }).change();
+	$('.openinghours_to').change( function() {
+		var from_id = $(this).attr('id').replace('_to','_from');
+		var to_id = $(this).attr('id').replace('_to','_to_wrapper');
+		if ( $(this).val() == 'closed' ) {
+			$( '#' + to_id ).css('display','none');
+			$( '#' + from_id ).val( 'closed' );
+		}
+	});
+	$('.openinghours_to_second').change( function() {
+		var from_id = $(this).attr('id').replace('_to','_from');
+		var to_id = $(this).attr('id').replace('_to','_to_wrapper');
+		if ( $(this).val() == 'closed' ) {
+			$( '#' + to_id ).css('display','none');
+			$( '#' + from_id ).val( 'closed' );
+		}
+	});
 
     if ($('.set_custom_images').length > 0) {
         if ( typeof wp !== 'undefined' && wp.media && wp.media.editor) {
             $('.wrap').on('click', '.set_custom_images', function(e) {
                 e.preventDefault();
                 var button = $(this);
-                var id = button.prev();
+                var id = button.attr('data-id');
                 wp.media.editor.send.attachment = function(props, attachment) {
-                	$('#custom_marker').attr( 'src', attachment.url );
-                	$('#hidden_custom_marker').attr( 'value', attachment.id );
+                	$('#' + id).attr( 'src', attachment.url );
+                	$('#hidden_' + id ).attr( 'value', attachment.id );
                 };
                 wp.media.editor.open(button);
                 return false;
@@ -89,9 +105,10 @@ jQuery(document).ready(function($) {
         }
     };
 
-    $('#remove_marker').on('click', function(){
-    	$('#custom_marker').attr( 'src', '' );
-    	$('#hidden_custom_marker').attr( 'value', '' );
+    $('.remove_custom_image').on('click', function() {
+		var id = $(this).attr('data-id');
+    	$('#' + id ).attr( 'src', '' );
+    	$('#hidden_' + id ).attr( 'value', '' );
     });
 
     // Copy location data

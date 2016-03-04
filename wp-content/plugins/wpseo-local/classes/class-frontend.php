@@ -16,6 +16,7 @@ if ( !class_exists( 'WPSEO_Local_Frontend' ) ) {
 			add_shortcode( 'wpseo_all_locations', 'wpseo_local_show_all_locations' );
 			add_shortcode( 'wpseo_map', 'wpseo_local_show_map' );
 			add_shortcode( 'wpseo_opening_hours', 'wpseo_local_show_opening_hours' );
+			add_shortcode( 'wpseo_local_show_logo', 'wpseo_local_show_logo' );
 
 			add_action( 'wpseo_opengraph', array( $this, 'opengraph_location' ) );
 			add_filter( 'wpseo_opengraph_type', array( $this, 'opengraph_type' ) );
@@ -95,23 +96,22 @@ if ( !class_exists( 'WPSEO_Local_Frontend' ) ) {
 				$hide_opening_hours = isset( $options['hide_opening_hours'] ) && $options['hide_opening_hours'] == 'on';
 				$location_data = wpseo_get_location_details( get_the_ID() );
 
-				echo '<meta property="place:location:latitude" content="' . $location_data['business_coords_lat'] . '"/>' . "\n";
-				echo '<meta property="place:location:longitude" content="' . $location_data['business_coords_long'] . '"/>' . "\n";
-				echo '<meta property="business:contact_data:street_address" content="' . $location_data['business_address'] . '"/>' . "\n";
-				echo '<meta property="business:contact_data:locality" content="' . $location_data['business_city'] . '"/>' . "\n";
+				echo '<meta property="place:location:latitude" content="' . esc_attr( $location_data['business_coords_lat'] ) . '"/>' . "\n";
+				echo '<meta property="place:location:longitude" content="' . esc_attr( $location_data['business_coords_long'] ) . '"/>' . "\n";
+				echo '<meta property="business:contact_data:street_address" content="' . esc_attr( $location_data['business_address'] ) . '"/>' . "\n";
+				echo '<meta property="business:contact_data:locality" content="' . esc_attr( $location_data['business_city'] ) . '"/>' . "\n";
 				echo '<meta property="business:contact_data:country" content="' . WPSEO_Local_Frontend::get_country( $location_data['business_country'] ) . '"/>' . "\n";
-				echo '<meta property="business:contact_data:postal_code" content="' . $location_data['business_zipcode'] . '"/>' . "\n";
-				echo '<meta property="business:contact_data:street_address" content="' . $location_data['business_address'] . '"/>' . "\n";
+				echo '<meta property="business:contact_data:postal_code" content="' . esc_attr( $location_data['business_zipcode'] ) . '"/>' . "\n";
 				echo '<meta property="business:contact_data:website" content="' . trailingslashit( wpseo_xml_sitemaps_base_url( '' ) ) . '"/>' . "\n";
 
 				if ( ! empty( $location_data['business_state'] ) )
-					echo '<meta property="business:contact_data:region" content="' . $location_data['business_state'] . '"/>' . "\n";
+					echo '<meta property="business:contact_data:region" content="' . esc_attr( $location_data['business_state'] ) . '"/>' . "\n";
 				if ( ! empty( $location_data['business_email'] ) )
-					echo '<meta property="business:contact_data:email" content="' . $location_data['business_email'] . '"/>' . "\n";
+					echo '<meta property="business:contact_data:email" content="' . esc_attr( $location_data['business_email'] ) . '"/>' . "\n";
 				if ( ! empty( $location_data['business_phone'] ) )
-					echo '<meta property="business:contact_data:phone_number" content="' . $location_data['business_phone'] . '"/>' . "\n";
+					echo '<meta property="business:contact_data:phone_number" content="' . esc_attr( $location_data['business_phone'] ) . '"/>' . "\n";
 				if ( ! empty( $location_data['business_fax'] ) )
-					echo '<meta property="business:contact_data:fax_number" content="' . $location_data['business_fax'] . '"/>' . "\n";
+					echo '<meta property="business:contact_data:fax_number" content="' . esc_attr( $location_data['business_fax'] ) . '"/>' . "\n";
 
 				// Opening Hours
 				if( false == $hide_opening_hours ) {
@@ -128,9 +128,9 @@ if ( !class_exists( 'WPSEO_Local_Frontend' ) ) {
 						if( $start == 'closed' ) {
 							$end = 'closed';
 						}
-						echo '<meta property="business:hours:day" content="' . $day . '"/>' . "\n";
-						echo '<meta property="business:hours:start" content="' . $start . '"/>' . "\n";
-						echo '<meta property="business:hours:end" content="' . $end . '"/>' . "\n";
+						echo '<meta property="business:hours:day" content="' . esc_attr( $day ) . '"/>' . "\n";
+						echo '<meta property="business:hours:start" content="' . esc_attr( $start ) . '"/>' . "\n";
+						echo '<meta property="business:hours:end" content="' . esc_attr( $end ) . '"/>' . "\n";
 					}
 				}
 			}

@@ -47,7 +47,7 @@ if ( !class_exists( 'WPSEO_Local_Taxonomy' ) ) {
 			if( isset( $tax_meta[ 'wpseo_local_custom_marker' ] ) && '' != $tax_meta[ 'wpseo_local_custom_marker' ] ) {
 				echo '<br /><button id="remove_marker">' . __( 'Remove marker', 'yoast-local-seo' ) . '</button>';
 			}
-			echo '<input type="hidden" id="hidden_custom_marker" name="wpseo_local_custom_marker" value="' . ( isset( $tax_meta[ 'wpseo_local_custom_marker' ] ) && $tax_meta[ 'wpseo_local_custom_marker' ] !== '' ? $tax_meta[ 'wpseo_local_custom_marker' ] : '' ) . '">';
+			echo '<input type="hidden" id="hidden_custom_marker" name="wpseo_local_custom_marker" value="' . ( isset( $tax_meta[ 'wpseo_local_custom_marker' ] ) && $tax_meta[ 'wpseo_local_custom_marker' ] !== '' ? esc_url( $tax_meta[ 'wpseo_local_custom_marker' ] ) : '' ) . '">';
 			//$wpseo_taxonomy->form_row( 'wpseo_local_custom_marker', '', '', $tax_meta, 'upload' );
 			echo '</td>';
 			echo '</tr>';

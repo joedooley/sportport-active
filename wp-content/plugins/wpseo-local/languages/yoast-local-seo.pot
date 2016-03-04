@@ -1,14 +1,14 @@
-# Copyright (C) 2015 Team Yoast and Arjan Snaterse
+# Copyright (C) 2016 Team Yoast and Arjan Snaterse
 # This file is distributed under the same license as the Local SEO for Yoast SEO package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Local SEO for Yoast SEO 1.3.8\n"
+"Project-Id-Version: Local SEO for Yoast SEO 3.1\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wordpress-seo-local/issues\n"
-"POT-Creation-Date: 2015-11-17 15:06:45+00:00\n"
+"POT-Creation-Date: 2016-03-02 10:05:22+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Yoast Translate Team <translations@yoast.com>\n"
 "Language-Team: Yoast Translate <translations@yoast.com>\n"
 "X-Generator: grunt-wp-i18n 0.4.9\n"
@@ -56,7 +56,7 @@ msgstr ""
 msgid "Business type:"
 msgstr ""
 
-#: admin/pages/local.php:37 classes/class-metaboxes.php:124
+#: admin/pages/local.php:37 classes/class-metaboxes.php:125
 msgid "If your business type is not listed, please read %sthe FAQ entry%s."
 msgstr ""
 
@@ -64,19 +64,19 @@ msgstr ""
 msgid "Business address"
 msgstr ""
 
-#: admin/pages/local.php:40 classes/class-metaboxes.php:127
+#: admin/pages/local.php:40 classes/class-metaboxes.php:128
 msgid "Business city"
 msgstr ""
 
-#: admin/pages/local.php:41 classes/class-metaboxes.php:129
+#: admin/pages/local.php:41 classes/class-metaboxes.php:130
 msgid "Business state"
 msgstr ""
 
-#: admin/pages/local.php:42 classes/class-metaboxes.php:131
+#: admin/pages/local.php:42 classes/class-metaboxes.php:132
 msgid "Business zipcode"
 msgstr ""
 
-#: admin/pages/local.php:43 classes/class-metaboxes.php:133
+#: admin/pages/local.php:43 classes/class-metaboxes.php:134
 msgid "Business country"
 msgstr ""
 
@@ -96,38 +96,38 @@ msgstr ""
 msgid "Business email"
 msgstr ""
 
-#: admin/pages/local.php:48 classes/class-metaboxes.php:149
-#: includes/wpseo-local-functions.php:122
+#: admin/pages/local.php:48 classes/class-metaboxes.php:150
+#: includes/wpseo-local-functions.php:128
 msgid "URL"
 msgstr ""
 
-#: admin/pages/local.php:49 classes/class-metaboxes.php:151
-#: includes/wpseo-local-functions.php:126
+#: admin/pages/local.php:49 classes/class-metaboxes.php:152
+#: includes/wpseo-local-functions.php:132
 msgid "VAT ID"
 msgstr ""
 
-#: admin/pages/local.php:50 classes/class-metaboxes.php:153
-#: includes/wpseo-local-functions.php:130
+#: admin/pages/local.php:50 classes/class-metaboxes.php:154
+#: includes/wpseo-local-functions.php:136
 msgid "Tax ID"
 msgstr ""
 
-#: admin/pages/local.php:51 classes/class-metaboxes.php:155
-#: includes/wpseo-local-functions.php:134
+#: admin/pages/local.php:51 classes/class-metaboxes.php:156
+#: includes/wpseo-local-functions.php:140
 msgid "Chamber of Commerce ID"
 msgstr ""
 
-#: admin/pages/local.php:69 classes/class-metaboxes.php:164
+#: admin/pages/local.php:69 classes/class-metaboxes.php:165
 msgid ""
 "You can enter the lat/long coordinates yourself. If you leave them empty "
 "they will be calculated automatically. If you want to re-calculate these "
 "fields, please make them blank before saving this location."
 msgstr ""
 
-#: admin/pages/local.php:70 classes/class-metaboxes.php:165
+#: admin/pages/local.php:70 classes/class-metaboxes.php:166
 msgid "Latitude"
 msgstr ""
 
-#: admin/pages/local.php:71 classes/class-metaboxes.php:167
+#: admin/pages/local.php:71 classes/class-metaboxes.php:168
 msgid "Longitude"
 msgstr ""
 
@@ -185,8 +185,8 @@ msgstr ""
 msgid "Edit the categories"
 msgstr ""
 
-#: admin/pages/local.php:91 classes/class-metaboxes.php:180
-#: classes/class-metaboxes.php:353
+#: admin/pages/local.php:91 classes/class-metaboxes.php:190
+#: classes/class-metaboxes.php:364
 msgid "Opening hours"
 msgstr ""
 
@@ -198,7 +198,7 @@ msgstr ""
 msgid "Use 24h format"
 msgstr ""
 
-#: admin/pages/local.php:102 classes/class-metaboxes.php:183
+#: admin/pages/local.php:102 classes/class-metaboxes.php:193
 msgid "I have two sets of opening hours per day"
 msgstr ""
 
@@ -243,23 +243,23 @@ msgstr ""
 msgid "Default map style"
 msgstr ""
 
-#: admin/pages/local.php:156 classes/class-metaboxes.php:638
-#: classes/class-metaboxes.php:839
+#: admin/pages/local.php:156 classes/class-metaboxes.php:682
+#: classes/class-metaboxes.php:899
 msgid "Hybrid"
 msgstr ""
 
-#: admin/pages/local.php:157 classes/class-metaboxes.php:639
-#: classes/class-metaboxes.php:840
+#: admin/pages/local.php:157 classes/class-metaboxes.php:683
+#: classes/class-metaboxes.php:900
 msgid "Satellite"
 msgstr ""
 
-#: admin/pages/local.php:158 classes/class-metaboxes.php:637
-#: classes/class-metaboxes.php:838
+#: admin/pages/local.php:158 classes/class-metaboxes.php:681
+#: classes/class-metaboxes.php:898
 msgid "Roadmap"
 msgstr ""
 
-#: admin/pages/local.php:159 classes/class-metaboxes.php:640
-#: classes/class-metaboxes.php:841
+#: admin/pages/local.php:159 classes/class-metaboxes.php:684
+#: classes/class-metaboxes.php:901
 msgid "Terrain"
 msgstr ""
 
@@ -290,7 +290,7 @@ msgid "\"Show route\" label"
 msgstr ""
 
 #: admin/pages/local.php:176 classes/class-storelocator.php:41
-#: includes/wpseo-local-functions.php:349
+#: includes/wpseo-local-functions.php:369
 msgid "Show route"
 msgstr ""
 
@@ -418,141 +418,148 @@ msgstr ""
 msgid "CSV import of locations for Local Search"
 msgstr ""
 
-#: classes/class-admin.php:345
+#: classes/class-admin.php:394
 msgid ""
 "The usage of the Google Maps API has exceeds their limits. Please consider "
 "entering an API key in the %soptions%s"
 msgstr ""
 
-#: classes/class-admin.php:347
+#: classes/class-admin.php:396
 msgid ""
 "The last successfully imported location is <a href=\"%s\" "
 "title=\"%s\">%s</a>"
 msgstr ""
 
-#: classes/class-admin.php:425 classes/class-admin.php:427
-#: classes/class-admin.php:444 classes/class-admin.php:446
+#: classes/class-admin.php:480 classes/class-admin.php:482
+#: classes/class-admin.php:499 classes/class-admin.php:501
 msgid "%s is not a valid time notation"
 msgstr ""
 
-#: classes/class-admin.php:468
+#: classes/class-admin.php:523
 msgid "Some errors has occured"
 msgstr ""
 
-#: classes/class-core.php:29 includes/ajax-functions.php:6
-#: includes/wpseo-local-functions.php:595
+#: classes/class-core.php:29 classes/class-metaboxes.php:851
+#: includes/ajax-functions.php:6 includes/wpseo-local-functions.php:620
+#: widgets/widget-show-openinghours.php:126
 msgid "Monday"
 msgstr ""
 
-#: classes/class-core.php:30 includes/ajax-functions.php:7
-#: includes/wpseo-local-functions.php:596
+#: classes/class-core.php:30 classes/class-metaboxes.php:852
+#: includes/ajax-functions.php:7 includes/wpseo-local-functions.php:621
+#: widgets/widget-show-openinghours.php:127
 msgid "Tuesday"
 msgstr ""
 
-#: classes/class-core.php:31 includes/ajax-functions.php:8
-#: includes/wpseo-local-functions.php:597
+#: classes/class-core.php:31 classes/class-metaboxes.php:853
+#: includes/ajax-functions.php:8 includes/wpseo-local-functions.php:622
+#: widgets/widget-show-openinghours.php:128
 msgid "Wednesday"
 msgstr ""
 
-#: classes/class-core.php:32 includes/ajax-functions.php:9
-#: includes/wpseo-local-functions.php:598
+#: classes/class-core.php:32 classes/class-metaboxes.php:854
+#: includes/ajax-functions.php:9 includes/wpseo-local-functions.php:623
+#: widgets/widget-show-openinghours.php:129
 msgid "Thursday"
 msgstr ""
 
-#: classes/class-core.php:33 includes/ajax-functions.php:10
-#: includes/wpseo-local-functions.php:599
+#: classes/class-core.php:33 classes/class-metaboxes.php:855
+#: includes/ajax-functions.php:10 includes/wpseo-local-functions.php:624
+#: widgets/widget-show-openinghours.php:130
 msgid "Friday"
 msgstr ""
 
-#: classes/class-core.php:34 includes/ajax-functions.php:11
-#: includes/wpseo-local-functions.php:600
+#: classes/class-core.php:34 classes/class-metaboxes.php:856
+#: includes/ajax-functions.php:11 includes/wpseo-local-functions.php:625
+#: widgets/widget-show-openinghours.php:131
 msgid "Saturday"
 msgstr ""
 
-#: classes/class-core.php:35 includes/ajax-functions.php:12
-#: includes/wpseo-local-functions.php:601
+#: classes/class-core.php:35 classes/class-metaboxes.php:850
+#: includes/ajax-functions.php:12 includes/wpseo-local-functions.php:619
+#: widgets/widget-show-openinghours.php:125
 msgid "Sunday"
 msgstr ""
 
-#: classes/class-core.php:605
+#: classes/class-core.php:619
 msgid ""
 "The uploaded custom marker exceeds the recommended size of 100x100 px. "
 "Please be aware this might influence the info popup."
 msgstr ""
 
-#: classes/class-core.php:614
+#: classes/class-core.php:628
 msgid "Location"
 msgstr ""
 
-#: classes/class-core.php:615
+#: classes/class-core.php:629
 msgid "Locations"
 msgstr ""
 
-#: classes/class-core.php:619 classes/class-core.php:620
+#: classes/class-core.php:633 classes/class-core.php:634
 msgid "New %s"
 msgstr ""
 
-#: classes/class-core.php:621
+#: classes/class-core.php:635
 msgid "Add New %s"
 msgstr ""
 
-#: classes/class-core.php:622
+#: classes/class-core.php:636
 msgid "Edit %s"
 msgstr ""
 
-#: classes/class-core.php:623
+#: classes/class-core.php:637
 msgid "View %s"
 msgstr ""
 
-#: classes/class-core.php:624
+#: classes/class-core.php:638
 msgid "Search %s"
 msgstr ""
 
-#: classes/class-core.php:625
+#: classes/class-core.php:639
 msgid "No %s found"
 msgstr ""
 
-#: classes/class-core.php:626
+#: classes/class-core.php:640
 msgid "No %s found in trash"
 msgstr ""
 
-#: classes/class-core.php:653 classes/class-core.php:663
+#: classes/class-core.php:667 classes/class-core.php:677
 msgid "Location categories"
 msgstr ""
 
-#: classes/class-core.php:654
+#: classes/class-core.php:668
 msgid "Location category"
 msgstr ""
 
-#: classes/class-core.php:655
+#: classes/class-core.php:669
 msgid "Search Location categories"
 msgstr ""
 
-#: classes/class-core.php:656
+#: classes/class-core.php:670
 msgid "All Location categories"
 msgstr ""
 
-#: classes/class-core.php:657
+#: classes/class-core.php:671
 msgid "Parent Location category"
 msgstr ""
 
-#: classes/class-core.php:658
+#: classes/class-core.php:672
 msgid "Parent Location category:"
 msgstr ""
 
-#: classes/class-core.php:659
+#: classes/class-core.php:673
 msgid "Edit Location category"
 msgstr ""
 
-#: classes/class-core.php:660
+#: classes/class-core.php:674
 msgid "Update Location category"
 msgstr ""
 
-#: classes/class-core.php:661
+#: classes/class-core.php:675
 msgid "Add New Location category"
 msgstr ""
 
-#: classes/class-core.php:662
+#: classes/class-core.php:676
 msgid "New Location category Name"
 msgstr ""
 
@@ -1550,362 +1557,376 @@ msgid ""
 "selected a location, just refresh the page and make sure you don't save it."
 msgstr ""
 
-#: classes/class-metaboxes.php:118
+#: classes/class-metaboxes.php:119
 msgid "Choose your business type"
 msgstr ""
 
-#: classes/class-metaboxes.php:125
+#: classes/class-metaboxes.php:126
 msgid "Business address:"
 msgstr ""
 
-#: classes/class-metaboxes.php:134
+#: classes/class-metaboxes.php:135
 msgid "Choose your country"
 msgstr ""
 
-#: classes/class-metaboxes.php:141
+#: classes/class-metaboxes.php:142
 msgid "Main phone number"
 msgstr ""
 
-#: classes/class-metaboxes.php:143
+#: classes/class-metaboxes.php:144
 msgid "Second phone number"
 msgstr ""
 
-#: classes/class-metaboxes.php:145
+#: classes/class-metaboxes.php:146
 msgid "Fax number"
 msgstr ""
 
-#: classes/class-metaboxes.php:147
+#: classes/class-metaboxes.php:148
 msgid "Email address"
 msgstr ""
 
-#: classes/class-metaboxes.php:157 classes/class-metaboxes.php:159
-#: classes/class-metaboxes.php:161
+#: classes/class-metaboxes.php:158 classes/class-metaboxes.php:160
+#: classes/class-metaboxes.php:162
 msgid "Notes"
 msgstr ""
 
-#: classes/class-metaboxes.php:169
+#: classes/class-metaboxes.php:170
 msgid ""
 "If the marker is not in the right location for your store, you can drag the "
 "pin to the location where you want it."
 msgstr ""
 
-#: classes/class-metaboxes.php:172
+#: classes/class-metaboxes.php:173
 msgid "This address is a postal address (not a physical location)"
 msgstr ""
 
-#: classes/class-metaboxes.php:349
+#: classes/class-metaboxes.php:360
 msgid "Insert Google map"
 msgstr ""
 
-#: classes/class-metaboxes.php:349
+#: classes/class-metaboxes.php:360
 msgid "Map"
 msgstr ""
 
-#: classes/class-metaboxes.php:351 classes/class-metaboxes.php:766
+#: classes/class-metaboxes.php:362 classes/class-metaboxes.php:811
 msgid "Insert address"
 msgstr ""
 
-#: classes/class-metaboxes.php:351
+#: classes/class-metaboxes.php:362
 msgid "Address"
 msgstr ""
 
-#: classes/class-metaboxes.php:353
+#: classes/class-metaboxes.php:364
 msgid "Insert Opening hours"
 msgstr ""
 
-#: classes/class-metaboxes.php:356 classes/class-metaboxes.php:818
-#: classes/class-metaboxes.php:869
+#: classes/class-metaboxes.php:367 classes/class-metaboxes.php:878
+#: classes/class-metaboxes.php:929
 msgid "Insert Store locator"
 msgstr ""
 
-#: classes/class-metaboxes.php:356
+#: classes/class-metaboxes.php:367
 msgid "Store locator"
 msgstr ""
 
-#: classes/class-metaboxes.php:378 classes/class-metaboxes.php:428
-#: classes/class-metaboxes.php:480
+#: classes/class-metaboxes.php:389 classes/class-metaboxes.php:439
+#: classes/class-metaboxes.php:492
 msgid "Please select a location"
 msgstr ""
 
-#: classes/class-metaboxes.php:383 classes/class-metaboxes.php:433
+#: classes/class-metaboxes.php:394 classes/class-metaboxes.php:444
 msgid "If you want to use a category, please set location to 'all'"
 msgstr ""
 
-#: classes/class-metaboxes.php:388
-msgid "If you select a single location , please set location to 'all'"
+#: classes/class-metaboxes.php:399
+msgid "If you select a single location , please set center to 'all'"
 msgstr ""
 
-#: classes/class-metaboxes.php:566
+#: classes/class-metaboxes.php:610
 msgid "Insert Google Map"
 msgstr ""
 
-#: classes/class-metaboxes.php:572 classes/class-metaboxes.php:692
-#: classes/class-metaboxes.php:782 widgets/widget-show-address.php:139
-#: widgets/widget-show-map.php:126 widgets/widget-show-openinghours.php:111
+#: classes/class-metaboxes.php:616 classes/class-metaboxes.php:736
+#: classes/class-metaboxes.php:827 widgets/widget-show-address.php:141
+#: widgets/widget-show-map.php:124 widgets/widget-show-openinghours.php:112
 msgid "Select a location"
 msgstr ""
 
-#: classes/class-metaboxes.php:583 classes/class-metaboxes.php:619
+#: classes/class-metaboxes.php:627 classes/class-metaboxes.php:663
 msgid "All locations"
 msgstr ""
 
-#: classes/class-metaboxes.php:594 classes/class-metaboxes.php:720
+#: classes/class-metaboxes.php:638 classes/class-metaboxes.php:764
 msgid "Select a category"
 msgstr ""
 
-#: classes/class-metaboxes.php:607
+#: classes/class-metaboxes.php:651
 msgid "Center map on this location"
 msgstr ""
 
-#: classes/class-metaboxes.php:633 classes/class-metaboxes.php:834
+#: classes/class-metaboxes.php:677 classes/class-metaboxes.php:894
 msgid "Map style"
 msgstr ""
 
-#: classes/class-metaboxes.php:659
+#: classes/class-metaboxes.php:703
 msgid "Width"
 msgstr ""
 
-#: classes/class-metaboxes.php:660
+#: classes/class-metaboxes.php:704
 msgid "Height"
 msgstr ""
 
-#: classes/class-metaboxes.php:661
+#: classes/class-metaboxes.php:705
 msgid "Zoom level"
 msgstr ""
 
-#: classes/class-metaboxes.php:663
+#: classes/class-metaboxes.php:707
 msgid "Auto"
 msgstr ""
 
-#: classes/class-metaboxes.php:667 classes/class-metaboxes.php:823
+#: classes/class-metaboxes.php:711 classes/class-metaboxes.php:883
 msgid "Allow scrolling of the map"
 msgstr ""
 
-#: classes/class-metaboxes.php:668 classes/class-metaboxes.php:824
+#: classes/class-metaboxes.php:712 classes/class-metaboxes.php:884
 msgid "Allow dragging of the map"
 msgstr ""
 
-#: classes/class-metaboxes.php:669 widgets/widget-show-map.php:195
+#: classes/class-metaboxes.php:713 widgets/widget-show-map.php:193
 msgid "Show route planner"
 msgstr ""
 
-#: classes/class-metaboxes.php:670
+#: classes/class-metaboxes.php:714
 msgid "Show state in info-popup"
 msgstr ""
 
-#: classes/class-metaboxes.php:671
+#: classes/class-metaboxes.php:715
 msgid "Show country in info-popup"
 msgstr ""
 
-#: classes/class-metaboxes.php:672
+#: classes/class-metaboxes.php:716
 msgid "Show URL in info-popup"
 msgstr ""
 
-#: classes/class-metaboxes.php:673
+#: classes/class-metaboxes.php:717
 msgid "Show email in info popup"
 msgstr ""
 
-#: classes/class-metaboxes.php:676
+#: classes/class-metaboxes.php:720
 msgid "Insert map"
 msgstr ""
 
-#: classes/class-metaboxes.php:677 classes/class-metaboxes.php:767
-#: classes/class-metaboxes.php:807 classes/class-metaboxes.php:870
+#: classes/class-metaboxes.php:721 classes/class-metaboxes.php:812
+#: classes/class-metaboxes.php:867 classes/class-metaboxes.php:930
 msgid "Cancel"
 msgstr ""
 
-#: classes/class-metaboxes.php:686
+#: classes/class-metaboxes.php:730
 msgid "Insert Address"
 msgstr ""
 
-#: classes/class-metaboxes.php:703 widgets/widget-show-map.php:107
+#: classes/class-metaboxes.php:747 widgets/widget-show-map.php:105
 msgid "Show all locations"
 msgstr ""
 
-#: classes/class-metaboxes.php:734
+#: classes/class-metaboxes.php:778
 msgid "Order by"
 msgstr ""
 
-#: classes/class-metaboxes.php:736
+#: classes/class-metaboxes.php:780
 msgid "Alphabetical"
 msgstr ""
 
-#: classes/class-metaboxes.php:737
+#: classes/class-metaboxes.php:781
 msgid "By publish date"
 msgstr ""
 
-#: classes/class-metaboxes.php:740
+#: classes/class-metaboxes.php:784
 msgid "Order"
 msgstr ""
 
-#: classes/class-metaboxes.php:742
+#: classes/class-metaboxes.php:786
 msgid "Ascending"
 msgstr ""
 
-#: classes/class-metaboxes.php:743
+#: classes/class-metaboxes.php:787
 msgid "Descending"
 msgstr ""
 
-#: classes/class-metaboxes.php:750
+#: classes/class-metaboxes.php:794
 msgid "Hide business name"
 msgstr ""
 
-#: classes/class-metaboxes.php:751 classes/class-metaboxes.php:857
+#: classes/class-metaboxes.php:795 classes/class-metaboxes.php:917
 msgid "Show address on one line"
 msgstr ""
 
-#: classes/class-metaboxes.php:752 classes/class-metaboxes.php:858
-#: widgets/widget-show-address.php:163
+#: classes/class-metaboxes.php:796 classes/class-metaboxes.php:918
+#: widgets/widget-show-address.php:165
 msgid "Show state"
 msgstr ""
 
-#: classes/class-metaboxes.php:753 classes/class-metaboxes.php:859
-#: widgets/widget-show-address.php:155
+#: classes/class-metaboxes.php:797 classes/class-metaboxes.php:919
+#: widgets/widget-show-address.php:157
 msgid "Show country"
 msgstr ""
 
-#: classes/class-metaboxes.php:754 classes/class-metaboxes.php:860
-#: widgets/widget-show-address.php:171
+#: classes/class-metaboxes.php:798 classes/class-metaboxes.php:920
+#: widgets/widget-show-address.php:173
 msgid "Show phone number"
 msgstr ""
 
-#: classes/class-metaboxes.php:755 classes/class-metaboxes.php:861
+#: classes/class-metaboxes.php:799 classes/class-metaboxes.php:921
 msgid "Show 2nd phone number"
 msgstr ""
 
-#: classes/class-metaboxes.php:756 classes/class-metaboxes.php:862
-#: widgets/widget-show-address.php:187
+#: classes/class-metaboxes.php:800 classes/class-metaboxes.php:922
+#: widgets/widget-show-address.php:189
 msgid "Show fax number"
 msgstr ""
 
-#: classes/class-metaboxes.php:757 classes/class-metaboxes.php:863
+#: classes/class-metaboxes.php:801 classes/class-metaboxes.php:923
 msgid "Show email"
 msgstr ""
 
-#: classes/class-metaboxes.php:758 classes/class-metaboxes.php:864
+#: classes/class-metaboxes.php:802 classes/class-metaboxes.php:924
 msgid "Show URL"
 msgstr ""
 
-#: classes/class-metaboxes.php:759 widgets/widget-show-address.php:203
+#: classes/class-metaboxes.php:803 widgets/widget-show-address.php:205
+msgid "Show logo"
+msgstr ""
+
+#: classes/class-metaboxes.php:804 widgets/widget-show-address.php:213
 msgid "Show VAT ID"
 msgstr ""
 
-#: classes/class-metaboxes.php:760 widgets/widget-show-address.php:211
+#: classes/class-metaboxes.php:805 widgets/widget-show-address.php:221
 msgid "Show Tax ID"
 msgstr ""
 
-#: classes/class-metaboxes.php:761 widgets/widget-show-address.php:219
+#: classes/class-metaboxes.php:806 widgets/widget-show-address.php:229
 msgid "Show Chamber of Commerce ID"
 msgstr ""
 
-#: classes/class-metaboxes.php:762 classes/class-metaboxes.php:865
-#: widgets/widget-show-address.php:227
+#: classes/class-metaboxes.php:807 classes/class-metaboxes.php:925
+#: widgets/widget-show-address.php:237
 msgid "Show opening hours"
 msgstr ""
 
-#: classes/class-metaboxes.php:763 classes/class-metaboxes.php:803
-#: classes/class-metaboxes.php:866 widgets/widget-show-address.php:235
-#: widgets/widget-show-openinghours.php:125
+#: classes/class-metaboxes.php:808 classes/class-metaboxes.php:863
+#: classes/class-metaboxes.php:926 widgets/widget-show-address.php:245
+#: widgets/widget-show-openinghours.php:142
 msgid "Hide closed days"
 msgstr ""
 
-#: classes/class-metaboxes.php:776
+#: classes/class-metaboxes.php:821
 msgid "Insert Opening Hours"
 msgstr ""
 
-#: classes/class-metaboxes.php:806
+#: classes/class-metaboxes.php:859
+msgid "Show %s"
+msgstr ""
+
+#: classes/class-metaboxes.php:866
 msgid "Insert opening hours"
 msgstr ""
 
-#: classes/class-metaboxes.php:822
+#: classes/class-metaboxes.php:882
 msgid "Show Map with the search results"
 msgstr ""
 
-#: classes/class-metaboxes.php:825
+#: classes/class-metaboxes.php:885
 msgid "Show filter to narrow down search results"
 msgstr ""
 
-#: classes/class-metaboxes.php:826
+#: classes/class-metaboxes.php:886
 msgid "Show radius to limit your search"
 msgstr ""
 
-#: classes/class-metaboxes.php:827
+#: classes/class-metaboxes.php:887
 msgid "Show the nearest location, if none are found within radius"
 msgstr ""
 
-#: classes/class-metaboxes.php:830
+#: classes/class-metaboxes.php:890
 msgid "Search radius (in %s)"
 msgstr ""
 
-#: classes/class-metaboxes.php:833
+#: classes/class-metaboxes.php:893
 msgid "Please specify below how the search results should look like."
 msgstr ""
 
-#: classes/class-metaboxes.php:903 classes/class-metaboxes.php:962
+#: classes/class-metaboxes.php:963 classes/class-metaboxes.php:1022
 msgid ""
 "Your title does not contain your location's city, you should really add "
 "that."
 msgstr ""
 
-#: classes/class-metaboxes.php:908 classes/class-metaboxes.php:963
+#: classes/class-metaboxes.php:968 classes/class-metaboxes.php:1023
 msgid "Your title contains your location's city, well done!"
 msgstr ""
 
-#: classes/class-metaboxes.php:915 classes/class-metaboxes.php:964
+#: classes/class-metaboxes.php:975 classes/class-metaboxes.php:1024
 msgid "Your URL does not contain your location's city, you should really add that."
 msgstr ""
 
-#: classes/class-metaboxes.php:920 classes/class-metaboxes.php:965
+#: classes/class-metaboxes.php:980 classes/class-metaboxes.php:1025
 msgid "Your URL contains your location's city, well done!"
 msgstr ""
 
-#: classes/class-metaboxes.php:938
+#: classes/class-metaboxes.php:998
 msgid "Business Markup"
 msgstr ""
 
-#: classes/class-metaboxes.php:939
+#: classes/class-metaboxes.php:999
 msgid ""
 "If this is your contact page, check this box to add OpenGraph markup so "
 "your business details are shared when this page is shared on Facebook."
 msgstr ""
 
-#: classes/class-storelocator.php:64 widgets/widget-storelocator-form.php:20
+#: classes/class-storelocator.php:65 widgets/widget-storelocator-form.php:16
 msgid "Enter your postal code or city"
 msgstr ""
 
-#: classes/class-storelocator.php:68
+#: classes/class-storelocator.php:69
 msgid "within"
 msgstr ""
 
-#: classes/class-storelocator.php:89
+#: classes/class-storelocator.php:90
 msgid "Filter by category"
 msgstr ""
 
-#: classes/class-storelocator.php:101 widgets/widget-storelocator-form.php:47
+#: classes/class-storelocator.php:102 widgets/widget-storelocator-form.php:43
 msgid "Search"
 msgstr ""
 
-#: classes/class-storelocator.php:129
-msgid "%s results have been found"
-msgstr ""
+#: classes/class-storelocator.php:143
+msgid "%s result has been found"
+msgid_plural "%s results have been found"
+msgstr[0] ""
+msgstr[1] ""
 
-#: classes/class-storelocator.php:136 classes/class-storelocator.php:151
+#: classes/class-storelocator.php:149 classes/class-storelocator.php:163
 msgid "No results found"
 msgstr ""
 
-#: classes/class-storelocator.php:140
+#: classes/class-storelocator.php:153
 msgid "The nearest location is %s miles away"
 msgstr ""
 
-#: classes/class-storelocator.php:141
+#: classes/class-storelocator.php:154
 msgid "The nearest location is %s kilometers away"
 msgstr ""
 
-#: classes/class-storelocator.php:193
+#: classes/class-storelocator.php:181
+msgid "Please enter a zipcode or city"
+msgstr ""
+
+#: classes/class-storelocator.php:211
 msgid "No valid JSON response. We cannot complete the search."
 msgstr ""
 
-#: classes/class-storelocator.php:198
+#: classes/class-storelocator.php:217
 msgid "No valid coordinates. We cannot complete the search."
 msgstr ""
 
@@ -1919,190 +1940,194 @@ msgid ""
 "global marker will be used."
 msgstr ""
 
-#: includes/wpseo-local-functions.php:56
+#: includes/wpseo-local-functions.php:57
 msgid ""
 "Please provide a post ID if you want to show an address outside a Locations "
 "singular page"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:106
+#: includes/wpseo-local-functions.php:112
 msgid "Phone"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:110
+#: includes/wpseo-local-functions.php:116
 msgid "Secondary phone"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:114
+#: includes/wpseo-local-functions.php:120
 msgid "Fax"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:118
+#: includes/wpseo-local-functions.php:124
 msgid "Email"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:305
+#: includes/wpseo-local-functions.php:325
 msgid "There are no locations to show."
 msgstr ""
 
-#: includes/wpseo-local-functions.php:406
+#: includes/wpseo-local-functions.php:426
 msgid ""
 "Please provide a post ID when using this shortcode outside a Locations "
 "singular page"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:536
+#: includes/wpseo-local-functions.php:556
 msgid "Route"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:539
+#: includes/wpseo-local-functions.php:559
 msgid "Your location"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:541
+#: includes/wpseo-local-functions.php:561
 msgid "No route could be calculated."
 msgstr ""
 
-#: includes/wpseo-local-functions.php:652
-#: includes/wpseo-local-functions.php:747
+#: includes/wpseo-local-functions.php:691
+#: includes/wpseo-local-functions.php:786
 msgid "Closed"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:656
+#: includes/wpseo-local-functions.php:695
 msgid "and"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:1115
+#: includes/wpseo-local-functions.php:1168
 msgid ""
 "If you want the map to display a custom marker pin for your locations, "
 "please upload it here."
 msgstr ""
 
-#: local-seo.php:111
+#: local-seo.php:127
 msgid ""
 "Please upgrade the Yoast SEO plugin to the latest version to allow the "
 "Local SEO module to work."
 msgstr ""
 
-#: widgets/widget-show-address.php:10
+#: widgets/widget-show-address.php:8
 msgid "Shows address of locations in Schema.org standards."
 msgstr ""
 
-#: widgets/widget-show-address.php:12
+#: widgets/widget-show-address.php:10
 msgid "WP SEO - Show Address"
 msgstr ""
 
-#: widgets/widget-show-address.php:118 widgets/widget-show-map.php:94
-#: widgets/widget-show-openinghours.php:90
-#: widgets/widget-storelocator-form.php:78
+#: widgets/widget-show-address.php:120 widgets/widget-show-map.php:92
+#: widgets/widget-show-openinghours.php:91
+#: widgets/widget-storelocator-form.php:74
 msgid "Title:"
 msgstr ""
 
-#: widgets/widget-show-address.php:126 widgets/widget-show-map.php:113
-#: widgets/widget-show-openinghours.php:98
+#: widgets/widget-show-address.php:128 widgets/widget-show-map.php:111
+#: widgets/widget-show-openinghours.php:99
 msgid "Location:"
 msgstr ""
 
-#: widgets/widget-show-address.php:140 widgets/widget-show-map.php:127
-#: widgets/widget-show-openinghours.php:112
+#: widgets/widget-show-address.php:142 widgets/widget-show-map.php:125
+#: widgets/widget-show-openinghours.php:113
 msgid "Use current location"
 msgstr ""
 
-#: widgets/widget-show-address.php:179
+#: widgets/widget-show-address.php:181
 msgid "Show second phone number"
 msgstr ""
 
-#: widgets/widget-show-address.php:195
+#: widgets/widget-show-address.php:197
 msgid "Show email address"
 msgstr ""
 
-#: widgets/widget-show-address.php:243
+#: widgets/widget-show-address.php:253
 msgid "Show address in one line"
 msgstr ""
 
-#: widgets/widget-show-address.php:248 widgets/widget-show-openinghours.php:130
+#: widgets/widget-show-address.php:258 widgets/widget-show-openinghours.php:147
 msgid "Extra comment"
 msgstr ""
 
-#: widgets/widget-show-map.php:10
+#: widgets/widget-show-map.php:8
 msgid "Shows Google Map of your location"
 msgstr ""
 
-#: widgets/widget-show-map.php:12
+#: widgets/widget-show-map.php:10
 msgid "WP SEO - Show Map"
 msgstr ""
 
-#: widgets/widget-show-map.php:101
+#: widgets/widget-show-map.php:99
 msgid ""
 "Choose to show all your locations in the map, otherwise just pick one in "
 "the selectbox below"
 msgstr ""
 
-#: widgets/widget-show-map.php:137
+#: widgets/widget-show-map.php:135
 msgid "Maps settings"
 msgstr ""
 
-#: widgets/widget-show-map.php:140
+#: widgets/widget-show-map.php:138
 msgid "Width:"
 msgstr ""
 
-#: widgets/widget-show-map.php:146
+#: widgets/widget-show-map.php:144
 msgid "Height:"
 msgstr ""
 
-#: widgets/widget-show-map.php:155
+#: widgets/widget-show-map.php:153
 msgid "Zoom level:"
 msgstr ""
 
-#: widgets/widget-show-map.php:169
+#: widgets/widget-show-map.php:167
 msgid "Show state in info-window"
 msgstr ""
 
-#: widgets/widget-show-map.php:177
+#: widgets/widget-show-map.php:175
 msgid "Show country in info-window"
 msgstr ""
 
-#: widgets/widget-show-map.php:185
+#: widgets/widget-show-map.php:183
 msgid "Show URL in info-window"
 msgstr ""
 
-#: widgets/widget-show-openinghours.php:10
+#: widgets/widget-show-openinghours.php:8
 msgid "Shows opening hours of locations in Schema.org standards."
 msgstr ""
 
-#: widgets/widget-show-openinghours.php:12
+#: widgets/widget-show-openinghours.php:10
 msgid "WP SEO - Show Opening hours"
 msgstr ""
 
-#: widgets/widget-storelocator-form.php:12
+#: widgets/widget-show-openinghours.php:122
+msgid "Show days"
+msgstr ""
+
+#: widgets/widget-storelocator-form.php:8
 msgid ""
 "Shows form to search the nearest store. Will submit to the page which "
 "contains the store locator."
 msgstr ""
 
-#: widgets/widget-storelocator-form.php:14
+#: widgets/widget-storelocator-form.php:10
 msgid "WP SEO - Storelocator form"
 msgstr ""
 
-#: widgets/widget-storelocator-form.php:82
+#: widgets/widget-storelocator-form.php:78
 msgid "Search label:"
 msgstr ""
 
-#: widgets/widget-storelocator-form.php:86
+#: widgets/widget-storelocator-form.php:82
 msgid "Default radius:"
 msgstr ""
 
-#: widgets/widget-storelocator-form.php:88
+#: widgets/widget-storelocator-form.php:84
 msgid "This field will be a hidden field and is only used for calculation."
 msgstr ""
 
-#: widgets/widget-storelocator-form.php:92
+#: widgets/widget-storelocator-form.php:88
 msgid ""
 "Select the page where your store locator shortcode is added. This is the "
 "page whereto the form is submitted."
 msgstr ""
 
-#: widgets/widget-storelocator-form.php:99
+#: widgets/widget-storelocator-form.php:95
 msgid "Select a page"
 msgstr ""
 

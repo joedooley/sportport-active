@@ -9,7 +9,7 @@ if( ! class_exists( 'Yoast_Product_WPSEO_Local' ) ) {
 
 		public function __construct() {
 			parent::__construct(
-					'https://yoast.com/edd-sl-api',
+					'http://yoast.com/edd-sl-api',
 					'Local SEO for WordPress',
 					plugin_basename( WPSEO_LOCAL_FILE ),
 					WPSEO_LOCAL_VERSION,

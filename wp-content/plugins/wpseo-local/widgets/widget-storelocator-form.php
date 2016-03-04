@@ -1,12 +1,8 @@
 <?php
 
-if( wpseo_has_multiple_locations() ) {
-	add_action( 'widgets_init', create_function( '', 'return register_widget("WPSEO_Storelocator_Form");' ) );
-}
-
 class WPSEO_Storelocator_Form extends WP_Widget {
 	/** constructor */
-	function WPSEO_Storelocator_Form() {
+	function __construct() {
 		$widget_options = array(
 			'classname'   => 'WPSEO_Storelocator_Form',
 			'description' => __( 'Shows form to search the nearest store. Will submit to the page which contains the store locator.', 'yoast-local-seo' )
@@ -39,7 +35,7 @@ class WPSEO_Storelocator_Form extends WP_Widget {
 		<form action="<?php echo get_permalink( $page_id ); ?>" method="post" id="wpseo-storelocator-form">
 			<fieldset>
 				<p>
-					<label for="wpseo-sl-search"><?php echo $search_label; ?></label>
+					<label for="wpseo-sl-search"><?php echo esc_html( $search_label ); ?></label>
 					<input type="text" name="wpseo-sl-search" id="wpseo-sl-search" value="<?php echo esc_attr( $search_string ); ?>">
 				</p>
 				<p class="sl-submit">

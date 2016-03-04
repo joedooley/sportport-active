@@ -1,10 +1,8 @@
 <?php
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("WPSEO_Show_Map");' ) );
-
 class WPSEO_Show_Map extends WP_Widget {
 	/** constructor */
-	function WPSEO_Show_Map() {
+	function __construct() {
 		$widget_options = array(
 			'classname'   => 'WPSEO_Show_Map',
 			'description' => __( 'Shows Google Map of your location', 'yoast-local-seo' )
@@ -61,16 +59,16 @@ class WPSEO_Show_Map extends WP_Widget {
 	/** @see WP_Widget::update */
 	function update( $new_instance, $old_instance ) {
 		$instance                       = $old_instance;
-		$instance['title']              = esc_attr( $new_instance['title'] );
-		$instance['location_id']        = esc_attr( $new_instance['location_id'] );
-		$instance['show_all_locations'] = esc_attr( $new_instance['show_all_locations'] );
-		$instance['width']              = esc_attr( $new_instance['width'] );
-		$instance['height']             = esc_attr( $new_instance['height'] );
-		$instance['zoom']               = esc_attr( $new_instance['zoom'] );
-		$instance['show_route']         = esc_attr( $new_instance['show_route'] );
-		$instance['show_state']         = esc_attr( $new_instance['show_state'] );
-		$instance['show_country']       = esc_attr( $new_instance['show_country'] );
-		$instance['show_url']           = esc_attr( $new_instance['show_url'] );
+		$instance['title']              = ! empty( $new_instance['title'] ) ? esc_attr( $new_instance['title'] ) : '';
+		$instance['location_id']        = ! empty( $new_instance['location_id'] ) ? esc_attr( $new_instance['location_id'] ) : '';
+		$instance['show_all_locations'] = ! empty( $new_instance['show_all_locations'] ) && esc_attr( $new_instance['show_all_locations'] ) == '1';
+		$instance['width']              = ! empty( $new_instance['width'] ) ? $new_instance['width'] : 400;
+		$instance['height']             = ! empty( $new_instance['height'] ) ? $new_instance['height'] : 300;
+		$instance['zoom']               = ! empty( $new_instance['zoom'] ) ? $new_instance['zoom'] : 10;
+		$instance['show_route']         = ! empty( $new_instance['show_route'] ) && esc_attr( $new_instance['show_route'] ) == '1';
+		$instance['show_state']         = ! empty( $new_instance['show_state'] ) && esc_attr( $new_instance['show_state'] ) == '1';
+		$instance['show_country']       = ! empty( $new_instance['show_country'] ) && esc_attr( $new_instance['show_country'] ) == '1';
+		$instance['show_url']           = ! empty( $new_instance['show_url'] ) && esc_attr( $new_instance['show_url'] ) == '1';
 
 		return $instance;
 	}

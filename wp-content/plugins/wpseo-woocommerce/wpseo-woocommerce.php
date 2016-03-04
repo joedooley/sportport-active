@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Yoast WooCommerce SEO
- * Version:     3.0
+ * Version:     3.1.1
  * Plugin URI:  https://yoast.com/wordpress/plugins/yoast-woocommerce-seo/
  * Description: This extension to WooCommerce and WordPress SEO by Yoast makes sure there's perfect communication between the two plugins.
  * Author:      Team Yoast
@@ -18,12 +18,17 @@ if ( ! function_exists( 'add_filter' ) ) {
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit();
 }
+
+if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload_52.php' ) ) {
+	require dirname( __FILE__ ) . '/vendor/autoload_52.php';
+}
+
 class Yoast_WooCommerce_SEO {
 
 	/**
 	 * @const string Version of the plugin.
 	 */
-	const VERSION = '3.0';
+	const VERSION = '3.1.1';
 
 	/**
 	 * @var object $option_instance Instance of the WooCommerce_SEO option management class
@@ -62,7 +67,6 @@ class Yoast_WooCommerce_SEO {
 	function __construct() {
 
 		// Initialize the options
-		require_once( plugin_dir_path( __FILE__ ) . 'class-wpseo-option-woo.php' );
 		$this->option_instance = WPSEO_Option_Woo::get_instance();
 		$this->short_name      = $this->option_instance->option_name;
 		$this->options         = get_option( $this->short_name );
@@ -103,14 +107,8 @@ class Yoast_WooCommerce_SEO {
 				add_filter( 'wpseo_metadesc', array( $this, 'metadesc' ) );
 
 				// OpenGraph
-				add_filter( 'wpseo_opengraph_type', array( $this, 'return_type_product' ) );
 				add_filter( 'wpseo_opengraph_desc', array( $this, 'og_desc_enhancement' ) );
 				add_action( 'wpseo_opengraph', array( $this, 'og_enhancement' ), 50 );
-
-				// Twitter
-				add_filter( 'wpseo_twitter_card_type', array( $this, 'return_type_product' ) );
-				add_filter( 'wpseo_twitter_domain', array( $this, 'filter_twitter_domain' ) );
-				add_action( 'wpseo_twitter', array( $this, 'twitter_enhancement' ) );
 
 				add_filter( 'wpseo_sitemap_exclude_post_type', array( $this, 'xml_sitemap_post_types' ), 10, 2 );
 				add_filter( 'wpseo_sitemap_post_type_archive_link', array( $this, 'xml_sitemap_taxonomies' ), 10, 2 );
@@ -128,6 +126,8 @@ class Yoast_WooCommerce_SEO {
 			}
 		}
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+
+		add_action( 'admin_init', array( $this, 'init_beacon' ) );
 	}
 
 
@@ -195,8 +195,6 @@ class Yoast_WooCommerce_SEO {
 		if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 			return;
 		}
-
-		require_once( dirname( __FILE__ ) . '/class-product-wpseo-woocommerce.php' );
 
 		$license_manager = new Yoast_Plugin_License_Manager(
 			new Yoast_Product_WPSEO_WooCommerce()
@@ -302,40 +300,9 @@ class Yoast_WooCommerce_SEO {
 
 		$taxonomies = get_object_taxonomies( 'product', 'objects' );
 
-		echo '<h2>' . __( 'Twitter Product Cards', 'yoast-woo-seo' ) . '</h2>';
-		echo '<p>' . __( 'Twitter allows you to display two pieces of data in the Twitter card, pick which two are shown:', 'yoast-woo-seo' ) . '</p>';
-
-		$i = 1;
-		while ( $i < 3 ) {
-			echo '
-			<label class="select" for="datatype' . $i . '">' . sprintf( __( 'Data %d', 'yoast-woo-seo' ), $i ) . ':</label>
-			<select class="select" id="datatype' . $i . '" name="' . esc_attr( $this->short_name . '[data' . $i . '_type]' ) . '">' . "\n";
-			foreach ( $this->option_instance->valid_data_types as $data_type => $translation ) {
-				$sel = selected( $data_type, $this->options[ 'data' . $i . '_type' ], false );
-				echo '<option value="' . esc_attr( $data_type ) . '"' . $sel . '>' . esc_html( $translation ) . "</option>\n";
-			}
-			unset( $sel, $data_type, $translation );
-
-			if ( is_array( $taxonomies ) && $taxonomies !== array() ) {
-				foreach ( $taxonomies as $tax ) {
-					$sel = selected( strtolower( $tax->name ), $this->options[ 'data' . $i . '_type' ], false );
-					echo '<option value="' . esc_attr( strtolower( $tax->name ) ) . '"' . $sel . '>' . esc_html( $tax->labels->name ) . "</option>\n";
-				}
-				unset( $tax, $sel );
-			}
-
-
-			echo '</select>';
-			if ( $i === 1 ) {
-				echo '<br class="clear"/>';
-			}
-			$i ++;
-		}
-
-		echo '<br class="clear"/>
-		<h2>' . __( 'Schema & OpenGraph additions', 'yoast-woo-seo' ) . '</h2>
+		echo '<h2>' . __( 'Schema & OpenGraph additions', 'yoast-woo-seo' ) . '</h2>
 		<p>' . __( 'If you have product attributes for the following types, select them here, the plugin will make sure they\'re used for the appropriate Schema.org and OpenGraph markup.', 'yoast-woo-seo' ) . '</p>
-		<label class="select" for="schema_brand">' . sprintf( __( 'Brand', 'yoast-woo-seo' ), $i ) . ':</label>
+		<label class="select" for="schema_brand">' . __( 'Brand', 'yoast-woo-seo' ) . ':</label>
 		<select class="select" id="schema_brand" name="' . esc_attr( $this->short_name . '[schema_brand]' ) . '">
 			<option value="">-</option>' . "\n";
 		if ( is_array( $taxonomies ) && $taxonomies !== array() ) {
@@ -602,83 +569,6 @@ class Yoast_WooCommerce_SEO {
 		return $metadesc;
 	}
 
-
-	/**
-	 * Keep old behaviour of getting the twitter domain in a different way than in WPSEO, but prevent duplicate
-	 * twitter:domain meta tags
-	 *
-	 * @param    string $domain
-	 *
-	 * @return  string
-	 */
-	function filter_twitter_domain( $domain ) {
-		return get_bloginfo( 'site_name' );
-	}
-
-
-	/**
-	 * Output the extra data for the Twitter Card
-	 *
-	 * @since 1.0
-	 */
-	function twitter_enhancement() {
-		if ( ! is_singular( 'product' ) || ! function_exists( 'get_product' ) ) {
-			return;
-		}
-
-		$product = get_product( get_the_ID() );
-
-		$product_atts = array();
-
-		$i = 1;
-		while ( $i < 3 ) {
-			switch ( $this->options[ 'data' . $i . '_type' ] ) {
-				case 'stock':
-					$product_atts[ 'label' . $i ] = __( 'In stock', 'yoast-woo-seo' );
-					$product_atts[ 'data' . $i ]  = ( $product->is_in_stock() ) ? __( 'Yes', 'yoast-woo-seo' ) : __( 'No', 'yoast-woo-seo' );
-					break;
-
-				case 'category':
-					$product_atts[ 'label' . $i ] = __( 'Category', 'yoast-woo-seo' );
-					$product_atts[ 'data' . $i ]  = strip_tags( get_the_term_list( get_the_ID(), 'product_cat', '', ', ' ) );
-					break;
-
-				case 'price':
-					$product_atts[ 'label' . $i ] = __( 'Price', 'yoast-woo-seo' );
-					$product_atts[ 'data' . $i ]  = strip_tags( wc_price( $product->get_price() ) );
-					break;
-
-				default:
-					$tax                          = get_taxonomy( $this->options[ 'data' . $i . '_type' ] );
-					$product_atts[ 'label' . $i ] = $tax->labels->name;
-					$product_atts[ 'data' . $i ]  = strip_tags( get_the_term_list( get_the_ID(), $tax->name, '', ', ' ) );
-					break;
-			}
-			$i ++;
-		}
-
-		foreach ( $product_atts as $label => $value ) {
-			echo '<meta name="' . esc_attr( 'twitter:' . $label ) . '" content="' . esc_attr( $value ) . '"/>' . "\n";
-		}
-	}
-
-	/**
-	 * Return 'product' when current page is, well... a product.
-	 *
-	 * @since 1.0
-	 *
-	 * @param string $type Passed on without changing if not a product.
-	 *
-	 * @return string
-	 */
-	function return_type_product( $type ) {
-		if ( is_singular( 'product' ) ) {
-			return 'product';
-		}
-
-		return $type;
-	}
-
 	/**
 	 * Filter the output of attributes and add schema.org attributes where possible
 	 *
@@ -719,6 +609,17 @@ class Yoast_WooCommerce_SEO {
 		}
 	}
 
+	public function init_beacon() {
+		$query_var = ( $page = filter_input( INPUT_GET, 'page' ) ) ? $page : '';
+
+		// Only add the helpscout beacon on Yoast SEO pages.
+		if ( substr( $query_var, 0, 5 ) === 'wpseo' ) {
+			$beacon = yoast_get_helpscout_beacon( $query_var );
+			$beacon->add_setting( new WPSEO_WooCommerce_Beacon_Setting() );
+			$beacon->register_hooks();
+		}
+	}
+
 
 	/********************** DEPRECATED METHODS **********************/
 
@@ -742,6 +643,45 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
+	 * Keep old behaviour of getting the twitter domain in a different way than in WPSEO, but prevent duplicate
+	 * twitter:domain meta tags
+	 *
+	 * @deprecated 3.1
+	 * @param string $domain
+	 *
+	 * @return  string
+	 */
+	public function filter_twitter_domain( $domain ) {
+		_deprecated_function( __CLASS__ . '::' . __METHOD__, 'WooCommerce SEO 3.1', null );
+		return '';
+	}
+
+	/**
+	 * Output the extra data for the Twitter Card
+	 *
+	 * @deprecated 3.1
+	 * @since 1.0
+	 */
+	public function twitter_enhancement() {
+		_deprecated_function( __CLASS__ . '::' . __METHOD__, 'WooCommerce SEO 3.1', null );
+	}
+
+	/**
+	 * Return 'product' when current page is, well... a product.
+	 *
+	 * @deprecated 3.1
+	 * @since 1.0
+	 *
+	 * @param string $type Passed on without changing if not a product.
+	 *
+	 * @return string
+	 */
+	public function return_type_product( $type ) {
+		_deprecated_function( __CLASS__ . '::' . __METHOD__, 'WooCommerce SEO 3.1', null );
+		return $type;
+	}
+
+	/**
 	 * Enqueues the pluginscripts.
 	 */
 	public function enqueue_scripts() {
@@ -750,7 +690,7 @@ class Yoast_WooCommerce_SEO {
 			return;
 		}
 
-		wp_enqueue_script( 'wp-seo-woo', plugins_url( 'js/yoastseo-woo-plugin' . WPSEO_CSSJS_SUFFIX . '.js', __FILE__ ), array(), WPSEO_VERSION, true );
+		wp_enqueue_script( 'wp-seo-woo', plugins_url( 'js/yoastseo-woo-plugin-' . '311' . WPSEO_CSSJS_SUFFIX . '.js', __FILE__ ), array(), WPSEO_VERSION, true );
 
 		wp_localize_script( 'wp-seo-woo', 'wpseoWooL10n', $this->localize_woo_script() );
 	}
@@ -822,8 +762,44 @@ function initialize_yoast_woocommerce_seo() {
 	}
 }
 
-if ( ! defined( 'WP_INSTALLING' ) || WP_INSTALLING === false ) {
+if ( ! function_exists( 'wp_installing' ) ) {
+	/**
+	 * We need to define wp_installing in WordPress versions older than 4.4
+	 *
+	 * @return bool
+	 */
+	function wp_installing() {
+		return defined( 'WP_INSTALLING' );
+	}
+}
+
+/**
+ * Instantiate the plugin license manager for the current plugin and activate it's license.
+ */
+function yoast_woocommerce_seo_activate_license() {
+	if ( class_exists( 'Yoast_Plugin_License_Manager' ) ) {
+		if ( ! class_exists( 'Yoast_Product_WPSEO_WooCommerce' ) ) {
+			require_once( dirname( __FILE__ ) . '/class-product-wpseo-woocommerce.php' );
+		}
+
+		$license_manager = new Yoast_Plugin_License_Manager( new Yoast_Product_WPSEO_WooCommerce() );
+		$license_manager->activate_license();
+	}
+}
+
+
+if ( ! wp_installing() ) {
 	add_action( 'plugins_loaded', 'initialize_yoast_woocommerce_seo', 20 );
+
+
+	/*
+	 * When the plugin is deactivated and activated again, the license have to be activated. This is mostly the case
+	 * during a update of the plugin. To solve this, we hook into the activation process by calling a method that will
+	 * activate the license.
+	 */
+	register_activation_hook( __FILE__, 'yoast_woocommerce_seo_activate_license' );
+
+
 }
 
 class WPSEO_WooCommerce_Wrappers {

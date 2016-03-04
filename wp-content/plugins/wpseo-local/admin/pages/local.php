@@ -179,9 +179,9 @@ echo '<br class="clear">';
 echo '<label class="textinput" for="custom_marker">' . __( 'Custom marker', 'yoast-local-seo' ) . ':</label>';
 echo '<img src="' . ( isset( $options['custom_marker'] ) ? wp_get_attachment_url( $options['custom_marker'] ) : '' ) . '" id="custom_marker" />';
 WPSEO_Local_Admin_Wrappers::hidden( 'custom_marker' );
-echo '<button class="set_custom_images button">' . __( 'Set custom marker image', 'yoast-local-seo' ) . '</button>';
+echo '<a href="javascript:" class="button btn set_custom_images button" data-id="custom_marker">' . __( 'Set custom marker image', 'yoast-local-seo' ) . '</a>';
 if( isset( $options['custom_marker'] ) && '' != $options['custom_marker'] ) {
-	echo '<br /><button id="remove_marker">' . __( 'Remove marker', 'yoast-local-seo' ) . '</button>';
+	echo '<br /><button class="remove_custom_image" data-id="custom_marker">' . __( 'Remove marker', 'yoast-local-seo' ) . '</button>';
 	$wpseo_local_core->check_custom_marker_size( $options['custom_marker'] );
 } else {
 	echo '<p class="desc label" style="border:none; margin-bottom: 0;">' . __( 'The custom marker should be 100x100 px. If the image exceeds those dimensions it could (partially) cover the info popup.', 'yoast-local-seo' ) . '</p>';

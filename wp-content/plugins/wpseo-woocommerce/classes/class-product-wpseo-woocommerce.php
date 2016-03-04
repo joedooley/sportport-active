@@ -9,7 +9,7 @@ if ( ! class_exists( 'Yoast_Product_WPSEO_WooCommerce' ) ) {
 
 		public function __construct() {
 			parent::__construct(
-				'https://yoast.com',
+				'http://yoast.com/edd-sl-api',
 				'WooCommerce Yoast SEO',
 				plugin_basename( Yoast_WooCommerce_SEO::get_plugin_file() ),
 				Yoast_WooCommerce_SEO::VERSION,

@@ -23,6 +23,7 @@ function wpseo_local_show_address( $atts ) {
 		'show_vat'           => false,
 		'show_tax'           => false,
 		'show_coc'           => false,
+		'show_logo'          => false,
 		'show_opening_hours' => false,
 		'hide_closed'        => false,
 		'oneline'            => false,
@@ -33,7 +34,7 @@ function wpseo_local_show_address( $atts ) {
 		'before_title'       => '',
 		'after_title'        => '',
 		'echo'               => false
-	), $atts ) );
+	), $atts, 'wpseo_local_show_address' ) );
 
 	$options           = get_option( 'wpseo_local' );
 	if( isset( $options['hide_opening_hours'] ) && $options['hide_opening_hours'] == 'on' ) {
@@ -57,23 +58,24 @@ function wpseo_local_show_address( $atts ) {
 		}
 
 		// Get the location data if its already been entered
-		$business_name     = get_the_title( $atts['id'] );
-		$business_type     = get_post_meta( $atts['id'], '_wpseo_business_type', true );
-		$business_address  = get_post_meta( $atts['id'], '_wpseo_business_address', true );
-		$business_city     = get_post_meta( $atts['id'], '_wpseo_business_city', true );
-		$business_state    = get_post_meta( $atts['id'], '_wpseo_business_state', true );
-		$business_zipcode  = get_post_meta( $atts['id'], '_wpseo_business_zipcode', true );
-		$business_country  = get_post_meta( $atts['id'], '_wpseo_business_country', true );
-		$business_phone    = get_post_meta( $atts['id'], '_wpseo_business_phone', true );
-		$business_phone_2nd= get_post_meta( $atts['id'], '_wpseo_business_phone_2nd', true );
-		$business_fax      = get_post_meta( $atts['id'], '_wpseo_business_fax', true );
-		$business_email    = get_post_meta( $atts['id'], '_wpseo_business_email', true );
-		$business_url      = get_post_meta( $atts['id'], '_wpseo_business_url', true );
+		$business_name          = get_the_title( $atts['id'] );
+		$business_type          = get_post_meta( $atts['id'], '_wpseo_business_type', true );
+		$business_address       = get_post_meta( $atts['id'], '_wpseo_business_address', true );
+		$business_city          = get_post_meta( $atts['id'], '_wpseo_business_city', true );
+		$business_state         = get_post_meta( $atts['id'], '_wpseo_business_state', true );
+		$business_zipcode       = get_post_meta( $atts['id'], '_wpseo_business_zipcode', true );
+		$business_country       = get_post_meta( $atts['id'], '_wpseo_business_country', true );
+		$business_phone         = get_post_meta( $atts['id'], '_wpseo_business_phone', true );
+		$business_phone_2nd     = get_post_meta( $atts['id'], '_wpseo_business_phone_2nd', true );
+		$business_fax           = get_post_meta( $atts['id'], '_wpseo_business_fax', true );
+		$business_email         = get_post_meta( $atts['id'], '_wpseo_business_email', true );
 		$business_vat      = get_post_meta( $atts['id'], '_wpseo_business_vat_id', true );
 		$business_tax      = get_post_meta( $atts['id'], '_wpseo_business_tax_id', true );
 		$business_coc      = get_post_meta( $atts['id'], '_wpseo_business_coc_id', true );
-		$is_postal_address = get_post_meta( $atts['id'], '_wpseo_is_postal_address', true );
-		$is_postal_address = $is_postal_address == '1';
+		$business_url           = get_post_meta( $atts['id'], '_wpseo_business_url', true );
+		$business_location_logo = get_post_meta( $atts['id'], '_wpseo_business_location_logo', true );
+		$is_postal_address      = get_post_meta( $atts['id'], '_wpseo_is_postal_address', true );
+		$is_postal_address      = $is_postal_address == '1';
 
 		if( empty( $business_url ) ) {
 			$business_url = get_permalink( $atts['id'] );
@@ -95,6 +97,10 @@ function wpseo_local_show_address( $atts ) {
 		$business_vat   	= isset( $options['location_vat_id'] ) ? $options['location_vat_id'] : '';
 		$business_tax   	= isset( $options['location_tax_id'] ) ? $options['location_tax_id'] : '';
 		$business_coc   	= isset( $options['location_coc_id'] ) ? $options['location_coc_id'] : '';
+	}
+
+	if( '' == $business_type ) {
+		$business_type = 'LocalBusiness';
 	}
 
 	/*
@@ -151,11 +157,25 @@ function wpseo_local_show_address( $atts ) {
 		}
 	}
 
-	$output = '<div id="wpseo_location-' . $atts['id'] . '" class="wpseo-location" itemscope itemtype="http://schema.org/' . ( $is_postal_address ? 'PostalAddress' : $business_type ) . '">';
+	$output = '<div id="wpseo_location-' . esc_attr( $atts['id'] ) . '" class="wpseo-location" itemscope itemtype="http://schema.org/' . ( $is_postal_address ? 'PostalAddress' : esc_attr( $business_type ) ) . '">';
 
 	if( false == $atts['hide_name'] ) {
-		$output .= $tag_title_open . ( $atts['from_sl'] ? '<a href="' . $business_url . '">' : '' ) . '<span class="wpseo-business-name" itemprop="name">' . $business_name . '</span>' . ( $atts['from_sl'] ? '</a>' : '' ) . $tag_title_close . ( $atts['oneline'] ? ', ' : '' );
+		$output .= $tag_title_open . ( $atts['from_sl'] ? '<a href="' . esc_url( $business_url ) . '">' : '' ) . '<span class="wpseo-business-name" itemprop="name">' . esc_html( $business_name ) . '</span>' . ( $atts['from_sl'] ? '</a>' : '' ) . $tag_title_close . ( $atts['oneline'] ? ', ' : '' );
 	}
+
+	if( $atts['show_logo'] ) {
+		if( '' === $business_location_logo ) {
+			$wpseo_options = get_option( 'wpseo' );
+			$business_location_logo = $wpseo_options['company_logo'];
+		}
+
+		if( '' !== $business_location_logo ) {
+			$output .= '<figure itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">';
+			$output .= '<img itemprop="url" src="' . $business_location_logo . '" />';
+			$output .= '</figure>';
+		}
+	}
+
 	$output .= '<' . ( $atts['oneline'] ? 'span' : 'div' ) . ' ' . ( $is_postal_address ? '' : 'itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"' ) . ' class="wpseo-address-wrapper">';
 
 	// Output city/state/zipcode in right format
@@ -175,28 +195,28 @@ function wpseo_local_show_address( $atts ) {
 	foreach( $business_contact_details as $order => $details ) {
 
 		if ( 'phone' == $details['key'] && $atts['show_phone'] && ! empty( $business_phone ) ) {
-			$details_output .= sprintf( '<span class="wpseo-phone">%s: <a href="tel:' . preg_replace('/[^0-9+]/', '', $business_phone ) . '" class="tel"><span itemprop="telephone">' . $business_phone . '</span></a></span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), $details['label'] );
+			$details_output .= sprintf( '<span class="wpseo-phone">%s: <a href="' . esc_url( 'tel:' . preg_replace('/[^0-9+]/', '', $business_phone ) ) . '" class="tel"><span itemprop="telephone">' . esc_html( $business_phone ) . '</span></a></span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), esc_html( $details['label'] ) );
 		}
 		if ( 'phone_2' == $details['key'] && $atts['show_phone_2'] && ! empty( $business_phone_2nd ) ) {
-			$details_output .= sprintf( '<span class="wpseo-phone2nd">%s: <a href="tel:' . preg_replace('/[^0-9+]/', '', $business_phone_2nd ) . '" class="tel">' . $business_phone_2nd . '</a></span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), $details['label'] );
+			$details_output .= sprintf( '<span class="wpseo-phone2nd">%s: <a href="' . esc_url( 'tel:' . preg_replace('/[^0-9+]/', '', $business_phone_2nd ) ) . '" class="tel">' . esc_html( $business_phone_2nd ) . '</a></span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), esc_html( $details['label'] ) );
 		}
 		if ( 'fax' == $details['key'] && $atts['show_fax'] && ! empty( $business_fax ) ) {
-			$details_output .= sprintf( '<span class="wpseo-fax">%s: <span class="tel" itemprop="faxNumber">' . $business_fax . '</span></span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), $details['label'] );
+			$details_output .= sprintf( '<span class="wpseo-fax">%s: <span class="tel" itemprop="faxNumber">' . esc_html( $business_fax ) . '</span></span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), esc_html( $details['label'] ) );
 		}
 		if ( 'email' == $details['key'] && $atts['show_email'] && ! empty( $business_email ) ) {
-			$details_output .= sprintf( '<span class="wpseo-email">%s: <a href="mailto:' . $business_email . '" itemprop="email">' . $business_email . '</a></span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), $details['label'] );
+			$details_output .= sprintf( '<span class="wpseo-email">%s: <a href="' . esc_url( 'mailto:' . $business_email ) . '" itemprop="email">' . esc_html( $business_email ) . '</a></span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), esc_html( $details['label'] ) );
 		}
 		if ( 'url' == $details['key'] && $atts['show_url'] ) {
-			$details_output .= sprintf( '<span class="wpseo-url">%s: <a href="' . $business_url . '" itemprop="url">' . $business_url . '</a></span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), $details['label'] );
+			$details_output .= sprintf( '<span class="wpseo-url">%s: <a href="' . esc_url( $business_url ) . '" itemprop="url">' . esc_html( $business_url ) . '</a></span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), esc_html( $details['label'] ) );
 		}
 		if( 'vat' == $details['key'] && $atts['show_vat'] && ! empty( $business_vat ) ) {
-			$details_output .= sprintf( '<span class="wpseo-vat">%s: <span itemprop="vatID">' . $business_vat .'</span></span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), $details['label'] );
+			$details_output .= sprintf( '<span class="wpseo-vat">%s: <span itemprop="vatID">' . esc_html( $business_vat ) .'</span></span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), esc_html( $details['label'] ) );
 		}
 		if( 'tax' == $details['key'] && $atts['show_tax'] && ! empty( $business_tax ) ) {
-			$details_output .= sprintf( '<span class="wpseo-tax">%s: <span itemprop="taxID">' . $business_tax .'</span></span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), $details['label'] );
+			$details_output .= sprintf( '<span class="wpseo-tax">%s: <span itemprop="taxID">' . esc_html( $business_tax ) .'</span></span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), esc_html( $details['label'] ) );
 		}
 		if( 'coc' == $details['key'] && $atts['show_coc'] && ! empty( $business_coc ) ) {
-			$details_output .= sprintf( '<span class="wpseo-vat">%s: ' . $business_coc .'</span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), $details['label'] );
+			$details_output .= sprintf( '<span class="wpseo-vat">%s: ' . esc_html( $business_coc ) .'</span>' . ( $atts['oneline'] ? ' ' : '<br/>' ), esc_html( $details['label'] ) );
 		}
 	}
 
@@ -250,7 +270,7 @@ function wpseo_local_show_all_locations( $atts ) {
 		'hide_closed'        => false,
 		'oneline'            => false,
 		'echo'               => false
-	), $atts ) );
+	), $atts, 'wpseo_local_show_all_locations' ) );
 
 	// Don' show any data when post_type is not activated. This function/shortcode makes no sense for single location
 	if ( ! wpseo_has_multiple_locations() )
@@ -279,7 +299,7 @@ function wpseo_local_show_all_locations( $atts ) {
 	if ( $locations->post_count > 0 ) :
 		$output .= '<div class="wpseo-all-locations">';
 		foreach( $locations->posts as $location_id ) :
-		
+
 			$location = apply_filters( 'wpseo_all_locations_location', wpseo_local_show_address( array(
 				'id'                 => $location_id,
 				'show_state'         => $atts['show_state'],
@@ -349,7 +369,7 @@ function wpseo_local_show_map( $atts ) {
 		'show_route_label' => isset( $options['show_route_label'] ) && ! empty( $options['show_route_label'] ) ? $options['show_route_label'] : __( 'Show route', 'yoast-local-seo' ),
 		'from_sl'          => false,
 		'echo'             => false
-	), $atts ) );
+	), $atts, 'wpseo_local_show_map' ) );
 
 	if ( ! isset( $map_counter ) ) {
 		$map_counter = 0;
@@ -516,7 +536,7 @@ function wpseo_local_show_map( $atts ) {
 			var directionsDisplay_' . $map_counter . ';
 			function wpseo_map_init' . ( $map_counter != 0 ? '_' . $map_counter : '' ) . '() {
 				var location_data = new Array();' . PHP_EOL .
-				$location_array_str . '
+		              $location_array_str . '
 				directionsDisplay_' . $map_counter . ' = wpseo_show_map( location_data, ' . $map_counter . ', directionsDisplay_' . $map_counter . ', ' . $center_lat . ', ' . $center_long . ', ' . $atts['zoom'] . ', "' . $atts['map_style'] . '", "' . $atts['show_route'] . '", "' . $atts['scrollable'] . '", "' . $atts['draggable'] . '" );
 			}
 
@@ -568,8 +588,9 @@ function wpseo_local_show_opening_hours( $atts, $show_schema = true ) {
 		'id'          => '',
 		'hide_closed' => false,
 		'echo'        => false,
-		'comment'     => ''
-	), $atts ) );
+		'comment'     => '',
+		'show_days'   => array(),
+	), $atts, 'wpseo_local_opening_hours' ) );
 
 	$options = get_option('wpseo_local');
 	if( isset( $options['hide_opening_hours'] ) && $options['hide_opening_hours'] == 'on' ) {
@@ -591,19 +612,37 @@ function wpseo_local_show_opening_hours( $atts, $show_schema = true ) {
 
 	$options = get_option( 'wpseo_local' );
 
-	$days = array(
-		'monday'    => __( 'Monday', 'yoast-local-seo' ),
-		'tuesday'   => __( 'Tuesday', 'yoast-local-seo' ),
-		'wednesday' => __( 'Wednesday', 'yoast-local-seo' ),
-		'thursday'  => __( 'Thursday', 'yoast-local-seo' ),
-		'friday'    => __( 'Friday', 'yoast-local-seo' ),
-		'saturday'  => __( 'Saturday', 'yoast-local-seo' ),
-		'sunday'    => __( 'Sunday', 'yoast-local-seo' )
-	);
-
 	$output = '<table class="wpseo-opening-hours">';
 
+	// Make the array itterable (Is that a word?)
+	$days = new ArrayIterator( array(
+		'sunday' => __( 'Sunday', 'yoast-local-seo' ),
+		'monday' => __( 'Monday', 'yoast-local-seo' ),
+		'tuesday' => __( 'Tuesday', 'yoast-local-seo' ),
+		'wednesday' => __( 'Wednesday', 'yoast-local-seo' ),
+		'thursday' => __( 'Thursday', 'yoast-local-seo' ),
+		'friday' => __( 'Friday', 'yoast-local-seo' ),
+		'saturday' => __( 'Saturday', 'yoast-local-seo' ),
+	) );
+
+	// Make sure it can be looped infinite times
+	$days = new InfiniteIterator( $days );
+	$days = new LimitIterator( $days, get_option('start_of_week'), 7 );
+
+	if( ! is_array( $atts['show_days'] ) ) {
+		$show_days = explode( ',', $atts['show_days'] );
+	} else {
+		$show_days = (array) $atts['show_days'];
+	}
+
+	// Loop through the days array where start_of_week is the first key, with a max of 7.
 	foreach ( $days as $key => $day ) {
+
+		// Check if the opening hours for this day should be shown.
+		if( is_array( $show_days ) && ! empty( $show_days ) && ! in_array( $key, $show_days ) ) {
+			continue;
+		}
+
 		$multiple_opening_hours = isset( $options['multiple_opening_hours'] ) && $options['multiple_opening_hours'] == 'on';
 		$day_abbr               = ucfirst( substr( $key, 0, 2 ) );
 
@@ -625,7 +664,7 @@ function wpseo_local_show_opening_hours( $atts, $show_schema = true ) {
 			$value_second_to   = isset( $options[$field_name . '_second_to'] ) ? esc_attr( $options[$field_name . '_second_to'] ) : '';
 		}
 
-		if ( $value_from == 'closed' && $atts['hide_closed'] ) {
+		if ( ( $value_from == 'closed' || $value_to == 'closed' ) && $atts['hide_closed'] ) {
 			continue;
 		}
 
@@ -661,7 +700,7 @@ function wpseo_local_show_opening_hours( $atts, $show_schema = true ) {
 			}
 		}
 
-		$output_time = apply_filters( 'wpseo_opening_hours_time', $output_time, $day, $value_from, $value_to );
+		$output_time = apply_filters( 'wpseo_opening_hours_time', $output_time, $day, $value_from, $value_to, $atts );
 		$output .= $output_time;
 		$output .= '</td>';
 		$output .= '</tr>';
@@ -793,20 +832,26 @@ function wpseo_local_get_address_format( $business_address = '', $oneline = fals
 	$options              = get_option( 'wpseo_local' );
 	$address_format       = ! empty( $options['address_format'] ) ? $options['address_format'] : 'address-state-postal';
 	$business_city_string = $business_city;
-	if ( $use_tags )
-		$business_city_string = '<span class="locality" itemprop="addressLocality"> ' . $business_city . '</span>';
+
+	if ( $use_tags ) {
+		$business_city_string = '<span class="locality" itemprop="addressLocality"> ' . esc_html( $business_city ) . '</span>';
+	}
+
 	$business_state_string = $business_state;
-	if ( $use_tags )
-		$business_state_string = '<span  class="region" itemprop="addressRegion">' . $business_state . '</span>';
+	if ( $use_tags ) {
+		$business_state_string = '<span  class="region" itemprop="addressRegion">' . esc_html( $business_state ) . '</span>';
+	}
+
 	$business_zipcode_string = $business_zipcode;
-	if ( $use_tags )
-		$business_zipcode_string = '<span class="postal-code" itemprop="postalCode">' . $business_zipcode . '</span>';
+	if ( $use_tags ) {
+		$business_zipcode_string = '<span class="postal-code" itemprop="postalCode">' . esc_html( $business_zipcode ) . '</span>';
+	}
 
 	if ( in_array( $address_format, array( '', 'address-state-postal', 'address-state-postal-comma', 'address-postal-city-state', 'address-postal', 'address-postal-comma', 'address-city' ) ) ) {
 		if( $use_tags ) {
-			$output .= '<' . ( $oneline	 ? 'span' : 'div' ) . ' class="street-address" itemprop="streetAddress">' . $business_address . '</' . ( $oneline	 ? 'span' : 'div' ) . '>' . ( $oneline	 ? ', ' : '' );
+			$output .= '<' . ( $oneline	 ? 'span' : 'div' ) . ' class="street-address" itemprop="streetAddress">' . esc_html( $business_address ) . '</' . ( $oneline	 ? 'span' : 'div' ) . '>' . ( $oneline	 ? ', ' : '' );
 		} else {
-			$output .= $business_address . ' ';
+			$output .= esc_html( $business_address ) . ' ';
 		}
 
 		if ( $address_format == 'address-postal-city-state' && ! empty( $business_zipcode ) ) {
@@ -854,7 +899,7 @@ function wpseo_local_get_address_format( $business_address = '', $oneline = fals
 			$output .= ( $oneline ? ', ' : ' ' );
 			$output .= '<' . ( $oneline	 ? 'span' : 'div' ) . ' class="street-address" itemprop="streetAddress">' . $business_address . '</' . ( $oneline	 ? 'span' : 'div' ) . '>' . ( $oneline	 ? ', ' : '' );
 		} else {
-			$output .= ', ' . $business_address;
+			$output .= ', ' . esc_html( $business_address );
 		}
 	}
 
@@ -884,7 +929,7 @@ function wpseo_geocode_address( $address ) {
 		return new WP_Error( 'wpseo-no-response', "Didn't receive a response from Maps API" );
 
 	$response_body = json_decode( $response['body'] );
-	
+
 	if ( "OK" != $response_body->status ) {
 		$error_code = 'wpseo-zero-results';
 		if( $response_body->status == 'OVER_QUERY_LIMIT' )
@@ -936,7 +981,15 @@ function wpseo_enqueue_geocoder() {
 	if ( $wpseo_enqueue_geocoder ) {
 		$locale   = get_locale();
 		$locale   = explode( '_', $locale );
-		$language = isset( $locale[1] ) ? $locale[1] : $locale[0];
+		// Check if it might be a language spoken in more than one country.
+		if( isset( $locale[1] ) && in_array( $locale[0], array( 'en', 'de', 'es', 'it', 'pt', 'ro', 'ru', 'sv', 'nl', 'zh', 'fr' ) ) ) {
+			$language =  $locale[0] . '-' . $locale[1];
+		} else if( isset( $locale[1] ) ) {
+			$language = $locale[1];
+		} else {
+			$language = $locale[0];
+		}
+
 		$options  = get_option( "wpseo_local" );
 
 		wp_enqueue_script( 'maps-geocoder', '//maps.google.com/maps/api/js?sensor=false' . ( ! empty( $language ) ? '&language=' . strtolower( $language ) : '' ), array(), null, true );
@@ -1013,8 +1066,8 @@ function wpseo_utf8_to_unicode( $str ) {
 			$values[] = $this_value;
 			if ( count( $values ) == $looking_for ) {
 				$number = ( $looking_for == 3 ) ?
-						( ( $values[0] % 16 ) * 4096 ) + ( ( $values[1] % 64 ) * 64 ) + ( $values[2] % 64 ) :
-						( ( $values[0] % 32 ) * 64 ) + ( $values[1] % 64 );
+					( ( $values[0] % 16 ) * 4096 ) + ( ( $values[1] % 64 ) * 64 ) + ( $values[2] % 64 ) :
+					( ( $values[0] % 32 ) * 64 ) + ( $values[1] % 64 );
 
 				$unicode[]   = $number;
 				$values      = array();
@@ -1059,7 +1112,7 @@ function wpseo_unicode_to_utf8( $string_array ) {
  * Run the upgrade procedures.
  */
 function wpseo_local_do_upgrade( $db_version ) {
-	
+
 	if ( version_compare( $db_version, '1.3.1', '<' ) ) {
 		$options = get_option( 'wpseo_local' );
 
@@ -1090,12 +1143,12 @@ function wpseo_local_do_upgrade( $db_version ) {
  * Retrieves excerpt from specific post
  */
 function wpseo_local_get_excerpt( $post_id ) {
-	global $post;  
+	global $post;
 
 	$original_post = $post;
 	$post = get_post( $post_id );
 	setup_postdata( $post );
-	
+
 	$output = get_the_excerpt();
 
 	// Set back original $post;
@@ -1115,9 +1168,9 @@ function wpseo_local_upload_image() {
 	$output = '<p class="desc label" style="border:none; margin-bottom: 0;">' . __( 'If you want the map to display a custom marker pin for your locations, please upload it here.', 'yoast-local-seo' ) . '</p>';
 
 	$output .= '<label for="upload_image">';
-    $output .= '<input id="upload_image" type="text" size="36" name="ad_image" value="http://" /> ';
-    $output .= '<input id="upload_image_button" class="button" type="button" value="Upload Image" />';
-    $output .= '<br />Enter a URL or upload an image';
+	$output .= '<input id="upload_image" type="text" size="36" name="ad_image" value="http://" /> ';
+	$output .= '<input id="upload_image_button" class="button" type="button" value="Upload Image" />';
+	$output .= '<br />Enter a URL or upload an image';
 	$output .= '</label>';
 	$output .= '<br class="clear"/>';
 
@@ -1139,6 +1192,17 @@ function wpseo_local_get_custom_marker( $post_id = null, $taxonomy = '' ) {
 		$terms = wp_get_object_terms( $post_id, $taxonomy, array( 'fields' => 'ids' ) );
 		$terms = apply_filters( 'wpseo_local_custom_marker_order', $terms );
 
+		if( class_exists( 'WPSEO_Primary_Term' ) ) {
+			// Check if there's a primary term.
+			$primary_term = new WPSEO_Primary_Term( $taxonomy, $post_id );
+			$primary_term = $primary_term->get_primary_term();
+
+			if( ! empty( $primary_term ) ) {
+				// If there is a primary term, replace the term array with the primary term.
+				$terms = array( $primary_term );
+			}
+		}
+
 		if( ! empty( $terms ) ) {
 			foreach( $terms as $term_id ) {
 				$tax_meta = WPSEO_Taxonomy_Meta::get_term_meta( (int) $term_id, $taxonomy );
@@ -1155,7 +1219,7 @@ function wpseo_local_get_custom_marker( $post_id = null, $taxonomy = '' ) {
 		$options = get_option( 'wpseo_local' );
 		if( isset( $options['custom_marker'] ) && intval( $options['custom_marker'] ) ) {
 			$custom_marker = wp_get_attachment_url( $options['custom_marker'] );
-		}		
+		}
 	}
 
 	return $custom_marker;
@@ -1164,4 +1228,31 @@ function wpseo_local_get_custom_marker( $post_id = null, $taxonomy = '' ) {
 function wpseo_local_sanitize_business_types( &$value, &$key ) {
 	$value = str_replace('&mdash;', '', $value );
 	$value = trim( $value );
+}
+
+function wpseo_local_show_logo( $atts ) {
+	$atts = wpseo_check_falses( shortcode_atts( array(
+		'id' => get_the_ID(),
+	), $atts ) );
+
+	$output = '';
+
+	if( 'wpseo_locations' !== get_post_type( $atts['id'] ) ) {
+		return '';
+	}
+
+	$location_logo = get_post_meta( $atts['id'], '_wpseo_business_location_logo', true );
+
+	if( '' === $location_logo ) {
+		$wpseo_options = get_option( 'wpseo' );
+		$location_logo = $wpseo_options['company_logo'];
+	}
+
+	if( '' !== $location_logo ) {
+		$output = '<img src="' . esc_url( $location_logo ) . '">';
+	}
+
+	if( ! empty( $output ) ) {
+		return $output;
+	}
 }

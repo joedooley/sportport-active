@@ -22,7 +22,7 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 		 *
 		 * @since 1.0
 		 */
-		function __construct() {
+		public function __construct() {
 
 			$this->options = get_option( "wpseo_local" );
 			$this->days    = array(
@@ -36,9 +36,10 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 			);
 
 			if ( wpseo_has_multiple_locations() ) {
-				add_action( 'init', array( $this, 'create_custom_post_type' ), 10, 1 );
-				add_action( 'init', array( $this, 'create_taxonomies' ), 10, 1 );
-				add_action( 'init', array( $this, 'exclude_taxonomy' ), 10, 1 );
+				$this->create_custom_post_type();
+				$this->create_taxonomies();
+				$this->exclude_taxonomy();
+				add_filter( 'wpseo_primary_term_taxonomies', array( $this, 'filter_wpseo_primary_term_taxonomies' ), 10, 3 );
 			}
 
 			if ( is_admin() ) {
@@ -58,64 +59,66 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 			} else {
 				// XML Sitemap Index addition
 				add_action( 'template_redirect', array( $this, 'redirect_old_sitemap' ) );
-				add_action( 'init', array( $this, 'init' ), 11 );
+				$this->init();
 				add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
 			}
 
 			// Add support for Jetpack's Omnisearch
-			add_action( 'init', array( $this, 'support_jetpack_omnisearch' ) );
+			$this->support_jetpack_omnisearch();
 			add_action( 'save_post', array( $this, 'invalidate_sitemap' ) );
 
 			// Run update if needed
-			add_action( 'plugins_loaded', array( &$this, 'do_upgrade' ), 14 );
+			add_action( 'plugins_loaded', array( $this, 'do_upgrade' ), 14 );
 
 			// Extend the search with metafields
-			add_action( 'pre_get_posts', array( &$this, 'enhance_search' ) );
-			add_filter( 'the_excerpt', array( &$this, 'enhance_location_search_results' ) );
+			//add_action( 'pre_get_posts', array( $this, 'enhance_search' ) );
+			add_filter( 'posts_clauses', array( $this, 'enhance_location_search' )  );
+			add_filter( 'the_excerpt', array( $this, 'enhance_location_search_results' ) );
 		}
 
-		function enhance_search( $query ) {
-			if( ! is_admin() && $query->is_main_query() && $query->is_search() ) {
-				$meta_query = array(
-					'relation' => 'OR'
-				);
+		/**
+		 * Enhance the standard WordPress search with custom post meta fields
+		 *
+		 * @since 3.0
+		 *
+		 * @param $pieces
+		 * @return mixed
+		 */
+		public function enhance_location_search( $pieces ) {
+			if (is_search() && !is_admin()) {
+				global $wpdb;
 
-				$meta_query[] = array(
-					'key' => '_wpseo_business_address',
-					'value' => get_search_query(),
-					'compare' => 'LIKE',
-				);
-				$meta_query[] = array(
-					'key' => '_wpseo_business_city',
-					'value' => get_search_query(),
-					'compare' => 'LIKE',
-				);
-				$meta_query[] = array(
-					'key' => '_wpseo_business_zipcode',
-					'value' => get_search_query(),
-					'compare' => 'LIKE',
-				);
+				$custom_fields = array( '_wpseo_business_address', '_wpseo_business_city', '_wpseo_business_zipcode' );
+				$custom_fields = apply_filters( 'wpseo_local_search_custom_fields', $custom_fields );
 
-				$query->set( 'meta_query', $meta_query );
-				add_filter( 'posts_where', array( $this, 'search_where' ) );
+				$meta_query = '';
+
+				foreach ( $custom_fields as $field ) {
+					$meta_query .= "((" . $wpdb->postmeta . ".meta_key = '" . $field . "')";
+					$meta_query .= " AND (" . $wpdb->postmeta . ".meta_value  LIKE '%" . get_search_query() . "%')) OR ";
+				}
+
+				if( ! empty( $meta_query ) ) {
+					// add to where clause
+					$pieces['where'] = str_replace("(((" . $wpdb->posts . ".post_title LIKE '%", "( " . $meta_query . " ((" . $wpdb->posts . ".post_title LIKE '%", $pieces['where']);
+
+					$pieces['join'] = $pieces['join'] . " INNER JOIN " . $wpdb->postmeta . " ON (" . $wpdb->posts . ".ID = " . $wpdb->postmeta . ".post_id)";
+					$pieces['groupby'] = $wpdb->posts . ".ID";
+        		}
 			}
 
-			return $query;
+			return $pieces;
 		}
 
-		function search_where( $where ) {
-			global $wpdb;
-
-			// First change all white space characters to single spaces
-			$where = preg_replace( '/\s+/', ' ', $where );
-
-			// Then replace the right AND by OR
-			$where = str_replace( "AND ( ( {$wpdb->postmeta}.meta_key = '_wpseo_business_address'", "OR ( ( {$wpdb->postmeta}.meta_key = '_wpseo_business_address'", $where );
-
-			return $where;
-		}
-
-		function enhance_location_search_results( $excerpt ) {
+		/**
+		 * Add address to locations in search results
+		 *
+		 * @since 1.3.8
+		 *
+		 * @param $excerpt
+		 * @return string
+		 */
+		public function enhance_location_search_results( $excerpt ) {
 			if( is_search() ) {
 				global $post;
 
@@ -129,7 +132,7 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 			return $excerpt;
 		}
 
-		function do_upgrade() {
+		public function do_upgrade() {
 			$options = get_option( 'wpseo_local' );
 
 			if ( ! isset( $options['version'] ) ) {
@@ -166,8 +169,9 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 
 			// We need WP SEO 1.5+ or higher but WP SEO Local doesn't have a version check.
 			if( ! $this->license_manager ) {
-
-				require_once dirname( __FILE__ ) . '/class-product.php';
+				if ( ! class_exists( 'Yoast_Product_WPSEO_Local' ) ) {
+					require_once dirname( __FILE__ ) . '/class-product.php';
+				}
 
 				$this->license_manager = new Yoast_Plugin_License_Manager( new Yoast_Product_WPSEO_Local() );
 				$this->license_manager->set_license_constant_name( 'WPSEO_LOCAL_LICENSE' );
@@ -431,7 +435,7 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 		 * @param $new_value
 		 * @param $old_value
 		 */
-		function save_permalinks_on_option_save( $old_value, $new_value ) {
+		public function save_permalinks_on_option_save( $old_value, $new_value ) {
 
 			// Don't do anything when location slug isn't changed
 			if( $old_value['locations_slug'] == $new_value['locations_slug'] ) {
@@ -450,7 +454,7 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 		 *
 		 * @since 1.0
 		 */
-		function get_location_data( $post_id = null ) {
+		public function get_location_data( $post_id = null ) {
 			$locations               = array();
 			$locations["businesses"] = array();
 
@@ -495,23 +499,28 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 						$business['business_url'] = get_permalink( $post_id );
 					}
 
+					// If not Business type is chosen, set allback to general Business type
+					if( '' == $business['business_type'] ) {
+						$business['business_type'] = 'LocalBusiness';
+					}
+
 					array_push( $locations["businesses"], $business );
 				}
 			} else {
 				$options = get_option( 'wpseo_local' );
 
 				$business = array(
-					"business_name"        => $options['location_name'],
-					"business_type"        => $options['location_type'],
-					"business_address"     => $options['location_address'],
-					"business_city"        => $options['location_city'],
-					"business_state"       => $options['location_state'],
-					"business_zipcode"     => $options['location_zipcode'],
-					"business_country"     => $options['location_country'],
-					"business_phone"       => $options['location_phone'],
-					"business_phone_2nd"   => $options['location_phone_2nd'],
-					"business_fax"         => $options['location_fax'],
-					"business_email"       => $options['location_email'],
+					"business_name"        => isset( $options['location_name'] ) ? $options['location_name'] : '',
+					"business_type"        => isset( $options['business_type'] ) ? $options['business_type'] : '',
+					"business_address"     => isset( $options['location_address'] ) ? $options['location_address'] : '',
+					"business_city"        => isset( $options['location_city'] ) ? $options['location_city'] : '',
+					"business_state"       => isset( $options['location_state'] ) ? $options['location_state'] : '',
+					"business_zipcode"     => isset( $options['location_zipcode'] ) ? $options['location_zipcode'] : '',
+					"business_country"     => isset( $options['location_country'] ) ? $options['location_country'] : '',
+					"business_phone"       => isset( $options['location_phone'] ) ? $options['location_phone'] : '',
+					"business_phone_2nd"   => isset( $options['location_phone_2nd'] ) ? $options['location_phone_2nd'] : '',
+					"business_fax"         => isset( $options['location_fax'] ) ? $options['location_fax'] : '',
+					"business_email"       => isset( $options['location_email'] ) ? $options['location_email'] : '',
 					"business_description" => get_option( "blogname" ) . ' - ' . get_option( "blogdescription" ),
 					"business_url"         => wpseo_xml_sitemaps_base_url( '' ),
 					"coords"               => array(
@@ -519,6 +528,11 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 						'long' => $options['location_coords_long'],
 					)
 				);
+
+				// If not Business type is chosen, set allback to general Business type
+				if( '' == $business['business_type'] ) {
+					$business['business_type'] = 'LocalBusiness';
+				}
 
 				array_push( $locations["businesses"], $business );
 			}
@@ -609,7 +623,7 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 		/**
 		 * Creates the wpseo_locations Custom Post Type
 		 */
-		function create_custom_post_type() {
+		public function create_custom_post_type() {
 			/* Locations as Custom Post Type */
 			$label_singular = !empty( $this->options['locations_label_singular'] ) ? $this->options['locations_label_singular'] : __( 'Location', 'yoast-local-seo' );
 			$label_plural = !empty( $this->options['locations_label_plural'] ) ? $this->options['locations_label_plural'] : __( 'Locations', 'yoast-local-seo' );
@@ -634,8 +648,8 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 				'show_ui'              => true,
 				'capability_type'      => 'post',
 				'hierarchical'         => false,
-				'rewrite'              => array( 'slug' => $slug ),
-				'has_archive'          => $slug,
+				'rewrite'              => array( 'slug' => esc_attr( $slug ) ),
+				'has_archive'          => esc_attr( $slug ),
 				'query_var'            => true,
 				'supports'             => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', 'publicize', 'wpcom-markdown' )
 			);
@@ -647,7 +661,7 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 		/**
 		 * Create custom taxonomy for wpseo_locations Custom Post Type
 		 */
-		function create_taxonomies() {
+		public function create_taxonomies() {
 
 			$labels = array(
 				'name'              => __( 'Location categories', 'yoast-local-seo' ),
@@ -672,7 +686,7 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 				'show_admin_column'     => true,
 				'update_count_callback' => '_update_post_term_count',
 				'query_var'             => true,
-				'rewrite' 				=> array( 'slug' => $slug )
+				'rewrite' 				=> array( 'slug' => esc_attr( $slug ) )
 			);
 			$args = apply_filters( 'wpseo_local_custom_taxonomy_args', $args );
 
@@ -686,8 +700,27 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 		/**
 		 * Call filter to exclude taxonomies from sitemap
 		 */
-		function exclude_taxonomy() {
+		public function exclude_taxonomy() {
 			add_filter( 'wpseo_sitemap_exclude_taxonomy', array( $this, 'exclude_taxonomy_for_sitemap' ), 10, 2 );
+		}
+
+		/**
+		 * Filter the WPSEO primary term taxonomies to make sure the location categories are added to the array.
+		 *
+		 * Enable primary term for location categories, by adding this to the taxonomies array.
+		 *
+		 * @param array  $taxonomies An array of taxonomy objects that are primary_term enabled.
+		 * @param string $post_type The post type for which to filter the taxonomies.
+		 * @param array  $all_taxonomies All taxonomies for this post type, even ones that don't have primary term.
+		 *
+		 * @return array
+		 */
+		public function filter_wpseo_primary_term_taxonomies( $taxonomies, $post_type, $all_taxonomies ) {
+			if( isset( $all_taxonomies['wpseo_locations_category'] ) ) {
+				$taxonomies['wpseo_locations_category'] = $all_taxonomies['wpseo_locations_category'];
+			}
+
+			return $taxonomies;
 		}
 
 		/**
@@ -698,7 +731,7 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 		 * @param bool   $setthumb If there's an image in the import file, then set is as a Featured Image
 		 * @return int|WP_Error attachment ID. Returns WP_Error when upload goes wrong
 		 */
-		function insert_attachment( $post_id, $image_url, $setthumb = false ) {
+		public function insert_attachment( $post_id, $image_url, $setthumb = false ) {
 
 			$file_array = array();
 			$description = get_the_title( $post_id );
@@ -738,7 +771,7 @@ if ( !class_exists( 'WPSEO_Local_Core' ) ) {
 		 * @link http://schema.org/docs/full.html In the bottom of this page is a list of Local Business types.
 		 * @return array
 		 */
-		function get_local_business_types() {
+		public function get_local_business_types() {
 			return array(
 				"Organization" => "Organization",
 				"Corporation" => "Corporation",

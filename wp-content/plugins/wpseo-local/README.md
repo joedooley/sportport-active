@@ -2,7 +2,7 @@ Local SEO
 =========
 Requires at least: 4.0<br/>
 Tested up to: 4.4<br/>
-Stable tag: 3.0
+Stable tag: 3.1
 Depends: wordpress-seo
 
 Description
@@ -15,17 +15,34 @@ Changelog
 
 Trunk
 ------------
-### 3.0: November 18th, 2015
-
-* Synchronized plugin version with all other Yoast SEO plugins for WordPress.
+### 3.1: March 2nd, 2015
 
 * Bugfixes
 	* Fixes deprecation warnings for filters that have been removed in Yoast SEO 3.0
 	* Fixed content error for Local admin page (iframe of lseo.com)
 	* Fixed mixed content issue for XSL
+	* Fixed grammar issues
+	* Fixed issue where not all data was copied from another location
+	* Fixed issue where 'show_email' was not working in 'wpseo_map' shortcode
+	* Removed undefined indexes throughout the plugin
+	* Fixed a bug that caused the store locator to only display one location if multiple locations with the same postal code were found.
+	* Fixed a bug in the enhanced search function that caused wrong pages to be returned in search
+	* Added XSS prevention measures.
 
 * Enhancements
 	* Makes sure location specific content analysis checks work well with the Real Time content analysis tool in Yoast SEO 3.0.
+	* Added Email, Fax, Chamber of Commerce, VAT ID, Tax ID and 3 note fields to the import
+	* Added $atts as extra variable to the 'wpseo_opening_hours_time' filter
+	* If either the opening or closing time is set to closed, opening hours wil now display this as closed.
+	* Added 4 new filters to filter shortcode attributes: shortcode_atts_wpseo_local_wpseo_local_show_map, shortcode_atts_wpseo_local_opening_hours, shortcode_atts_wpseo_local_show_address and shortcode_atts_wpseo_local_show_all_locations
+    * Use the WordPress option for 'first day of the week' as first day in the opening hours widget
+    * Added feature where opening hours can now be shown per day (or multiple days)
+    * Updated widget constructors to be compatible with PHP 7
+    * Added a filter 'wpseo_local_search_custom_fields' to alter the custom fields that should be searched
+
+### 3.0: November 18th, 2015
+
+* Synchronized plugin version with all other Yoast SEO plugins for WordPress.
 
 ### 1.3.8
 * Bugfix:

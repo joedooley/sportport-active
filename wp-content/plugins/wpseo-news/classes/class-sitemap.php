@@ -46,7 +46,12 @@ class WPSEO_News_Sitemap {
 	 */
 	public function init() {
 		if ( isset( $GLOBALS['wpseo_sitemaps'] ) ) {
-			$GLOBALS['wpseo_sitemaps']->register_sitemap( WPSEO_News::get_sitemap_name( false ), array( $this, 'build' ) );
+			$basename = WPSEO_News::get_sitemap_name( false );
+
+			$GLOBALS['wpseo_sitemaps']->register_sitemap( $basename, array( $this, 'build' ) );
+			if ( method_exists( $GLOBALS['wpseo_sitemaps'], 'register_xsl' ) ) {
+				$GLOBALS['wpseo_sitemaps']->register_xsl( $basename, array( $this, 'build_news_sitemap_xsl' ) );
+			}
 		}
 	}
 
@@ -74,7 +79,7 @@ class WPSEO_News_Sitemap {
 	 * @return object
 	 */
 	public function set_stylesheet_cache( $target_object ) {
-		$target_object->set_stylesheet( "\n" . '<?xml-stylesheet type="text/xsl" href="' . $this->get_sitemap_stylesheet() . '"?>' );
+		$target_object->set_stylesheet( $this->get_stylesheet_line() );
 		return $target_object;
 	}
 
@@ -82,9 +87,8 @@ class WPSEO_News_Sitemap {
 	 * Build the sitemap and push it to the XML Sitemaps Class instance for display.
 	 */
 	public function build() {
-		$GLOBALS['wpseo_sitemaps']->set_stylesheet( '<?xml-stylesheet type="text/xsl" href="' .  $this->get_sitemap_stylesheet() .' "?>' );
-
 		$GLOBALS['wpseo_sitemaps']->set_sitemap( $this->build_sitemap() );
+		$GLOBALS['wpseo_sitemaps']->set_stylesheet( $this->get_stylesheet_line() );
 	}
 
 	/**
@@ -107,8 +111,36 @@ class WPSEO_News_Sitemap {
 		return $output;
 	}
 
-	private function get_sitemap_stylesheet() {
-		return preg_replace( '/^http[s]?:/', '', plugin_dir_url( WPSEO_News::get_file() ) ) . 'assets/xml-news-sitemap.xsl';
+	/**
+	 * Outputs the XSL file
+	 */
+	public function build_news_sitemap_xsl() {
+		$protocol = 'HTTP/1.1';
+		if ( filter_input( INPUT_SERVER, 'SERVER_PROTOCOL' ) !== '' ) {
+			$protocol = sanitize_text_field( filter_input( INPUT_SERVER, 'SERVER_PROTOCOL' ) );
+		}
+		// Force a 200 header and replace other status codes.
+		header( $protocol . ' 200 OK', true, 200 );
+		// Set the right content / mime type
+		header( 'Content-Type: text/xml' );
+		// Prevent the search engines from indexing the XML Sitemap.
+		header( 'X-Robots-Tag: noindex, follow', true );
+		// Make the browser cache this file properly.
+		header( 'Pragma: public' );
+		header( 'Cache-Control: maxage=' . YEAR_IN_SECONDS );
+		header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', ( time() + YEAR_IN_SECONDS ) ) . ' GMT' );
+		require dirname( WPSEO_NEWS_FILE ) . '/assets/xml-news-sitemap-xsl.php';
+		die();
+	}
+
+	/**
+	 * Getter for stylesheet url
+	 *
+	 * @return string
+	 */
+	private function get_stylesheet_line() {
+		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . home_url( 'news-sitemap.xsl' ) . '"?>';
+		return $stylesheet_url;
 	}
 
 	/**

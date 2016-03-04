@@ -119,7 +119,7 @@
 					</xsl:if>
 				</div>
 				<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-				<script type="text/javascript" src="cdn.yoast.com/js/jquery.tablesorter.min.js"></script>
+				<script type="text/javascript" src="//cdn.yoast.com/js/jquery.tablesorter.min.js"></script>
 				<script	type="text/javascript"><![CDATA[
 					$(document).ready(function() { 
 				        $("#sitemap").tablesorter( { widgets: ['zebra'] } ); 
