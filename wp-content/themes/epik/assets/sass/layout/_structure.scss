@@ -1,0 +1,130 @@
+// Site Structure and Layout
+
+// Site Containers
+
+.site-inner,
+.wrap {
+	margin: 0 auto;
+	max-width: 1200px;
+
+	@include media($xxlarge-screen-up) {
+		max-width: 960px;
+	}
+
+	@include media($xlarge-screen-up) {
+		width: 800px;
+	}
+
+	@include media($large-screen-up) {
+		width: 100%; 
+		padding-left: 5%;
+		padding-right: 5%;
+	}
+}
+
+.site-inner {
+	clear: both;
+	padding-top: 60px;
+
+	@include media($xlarge-screen-up) {
+		background: none;
+	}
+
+}
+
+
+// Column Widths and Positions for Sidebar Layouts
+
+.content-sidebar-sidebar .content-sidebar-wrap,
+.sidebar-content-sidebar .content-sidebar-wrap,
+.sidebar-sidebar-content .content-sidebar-wrap {
+	width: 980px;
+
+	@include media($xxlarge-screen-up) {
+		width: 740px;
+	}
+
+	@include media($xlarge-screen-up) {
+		width: 100%;
+	}
+
+}
+
+.content-sidebar-sidebar .content-sidebar-wrap {
+	float: left;
+}
+
+.sidebar-content-sidebar .content-sidebar-wrap,
+.sidebar-sidebar-content .content-sidebar-wrap {
+	float: right;
+}
+
+// Content Area
+
+.content {
+	float: right;
+	font-size: 15px;
+	width: 800px;
+
+	@include media($xxlarge-screen-up) {
+		 width: 620px;
+	}
+
+	@include media($xlarge-screen-up) {
+		width: 100%;
+	}
+}
+
+.content-sidebar .content,
+.content-sidebar-sidebar .content,
+.sidebar-content-sidebar .content {
+	float: left;
+
+}
+
+.content-sidebar-sidebar .content,
+.sidebar-content-sidebar .content,
+.sidebar-sidebar-content .content {
+	width: 580px;
+
+	@include media($xlarge-screen-up) {
+		width: 100%;
+	}
+
+}
+
+.full-width-content .content {
+	width: 100%;
+}
+
+.sidebar-primary {
+	background: none;
+	float: right;
+	width: 360px;
+
+	@include media($xxlarge-screen-up) {
+		width: 300px;
+	}
+
+	@include media($xlarge-screen-up) {
+		width: 100%;
+	}
+}
+
+// Secondary Sidebar
+
+.sidebar-secondary {
+	float: left;
+	width: 180px;
+
+	@include media($xlarge-screen-up) {
+		width: 100%;
+	}
+
+}
+
+.content-sidebar-sidebar .sidebar-secondary {
+	float: right;
+}
+
+

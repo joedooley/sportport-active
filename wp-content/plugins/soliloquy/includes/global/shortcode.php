@@ -472,7 +472,7 @@ class Soliloquy_Shortcode {
         $output  = apply_filters( 'soliloquy_output_before_link', $output, $id, $item, $data, $i );
         
         // Filter CSS classes to apply to the link
-        $classes = apply_filters( 'soliloquy_get_video_slide_link_classes', array( 'soliloquy-video-link' ), $id, $item, $data, $i );
+        $classes = apply_filters( 'soliloquy_get_video_slide_link_classes', array( 'soliloquy-video-link', 'soliloquy-link' ), $id, $item, $data, $i );
 
         $output .= '<a href="#" class="' . implode( ' ', $classes ) . '" title="' . esc_attr( $item['title'] ) . '"' . apply_filters( 'soliloquy_output_link_attr', '', $id, $item, $data, $i ) . '>';
 
@@ -941,7 +941,6 @@ class Soliloquy_Shortcode {
                         soliloquy_container_<?php echo $data['id']; ?>.find('.soliloquy-controls').addClass('soliloquy-hide');
                     }
                     soliloquy_<?php echo $data['id']; ?>.find('.soliloquy-item:not(.soliloquy-clone):eq(' + currentIndex + ')').addClass('soliloquy-active-slide').attr('aria-hidden','false');
-                    soliloquy_container_<?php echo $data['id']; ?>.find('.soliloquy-clone').find('*').removeAttr('id');
 
                     soliloquy_container_<?php echo $data['id']; ?>.find('.soliloquy-controls-direction').attr('aria-label','carousel buttons').attr('aria-controls', '<?php echo 'soliloquy-container-' . $data['id']; ?>');
                     soliloquy_container_<?php echo $data['id']; ?>.find('.soliloquy-controls-direction a.soliloquy-prev').attr('aria-label','previous');
@@ -951,7 +950,17 @@ class Soliloquy_Shortcode {
                     
                     soliloquy_container_<?php echo $data['id']; ?>.parent().attr('data-soliloquy-loaded', 1);
 
+                    <?php if (  $this->get_config( 'autoplay_video', $data ) ){ ?>
+	                    
+				    var slide_video = soliloquy_<?php echo $data['id']; ?>.find('.soliloquy-item:not(.soliloquy-clone):eq(' + currentIndex + ') .soliloquy-video-icon');
+				    if ( slide_video.length > 0 ) {
+				                setTimeout(function(){
+				                    slide_video.trigger('click');
+				                }, 500);
+				    }
                     <?php
+	                    
+	                }
                     do_action( 'soliloquy_api_on_load', $data ); 
                     ?>
                 },
@@ -999,6 +1008,17 @@ class Soliloquy_Shortcode {
                         <?php
                     }
                     
+                    if (  $this->get_config( 'autoplay_video', $data ) ){ ?>
+	                    
+				    var slide_video = $(element).find('.soliloquy-video-icon');
+				    if ( slide_video.length > 0 ) {
+				                setTimeout(function(){
+				                    slide_video.trigger('click');
+				                }, 500);
+				    }
+                    <?php
+	                    
+	                }                   
                     do_action( 'soliloquy_api_after_transition', $data ); ?>
                 }
                 <?php do_action( 'soliloquy_api_config_end', $data ); ?>
@@ -1802,12 +1822,13 @@ class Soliloquy_Shortcode {
     public function get_local_video_args( $data ) {
 
         $args = array(
-            'autoplay'  => 1,
-            'playpause' => 1,
-            'progress'  => 1,
-            'current'   => 1,
-            'duration'  => 1,
-            'volume'    => 1,
+            'autoplay'  	=> 1,
+            'playpause' 	=> 1,
+            'progress'  	=> 1,
+            'current'   	=> 1,
+            'duration'  	=> 1,
+            'volume'    	=> 1,
+            'fullscreen'	=> 1,
         );
 
         return apply_filters( 'soliloquy_local_video_args', $args, $data );

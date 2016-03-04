@@ -60,12 +60,13 @@ function soliloquyYouTubeOnStateChange(event){
 }
 function onYouTubeIframeAPIReady(){}
 function soliloquyVimeoVids(data, id, width, height, holder, $){
+
     // Immediately make the holder visible and increase z-index to overlay the player icon.
     $('#' + holder).show().css({'display':'block','z-index':'1210'});
-
     // Load a new video into the slider.
     if ( $f ) {
         var attrs = {};
+
         $.each($('#' + holder)[0].attributes, function(idx, attr){
             attrs[attr.nodeName] = attr.nodeValue;
         });
@@ -82,10 +83,29 @@ function soliloquyVimeoVids(data, id, width, height, holder, $){
 
         // Store a reference to the video object for use with the API.
         soliloquy_vimeo[id] = $f($('#' + holder)[0]);
+       	var slider_id = $('#' + holder).data('soliloquy-slider-id');
+
         soliloquy_vimeo[id].addEvent('ready', function(){
-            soliloquy_vimeo[id].addEvent('play', soliloquyVimeoSliderPause);
-            soliloquy_vimeo[id].addEvent('pause', soliloquyVimeoSliderStart);
-            soliloquy_vimeo[id].addEvent('finish', soliloquyVimeoSliderStart);
+	        //stopAuto when video ready, prevents autoplay while buffering
+	        if ( soliloquy_slider[slider_id] ) {
+				soliloquy_slider[slider_id].stopAuto();
+    		}
+        	soliloquy_vimeo[id].addEvent('play', function(){
+
+	            if ( soliloquy_slider[slider_id] ) {
+					soliloquy_slider[slider_id].stopAuto();
+    			}
+            });
+            soliloquy_vimeo[id].addEvent('pause', function(){
+	        	if ( soliloquy_slider[slider_id].getSetting('auto') ) {
+					soliloquy_slider[slider_id].startAuto();
+        		}
+            });
+            soliloquy_vimeo[id].addEvent('finish', function(){
+	       		if ( soliloquy_slider[slider_id].getSetting('auto') ) {
+		   			soliloquy_slider[slider_id].startAuto();
+        		}
+            });
         });
     }
 
@@ -181,17 +201,21 @@ function soliloquyLocalVids(data, id, width, height, holder, $){
     if (data.volume === 1) {
         features.push('volume');
     }
-
+    if (data.fullscreen === 1) {
+        features.push('fullscreen');
+    }
+    
     // Init MediaElementPlayer
     soliloquy_local[id] = new MediaElementPlayer( 'video#' + holder, {
         features: features,
         success: function( mediaElement, domObject ) {
-            if (data.autoplay === 1) {
-                mediaElement.addEventListener('canplay', function() {
-                    // Player is ready
-                    mediaElement.play();
-                }, false);
+
+            if (data.autoplay == 1) {
+	            
+				mediaElement.play();
+
             }
+            
         }
     });
 

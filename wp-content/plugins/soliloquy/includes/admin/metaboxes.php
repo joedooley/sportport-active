@@ -526,14 +526,14 @@ class Soliloquy_Metaboxes {
         ?>
         <div class="soliloquy-meta-helper <?php echo $class; ?>">
             <span class="soliloquy-meta-close-text"><?php _e( '(click the icon to open and close the overlay dialog)', 'soliloquy' ); ?></span>
-            <a href="#" class="soliloquy-meta-icon" title="<?php esc_attr__( 'Click here to view meta information about this slider.', 'soliloquy' ); ?>"></a>
+            <a href="#" class="soliloquy-meta-icon" title="<?php esc_attr_e( 'Click here to view meta information about this slider.', 'soliloquy' ); ?>"></a>
             <div class="soliloquy-meta-information">
-                <p><?php _e( 'You can place this slider anywhere into your posts, pages, custom post types or widgets by using <strong>one</strong> the shortcode(s) below:', 'soliloquy' ); ?></p>
+                <p><?php _e( 'You can place this slider anywhere into your posts, pages, custom post types or widgets by using <strong>one</strong> of the shortcode(s) below:', 'soliloquy' ); ?></p>
                 <code><?php echo '[soliloquy id="' . $post->ID . '"]'; ?></code>
                 <?php if ( ! empty( $slider_data['config']['slug'] ) ) : ?>
                     <br><code><?php echo '[soliloquy slug="' . $slider_data['config']['slug'] . '"]'; ?></code>
                 <?php endif; ?>
-                <p><?php _e( 'You can also place this slider into your template files by using <strong>one</strong> the template tag(s) below:', 'soliloquy' ); ?></p>
+                <p><?php _e( 'You can also place this slider into your template files by using <strong>one</strong> of the template tag(s) below:', 'soliloquy' ); ?></p>
                 <code><?php echo 'if ( function_exists( \'soliloquy\' ) ) { soliloquy( \'' . $post->ID . '\' ); }'; ?></code>
                 <?php if ( ! empty( $slider_data['config']['slug'] ) ) : ?>
                     <br><code><?php echo 'if ( function_exists( \'soliloquy\' ) ) { soliloquy( \'' . $slider_data['config']['slug'] . '\', \'slug\' ); }'; ?></code>
@@ -675,7 +675,7 @@ class Soliloquy_Metaboxes {
                     <div class="media-sidebar">
                         <div class="soliloquy-meta-sidebar">
                             <h3><?php _e( 'Helpful Tips', 'soliloquy' ); ?></h3>
-                            <strong>Creating Video Slides</strong>
+                            <strong><?php _e( 'Creating Video Slides', 'soliloquy' ); ?></strong>
                             <p><?php _e( 'Video links can be from either YouTube, Vimeo, Wistia or local videos. They <strong>must</strong> follow one of the formats listed below:', 'soliloquy' ) ?></p>
                             
                             <div class="soliloquy-accepted-urls">                               
@@ -1004,6 +1004,15 @@ class Soliloquy_Metaboxes {
                             <p class="description"><?php _e( 'The starting slide number (index based, starts at 0).', 'soliloquy' ); ?></p>
                         </td>
                     </tr>
+                    <tr id="soliloquy-config-autoplay-video-box">
+                        <th scope="row">
+                            <label for="soliloquy-config-autoplay-video"><?php _e( 'Autoplay Video?', 'soliloquy' ); ?></label>
+                        </th>
+                        <td>
+                            <input id="soliloquy-config-autoplay-video" type="checkbox" name="_soliloquy[autoplay_video]" value="<?php echo $this->get_config( 'autoplay_video', $this->get_config_default( 'autoplay_video' ) ); ?>" <?php checked( $this->get_config( 'autoplay_video', $this->get_config_default( 'autoplay_video' ) ), 1 ); ?> />
+                            <span class="description"><?php _e( 'Enables or disables autoplay on videos.', 'soliloquy' ); ?></span>
+                        </td>
+                    </tr>              
                     <tr id="soliloquy-config-aria-live-box">
                         <th scope="row">
                             <label for="soliloquy-config-aria-live"><?php _e( 'ARIA Live Value', 'soliloquy' ); ?></label>
@@ -1214,39 +1223,40 @@ class Soliloquy_Metaboxes {
         $settings['id'] = $post_id;
 
         // Save the config settings.
-        $settings['config']['type']          = isset( $_POST['_soliloquy']['type'] ) ? $_POST['_soliloquy']['type'] : $this->get_config_default( 'type' );
-        $settings['config']['slider_size']   = esc_attr( $_POST['_soliloquy']['slider_size'] );
-        $settings['config']['slider_theme']  = esc_attr( $_POST['_soliloquy']['slider_theme'] );
-        $settings['config']['slider_width']  = absint( $_POST['_soliloquy']['slider_width'] );
-        $settings['config']['slider_height'] = absint( $_POST['_soliloquy']['slider_height'] );
-        $settings['config']['position']      = esc_attr( $_POST['_soliloquy']['position'] );
-        $settings['config']['transition']    = esc_attr( $_POST['_soliloquy']['transition'] );
-        $settings['config']['duration']      = absint( $_POST['_soliloquy']['duration'] );
-        $settings['config']['speed']         = absint( $_POST['_soliloquy']['speed'] );
+        $settings['config']['type']         	= isset( $_POST['_soliloquy']['type'] ) ? $_POST['_soliloquy']['type'] : $this->get_config_default( 'type' );
+        $settings['config']['slider_size']  	= esc_attr( $_POST['_soliloquy']['slider_size'] );
+        $settings['config']['slider_theme'] 	= esc_attr( $_POST['_soliloquy']['slider_theme'] );
+        $settings['config']['slider_width'] 	= absint( $_POST['_soliloquy']['slider_width'] );
+        $settings['config']['slider_height']	= absint( $_POST['_soliloquy']['slider_height'] );
+        $settings['config']['position']     	= esc_attr( $_POST['_soliloquy']['position'] );
+        $settings['config']['transition']   	= esc_attr( $_POST['_soliloquy']['transition'] );
+        $settings['config']['duration']     	= absint( $_POST['_soliloquy']['duration'] );
+        $settings['config']['speed']        	= absint( $_POST['_soliloquy']['speed'] );
         $settings['config']['caption_position'] = esc_attr( $_POST['_soliloquy']['caption_position'] );
-        $settings['config']['caption_delay'] = absint( $_POST['_soliloquy']['caption_delay'] );
-        $settings['config']['gutter']        = absint( $_POST['_soliloquy']['gutter'] );
-        $settings['config']['auto']          = isset( $_POST['_soliloquy']['auto'] ) ? 1 : 0;
-        $settings['config']['smooth']        = isset( $_POST['_soliloquy']['smooth'] ) ? 1 : 0;
-        $settings['config']['dimensions']    = isset( $_POST['_soliloquy']['dimensions'] ) ? 1 : 0;
-        $settings['config']['arrows']        = isset( $_POST['_soliloquy']['arrows'] ) ? 1 : 0;
-        $settings['config']['control']       = isset( $_POST['_soliloquy']['control'] ) ? 1 : 0;
-        $settings['config']['pauseplay']     = isset( $_POST['_soliloquy']['pauseplay'] ) ? 1 : 0;
-        $settings['config']['mobile_caption']= isset( $_POST['_soliloquy']['mobile_caption'] ) ? 1 : 0;
-        $settings['config']['hover']         = isset( $_POST['_soliloquy']['hover'] ) ? 1 : 0;
-        $settings['config']['pause']         = isset( $_POST['_soliloquy']['pause'] ) ? 1 : 0;
-        $settings['config']['mousewheel']    = isset( $_POST['_soliloquy']['mousewheel'] ) ? 1 : 0;
-        $settings['config']['slider']        = isset( $_POST['_soliloquy']['slider'] ) ? 1 : 0;
-        $settings['config']['mobile']        = isset( $_POST['_soliloquy']['mobile'] ) ? 1 : 0;
-        $settings['config']['mobile_width']  = absint( $_POST['_soliloquy']['mobile_width'] );
-        $settings['config']['mobile_height'] = absint( $_POST['_soliloquy']['mobile_height'] );
-        $settings['config']['keyboard']      = isset( $_POST['_soliloquy']['keyboard'] ) ? 1 : 0;
-        $settings['config']['css']           = isset( $_POST['_soliloquy']['css'] ) ? 1 : 0;
-        $settings['config']['loop']          = isset( $_POST['_soliloquy']['loop'] ) ? 1 : 0;
-        $settings['config']['random']        = isset( $_POST['_soliloquy']['random'] ) ? 1 : 0;
-        $settings['config']['delay']         = absint( $_POST['_soliloquy']['delay'] );
-        $settings['config']['start']         = absint( $_POST['_soliloquy']['start'] );
-        $settings['config']['aria_live']     = esc_attr( $_POST['_soliloquy']['aria_live'] );
+        $settings['config']['caption_delay'] 	= absint( $_POST['_soliloquy']['caption_delay'] );
+        $settings['config']['gutter']        	= absint( $_POST['_soliloquy']['gutter'] );
+        $settings['config']['auto']          	= isset( $_POST['_soliloquy']['auto'] ) ? 1 : 0;
+        $settings['config']['smooth']        	= isset( $_POST['_soliloquy']['smooth'] ) ? 1 : 0;
+        $settings['config']['dimensions']    	= isset( $_POST['_soliloquy']['dimensions'] ) ? 1 : 0;
+        $settings['config']['arrows']        	= isset( $_POST['_soliloquy']['arrows'] ) ? 1 : 0;
+        $settings['config']['control']       	= isset( $_POST['_soliloquy']['control'] ) ? 1 : 0;
+        $settings['config']['pauseplay']     	= isset( $_POST['_soliloquy']['pauseplay'] ) ? 1 : 0;
+        $settings['config']['mobile_caption']	= isset( $_POST['_soliloquy']['mobile_caption'] ) ? 1 : 0;
+        $settings['config']['hover']         	= isset( $_POST['_soliloquy']['hover'] ) ? 1 : 0;
+        $settings['config']['pause']        	= isset( $_POST['_soliloquy']['pause'] ) ? 1 : 0;
+        $settings['config']['mousewheel']   	= isset( $_POST['_soliloquy']['mousewheel'] ) ? 1 : 0;
+        $settings['config']['slider']        	= isset( $_POST['_soliloquy']['slider'] ) ? 1 : 0;
+        $settings['config']['mobile']        	= isset( $_POST['_soliloquy']['mobile'] ) ? 1 : 0;
+        $settings['config']['mobile_width']  	= absint( $_POST['_soliloquy']['mobile_width'] );
+        $settings['config']['mobile_height'] 	= absint( $_POST['_soliloquy']['mobile_height'] );
+        $settings['config']['keyboard']      	= isset( $_POST['_soliloquy']['keyboard'] ) ? 1 : 0;
+        $settings['config']['css']           	= isset( $_POST['_soliloquy']['css'] ) ? 1 : 0;
+        $settings['config']['loop']          	= isset( $_POST['_soliloquy']['loop'] ) ? 1 : 0;
+        $settings['config']['random']        	= isset( $_POST['_soliloquy']['random'] ) ? 1 : 0;
+        $settings['config']['delay']         	= absint( $_POST['_soliloquy']['delay'] );
+        $settings['config']['start']         	= absint( $_POST['_soliloquy']['start'] );
+        $settings['config']['autoplay_video']  = isset( $_POST['_soliloquy']['autoplay_video'] ) ? 1 : 0;
+        $settings['config']['aria_live']     	= esc_attr( $_POST['_soliloquy']['aria_live'] );
 
         // Misc
         $settings['config']['classes']       = explode( "\n", $_POST['_soliloquy']['classes'] );

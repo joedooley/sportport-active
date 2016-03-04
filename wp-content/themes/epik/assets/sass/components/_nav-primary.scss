@@ -1,0 +1,37 @@
+// ! Nav Primary
+
+.nav-primary {
+	float: right;
+	margin-top: em(25);
+
+	@include media($xlarge-screen-up) {
+		width: 100%;
+	}
+
+	a {
+		color: #fff;
+		font-size: em(14);
+		text-decoration: none;
+
+		&:hover,
+		&:focus,
+		&:active {
+			color: #fff;
+			font-weight: bold;
+		}
+	}
+
+}
+
+.nav-primary .genesis-nav-menu li.last a {
+	padding-right: 0;
+}
+
+.nav-primary .sub-menu {
+	border-top: 1px solid #ddd;
+	z-index: 1;
+}
+
+.nav-primary .genesis-nav-menu li li {
+	margin-left: 0;
+}

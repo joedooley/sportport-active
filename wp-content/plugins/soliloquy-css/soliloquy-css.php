@@ -5,7 +5,7 @@
  * Description: Enables custom CSS output for Soliloquy sliders.
  * Author:      Thomas Griffin
  * Author URI:  http://thomasgriffinmedia.com
- * Version:     2.1.2
+ * Version:     2.1.3
  * Text Domain: soliloquy-css
  * Domain Path: languages
  *
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Define necessary addon constants.
 define( 'SOLILOQUY_CUSTOM_CSS_PLUGIN_NAME', 'Soliloquy - CSS Addon' );
-define( 'SOLILOQUY_CUSTOM_CSS_PLUGIN_VERSION', '2.1.2' );
+define( 'SOLILOQUY_CUSTOM_CSS_PLUGIN_VERSION', '2.1.3' );
 define( 'SOLILOQUY_CUSTOM_CSS_PLUGIN_SLUG', 'soliloquy-css' );
 
 add_action( 'plugins_loaded', 'soliloquy_custom_css_plugins_loaded' );

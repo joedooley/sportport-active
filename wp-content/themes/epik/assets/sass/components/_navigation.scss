@@ -1,0 +1,60 @@
+/*!
+Site Navigation
+---------------------------------------------------------------------------------------------------- */
+
+.genesis-nav-menu {
+	clear: both;
+	line-height: 1;
+	width: 100%;
+}
+
+.genesis-nav-menu .menu-item {
+	display: inline-block;
+	text-align: left;
+}
+
+.genesis-nav-menu a {
+	border-bottom-width: 0;
+	color: #232525;
+	display: block;
+	font-size: 12px;
+	font-size: 1.2rem;
+	font-weight: 400;
+	padding: 10px;
+	text-transform: uppercase;
+}
+
+.genesis-nav-menu .sub-menu {
+	background-color: #f93;
+	left: -9999px;
+	opacity: 0;
+	position: absolute;
+	letter-spacing: .2em;
+	border-bottom: 1px solid $base-border-color;
+}
+
+.genesis-nav-menu .sub-menu,
+.genesis-nav-menu .sub-menu a {
+	width: 180px;
+}
+
+.genesis-nav-menu .sub-menu .sub-menu {
+	margin: -44px 0 0 179px;
+}
+
+.genesis-nav-menu .sub-menu a {
+	border: 1px solid #eee;
+	border-top: 0;
+	padding: 15px;
+	position: relative;
+	font-size: 70%;
+}
+
+.genesis-nav-menu .menu-item:hover {
+	position: static;
+}
+
+.genesis-nav-menu .menu-item:hover > .sub-menu {
+	left: auto;
+	opacity: 1;
+}

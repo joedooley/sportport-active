@@ -1,0 +1,35 @@
+/*! Secondary Navigation
+--------------------------------------------- */
+
+.nav-secondary {
+	background: #222;
+	clear: both;
+}
+
+.nav-secondary .genesis-nav-menu a {
+	font-size: 12px;
+	padding: 8px 13px;
+}
+
+.nav-secondary .genesis-nav-menu > .right {
+	padding: 8px 0 8px 20px;
+}
+
+.nav-secondary a:hover,
+.nav-secondary .current-menu-item > a {
+	color: #aaa;
+}
+
+.nav-secondary .genesis-nav-menu > .right > a,
+.nav-secondary .genesis-nav-menu > .right > a:hover {
+	background: none;
+	padding: 0;
+}
+
+.nav-secondary .sub-menu a:hover {
+	color: #aaa;
+}
+
+.nav-secondary .genesis-nav-menu .sub-menu .sub-menu {
+	margin: -34px 0 0 201px;
+}

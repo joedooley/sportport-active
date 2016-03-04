@@ -1,0 +1,56 @@
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.1/phpunit.xsd"
+		backupGlobals="false"
+		backupStaticAttributes="false"
+		bootstrap="tests/bootstrap.php"
+		colors="true"
+		convertErrorsToExceptions="true"
+		convertNoticesToExceptions="true"
+		convertWarningsToExceptions="true"
+		processIsolation="false"
+		stopOnError="false"
+		stopOnFailure="false"
+		stopOnIncomplete="false"
+		stopOnSkipped="false"
+		strict="false"
+		syntaxCheck="false"
+		verbose="true"
+	>
+	<testsuites>
+		<testsuite>
+			<directory prefix="test-" suffix=".php">./tests/</directory>
+		</testsuite>
+	</testsuites>
+	<groups>
+		<include>
+			<group>analyse_post_utils</group>
+			<group>embeds</group>
+			<group>extra_protocols</group>
+			<!-- //<group>html_analysis</group>-->
+			<group>meta_fields</group>
+			<group>shortcodes</group>
+			<group>video_post_types</group>
+			<group>detail_retrieval</group>
+
+			<group>integrated_post_analysis</group>
+		</include>
+		<exclude>
+			<group>problem_tests</group>
+		</exclude>
+	</groups>
+	<php>
+		<!-- All of the below are optional. If not set a 'default' WP install directory structure will be presumed -->
+		<env name="WP_TESTS_DIR" value="path-to-your-local-install-of-the-wp-testsuite"/>
+		<env name="WP_DEVELOP_DIR" value="path-to-your-local-install-of-the-wp-testsuite"/>
+		<env name="WP_DEVELOP_PLUGINS_DIR" value="path-to-local-dir-containing-all-supported-plugins"/>
+		<env name="WPSEO_PLUGIN_DIR" value="path-to-your-local-wpseo"/>
+		<env name="EMBEDLY_API_KEY" value=""/><!-- For detail retrieval through Embedly -->
+		<env name="GITHUB_API_KEY" value=""/><!-- For checking issue status -->
+		<env name="WP_TESTS_FORCE_KNOWN_BUGS" value="0"/>
+	</php>
+	<logging>
+		<log type="junit" target="./logfiles/videoseo-unit-tests.xml" logIncompleteSkipped="true"/>
+		<log type="json" target="./logfiles/videoseo-unit-tests.json"/>
+	</logging>
+</phpunit>

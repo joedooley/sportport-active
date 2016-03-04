@@ -1,0 +1,38 @@
+// Site Header
+
+.site-header {
+	background-color: #567;
+	border-bottom: 1px solid $base-border-color;
+	width: 100%;
+
+	@include media($xlarge-screen-up) {
+		padding-bottom: 30px;
+	}
+
+	.title-area {
+		float: left;
+
+		@include media($xxlarge-screen) {
+			width: 300px;
+		}
+
+		@include media($xlarge-screen-up) {
+			width: 100%;
+		}
+
+		.site-title {
+			margin: 0;
+
+			@include media($xlarge-screen-up) {
+				text-align: center;
+			}
+
+			img {
+				position: relative;
+				z-index: 999;
+				top: 30px;
+			}
+
+		}
+	}
+}
