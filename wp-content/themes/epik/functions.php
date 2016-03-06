@@ -46,67 +46,67 @@ function epik_customizer() {
 //* Remove the entry meta in the entry header (requires HTML5 theme support)
 remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
 
-/**
- * see https://journalxtra.com/wordpress/genesis-theme/integrate-woocommerce-genesis-themes/
- * on how to more fully integrate WooCommerce into Genesis
-*/
-/* WooCommerce Integration */
-
-remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
-remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
-
-add_action('woocommerce_before_main_content', 'vr_theme_wrapper_start', 10);
-add_action('woocommerce_after_main_content', 'vr_theme_wrapper_end', 10);
-
-function vr_theme_wrapper_start() {
-
- // Remove .entry class from WooCommerce div content container
- function vr_post_class( $wp_classes, $extra_classes )
- {
-     // List of the only WP generated classes that are not allowed
-     $blacklist = array( 'entry' );
-
-     // Blacklist result:
-     $wp_classes = array_diff( $wp_classes, $blacklist );
-
-     // Add the extra classes back untouched
-     return array_merge( $wp_classes, (array) $extra_classes );
- }
- add_filter( 'post_class', 'vr_post_class', 10, 2 );
-
- // Add 'page' class to <article>
- function vr_extra_article_class( $attributes ) {
-   $attributes['class'] = $attributes['class']. ' page';
-     return $attributes;
- }
- add_filter( 'genesis_attr_entry', 'vr_extra_article_class' );
-
- // Add containers around content
- do_action( 'genesis_before_entry' );
-
- printf( '<article %s>', genesis_attr( 'entry' ) );
-
- // uncomment to add post/page title
- /* do_action( 'genesis_entry_header' ); */
-
- // uncomment to add by-lines
- /* do_action( 'genesis_before_entry_content' ); */
-
- printf( '<div %s>', genesis_attr( 'entry-content' ) );
-}
-
-function vr_theme_wrapper_end() {
- echo '</div>';
-
- do_action( 'genesis_after_entry_content' );
-
- // Uncomment to display categories & tags
- /* do_action( 'genesis_entry_footer' ); */
-
- echo '</article>';
-
- do_action( 'genesis_after_entry' );
-}
+///**
+// * see https://journalxtra.com/wordpress/genesis-theme/integrate-woocommerce-genesis-themes/
+// * on how to more fully integrate WooCommerce into Genesis
+//*/
+///* WooCommerce Integration */
+//
+//remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
+//remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
+//
+//add_action('woocommerce_before_main_content', 'vr_theme_wrapper_start', 10);
+//add_action('woocommerce_after_main_content', 'vr_theme_wrapper_end', 10);
+//
+//function vr_theme_wrapper_start() {
+//
+// // Remove .entry class from WooCommerce div content container
+// function vr_post_class( $wp_classes, $extra_classes )
+// {
+//     // List of the only WP generated classes that are not allowed
+//     $blacklist = array( 'entry' );
+//
+//     // Blacklist result:
+//     $wp_classes = array_diff( $wp_classes, $blacklist );
+//
+//     // Add the extra classes back untouched
+//     return array_merge( $wp_classes, (array) $extra_classes );
+// }
+// add_filter( 'post_class', 'vr_post_class', 10, 2 );
+//
+// // Add 'page' class to <article>
+// function vr_extra_article_class( $attributes ) {
+//   $attributes['class'] = $attributes['class']. ' page';
+//     return $attributes;
+// }
+// add_filter( 'genesis_attr_entry', 'vr_extra_article_class' );
+//
+// // Add containers around content
+// do_action( 'genesis_before_entry' );
+//
+// printf( '<article %s>', genesis_attr( 'entry' ) );
+//
+// // uncomment to add post/page title
+// /* do_action( 'genesis_entry_header' ); */
+//
+// // uncomment to add by-lines
+// /* do_action( 'genesis_before_entry_content' ); */
+//
+// printf( '<div %s>', genesis_attr( 'entry-content' ) );
+//}
+//
+//function vr_theme_wrapper_end() {
+// echo '</div>';
+//
+// do_action( 'genesis_after_entry_content' );
+//
+// // Uncomment to display categories & tags
+// /* do_action( 'genesis_entry_footer' ); */
+//
+// echo '</article>';
+//
+// do_action( 'genesis_after_entry' );
+//}
 
 
 
