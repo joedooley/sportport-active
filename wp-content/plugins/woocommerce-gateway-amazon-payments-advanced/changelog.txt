@@ -1,0 +1,40 @@
+*** Amazon Payments Advanced Changelog ***
+
+2014.xx.xx - version 1.2.7
+* Disable login when subscription is in cart.
+
+2014.06.25 - version 1.2.6
+* Update registration url.
+* Bug fix for two button rendering.
+* Change for responsive widgets.
+* Standardized textdomain.
+* Improved handling for parsing first and last names.
+
+2014.06.06 - version 1.2.5
+* Fix for checking out when guest accounts are disabled.
+
+2014.03.14 - version 1.2.4
+* Remove urlencode from store name.
+
+2014.03.07 - version 1.2.3
+* Changed the request timeouts.
+
+2014.02.27 - version 1.2.2
+* Small bug fixes to prevent notices.
+
+2014.02.14 - version 1.2.1
+* CSS Tweak.
+* Fix reg link.
+
+2013.10.30 - version 1.2.0
+* Support for authorizing (and capturing) after an order is placed.
+* DE and UK support.
+* Correct encoding of site title.
+
+2013.09.16 - version 1.1.0
+* Added global to allow hook manipulation.
+* Added img for login button to improve performance.
+* Added option to control the cart button display (button, banner or disabled).
+
+2013.08.01 - version 1.0.0
+* First Release.
