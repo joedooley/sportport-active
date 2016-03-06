@@ -52,8 +52,26 @@ function spa_add_theme_support() {
 
 }
 
+
 //* Remove the entry meta in the entry header (requires HTML5 theme support)
 remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
+
+
+//* Customize search form input box text
+add_filter( 'genesis_search_text', function ( $text ) {
+	return esc_attr( 'Search...' );
+} );
+
+
+/**
+ * see http://www.carriedils.com/woocommerce-genesis-important-style/ about
+ * when using Woo and Genesis, we want Genesis CSS to load later
+ * Remove Genesis child theme style sheet
+ * @uses  genesis_meta  <genesis/lib/css/load-styles.php>
+ */
+remove_action( 'genesis_meta', 'genesis_load_stylesheet' );
+add_action( 'wp_enqueue_scripts', 'genesis_enqueue_main_stylesheet', 15 );
+
 
 
 add_action( 'init', 'spa_register_custom_image_sizes' );
@@ -69,9 +87,56 @@ function spa_register_custom_image_sizes() {
 }
 
 
-// Customize search form input box text
-add_filter( 'genesis_search_text', 'custom_search_text' );
-function custom_search_text( $text ) {
-	return esc_attr( 'Search...' );
+//* Modify breadcrumb arguments.
+add_filter( 'genesis_breadcrumb_args', 'sp_breadcrumb_args' );
+function sp_breadcrumb_args( $args ) {
+	$args['home']                    = 'Home';
+	$args['sep']                     = ' ::: ';
+	$args['list_sep']                = ', '; // Genesis 1.5 and later
+	$args['prefix']                  = '<div class="breadcrumb">';
+	$args['suffix']                  = '</div>';
+	$args['heirarchial_attachments'] = true; // Genesis 1.5 and later
+	$args['heirarchial_categories']  = true; // Genesis 1.5 and later
+	$args['display']                 = true;
+	$args['labels']['prefix']        = '';
+	$args['labels']['author']        = 'SportPort ';
+	$args['labels']['category']      = 'SportPort '; // Genesis 1.6 and later
+	$args['labels']['tag']           = 'Archives for ';
+	$args['labels']['date']          = 'Archives for ';
+	$args['labels']['search']        = 'Search for ';
+	$args['labels']['tax']           = 'Archives for ';
+	$args['labels']['post_type']     = 'Archives for ';
+	$args['labels']['404']           = 'Not found: '; // Genesis 1.5 and later
+	return $args;
 }
 
+
+add_filter( 'body_class', 'pn_body_class_add_categories' );
+/**
+ * Add body class to every page with a category
+ *
+ * @param $classes
+ *
+ * @return array
+ *
+ */
+function pn_body_class_add_categories( $classes ) {
+
+	// Only proceed if we're on a single post page
+	if ( ! is_single() ) {
+		return $classes;
+	}
+
+	// Get the categories that are assigned to this post
+	$post_categories = get_the_category();
+
+	// Loop over each category in the $categories array
+	foreach ( $post_categories as $current_category ) {
+
+		// Add the current category's slug to the $body_classes array
+		$classes[] = 'category-' . $current_category->slug;
+
+	}
+
+	return $classes;
+}
