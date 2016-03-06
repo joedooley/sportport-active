@@ -43,10 +43,6 @@ function epik_customizer() {
 
 //* GRITEYE CUSTOM CODE BELOW ========================================================================
 
-
-
-
-
 /**
  * see http://www.carriedils.com/woocommerce-genesis-important-style/ about
  * when using Woo and Genesis, we want Genesis CSS to load later
