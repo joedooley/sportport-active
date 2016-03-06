@@ -101,7 +101,7 @@ else:
         exit();
       }
     }
-    
+
     // Don't show deprecations; useful under PHP 5.5
     error_reporting(E_ALL ^ E_DEPRECATED);
     // Force the use of a safe temp directory when in a container
@@ -175,6 +175,9 @@ if ( ! defined( 'WP_DEBUG' ) ) {
 
 define('AUTOSAVE_INTERVAL', 600);
 define('WP_POST_REVISIONS', 1);
+
+//* WP Retina @2x plugin - Removes Marketing Banner from Plugins Options Screen
+define( 'WP_HIDE_DONATION_BUTTONS',  true );
 
 
 /* That's all, stop editing! Happy Pressing. */
