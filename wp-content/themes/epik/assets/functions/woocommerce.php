@@ -7,6 +7,9 @@
  * @subpackage Customizations
  */
 
+//* Remove WooCommerce Order By Dropdown
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+
 
 add_action( 'template_redirect', 'remove_sidebar_shop' );
 /**
@@ -64,4 +67,3 @@ function child_manage_woocommerce_styles() {
 }
 
 
-remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
