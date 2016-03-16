@@ -210,7 +210,7 @@ function genesis_taxonomy_layout_options( $tag, $taxonomy ) {
 					<fieldset class="genesis-layout-selector">
 						<legend class="screen-reader-text"><?php _e( 'Choose Layout', 'genesis' ); ?></legend>
 
-						<p><input type="radio" class="default-layout" name="genesis-meta[layout]" id="default-layout" value="" <?php checked( $tag->meta['layout'], '' ); ?> /> <label for="default-layout" class="default"><?php printf( __( 'Default Layout set in <a href="%s">Theme Settings</a>', 'genesis' ), menu_page_url( 'genesis', 0 ) ); ?></label></p>
+						<p><input type="radio" class="default-layout" name="genesis-meta[layout]" id="default-layout" value="" <?php checked( get_term_meta( $tag->term_id, 'layout', true ), '' ); ?> /> <label for="default-layout" class="default"><?php printf( __( 'Default Layout set in <a href="%s">Theme Settings</a>', 'genesis' ), menu_page_url( 'genesis', 0 ) ); ?></label></p>
 						<?php genesis_layout_selector( array( 'name' => 'genesis-meta[layout]', 'selected' => get_term_meta( $tag->term_id, 'layout', true ), 'type' => 'site' ) ); ?>
 
 					</fieldset>
@@ -224,9 +224,9 @@ function genesis_taxonomy_layout_options( $tag, $taxonomy ) {
 
 add_filter( 'get_term', 'genesis_get_term_filter', 10, 2 );
 /**
- * Merge term meta data into options table.
+ * For backward compatibility only.
  *
- * Genesis is forced to create its own term-meta data structure in the options table, since it is not support in core WP.
+ * Filter each term, pulling term meta automatically so it can be accessed directly by the term object.
  *
  * Applies `genesis_term_meta_defaults`, `genesis_term_meta_{field}` and `genesis_term_meta` filters.
  *
@@ -253,7 +253,7 @@ function genesis_get_term_filter( $term, $taxonomy ) {
 	$term_meta = get_term_meta( $term->term_id );
 
 	//* Convert array values to string
-	foreach ( $term_meta as $key => $value ) {
+	foreach ( (array) $term_meta as $key => $value ) {
 		$term_meta[ $key ] = $value[0];
 	}
 

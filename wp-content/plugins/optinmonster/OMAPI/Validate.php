@@ -150,10 +150,10 @@ class OMAPI_Validate {
 		    }
 	    } elseif ( isset( $option['is_disabled'] ) && $option['is_disabled'] ) {
 		    echo '<div class="error"><p>' . __( 'The subscription to this OptinMonster account has been disabled, likely due to a refund or other administrator action. Please contact OptinMonster support to resolve this issue.', 'optin-monster-api' ) . '</p>';
-		    echo '<p><a href="https://app.optinmonster.com/account/support/" class="button button-primary button-large omapi-new-optin" title="Contact OptinMonster Support" target="_blank">Contact Support</a></p></div>';
+		    echo '<p><a href="https://app.optinmonster.com/account/support/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpdashboard" class="button button-primary button-large omapi-new-optin" title="Contact OptinMonster Support" target="_blank">Contact Support</a></p></div>';
 	    } elseif ( isset( $option['is_expired'] ) && $option['is_expired'] ) {
 		    echo '<div class="error"><p>' . __( 'The subscription to this OptinMonster account has expired. Please renew your subscription to use the OptinMonster API.', 'optin-monster-api' ) . '</p>';
-		    echo '<p><a href="https://app.optinmonster.com/account/billing/" class="button button-primary button-large omapi-new-optin" title="Renew Subscription" target="_blank">Renew Subscription</a></p></div>';
+		    echo '<p><a href="https://app.optinmonster.com/account/billing/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpdashboard" class="button button-primary button-large omapi-new-optin" title="Renew Subscription" target="_blank">Renew Subscription</a></p></div>';
 	    }
 
     }

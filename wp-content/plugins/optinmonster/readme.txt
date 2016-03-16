@@ -2,7 +2,7 @@
 Contributors: griffinjt, smub
 Tags: wordpress popup, popup, lightbox popup, mailchimp, aweber, campaign monitor, constant contact, exit-intent, madmimi, infusionsoft, getresponse, hubspot, marketo, activecampaign, pardot, totalsend, emma, icontact, mailerlite, mailpoet, google analytics, pop over, optin forms, email list, subscribers, wordpress popup form, lightbox, wordpress popups, popups, lightbox popups, optin form, wordpress optin form, sidebar optin form, sidebar optin, sidebar form, wordpress overlay popup, wordpress popup plugin, popup plugin, wordpress lightbox optin, wordpress lightbox optin form, after post optin form, wordpress after post optin form, after post optin form plugin, lightbox popup plugin, wordpress popup solution, exit intent, exit-intent, optinmonster, optin monster, optin-monster, mobile popup, mobile popups, mobile optin forms, mobile optins, lightbox optins, wordpress mobile popup, wordpress mobile popups, wordpress mobile optin forms, wordpress lightbox optins, lead gen, lead generation, wordpress lead generation, lead generation wordpress, wordpress lead gen, fullscreen, welcome gate, interstitial
 Requires at least: 3.5.1
-Tested up to: 4.3.1
+Tested up to: 4.4.2
 Stable tag: trunk
 License: GNU General Public License v2.0 or later
 

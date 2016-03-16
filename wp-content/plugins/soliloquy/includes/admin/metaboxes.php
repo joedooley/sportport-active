@@ -628,7 +628,7 @@ class Soliloquy_Metaboxes {
                     <?php foreach ( (array) $library as $image ) :
                         $has_slider = get_post_meta( $image->ID, '_sol_has_slider', true );
                         $class       = $has_slider && in_array( $post->ID, (array) $has_slider ) ? ' selected soliloquy-in-slider' : ''; ?>
-                        <li class="attachment<?php echo $class; ?>" data-attachment-id="<?php echo absint( $image->ID ); ?>">
+                        <li class="attachment image-attachment<?php echo $class; ?>" data-attachment-id="<?php echo absint( $image->ID ); ?>">
                             <div class="attachment-preview landscape">
                                 <div class="thumbnail">
                                     <div class="centered">

@@ -2,10 +2,10 @@
 /**
  * Plugin Name: Soliloquy
  * Plugin URI:  http://soliloquywp.com
- * Description: Soliloquy is best responsive WordPress slider plugin.
+ * Description: Soliloquy is the best responsive WordPress slider plugin.
  * Author:      Thomas Griffin
  * Author URI:  http://thomasgriffinmedia.com
- * Version:     2.4.4
+ * Version:     2.4.4.2
  * Text Domain: soliloquy
  * Domain Path: languages
  *
@@ -54,7 +54,7 @@ class Soliloquy {
      *
      * @var string
      */
-    public $version = '2.4.4';
+    public $version = '2.4.4.2';
 
     /**
      * The name of the plugin.
@@ -322,7 +322,7 @@ class Soliloquy {
         $ret = false;
         foreach ( $sliders as $data ) {
 	        
-            if ( ( $data['config']['type'] != 'fc' && empty( $data['slider'] ) ) || empty( $data['config']['slug'] ) ) {
+            if ( ( $data['config']['type'] != 'wc' && empty( $data['slider'] ) ) || ( $data['config']['type'] != 'fc' && empty( $data['slider'] ) ) || empty( $data['config']['slug'] ) ) {
                 continue;
             }
 

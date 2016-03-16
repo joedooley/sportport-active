@@ -364,6 +364,20 @@
     max-width: 164px;
     max-height: 164px;
 }
+.soliloquy-pdf-slider {
+    padding-left: 7px;
+}
+
+.soliloquy-pdf-slider .attachment {
+    margin: 8px;
+    max-width: 164px;
+}
+
+.soliloquy-pdf-slider .attachment-preview,
+.soliloquy-pdf-slider .attachment-preview .thumbnail {
+    max-width: 164px;
+    max-height: 164px;
+}
 
 .soliloquy-media-frame .max-upload-size {
     display: block;

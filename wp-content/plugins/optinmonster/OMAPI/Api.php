@@ -136,6 +136,7 @@ class OMAPI_Api {
             'Content-Length' => strlen( $body ),
             'Cache-Control'  => 'no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0',
             'Pragma'		 => 'no-cache',
+            'Expires'		 => 0,
             'OMAPI-Referer'  => site_url(),
             'OMAPI-Sender'   => 'WordPress'
         );
