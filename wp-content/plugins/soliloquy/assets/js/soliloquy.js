@@ -1,3 +1,4 @@
+/*global soliloquy_ajax, MediaElementPlayer */
 /**
 * soliloquy.js is a placeholder, which CodeKit attaches the following JS files to, before compiling as min/soliloquy-min.js:
 * - lib/bxslider.js
@@ -6,8 +7,7 @@
 * To load more JS resources:
 * - Add them to the lib subfolder
 * - Add the to the imports directive of this file in CodeKit
-*/
-
+*/		
 // Mobile checker function.
 function soliloquyIsMobile() {
     var check = false;
@@ -145,7 +145,7 @@ function soliloquyWistiaVids(data, id, width, height, holder, $){
         });
 
         wistiaEmbeds.onFind(function(video){
-            if ( id == video.hashedId() ) {
+            if ( id === video.hashedId() ) {
                 soliloquy_wistia[id] = video;
                 soliloquy_wistia[id].bind('play', function(){
                     var id = $(this.container).data('soliloquy-slider-id');

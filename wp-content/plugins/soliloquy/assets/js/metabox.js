@@ -222,7 +222,7 @@
 
             // Loop through potential data to send when inserting images.
             // First, we loop through the selected items and add them to the data var.
-            $('.soliloquy-media-frame').find('.attachment.selected:not(.soliloquy-in-slider)').each(function(i, el){
+            $('.soliloquy-media-frame').find('.image-attachment.selected:not(.soliloquy-in-slider)').each(function(i, el){
                 data.images[i] = $(el).attr('data-attachment-id');
                 selected       = true;
             });

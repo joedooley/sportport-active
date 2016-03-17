@@ -37,7 +37,13 @@ class OMAPI_Welcome {
 	public $base;
 
 
-
+	/**
+	 * Holds the welcome slug.
+	 *
+	 * @since 1.1.4.2
+	 *
+	 * @var string
+	 */
 	public $hook;
 
 	/**
@@ -127,8 +133,6 @@ class OMAPI_Welcome {
 			add_action( 'load-' . $this->hook, array( $this, 'assets' ) );
 		}
 
-
-
 	}
 
 	/**
@@ -138,9 +142,6 @@ class OMAPI_Welcome {
 	 */
 	public function callback_to_display_page() {
 
-		//Load options if needed
-		$options = $this->base->get_option();
-
 	?>
 		<div class="wrap omapi-page">
 
@@ -148,8 +149,6 @@ class OMAPI_Welcome {
 
 				<div class="welcome-panel-content">
 					<div class="logo"><h2>Welcome to OptinMonster</h2></div>
-
-
 
 					<div class="welcome-panel-column-container">
 
@@ -161,10 +160,7 @@ class OMAPI_Welcome {
 						<p><a class="button button-primary button-hero" href="<?php echo esc_url_raw( admin_url( 'admin.php?page=optin-monster-api-settings' ) ) ?>"><?php _e('Get Connected','optin-monster-api');?></a></p>
 
 						<h4><?php _e('New to OptinMonster?','optin-monster-api') ?></h4>
-						<p><a class="button button-primary button-hero" href="http://optinmonster.com/pricing/" target="_blank"><?php _e('Create Your Account','optin-monster-api') ?></a> or <a href="http://optinmonster.com/how-it-works/" target="_blank"><?php _e('See How it Works','optin-monster-api') ?></a>.</p>
-
-
-
+						<p><a class="button button-primary button-hero" href="http://optinmonster.com/pricing/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpdashboard" target="_blank"><?php _e('Create Your Account','optin-monster-api') ?></a> or <a href="http://optinmonster.com/how-it-works/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpdashboard" target="_blank"><?php _e('See How it Works','optin-monster-api') ?></a>.</p>
 
 					</div>
 				</div>

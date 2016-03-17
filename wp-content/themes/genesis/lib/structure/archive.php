@@ -38,21 +38,21 @@ function genesis_do_taxonomy_title_description() {
 
 	$term = is_tax() ? get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) ) : $wp_query->get_queried_object();
 
-	if ( ! $term || ! isset( $term->meta ) )
+	if ( ! $term )
 		return;
 
 	$headline = $intro_text = '';
 
-	if ( $term->meta['headline'] ) {
-		$headline = sprintf( '<h1 %s>%s</h1>', genesis_attr( 'archive-title' ), strip_tags( $term->meta['headline'] ) );
+	if ( $headline = get_term_meta( $term->term_id, 'headline', true ) ) {
+		$headline = sprintf( '<h1 %s>%s</h1>', genesis_attr( 'archive-title' ), strip_tags( $headline ) );
 	} else {
 		if ( genesis_a11y( 'headings' ) ) {
 			$headline = sprintf( '<h1 %s>%s</h1>', genesis_attr( 'archive-title' ), strip_tags( $term->name ) );
 		}
 	}
 
-	if ( $term->meta['intro_text'] )
-		$intro_text = apply_filters( 'genesis_term_intro_text_output', $term->meta['intro_text'] );
+	if ( $intro_text = get_term_meta( $term->term_id, 'intro_text', true ) )
+		$intro_text = apply_filters( 'genesis_term_intro_text_output', $intro_text );
 
 	if ( $headline || $intro_text )
 		printf( '<div %s>%s</div>', genesis_attr( 'taxonomy-archive-description' ), $headline . $intro_text );

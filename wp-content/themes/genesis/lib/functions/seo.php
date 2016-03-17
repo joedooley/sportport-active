@@ -105,33 +105,6 @@ function genesis_seo_compatibility_check() {
 
 }
 
-add_action( 'admin_notices', 'genesis_scribe_nag' );
-/**
- * Display admin notice for Scribe SEO Copywriting tool.
- *
- * @since 1.4.0
- *
- * @link http://scribeseo.com/
- *
- * @uses genesis_is_menu_page()  Check that we're targeting a specific Genesis admin page.
- * @uses genesis_detect_plugin() Detect active plugin by constant, class or function existence.
- *
- * @return null Return early if not on the SEO Settings page, Scribe is installed, or it has already been dismissed.
- */
-function genesis_scribe_nag() {
-
-	if ( ! genesis_is_menu_page( 'seo-settings' ) )
-		return;
-
-	if ( genesis_detect_plugin( array( 'classes' => array( 'Ecordia' ) ) ) || get_option( 'genesis-scribe-nag-disabled' ) )
-		return;
-
-	$copy = sprintf( __( 'Have you tried our Scribe content marketing software? Do research, content and website optimization, and relationship building without leaving WordPress. <strong>Genesis owners save big when using the special link on the special page we\'ve created just for you</strong>. <a href="%s" target="_blank">Click here for more info on Scribe<span class="screen-reader-text">. %s</span></a>.', 'genesis' ), 'http://scribecontent.com/genesis-owners-only', __( 'Link opens in a new window.', 'genesis' ) );
-	$url = add_query_arg( 'dismiss-scribe', 'true', menu_page_url( 'seo-settings', false ) );
-	printf( '<div class="scribe-nag updated"><p class="alignleft">%s</p> <p class="alignright"><a href="%s">%s</a></p></div>', $copy, esc_url( $url ), __( 'Dismiss', 'genesis' ) );
-
-}
-
 add_action( 'admin_init', 'genesis_disable_scribe_nag' );
 /**
  * Potentially disable Scribe admin notice.

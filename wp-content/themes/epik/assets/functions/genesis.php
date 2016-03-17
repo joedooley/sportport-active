@@ -140,3 +140,30 @@ function pn_body_class_add_categories( $classes ) {
 
 	return $classes;
 }
+
+
+//* Customize author box title
+add_filter( 'genesis_author_box_title', 'spa_author_box_title' );
+function spa_author_box_title() {
+
+	return '<span itemprop="name">' . get_the_author() . '</span>';
+
+}
+
+//* Modify size of the Gravatar in the author box
+add_filter( 'genesis_author_box_gravatar_size', 'spa_author_box_gravatar' );
+function spa_author_box_gravatar( $size ) {
+
+	return 160;
+
+}
+
+//* Modify size of the Gravatar in the entry comments
+add_filter( 'genesis_comment_list_args', 'spa_comments_gravatar' );
+function spa_comments_gravatar( $args ) {
+
+	$args['avatar_size'] = 120;
+
+	return $args;
+
+}

@@ -347,9 +347,11 @@ function genesis_site_layout( $use_cache = true ) {
 
 	//* If viewing a taxonomy archive
 	elseif ( is_category() || is_tag() || is_tax() ) {
-		$term = $wp_query->get_queried_object();
 
-		$site_layout = $term && isset( $term->meta['layout'] ) && $term->meta['layout'] ? $term->meta['layout'] : genesis_get_option( 'site_layout' );
+		$term        = $wp_query->get_queried_object();
+		$term_layout = $term ? get_term_meta( $term->term_id, 'layout', true) : '';
+		$site_layout = $term_layout ? $term_layout : genesis_get_option( 'site_layout' );
+
 	}
 
 	//* If viewing a supported post type

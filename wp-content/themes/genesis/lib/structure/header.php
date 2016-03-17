@@ -155,21 +155,10 @@ function genesis_default_title( $title, $sep, $seplocation ) {
 			$title = genesis_get_custom_field( 'title', $post_id );
 	}
 
-	if ( is_category() ) {
-		//$term = get_term( get_query_var('cat'), 'category' );
-		$term  = $wp_query->get_queried_object();
-		$title = ! empty( $term->meta['doctitle'] ) ? $term->meta['doctitle'] : $title;
-	}
-
-	if ( is_tag() ) {
-		//$term = get_term( get_query_var('tag_id'), 'post_tag' );
-		$term  = $wp_query->get_queried_object();
-		$title = ! empty( $term->meta['doctitle'] ) ? $term->meta['doctitle'] : $title;
-	}
-
-	if ( is_tax() ) {
-		$term  = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
-		$title = ! empty( $term->meta['doctitle'] ) ? wp_kses_stripslashes( wp_kses_decode_entities( $term->meta['doctitle'] ) ) : $title;
+	if ( is_category() || is_tag() || is_tax() ) {
+		$term       = get_queried_object();
+		$title_meta = get_term_meta( $term->term_id, 'doctitle', true );
+		$title      = ! empty( $title_meta ) ? $title_meta : $title;
 	}
 
 	if ( is_author() ) {
@@ -269,21 +258,10 @@ function genesis_seo_meta_description() {
 			$description = genesis_get_custom_field( 'description', $post_id );
 	}
 
-	if ( is_category() ) {
-		//$term = get_term( get_query_var('cat'), 'category' );
-		$term = $wp_query->get_queried_object();
-		$description = ! empty( $term->meta['description'] ) ? $term->meta['description'] : '';
-	}
-
-	if ( is_tag() ) {
-		//$term = get_term( get_query_var('tag_id'), 'post_tag' );
-		$term = $wp_query->get_queried_object();
-		$description = ! empty( $term->meta['description'] ) ? $term->meta['description'] : '';
-	}
-
-	if ( is_tax() ) {
-		$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
-		$description = ! empty( $term->meta['description'] ) ? wp_kses_stripslashes( wp_kses_decode_entities( $term->meta['description'] ) ) : '';
+	if ( is_category() || is_tag() || is_tax() ) {
+		$term             = get_queried_object();
+		$term_description = get_term_meta( $term->term_id, 'description', true );
+		$description      = ! empty( $term_description ) ? $term_description : '';
 	}
 
 	if ( is_author() ) {
@@ -347,19 +325,10 @@ function genesis_seo_meta_keywords() {
 			$keywords = genesis_get_custom_field( 'keywords', $post_id );
 	}
 
-	if ( is_category() ) {
-		$term     = $wp_query->get_queried_object();
-		$keywords = ! empty( $term->meta['keywords'] ) ? $term->meta['keywords'] : '';
-	}
-
-	if ( is_tag() ) {
-		$term     = $wp_query->get_queried_object();
-		$keywords = ! empty( $term->meta['keywords'] ) ? $term->meta['keywords'] : '';
-	}
-
-	if ( is_tax() ) {
-		$term     = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
-		$keywords = ! empty( $term->meta['keywords'] ) ? wp_kses_stripslashes( wp_kses_decode_entities( $term->meta['keywords'] ) ) : '';
+	if ( is_category() || is_tag() || is_tax() ) {
+		$term          = get_queried_object();
+		$term_keywords = get_term_meta( $term->term_id, 'keywords', true );
+		$description   = ! empty( $term_description ) ? $term_description : '';
 	}
 
 	if ( is_author() ) {
@@ -416,36 +385,23 @@ function genesis_robots_meta() {
 		$meta['noarchive'] = genesis_get_seo_option( 'home_noarchive' ) ? 'noarchive' : $meta['noarchive'];
 	}
 
-	if ( is_category() ) {
+	if ( is_category() || is_tag() || is_tax() ) {
+
 		$term = $wp_query->get_queried_object();
 
-		$meta['noindex']   = $term->meta['noindex'] ? 'noindex' : $meta['noindex'];
-		$meta['nofollow']  = $term->meta['nofollow'] ? 'nofollow' : $meta['nofollow'];
-		$meta['noarchive'] = $term->meta['noarchive'] ? 'noarchive' : $meta['noarchive'];
+		$meta['noindex']   = get_term_meta( $term->term_id, 'noindex', true ) ? 'noindex' : $meta['noindex'];
+		$meta['nofollow']  = get_term_meta( $term->term_id, 'nofollow', true ) ? 'nofollow' : $meta['nofollow'];
+		$meta['noarchive'] = get_term_meta( $term->term_id, 'noarchive', true ) ? 'noarchive' : $meta['noarchive'];
 
-		$meta['noindex']   = genesis_get_seo_option( 'noindex_cat_archive' ) ? 'noindex' : $meta['noindex'];
-		$meta['noarchive'] = genesis_get_seo_option( 'noarchive_cat_archive' ) ? 'noarchive' : $meta['noarchive'];
+		if ( is_category() ) {
+			$meta['noindex']   = genesis_get_seo_option( 'noindex_cat_archive' ) ? 'noindex' : $meta['noindex'];
+			$meta['noarchive'] = genesis_get_seo_option( 'noarchive_cat_archive' ) ? 'noarchive' : $meta['noarchive'];
+		}
 
-	}
-
-	if ( is_tag() ) {
-		$term = $wp_query->get_queried_object();
-
-		$meta['noindex']   = $term->meta['noindex'] ? 'noindex' : $meta['noindex'];
-		$meta['nofollow']  = $term->meta['nofollow'] ? 'nofollow' : $meta['nofollow'];
-		$meta['noarchive'] = $term->meta['noarchive'] ? 'noarchive' : $meta['noarchive'];
-
-		$meta['noindex']   = genesis_get_seo_option( 'noindex_tag_archive' ) ? 'noindex' : $meta['noindex'];
-		$meta['noarchive'] = genesis_get_seo_option( 'noarchive_tag_archive' ) ? 'noarchive' : $meta['noarchive'];
-
-	}
-
-	if ( is_tax() ) {
-		$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
-
-		$meta['noindex']   = $term->meta['noindex'] ? 'noindex' : $meta['noindex'];
-		$meta['nofollow']  = $term->meta['nofollow'] ? 'nofollow' : $meta['nofollow'];
-		$meta['noarchive'] = $term->meta['noarchive'] ? 'noarchive' : $meta['noarchive'];
+		if ( is_tag() ) {
+			$meta['noindex']   = genesis_get_seo_option( 'noindex_tag_archive' ) ? 'noindex' : $meta['noindex'];
+			$meta['noarchive'] = genesis_get_seo_option( 'noarchive_tag_archive' ) ? 'noarchive' : $meta['noarchive'];
+		}
 
 	}
 

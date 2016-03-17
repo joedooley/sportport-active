@@ -1,0 +1,45 @@
+/*! ## WooCommerce Custom Styles
+----------------------------------------- */
+
+/*! ## Checkout
+----------------------------------------- */
+
+.woocommerce-checkout .entry {
+	margin-left: 0;
+	margin-right: 0;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+body.woocommerce #payment #place_order,
+body.woocommerce-page #payment #place_order {
+	float: left;
+	min-width: 300px;
+	padding: 15px 0;
+
+	@include media($large-screen-up) {
+		width: 100%;
+		min-width: 0;
+	}
+}
+
+body.woocommerce-checkout #payment .payment_method_authorize_net_aim {
+	list-style: none;
+}
+
+body.woocommerce #payment .form-row select,
+body.woocommerce-page #payment .form-row select {
+	display: inline-block;
+}
+
+
+@include media($large-screen-up) {
+
+	body#add_payment_method #payment div.payment_box .form-row,
+	body.woocommerce-checkout #payment div.payment_box .form-row {
+	width: 100%;
+	}
+
+}
+
+
