@@ -32,9 +32,7 @@ select[multiple] {
   box-shadow: $form-box-shadow;
   box-sizing: border-box;
   font-family: $base-font-family;
-  font-size: $base-font-size;
   margin-bottom: $small-spacing;
-  padding: $base-spacing / 3;
   transition: border-color $base-duration $base-timing;
   width: 100%;
 
@@ -82,3 +80,29 @@ select {
   max-width: 100%;
   width: auto;
 }
+
+/*! Forms
+--------------------------------------------- */
+
+input, textarea {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px #eee;
+  color: #999;
+  font-family: ralewaymedium, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  padding: 12px;
+
+  &:focus,
+  &:focus {
+    border: 1px solid #aaa;
+    outline: none;
+  }
+}
+
+
+::-webkit-input-placeholder {
+  color: #999;
+}
+

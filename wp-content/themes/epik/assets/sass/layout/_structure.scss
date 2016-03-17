@@ -1,6 +1,8 @@
-// Site Structure and Layout
+/*! ## Site Structure and Layout
+------------------------------------------- */
 
-// Site Containers
+/*! ## Site Containers
+---------------------- */
 
 .site-inner,
 .wrap {
@@ -16,9 +18,9 @@
 	}
 
 	@include media($large-screen-up) {
-		width: 100%; 
-		padding-left: 5%;
-		padding-right: 5%;
+		width: 100%;
+		padding-left: 2.5%;
+		padding-right: 2.5%;
 	}
 }
 
@@ -33,7 +35,8 @@
 }
 
 
-// Column Widths and Positions for Sidebar Layouts
+/*! Column Widths and Positions for Sidebar Layouts
+------------------------------------------------------- */
 
 .content-sidebar-sidebar .content-sidebar-wrap,
 .sidebar-content-sidebar .content-sidebar-wrap,
