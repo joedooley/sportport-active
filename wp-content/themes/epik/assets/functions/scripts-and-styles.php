@@ -34,13 +34,13 @@ function spa_scripts_styles() {
 		true
 	);
 
-//	wp_enqueue_script(
-//		'spa-vendor-scripts',
-//		get_stylesheet_directory_uri() . '/assets/js/vendors.min.js',
-//		array( 'jquery' ),
-//		'1.0.0',
-//		true
-//	);
+	wp_enqueue_script(
+		'spa-vendor-scripts',
+		get_stylesheet_directory_uri() . '/assets/js/vendors.min.js',
+		//array( 'jquery' ),
+		'1.0.0',
+		true
+	);
 
 	$output = array(
 		'mainMenu' => __( 'Menu', 'epik' ),
@@ -53,7 +53,7 @@ function spa_scripts_styles() {
 		'DigitalL10n',
 		$output
 	);
-	
+
 }
 
 

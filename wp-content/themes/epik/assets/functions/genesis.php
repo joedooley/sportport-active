@@ -167,3 +167,10 @@ function spa_comments_gravatar( $args ) {
 	return $args;
 
 }
+
+
+
+
+
+
+
