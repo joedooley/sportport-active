@@ -1,3 +1,9 @@
+jQuery(function ($) {
+
+	$(".hero").backstretch([BackStretchImg.src], {duration: 3000, fade: 750});
+
+});
+
 (function (document, $, undefined) {
 
 	$('body').addClass('js');
