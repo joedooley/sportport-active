@@ -1,3 +1,32 @@
+::selection {
+	background-color: $orange;
+	color: #000;
+}
+
+html {
+	font-size: $base-font-size;
+	line-height: $base-line-height;
+
+	@media (min-width: 800px) {
+		font-size: 18px;
+	}
+
+	@media (min-width: 1200px) {
+		font-size: 20px;
+		line-height: 1.4;
+	}
+}
+
+body {
+	background: rgba(211, 220, 235, 0.59);
+	color: #333;
+	font-family: ralewayregular, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	font-weight: 100;
+	letter-spacing: .025em;
+	line-height: 1.6;
+}
+
 body {
   color: $base-font-color;
   font-family: $base-font-family;

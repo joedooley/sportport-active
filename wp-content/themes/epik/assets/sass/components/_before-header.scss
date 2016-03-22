@@ -6,14 +6,46 @@
 
 
 	.free-shipping-notification {
+		color: #909090;
+		font-size: 14px;
 		font-weight: bold;
+		margin-top: 7px;
 		margin-bottom: 0;
-		padding: 5px 0;
+		padding: 0;
 		text-transform: uppercase;
 
 		@include media($small-screen-up) {
 			font-size: 70%;
 		}
+	}
+}
+
+
+.menu-shopping-menu-container {
+	margin-top: 7px;
+
+	.menu-item {
+		display: inline-block;
+
+		a {
+			color: #909090;
+
+			&:hover {
+				color: #888;
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+
+.before-header-right .search-form {
+	width: auto;
+
+	input[type="search"] {
+		background-color: rgba(235, 236, 241, 1);
+		margin-bottom: 0;
+		padding: 6px;
 	}
 }
 

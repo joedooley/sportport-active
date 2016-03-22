@@ -38,7 +38,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "return_format": "url",
+                            "return_format": "array",
                             "preview_size": "large",
                             "library": "all",
                             "min_width": "",
@@ -242,16 +242,16 @@
                                 "class": "",
                                 "id": ""
                             },
+                            "return_format": "array",
                             "preview_size": "medium",
+                            "library": "all",
                             "min_width": "",
                             "min_height": "",
                             "min_size": "",
                             "max_width": "",
                             "max_height": "",
                             "max_size": "",
-                            "mime_types": "",
-                            "return_format": "array",
-                            "library": "all"
+                            "mime_types": ""
                         },
                         {
                             "key": "field_56ef3f4476521",
@@ -572,5 +572,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1458548003
+    "modified": 1458596749
 }

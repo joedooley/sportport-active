@@ -15,16 +15,26 @@ function spa_display_fc() {
 		// "Hero" Layout
 		if ( get_row_layout() == 'hero' ) {
 
-			global $hero_image;
-			$hero_image = get_sub_field( 'hero_image' ); ?>
+			//global $hero_image;
+			$hero_image = get_sub_field( 'hero_image' );
 
-			<section class="hero" style="background: url(<?php the_sub_field( 'hero_image' ); ?>) no-repeat;">
+
+			wp_localize_script(
+				'backstretch-set',
+				'BackStretchImg',
+				array(
+					'src' => $hero_image['url'],
+				)
+			);
+			?>
+
+			<section class="hero" style="background: url( <?php echo $hero_image['url'] ?> ) no-repeat;">
 
 				<div class="wrap">
 					<?php the_sub_field( 'hero_text' );
 					if ( get_sub_field( 'display_cta_button' ) ) { ?>
-						<a href="<?php the_sub_field( 'hero_cta_button_url_1' ) ?>" class="button"><?php echo the_sub_field( 'hero_cta_button_text_1' ); ?></a>
-						<a href="<?php the_sub_field( 'hero_cta_button_url_2' ) ?>" class="button"><?php echo the_sub_field( 'hero_cta_button_text_2' ); ?></a>
+						<a href="<?php the_sub_field( 'hero_cta_button_url_1' ) ?>" class="button  double-button"><?php echo the_sub_field( 'hero_cta_button_text_1' ); ?></a>
+						<a href="<?php the_sub_field( 'hero_cta_button_url_2' ) ?>" class="button  double-button"><?php echo the_sub_field( 'hero_cta_button_text_2' ); ?></a>
 					<?php } ?>
 				</div>
 
@@ -32,21 +42,21 @@ function spa_display_fc() {
 
 			<?php
 
+
 		} elseif ( get_row_layout() == 'two_columns' ) {
 
 			$left_image = get_sub_field( 'left_image' );
 			$right_image = get_sub_field( 'right_image' ); ?>
 
 			<section class="row  <?php the_sub_field( 'css_class' ); ?>">
-				<div class="wrap">
 
 				<?php the_sub_field( 'section_heading' ); ?>
 
-						<div class="one-half first  featured-image" style="background: url( <?php echo $left_image['url'] ?> ) no-repeat;"><?php the_sub_field( 'left_text' ); ?></div>
-						<div class="one-half  featured-image" style="background: url( <?php echo $right_image['url'] ?> ) no-repeat;"><?php the_sub_field( 'right_text' ); ?></div>
-
-
+				<div class="featured-images">
+					<div class="featured-image" style="background: url( <?php echo $left_image['url'] ?> ) no-repeat;"><?php the_sub_field( 'left_text' ); ?></div>
+					<div class="featured-image" style="background: url( <?php echo $right_image['url'] ?> ) no-repeat;"><?php the_sub_field( 'right_text' ); ?></div>
 				</div>
+
 			</section>
 
 		<?php } elseif ( get_row_layout() == 'four_featured_posts' ) {
@@ -54,7 +64,6 @@ function spa_display_fc() {
 			$posts = get_sub_field( 'featured_posts' ); ?>
 
 			<section class="row  <?php the_sub_field( 'css_class' ); ?>">
-				<div class="wrap">
 
 					<?php the_sub_field( 'section_heading' );
 
@@ -70,23 +79,20 @@ function spa_display_fc() {
 
 					<?php endif; ?>
 
-				</div>
 			</section>
 
 		<?php } elseif ( get_row_layout() == 'four_columns' ) { ?>
 
 			<section class="row  <?php the_sub_field( 'css_class' ); ?>">
-				<div class="wrap">
 
 					<?php the_sub_field( 'section_heading' ); ?>
 
-					<div class="featured-boxes">
-						<div class="one-fourth  first"><?php the_sub_field( 'first_column' ); ?></div>
-						<div class="one-fourth"><?php the_sub_field( 'second_column' ); ?></div>
-						<div class="one-fourth"><?php the_sub_field( 'third_column' ); ?></div>
-						<div class="one-fourth"><?php the_sub_field( 'fourth_column' ); ?></div>
+					<div class="featured-links">
+						<?php the_sub_field( 'first_column' ); ?>
+						<?php the_sub_field( 'second_column' ); ?>
+						<?php the_sub_field( 'third_column' ); ?>
+						<?php the_sub_field( 'fourth_column' ); ?>
 					</div>
-				</div>
 			</section>
 
 		<?php }
@@ -122,12 +128,25 @@ function spa_fc_check() {
 	}
 }
 
+
+
 add_action( 'wp_enqueue_scripts', function() {
 
-	global $hero_image;
-	$backstretch_src = $hero_image;
+	wp_enqueue_script(
+		'backstretch',
+		get_stylesheet_directory_uri() . '/assets/js/vendors/single/jquery.backstretch.min.js',
+		array( 'jquery' ),
+		'2.0.4',
+		true
+	);
 
-	wp_localize_script( 'backstretch-set', 'BackStretchImg', $backstretch_src );
+	wp_enqueue_script(
+		'backstretch-set',
+		get_stylesheet_directory_uri() . '/assets/js/custom/single/backstretch-set.js',
+		array( 'jquery', 'backstretch' ),
+		CHILD_THEME_VERSION,
+		true
+	);
 
 });
 
