@@ -85,9 +85,6 @@ class OMAPI_Ajax {
 		    case 'mailpoet' :
 		    	$this->mailpoet();
 		    break;
-		    case 'shortcode' :
-		    	$this->shortcode();
-		    break;
 	    }
 
     }
@@ -300,25 +297,6 @@ class OMAPI_Ajax {
 
         // Send back a response.
         die( json_encode( true ) );
-
-	}
-
-	/**
-     * Parses shortcodes from the optin HTML output.
-     *
-     * @since 1.0.0
-     */
-    public function shortcode() {
-
-		// Run a security check first.
-        check_ajax_referer( 'omapi', 'nonce' );
-
-        // Prepare variables.
-        $html = stripslashes( $_REQUEST['html'] );
-        $html = do_shortcode( $html );
-
-        // Send back a response.
-        die( $html );
 
 	}
 
