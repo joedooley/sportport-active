@@ -74,9 +74,10 @@
 
 	.featured-images {
 		@include span-columns(12);
+		margin: 1rem;
 
 		.featured-image {
-			@include span-columns(6 of 12);
+			@include span-columns(3 of 6);
 
 			@include media($ipad-screen-up) {
 				@include span-columns(12 of 12);
@@ -110,6 +111,10 @@
 	.featured-links {
 		@include span-columns(12);
 		text-align: center;
+
+		@include media($small-screen-up) {
+			padding: 0 5%;
+		}
 
 		.featured-link {
 			color: rgba(255, 255, 255, 0.5);

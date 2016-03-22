@@ -4,8 +4,15 @@
 	background-color: $light-gray;
 	text-align: center;
 
+	.wrap {
+		@include media($ipad-screen-up) {
+			padding: 0%;;
+		}
+	}
+
 
 	.free-shipping-notification {
+		font-family: $proxima;
 		color: #909090;
 		font-size: 14px;
 		font-weight: bold;
@@ -20,6 +27,13 @@
 	}
 }
 
+@include media($ipad-screen-up) {
+
+	.before-header-widget {
+			width: 100%;
+	}
+
+}
 
 .menu-shopping-menu-container {
 	margin-top: 7px;
@@ -28,6 +42,8 @@
 		display: inline-block;
 
 		a {
+			font-family: $proxima;
+			font-size: 14px;
 			color: #909090;
 
 			&:hover {
@@ -39,13 +55,28 @@
 }
 
 
-.before-header-right .search-form {
-	width: auto;
+.before-header-right {
+	@include media($ipad-screen-up) {
+		margin-left: 0;
+	}
 
-	input[type="search"] {
-		background-color: rgba(235, 236, 241, 1);
-		margin-bottom: 0;
-		padding: 6px;
+	.search-form {
+		width: auto;
+
+		input[type="search"] {
+			background-color: rgba(235, 236, 241, 1);
+			margin-bottom: 0;
+			padding: 6px;
+
+			@include media($ipad-screen-up) {
+				padding: 6px 0;
+			}
+
+				&::-webkit-input-placeholder {
+				font-family: $proxima;
+				font-size: 14px;
+			}
+		}
 	}
 }
 

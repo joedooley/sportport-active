@@ -47,7 +47,7 @@ function spa_free_shipping_before_header() {
 
 	if ( get_field( 'free_shipping_notification', 'option' ) ) {
 
-		echo '<div class="before-header-left-container"><div class="one-third before-header-middle">';
+		echo '<div class="before-header-left-container"><div class="before-header-widget one-third before-header-middle">';
 
 		the_field( 'free_shipping_notification', 'option' );
 

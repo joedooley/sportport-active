@@ -8,14 +8,14 @@ genesis_register_sidebar( array(
 	'id'            => 'before-header-left',
 	'name'          => __( 'Before Header Left', 'epik' ),
 	'description'   => __( 'This is the Before Header Left widget area', 'epik' ),
-	'before_widget' => '<div class="one-third first before-header-left">',
+	'before_widget' => '<div class="one-third first before-header-widget before-header-left">',
 	'after_widget'  => '</div>',
 ) );
 genesis_register_sidebar( array(
 	'id'            => 'before-header-right',
 	'name'          => __( 'Before Header Right', 'epik' ),
 	'description'   => __( 'This is the Before Header Right widget area', 'epik' ),
-	'before_widget' => '<div class="one-third before-header-right">',
+	'before_widget' => '<div class="one-third before-header-widget before-header-right">',
 	'after_widget'  => '</div>',
 ) );
 
