@@ -1,0 +1,16 @@
+/* --------------------------------- *\
+       # Simple Social Icons #
+\* --------------------------------- */
+
+#simple-social-icons-2 {
+	margin-bottom: 0;
+
+	a {
+		opacity: 0.5;
+		@include padding(rem(5));
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+}

@@ -1166,7 +1166,7 @@ a img {
 
 a:hover {
 	color: #888;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 p {
@@ -1635,10 +1635,6 @@ Common Classes
 
 .alignright .avatar {
 	margin-left: 24px;
-}
-
-.search-form {
-	width: 50%;
 }
 
 .search-form input[type="submit"] {

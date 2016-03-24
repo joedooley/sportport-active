@@ -272,6 +272,28 @@
                             "media_upload": 1
                         },
                         {
+                            "key": "field_56f2de55820df",
+                            "label": "Links To",
+                            "name": "links_to",
+                            "type": "page_link",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [
+                                "product"
+                            ],
+                            "taxonomy": [
+
+                            ],
+                            "allow_null": 0,
+                            "multiple": 0
+                        },
+                        {
                             "key": "field_56ef3fd376522",
                             "label": "Right Image",
                             "name": "right_image",
@@ -312,6 +334,28 @@
                             "tabs": "all",
                             "toolbar": "full",
                             "media_upload": 1
+                        },
+                        {
+                            "key": "field_56f2de80820e0",
+                            "label": "Links To",
+                            "name": "links_to",
+                            "type": "page_link",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [
+                                "product"
+                            ],
+                            "taxonomy": [
+
+                            ],
+                            "allow_null": 0,
+                            "multiple": 0
                         },
                         {
                             "key": "field_550f720cb8cb7",
@@ -572,5 +616,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1458596749
+    "modified": 1458757571
 }

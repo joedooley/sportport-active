@@ -15,17 +15,17 @@ function spa_display_fc() {
 		// "Hero" Layout
 		if ( get_row_layout() == 'hero' ) {
 
+
 			//global $hero_image;
 			$hero_image = get_sub_field( 'hero_image' );
 
-
-			wp_localize_script(
-				'backstretch-set',
-				'BackStretchImg',
-				array(
-					'src' => $hero_image['url'],
-				)
-			);
+//			wp_localize_script(
+//				'backstretch-set',
+//				'BackStretchImg',
+//				array(
+//					'src' => $hero_image['url'],
+//				)
+//			);
 			?>
 
 			<section class="hero" style="background: url( <?php echo $hero_image['url'] ?> ) no-repeat;">
@@ -40,21 +40,44 @@ function spa_display_fc() {
 
 			</section>
 
-			<?php
-
-
-		} elseif ( get_row_layout() == 'two_columns' ) {
+		<?php } elseif ( get_row_layout() == 'two_columns' ) {
 
 			$left_image = get_sub_field( 'left_image' );
-			$right_image = get_sub_field( 'right_image' ); ?>
+			$right_image = get_sub_field( 'right_image' );
+
+
+//			$localize_array = array();
+//
+//			array_push( $localize_array, $hero_image['url'], $left_image['url'], $right_image['url'] );
+//
+//			wp_localize_script(
+//				'backstretch-set',
+//				'BackStretchImg',
+//				$localize_array
+//			);
+
+			wp_localize_script(
+				'backstretch-set',
+				'BackStretchImg',
+				[
+					'hero'          => $hero_image['url'],
+					'featuredLeft'  => $left_image['url'],
+					'featuredRight' => $right_image['url']
+				]
+			);
+
+//			print_r($localize_array);
+//			die();
+
+			?>
 
 			<section class="row  <?php the_sub_field( 'css_class' ); ?>">
 
 				<?php the_sub_field( 'section_heading' ); ?>
 
 				<div class="featured-images">
-					<div class="featured-image" style="background: url( <?php echo $left_image['url'] ?> ) no-repeat;"><?php the_sub_field( 'left_text' ); ?></div>
-					<div class="featured-image" style="background: url( <?php echo $right_image['url'] ?> ) no-repeat;"><?php the_sub_field( 'right_text' ); ?></div>
+					<div class="featured-image featured-image-left" style="background: url( <?php echo $left_image['url'] ?> ) no-repeat;"><a href="<?php the_sub_field( 'links_to' ) ?>"><?php the_sub_field( 'left_text' ); ?></a></div>
+					<div class="featured-image featured-image-right" style="background: url( <?php echo $right_image['url'] ?> ) no-repeat;"><a href="<?php the_sub_field( 'links_to' ) ?>"><?php the_sub_field( 'right_text' ); ?></a></div>
 				</div>
 
 			</section>
@@ -71,9 +94,14 @@ function spa_display_fc() {
 
 							<div class="article-container">
 								<?php foreach ( $posts as $p ) : ?>
-									<article class="featured-posts">
-										<?php echo get_the_post_thumbnail( $p->ID, 'featured-posts' ); ?>
-									</article>
+
+
+										<article class="featured-posts">
+											<a href="<?php echo the_permalink( $p->ID, 'featured-posts' ); ?>">
+												<?php echo get_the_post_thumbnail( $p->ID, 'featured-posts' ); ?>
+											<h2 class="image-overlay  featured-post--overlay"><?php the_field( 'featured_image_overlay', $p ); ?></h2></a>
+										</article>
+
 								<?php endforeach; ?>
 							</div>
 

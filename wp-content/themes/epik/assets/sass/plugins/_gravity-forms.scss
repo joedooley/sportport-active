@@ -1,5 +1,12 @@
-/*! Gravity Forms
---------------------------------------------- */
+/* ------------------------------------------ *\
+        # Gravity Forms #
+\* ------------------------------------------ */
+
+.gfield_required {
+	visibility: hidden;
+}
+
+// Contact Us Page
 
 div.gform_wrapper input[type="email"],
 div.gform_wrapper input[type="text"],
@@ -20,4 +27,38 @@ div.gform_wrapper form li {
 
 div.gform_wrapper .gform_footer input[type="submit"] {
 	font-size: 18px;
+}
+
+
+// Footer Widget Newsletter Signup
+
+#gform_widget-2 {
+	margin-bottom: 0;
+
+	.widget-wrap {
+		@include padding(0);
+	}
+
+	.gform_wrapper,
+	.gfield,
+	.gfield_label {
+		@include margin(0);
+	}
+
+	input.medium {
+		width: 100%;
+		@include margin(0);
+	}
+
+	.gform_footer {
+		@include margin(0);
+
+		.gform_button {
+			border-radius: 0;
+			box-shadow: none;
+			width: 100%;
+			@include padding(inherit);
+			@include margin(0);
+		}
+	}
 }

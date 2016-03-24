@@ -1,8 +1,10 @@
 // Typography
 $raleway: ralewayregular, sans-serif;
-$open-sans: open_sansregular, open_sanslight, open_sanssemibold, open_sansbold, open_sansextrabold sans-serif;
-$proxima: proxima_nova_alt_rgregular, proxima_nova_altblack, proxima_nova_alt_rgbold, proxima_nova_altextrabold, sans-serif;
-$franklin-gothic: FranklinGothic-Book, FranklinGothic-Medium, sans-serif;
+
+$lato: latoregular, latohairline, latoblack, latolight, latobold, sans-serif;
+$lato-italic: latolight_italic, latoitalic, latohairline_italic, latobold_italic, latoblack_italic;
+
+$yanone: yanone_kaffeesatzregular, yanone_kaffeesatzlight, yanone_kaffeesatzextralight, yanone_kaffeesatzbold, sans-serif;
 
 
 $base-font-family: $raleway;
@@ -32,6 +34,8 @@ $light-gray: #dce1e7;
 
 $orange: #ff9934;
 $orange-hover: #8e5721;
+
+$white: rgba(255, 255, 255, 1);
 
 // Font Colors
 $base-font-color: $dark-gray;

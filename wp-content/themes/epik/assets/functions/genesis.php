@@ -23,7 +23,6 @@ function spa_add_theme_support() {
 	add_theme_support( 'html5' );
 	add_theme_support( 'genesis-responsive-viewport' );
 	add_theme_support( 'custom-background' );
-	add_theme_support( 'genesis-footer-widgets', 3 );
 	add_theme_support( 'genesis-connect-woocommerce' );
 	add_theme_support( 'woocommerce' );
 
@@ -83,7 +82,7 @@ function spa_register_custom_image_sizes() {
 	add_image_size( 'featured-img', 730, 420, true );
 	add_image_size( 'featured-page', 341, 173, true );
 	add_image_size( 'portfolio-thumbnail', 264, 200, true );
-	add_image_size( 'featured-posts', 280, 280, true );
+	add_image_size( 'featured-posts', 450, 250, true );
 
 }
 
