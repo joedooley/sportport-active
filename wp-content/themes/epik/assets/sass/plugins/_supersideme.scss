@@ -1,0 +1,20 @@
+/* --------------------------------- *\
+         # Superside Me Menu #
+\* --------------------------------- */
+
+.slide-nav-link {
+	background-color: $orange;
+	padding: 8px;
+
+	@include media($small-screen-up) {
+		@include padding(9.5px);
+	}
+
+	&::before {
+		font-size: 18px;
+	}
+
+	&:hover {
+		background-color: $orange-hover;
+	}
+}

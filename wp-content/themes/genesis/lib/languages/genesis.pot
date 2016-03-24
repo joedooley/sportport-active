@@ -1271,7 +1271,7 @@ msgstr ""
 msgid ""
 "If your theme uses a custom home page and you want to show the latest posts "
 "in a blog format, do not use the blog template. Instead, you need to rename "
-"the home.php file to home-old.php instead."
+"the #home.php file to home-old.php instead."
 msgstr ""
 
 #: lib/admin/theme-settings.php:324
@@ -1291,7 +1291,7 @@ msgstr ""
 #: lib/admin/theme-settings.php:326
 msgid ""
 "This setup is preferred because it makes it easier to show a blog on the "
-"front page (no need to rename the home.php file) and does not have the "
+"front page (no need to rename the #home.php file) and does not have the "
 "confusion of no content on the home page when the theme is initially "
 "installed."
 msgstr ""

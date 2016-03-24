@@ -1,14 +1,23 @@
 // Typography
-$raleway: ralewayregular, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$raleway: ralewayregular, sans-serif;
+
+$lato: latoregular, latohairline, latoblack, latolight, latobold, sans-serif;
+$lato-italic: latolight_italic, latoitalic, latohairline_italic, latobold_italic, latoblack_italic;
+
+$yanone: yanone_kaffeesatzregular, yanone_kaffeesatzlight, yanone_kaffeesatzextralight, yanone_kaffeesatzbold, sans-serif;
+
 
 $base-font-family: $raleway;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
-$base-font-size: 62.5%;
+$base-font-size: 16px;
+
+//Font Weights
+$bold: bold;
 
 // Line height
-$base-line-height: 1.5;
+$base-line-height: 1.3;
 $heading-line-height: 1.2;
 
 // Other Sizes
@@ -18,10 +27,21 @@ $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
 
 // Colors
-$blue: #18d;
-$dark-gray: #333;
+
+// Gray
+$light-gray: #aaa;
 $medium-gray: #999;
-$light-gray: rgba(211, 220, 235, 0.59);
+$dark-gray: #333;
+
+// Orange
+$orange: #ff9934;
+$orange-hover: #8e5721;
+
+// White
+$white: rgba(255, 255, 255, 1);
+
+// Blue
+$blue: #18d;
 
 // Font Colors
 $base-font-color: $dark-gray;

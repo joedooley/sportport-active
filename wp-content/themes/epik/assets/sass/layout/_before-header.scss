@@ -1,0 +1,101 @@
+// Before Header Notification Area
+
+.before-header {
+	background-color: #dce1e7;
+	color: $light-gray;
+	text-align: center;
+
+	.wrap {
+		@include media($ipad-screen-up) {
+			margin-top: 0;
+			padding: 0%;
+		}
+	}
+
+
+	.free-shipping-notification {
+		color: #909090;
+		font-family: $lato;
+		font-size: 11px;
+		font-weight: bold;
+		margin-top: 10px;
+		margin-bottom: 0;
+		padding: 0;
+		text-transform: uppercase;
+
+		@include media($xlarge-screen-up) {
+			padding: 5px 0;
+		}
+
+		@include media($small-screen-up) {
+			font-size: 70%;
+		}
+	}
+}
+
+@include media($xlarge-screen-up) {
+
+	.before-header-left-container,
+	.before-header-right-container {
+		display: none;
+	}
+
+	.before-header-widget {
+			width: 100%;
+	}
+
+}
+
+.menu-shopping-menu-container {
+	text-align: left;
+	margin-left: 15px;
+	margin-top: 7px;
+
+	.menu-item {
+		display: inline-block;
+
+		a {
+			color: #909090;
+			font-family: $lato;
+			font-size: 11px;
+
+			&:hover {
+				color: #888;
+			}
+		}
+	}
+}
+
+#menu-shopping-menu-1 li + li:before {
+	color: #909090;
+	content: " | ";
+	padding: 0;
+}
+
+
+
+.before-header-right {
+	@include media($ipad-screen-up) {
+		margin-left: 0;
+	}
+
+	.search-form {
+		width: auto;
+
+		input[type="search"] {
+			background-color: rgba(235, 236, 241, 1);
+			margin-bottom: 0;
+			padding: 6px;
+
+			@include media($ipad-screen-up) {
+				padding: 6px 0;
+			}
+
+				&::-webkit-input-placeholder {
+				font-family: $lato;
+				font-size: 13px;
+			}
+		}
+	}
+}
+

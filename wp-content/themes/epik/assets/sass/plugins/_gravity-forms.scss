@@ -1,5 +1,12 @@
-/*! Gravity Forms
---------------------------------------------- */
+/* ------------------------------------------ *\
+        # Gravity Forms #
+\* ------------------------------------------ */
+
+.gfield_required {
+	visibility: hidden;
+}
+
+// Contact Us Page
 
 div.gform_wrapper input[type="email"],
 div.gform_wrapper input[type="text"],
@@ -20,4 +27,96 @@ div.gform_wrapper form li {
 
 div.gform_wrapper .gform_footer input[type="submit"] {
 	font-size: 18px;
+}
+
+// Above Footer Newsletter Signup
+
+#gform_wrapper_3 {
+	@include margin(0 1em);
+
+	li {
+		@include margin(0);
+	}
+
+	.gform_footer {
+		display: inline-block;
+		@include margin(1.85em 0 0 0);
+		padding: 0.85em 0 0.625em;
+		width: 20%;
+
+		@include media($xlarge-screen-up) {
+			width: 100%;
+			@include margin(0);
+		}
+
+		.gform_button {
+			@include padding(9px 35px);
+
+			@include media($xlarge-screen-up) {
+				max-width: 300px;
+				width: 97.5%;
+				
+				@include media($small-screen-up) {
+					max-width: none;
+				}
+			}
+		}
+	}
+
+	.gform_body {
+		display: inline-block;
+		float: left;
+		width: 80%;
+
+		@include media($xlarge-screen-up) {
+			width: 100%;
+		}
+
+		@include media($xlarge-screen-up) {
+			input.large {
+				max-width: 300px;
+
+				@include media($small-screen-up) {
+					max-width: none;
+				}
+			}
+
+		}
+	}
+}
+
+
+// Footer Widget Newsletter Signup
+
+#gform_widget-2 {
+	margin-bottom: 0;
+
+	.widget-wrap {
+		@include padding(0);
+	}
+
+	.gform_wrapper,
+	.gfield,
+	.gfield_label {
+		@include margin(0);
+	}
+
+	input.medium,
+	.gform_button {
+		max-width: rem(225);
+		width: 100%;
+		@include margin(0);
+	}
+
+	.gform_footer {
+		@include margin(0);
+
+		.gform_button {
+			border: none;
+			border-radius: 0;
+			box-shadow: none;
+			width: 100%;
+			@include padding(inherit);
+		}
+	}
 }

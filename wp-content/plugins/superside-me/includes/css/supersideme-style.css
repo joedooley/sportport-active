@@ -1,0 +1,73 @@
+/** Stylesheet for SuperSide Me plugin. @package   SuperSideMe @author    Robin Cornett <hello@robincornett.com> @copyright 2015-2016 Robin Cornett @license   GPL-2.0+ */
+/* Sidr Setup
+-------------------------------- */
+.no-js nav, .no-js #nav, .no-js .nav-primary, .no-js .nav-secondary { display: block; }
+
+.slide-nav-link { border: none; border-radius: 0; display: none; padding: 14px; z-index: 900; }
+
+.slide-nav-link:before { display: inline-block; font: normal normal normal 20px FontAwesome; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-transform: translate(0, 0); -ms-transform: translate(0, 0); transform: translate(0, 0); padding-right: 8px; }
+
+.slide-nav-link:hover { border: none; }
+
+/* Sidr styles. */
+.sidr { box-sizing: border-box; display: block; overflow-x: hidden; overflow-y: auto; position: fixed; z-index: 1100; top: 0; height: 100%; font-size: 15px; max-width: 100%; }
+
+.sidr.right { left: auto; }
+
+.sidr.left { right: auto; }
+
+.sidr .wrap { padding: 0; }
+
+.sidr .menu-close { background-color: rgba(0, 0, 0, 0.1); display: block; padding: 12px 24px; }
+
+.sidr .menu-close:before { display: inline-block; font: normal normal normal 16px FontAwesome; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-transform: translate(0, 0); -ms-transform: translate(0, 0); transform: translate(0, 0); padding-right: 12px; }
+
+.sidr nav { display: block; }
+
+.sidr .side-nav { margin: 0; padding: 0; }
+
+.sidr li, .sidr .menu-item { /* .sidr ul li */ clear: both; margin: 0; padding: 0; }
+
+.sidr li a, .sidr .menu-item a { border-top: 1px solid rgba(250, 250, 250, 0.1); border-bottom: 1px solid rgba(0, 0, 0, 0.1); display: block; padding: 10px 15px; position: relative; text-align: left; text-decoration: none; width: 100%; }
+
+.sidr .sub-menu { /* .sidr ul li ul */ background-color: #fff; background-color: rgba(255, 255, 255, 0.1); margin: 0; padding: 0; }
+
+.sidr .sub-menu a { padding-left: 30px; }
+
+.sidr h3, .sidr h4, .sidr .widget-title { border-bottom: 1px solid; margin-bottom: 0; padding: 12px 0; text-align: center; }
+
+.sidr li, .sidr li:hover { list-style-type: none; position: relative; }
+
+.sidr button { border: none; }
+
+.sidr .sub-menu-toggle { background-color: transparent; visibility: visible; }
+
+.sidr .sub-menu-toggle:before { display: inline-block; font: normal normal normal 16px FontAwesome; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-transform: translate(0, 0); -ms-transform: translate(0, 0); transform: translate(0, 0); }
+
+.sidr button.sub-menu-toggle { z-index: 100; display: block; float: right; padding: 0; position: absolute; top: 0; right: 0; width: 42px; height: 42px; }
+
+.sidr a.sub-menu-toggle:before { float: right; margin: 5px 1px; padding: 0; }
+
+.sidr .menu-item-has-children { position: relative; }
+
+.sidr .sub-menu { display: none; clear: both; position: static; width: 100%; opacity: 1; }
+
+.sidr .widget { padding: 8px; }
+
+.sidr-inner { margin-bottom: 46px; }
+
+.search-me:before { display: inline-block; font: normal normal normal 20px FontAwesome; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-transform: translate(0, 0); -ms-transform: translate(0, 0); transform: translate(0, 0); position: absolute; right: 0; padding: 18px 16px; }
+
+.search-me .search-form input[type="search"] { margin: 0; padding: 16px 12px; width: 100%; }
+
+.search-me input[type="submit"] { position: absolute !important; clip: rect(1px, 1px, 1px, 1px); height: 1px; width: 1px; border: 0; overflow: hidden; right: 0; margin: 0; padding: 0; }
+
+.admin-bar .sidr { top: 32px; }
+
+@media only screen and (max-width: 782px) { .admin-bar .sidr { top: 46px; } }
+
+nav.woocommerce-breadcrumb, nav.woocommerce-pagination { display: block; }
+
+/* Screen Readers
+------------------------------- */
+.screen-reader-text, .screen-reader-text span { position: absolute !important; clip: rect(1px, 1px, 1px, 1px); height: 1px; width: 1px; border: 0; overflow: hidden; }

@@ -40,12 +40,30 @@ function spa_free_shipping_before_header() {
 
 	echo '<section class="before-header"><div class="wrap">';
 
+	genesis_widget_area( 'before-header-left', array(
+		'before' => '<div class="before-header-left-container">',
+		'after'  => '</div>',
+	) );
+
 	if ( get_field( 'free_shipping_notification', 'option' ) ) {
+
+		echo '<div class="before-header-middle-container"><div class="before-header-widget one-third before-header-middle">';
+
 		the_field( 'free_shipping_notification', 'option' );
+
+		echo '</div></div>';
+
 	}
+
+	genesis_widget_area( 'before-header-right', array(
+		'before' => '<div class="before-header-right-container">',
+		'after'  => '</div>',
+	) );
 
 	echo '</div></section>';
 }
+
+
 
 
 add_action( 'genesis_before', 'spa_google_tag_manager' );

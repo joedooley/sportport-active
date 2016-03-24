@@ -1,6 +1,6 @@
 <?php
 /**
- * Review class.
+ * Pointers class.
  *
  * @since 1.1.4.5
  *
