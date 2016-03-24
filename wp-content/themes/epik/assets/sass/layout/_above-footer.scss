@@ -2,6 +2,10 @@
         # Above Footer Widgets #
 |* ------------------------------- */
 
+.above-footer-widgets {
+	background-color: #dce1e7;
+}
+
 .above-footer-container {
 	@include display(flex);
 	@include flex-direction(row);
