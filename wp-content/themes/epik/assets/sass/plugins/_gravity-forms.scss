@@ -55,7 +55,7 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 			@include media($xlarge-screen-up) {
 				max-width: 300px;
 				width: 97.5%;
-				
+
 				@include media($small-screen-up) {
 					max-width: none;
 				}
