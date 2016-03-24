@@ -1,11 +1,12 @@
 .button,
+.entry-content .sp-button,
+.entry-content .sp-button a,
 #{$all-buttons} {
 	appearance: none;
 	background-color: $orange;
 	color: #fff;
-	text-transform: uppercase;
 	font: {
-		size: rem(1rem);
+		size: rem(16);
 		weight: $bold;
 	}
 	padding: 20px;
@@ -15,6 +16,7 @@
 	font-family: $base-font-family;
 	-webkit-font-smoothing: antialiased;
 	line-height: 1;
+	text-transform: uppercase;
 	transition: background-color $base-duration $base-timing;
 	user-select: none;
 	vertical-align: middle;
@@ -87,30 +89,6 @@ a.button.slim {
 	text-transform: uppercase;
 }
 
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"],
-.entry-content .sp-button,
-.entry-content .sp-button a {
-	background: #f93;
-	border: none;
-	border-radius: 30px;
-	color: #fff;
-	cursor: pointer;
-	letter-spacing: 1px;
-	padding: 8px 15px;
-	width: auto;
-	font: {
-		size: rem(12);
-		weight: 300;
-	}
-	text-decoration: none;
-
-	&:hover {
-		color: #fff;
-	}
-}
 
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button {

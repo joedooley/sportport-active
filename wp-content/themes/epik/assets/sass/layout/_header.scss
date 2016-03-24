@@ -5,10 +5,6 @@
 	border-bottom: 1px solid $base-border-color;
 	width: 100%;
 
-	@include media($xlarge-screen-up) {
-		padding-bottom: 30px;
-	}
-
 	.title-area {
 		float: left;
 

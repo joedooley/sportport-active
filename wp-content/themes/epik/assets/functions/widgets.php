@@ -26,11 +26,24 @@ genesis_register_sidebar( array(
 	'description' => __( 'This widget will show up at the very end of each post.', 'epik' ),
 ) );
 
+// Before Footer Left
+genesis_register_sidebar( array(
+	'id'          => 'before-footer-left',
+	'name'        => __( 'Before Footer Left', 'epik' ),
+	'description' => __( 'This widget will show up the homepage above the footer widgets.', 'epik' ),
+) );
+
+// Before Footer Right
+genesis_register_sidebar( array(
+	'id'          => 'before-footer-right',
+	'name'        => __( 'Before Footer Right', 'epik' ),
+	'description' => __( 'This widget will show up the homepage above the footer widgets.', 'epik' ),
+) );
+
 
 
 //* Hooks after-entry widget area to single posts
-add_action( 'genesis_after_entry', 'after_entry_widget', 5 );
-function after_entry_widget() {
+add_action( 'genesis_after_entry', function() {
 
 	if ( ! is_singular( 'post' ) ) {
 		return;
@@ -41,7 +54,24 @@ function after_entry_widget() {
 		'after'  => '</div></div>',
 	) );
 
-}
+});
 
 
 
+add_action( 'genesis_before_footer', function() {
+
+	echo '<section class="above-footer-widgets"><div class="above-footer-container wrap">';
+
+	genesis_widget_area( 'before-footer-left', array(
+		'before' => '<div class="before-footer-left widget-area"><div class="wrap">',
+		'after'  => '</div></div>',
+	) );
+
+	genesis_widget_area( 'before-footer-right', array(
+		'before' => '<div class="before-footer-right widget-area"><div class="wrap">',
+		'after'  => '</div></div>',
+	) );
+
+	echo '</div></div>';
+
+}, 9);

@@ -5,12 +5,29 @@
 #simple-social-icons-2 {
 	margin-bottom: 0;
 
+	li {
+		float: left;
+		margin: 0 0 rem(10) 0 !important;
+	}
+
 	a {
+		background-color: #3c4143 !important;
+		color: #aaa !important;
+		margin-top: 1em;
 		opacity: 0.5;
-		@include padding(rem(5));
+		@include padding(rem(5) rem(8));
 
 		&:hover {
 			opacity: 1;
 		}
+	}
+}
+
+
+#simple-social-icons-3 a {
+	background-color: transparent !important;
+
+	@include media($small-screen-up) {
+		@include padding(14px);
 	}
 }

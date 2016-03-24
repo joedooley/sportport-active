@@ -129,6 +129,10 @@
 		a {
 			color: rgba(255, 255, 255, 0.5);
 			font-weight: $bold;
+
+			&:hover {
+				color: #fff;
+			}
 		}
 	}
 }
@@ -159,7 +163,7 @@
 	text-transform: uppercase;
 
 	&:hover {
-		color: lighten($white, 20%);
+		color: #d1cece;
 	}
 }
 
@@ -172,8 +176,8 @@
 .featured-post--overlay {
 	bottom: 55px;
 	opacity: 0.8;
-	text-align: center;
 	position: relative;
+	text-align: center;
 	z-index: 1;
 }
 
@@ -193,8 +197,6 @@
 	background-color: #8d9ba6;
 }
 .featured-image {
-	background-size: cover !important;
-	display: table-cell;
 	height: 300px;
 }
 

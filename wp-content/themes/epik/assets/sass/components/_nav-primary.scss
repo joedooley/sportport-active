@@ -18,6 +18,7 @@
 		&:active {
 			color: #fff;
 			font-weight: bold;
+			@include transition(all 0.3s ease-in-out);
 		}
 	}
 

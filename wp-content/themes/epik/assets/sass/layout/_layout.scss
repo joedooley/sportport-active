@@ -1,8 +1,12 @@
 /*! ## Layout
 --------------------------- */
 
+
+@import "before-header";
+@import "header";
 @import "structure";
 @import "sidebars";
+@import "above-footer";
 @import "footer-widgets";
 @import "footer";
 

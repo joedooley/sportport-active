@@ -7,7 +7,7 @@
 	padding: 8px;
 
 	@include media($small-screen-up) {
-		@include padding(6px);
+		@include padding(9.5px);
 	}
 
 	&::before {

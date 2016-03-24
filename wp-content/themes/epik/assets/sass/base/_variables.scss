@@ -27,15 +27,21 @@ $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
 
 // Colors
-$blue: #18d;
-$dark-gray: #333;
-$medium-gray: #999;
-$light-gray: #dce1e7;
 
+// Gray
+$light-gray: #aaa;
+$medium-gray: #999;
+$dark-gray: #333;
+
+// Orange
 $orange: #ff9934;
 $orange-hover: #8e5721;
 
+// White
 $white: rgba(255, 255, 255, 1);
+
+// Blue
+$blue: #18d;
 
 // Font Colors
 $base-font-color: $dark-gray;

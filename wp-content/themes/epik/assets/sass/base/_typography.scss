@@ -20,20 +20,13 @@ html {
 body {
 	background: rgba(211, 220, 235, 0.59);
 	color: #333;
-	font-family: ralewayregular, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-family: $raleway;
 	font-size: 18px;
 	font-weight: 100;
-	letter-spacing: .025em;
+	letter-spacing: 0.025em;
 	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
 }
-
-body {
-  color: $base-font-color;
-  font-family: $base-font-family;
-  font-size: $base-font-size;
-  line-height: $base-line-height;
-}
-
 
 h1,
 h2,
@@ -75,4 +68,9 @@ img,
 picture {
   margin: 0;
   max-width: 100%;
+}
+
+address a {
+	line-height: 1.4;
+	text-decoration: none;
 }
