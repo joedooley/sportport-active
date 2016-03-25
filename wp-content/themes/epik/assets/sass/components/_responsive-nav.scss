@@ -14,7 +14,7 @@
 		border: none;
 	}
 
-	.js .nav {
+	.js nav.nav-primary {
 		display: none;
 		position: relative;
 	}
@@ -142,6 +142,10 @@
 
 	.js .genesis-nav-menu .sub-menu a {
 		border-bottom: 1px solid $base-border-color;
+
+		&:hover {
+			border-bottom: 1px solid $base-border-color;
+		}
 	}
 
 	.js nav button:hover,

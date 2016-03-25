@@ -18,21 +18,21 @@
 		&:active {
 			color: #fff;
 			font-weight: bold;
-			@include transition(all 0.3s ease-in-out);
+			@include transition(all 0.5s ease-in-out);
 		}
 	}
 
-}
+	.genesis-nav-menu li.last a {
+		padding-right: 0;
+	}
 
-.nav-primary .genesis-nav-menu li.last a {
-	padding-right: 0;
-}
+	.genesis-nav-menu li li {
+		margin-left: 0;
+	}
 
-.nav-primary .sub-menu {
-	border-top: 1px solid #ddd;
-	z-index: 1;
-}
+	.sub-menu {
+		border-top: 1px solid #ddd;
+		z-index: 1;
+	}
 
-.nav-primary .genesis-nav-menu li li {
-	margin-left: 0;
 }

@@ -28,7 +28,7 @@
 		}
 
 		@include media($small-screen-up) {
-			font-size: 70%;
+			display: inline;
 		}
 	}
 }

@@ -2699,19 +2699,16 @@ Miscellaneous
     .nav-primary a:hover, .nav-primary a:focus, .nav-primary a:active {
       color: #fff;
       font-weight: bold;
-      -webkit-transition: all 0.3s ease-in-out;
-      -moz-transition: all 0.3s ease-in-out;
-      transition: all 0.3s ease-in-out; }
-
-.nav-primary .genesis-nav-menu li.last a {
-  padding-right: 0; }
-
-.nav-primary .sub-menu {
-  border-top: 1px solid #ddd;
-  z-index: 1; }
-
-.nav-primary .genesis-nav-menu li li {
-  margin-left: 0; }
+      -webkit-transition: all 0.5s ease-in-out;
+      -moz-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out; }
+  .nav-primary .genesis-nav-menu li.last a {
+    padding-right: 0; }
+  .nav-primary .genesis-nav-menu li li {
+    margin-left: 0; }
+  .nav-primary .sub-menu {
+    border-top: 1px solid #ddd;
+    z-index: 1; }
 
 /*! Secondary Navigation
 --------------------------------------------- */
@@ -2753,7 +2750,7 @@ Miscellaneous
     background: none;
     border: none; }
 
-  .js .nav {
+  .js nav.nav-primary {
     display: none;
     position: relative; }
 
@@ -2863,6 +2860,8 @@ Miscellaneous
 
   .js .genesis-nav-menu .sub-menu a {
     border-bottom: 1px solid #aaa; }
+    .js .genesis-nav-menu .sub-menu a:hover {
+      border-bottom: 1px solid #aaa; }
 
   .js nav button:hover,
   .js .menu-toggle:hover,
@@ -3267,7 +3266,7 @@ body.woocommerce .quantity .qty {
         padding: 5px 0; } }
     @media screen and (max-width: 480px) {
       .before-header .free-shipping-notification {
-        font-size: 70%; } }
+        display: inline; } }
 
 @media screen and (max-width: 1023px) {
   .before-header-left-container,
@@ -3316,6 +3315,9 @@ body.woocommerce .quantity .qty {
   background-color: #567;
   border-bottom: 1px solid #aaa;
   width: 100%; }
+  @media screen and (max-width: 1023px) {
+    .site-header {
+      padding-bottom: 1.875rem; } }
   .site-header .title-area {
     float: left; }
     @media screen and (min-width: 1180px) {
@@ -3331,8 +3333,8 @@ body.woocommerce .quantity .qty {
           text-align: center; } }
       .site-header .title-area .site-title img {
         position: relative;
-        z-index: 999;
-        top: 30px; }
+        top: 30px;
+        z-index: 999; }
 
 /*! ## Site Structure and Layout
 ------------------------------------------- */
