@@ -5,6 +5,16 @@ require_once( get_template_directory() . '/lib/init.php' );
 //* Setup Theme
 include_once( get_stylesheet_directory() . '/assets/functions/theme-functions.php' );
 
+//* Set Localization (do not remove)
+load_child_theme_textdomain(
+    'sportport-active',
+    apply_filters(
+        'child_theme_textdomain',
+        get_stylesheet_directory() . '/languages',
+        'sportport-active'
+    )
+);
+
 //* Include Customizer files
 include_once( get_stylesheet_directory() . '/assets/functions/admin/output.php' );
 
