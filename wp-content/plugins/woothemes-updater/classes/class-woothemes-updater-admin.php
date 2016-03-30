@@ -429,8 +429,7 @@ if ( jQuery( 'form[name="upgrade-themes"]' ).length ) {
 	 */
 	public function enqueue_scripts () {
 		$screen = get_current_screen();
-		wp_enqueue_script( 'post' );
-		wp_register_script( 'woothemes-updater-admin', $this->assets_url . 'js/admin.js', array( 'jquery' ) );
+		wp_register_script( 'woothemes-updater-admin', $this->assets_url . 'js/admin.js', array( 'jquery', 'post' ) );
 		wp_register_script( 'woothemes-updater-admin-notice-hider', $this->assets_url . 'js/admin-notice-hider.js?version=1.6.0', array( 'jquery' ) );
 
 		// Only load script and localization on helper admin page.

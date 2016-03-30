@@ -26,12 +26,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 require_once AIHR_DIR_INC . 'class-aihrus-settings.php';
 
-if ( class_exists( 'Testimonials_Widget_Settings' ) ) {
+if ( class_exists( 'Axl_Testimonials_Widget_Settings' ) ) {
 	return;
 }
 
 
-class Testimonials_Widget_Settings extends Aihrus_Settings {
+class Axl_Testimonials_Widget_Settings extends Aihrus_Settings {
 	const ID   = 'testimonialswidget_settings';
 	const NAME = 'Testimonials Widget Settings';
 
@@ -77,14 +77,14 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 		add_filter( 'wp_unique_post_slug_is_bad_flat_slug', array( __CLASS__, 'is_bad_flat_slug' ), 10, 3 );
 
 		$version       = tw_get_option( 'version' );
-		self::$version = Testimonials_Widget::VERSION;
+		self::$version = Axl_Testimonials_Widget::VERSION;
 		self::$version = apply_filters( 'tw_version', self::$version );
 
 		if ( $version != self::$version ) {
 			self::initialize_settings();
 		}
 
-		if ( ! Testimonials_Widget::do_load() ) {
+		if ( ! Axl_Testimonials_Widget::do_load() ) {
 			return;
 		}
 
@@ -94,7 +94,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 
 
 	public static function admin_menu() {
-		self::$admin_page = add_submenu_page( 'edit.php?post_type=' . Testimonials_Widget::PT, esc_html__( 'Testimonials Settings', 'testimonials-widget' ), esc_html__( 'Settings', 'testimonials-widget' ), 'manage_options', self::ID, array( __CLASS__, 'display_page' ) );
+		self::$admin_page = add_submenu_page( 'edit.php?post_type=' . Axl_Testimonials_Widget::PT, esc_html__( 'Testimonials Settings', 'testimonials-widget' ), esc_html__( 'Settings', 'testimonials-widget' ), 'manage_options', self::ID, array( __CLASS__, 'display_page' ) );
 
 		add_action( 'admin_print_scripts-' . self::$admin_page, array( __CLASS__, 'scripts' ) );
 		add_action( 'admin_print_styles-' . self::$admin_page, array( __CLASS__, 'styles' ) );
@@ -105,7 +105,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 	public static function init() {
 		load_plugin_textdomain( 'testimonials-widget', false, '/testimonials-widget/languages/' );
 
-		self::$plugin_assets = Testimonials_Widget::$plugin_assets;
+		self::$plugin_assets = Axl_Testimonials_Widget::$plugin_assets;
 	}
 
 
@@ -346,6 +346,15 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 			'section' => 'fields',
 			'desc' => esc_html__( 'Field Options', 'testimonials-widget' ),
 			'type' => 'expand_begin',
+		);
+
+		self::$settings['hide_source_title'] = array(
+			'section' => 'fields',
+			'title' => esc_html__( 'Hide Title Above Content?', 'testimonials-widget' ),
+			'type' => 'checkbox',
+			'validate' => 'is_true',
+			'std' => 1,
+			'desc' => esc_html__( 'Don\'t display testimonial title above testimonial content.', 'testimonials-widget' ),
 		);
 
 		self::$settings['hide_source'] = array(
@@ -725,7 +734,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 			// Examples
 			self::$settings['examples'] = array(
 				'section' => 'examples',
-				'desc' => Testimonials_Widget::testimonials_examples(),
+				'desc' => Axl_Testimonials_Widget::testimonials_examples(),
 				'type' => 'content',
 				'widget' => 0,
 			);
@@ -735,7 +744,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 			self::$settings['options'] = array(
 				'section' => 'options',
 				'type' => 'content',
-				'desc' => Testimonials_Widget::testimonials_options(),
+				'desc' => Axl_Testimonials_Widget::testimonials_options(),
 				'widget' => 0,
 			);
 			self::$settings['options'] = wp_parse_args( self::$settings['options'], self::$default );
@@ -845,7 +854,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 		}
 
 		$input['version']        = self::$version;
-		$input['donate_version'] = Testimonials_Widget::VERSION;
+		$input['donate_version'] = Axl_Testimonials_Widget::VERSION;
 
 		$input = apply_filters( 'tw_validate_settings', $input, $errors );
 		if ( empty( $do_errors ) ) {
@@ -943,7 +952,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 			array(
 				'id'     => 'tw-general',
 				'title'     => esc_html__( 'General', 'testimonials-widget' ),
-				'content' => '<p>' . esc_html__( 'General options.', 'testimonials-widget' ) . '</p>'
+				'content' => '<p>' . esc_html__( 'General options.', 'testimonials-widget' ) . '</p>',
 			)
 		);
 
@@ -951,7 +960,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 			array(
 				'id'     => 'tw-fields',
 				'title'     => esc_html__( 'Fields', 'testimonials-widget' ),
-				'content' => '<p>' . esc_html__( 'Show or hide fields.', 'testimonials-widget' ) . '</p>'
+				'content' => '<p>' . esc_html__( 'Show or hide fields.', 'testimonials-widget' ) . '</p>',
 			)
 		);
 
@@ -959,7 +968,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 			array(
 				'id'     => 'tw-selection',
 				'title'     => esc_html__( 'Selection', 'testimonials-widget' ),
-				'content' => '<p>' . esc_html__( 'Options used to select testimonials.', 'testimonials-widget' ) . '</p>'
+				'content' => '<p>' . esc_html__( 'Options used to select testimonials.', 'testimonials-widget' ) . '</p>',
 			)
 		);
 
@@ -967,7 +976,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 			array(
 				'id'     => 'tw-ordering',
 				'title'     => esc_html__( 'Ordering', 'testimonials-widget' ),
-				'content' => '<p>' . esc_html__( 'Options used to determine displayed testimonials ordering.', 'testimonials-widget' ) . '</p>'
+				'content' => '<p>' . esc_html__( 'Options used to determine displayed testimonials ordering.', 'testimonials-widget' ) . '</p>',
 			)
 		);
 
@@ -975,7 +984,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 			array(
 				'id'     => 'tw-columns',
 				'title'     => esc_html__( 'Columns', 'testimonials-widget' ),
-				'content' => '<p>' . esc_html__( 'Allowed columns to display on edit page.', 'testimonials-widget' ) . '</p>'
+				'content' => '<p>' . esc_html__( 'Allowed columns to display on edit page.', 'testimonials-widget' ) . '</p>',
 			)
 		);
 
@@ -983,7 +992,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 			array(
 				'id'     => 'tw-post_type',
 				'title'     => esc_html__( 'Post Type', 'testimonials-widget' ),
-				'content' => '<p>' . esc_html__( 'Archive and singular page URL related testimonials options.', 'testimonials-widget' ) . '</p>'
+				'content' => '<p>' . esc_html__( 'Archive and singular page URL related testimonials options.', 'testimonials-widget' ) . '</p>',
 			)
 		);
 
@@ -991,7 +1000,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 			array(
 				'id'     => 'tw-widget',
 				'title'     => esc_html__( 'Slider Widget', 'testimonials-widget' ),
-				'content' => '<p>' . esc_html__( 'Options related to showing testimonials in widgets.', 'testimonials-widget' ) . '</p>'
+				'content' => '<p>' . esc_html__( 'Options related to showing testimonials in widgets.', 'testimonials-widget' ) . '</p>',
 			)
 		);
 
@@ -999,7 +1008,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 			array(
 				'id'     => 'tw-reset',
 				'title'     => esc_html__( 'Reset', 'testimonials-widget' ),
-				'content' => '<p>' . esc_html__( 'Backwards compatibility, import/export options, and reset options.', 'testimonials-widget' ) . '</p>'
+				'content' => '<p>' . esc_html__( 'Backwards compatibility, import/export options, and reset options.', 'testimonials-widget' ) . '</p>',
 			)
 		);
 
@@ -1017,7 +1026,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 				if ( ! $use_cpt_taxonomy ) {
 					$taxonomy = 'category';
 				} else {
-					$taxonomy = Testimonials_Widget::$cpt_category;
+					$taxonomy = Axl_Testimonials_Widget::$cpt_category;
 				}
 
 				break;
@@ -1026,7 +1035,7 @@ class Testimonials_Widget_Settings extends Aihrus_Settings {
 				if ( ! $use_cpt_taxonomy ) {
 					$taxonomy = 'post_tag';
 				} else {
-					$taxonomy = Testimonials_Widget::$cpt_tags;
+					$taxonomy = Axl_Testimonials_Widget::$cpt_tags;
 				}
 
 				break;
@@ -1045,17 +1054,15 @@ EOD;
 
 		return $scripts;
 	}
-
-
 }
 
 
 function tw_get_options() {
-	$options = get_option( Testimonials_Widget_Settings::ID );
+	$options = get_option( Axl_Testimonials_Widget_Settings::ID );
 
 	if ( false === $options ) {
-		$options = Testimonials_Widget_Settings::get_defaults();
-		update_option( Testimonials_Widget_Settings::ID, $options );
+		$options = Axl_Testimonials_Widget_Settings::get_defaults();
+		update_option( Axl_Testimonials_Widget_Settings::ID, $options );
 	}
 
 	return $options;
@@ -1063,7 +1070,7 @@ function tw_get_options() {
 
 
 function tw_get_option( $option, $default = null ) {
-	$options = get_option( Testimonials_Widget_Settings::ID, null );
+	$options = get_option( Axl_Testimonials_Widget_Settings::ID, null );
 
 	if ( isset( $options[ $option ] ) ) {
 		return $options[ $option ];
@@ -1074,22 +1081,22 @@ function tw_get_option( $option, $default = null ) {
 
 
 function tw_set_option( $option, $value = null ) {
-	$options = get_option( Testimonials_Widget_Settings::ID );
+	$options = get_option( Axl_Testimonials_Widget_Settings::ID );
 
 	if ( ! is_array( $options ) ) {
 		$options = array();
 	}
 
 	$options[ $option ] = $value;
-	update_option( Testimonials_Widget_Settings::ID, $options );
+	update_option( Axl_Testimonials_Widget_Settings::ID, $options );
 }
 
 
 function tw_init_options() {
 	$options = tw_get_options();
-	$options = wp_parse_args( $options, Testimonials_Widget::get_defaults() );
-	$options = Testimonials_Widget_Settings::validate_settings( $options );
-	update_option( Testimonials_Widget_Settings::ID, $options );
+	$options = wp_parse_args( $options, Axl_Testimonials_Widget::get_defaults() );
+	$options = Axl_Testimonials_Widget_Settings::validate_settings( $options );
+	update_option( Axl_Testimonials_Widget_Settings::ID, $options );
 }
 
 ?>

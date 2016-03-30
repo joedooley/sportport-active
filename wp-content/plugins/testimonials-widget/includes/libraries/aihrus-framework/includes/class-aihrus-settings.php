@@ -559,8 +559,8 @@ abstract class Aihrus_Settings {
 		$errors = array();
 
 		foreach ( $options as $id => $parts ) {
-			$default     = $parts['std'];
-			$type        = $parts['type'];
+			$default     = isset( $parts['std'] ) ? $parts['std'] : '';
+			$type        = isset( $parts['type'] ) ? $parts['type'] : '';
 			$validations = ! empty( $parts['validate'] ) ? $parts['validate'] : array();
 			if ( ! empty( $validations ) ) {
 				$validations = explode( ',', $validations );
@@ -889,8 +889,6 @@ EOD;
 
 		return static::$sections;
 	}
-
-
 }
 
 

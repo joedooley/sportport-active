@@ -2,6 +2,19 @@
 
 ## master
 
+## 1.2.4
+* Change support email address to `support@axelerant.com`
+* Fix coding standards for CI
+* Remove option to disable the license not saved notice rather set sslverify to false
+* Remove the use of deprecated function `wp_htmledit_pre()` and use `format_for_editor()` instead
+
+## 1.2.3
+* RELATES #7 Add option to disable the license not saved notice
+* RESOLVE #8 Remove activation helpers
+* RESOLVE michael-cannon/testimonials-widget#184 Remove deprecated constructor calls for WP_Widget
+* Tested with WordPress 4.4
+* Update Parsedown 1.5.4 library
+
 ## 1.2.2
 * Add Inside Axelerant link
 * Store branding updates

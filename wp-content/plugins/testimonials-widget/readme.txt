@@ -4,8 +4,8 @@ Contributors: comprock,saurabhd,subharanjan
 Donate link: https://axelerant.com/about-axelerant/donate/
 Tags: axelerant, client, customer, portfolio, quote, quotes, random, recommendation, reference, review, reviews, slider, testimonial, testimonials, wpml
 Requires at least: 3.9.2
-Tested up to: 4.3.0
-Stable tag: 3.2.0
+Tested up to: 4.4.2
+Stable tag: 3.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,10 @@ For easy custom styling, each testimonial widget has its own CSS class identifie
 Widgets display content sans `wpautop` formatting. This means there's no forced paragraph breaks unless the content specifically contains them. If needed, you can enable `wpautop` via the "Keep whitespace?" option.
 
 The single testimonial view supports image, author, title, location, email, company and URL details with optional Review schema.
+
+As per Google's quality guidelines, marking up irrelevant or misleading content, such as fake reviews or content unrelated to the focus of a page may lead to review stars removed.
+
+As per John Mueller, Webmaster Trends Analyst at Google, testimonials are not reviews, and it doesn't make sense to use review schema for them. Please use "Enable Review Schema" option wisely to stay "compliant" with Google's recommendations.
 
 = Shortcodes =
 

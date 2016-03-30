@@ -4,7 +4,7 @@
  * Plugin URI: http://wordpress.org/plugins/testimonials-widget/
  * Description: Easily add social proofing to your website with Testimonials Widget. List or slide reviews via functions, shortcodes, or widgets.
  * lets you socially randomly slide or list selected portfolios, quotes, reviews, or text with images or videos on your WordPress site.
- * Version: 3.2.0
+ * Version: 3.3.0
  * Author: Axelerant
  * Author URI: https://axelerant.com/
  * License: GPLv2 or later
@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'TW_AIHR_VERSION' ) ) {
-	define( 'TW_AIHR_VERSION', '1.2.2' );
+	define( 'TW_AIHR_VERSION', '1.2.4' );
 }
 
 if ( ! defined( 'TW_BASE' ) ) {
@@ -64,7 +64,7 @@ if ( ! defined( 'TW_PREMIUM_LINK' ) ) {
 }
 
 if ( ! defined( 'TW_VERSION' ) ) {
-	define( 'TW_VERSION', '3.2.0' );
+	define( 'TW_VERSION', '3.3.0' );
 }
 
 require_once TW_DIR_INC . 'requirements.php';
@@ -91,94 +91,118 @@ add_action( 'plugins_loaded', 'testimonialswidget_init', 99 );
  */
 if ( ! function_exists( 'testimonialswidget_init' ) ) {
 	function testimonialswidget_init() {
-		if ( Testimonials_Widget::version_check() ) {
-			global $Testimonials_Widget_Settings;
-			if ( is_null( $Testimonials_Widget_Settings ) ) {
-				$Testimonials_Widget_Settings = new Testimonials_Widget_Settings();
+		if ( Axl_Testimonials_Widget::version_check() ) {
+			global $Axl_Testimonials_Widget_Settings;
+			if ( is_null( $Axl_Testimonials_Widget_Settings ) ) {
+				$Axl_Testimonials_Widget_Settings = new Axl_Testimonials_Widget_Settings();
 			}
 
-			global $Testimonials_Widget;
-			if ( is_null( $Testimonials_Widget ) ) {
-				$Testimonials_Widget = new Testimonials_Widget();
+			global $Axl_Testimonials_Widget;
+			if ( is_null( $Axl_Testimonials_Widget ) ) {
+				$Axl_Testimonials_Widget = new Axl_Testimonials_Widget();
 			}
 		}
 	}
 }
 
 
-register_activation_hook( __FILE__, array( 'Testimonials_Widget', 'activation' ) );
-register_deactivation_hook( __FILE__, array( 'Testimonials_Widget', 'deactivation' ) );
-register_uninstall_hook( __FILE__, array( 'Testimonials_Widget', 'uninstall' ) );
+register_activation_hook( __FILE__, array( 'Axl_Testimonials_Widget', 'activation' ) );
+register_deactivation_hook( __FILE__, array( 'Axl_Testimonials_Widget', 'deactivation' ) );
+register_uninstall_hook( __FILE__, array( 'Axl_Testimonials_Widget', 'uninstall' ) );
 
 
+/**
+ * @SuppressWarnings(PHPMD.LongVariable)
+ */
 if ( ! function_exists( 'testimonials' ) ) {
 	function testimonials( $atts = array() ) {
-		global $Testimonials_Widget;
+		global $Axl_Testimonials_Widget;
 
-		return $Testimonials_Widget->testimonials( $atts );
+		return $Axl_Testimonials_Widget->testimonials( $atts );
 	}
 }
 
 
+/**
+ * @SuppressWarnings(PHPMD.LongVariable)
+ */
 if ( ! function_exists( 'testimonials_archives' ) ) {
 	function testimonials_archives( $atts = array() ) {
-		global $Testimonials_Widget;
+		global $Axl_Testimonials_Widget;
 
-		return $Testimonials_Widget->testimonials_archives( $atts );
+		return $Axl_Testimonials_Widget->testimonials_archives( $atts );
 	}
 }
 
 
+/**
+ * @SuppressWarnings(PHPMD.LongVariable)
+ */
 if ( ! function_exists( 'testimonials_categories' ) ) {
 	function testimonials_categories( $atts = array() ) {
-		global $Testimonials_Widget;
+		global $Axl_Testimonials_Widget;
 
-		return $Testimonials_Widget->testimonials_categories( $atts );
+		return $Axl_Testimonials_Widget->testimonials_categories( $atts );
 	}
 }
 
 
+/**
+ * @SuppressWarnings(PHPMD.LongVariable)
+ */
 if ( ! function_exists( 'testimonials_recent' ) ) {
 	function testimonials_recent( $atts = array() ) {
-		global $Testimonials_Widget;
+		global $Axl_Testimonials_Widget;
 
-		return $Testimonials_Widget->testimonials_recent( $atts );
+		return $Axl_Testimonials_Widget->testimonials_recent( $atts );
 	}
 }
 
 
+/**
+ * @SuppressWarnings(PHPMD.LongVariable)
+ */
 if ( ! function_exists( 'testimonials_slider' ) ) {
 	function testimonials_slider( $atts = array(), $widget_number = null ) {
-		global $Testimonials_Widget;
+		global $Axl_Testimonials_Widget;
 
-		return $Testimonials_Widget->testimonials_slider( $atts, $widget_number );
+		return $Axl_Testimonials_Widget->testimonials_slider( $atts, $widget_number );
 	}
 }
 
 
+/**
+ * @SuppressWarnings(PHPMD.LongVariable)
+ */
 if ( ! function_exists( 'testimonials_tag_cloud' ) ) {
 	function testimonials_tag_cloud( $atts = array() ) {
-		global $Testimonials_Widget;
+		global $Axl_Testimonials_Widget;
 
-		return $Testimonials_Widget->testimonials_tag_cloud( $atts );
+		return $Axl_Testimonials_Widget->testimonials_tag_cloud( $atts );
 	}
 }
 
 
+/**
+ * @SuppressWarnings(PHPMD.LongVariable)
+ */
 if ( ! function_exists( 'testimonials_examples' ) ) {
 	function testimonials_examples( $atts = array() ) {
-		global $Testimonials_Widget;
+		global $Axl_Testimonials_Widget;
 
-		return $Testimonials_Widget->testimonials_examples( $atts );
+		return $Axl_Testimonials_Widget->testimonials_examples( $atts );
 	}
 }
 
 
+/**
+ * @SuppressWarnings(PHPMD.LongVariable)
+ */
 if ( ! function_exists( 'testimonials_options' ) ) {
 	function testimonials_options( $atts = array() ) {
-		global $Testimonials_Widget;
+		global $Axl_Testimonials_Widget;
 
-		return $Testimonials_Widget->testimonials_options( $atts );
+		return $Axl_Testimonials_Widget->testimonials_options( $atts );
 	}
 }
 

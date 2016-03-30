@@ -28,12 +28,12 @@ require_once TW_DIR_INC . 'class-testimonials-widget-slider-widget.php';
 require_once TW_DIR_INC . 'class-testimonials-widget-tag-cloud-widget.php';
 require_once TW_DIR_INC . 'class-testimonials-widget-template-loader.php';
 
-if ( class_exists( 'Testimonials_Widget' ) ) {
+if ( class_exists( 'Axl_Testimonials_Widget' ) ) {
 	return;
 }
 
 
-class Testimonials_Widget extends Aihrus_Common {
+class Axl_Testimonials_Widget extends Aihrus_Common {
 	const BASE    = TW_BASE;
 	const ID      = 'testimonials-widget-testimonials';
 	const SLUG    = 'tw_';
@@ -70,6 +70,9 @@ class Testimonials_Widget extends Aihrus_Common {
 	public static $aggregate_rating  = 'aggregateRating';
 	public static $aggregate_review  = 'reviewCount';
 	public static $aggregate_schema  = 'http://schema.org/AggregateRating';
+
+	public static $rating_max   = 5;
+	public static $rating_value = 'ratingValue';
 
 	public static $cw_author     = 'author';
 	public static $cw_date       = 'datePublished';
@@ -133,7 +136,7 @@ class Testimonials_Widget extends Aihrus_Common {
 	public static function admin_init() {
 		self::support_thumbnails();
 
-		self::$settings_link = '<a href="' . get_admin_url() . 'edit.php?post_type=' . self::PT . '&page=' . Testimonials_Widget_Settings::ID . '">' . esc_html__( 'Settings', 'testimonials-widget' ) . '</a>';
+		self::$settings_link = '<a href="' . get_admin_url() . 'edit.php?post_type=' . self::PT . '&page=' . Axl_Testimonials_Widget_Settings::ID . '">' . esc_html__( 'Settings', 'testimonials-widget' ) . '</a>';
 
 		self::add_meta_box_testimonials_widget();
 		self::update();
@@ -297,7 +300,7 @@ class Testimonials_Widget extends Aihrus_Common {
 
 		$delete_data = tw_get_option( 'delete_data', false );
 		if ( $delete_data ) {
-			delete_option( Testimonials_Widget_Settings::ID );
+			delete_option( Axl_Testimonials_Widget_Settings::ID );
 			$wpdb->query( 'OPTIMIZE TABLE `' . $wpdb->options . '`' );
 
 			self::delete_testimonials();
@@ -395,6 +398,7 @@ class Testimonials_Widget extends Aihrus_Common {
 			if ( $prior_version < self::VERSION ) {
 				tw_requirements_check( true );
 				tw_init_options();
+				self::init_post_type();
 				flush_rewrite_rules();
 				do_action( 'tw_update' );
 			}
@@ -404,7 +408,7 @@ class Testimonials_Widget extends Aihrus_Common {
 
 		// display donate on major/minor version release
 		$donate_version = tw_get_option( 'donate_version', false );
-		if ( ! $donate_version || ( $donate_version != self::VERSION && preg_match( '#\.0$#', self::VERSION ) ) ) {
+		if ( ! $donate_version || ( self::VERSION != $donate_version && preg_match( '#\.0$#', self::VERSION ) ) ) {
 			self::set_notice( 'notice_donate' );
 			tw_set_option( 'donate_version', self::VERSION );
 		}
@@ -678,7 +682,7 @@ class Testimonials_Widget extends Aihrus_Common {
 
 	public static function testimonials( $atts ) {
 		$atts = wp_parse_args( $atts, self::get_defaults() );
-		$atts = Testimonials_Widget_Settings::validate_settings( $atts );
+		$atts = Axl_Testimonials_Widget_Settings::validate_settings( $atts );
 
 		if ( get_query_var( 'paged' ) ) {
 			$atts['paged'] = get_query_var( 'paged' );
@@ -722,7 +726,7 @@ class Testimonials_Widget extends Aihrus_Common {
 		}
 
 		$atts = wp_parse_args( $atts, self::get_defaults() );
-		$atts = Testimonials_Widget_Settings::validate_settings( $atts );
+		$atts = Axl_Testimonials_Widget_Settings::validate_settings( $atts );
 
 		$atts['paging'] = false;
 		$atts['type']   = 'testimonials_slider';
@@ -817,14 +821,14 @@ class Testimonials_Widget extends Aihrus_Common {
 					$adaptive_height = $atts['adaptive_height'] ? 'true' : 'false';
 					$enable_video    = $atts['enable_video'];
 					$show_start_stop = $atts['show_start_stop'];
-					$slide_width     = empty( $slide_width ) ? 0 : $atts['slide_width'];
+					$slide_width     = empty( $atts['slide_width'] ) ? 0 : $atts['slide_width'];
 					$transition_mode = $atts['transition_mode'];
 
 					$auto  = $refresh_interval ? 'true' : 'false';
 					$pause = $refresh_interval * 1000;
 					$video = $enable_video ? "video: true,\nuseCSS: false" : 'video: false';
 
-					$autoControls = $show_start_stop ? 'autoControls: true,' : '';
+					$auto_controls = $show_start_stop ? 'autoControls: true,' : '';
 
 					$slider_var  = self::SLUG . $widget_number;
 					$javascript .= <<<EOF
@@ -834,7 +838,7 @@ jQuery(document).ready(function() {
 	{$slider_var} = jQuery('.{$id_base}').bxSlider({
 		adaptiveHeight: {$adaptive_height},
 		auto: {$auto},
-		{$autoControls}
+		{$auto_controls}
 		autoHover: true,
 		controls: false,
 		mode: '{$transition_mode}',
@@ -869,7 +873,7 @@ EOF;
 
 		$div_open = self::get_template_part( 'testimonials', 'open' );
 
-		$paging     = Testimonials_Widget_Settings::is_true( $atts['paging'] );
+		$paging     = Axl_Testimonials_Widget_Settings::is_true( $atts['paging'] );
 		$pre_paging = '';
 		if ( $paging || 'before' === strtolower( $atts['paging'] ) ) {
 			$pre_paging = self::get_testimonials_paging( $atts );
@@ -1355,11 +1359,11 @@ EOF;
 
 
 	public static function widgets_init() {
-		register_widget( 'Testimonials_Widget_Archives_Widget' );
-		register_widget( 'Testimonials_Widget_Categories_Widget' );
-		register_widget( 'Testimonials_Widget_Recent_Testimonials_Widget' );
-		register_widget( 'Testimonials_Widget_Slider_Widget' );
-		register_widget( 'Testimonials_Widget_Tag_Cloud_Widget' );
+		register_widget( 'Axl_Testimonials_Widget_Archives_Widget' );
+		register_widget( 'Axl_Testimonials_Widget_Categories_Widget' );
+		register_widget( 'Axl_Testimonials_Widget_Recent_Testimonials_Widget' );
+		register_widget( 'Axl_Testimonials_Widget_Slider_Widget' );
+		register_widget( 'Axl_Testimonials_Widget_Tag_Cloud_Widget' );
 	}
 
 
@@ -1447,7 +1451,7 @@ EOF;
 			7 => esc_html__( 'Testimonial saved.', 'testimonials-widget' ),
 			8 => sprintf( __( 'Testimonial submitted. <a target="_blank" href="%s">Preview testimonial</a>', 'testimonials-widget' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) ) ),
 			9 => sprintf( __( 'Testimonial scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview testimonial</a>', 'testimonials-widget' ), date_i18n( 'M j, Y @ G:i', strtotime( $post->post_date ) ), esc_url( get_permalink( $post->ID ) ) ),
-			10 => sprintf( __( 'Testimonial draft updated. <a target="_blank" href="%s">Preview testimonial</a>', 'testimonials-widget' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) ) )
+			10 => sprintf( __( 'Testimonial draft updated. <a target="_blank" href="%s">Preview testimonial</a>', 'testimonials-widget' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) ) ),
 		);
 
 		return $m;
@@ -1581,7 +1585,7 @@ EOF;
 
 		$review_meta[ self::$cw_date ]     = $the_date;
 		$review_meta[ self::$cw_date_mod ] = $the_date_mod;
-		$review_meta[ self::$thing_url ]   = post_permalink( $post->ID );
+		$review_meta[ self::$thing_url ]   = get_permalink( $post->ID );
 		if ( empty( $review_meta[ self::$thing_name ] ) ) {
 			$review_meta[ self::$thing_name ] = self::testimonials_truncate( $testimonial_content, $review_name_length );
 		}
@@ -1591,13 +1595,6 @@ EOF;
 
 			$review_meta[ self::$thing_image ] = $src;
 		}
-
-		$aggregate_meta = array(
-			self::$aggregate_review => self::get_review_count( $testimonial ),
-		);
-
-		$aggregate_meta[ self::$aggregate_count ] = $aggregate_meta[ self::$aggregate_review ];
-		$review_meta[ self::$aggregate_rating ]    = array( self::$aggregate_schema, $aggregate_meta );
 
 		$review_meta = apply_filters( 'tw_schema_review', $review_meta, $testimonial, $atts );
 		$review      = self::create_schema_meta( $review_meta );
@@ -1765,7 +1762,7 @@ EOF;
 		} elseif ( ! empty( $_REQUEST['post_type'] ) && self::PT == $_REQUEST['post_type'] ) {
 			if ( ! empty( $GLOBALS['pagenow'] ) && in_array( $GLOBALS['pagenow'], array( 'edit.php', 'edit-tags.php' ) ) ) {
 				$do_load = true;
-			} elseif ( ! empty( $_REQUEST['option_page'] ) && Testimonials_Widget_Settings::ID == $_REQUEST['option_page'] ) {
+			} elseif ( ! empty( $_REQUEST['option_page'] ) && Axl_Testimonials_Widget_Settings::ID == $_REQUEST['option_page'] ) {
 				$do_load = true;
 			}
 		}
@@ -1858,7 +1855,7 @@ EOF;
 
 	public static function get_template_part( $slug, $name = null ) {
 		if ( is_null( self::$template_loader ) ) {
-			self::$template_loader = new Testimonials_Widget_Template_Loader();
+			self::$template_loader = new Axl_Testimonials_Widget_Template_Loader();
 		}
 
 		ob_start();
@@ -1885,8 +1882,8 @@ EOF;
 
 
 	public static function testimonials_archives( $atts, $widget_number = null ) {
-		$atts = wp_parse_args( $atts, Testimonials_Widget_Archives_Widget::get_defaults() );
-		$atts = Testimonials_Widget_Archives_Widget::validate_settings( $atts );
+		$atts = wp_parse_args( $atts, Axl_Testimonials_Widget_Archives_Widget::get_defaults() );
+		$atts = Axl_Testimonials_Widget_Archives_Widget::validate_settings( $atts );
 
 		$atts['type'] = 'testimonials_archives';
 
@@ -1940,13 +1937,13 @@ EOF;
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public static function getarchives_where( $where, $args ) {
-		return "WHERE post_type = '" . Testimonials_Widget::PT . "' AND post_status = 'publish'";
+		return "WHERE post_type = '" . Axl_Testimonials_Widget::PT . "' AND post_status = 'publish'";
 	}
 
 
 	public static function testimonials_categories( $atts, $widget_number = null ) {
-		$atts = wp_parse_args( $atts, Testimonials_Widget_Categories_Widget::get_defaults() );
-		$atts = Testimonials_Widget_Categories_Widget::validate_settings( $atts );
+		$atts = wp_parse_args( $atts, Axl_Testimonials_Widget_Categories_Widget::get_defaults() );
+		$atts = Axl_Testimonials_Widget_Categories_Widget::validate_settings( $atts );
 
 		$atts['type'] = 'testimonials_categories';
 
@@ -1980,8 +1977,8 @@ EOF;
 
 
 	public static function testimonials_recent( $atts, $widget_number = null ) {
-		$atts = wp_parse_args( $atts, Testimonials_Widget_Recent_Testimonials_Widget::get_defaults() );
-		$atts = Testimonials_Widget_Recent_Testimonials_Widget::validate_settings( $atts );
+		$atts = wp_parse_args( $atts, Axl_Testimonials_Widget_Recent_Testimonials_Widget::get_defaults() );
+		$atts = Axl_Testimonials_Widget_Recent_Testimonials_Widget::validate_settings( $atts );
 
 		$atts['type'] = 'testimonials_recent';
 
@@ -2015,8 +2012,8 @@ EOF;
 
 
 	public static function testimonials_tag_cloud( $atts, $widget_number = null ) {
-		$atts = wp_parse_args( $atts, Testimonials_Widget_Tag_Cloud_Widget::get_defaults() );
-		$atts = Testimonials_Widget_Tag_Cloud_Widget::validate_settings( $atts );
+		$atts = wp_parse_args( $atts, Axl_Testimonials_Widget_Tag_Cloud_Widget::get_defaults() );
+		$atts = Axl_Testimonials_Widget_Tag_Cloud_Widget::validate_settings( $atts );
 
 		$atts['type'] = 'testimonials_tag_cloud';
 
@@ -2057,14 +2054,14 @@ EOF;
 			if ( self::$aggregate_no_item != $testimonial_item ) {
 				// @codingStandardsIgnoreStart
 				$query_args = array(
-					'post_type' => Testimonials_Widget::PT,
+					'post_type' => Axl_Testimonials_Widget::PT,
 					'posts_per_page' => -1,
 					'meta_query' => array(
 						'relation' => 'AND',
 						array(
 							'key' => 'testimonials-widget-item',
 							'value' => $testimonial_item,
-							'compare' => 'LIKE',
+							'compare' => '=',
 						),
 					),
 				);
@@ -2072,14 +2069,14 @@ EOF;
 			} else {
 				// @codingStandardsIgnoreStart
 				$query_args = array(
-					'post_type' => Testimonials_Widget::PT,
+					'post_type' => Axl_Testimonials_Widget::PT,
 					'posts_per_page' => -1,
 					'meta_query' => array(
 						'relation' => 'AND',
 						array(
 							'key' => 'testimonials-widget-item',
 							'value' => '',
-							'compare' => 'LIKE',
+							'compare' => '=',
 						),
 					),
 				);
@@ -2160,10 +2157,10 @@ EOF;
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public static function get_testimonials_options( $atts = null ) {
-		$sections = Testimonials_Widget_Settings::get_sections();
-		$settings = Testimonials_Widget_Settings::get_settings();
+		$sections = Axl_Testimonials_Widget_Settings::get_sections();
+		$settings = Axl_Testimonials_Widget_Settings::get_settings();
 
-		$ignored_types = array( 'expand_begin', 'expand_end', 'expand_all', 'content', );
+		$ignored_types = array( 'expand_begin', 'expand_end', 'expand_all', 'content' );
 
 		$do_continue  = false;
 		$do_used_with = false;
@@ -2261,10 +2258,10 @@ EOF;
 
 		// remaining widgets
 		$widgets = array(
-			'Testimonials_Widget_Archives_Widget' => 'testimonials_archives',
-			'Testimonials_Widget_Categories_Widget' => 'testimonials_categories',
-			'Testimonials_Widget_Recent_Testimonials_Widget' => 'testimonials_recent',
-			'Testimonials_Widget_Tag_Cloud_Widget' => 'testimonials_tag_cloud',
+			'Axl_Testimonials_Widget_Archives_Widget' => 'testimonials_archives',
+			'Axl_Testimonials_Widget_Categories_Widget' => 'testimonials_categories',
+			'Axl_Testimonials_Widget_Recent_Testimonials_Widget' => 'testimonials_recent',
+			'Axl_Testimonials_Widget_Tag_Cloud_Widget' => 'testimonials_tag_cloud',
 		);
 
 		$widgets = apply_filters( 'tw_options_widgets', $widgets );
@@ -2354,7 +2351,6 @@ EOF;
 
 		return $used_with_codes;
 	}
-
 }
 
 ?>

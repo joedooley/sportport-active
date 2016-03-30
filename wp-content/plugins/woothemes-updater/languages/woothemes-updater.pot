@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: woothemes-updater 1.5.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-10 14:52+0200\n"
+"POT-Creation-Date: 2016-03-24 15:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,34 +173,34 @@ msgstr ""
 msgid "For when all else fails"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:539
-#: classes/class-woothemes-updater-admin.php:642
+#: classes/class-woothemes-updater-admin.php:538
+#: classes/class-woothemes-updater-admin.php:641
 msgid "Products activated successfully."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:539
+#: classes/class-woothemes-updater-admin.php:538
 msgid "Refreshing the products list..."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:544
-#: classes/class-woothemes-updater-admin.php:644
+#: classes/class-woothemes-updater-admin.php:543
+#: classes/class-woothemes-updater-admin.php:643
 msgid "There was an error and not all products were activated."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:563
-#: classes/class-woothemes-updater-admin.php:628
+#: classes/class-woothemes-updater-admin.php:562
+#: classes/class-woothemes-updater-admin.php:627
 msgid "No license keys were specified for activation."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:633
+#: classes/class-woothemes-updater-admin.php:632
 msgid "Product deactivated successfully."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:635
+#: classes/class-woothemes-updater-admin.php:634
 msgid "There was an error while deactivating the product."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:732
+#: classes/class-woothemes-updater-admin.php:731
 msgid "Please activate"
 msgstr ""
 
