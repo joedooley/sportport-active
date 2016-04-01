@@ -1,0 +1,10 @@
+api_version: 1
+
+workflows:
+  clear_cache:
+    after:
+      - type: webphp
+        description: Cloudflare Cache
+        script: private/scripts/cloudflare_cache.php
+
+        
