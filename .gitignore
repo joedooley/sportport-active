@@ -1,4 +1,11 @@
+# Epik - Theme Specific #
+#########################
+/wp-content/themes/epik/#style.css
+/wp-content/themes/epik/#home.php
 /wp-content/themes/epik/node_modules
+/wp-content/themes/epik/bower_components
+/wp-content/themes/epik/images/raw
+
 # WordPress #
 ############
 wp-config-local.php
@@ -6,16 +13,13 @@ wp-cli.local.yml
 wp-content/uploads
 wp-content/blogs.dir/
 wp-content/upgrade/
-/wp-content/themes/epik/#style.css
 wp-content/backup-db/
 wp-content/updraft/
 wp-content/backupwordpress-*/
 wp-content/managewp/backups/
 wp-content/advanced-cache.php
 wp-content/wp-cache-config.php
-sitemap.xml
-sitemap.xml.gz
-*.log
+
 
 # @TODO writable paths
 wp-content/cache/
@@ -39,6 +43,13 @@ wp-content/backups/
 ######################
 *.log
 *.sql
+
+# Sitemaps / Yoast Sitemaps #
+###########################
+/wp-content/themes/**/sitemap.xml
+/wp-content/themes/**/sitemap.xml.gz
+/wp-content/themes/**/sitemap_index.xml
+
 
 # OS generated files #
 ######################
