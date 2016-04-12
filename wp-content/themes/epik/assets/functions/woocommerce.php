@@ -40,9 +40,9 @@ function spa_conditionally_load_woc_js_css() {
 
 		if ( ! is_woocommerce() && ! is_cart() && ! is_checkout() || is_product() ) {
 
-			wp_dequeue_script( 'woocommerce' );
-			wp_dequeue_script( 'wc-add-to-cart' );
-			wp_dequeue_script( 'wc-cart-fragments' );
+//			wp_dequeue_script( 'woocommerce' );
+//			wp_dequeue_script( 'wc-add-to-cart' );
+//			wp_dequeue_script( 'wc-cart-fragments' );
 
 			wp_dequeue_style( 'woocommerce-general' );
 			wp_dequeue_style( 'woocommerce-layout' );

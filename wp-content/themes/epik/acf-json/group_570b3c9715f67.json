@@ -67,7 +67,7 @@
         [
             {
                 "param": "post_type",
-                "operator": "==",
+                "operator": "!=",
                 "value": "product"
             }
         ]
@@ -78,20 +78,9 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": [
-        "permalink",
-        "the_content",
-        "excerpt",
-        "discussion",
-        "comments",
-        "revisions",
-        "slug",
-        "format",
-        "page_attributes",
-        "featured_image",
-        "categories",
-        "tags"
+        "custom_fields"
     ],
     "active": 1,
     "description": "",
-    "modified": 1460359817
+    "modified": 1460402090
 }

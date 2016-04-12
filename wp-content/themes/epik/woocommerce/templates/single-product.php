@@ -29,7 +29,7 @@ remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wr
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
 
 
-// add_action( 'genesis_loop', 'gencwooc_single_product_loop' );
+add_action( 'genesis_loop', 'gencwooc_single_product_loop' );
 /**
  * Displays single product loop
  *

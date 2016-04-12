@@ -1,3 +1,21 @@
+/*! single-product.php - WooCommerce Product Page
+------------------------------------------------- */
+
+.single-product {
+	.site-inner,
+	.site-inner .wrap {
+		max-width: none
+	}
+}
+
+body.single-product .attachment-shop_single.wp-post-image,
+body.single-product .attachment-shop_thumbnail {
+	border: none;
+}
+
+
+
+
 body.woocommerce div.product form.cart .variations label {
 	color: #567;
 
@@ -9,6 +27,6 @@ body.woocommerce div.product form.cart .variations label {
 
 body.woocommerce div.product form.cart .woocommerce-variation-description p,
 body.woocommerce .quantity .qty {
-	font-size: em(16);
 	color: #333;
+	font-size: em(16);
 }

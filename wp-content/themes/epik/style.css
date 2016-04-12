@@ -1,10 +1,3 @@
-@import url("MyFontsWebfontsKit/MyFontsWebfontsKit.css");
-@import url("raleway/raleway.css");
-@import url("velino-text/velino-text.css");
-@import url("velino-text-condensed/velino-text-condensed.css");
-@import url("velino-text-italic/velino-text-italic.css");
-@import url("snasm/snasm.css");
-@import url("fira-condensed/fira-condensed.css");
 html {
   box-sizing: border-box; }
 
@@ -215,7 +208,7 @@ textarea {
   border: 1px solid #ddd;
   box-shadow: 0 1px 3px #eee;
   color: #999;
-  font-family: latoregular, latohairline, latoblack, latolight, latobold, sans-serif;
+  font-family: latoregular, sans-serif;
   font-size: 0.75rem; }
   input:focus, input:focus,
   textarea:focus,
@@ -333,7 +326,6 @@ address a {
   line-height: 1.4;
   text-decoration: none; }
 
-/*! Be sure font declaration is BEFORE HTML reset */
 /*! HTML5 Reset
 ---------------------------------------------------------------------------------------------------- */
 /*! Baseline Reset (normalize.css 2.1.2)
@@ -500,7 +492,7 @@ body.new-product-a .entry-title:before {
 
 .security-head {
   font-size: 16px;
-  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   margin: 0 0 0 0;
   color: #AB1; }
 
@@ -540,7 +532,7 @@ body.inspire .head-wrap {
 
 body.inspire h1.entry-title {
   font-size: 3em;
-  font-family: 'open_sans_condensedbold', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   color: #000;
   line-height: 1.15;
   letter-spacing: -.72px;
@@ -553,7 +545,7 @@ body.inspire .content .entry-content {
   margin-top: 0; }
 
 body.inspire h4 {
-  font-family: ralewayextrabold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewayextrabold, sans-serif;
   font-weight: normal;
   color: #F93;
   font-size: 1.4em;
@@ -567,7 +559,7 @@ body.inspire .woo-float-left {
 body.inspire .woo-float-left .woo-inspire-shop {
   text-align: center;
   background: #BCE;
-  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   padding: 5px; }
 
 body.inspire .woo-float-left .woo-inspire-shop a {
@@ -665,12 +657,12 @@ h6 {
   font-size: 10px; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   font-weight: normal; }
 
 /*! SALE [x41] ---------------------------------------- */
 ins {
-  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   font-weight: normal;
   font-size: 24px;
   color: #08D;
@@ -692,7 +684,7 @@ body.sp-blog-post {
 
 body.single-post .entry-title {
   font-size: 2.8em;
-  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   color: #567;
   line-height: 1.15;
   letter-spacing: -.15px;
@@ -718,7 +710,7 @@ body.page-template-page_blog .post-image.entry-image {
 /*! sp-blockquote [x61] ---------------------------------------- */
 .sp-blockquote-holder {
   float: right;
-  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   width: 50%;
   margin: 6px 0 10px 20px;
   padding: 0 0 .7em 0;
@@ -739,12 +731,12 @@ body.page-template-page_blog .post-image.entry-image {
   text-transform: uppercase; }
 
 .sp-blockquote-text strong {
-  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   color: #567; }
 
 /*! sp-start-graph [x62] ---------------------------------------- */
 .blog-post-sub {
-  font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   color: #678;
   font-size: 1.6em;
   line-height: 1.3em;
@@ -752,7 +744,7 @@ body.page-template-page_blog .post-image.entry-image {
 
 .sp-start-graph {
   background: #F93;
-  font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   color: #FFF;
   font-size: 1.2em;
   line-height: 1.4;
@@ -769,7 +761,7 @@ body.page-template-page_blog .post-image.entry-image {
 
 .sp-intro-graph {
   display: inline-block;
-  font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   color: #E70;
   font-size: 1.2em;
   line-height: 1.42;
@@ -780,7 +772,7 @@ body.page-template-page_blog .post-image.entry-image {
 
 .sp-close-graph {
   background: #F93;
-  font-family: ralewaymedium, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaymedium, sans-serif;
   color: #FFF;
   font-size: 1.1em;
   line-height: 1.4;
@@ -791,7 +783,7 @@ body.page-template-page_blog .post-image.entry-image {
 table.sp-blog-table {
   width: 100%;
   padding: 4px;
-  font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   margin: 1.6em 0 2em 0; }
 
 table.sp-blog-table .table-title {
@@ -872,7 +864,7 @@ body.intro-welcome {
   background: rgba(238, 118, 155, 0.16); }
 
 body.intro-welcome .entry-content h2 {
-  font-family: ralewaylight, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaylight, sans-serif;
   font-weight: normal;
   font-size: 24px;
   margin: 0 0 10px 0;
@@ -881,7 +873,7 @@ body.intro-welcome .entry-content h2 {
 
 body.intro-welcome .content[role="main"] .entry-title,
 body.intro-welcome .content[role="main"] .entry-title a {
-  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   font-weight: normal;
   color: #000; }
 
@@ -970,7 +962,7 @@ img.small-fabrics-icon {
 
 .sidebar .more-from-category {
   font-size: 12px;
-  font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   text-align: right;
   border-bottom: 1px solid #CCC;
   padding: 3px 0 6px 0; }
@@ -1005,7 +997,7 @@ img.small-fabrics-icon {
 .home-show-head-1, .home-show-head-1 a,
 .home-show-head-2, .home-show-head-2 a,
 .home-show-head-3, .home-show-head-3 a {
-  font-family: ralewaylight, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaylight, sans-serif;
   font-size: 20px;
   font-weight: 100;
   letter-spacing: .06em;
@@ -1026,7 +1018,7 @@ img.small-fabrics-icon {
 .home-show-head-1 a:hover,
 .home-show-head-2 a:hover,
 .home-show-head-3 a:hover {
-  font-family: ralewaymedium, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaymedium, sans-serif;
   letter-spacing: .08em;
   color: #FFF !important; }
 
@@ -1046,10 +1038,10 @@ img.small-fabrics-icon {
   background: #F93; }
 
 .go-tag {
-  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+  font-family: ralewaysemibold, sans-serif; }
 
 .go-button {
-  font-family: ralewayheavy, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewayblack, sans-serif;
   font-size: 24px;
   border-radius: 35px;
   width: 55px;
@@ -1062,7 +1054,7 @@ img.small-fabrics-icon {
 
 .go-button-small {
   display: inline-block;
-  font-family: ralewayheavy, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewayblack, sans-serif;
   font-size: 18px;
   border-radius: 25px;
   width: 35px;
@@ -1141,7 +1133,7 @@ tr.shipping {
 
 .woocommerce-cart table.cart td a,
 .woocommerce-cart table.cart th a {
-  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   font-weight: normal;
   color: #1AC; }
 
@@ -1167,7 +1159,7 @@ body.woocommerce-cart .cart_totals h2,
 .woocommerce-cart .cart-collaterals .cart_totals tr td,
 .woocommerce-cart .cart-collaterals .cart_totals tr th,
 body.woocommerce-checkout h3 {
-  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   font-weight: normal; }
 
 body.woocommerce-cart .entry-title {
@@ -1217,7 +1209,7 @@ body.woocommerce-page .footer-widgets img {
   border: none; }
 
 body.woocommerce-page .page-title {
-  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   font-weight: normal;
   color: #000;
   font-size: 32px;
@@ -1277,7 +1269,7 @@ body.woocommerce-page .entry-content .entry-title {
   border-bottom: none;
   border-top: none;
   color: #567;
-  font-family: velino_text_lightlight, Georgia, 'Times Roman', serif;
+  font-family: ralewaylight, sans-serif;
   font-size: 3em;
   font-weight: normal;
   letter-spacing: -.2px;
@@ -1304,7 +1296,7 @@ body.woocommerce-page .attachment-shop_thumbnail .sidebar-primary img,
   border: none; }
 
 body.woocommerce-page .posted_in a {
-  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   text-transform: uppercase;
   color: #5AF; }
 
@@ -1317,7 +1309,7 @@ body.woocommerce-page .posted_in a {
 body.woocommerce-page .woocommerce-tabs h2,
 body.woocommerce-page .related.products h2,
 body.woocommerce-page .woocommerce-tabs h4 {
-  font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: normal;
@@ -1330,7 +1322,7 @@ body.woocommerce-page .woocommerce-tabs h4 {
   padding: 0 0 12px 0; }
 
 .woocommerce .product .woocommerce-tabs .tabs .active a {
-  font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: ralewaysemibold, sans-serif;
   font-weight: normal; }
 
 .woocommerce div.product .woocommerce-tabs ul.tabs li a {
@@ -1344,7 +1336,7 @@ body.woocommerce-page .content[role="main"] .entry-content {
 body.woocommerce-page .related.products h2:after {
   content: " exclusively from SportPort";
   color: #F93;
-  font-family: ralewayheavy, "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  font-family: ralewayblack, sans-serif; }
 
 /*! ---------------------------------------- */
 /*! CUSTOM BODY TECHNOLOGY START [x27] ---------------------------------------- */
@@ -1390,7 +1382,7 @@ body.category-testimonials .entry-footer .entry-meta {
 
 body.category-testimonials .content .entry-title,
 body.category-testimonials .content .entry-title a {
-  font-family: velino_textbook, Georgia, 'Times Roman', serif;
+  font-family: ralewaylight, sans-serif;
   text-align: right;
   font-weight: normal;
   color: #FFF;
@@ -2569,7 +2561,7 @@ Miscellaneous
     border-bottom-width: 0;
     color: #232525;
     display: block;
-    font-family: latoregular, latohairline, latoblack, latolight, latobold, sans-serif;
+    font-family: latoregular, sans-serif;
     font-size: 0.75rem;
     font-weight: 400;
     font-weight: 400;
@@ -2905,7 +2897,7 @@ body.woocommerce nav.woocommerce-breadcrumb {
       padding: 80px 30px; } }
   .hero .hero--overlay {
     font-size: 3rem;
-    font-family: latoregular, latohairline, latoblack, latolight, latobold, sans-serif; }
+    font-family: latobold, sans-serif; }
     @media screen and (max-width: 768px) {
       .hero .hero--overlay {
         font-size: 3.3rem; } }
@@ -3015,7 +3007,7 @@ body.woocommerce nav.woocommerce-breadcrumb {
         color: #fff; }
 
 .section--title {
-  font-family: latoregular, latohairline, latoblack, latolight, latobold, sans-serif;
+  font-family: latolight, sans-serif;
   margin-bottom: 0;
   padding: 1.5rem 0;
   text-align: center;
@@ -3140,6 +3132,16 @@ body.woocommerce nav.woocommerce-breadcrumb {
   background: none;
   padding: 0; }
 
+/*! single-product.php - WooCommerce Product Page
+------------------------------------------------- */
+.single-product .site-inner,
+.single-product .site-inner .wrap {
+  max-width: none; }
+
+body.single-product .attachment-shop_single.wp-post-image,
+body.single-product .attachment-shop_thumbnail {
+  border: none; }
+
 body.woocommerce div.product form.cart .variations label {
   color: #567; }
   body.woocommerce div.product form.cart .variations label select {
@@ -3148,8 +3150,8 @@ body.woocommerce div.product form.cart .variations label {
 
 body.woocommerce div.product form.cart .woocommerce-variation-description p,
 body.woocommerce .quantity .qty {
-  font-size: 1em;
-  color: #333; }
+  color: #333;
+  font-size: 1em; }
 
 /*! ## Layout
 --------------------------- */
@@ -3163,7 +3165,7 @@ body.woocommerce .quantity .qty {
       padding: 0%; } }
   .before-header .free-shipping-notification {
     color: #909090;
-    font-family: latoregular, latohairline, latoblack, latolight, latobold, sans-serif;
+    font-family: latoregular, sans-serif;
     font-size: 11px;
     font-weight: bold;
     margin-bottom: 0;
@@ -3192,7 +3194,7 @@ body.woocommerce .quantity .qty {
     display: inline-block; }
     .menu-shopping-menu-container .menu-item a {
       color: #909090;
-      font-family: latoregular, latohairline, latoblack, latolight, latobold, sans-serif;
+      font-family: latoregular, sans-serif;
       font-size: 11px;
       vertical-align: text-top; }
       .menu-shopping-menu-container .menu-item a:hover {
@@ -3217,7 +3219,7 @@ body.woocommerce .quantity .qty {
       .before-header-right .search-form input[type="search"] {
         padding: 6px 0; } }
     .before-header-right .search-form input[type="search"]::-webkit-input-placeholder {
-      font-family: latoregular, latohairline, latoblack, latolight, latobold, sans-serif;
+      font-family: latoregular, sans-serif;
       font-size: 13px; }
 
 .site-header {
@@ -3559,6 +3561,13 @@ body.woocommerce-page #payment .form-row select {
   body#add_payment_method #payment div.payment_box .form-row,
   body.woocommerce-checkout #payment div.payment_box .form-row {
     width: 100%; } }
+.woocommerce ul.products li.product h3 {
+  height: auto;
+  font-size: 24px; }
+
+#gform_wrapper_3 .gform_footer {
+  margin: 3.05em 0 0; }
+
 .single-product .swatch-wrapper {
   overflow: hidden; }
 
