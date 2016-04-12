@@ -38,11 +38,11 @@ function spa_conditionally_load_woc_js_css() {
 
 	if ( function_exists( 'spa_conditionally_load_woc_js_css' ) ) {
 
-		if ( ! is_woocommerce() && ! is_cart() && ! is_checkout() || is_product() ) {
+		if ( ! is_woocommerce() && ! is_cart() && ! is_checkout() ) {
 
-//			wp_dequeue_script( 'woocommerce' );
-//			wp_dequeue_script( 'wc-add-to-cart' );
-//			wp_dequeue_script( 'wc-cart-fragments' );
+			wp_dequeue_script( 'woocommerce' );
+			wp_dequeue_script( 'wc-add-to-cart' );
+			wp_dequeue_script( 'wc-cart-fragments' );
 
 			wp_dequeue_style( 'woocommerce-general' );
 			wp_dequeue_style( 'woocommerce-layout' );
@@ -58,3 +58,24 @@ function spa_conditionally_load_woc_js_css() {
 }
 
 
+// Remove WooCommerce breadcrumbs, using Genesis crumbs instead.
+add_action( 'get_header', function() {
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
+});
+
+add_filter( 'woocommerce_product_tabs', 'spa_woo_remove_product_tabs', 98 );
+/**
+ * Delete WooCommerce Product Tabs.
+ *
+ * @param $tabs
+ * @return mixed
+ */
+function spa_woo_remove_product_tabs( $tabs ) {
+
+	unset( $tabs['description'] );
+	unset( $tabs['reviews'] );
+	unset( $tabs['additional_information'] );
+
+	return $tabs;
+
+}

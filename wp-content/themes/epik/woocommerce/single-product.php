@@ -11,6 +11,8 @@
  * copy in the child theme's woocommerce folder, ie themes/my-child-theme/woocommerce
  * (Your theme may not have a 'woocommerce' folder, in which case create one.)
  * The version in the child theme's woocommerce folder will override this template, and
+ *
+ *
  * any future updates to this plugin won't wipe out your customisations.
  *
  */
@@ -19,10 +21,13 @@
 remove_action( 'genesis_loop', 'genesis_do_loop' );
 
 /** Remove WooCommerce breadcrumbs */
-remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+//remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 
 /** Uncomment the below line of code to add back WooCommerce breadcrumbs */
-//add_action( 'genesis_before_loop', 'woocommerce_breadcrumb', 10, 0 );
+//add_action( 'woocommerce_single_product_summary', 'woocommerce_breadcrumb', 10, 0 );
+
+remove_action( 'genesis_before_loop', 'genesis_do_breadcrumbs' );
+add_action( 'woocommerce_single_product_summary', 'genesis_do_breadcrumbs', 4 );
 
 /** Remove Woo #container and #content divs */
 remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
@@ -66,9 +71,13 @@ function gencwooc_single_product_loop() {
 			<?php do_action( 'woocommerce_before_single_product_summary' ); ?>
 
 			<div class="summary">
+				<div class="product-essential">
 
-				<?php do_action( 'woocommerce_single_product_summary'); ?>
+				<?php do_action( 'woocommerce_single_product_summary' ); ?>
 
+				<?php get_template_part( 'assets/partials', 'accordion' ); ?>
+
+				</div>
 			</div>
 
 			<?php do_action( 'woocommerce_after_single_product_summary' ); ?>

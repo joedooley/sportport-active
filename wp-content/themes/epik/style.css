@@ -669,14 +669,6 @@ ins {
   text-decoration: none;
   margin-left: 5px; }
 
-.amount {
-  font-weight: normal; }
-
-body.single-product .price .amount {
-  font-size: 1.2em;
-  color: #F30;
-  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-
 /*! CUSTOM BODY CSS [x28] ======================================= */
 /*! CUSTOM BODY BLOG (.page-template-page_blog) [x60] ---------------------------------------- */
 body.sp-blog-post {
@@ -2789,6 +2781,14 @@ Miscellaneous
       color: #888;
       text-decoration: underline; }
 
+.breadcrumb {
+  margin-top: 0.9375em;
+  padding-top: 0.9375em;
+  font-size: 13px;
+  color: #567;
+  border-bottom: 1px solid #9ab;
+  text-align: right; }
+
 /*! ## Avatar
 --------------------------------- */
 .avatar {
@@ -3139,8 +3139,11 @@ Miscellaneous
   max-width: none; }
 .single-product .site-inner {
   padding-top: 0; }
-.single-product nav.woocommerce-breadcrumb {
-  border: none; }
+.single-product nav.woocommerce-breadcrumb,
+.single-product div.breadcrumb {
+  border-bottom: 1px solid #cacaca;
+  margin-left: 0;
+  text-align: left; }
 .single-product .entry {
   margin: 0;
   padding: 0; }
@@ -3155,6 +3158,27 @@ Miscellaneous
   margin-left: 50%;
   min-height: 100vh;
   width: 50%; }
+.single-product div.product .product_title {
+  color: #222;
+  font-family: "open_sans_condensedbold", sans-serif;
+  font-size: 1.5em;
+  font-weight: 800;
+  text-rendering: optimizeLegibility;
+  text-transform: uppercase; }
+.single-product .product-essential {
+  max-width: 670px;
+  padding: 0 5em; }
+.single-product div.swatch-label {
+  color: #222;
+  font-family: "open_sans_condensedbold", sans-serif; }
+.single-product p.price > .amount {
+  color: #222;
+  font-family: "open_sans_condensedbold", sans-serif;
+  font-size: 1.5em; }
+.single-product .label > label {
+  display: none; }
+.single-product .value {
+  width: 100%; }
 
 body.single-product .attachment-shop_single.wp-post-image,
 body.single-product .attachment-shop_thumbnail {
