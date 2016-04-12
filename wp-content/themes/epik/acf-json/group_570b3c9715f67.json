@@ -18,7 +18,7 @@
             "collapsed": "field_570b5189d77d3",
             "min": "",
             "max": "",
-            "layout": "table",
+            "layout": "block",
             "button_label": "Add Another Section",
             "sub_fields": [
                 {
@@ -44,8 +44,8 @@
                 },
                 {
                     "key": "field_570b520dd77d4",
-                    "label": "Content",
-                    "name": "content",
+                    "label": "Hidden Content",
+                    "name": "hidden_content",
                     "type": "wysiwyg",
                     "instructions": "",
                     "required": 0,
@@ -67,7 +67,7 @@
         [
             {
                 "param": "post_type",
-                "operator": "!=",
+                "operator": "==",
                 "value": "product"
             }
         ]
@@ -82,5 +82,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1460402090
+    "modified": 1460434913
 }

@@ -2,9 +2,38 @@
 ------------------------------------------------- */
 
 .single-product {
+
 	.site-inner,
 	.site-inner .wrap {
 		max-width: none
+	}
+
+	.site-inner {
+		padding-top: 0;
+	}
+
+	nav.woocommerce-breadcrumb {
+		border: none;
+	}
+
+	.entry {
+		@include margin(0);
+		@include padding(0);
+	}
+
+	.images {
+		background: #fff;
+		padding-top: 50px;
+		position: fixed;
+		text-align: center;
+		width: 50%;
+	}
+
+	.summary {
+		background: #ebebeb;
+		margin-left: 50%;
+		min-height: 100vh;
+		width: 50%;
 	}
 }
 

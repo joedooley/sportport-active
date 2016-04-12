@@ -18,14 +18,6 @@ function spa_display_fc() {
 
 			//global $hero_image;
 			$hero_image = get_sub_field( 'hero_image' );
-
-//			wp_localize_script(
-//				'backstretch-set',
-//				'BackStretchImg',
-//				array(
-//					'src' => $hero_image['url'],
-//				)
-//			);
 			?>
 
 			<section class="hero" style="background: url( <?php echo $hero_image['url'] ?> ) no-repeat;">
@@ -45,29 +37,17 @@ function spa_display_fc() {
 			$left_image = get_sub_field( 'left_image' );
 			$right_image = get_sub_field( 'right_image' );
 
-
-//			$localize_array = array();
-//
-//			array_push( $localize_array, $hero_image['url'], $left_image['url'], $right_image['url'] );
-//
-//			wp_localize_script(
-//				'backstretch-set',
-//				'BackStretchImg',
-//				$localize_array
-//			);
-
 			wp_localize_script(
 				'backstretch-set',
 				'BackStretchImg',
 				[
 					'hero'          => $hero_image['url'],
 					'featuredLeft'  => $left_image['url'],
-					'featuredRight' => $right_image['url']
+					'featuredRight' => $right_image['url'],
 				]
 			);
 
-//			print_r($localize_array);
-//			die();
+
 
 			?>
 
@@ -76,8 +56,8 @@ function spa_display_fc() {
 				<?php the_sub_field( 'section_heading' ); ?>
 
 				<div class="featured-images">
-					<div class="featured-image featured-image-left" style="background: url( <?php echo $left_image['url'] ?> ) no-repeat;"><a href="<?php the_sub_field( 'links_to' ) ?>"><?php the_sub_field( 'left_text' ); ?></a></div>
-					<div class="featured-image featured-image-right" style="background: url( <?php echo $right_image['url'] ?> ) no-repeat;"><a href="<?php the_sub_field( 'links_to' ) ?>"><?php the_sub_field( 'right_text' ); ?></a></div>
+					<div class="featured-image featured-image-left" style="background: url( <?php echo $left_image['url'] ?> ) no-repeat;"><a href="<?php the_sub_field( 'links_to_1' ) ?>"><?php the_sub_field( 'left_text' ); ?></a></div>
+					<div class="featured-image featured-image-right" style="background: url( <?php echo $right_image['url'] ?> ) no-repeat;"><a href="<?php the_sub_field( 'links_to_2' ) ?>"><?php the_sub_field( 'right_text' ); ?></a></div>
 				</div>
 
 			</section>
