@@ -676,21 +676,6 @@ table.product-features-grid td {
 }
 
 
-/*! WOOCOMMERCE BUTTONS */
-
-.woocommerce a.button,
-.woocommerce button.button,
-.woocommerce input.button,
-.woocommerce #respond input#submit {
-	border-radius: 20px;
-	font-weight: normal;
-	background: #F93 !important;
-	color: #FFF !important; }
-
-.woocommerce ul.products li.product .button {
-	margin: 0;
-	float: right; }
-
 /*! ------------------------------ */
 
 .woocommerce ul.products li.product .price {
@@ -1129,67 +1114,6 @@ Defaults
 
 
 
-a,
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-	transition: all 0.1s ease-in-out;
-}
-
-
-
-a {
-	color: #000;
-	font-weight: 400;
-	text-decoration: none;
-}
-
-a img {
-	margin-bottom: -4px;
-}
-
-a:hover {
-	color: #888;
-	text-decoration: none;
-}
-
-p {
-	margin: 0 0 20px;
-	padding: 0;
-}
-
-strong {
-	font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-weight: normal; }
-
-ol,
-ul {
-	margin: 0;
-	padding: 0;
-}
-
-blockquote,
-blockquote::before {
-	color: #999;
-}
-
-blockquote {
-	border: none;
-	margin: 5px 5px 20px;
-	padding: 0 30px 5px 60px; }
-
-pre {
-	background: #333;
-	color: #ccc;
-	overflow: scroll;
-	padding: 0 20px;
-	white-space: pre;
-}
-
-cite {
-	font-style: normal;
-}
 
 .quote {
 	background: #fff;

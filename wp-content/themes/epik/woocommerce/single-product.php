@@ -34,6 +34,62 @@ remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wr
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
 
 
+/**
+ * Outputs ACF Repeator for Accordion.
+ */
+function acf_accordion() {
+
+	if ( have_rows( 'accordion' ) ) :
+
+		echo '<div id="accordion">';
+
+		while ( have_rows( 'accordion' ) ) : the_row();
+
+			$heading = get_sub_field( 'header' );
+			$content = get_sub_field( 'hidden_content' ); ?>
+
+				<div class="accordion-item">
+
+				<?php if ( $heading ) : ?>
+					<h2 class="accordion-heading heading"><?php echo $heading; ?></h2>
+				<?php endif; ?>
+
+				<div class="accordion-content"><?php echo $content; ?></div>
+
+				</div>
+
+			<?php
+
+			endwhile;
+
+		echo '</div>';
+
+	endif;
+
+}
+
+
+/**
+ * Enqueue single page script accordion.js
+ *
+ * @return     void
+ */
+add_action( 'wp_enqueue_scripts', function() {
+
+	if ( is_product() ) {
+
+		wp_enqueue_script(
+			'accordion-js',
+			get_stylesheet_directory_uri() . '/assets/js/custom/single/accordion.js',
+			array( 'jquery' ),
+			CHILD_THEME_VERSION,
+			true
+		);
+
+	}
+});
+
+
 add_action( 'genesis_loop', 'gencwooc_single_product_loop' );
 /**
  * Displays single product loop
@@ -75,7 +131,7 @@ function gencwooc_single_product_loop() {
 
 				<?php do_action( 'woocommerce_single_product_summary' ); ?>
 
-				<?php get_template_part( 'assets/partials', 'accordion' ); ?>
+				<?php echo acf_accordion(); ?>
 
 				</div>
 			</div>

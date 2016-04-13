@@ -1,0 +1,38 @@
+/*! ## Accordion
+---------------------------- */
+
+#accordion {
+	margin-bottom: em(10);
+	@include padding(em(10) em(15));
+
+	.accordion-item .accordion-heading {
+		@include margin(0);
+		border-bottom: $border;
+		cursor: pointer;
+		font-weight: bold;
+		padding-top: em(16);
+	}
+
+	.accordion-heading {
+		font-family: $open-sans-condensed-bold;
+
+		& ::before {
+			content: "+";
+			font-size: 24px;
+			left: 20px;
+			position: absolute;
+		}
+
+	}
+
+
+
+	.accordion-content {
+		@include padding(0);
+		height: 0;
+		overflow: hidden;
+		transition: 0.5s height;
+	}
+
+}
+
