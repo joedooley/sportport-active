@@ -133,11 +133,10 @@ function gencwooc_single_product_loop() {
 
 				<?php echo acf_accordion(); ?>
 
-				</div>
-			</div>
-
 			<?php do_action( 'woocommerce_after_single_product_summary' ); ?>
 
+				</div>
+			</div>
 		</div>
 
 		<?php do_action( 'woocommerce_after_single_product' );

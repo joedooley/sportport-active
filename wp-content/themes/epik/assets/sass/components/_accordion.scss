@@ -3,29 +3,27 @@
 
 #accordion {
 	margin-bottom: em(10);
-	@include padding(em(10) em(15));
+	padding-top: 1.5em;
 
-	.accordion-item .accordion-heading {
-		@include margin(0);
+	h2 {
+		@include margin(em(16) 0);
 		border-bottom: $border;
 		cursor: pointer;
-		font-weight: bold;
-		padding-top: em(16);
-	}
-
-	.accordion-heading {
 		font-family: $open-sans-condensed-bold;
-
-		& ::before {
-			content: "+";
-			font-size: 24px;
-			left: 20px;
-			position: absolute;
-		}
-
+		font-weight: bold;
+		text-transform: uppercase;
 	}
 
+	.accordion-item h2:before {
+		@include margin(em(-5) em(13) 0 0);
+		content: "-";
+		float: right;
+		font-size: em(30);
+	}
 
+	.accordion-item.closed h2:before {
+		content: "+";
+	}
 
 	.accordion-content {
 		@include padding(0);

@@ -96,13 +96,24 @@
 		width: 100%;
 	}
 
+	.variations tr {
+		border-bottom: $border;
+	}
+
 	div.product form.cart button.button {
 		background-color: $orange;
 		@include padding(0.72em em(60));
 	}
-	
+
 	#accordion {
 		border-top: $border;
+	}
+
+	// Related Products
+	&.woocommerce ul.products li.product,
+	&.woocommerce-page ul.products li.product {
+		@include margin(0 5.9% 2.992em 0);
+		width: 44.10%;
 	}
 
 }

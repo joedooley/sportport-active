@@ -35,7 +35,7 @@
 
 // Hide all accordion item bodies except the first
 	for (var i = 1; i < accordionItems.length; i++) {
-		accordionItems[i].className = 'accordion-item selected';
+		accordionItems[i].className = 'accordion-item closed';
 	}
 
 // Add exact height to div that is shown on page load
@@ -49,12 +49,12 @@
 
 		// Hide all items
 		for (var i = 0; i < accordionItems.length; i++) {
-			accordionItems[i].className  = 'accordion-item selected';
+			accordionItems[i].className  = 'accordion-item closed';
 			accordionItems[i].getElementsByTagName('div')[0].style.height = "0";
 		}
 
 		// Show this item if it was previously hidden
-		if (itemClass == 'accordion-item selected') {
+		if (itemClass == 'accordion-item closed') {
 			var accordionContent = accordionItemContent,
 			    accordionItemContent = this;
 
@@ -76,6 +76,20 @@
 		for (var i = 0; i < element.childNodes.length; i++) {
 			if (element.childNodes[i].nodeName == tagName) return element.childNodes[i];
 		}
+	}
+
+
+	function closeAnswersOnPageLoad() {
+
+		$.each($questions, function (index, element) {
+			var $question = $(element);
+
+			if (isAnswerToBeClosed($question)) {
+				var $answer = getAnswer(index);
+
+				$answer.hide();
+			}
+		});
 	}
 
 })(document, jQuery);

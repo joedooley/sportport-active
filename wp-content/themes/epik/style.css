@@ -2767,20 +2767,21 @@ Miscellaneous
 ---------------------------- */
 #accordion {
   margin-bottom: 0.625em;
-  padding: 0.625em 0.9375em; }
-  #accordion .accordion-item .accordion-heading {
-    margin: 0;
+  padding-top: 1.5em; }
+  #accordion h2 {
+    margin: 1em 0;
     border-bottom: 1px solid #cacaca;
     cursor: pointer;
+    font-family: "open_sans_condensedbold", sans-serif;
     font-weight: bold;
-    padding-top: 1em; }
-  #accordion .accordion-heading {
-    font-family: "open_sans_condensedbold", sans-serif; }
-    #accordion .accordion-heading ::before {
-      content: "+";
-      font-size: 24px;
-      left: 20px;
-      position: absolute; }
+    text-transform: uppercase; }
+  #accordion .accordion-item h2:before {
+    margin: -0.3125em 0.8125em 0 0;
+    content: "-";
+    float: right;
+    font-size: 1.875em; }
+  #accordion .accordion-item.closed h2:before {
+    content: "+"; }
   #accordion .accordion-content {
     padding: 0;
     height: 0;
@@ -3187,11 +3188,16 @@ body.woocommerce .single-product .woocommerce-message {
   display: none; }
 .single-product .value {
   width: 100%; }
+.single-product .variations tr {
+  border-bottom: 1px solid #cacaca; }
 .single-product div.product form.cart button.button {
   background-color: #ff9934;
   padding: 0.72em 3.75em; }
 .single-product #accordion {
   border-top: 1px solid #cacaca; }
+.single-product.woocommerce ul.products li.product, .single-product.woocommerce-page ul.products li.product {
+  margin: 0 5.9% 2.992em 0;
+  width: 44.10%; }
 
 body.single-product div.product div.images .attachment-shop_single.wp-post-image,
 body.single-product div.product div.images .attachment-shop_thumbnail {
