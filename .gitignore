@@ -20,6 +20,11 @@ wp-content/managewp/backups/
 wp-content/advanced-cache.php
 wp-content/wp-cache-config.php
 
+# SASS/SCSS #
+#############
+/wp-content/themes/epik/style.css.map
+/wp-content/themes/epik/style.css.min.map
+
 
 # @TODO writable paths
 wp-content/cache/
