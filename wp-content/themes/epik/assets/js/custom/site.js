@@ -1,25 +1,10 @@
-(function (document, $, undefined) {
+(function ($, window, document, undefined) {
 
-	$('.single-product div.product .product_title').click(function () {
-		$('.sku').toggle();
-	})
-
-
-
-
-})(document, jQuery);
-
-
-jQuery(function ($) {
-
-	// Quantity buttons
-	// $('div.quantity:not(.buttons_added), td.quantity:not(.buttons_added)').addClass('buttons_added').append('<input type="button" value="+" class="plus"
-	// />').prepend('<input type="button" value="-" class="minus" />');
-
+	'use strict';
 
 	$('div.quantity:not(.buttons_added), td.quantity:not(.buttons_added)').append('<div class="inc button buttons_added">+</div><div class="dec button buttons_added">-</div>');
 
-	$(".buttons_added").on("click", function () {
+	$('.buttons_added').on('click', function () {
 
 		var $button  = $(this);
 		var oldValue = $button.parent().find("input").val();
@@ -39,7 +24,7 @@ jQuery(function ($) {
 	});
 
 	// Use to add AJAX
-	
+
 	//var id = $button.attr("id");
 	//$.ajax({
 	//	type: "POST",
@@ -49,7 +34,7 @@ jQuery(function ($) {
 	//	}
 	//});
 
-});
+})(jQuery, window, document);
 
 
 
