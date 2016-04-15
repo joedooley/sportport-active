@@ -1,0 +1,31 @@
+/*! ## Single Product Social Media Links
+---------------------------------------- */
+
+.social-share {
+
+	@include media($ipad-screen-up) {
+		text-align: center;
+	}
+
+	h2 {
+		color: #222;
+		font-family: $open-sans-condensed-bold;
+		font-size: em(40);
+		font-style: normal;
+		font-weight: 400;
+		line-height: 1.2;
+		margin: 0 0 0.5em;
+		text-rendering: optimizeLegibility;
+		text-transform: uppercase;
+	}
+
+	.social-media-menu-list-item {
+		display: inline-block;
+	}
+
+	.fa {
+		@include padding(1em 1.3em);
+		font-size: 2em;
+	}
+
+}

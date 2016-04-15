@@ -1,0 +1,11 @@
+{
+  "name": "woocommerce-variation-swatches-and-photos",
+  "version": "2.1.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "homepage": "http://www.woothemes.com/woocommerce/",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-wp-i18n": "~0.5.3"
+  }
+}

@@ -2,9 +2,11 @@
 /**
  * This file contains all WooCommerce specific functions
  *
- * @author     Joe Dooley
- * @package    SportPort Active Theme
- * @subpackage Customizations
+ * @package    YourMembership
+ * @author     Developing Designs - Joe Dooley
+ * @link       https://www.developingdesigns.com
+ * @copyright  Joe Dooley, Developing Designs
+ * @license    GPL-2.0+
  */
 
 //* Remove WooCommerce Order By Dropdown
@@ -27,43 +29,53 @@ function remove_sidebar_shop() {
 }
 
 
+
+add_action( 'wp_enqueue_scripts', 'spa_conditionally_load_woc_js_css' );
 /**
- * Optimize WooCommerce Scripts
- * Remove WooCommerce Generator tag, styles, and scripts from non WooCommerce pages.
+ * Dequeue WooCommerce Scripts and Styles for pages that don't need them
  */
-add_action( 'wp_enqueue_scripts', 'child_manage_woocommerce_styles', 99 );
+function spa_conditionally_load_woc_js_css() {
 
-function child_manage_woocommerce_styles() {
-	//remove generator meta tag
-	remove_action( 'wp_head', array( $GLOBALS['woocommerce'], 'generator' ) );
+	if ( function_exists( 'spa_conditionally_load_woc_js_css' ) ) {
 
-	//first check that woo exists to prevent fatal errors
-	if ( function_exists( 'is_woocommerce' ) ) {
-		//dequeue scripts and styles
 		if ( ! is_woocommerce() && ! is_cart() && ! is_checkout() ) {
-			wp_dequeue_style( 'woocommerce_frontend_styles' );
-			wp_dequeue_style( 'woocommerce_fancybox_styles' );
-			wp_dequeue_style( 'woocommerce_chosen_styles' );
-			wp_dequeue_style( 'woocommerce_prettyPhoto_css' );
-			wp_dequeue_script( 'wc_price_slider' );
-			wp_dequeue_script( 'wc-single-product' );
+
+			wp_dequeue_script( 'woocommerce' );
 			wp_dequeue_script( 'wc-add-to-cart' );
 			wp_dequeue_script( 'wc-cart-fragments' );
-			wp_dequeue_script( 'wc-checkout' );
-			wp_dequeue_script( 'wc-add-to-cart-variation' );
-			wp_dequeue_script( 'wc-single-product' );
-			wp_dequeue_script( 'wc-cart' );
-			wp_dequeue_script( 'wc-chosen' );
-			wp_dequeue_script( 'woocommerce' );
-			wp_dequeue_script( 'prettyPhoto' );
-			wp_dequeue_script( 'prettyPhoto-init' );
-			wp_dequeue_script( 'jquery-blockui' );
-			wp_dequeue_script( 'jquery-placeholder' );
-			wp_dequeue_script( 'fancybox' );
-			wp_dequeue_script( 'jqueryui' );
+
+			wp_dequeue_style( 'woocommerce-general' );
+			wp_dequeue_style( 'woocommerce-layout' );
+			wp_dequeue_style( 'woocommerce-smallscreen' );
+		}
+
+		if ( is_product() ) {
+			wp_dequeue_style( 'pac-styles-css' );
+			wp_dequeue_style( 'pac-layout-styles-css' );
 		}
 	}
 
 }
 
 
+// Remove WooCommerce breadcrumbs, using Genesis crumbs instead.
+add_action( 'get_header', function() {
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
+});
+
+add_filter( 'woocommerce_product_tabs', 'spa_woo_remove_product_tabs', 98 );
+/**
+ * Delete WooCommerce Product Tabs.
+ *
+ * @param $tabs
+ * @return mixed
+ */
+function spa_woo_remove_product_tabs( $tabs ) {
+
+	unset( $tabs['description'] );
+	unset( $tabs['reviews'] );
+	unset( $tabs['additional_information'] );
+
+	return $tabs;
+
+}

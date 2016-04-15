@@ -60,13 +60,15 @@
 
 	.hero--overlay {
 		font-size: 3rem;
-		font-family: $lato;
+		font-family: $lato-bold;
 
 		@include media($ipad-screen-up) {
 			font-size: 3.3rem;
 		}
 	}
 }
+
+
 
 .featured-four-columns .section--title {
 	padding-top: 330px;
@@ -140,7 +142,7 @@
 
 
 .section--title {
-	font-family: $lato;
+	font-family: $lato-light;
 	margin-bottom: 0;
 	padding: 1.5rem 0;
 	text-align: center;
@@ -204,3 +206,4 @@
 .lower-four-columns {
 	@include transform(translateY(-65px));
 }
+

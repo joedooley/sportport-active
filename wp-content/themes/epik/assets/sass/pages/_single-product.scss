@@ -12,8 +12,23 @@
 		padding-top: 0;
 	}
 
-	nav.woocommerce-breadcrumb {
-		border: none;
+	body.woocommerce & .woocommerce-message {
+		background-color: #ebebeb;
+		margin-bottom: 0 !important;
+	}
+
+	div.breadcrumb {
+		border-bottom: 1px solid #cacaca;
+		margin-left: 0;
+		text-align: left;
+
+		a {
+			color: #9d9d9d;
+		}
+
+		.breadcrumb_last {
+			color: #222;
+		}
 	}
 
 	.entry {
@@ -24,26 +39,111 @@
 	.images {
 		background: #fff;
 		padding-top: 50px;
-		position: fixed;
 		text-align: center;
 		width: 50%;
 	}
 
 	.summary {
 		background: #ebebeb;
-		margin-left: 50%;
 		min-height: 100vh;
 		width: 50%;
 	}
+
+	div.product .product_title {
+		color: #222;
+		font: {
+			family: $open-sans-condensed-bold;
+			size: em(36);
+			weight: 800
+		}
+		margin-top: 2rem;
+		text-rendering: optimizeLegibility;
+		text-transform: uppercase;
+	}
+
+	.product-essential {
+		max-width: 670px;
+		@include padding(0 em(80));
+
+		@include media($ipad-screen-up) {
+			@include padding(0 1em);
+		}
+	}
+
+	div.swatch-label {
+		color: #222;
+		font-family: $open-sans-condensed-bold;
+	}
+
+	div.product p.price,
+	div.product span.price {
+		margin-top: 1em;
+	}
+
+	p.price > .amount {
+		color: #222;
+		font: {
+			family: $open-sans-condensed-bold;;
+			size: em(24);
+		}
+	}
+
+	// Color Swatches
+	.label > label {
+		display: none;
+	}
+
+	// Color Swatches
+	.value {
+		width: 100%;
+	}
+
+	.variations tr {
+		border-bottom: $border;
+	}
+
+	div.product form.cart button.button {
+		background-color: $orange;
+		@include padding(14px em(60));
+	}
+
+	#accordion {
+		border-top: $border;
+	}
+
+	// Related Products
+	&.woocommerce ul.products li.product,
+	&.woocommerce-page ul.products li.product {
+		@include margin(0 5.9% 2.992em 0);
+		width: 44.10%;
+
+		@include media($ipad-screen-up) {
+			width: 100%;
+		}
+	}
+
+	&.woocommerce .upsells ul.products li.product .price {
+		text-align: center;
+	}
+
+	.upsells ul.products li.product .button,
+	.upsells ul.products li.product .categories {
+		display: none;
+	}
+
 }
 
-body.single-product .attachment-shop_single.wp-post-image,
-body.single-product .attachment-shop_thumbnail {
+body.woocommerce div.product div.images,
+body.woocommerce div.product div.summary {
+	margin-bottom: 0;
+}
+
+body.single-product div.product div.images .attachment-shop_single.wp-post-image,
+body.single-product div.product div.images .attachment-shop_thumbnail {
 	border: none;
+	display: inline;
+	width: auto;
 }
-
-
-
 
 body.woocommerce div.product form.cart .variations label {
 	color: #567;
@@ -59,3 +159,4 @@ body.woocommerce .quantity .qty {
 	color: #333;
 	font-size: em(16);
 }
+

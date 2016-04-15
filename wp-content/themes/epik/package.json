@@ -4,15 +4,16 @@
   "description": "Child theme for SportPort Active built on the Genesis framework",
   "repository": {
     "type": "git",
-    "url": "git@github.com:joedooley/thin-places-tour.git"
+    "url": "git@github.com:joedooley/sportport-active.git"
   },
   "author": "Joe Dooley",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/joedooley/thin-places-tour/issues"
+    "url": "https://github.com/joedooley/sportport-active/issues"
   },
-  "homepage": "https://github.com/joedooley/thin-places-tour/",
+  "homepage": "https://github.com/joedooley/sportport-active",
   "dependencies": {
+    "gulp-header": "^1.7.1",
     "jquery": "^2.2.0"
   },
   "devDependencies": {
@@ -46,6 +47,7 @@
     "gulp-ruby-sass": "*",
     "gulp-run-sequence": "^0.3.2",
     "gulp-sass": "^2.1.0",
+    "gulp-sort": "^2.0.0",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-strip-debug": "^1.0.2",
     "gulp-svgstore": "^5.0.5",
@@ -54,9 +56,10 @@
     "gulp-uncss": "1.0.0",
     "gulp-util": "^3.0.4",
     "gulp-webpack": "^1.5.0",
+    "gulp-wp-pot": "^1.1.1",
     "gulp-wp-rev": "0.0.1",
     "gulp-zip": "^2.0.3",
-    "imagemin-pngquant": "^4.0.0",
+    "imagemin-pngquant": "^4.2.2",
     "tiny-lr": "^0.2.1"
   }
 }

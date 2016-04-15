@@ -78,9 +78,12 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": [
-        "custom_fields"
+        "the_content",
+        "custom_fields",
+        "slug",
+        "author"
     ],
     "active": 1,
     "description": "",
-    "modified": 1460434913
+    "modified": 1460665262
 }

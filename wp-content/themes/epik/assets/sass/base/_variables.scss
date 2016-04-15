@@ -1,8 +1,22 @@
 // Typography
 $raleway: ralewayregular, sans-serif;
+$raleway-black: ralewayblack, sans-serif;
+$raleway-light: ralewaylight, sans-serif;
+$raleway-medium: ralewaymedium, sans-serif;
+$raleway-semibold: ralewaysemibold, sans-serif;
+$raleway-bold: ralewayextrabold, sans-serif;
 
-$lato: latoregular, latohairline, latoblack, latolight, latobold, sans-serif;
-$lato-italic: latolight_italic, latoitalic, latohairline_italic, latobold_italic, latoblack_italic;
+
+
+$lato: latoregular, sans-serif;
+$lato-light: latolight, sans-serif;
+$lato-thin: latohairline, sans-serif;
+$lato-bold: latobold, sans-serif;
+$lato-italic: latoitalic, sans-serif;
+
+
+
+$open-sans-condensed-bold: 'open_sans_condensedbold', sans-serif;
 
 $yanone: yanone_kaffeesatzregular, yanone_kaffeesatzlight, yanone_kaffeesatzextralight, yanone_kaffeesatzbold, sans-serif;
 
@@ -51,7 +65,7 @@ $headline-color: #567;
 // Border
 $base-border-color: $light-gray;
 $base-border: 1px solid $base-border-color;
-$border-color: #9ab;
+$border-color: #cacaca;
 $border: 1px solid $border-color;
 
 // Background Colors

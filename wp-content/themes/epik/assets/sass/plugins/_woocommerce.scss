@@ -42,4 +42,81 @@ body.woocommerce-page #payment .form-row select {
 
 }
 
+.woocommerce ul.products li.product h3 {
+	height: auto;
+	font-size: 24px;
+}
 
+
+#gform_wrapper_3 .gform_footer {
+	margin: 3.05em 0 0;
+}
+
+.woocommerce button.button {
+	border-radius: 0;
+	color: #222;
+	font-family: $open-sans-condensed-bold;
+	font-size: 1rem;
+}
+
+// Disabled WooCommerce Button States.
+// Disabled upon clearing cart or product options on single-product page.
+.woocommerce #respond input#submit.alt.disabled, .woocommerce #respond input#submit.alt.disabled:hover, .woocommerce #respond input#submit.alt:disabled, .woocommerce #respond input#submit.alt:disabled:hover, .woocommerce #respond input#submit.alt:disabled[disabled], .woocommerce #respond input#submit.alt:disabled[disabled]:hover, .woocommerce a.button.alt.disabled, .woocommerce a.button.alt.disabled:hover, .woocommerce a.button.alt:disabled, .woocommerce a.button.alt:disabled:hover, .woocommerce a.button.alt:disabled[disabled], .woocommerce a.button.alt:disabled[disabled]:hover, .woocommerce button.button.alt.disabled, .woocommerce button.button.alt.disabled:hover, .woocommerce button.button.alt:disabled, .woocommerce button.button.alt:disabled:hover, .woocommerce button.button.alt:disabled[disabled], .woocommerce button.button.alt:disabled[disabled]:hover, .woocommerce input.button.alt.disabled, .woocommerce input.button.alt.disabled:hover, .woocommerce input.button.alt:disabled, .woocommerce input.button.alt:disabled:hover, .woocommerce input.button.alt:disabled[disabled], .woocommerce input.button.alt:disabled[disabled]:hover {
+	background: $orange;
+}
+
+// View Cart Button/Message
+// Pops up after adding to Cart
+body.woocommerce div.woocommerce-message a.button {
+	background-color: $orange;
+	border-radius: 0;
+	color: #fff !important;
+}
+
+// Style Increment/Decrement on Cart and Product Pages
+.quantity {
+	&> input[type=number] {
+		display: inline-block;
+		padding: 15px;
+	}
+
+	.buttons_added {
+		float: none;
+
+		&.dec {
+			float: left;
+			@include padding(14px 17px);
+		}
+
+		&.inc {
+			margin-right: 5px;
+			@include padding(14px 17px);
+		}
+	}
+}
+
+.cart_item .quantity .buttons_added.dec {
+	@include padding(14px 19px);
+}
+
+// Fixes a problem with increment/decrement buttons
+.single-product.woocommerce div.product form.cart .quantity .buttons_added.dec {
+	float: none;
+	vertical-align: top;
+}
+
+body.woocommerce-cart .quantity .qty {
+	margin-left: 5px;
+}
+
+
+// Hide Spinner in Product Increment Input
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type=number] {
+	-moz-appearance: textfield;
+}
