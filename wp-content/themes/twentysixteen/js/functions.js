@@ -160,7 +160,7 @@
 					newImg = new Image();
 					newImg.src = element.attr( 'src' );
 
-					$( newImg ).on( 'load.twentysixteen', function() {
+					$( newImg ).load( function() {
 						if ( newImg.width >= 840  ) {
 							element.addClass( 'below-entry-meta' );
 
