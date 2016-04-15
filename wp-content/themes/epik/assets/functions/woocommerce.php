@@ -79,3 +79,13 @@ function spa_woo_remove_product_tabs( $tabs ) {
 	return $tabs;
 
 }
+
+
+//Full Width Pages on WooCommerce
+function themeprefix_cpt_layout() {
+	if ( is_page( array( 'cart', 'checkout' ) ) || is_shop() || 'product' == get_post_type() ) {
+		return 'full-width-content';
+	}
+}
+
+add_filter( 'genesis_site_layout', 'themeprefix_cpt_layout' );
