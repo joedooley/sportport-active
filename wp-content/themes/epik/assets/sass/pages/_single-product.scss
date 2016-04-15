@@ -160,3 +160,9 @@ body.woocommerce .quantity .qty {
 	font-size: em(16);
 }
 
+body.woocommerce .woocommerce-error,
+body.woocommerce .woocommerce-info,
+body.woocommerce .woocommerce-message {
+	margin-bottom: 0 !important;
+	background: #ebebeb;
+}
