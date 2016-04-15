@@ -86,6 +86,18 @@ add_action( 'wp_enqueue_scripts', function() {
 			true
 		);
 
+		if ( ! wp_is_mobile() ) {
+
+			wp_enqueue_script(
+				'scrolltofixed-init',
+				get_stylesheet_directory_uri() . '/assets/js/custom/single/scrolltofixed-init.js',
+				array( 'jquery' ),
+				CHILD_THEME_VERSION,
+				true
+			);
+
+		}
+
 	}
 });
 
@@ -132,6 +144,8 @@ function gencwooc_single_product_loop() {
 				<?php do_action( 'woocommerce_single_product_summary' ); ?>
 
 				<?php echo acf_accordion(); ?>
+
+				<?php wc_get_template_part( 'product', 'sociallinks' ); ?>
 
 			<?php do_action( 'woocommerce_after_single_product_summary' ); ?>
 
