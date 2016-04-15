@@ -1,16 +1,5 @@
 jQuery(function ($) {
 
-	//$(window).scroll(function () {
-	//	var scroll = $(window).scrollTop();
-	//
-	//	if (scroll >= 1500) {
-	//		$(".single-product .images").removeClass("js-fixed");
-	//	} else {
-	//		$(".single-product .images").addClass("js-fixed");
-	//	}
-	//
-	//});
-
 	function positionProduct(e) {
 
 		var winHeight    = window.innerHeight;
@@ -19,8 +8,10 @@ jQuery(function ($) {
 		var headerTop    = $('.site-header .title-area .site-title img').position().top;
 		var paddingTop   = parseInt($('.images').css('padding-top'));
 		var beforeHeader = $('.before-header').outerHeight();
+		var wcMessage    = $('.woocommerce-message').outerHeight();
+		var wpAdminBar   = $('#wpadminbar').outerHeight();
 
-		var scrollHeight = headerHeight + beforeHeader + beforeHeader;
+		var scrollHeight = headerHeight + beforeHeader + beforeHeader + wcMessage + wpAdminBar;
 
 		var leftHeight = winHeight - headerHeight - beforeHeader;
 

@@ -3250,6 +3250,12 @@ body.woocommerce .quantity .qty {
   color: #333;
   font-size: 1em; }
 
+body.woocommerce .woocommerce-error,
+body.woocommerce .woocommerce-info,
+body.woocommerce .woocommerce-message {
+  margin-bottom: 0 !important;
+  background: #ebebeb; }
+
 /*! ## Layout
 --------------------------- */
 .before-header {
@@ -3764,15 +3770,18 @@ div.gform_wrapper .gform_footer input[type="submit"] {
     margin: 0; }
   #gform_wrapper_3 .gform_footer {
     display: inline-block;
-    margin: 1.85em 0 0;
-    padding: 0.85em 0 0.625em;
+    margin: 3.25em 0 0;
+    padding-top: 0.7em;
     width: 20%; }
     @media screen and (max-width: 1023px) {
       #gform_wrapper_3 .gform_footer {
         width: 100%;
         margin: 0; } }
     #gform_wrapper_3 .gform_footer .gform_button {
-      padding: 9px 35px; }
+      padding: 9px 35px;
+      background-color: #ff9934;
+      border-radius: 0;
+      color: #fff; }
       @media screen and (max-width: 1023px) {
         #gform_wrapper_3 .gform_footer .gform_button {
           max-width: 300px;
@@ -3781,6 +3790,8 @@ div.gform_wrapper .gform_footer input[type="submit"] {
     #gform_wrapper_3 .gform_footer .gform_button {
       max-width: none; } }
 
+      #gform_wrapper_3 .gform_footer .gform_button:hover {
+        background-color: #8e5721; }
   #gform_wrapper_3 .gform_body {
     display: inline-block;
     float: left;
