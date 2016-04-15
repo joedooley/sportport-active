@@ -5,7 +5,7 @@
  *
  * See our documentation for more details:
  *
- * http://helpdesk.getpantheon.com/
+ * https://pantheon.io/docs
  */
 
 /**
@@ -66,40 +66,17 @@ else:
     /**#@-*/
 
     /** A couple extra tweaks to help things run well on Pantheon. **/
-    /**  Modified settings for SSL and Cloudflare DNS **/
-    if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
-      if ($_ENV['PANTHEON_ENVIRONMENT'] === 'dev') {
-        $domain = 'dev.sportportactive.com';
-      }
-      if ($_ENV['PANTHEON_ENVIRONMENT'] === 'test') {
-        $domain = 'test.sportportactive.com';
-      }
-      if ($_ENV['PANTHEON_ENVIRONMENT'] === 'live') {
-        $domain = 'www.sportportactive.com';
-      }
-      else {
-        # Fallback value for multidev or other environments.
-        # This covers environment-sitename.pantheon.io domains
-        # that are generated per environment.
-        $domain = $_SERVER['HTTP_HOST'];
-      }
-
-      # Define constants for WordPress on Pantheon.
-      define('WP_HOME', 'https://' . $domain);
-      define('WP_SITEURL', 'https://' . $domain);
-
-    }
-
-    // Require HTTPS, www.
-    if (isset($_SERVER['PANTHEON_ENVIRONMENT']) &&
-      $_SERVER['PANTHEON_ENVIRONMENT'] === 'live') {
-      if ($_SERVER['HTTP_HOST'] != 'www.sportportactive.com' ||
-          !isset($_SERVER['HTTP_X_SSL']) ||
-          $_SERVER['HTTP_X_SSL'] != 'ON' ) {
-        header('HTTP/1.0 301 Moved Permanently');
-        header('Location: https://www.sportportactive.com'. $_SERVER['REQUEST_URI']);
-        exit();
-      }
+    if (isset($_SERVER['HTTP_HOST'])) {
+        // HTTP is still the default scheme for now. 
+        $scheme = 'http';
+        // If we have detected that the end use is HTTPS, make sure we pass that
+        // through here, so <img> tags and the like don't generate mixed-mode
+        // content warnings.
+        if (isset($_SERVER['HTTP_USER_AGENT_HTTPS']) && $_SERVER['HTTP_USER_AGENT_HTTPS'] == 'ON') {
+            $scheme = 'https';
+        }
+        define('WP_HOME', $scheme . '://' . $_SERVER['HTTP_HOST']);
+        define('WP_SITEURL', $scheme . '://' . $_SERVER['HTTP_HOST']);
     }
 
     // Don't show deprecations; useful under PHP 5.5
@@ -111,7 +88,7 @@ else:
 
     // FS writes aren't permitted in test or live, so we should let WordPress know to disable relevant UI
     if ( in_array( $_ENV['PANTHEON_ENVIRONMENT'], array( 'test', 'live' ) ) && ! defined( 'DISALLOW_FILE_MODS' ) ) :
-      define( 'DISALLOW_FILE_MODS', true );
+        define( 'DISALLOW_FILE_MODS', true );
     endif;
 
   else:
