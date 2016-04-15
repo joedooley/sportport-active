@@ -39,13 +39,8 @@
 	.images {
 		background: #fff;
 		padding-top: 50px;
-		//position: fixed;
 		text-align: center;
 		width: 50%;
-
-		&.js-fixed {
-			position: fixed;
-		}
 	}
 
 	.summary {
@@ -69,6 +64,10 @@
 	.product-essential {
 		max-width: 670px;
 		@include padding(0 em(80));
+
+		@include media($ipad-screen-up) {
+			@include padding(0 1em);
+		}
 	}
 
 	div.swatch-label {
@@ -105,7 +104,7 @@
 
 	div.product form.cart button.button {
 		background-color: $orange;
-		@include padding(0.72em em(60));
+		@include padding(14px em(60));
 	}
 
 	#accordion {
@@ -117,6 +116,10 @@
 	&.woocommerce-page ul.products li.product {
 		@include margin(0 5.9% 2.992em 0);
 		width: 44.10%;
+
+		@include media($ipad-screen-up) {
+			width: 100%;
+		}
 	}
 
 	&.woocommerce .upsells ul.products li.product .price {
@@ -130,7 +133,7 @@
 
 }
 
-body.woocommerce div.product div.images, 
+body.woocommerce div.product div.images,
 body.woocommerce div.product div.summary {
 	margin-bottom: 0;
 }

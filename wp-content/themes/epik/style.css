@@ -2845,6 +2845,9 @@ Miscellaneous
 
 /*! ## Single Product Social Media Links
 ---------------------------------------- */
+@media screen and (max-width: 768px) {
+  .social-share {
+    text-align: center; } }
 .social-share h2 {
   color: #222;
   font-family: "open_sans_condensedbold", sans-serif;
@@ -3175,8 +3178,6 @@ body.woocommerce .single-product .woocommerce-message {
   padding-top: 50px;
   text-align: center;
   width: 50%; }
-  .single-product .images.js-fixed {
-    position: fixed; }
 .single-product .summary {
   background: #ebebeb;
   min-height: 100vh;
@@ -3192,6 +3193,9 @@ body.woocommerce .single-product .woocommerce-message {
 .single-product .product-essential {
   max-width: 670px;
   padding: 0 5em; }
+  @media screen and (max-width: 768px) {
+    .single-product .product-essential {
+      padding: 0 1em; } }
 .single-product div.swatch-label {
   color: #222;
   font-family: "open_sans_condensedbold", sans-serif; }
@@ -3210,12 +3214,15 @@ body.woocommerce .single-product .woocommerce-message {
   border-bottom: 1px solid #cacaca; }
 .single-product div.product form.cart button.button {
   background-color: #ff9934;
-  padding: 0.72em 3.75em; }
+  padding: 14px 3.75em; }
 .single-product #accordion {
   border-top: 1px solid #cacaca; }
 .single-product.woocommerce ul.products li.product, .single-product.woocommerce-page ul.products li.product {
   margin: 0 5.9% 2.992em 0;
   width: 44.10%; }
+  @media screen and (max-width: 768px) {
+    .single-product.woocommerce ul.products li.product, .single-product.woocommerce-page ul.products li.product {
+      width: 100%; } }
 .single-product.woocommerce .upsells ul.products li.product .price {
   text-align: center; }
 .single-product .upsells ul.products li.product .button,

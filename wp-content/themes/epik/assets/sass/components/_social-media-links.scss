@@ -3,6 +3,10 @@
 
 .social-share {
 
+	@include media($ipad-screen-up) {
+		text-align: center;
+	}
+
 	h2 {
 		color: #222;
 		font-family: $open-sans-condensed-bold;

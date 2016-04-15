@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $post, $woocommerce, $product;
 
 ?>
-<div class="images js-fixed">
+<div class="images">
 	<div class="left-container">
 		<div class="product-img-box">
 			<?php

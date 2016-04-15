@@ -28,47 +28,43 @@ jQuery(function ($) {
 
 		var imageHeight = leftHeight - paddingTop;
 
-		//Set Media Query
-		//if (Modernizr.mq('only screen and (min-width: 769px)')) {
 
-		//set left height
-		$('.images').height(leftHeight);
+		if (window.matchMedia("(min-width: 768px)").matches) {
 
-		//set image height
-		$('.product-img-box').height(imageHeight);
+			//Set Media Query
+			//if (Modernizr.mq('only screen and (min-width: 769px)')) {
 
-		//Move Product Shop
-		// $('.config-options').before($('.product-shop'));
+			//set left height
+			$('.images').height(leftHeight);
 
-		//check if fixed position or not
-		if (footerTop < currScroll + winHeight - scrollHeight) {
-			$('.images').css({
-				'position': 'absolute',
-				'top': footerTop - leftHeight - scrollHeight - 15
-			});
+			//set image height
+			$('.product-img-box').height(imageHeight);
+
+
+			//check if fixed position or not
+			if (footerTop < currScroll + winHeight - scrollHeight) {
+				$('.images').css({
+					'position': 'absolute',
+					'top': footerTop - leftHeight - scrollHeight - 15
+				});
+			} else {
+				$('.images').css({
+					'position': 'fixed',
+					'top': scrollHeight > currScroll ? scrollHeight - currScroll : 0
+				});
+			}
+
 		} else {
-			$('.images').css({
-				'position': 'fixed',
-				'top': scrollHeight > currScroll ? scrollHeight - currScroll : 0
-			});
+
+
+			//Remove styling for mobile
+			$('.images').attr('style', '');
+			$('.product-img-box').attr('style', '');
+
+
 		}
-
-		//}
-
-		//else
-		//{
-		//
-		//	//Remove styling for mobile
-		//	$('#left').attr('style', '');
-		//	$('.product-img-box').attr('style', '');
-		//
-		//	//Move Product Shop above product image
-		//	$('#left').before($('.product-shop'));
-		//}
-
-		//}
-
 	}
+
 
 		$(window).on('resize', positionProduct);
 
