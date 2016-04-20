@@ -2202,10 +2202,6 @@ Content Area
   margin: 0 3px 10px 0;
   padding: 0 16px 16px 16px; }
 
-.home .entry {
-  box-shadow: none;
-  background: none; }
-
 .content .entry-content {
   padding: 10px 10px 0px 20px;
   overflow: hidden; }
@@ -3591,6 +3587,12 @@ body.woocommerce .woocommerce-message {
 ------------------------ */
 .footer-widgets-3 .widget_text {
   margin: 0; }
+.footer-widgets-3 .featured-content .entry-title {
+  padding: 0;
+  text-align: center; }
+  .footer-widgets-3 .featured-content .entry-title a {
+    color: #fff;
+    font-size: 0.55rem; }
 
 /* Widget #4
 ------------------------ */
@@ -3599,8 +3601,8 @@ body.woocommerce .woocommerce-message {
   .footer-widgets-4:first-child {
     margin-bottom: 1.25rem; }
   .footer-widgets-4 address {
-    margin-top: 1em;
-    font-size: 0.875rem; }
+    font-size: 0.875rem;
+    margin-top: 1em; }
 
 /* -------------------------------- *\
         # Site Footer #
