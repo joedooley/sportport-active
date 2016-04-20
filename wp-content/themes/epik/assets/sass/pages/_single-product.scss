@@ -93,7 +93,6 @@
 		display: none;
 	}
 
-	// Color Swatches
 	.value {
 		width: 100%;
 	}
@@ -102,11 +101,41 @@
 		border-bottom: $border;
 	}
 
+	// Sizing Radio Buttons
+	.radio-select {
+
+		li {
+			float: left;
+
+			&> .radio-option {
+				//@include appearance(checkbox);
+				visibility: hidden;
+
+				&:checked + label { 
+					background: red;
+				}
+			}
+
+			label {
+				cursor: pointer;
+			}
+		}
+
+	}
+
+	// Clear Options Button
+	&.woocommerce div.product form.cart .reset_variations {
+		clear: both;
+		display: block !important;
+	}
+
+	// Add to Cart Button
 	div.product form.cart button.button {
 		background-color: $orange;
 		@include padding(14px em(60));
 	}
 
+	// Accordion
 	#accordion {
 		border-top: $border;
 	}
@@ -163,6 +192,6 @@ body.woocommerce .quantity .qty {
 body.woocommerce .woocommerce-error,
 body.woocommerce .woocommerce-info,
 body.woocommerce .woocommerce-message {
-	margin-bottom: 0 !important;
 	background: #ebebeb;
+	margin-bottom: 0 !important;
 }

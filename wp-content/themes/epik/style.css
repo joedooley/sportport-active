@@ -3208,6 +3208,17 @@ body.woocommerce .single-product .woocommerce-message {
   width: 100%; }
 .single-product .variations tr {
   border-bottom: 1px solid #cacaca; }
+.single-product .radio-select li {
+  float: left; }
+  .single-product .radio-select li > .radio-option {
+    visibility: hidden; }
+    .single-product .radio-select li > .radio-option:checked + label {
+      background: red; }
+  .single-product .radio-select li label {
+    cursor: pointer; }
+.single-product.woocommerce div.product form.cart .reset_variations {
+  clear: both;
+  display: block !important; }
 .single-product div.product form.cart button.button {
   background-color: #ff9934;
   padding: 14px 3.75em; }
@@ -3249,8 +3260,8 @@ body.woocommerce .quantity .qty {
 body.woocommerce .woocommerce-error,
 body.woocommerce .woocommerce-info,
 body.woocommerce .woocommerce-message {
-  margin-bottom: 0 !important;
-  background: #ebebeb; }
+  background: #ebebeb;
+  margin-bottom: 0 !important; }
 
 /*! ## Layout
 --------------------------- */
