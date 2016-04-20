@@ -1,7 +1,7 @@
 /*! single-product.php - WooCommerce Product Page
 ------------------------------------------------- */
 
-.single-product {
+body.single-product {
 
 	.site-inner,
 	.site-inner .wrap {
@@ -102,22 +102,31 @@
 	}
 
 	// Sizing Radio Buttons
-	.radio-select {
+	div.radio-select {
 
 		li {
 			float: left;
 
-			&> .radio-option {
-				//@include appearance(checkbox);
+			&> input.radio-option {
+				display: block;
 				visibility: hidden;
 
-				&:checked + label { 
-					background: red;
+				&:checked + label {
+					background: #000;
+					color: #fff;
 				}
 			}
 
 			label {
+				@include margin(0 5px 5px 0);
+				border: $border;
 				cursor: pointer;
+				display: block;
+				font-size: 1.25rem;
+				line-height: 40px;
+				min-height: 40px;
+				min-width: 50px;
+				text-align: center;
 			}
 		}
 
