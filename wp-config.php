@@ -179,6 +179,8 @@ define('WP_POST_REVISIONS', 1);
 //* WP Retina @2x plugin - Removes Marketing Banner from Plugins Options Screen
 define( 'WP_HIDE_DONATION_BUTTONS',  true );
 
+define('WP_HOME', 'https://sportport.dev');
+define('WP_SITEURL', 'https://sportport.dev');
 
 /* That's all, stop editing! Happy Pressing. */
 

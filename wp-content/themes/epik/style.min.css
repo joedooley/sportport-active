@@ -140,7 +140,7 @@ html{font-size:16px;line-height:1.3}
 @media(min-width:800px){html{font-size:18px}
 }@media(min-width:1200px){html{font-size:20px;line-height:1.4}
 }body{background:rgba(211,220,235,0.59);color:#333;font-family:ralewayregular,sans-serif;font-size:18px;font-weight:100;letter-spacing:.025em;line-height:1.6;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4,h5,h6{font-family:ralewayregular,sans-serif;font-size:16px;line-height:1.2;margin:0 0 .65em}
+h1,h2,h3,h4,h5,h6{font-family:ralewayregular,sans-serif;font-size:16px;line-height:1.2;margin:0 0 .65em;color:#00a000}
 p{margin:0 0 .65em}
 a{color:#18d;text-decoration:none;-webkit-transition:color 150ms ease;transition:color 150ms ease}
 a:active,a:focus,a:hover{color:#0d66a6}
@@ -635,10 +635,10 @@ Miscellaneous
 .js .genesis-nav-menu .sub-menu a:hover{border-bottom:1px solid #aaa}
 .js nav button:hover,.js .menu-toggle:hover,.js .nav-primary{color:#fff;font-weight:bold}
 .js nav button:focus,.js .menu-toggle:focus{color:#fff}
-}body.woocommerce nav.woocommerce-breadcrumb{border-bottom:1px solid #9ab;color:#567;font-size:.75em;margin-right:.9375em;padding-bottom:.9375em;padding-right:.9375em;text-align:right}
-body.woocommerce nav.woocommerce-breadcrumb a{text-decoration:none}
-body.woocommerce nav.woocommerce-breadcrumb a:first-child{color:#000}
-body.woocommerce nav.woocommerce-breadcrumb a:hover{color:#888;text-decoration:underline}
+}.woocommerce nav.woocommerce-breadcrumb{border-bottom:1px solid #9ab;color:#567;font-size:.75em;margin-right:.9375em;padding-bottom:.9375em;padding-right:.9375em;text-align:right}
+.woocommerce nav.woocommerce-breadcrumb a{text-decoration:none}
+.woocommerce nav.woocommerce-breadcrumb a:first-child{color:#000}
+.woocommerce nav.woocommerce-breadcrumb a:hover{color:#888;text-decoration:underline}
 /*! ## Avatar
 --------------------------------- */.avatar{border-radius:50%;float:left}
 .after-entry .avatar{float:right;height:180px;margin-bottom:30px;margin-left:30px;width:180px}
@@ -716,9 +716,17 @@ body.woocommerce nav.woocommerce-breadcrumb a:hover{color:#888;text-decoration:u
 .content .portfolio .more-link:hover{background:#555;color:#fff}
 .portfolio .entry-content{padding:0 20px 0}
 .portfolio .entry-footer{background:0;padding:0}
+/*! single-product.php - WooCommerce Product Page
+------------------------------------------------- */.single-product .site-inner,.single-product .site-inner .wrap{max-width:none}
+.single-product .site-inner{padding-top:0}
+.single-product nav.woocommerce-breadcrumb{border:0}
+.single-product .entry{margin:0;padding:0}
+.single-product .images{background:#fff;padding-top:50px;position:fixed;text-align:center;width:50%}
+.single-product .summary{background:#ebebeb;margin-left:50%;min-height:100vh;width:50%}
+body.single-product .attachment-shop_single.wp-post-image,body.single-product .attachment-shop_thumbnail{border:0}
 body.woocommerce div.product form.cart .variations label{color:#567}
 body.woocommerce div.product form.cart .variations label select{font-size:1em;min-width:0}
-body.woocommerce div.product form.cart .woocommerce-variation-description p,body.woocommerce .quantity .qty{font-size:1em;color:#333}
+body.woocommerce div.product form.cart .woocommerce-variation-description p,body.woocommerce .quantity .qty{color:#333;font-size:1em}
 /*! ## Layout
 --------------------------- */.before-header{background-color:#dce1e7;color:#aaa;text-align:center}
 @media screen and (max-width:768px){.before-header .wrap{margin-top:0;padding:0}
