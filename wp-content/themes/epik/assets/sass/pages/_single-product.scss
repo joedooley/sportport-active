@@ -12,9 +12,20 @@ body.single-product {
 		padding-top: 0;
 	}
 
-	body.woocommerce & .woocommerce-message {
-		background-color: #ebebeb;
+	// WooCommerce Message Section
+	&.woocommerce .woocommerce-error,
+	&.woocommerce .woocommerce-info,
+	&.woocommerce .woocommerce-message {
+		background: #ebebeb;
 		margin-bottom: 0 !important;
+		padding-top: 2em !important;
+
+		&:before,
+		&:before,
+		&:before {
+			top: 2em;
+			left: 13.5em;
+		}
 	}
 
 	div.breadcrumb {
@@ -119,10 +130,10 @@ body.single-product {
 
 			label {
 				@include margin(0 5px 5px 0);
-				border: $border;
+				border: 1px solid #000;
 				cursor: pointer;
 				display: block;
-				font-size: 1.25rem;
+				font-size: 1rem;
 				line-height: 40px;
 				min-height: 40px;
 				min-width: 50px;
@@ -196,11 +207,4 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p,
 body.woocommerce .quantity .qty {
 	color: #333;
 	font-size: em(16);
-}
-
-body.woocommerce .woocommerce-error,
-body.woocommerce .woocommerce-info,
-body.woocommerce .woocommerce-message {
-	background: #ebebeb;
-	margin-bottom: 0 !important;
 }
