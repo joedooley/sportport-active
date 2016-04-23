@@ -50,7 +50,7 @@ var root   = './',
     dist   = './dist/',
     zipped = './zipped/',
     scss   = 'sass/**/*.scss',
-    js     = 'js/**/*.js',
+    js     = 'js/src/custom/*.js',
     php    = './**/*.php',
     raw    = './images/raw/**/*.{ png, jpg, gif, svg }';
 
@@ -93,42 +93,43 @@ gulp.task('styles', function () {
 
 
 /**
- * Scripts: Vendors
- *
- * Look at src/js and concatenate those files, send them to assets/js where we then minimize the concatenated file.
- */
-gulp.task('vendorsJs', function () {
-	return gulp.src(['./assets/js/vendors/*.js', bower + '**/*.js', '!./assets/js/vendors/single/*.js'])
-		.pipe(concat('vendors.js'))
-		.pipe(gulp.dest('./assets/js'))
-		.pipe(rename({
-			basename: "vendors",
-			suffix  : '.min'
-		}))
-		.pipe(uglify())
-		.pipe(gulp.dest('./assets/js/'))
-		.pipe(notify({message: 'Vendor scripts task complete', onLast: true}));
-});
-
-
-/**
  * Scripts: Custom
  *
  * Look at src/js and concatenate those files, send them to assets/js where we then minimize the concatenated file.
  */
 
 gulp.task('scriptsJs', function () {
-	return gulp.src(['./assets/js/custom/*.js', '!./assets/js/custom/single/*.js'])
+	return gulp.src(['./assets/js/src/custom/*.js', '!./assets/js/src/custom/single/*.js'])
 		.pipe(concat('custom.js'))
-		.pipe(gulp.dest('./assets/js'))
+		.pipe(gulp.dest('./assets/js/dist'))
 		.pipe(rename({
 			basename: "custom",
+			suffix: '.min'
+		}))
+		.pipe(uglify())
+		.pipe(gulp.dest('./assets/js/dist/'))
+		.pipe(notify({message: 'Custom scripts task complete', onLast: true}));
+});
+
+
+/**
+ * Scripts: Vendors
+ *
+ * Look at src/js and concatenate those files, send them to assets/js where we then minimize the concatenated file.
+ */
+gulp.task('vendorsJs', function () {
+	return gulp.src(['./assets/js/src/vendors/*.js', bower + '**/*.js', '!./assets/js/src/vendors/single/*.js'])
+		.pipe(concat('vendors.js'))
+		.pipe(gulp.dest('./assets/js/dist'))
+		.pipe(rename({
+			basename: "vendors",
 			suffix  : '.min'
 		}))
 		.pipe(uglify())
-		.pipe(gulp.dest('./assets/js/'))
-		.pipe(notify({message: 'Custom scripts task complete', onLast: true}));
+		.pipe(gulp.dest('./assets/js/dist/'))
+		.pipe(notify({message: 'Vendor scripts task complete', onLast: true}));
 });
+
 
 
 /**
