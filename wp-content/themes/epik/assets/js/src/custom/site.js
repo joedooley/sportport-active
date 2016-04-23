@@ -14,10 +14,10 @@
 		clickOutside: false,
 		closeKeys: [27],
 		transitions: true,
-		//onBeforeOpen: null,
-		//onBeforeClose: null,
-		//onOpen: null,
-		//onClose: null,
+		onBeforeOpen: null,
+		onBeforeClose: null,
+		onOpen: null,
+		onClose: null,
 
 		onBeforeOpen: function (e) {
 			console.log('onBeforeOpen hook', e, this);
@@ -33,6 +33,20 @@
 		}
 	});
 
-
+	//
+	//const modal = new vanillaModal.VanillaModal({
+	//	onBeforeOpen: function (e) {
+	//		console.log('onBeforeOpen hook', e, this);
+	//	},
+	//	onOpen: function (e) {
+	//		console.log('onOpen hook', e, this);
+	//	},
+	//	onBeforeClose: function (e) {
+	//		console.log('onBeforeClose hook', e, this);
+	//	},
+	//	onClose: function (e) {
+	//		console.log('onClose hook', e, this);
+	//	}
+	//});
 
 })(jQuery, window, document);
