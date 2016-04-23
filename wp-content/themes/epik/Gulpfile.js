@@ -77,42 +77,6 @@ var styleHeader = [
 
 
 /**
- * Task: `styles`.
- *
- * Compiles Sass, Autoprefixes it and Minifies CSS.
- *
- * This task does the following:
- *    1. Gets the source scss file
- *    2. Compiles Sass to CSS
- *    3. Writes Sourcemaps for it
- *    4. Autoprefixes it and generates style.css
- *    5. Renames the CSS file with suffix .min.css
- *    6. Minifies the CSS file and generates style.min.css
- *    7. Injects CSS or reloads the browser via browserSync
- */
-//gulp.task('styles', function () {
-//	return gulp.src(styleSRC)
-//		.pipe(plumber(plumberErrorHandler))
-//		.pipe(sourcemaps.init())
-//		.pipe(sass({outputStyle: 'expanded'}))
-//		.pipe(sourcemaps.write({includeContent: false}))
-//		.pipe(sourcemaps.init({loadMaps: true}))
-//		.pipe(autoprefixer(AUTOPREFIXER_BROWSERS))
-//
-//		.pipe(sourcemaps.write(root))
-//		.pipe(gulp.dest(root))
-//		// .pipe( reload( { stream: true } ) )
-//
-//
-//		.pipe(rename({suffix: '.min'}))
-//		.pipe(minifycss({maxLineLen: 10}))
-//		.pipe(gulp.dest(root))
-//		// .pipe( reload( { stream: true } ) )
-//		.pipe(notify({message: 'TASK: "styles" Completed!', onLast: true}))
-//});
-
-
-/**
  * Task: `styles` - WITHOUT BROWSERSYNC.
  */
 gulp.task('styles', function () {
@@ -126,7 +90,6 @@ gulp.task('styles', function () {
 		.pipe( reload( { stream: true } ) );
 		// .pipe( notify( { message: 'TASK: "styles" Completed!', onLast: true } ) );
 });
-
 
 
 /**
@@ -251,14 +214,6 @@ gulp.task( 'serve', [ 'vendorsJs', 'scriptsJs' ], function() {
 // Default task
 gulp.task( 'default', [ 'serve', 'images' ] );
 
-
-//// Watch Task without BrowserSync
-//gulp.task( 'default', [ 'styles', 'vendorsJs', 'scriptsJs', 'images', 'pot' ], function() {
-//	gulp.watch( './images/raw/**/*', [ 'images' ] );
-//	gulp.watch( './assets/sass/*.scss', [ 'styles' ] );
-//	gulp.watch( './assets/js/**/*.js', [ 'scriptsJs' ] );
-//	gulp.watch( [ php ], [ 'pot' ] );
-//});
 
 // Our dist task for packaging a clean theme all zipped up.
 // Called from the commandline with `gulp dist`.
