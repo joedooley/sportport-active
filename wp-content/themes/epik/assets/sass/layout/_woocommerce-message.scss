@@ -1,0 +1,7 @@
+/*! ## WooCommerce Message - After Header
+----------------------------------------- */
+
+body.woocommerce div.woocommerce-message div.wrap {
+	@include margin(0 auto);
+	max-width: 1200px;
+}

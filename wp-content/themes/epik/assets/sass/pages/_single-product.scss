@@ -1,7 +1,7 @@
 /*! single-product.php - WooCommerce Product Page
 ------------------------------------------------- */
 
-.single-product {
+body.single-product {
 
 	.site-inner,
 	.site-inner .wrap {
@@ -12,9 +12,20 @@
 		padding-top: 0;
 	}
 
-	body.woocommerce & .woocommerce-message {
-		background-color: #ebebeb;
+	// WooCommerce Message Section
+	&.woocommerce .woocommerce-error,
+	&.woocommerce .woocommerce-info,
+	&.woocommerce .woocommerce-message {
+		background: #ebebeb;
 		margin-bottom: 0 !important;
+		padding-top: 2em !important;
+
+		&:before,
+		&:before,
+		&:before {
+			top: 2em;
+			left: 13.5em;
+		}
 	}
 
 	div.breadcrumb {
@@ -93,7 +104,6 @@
 		display: none;
 	}
 
-	// Color Swatches
 	.value {
 		width: 100%;
 	}
@@ -102,11 +112,50 @@
 		border-bottom: $border;
 	}
 
+	// Sizing Radio Buttons
+	div.radio-select {
+
+		li {
+			float: left;
+
+			&> input.radio-option {
+				display: block;
+				visibility: hidden;
+
+				&:checked + label {
+					background: #000;
+					color: #fff;
+				}
+			}
+
+			label {
+				@include margin(0 5px 5px 0);
+				border: 1px solid #000;
+				cursor: pointer;
+				display: block;
+				font-size: 1rem;
+				line-height: 40px;
+				min-height: 40px;
+				min-width: 50px;
+				text-align: center;
+			}
+		}
+
+	}
+
+	// Clear Options Button
+	&.woocommerce div.product form.cart .reset_variations {
+		clear: both;
+		display: block !important;
+	}
+
+	// Add to Cart Button
 	div.product form.cart button.button {
 		background-color: $orange;
 		@include padding(14px em(60));
 	}
 
+	// Accordion
 	#accordion {
 		border-top: $border;
 	}
@@ -158,11 +207,4 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p,
 body.woocommerce .quantity .qty {
 	color: #333;
 	font-size: em(16);
-}
-
-body.woocommerce .woocommerce-error,
-body.woocommerce .woocommerce-info,
-body.woocommerce .woocommerce-message {
-	margin-bottom: 0 !important;
-	background: #ebebeb;
 }

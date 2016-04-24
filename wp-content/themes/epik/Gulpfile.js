@@ -30,6 +30,7 @@ var gulp         = require('gulp'),
     wpPot        = require('gulp-wp-pot'),
     sort         = require('gulp-sort'),
     zip          = require('gulp-zip'),
+    babel        = require('gulp-babel'),
     reload       = browserSync.reload;
 
 
@@ -44,15 +45,17 @@ var plumberErrorHandler = {
 
 
 // Directory globs.
-var root   = './',
-    source = './assets/',
-    bower  = './bower_components/',
-    dist   = './dist/',
-    zipped = './zipped/',
-    scss   = 'sass/**/*.scss',
-    js     = 'js/**/*.js',
-    php    = './**/*.php',
-    raw    = './images/raw/**/*.{ png, jpg, gif, svg }';
+var root          = './',
+    source        = './assets/',
+    dist          = './dist/',
+    zipped        = './zipped/',
+    scss          = 'sass/**/*.scss',
+    js_custom     = 'js/custom/*.js',
+	js_vendor     = 'js/vendors/*.js',
+    php           = './**/*.php',
+    raw           = './images/raw/**/*.{ png, jpg, gif, svg }';
+
+
 
 /**
  * Our WordPress block for adding to the head of style.css
@@ -77,42 +80,6 @@ var styleHeader = [
 
 
 /**
- * Task: `styles`.
- *
- * Compiles Sass, Autoprefixes it and Minifies CSS.
- *
- * This task does the following:
- *    1. Gets the source scss file
- *    2. Compiles Sass to CSS
- *    3. Writes Sourcemaps for it
- *    4. Autoprefixes it and generates style.css
- *    5. Renames the CSS file with suffix .min.css
- *    6. Minifies the CSS file and generates style.min.css
- *    7. Injects CSS or reloads the browser via browserSync
- */
-//gulp.task('styles', function () {
-//	return gulp.src(styleSRC)
-//		.pipe(plumber(plumberErrorHandler))
-//		.pipe(sourcemaps.init())
-//		.pipe(sass({outputStyle: 'expanded'}))
-//		.pipe(sourcemaps.write({includeContent: false}))
-//		.pipe(sourcemaps.init({loadMaps: true}))
-//		.pipe(autoprefixer(AUTOPREFIXER_BROWSERS))
-//
-//		.pipe(sourcemaps.write(root))
-//		.pipe(gulp.dest(root))
-//		// .pipe( reload( { stream: true } ) )
-//
-//
-//		.pipe(rename({suffix: '.min'}))
-//		.pipe(minifycss({maxLineLen: 10}))
-//		.pipe(gulp.dest(root))
-//		// .pipe( reload( { stream: true } ) )
-//		.pipe(notify({message: 'TASK: "styles" Completed!', onLast: true}))
-//});
-
-
-/**
  * Task: `styles` - WITHOUT BROWSERSYNC.
  */
 gulp.task('styles', function () {
@@ -129,22 +96,25 @@ gulp.task('styles', function () {
 
 
 
+
 /**
- * Scripts: Vendors
+ * gulp js
  *
- * Look at src/js and concatenate those files, send them to assets/js where we then minimize the concatenated file.
+ * Runs each js file through Babel and than concats them into a minified .dist/all.js.
+ * We are not including any files in the /single directories.
  */
-gulp.task('vendorsJs', function () {
-	return gulp.src(['./assets/js/vendors/*.js', bower + '**/*.js', '!./assets/js/vendors/single/*.js'])
-		.pipe(concat('vendors.js'))
-		.pipe(gulp.dest('./assets/js'))
-		.pipe(rename({
-			basename: "vendors",
-			suffix  : '.min'
-		}))
-		.pipe(uglify())
-		.pipe(gulp.dest('./assets/js/'))
-		.pipe(notify({message: 'Vendor scripts task complete', onLast: true}));
+gulp.task('js', function () {
+	return gulp.src([
+		source + js_custom,
+		source + js_vendor
+	])
+		.pipe(plumber(plumberErrorHandler))
+		.pipe(sourcemaps.init())
+		.pipe(babel())
+		//.pipe(uglify())
+		.pipe(concat('all.js'))
+		.pipe(sourcemaps.write('./'))
+		.pipe(gulp.dest(dist + 'js/'));
 });
 
 
@@ -154,18 +124,38 @@ gulp.task('vendorsJs', function () {
  * Look at src/js and concatenate those files, send them to assets/js where we then minimize the concatenated file.
  */
 
-gulp.task('scriptsJs', function () {
-	return gulp.src(['./assets/js/custom/*.js', '!./assets/js/custom/single/*.js'])
-		.pipe(concat('custom.js'))
-		.pipe(gulp.dest('./assets/js'))
-		.pipe(rename({
-			basename: "custom",
-			suffix  : '.min'
-		}))
-		.pipe(uglify())
-		.pipe(gulp.dest('./assets/js/'))
-		.pipe(notify({message: 'Custom scripts task complete', onLast: true}));
-});
+//gulp.task('scriptsJs', function () {
+//	return gulp.src(['./assets/js/src/custom/*.js', '!./assets/js/src/custom/single/*.js'])
+//		.pipe(concat('custom.js'))
+//		.pipe(gulp.dest('./assets/js/dist'))
+//		.pipe(rename({
+//			basename: "custom",
+//			suffix: '.min'
+//		}))
+//		.pipe(uglify())
+//		.pipe(gulp.dest('./assets/js/dist/'))
+//		.pipe(notify({message: 'Custom scripts task complete', onLast: true}));
+//});
+
+
+/**
+ * Scripts: Vendors
+ *
+ * Look at src/js and concatenate those files, send them to assets/js where we then minimize the concatenated file.
+ */
+//gulp.task('vendorsJs', function () {
+//	return gulp.src(['./assets/js/src/vendors/*.js', bower + '**/*.js', '!./assets/js/src/vendors/single/*.js'])
+//		.pipe(concat('vendors.js'))
+//		.pipe(gulp.dest('./assets/js/dist'))
+//		.pipe(rename({
+//			basename: "vendors",
+//			suffix  : '.min'
+//		}))
+//		.pipe(uglify())
+//		.pipe(gulp.dest('./assets/js/dist/'))
+//		.pipe(notify({message: 'Vendor scripts task complete', onLast: true}));
+//});
+
 
 
 /**
@@ -251,14 +241,6 @@ gulp.task( 'serve', [ 'vendorsJs', 'scriptsJs' ], function() {
 // Default task
 gulp.task( 'default', [ 'serve', 'images' ] );
 
-
-//// Watch Task without BrowserSync
-//gulp.task( 'default', [ 'styles', 'vendorsJs', 'scriptsJs', 'images', 'pot' ], function() {
-//	gulp.watch( './images/raw/**/*', [ 'images' ] );
-//	gulp.watch( './assets/sass/*.scss', [ 'styles' ] );
-//	gulp.watch( './assets/js/**/*.js', [ 'scriptsJs' ] );
-//	gulp.watch( [ php ], [ 'pot' ] );
-//});
 
 // Our dist task for packaging a clean theme all zipped up.
 // Called from the commandline with `gulp dist`.

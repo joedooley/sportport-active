@@ -2,7 +2,7 @@
 /**
  * Functions
  *
- * @package    YourMembership
+ * @package    SportPort Active
  * @author     Developing Designs - Joe Dooley
  * @link       https://www.developingdesigns.com
  * @copyright  Joe Dooley, Developing Designs
@@ -29,6 +29,7 @@ require_once( get_stylesheet_directory() . '/assets/functions/widgets.php' );
 require_once( get_stylesheet_directory() . '/assets/functions/genesis.php' );
 require_once( get_stylesheet_directory() . '/assets/functions/scripts-and-styles.php' );
 require_once( get_stylesheet_directory() . '/assets/functions/woocommerce.php' );
+require_once( get_stylesheet_directory() . '/assets/functions/layout.php' );
 require_once( get_stylesheet_directory() . '/assets/functions/theme-options-page.php' );
 
 

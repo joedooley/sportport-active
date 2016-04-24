@@ -6,7 +6,7 @@
             "key": "field_56d6caa912d7a",
             "label": "Free Shipping Notification",
             "name": "free_shipping_notification",
-            "type": "wysiwyg",
+            "type": "text",
             "instructions": "Update the free shipping notification in the before header section here.",
             "required": 0,
             "conditional_logic": 0,
@@ -16,9 +16,12 @@
                 "id": ""
             },
             "default_value": "",
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 1
+            "placeholder": "Free shipping and returns!",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "readonly": 0,
+            "disabled": 0
         },
         {
             "key": "field_5710dba728d7f",
@@ -134,5 +137,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1460722708
+    "modified": 1461247334
 }

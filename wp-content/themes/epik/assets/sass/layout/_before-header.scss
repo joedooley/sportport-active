@@ -8,23 +8,72 @@
 	.wrap {
 		@include media($ipad-screen-up) {
 			margin-top: 0;
-			padding: 0%;
+			@include padding(0);
 		}
 	}
 
+	.before-header-widget {
+		@include media($xlarge-screen-up) {
+			width: 100%;
+		}
+	}
+}
+
+
+
+// Before Header Left
+.before-header-left-container {
+	@include media($xlarge-screen-up) {
+		display: none;
+	}
+
+	.menu {
+		margin-left: 15px;
+		margin-top: 3px;
+		text-align: left;
+
+		.menu-item {
+			display: inline-block;
+
+			a {
+				color: $light-gray;
+				font-family: $open-sans-condensed-bold;
+				font-size: rem(11);
+				font-weight: bold;
+				text-transform: uppercase;
+
+				&:hover {
+					color: #888;
+				}
+			}
+		}
+
+		li + li:before {
+			color: $light-gray;
+			content: " | ";
+			@include padding(0);
+		}
+	}
+}
+
+
+
+
+// Before Header Middle
+.before-header-middle-container {
 
 	.free-shipping-notification {
-		color: #909090;
-		font-family: $lato;
-		font-size: 11px;
+		@include padding(0);
+		color: $light-gray;
+		font-family: $open-sans-condensed-bold;
+		font-size: rem(11);
 		font-weight: bold;
 		margin-bottom: 0;
-		margin-top: 10px;
-		padding: 0;
+		margin-top: 6px;
 		text-transform: uppercase;
 
 		@include media($xlarge-screen-up) {
-			padding: 5px 0;
+			@include padding(5px 0);
 		}
 
 		@include media($small-screen-up) {
@@ -33,49 +82,14 @@
 	}
 }
 
-@include media($xlarge-screen-up) {
 
-	.before-header-left-container,
-	.before-header-right-container {
+
+// Before Header Right
+.before-header-right-container {
+	@include media($xlarge-screen-up) {
 		display: none;
 	}
 
-	.before-header-widget {
-			width: 100%;
-	}
-
-}
-
-.menu-shopping-menu-container {
-	text-align: left;
-	margin-left: 15px;
-	margin-top: 7px;
-
-	.menu-item {
-		display: inline-block;
-
-		a {
-			color: #909090;
-			font-family: $lato;
-			font-size: 11px;
-			vertical-align: text-top;
-
-			&:hover {
-				color: #888;
-			}
-		}
-	}
-}
-
-#menu-shopping-menu-1 li + li:before {
-	color: #909090;
-	content: " | ";
-	padding: 0;
-}
-
-
-
-.before-header-right {
 	@include media($ipad-screen-up) {
 		margin-left: 0;
 	}
@@ -87,15 +101,16 @@
 			background-color: rgba(235, 236, 241, 1);
 			border: none;
 			margin-bottom: 0;
-			padding: 6px;
+			@include padding(6px);
 
-			@include media($ipad-screen-up) {
-				padding: 6px 0;
+			@include placeholder {
+				font-family: $open-sans-condensed-bold;
+				font-size: rem(11);
+				padding-top: 3px;
 			}
 
-				&::-webkit-input-placeholder {
-				font-family: $lato;
-				font-size: 13px;
+			@include media($ipad-screen-up) {
+				@include padding(6px 0);
 			}
 		}
 	}
