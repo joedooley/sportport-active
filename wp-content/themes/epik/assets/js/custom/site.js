@@ -1,7 +1,7 @@
 //import {VanillaModal} from 'vanilla-modal';
 //
 //
-//var modal = new VanillaModal({
+//const modal = new VanillaModal({
 //
 //	// Default API Options
 //	modal: '.modal',
@@ -33,6 +33,4 @@
 //		console.log('onClose hook', e, this);
 //	}
 //});
-
-
 
