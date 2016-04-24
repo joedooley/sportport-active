@@ -30,6 +30,7 @@ var gulp         = require('gulp'),
     wpPot        = require('gulp-wp-pot'),
     sort         = require('gulp-sort'),
     zip          = require('gulp-zip'),
+    babel        = require('gulp-babel'),
     reload       = browserSync.reload;
 
 
@@ -44,15 +45,17 @@ var plumberErrorHandler = {
 
 
 // Directory globs.
-var root   = './',
-    source = './assets/',
-    bower  = './bower_components/',
-    dist   = './dist/',
-    zipped = './zipped/',
-    scss   = 'sass/**/*.scss',
-    js     = 'js/src/custom/*.js',
-    php    = './**/*.php',
-    raw    = './images/raw/**/*.{ png, jpg, gif, svg }';
+var root          = './',
+    source        = './assets/',
+    dist          = './dist/',
+    zipped        = './zipped/',
+    scss          = 'sass/**/*.scss',
+    js_custom     = 'js/custom/*.js',
+	js_vendor     = 'js/vendors/*.js',
+    php           = './**/*.php',
+    raw           = './images/raw/**/*.{ png, jpg, gif, svg }';
+
+
 
 /**
  * Our WordPress block for adding to the head of style.css
@@ -92,24 +95,47 @@ gulp.task('styles', function () {
 });
 
 
+
+
+/**
+ * gulp js
+ *
+ * Runs each js file through Babel and than concats them into a minified .dist/all.js.
+ * We are not including any files in the /single directories.
+ */
+gulp.task('js', function () {
+	return gulp.src([
+		source + js_custom,
+		source + js_vendor
+	])
+		.pipe(plumber(plumberErrorHandler))
+		.pipe(sourcemaps.init())
+		.pipe(babel())
+		//.pipe(uglify())
+		.pipe(concat('all.js'))
+		.pipe(sourcemaps.write('./'))
+		.pipe(gulp.dest(dist + 'js/'));
+});
+
+
 /**
  * Scripts: Custom
  *
  * Look at src/js and concatenate those files, send them to assets/js where we then minimize the concatenated file.
  */
 
-gulp.task('scriptsJs', function () {
-	return gulp.src(['./assets/js/src/custom/*.js', '!./assets/js/src/custom/single/*.js'])
-		.pipe(concat('custom.js'))
-		.pipe(gulp.dest('./assets/js/dist'))
-		.pipe(rename({
-			basename: "custom",
-			suffix: '.min'
-		}))
-		.pipe(uglify())
-		.pipe(gulp.dest('./assets/js/dist/'))
-		.pipe(notify({message: 'Custom scripts task complete', onLast: true}));
-});
+//gulp.task('scriptsJs', function () {
+//	return gulp.src(['./assets/js/src/custom/*.js', '!./assets/js/src/custom/single/*.js'])
+//		.pipe(concat('custom.js'))
+//		.pipe(gulp.dest('./assets/js/dist'))
+//		.pipe(rename({
+//			basename: "custom",
+//			suffix: '.min'
+//		}))
+//		.pipe(uglify())
+//		.pipe(gulp.dest('./assets/js/dist/'))
+//		.pipe(notify({message: 'Custom scripts task complete', onLast: true}));
+//});
 
 
 /**
@@ -117,18 +143,18 @@ gulp.task('scriptsJs', function () {
  *
  * Look at src/js and concatenate those files, send them to assets/js where we then minimize the concatenated file.
  */
-gulp.task('vendorsJs', function () {
-	return gulp.src(['./assets/js/src/vendors/*.js', bower + '**/*.js', '!./assets/js/src/vendors/single/*.js'])
-		.pipe(concat('vendors.js'))
-		.pipe(gulp.dest('./assets/js/dist'))
-		.pipe(rename({
-			basename: "vendors",
-			suffix  : '.min'
-		}))
-		.pipe(uglify())
-		.pipe(gulp.dest('./assets/js/dist/'))
-		.pipe(notify({message: 'Vendor scripts task complete', onLast: true}));
-});
+//gulp.task('vendorsJs', function () {
+//	return gulp.src(['./assets/js/src/vendors/*.js', bower + '**/*.js', '!./assets/js/src/vendors/single/*.js'])
+//		.pipe(concat('vendors.js'))
+//		.pipe(gulp.dest('./assets/js/dist'))
+//		.pipe(rename({
+//			basename: "vendors",
+//			suffix  : '.min'
+//		}))
+//		.pipe(uglify())
+//		.pipe(gulp.dest('./assets/js/dist/'))
+//		.pipe(notify({message: 'Vendor scripts task complete', onLast: true}));
+//});
 
 
 
