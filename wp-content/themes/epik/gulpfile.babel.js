@@ -9,7 +9,7 @@
  */
 
 var gulp         = require('gulp'),
-    browserSync  = require('browser-sync'),
+	browserSync  = require('browser-sync'),
     connect      = require('gulp-connect'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss    = require('gulp-uglifycss'),
@@ -32,7 +32,6 @@ var gulp         = require('gulp'),
     zip          = require('gulp-zip'),
     babel        = require('gulp-babel'),
     reload       = browserSync.reload;
-
 
 
 // For sexy error notifications.

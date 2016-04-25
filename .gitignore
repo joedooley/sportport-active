@@ -67,6 +67,7 @@ Thumbs.db
 # Vim generated files #
 ######################
 *.un~
+.idea
 
 # SASS #
 ##########
