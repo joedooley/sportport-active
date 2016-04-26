@@ -1,0 +1,26 @@
+#productsize-chart-meta-fields input[type="text"], #productsize-chart-meta-fields input[type="password"], #productsize-chart-meta-fields input[type="checkbox"], #productsize-chart-meta-fields input[type="color"], #productsize-chart-meta-fields input[type="date"], #productsize-chart-meta-fields input[type="datetime"], #productsize-chart-meta-fields input[type="datetime-local"], #productsize-chart-meta-fields input[type="email"], #productsize-chart-meta-fields input[type="month"], #productsize-chart-meta-fields input[type="number"], #productsize-chart-meta-fields input[type="password"], #productsize-chart-meta-fields input[type="search"], #productsize-chart-meta-fields input[type="radio"], #productsize-chart-meta-fields input[type="tel"], #productsize-chart-meta-fields input[type="text"], #productsize-chart-meta-fields input[type="time"], #productsize-chart-meta-fields input[type="url"], #productsize-chart-meta-fields input[type="week"],#productsize-chart-meta-fields select, textarea{
+	border: 1px solid #ddd;
+    -webkit-box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+    box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+    background-color: #fff;
+    color: #32373c;
+    outline: none;
+    -webkit-transition: 0.05s border-color ease-in-out;
+    transition: 0.05s border-color ease-in-out;
+	width:99% !important;}
+	.field-title h4{margin-bottom:0px;}
+	.select2-container--default .select2-selection--multiple{border: 1px solid #ddd !important}
+	
+	.field-description {
+    color: #AAA;
+    font-style: italic;
+    margin: 0 0 16px!important;
+	}
+
+#productsize-chart-meta-fields #field{    
+     border-bottom: 1px solid #dfdfdf;
+    overflow: hidden;
+    padding: 0 0 16px 0;}
+	#chart-table,#chart-table-1,#chart-table-2{display:none;}
+	.select2-container{margin-top:20px !important;}
+	.title-wrap h2{font-size:20px !important; margin-left:0 !important; padding-left:0 !important}
