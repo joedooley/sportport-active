@@ -47,17 +47,22 @@ body.single-product {
 		@include padding(0);
 	}
 
-	.images {
+	&.woocommerce div.product div.images {
 		background: #fff;
 		padding-top: 50px;
 		text-align: center;
 		width: 50%;
 	}
 
-	.summary {
+	&.woocommerce div.product div.summary {
 		background: #ebebeb;
 		min-height: 100vh;
 		width: 50%;
+	}
+
+	div.product div.images,
+	div.product div.summary {
+		margin-bottom: 0;
 	}
 
 	div.product .product_title {
@@ -182,10 +187,7 @@ body.single-product {
 
 }
 
-body.woocommerce div.product div.images,
-body.woocommerce div.product div.summary {
-	margin-bottom: 0;
-}
+
 
 body.single-product div.product div.images .attachment-shop_single.wp-post-image,
 body.single-product div.product div.images .attachment-shop_thumbnail {

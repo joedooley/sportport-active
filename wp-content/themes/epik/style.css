@@ -3180,15 +3180,18 @@ body.single-product div.breadcrumb {
 body.single-product .entry {
   margin: 0;
   padding: 0; }
-body.single-product .images {
+body.single-product.woocommerce div.product div.images {
   background: #fff;
   padding-top: 50px;
   text-align: center;
   width: 50%; }
-body.single-product .summary {
+body.single-product.woocommerce div.product div.summary {
   background: #ebebeb;
   min-height: 100vh;
   width: 50%; }
+body.single-product div.product div.images,
+body.single-product div.product div.summary {
+  margin-bottom: 0; }
 body.single-product div.product .product_title {
   color: #222;
   font-family: open_sans_condensedbold, sans-serif;
@@ -3256,10 +3259,6 @@ body.single-product.woocommerce .upsells ul.products li.product .price {
 body.single-product .upsells ul.products li.product .button,
 body.single-product .upsells ul.products li.product .categories {
   display: none; }
-
-body.woocommerce div.product div.images,
-body.woocommerce div.product div.summary {
-  margin-bottom: 0; }
 
 body.single-product div.product div.images .attachment-shop_single.wp-post-image,
 body.single-product div.product div.images .attachment-shop_thumbnail {
