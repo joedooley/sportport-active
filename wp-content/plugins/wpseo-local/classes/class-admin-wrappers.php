@@ -1,7 +1,6 @@
 <?php
-
 /**
- * @package Admin
+ * @package WPSEO_LOCAL\Admin
  */
 
 if ( ! defined( 'WPSEO_LOCAL_VERSION' ) ) {
@@ -11,6 +10,7 @@ if ( ! defined( 'WPSEO_LOCAL_VERSION' ) ) {
 }
 
 if ( ! class_exists( 'WPSEO_Local_Admin_Wrappers' ) ) {
+
 	/**
 	 * Class WPSEO_Local_Wrappers contains wrapper methods to be sure WPSEO Local is backwards compatible with Yoast SEO
 	 */
@@ -19,10 +19,10 @@ if ( ! class_exists( 'WPSEO_Local_Admin_Wrappers' ) ) {
 		/**
 		 * Fallback for admin_header
 		 *
-		 * @param bool   $form
-		 * @param string $option_long_name
-		 * @param string $option
-		 * @param bool   $contains_files
+		 * @param bool   $form             Whether or not the form start tag should be included.
+		 * @param string $option_long_name Group name of the option.
+		 * @param string $option           The short name of the option to use for the current page.
+		 * @param bool   $contains_files   Whether the form should allow for file uploads.
 		 *
 		 * @return void|mixed
 		 */
@@ -40,8 +40,8 @@ if ( ! class_exists( 'WPSEO_Local_Admin_Wrappers' ) ) {
 		/**
 		 * Fallback for admin_footer
 		 *
-		 * @param bool $submit
-		 * @param bool $show_sidebar
+		 * @param bool $submit       Whether or not a submit button and form end tag should be shown.
+		 * @param bool $show_sidebar Whether or not to show the banner sidebar - used by premium plugins to disable it.
 		 *
 		 * @return void|mixed
 		 */
@@ -59,11 +59,12 @@ if ( ! class_exists( 'WPSEO_Local_Admin_Wrappers' ) ) {
 		/**
 		 * Fallback for the textinput method
 		 *
-		 * @param string $var
-		 * @param string $label
-		 * @param string $option
+		 * @param string       $var    The variable within the option to create the text input field for.
+		 * @param string       $label  The label to show for the variable.
+		 * @param string       $option The name of the used option.
+		 * @param array|string $attr   Extra class to add to the input field.
 		 *
-		 * @return void|mixed
+		 * @return mixed|void
 		 */
 		public static function textinput( $var, $label, $option = '', $attr = array() ) {
 			if ( method_exists( 'Yoast_Form', 'textinput' ) ) {
@@ -82,10 +83,10 @@ if ( ! class_exists( 'WPSEO_Local_Admin_Wrappers' ) ) {
 		/**
 		 * Wrapper for select method.
 		 *
-		 * @param string $var
-		 * @param string $label
-		 * @param array  $values
-		 * @param string $option
+		 * @param string $var    The variable within the option to create the select for.
+		 * @param string $label  The label to show for the variable.
+		 * @param array  $values The select options to choose from.
+		 * @param string $option The name of the used option.
 		 *
 		 * @return void|mixed
 		 */
@@ -106,10 +107,10 @@ if ( ! class_exists( 'WPSEO_Local_Admin_Wrappers' ) ) {
 		/**
 		 * Wrapper for checkbox method
 		 *
-		 * @param        $var
-		 * @param        $label
-		 * @param bool   $label_left
-		 * @param string $option
+		 * @param string $var        The variable within the option to create the checkbox for.
+		 * @param string $label      The label to show for the variable.
+		 * @param bool   $label_left Whether the label should be left (true) or right (false).
+		 * @param string $option     The name of the used option.
 		 *
 		 * @return void|mixed
 		 */
@@ -131,7 +132,7 @@ if ( ! class_exists( 'WPSEO_Local_Admin_Wrappers' ) ) {
 		 * Create a hidden input field.
 		 *
 		 * @param string $var    The variable within the option to create the hidden input for.
-		 * @param string $option The option the variable belongs to.
+		 * @param string $option The name of the used option.
 		 *
 		 * @return void|mixed
 		 */
@@ -153,10 +154,11 @@ if ( ! class_exists( 'WPSEO_Local_Admin_Wrappers' ) ) {
 		/**
 		 * Create a upload field.
 		 *
-		 * @param string $var    The variable within the option to create the upload field for.
+		 * @param string $var    The variable within the option to create the file upload field for.
+		 * @param string $label  The label to show for the variable.
 		 * @param string $option The option the variable belongs to.
 		 *
-		 * @return void|mixed
+		 * @return mixed|void
 		 */
 		public static function file_upload( $var, $label = '', $option = '' ) {
 			if ( method_exists( 'Yoast_Form', 'file_upload' ) ) {

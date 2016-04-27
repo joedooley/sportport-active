@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Local SEO for Yoast SEO package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Local SEO for Yoast SEO 3.1\n"
+"Project-Id-Version: Local SEO for Yoast SEO 3.2\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wordpress-seo-local/issues\n"
-"POT-Creation-Date: 2016-03-02 10:05:22+00:00\n"
+"POT-Creation-Date: 2016-04-20 11:20:01+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,19 +24,19 @@ msgstr ""
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
 
-#: admin/pages/local.php:19
+#: admin/pages/local.php:22
 msgid "General settings"
 msgstr ""
 
-#: admin/pages/local.php:20 admin/pages/local.php:203
+#: admin/pages/local.php:23 admin/pages/local.php:211
 msgid "Local SEO tools"
 msgstr ""
 
-#: admin/pages/local.php:26
+#: admin/pages/local.php:29
 msgid "Local SEO settings"
 msgstr ""
 
-#: admin/pages/local.php:29
+#: admin/pages/local.php:32
 msgid ""
 "If you have more than one location, you can enable this feature. Yoast SEO "
 "will create a new Custom Post Type for you where you can manage your "
@@ -44,181 +44,181 @@ msgid ""
 "These fields will be ignored when you enable this option."
 msgstr ""
 
-#: admin/pages/local.php:30
+#: admin/pages/local.php:33
 msgid "Use multiple locations"
 msgstr ""
 
-#: admin/pages/local.php:34
+#: admin/pages/local.php:37
 msgid "Business name"
 msgstr ""
 
-#: admin/pages/local.php:36
+#: admin/pages/local.php:39
 msgid "Business type:"
 msgstr ""
 
-#: admin/pages/local.php:37 classes/class-metaboxes.php:125
+#: admin/pages/local.php:40 classes/class-metaboxes.php:138
 msgid "If your business type is not listed, please read %sthe FAQ entry%s."
 msgstr ""
 
-#: admin/pages/local.php:39
+#: admin/pages/local.php:42
 msgid "Business address"
 msgstr ""
 
-#: admin/pages/local.php:40 classes/class-metaboxes.php:128
+#: admin/pages/local.php:43 classes/class-metaboxes.php:141
 msgid "Business city"
 msgstr ""
 
-#: admin/pages/local.php:41 classes/class-metaboxes.php:130
+#: admin/pages/local.php:44 classes/class-metaboxes.php:143
 msgid "Business state"
 msgstr ""
 
-#: admin/pages/local.php:42 classes/class-metaboxes.php:132
+#: admin/pages/local.php:45 classes/class-metaboxes.php:145
 msgid "Business zipcode"
 msgstr ""
 
-#: admin/pages/local.php:43 classes/class-metaboxes.php:134
+#: admin/pages/local.php:46 classes/class-metaboxes.php:147
 msgid "Business country"
 msgstr ""
 
-#: admin/pages/local.php:44
+#: admin/pages/local.php:47
 msgid "Business phone"
 msgstr ""
 
-#: admin/pages/local.php:45
+#: admin/pages/local.php:48
 msgid "2nd Business phone"
 msgstr ""
 
-#: admin/pages/local.php:46
+#: admin/pages/local.php:49
 msgid "Business fax"
 msgstr ""
 
-#: admin/pages/local.php:47
+#: admin/pages/local.php:50
 msgid "Business email"
 msgstr ""
 
-#: admin/pages/local.php:48 classes/class-metaboxes.php:150
-#: includes/wpseo-local-functions.php:128
+#: admin/pages/local.php:51 classes/class-metaboxes.php:163
+#: includes/wpseo-local-functions.php:131
 msgid "URL"
 msgstr ""
 
-#: admin/pages/local.php:49 classes/class-metaboxes.php:152
-#: includes/wpseo-local-functions.php:132
+#: admin/pages/local.php:52 classes/class-metaboxes.php:165
+#: includes/wpseo-local-functions.php:135
 msgid "VAT ID"
 msgstr ""
 
-#: admin/pages/local.php:50 classes/class-metaboxes.php:154
-#: includes/wpseo-local-functions.php:136
+#: admin/pages/local.php:53 classes/class-metaboxes.php:167
+#: includes/wpseo-local-functions.php:139
 msgid "Tax ID"
 msgstr ""
 
-#: admin/pages/local.php:51 classes/class-metaboxes.php:156
-#: includes/wpseo-local-functions.php:140
+#: admin/pages/local.php:54 classes/class-metaboxes.php:169
+#: includes/wpseo-local-functions.php:143
 msgid "Chamber of Commerce ID"
 msgstr ""
 
-#: admin/pages/local.php:69 classes/class-metaboxes.php:165
+#: admin/pages/local.php:72 classes/class-metaboxes.php:178
 msgid ""
 "You can enter the lat/long coordinates yourself. If you leave them empty "
 "they will be calculated automatically. If you want to re-calculate these "
 "fields, please make them blank before saving this location."
 msgstr ""
 
-#: admin/pages/local.php:70 classes/class-metaboxes.php:166
+#: admin/pages/local.php:73 classes/class-metaboxes.php:179
 msgid "Latitude"
 msgstr ""
 
-#: admin/pages/local.php:71 classes/class-metaboxes.php:168
+#: admin/pages/local.php:74 classes/class-metaboxes.php:181
 msgid "Longitude"
 msgstr ""
 
-#: admin/pages/local.php:75
+#: admin/pages/local.php:78
 msgid "Locations slug"
 msgstr ""
 
-#: admin/pages/local.php:76
+#: admin/pages/local.php:79
 msgid "The slug for your location pages. Default slug is <code>locations</code>."
 msgstr ""
 
-#: admin/pages/local.php:77
+#: admin/pages/local.php:80
 msgid "View them all"
 msgstr ""
 
-#: admin/pages/local.php:77
+#: admin/pages/local.php:80
 msgid "or"
 msgstr ""
 
-#: admin/pages/local.php:77
+#: admin/pages/local.php:80
 msgid "edit them"
 msgstr ""
 
-#: admin/pages/local.php:79
+#: admin/pages/local.php:82
 msgid "Locations label singular"
 msgstr ""
 
-#: admin/pages/local.php:80
+#: admin/pages/local.php:83
 msgid ""
 "The singular label for your location pages. Default label is "
 "<code>Location</code>."
 msgstr ""
 
-#: admin/pages/local.php:82
+#: admin/pages/local.php:85
 msgid "Locations label plural"
 msgstr ""
 
-#: admin/pages/local.php:83
+#: admin/pages/local.php:86
 msgid ""
 "The plural label for your location pages. Default label is "
 "<code>Locations</code>."
 msgstr ""
 
-#: admin/pages/local.php:85
+#: admin/pages/local.php:88
 msgid "Locations category slug"
 msgstr ""
 
-#: admin/pages/local.php:86
+#: admin/pages/local.php:89
 msgid ""
 "The slug for your location categories. Default slug is "
 "<code>locations-category</code>."
 msgstr ""
 
-#: admin/pages/local.php:87
+#: admin/pages/local.php:90
 msgid "Edit the categories"
 msgstr ""
 
-#: admin/pages/local.php:91 classes/class-metaboxes.php:190
-#: classes/class-metaboxes.php:364
+#: admin/pages/local.php:94 classes/class-metaboxes.php:209
+#: classes/class-metaboxes.php:407
 msgid "Opening hours"
 msgstr ""
 
-#: admin/pages/local.php:92
+#: admin/pages/local.php:95
 msgid "Hide opening hours option"
 msgstr ""
 
-#: admin/pages/local.php:96
+#: admin/pages/local.php:99
 msgid "Use 24h format"
 msgstr ""
 
-#: admin/pages/local.php:102 classes/class-metaboxes.php:193
+#: admin/pages/local.php:105 classes/class-metaboxes.php:212
 msgid "I have two sets of opening hours per day"
 msgstr ""
 
-#: admin/pages/local.php:142
+#: admin/pages/local.php:146
 msgid "Store locator settings"
 msgstr ""
 
-#: admin/pages/local.php:143
+#: admin/pages/local.php:147
 msgid "Number of results"
 msgstr ""
 
-#: admin/pages/local.php:145
+#: admin/pages/local.php:149
 msgid "Advanced settings"
 msgstr ""
 
-#: admin/pages/local.php:147
+#: admin/pages/local.php:151
 msgid "Google Maps API key<br>(not required)"
 msgstr ""
 
-#: admin/pages/local.php:148
+#: admin/pages/local.php:152
 msgid ""
 "When you have a lot of locations, you could hit the limits of the Geocoding "
 "API. In that case you can enter your Google Maps API key to prevent that. "
@@ -227,96 +227,96 @@ msgid ""
 "section)."
 msgstr ""
 
-#: admin/pages/local.php:151
+#: admin/pages/local.php:155
 msgid "Unit System"
 msgstr ""
 
-#: admin/pages/local.php:152
+#: admin/pages/local.php:156
 msgid "Metric"
 msgstr ""
 
-#: admin/pages/local.php:153
+#: admin/pages/local.php:157
 msgid "Imperial"
 msgstr ""
 
-#: admin/pages/local.php:155
+#: admin/pages/local.php:159
 msgid "Default map style"
 msgstr ""
 
-#: admin/pages/local.php:156 classes/class-metaboxes.php:682
-#: classes/class-metaboxes.php:899
+#: admin/pages/local.php:160 classes/class-metaboxes.php:737
+#: classes/class-metaboxes.php:1002
 msgid "Hybrid"
 msgstr ""
 
-#: admin/pages/local.php:157 classes/class-metaboxes.php:683
-#: classes/class-metaboxes.php:900
+#: admin/pages/local.php:161 classes/class-metaboxes.php:738
+#: classes/class-metaboxes.php:1003
 msgid "Satellite"
 msgstr ""
 
-#: admin/pages/local.php:158 classes/class-metaboxes.php:681
-#: classes/class-metaboxes.php:898
+#: admin/pages/local.php:162 classes/class-metaboxes.php:736
+#: classes/class-metaboxes.php:1001
 msgid "Roadmap"
 msgstr ""
 
-#: admin/pages/local.php:159 classes/class-metaboxes.php:684
-#: classes/class-metaboxes.php:901
+#: admin/pages/local.php:163 classes/class-metaboxes.php:739
+#: classes/class-metaboxes.php:1004
 msgid "Terrain"
 msgstr ""
 
-#: admin/pages/local.php:161
+#: admin/pages/local.php:165
 msgid "Address format"
 msgstr ""
 
-#: admin/pages/local.php:171
+#: admin/pages/local.php:175
 msgid ""
 "A lot of countries have their own address format. Please choose one that "
 "matches yours. If you have something completely different, please let us "
 "know via %s."
 msgstr ""
 
-#: admin/pages/local.php:173
+#: admin/pages/local.php:180
 msgid "Default country"
 msgstr ""
 
-#: admin/pages/local.php:175
+#: admin/pages/local.php:182
 msgid ""
 "If you're having multiple locations and they're all in one country, you can "
 "select your default country here. This country will be used in the "
 "storelocator search to improve the search results."
 msgstr ""
 
-#: admin/pages/local.php:176
+#: admin/pages/local.php:183
 msgid "\"Show route\" label"
 msgstr ""
 
-#: admin/pages/local.php:176 classes/class-storelocator.php:41
-#: includes/wpseo-local-functions.php:369
+#: admin/pages/local.php:183 classes/class-storelocator.php:70
+#: includes/wpseo-local-functions.php:375
 msgid "Show route"
 msgstr ""
 
-#: admin/pages/local.php:179 classes/class-taxonomy.php:41
+#: admin/pages/local.php:186 classes/class-taxonomy.php:49
 msgid "Custom marker"
 msgstr ""
 
-#: admin/pages/local.php:182 classes/class-taxonomy.php:45
+#: admin/pages/local.php:189 classes/class-taxonomy.php:53
 msgid "Set custom marker image"
 msgstr ""
 
-#: admin/pages/local.php:184 classes/class-taxonomy.php:48
+#: admin/pages/local.php:191 classes/class-taxonomy.php:56
 msgid "Remove marker"
 msgstr ""
 
-#: admin/pages/local.php:187
+#: admin/pages/local.php:195
 msgid ""
 "The custom marker should be 100x100 px. If the image exceeds those "
 "dimensions it could (partially) cover the info popup."
 msgstr ""
 
-#: admin/pages/local.php:191 admin/pages/local.php:254
+#: admin/pages/local.php:199 admin/pages/local.php:263
 msgid "Hide tools section"
 msgstr ""
 
-#: admin/pages/local.php:205
+#: admin/pages/local.php:213
 msgid ""
 "In this section we will highlight some tools which you can use to further "
 "improve your Local SEO. We've tested all these tools ourselves and are "
@@ -324,7 +324,7 @@ msgid ""
 "pay the full price as a Yoast Local SEO user."
 msgstr ""
 
-#: admin/pages/local.php:227
+#: admin/pages/local.php:234
 msgid ""
 "LSEO is a complete local search engine optimization solution for "
 "businesses. Answer 10 short questions below to find out how visible your "
@@ -333,1636 +333,1636 @@ msgid ""
 "Brought to you by %sLSEO.com%s."
 msgstr ""
 
-#: admin/pages/local.php:228
+#: admin/pages/local.php:235
 msgid "To receive a %1$s14 Day FREE Trial%2$s, please go to %3$s."
 msgstr ""
 
-#: admin/pages/local.php:234
+#: admin/pages/local.php:241
 msgid "Save 20% on Whitespark Local SEO Tool Plans"
 msgstr ""
 
-#: admin/pages/local.php:236
+#: admin/pages/local.php:243
 msgid "Whitespark offers reliable and accurate tools for Local SEO"
 msgstr ""
 
-#: admin/pages/local.php:237
+#: admin/pages/local.php:244
 msgid ""
 "Get more customers, improve local rankings, track your competitors and "
 "manage your local SEO"
 msgstr ""
 
-#: admin/pages/local.php:238
+#: admin/pages/local.php:245
 msgid ""
 "Gain access to our free Review Handout Generator, Offline Conversion "
 "Tracker and other essential local search resources"
 msgstr ""
 
-#: admin/pages/local.php:239
+#: admin/pages/local.php:246
 msgid ""
 "Save 20%% on your Local Citation Finder & Local Rank Tracker subscriptions "
 "with coupon code: %sYOASTDEAL2014%s"
 msgstr ""
 
-#: admin/pages/local.php:241
+#: admin/pages/local.php:248
 msgid "Go to %s and get this deal!"
 msgstr ""
 
-#: classes/class-admin.php:87
+#: classes/class-admin.php:104
 msgid "Yoast SEO:"
 msgstr ""
 
-#: classes/class-admin.php:87 classes/class-admin.php:88
+#: classes/class-admin.php:104 classes/class-admin.php:105
 msgid "Local SEO"
 msgstr ""
 
-#: classes/class-admin.php:203
+#: classes/class-admin.php:238
 msgid "View the %sdocumentation%s to check what format of the CSV file should be."
 msgstr ""
 
-#: classes/class-admin.php:206
+#: classes/class-admin.php:241
 msgid "Upload CSV"
 msgstr ""
 
-#: classes/class-admin.php:207
+#: classes/class-admin.php:242
 msgid "Column separator"
 msgstr ""
 
-#: classes/class-admin.php:209
+#: classes/class-admin.php:244
 msgid "Comma"
 msgstr ""
 
-#: classes/class-admin.php:210
+#: classes/class-admin.php:245
 msgid "Semicolon"
 msgstr ""
 
-#: classes/class-admin.php:215
+#: classes/class-admin.php:250
 msgid "This CSV is exported by the SimpleMap plugin"
 msgstr ""
 
-#: classes/class-admin.php:220 classes/class-metaboxes.php:86
+#: classes/class-admin.php:255 classes/class-metaboxes.php:99
 msgid "Note"
 msgstr ""
 
-#: classes/class-admin.php:220
+#: classes/class-admin.php:255
 msgid ""
 "The Geocoding API is limited to 2,500 queries a day, so when you have large "
 "CSV files, with no coordinates, cut them in pieces of 2,500 rows and import "
 "them one a day. Indeed, it's not funny. It's reality."
 msgstr ""
 
-#: classes/class-admin.php:223
+#: classes/class-admin.php:258
 msgid "Make sure the %s directory is writeable."
 msgstr ""
 
-#: classes/class-admin.php:240
+#: classes/class-admin.php:275
 msgid "CSV import of locations for Local Search"
 msgstr ""
 
-#: classes/class-admin.php:394
+#: classes/class-admin.php:459
 msgid ""
 "The usage of the Google Maps API has exceeds their limits. Please consider "
 "entering an API key in the %soptions%s"
 msgstr ""
 
-#: classes/class-admin.php:396
+#: classes/class-admin.php:461
 msgid ""
 "The last successfully imported location is <a href=\"%s\" "
 "title=\"%s\">%s</a>"
 msgstr ""
 
-#: classes/class-admin.php:480 classes/class-admin.php:482
-#: classes/class-admin.php:499 classes/class-admin.php:501
+#: classes/class-admin.php:548 classes/class-admin.php:551
+#: classes/class-admin.php:569 classes/class-admin.php:572
 msgid "%s is not a valid time notation"
 msgstr ""
 
-#: classes/class-admin.php:523
+#: classes/class-admin.php:596
 msgid "Some errors has occured"
 msgstr ""
 
-#: classes/class-core.php:29 classes/class-metaboxes.php:851
-#: includes/ajax-functions.php:6 includes/wpseo-local-functions.php:620
-#: widgets/widget-show-openinghours.php:126
+#: classes/class-core.php:38 classes/class-metaboxes.php:946
+#: includes/ajax-functions.php:13 includes/wpseo-local-functions.php:672
+#: widgets/widget-show-openinghours.php:163
 msgid "Monday"
 msgstr ""
 
-#: classes/class-core.php:30 classes/class-metaboxes.php:852
-#: includes/ajax-functions.php:7 includes/wpseo-local-functions.php:621
-#: widgets/widget-show-openinghours.php:127
+#: classes/class-core.php:39 classes/class-metaboxes.php:947
+#: includes/ajax-functions.php:14 includes/wpseo-local-functions.php:673
+#: widgets/widget-show-openinghours.php:164
 msgid "Tuesday"
 msgstr ""
 
-#: classes/class-core.php:31 classes/class-metaboxes.php:853
-#: includes/ajax-functions.php:8 includes/wpseo-local-functions.php:622
-#: widgets/widget-show-openinghours.php:128
+#: classes/class-core.php:40 classes/class-metaboxes.php:948
+#: includes/ajax-functions.php:15 includes/wpseo-local-functions.php:674
+#: widgets/widget-show-openinghours.php:165
 msgid "Wednesday"
 msgstr ""
 
-#: classes/class-core.php:32 classes/class-metaboxes.php:854
-#: includes/ajax-functions.php:9 includes/wpseo-local-functions.php:623
-#: widgets/widget-show-openinghours.php:129
+#: classes/class-core.php:41 classes/class-metaboxes.php:949
+#: includes/ajax-functions.php:16 includes/wpseo-local-functions.php:675
+#: widgets/widget-show-openinghours.php:166
 msgid "Thursday"
 msgstr ""
 
-#: classes/class-core.php:33 classes/class-metaboxes.php:855
-#: includes/ajax-functions.php:10 includes/wpseo-local-functions.php:624
-#: widgets/widget-show-openinghours.php:130
+#: classes/class-core.php:42 classes/class-metaboxes.php:950
+#: includes/ajax-functions.php:17 includes/wpseo-local-functions.php:676
+#: widgets/widget-show-openinghours.php:167
 msgid "Friday"
 msgstr ""
 
-#: classes/class-core.php:34 classes/class-metaboxes.php:856
-#: includes/ajax-functions.php:11 includes/wpseo-local-functions.php:625
-#: widgets/widget-show-openinghours.php:131
+#: classes/class-core.php:43 classes/class-metaboxes.php:951
+#: includes/ajax-functions.php:18 includes/wpseo-local-functions.php:677
+#: widgets/widget-show-openinghours.php:168
 msgid "Saturday"
 msgstr ""
 
-#: classes/class-core.php:35 classes/class-metaboxes.php:850
-#: includes/ajax-functions.php:12 includes/wpseo-local-functions.php:619
-#: widgets/widget-show-openinghours.php:125
+#: classes/class-core.php:44 classes/class-metaboxes.php:945
+#: includes/ajax-functions.php:19 includes/wpseo-local-functions.php:671
+#: widgets/widget-show-openinghours.php:162
 msgid "Sunday"
 msgstr ""
 
-#: classes/class-core.php:619
+#: classes/class-core.php:655
 msgid ""
 "The uploaded custom marker exceeds the recommended size of 100x100 px. "
 "Please be aware this might influence the info popup."
 msgstr ""
 
-#: classes/class-core.php:628
+#: classes/class-core.php:664
 msgid "Location"
 msgstr ""
 
-#: classes/class-core.php:629
+#: classes/class-core.php:665
 msgid "Locations"
 msgstr ""
 
-#: classes/class-core.php:633 classes/class-core.php:634
+#: classes/class-core.php:669 classes/class-core.php:670
 msgid "New %s"
 msgstr ""
 
-#: classes/class-core.php:635
+#: classes/class-core.php:671
 msgid "Add New %s"
 msgstr ""
 
-#: classes/class-core.php:636
+#: classes/class-core.php:672
 msgid "Edit %s"
 msgstr ""
 
-#: classes/class-core.php:637
+#: classes/class-core.php:673
 msgid "View %s"
 msgstr ""
 
-#: classes/class-core.php:638
+#: classes/class-core.php:674
 msgid "Search %s"
 msgstr ""
 
-#: classes/class-core.php:639
+#: classes/class-core.php:675
 msgid "No %s found"
 msgstr ""
 
-#: classes/class-core.php:640
+#: classes/class-core.php:676
 msgid "No %s found in trash"
 msgstr ""
 
-#: classes/class-core.php:667 classes/class-core.php:677
+#: classes/class-core.php:714 classes/class-core.php:724
 msgid "Location categories"
 msgstr ""
 
-#: classes/class-core.php:668
+#: classes/class-core.php:715
 msgid "Location category"
 msgstr ""
 
-#: classes/class-core.php:669
+#: classes/class-core.php:716
 msgid "Search Location categories"
 msgstr ""
 
-#: classes/class-core.php:670
+#: classes/class-core.php:717
 msgid "All Location categories"
 msgstr ""
 
-#: classes/class-core.php:671
+#: classes/class-core.php:718
 msgid "Parent Location category"
 msgstr ""
 
-#: classes/class-core.php:672
+#: classes/class-core.php:719
 msgid "Parent Location category:"
 msgstr ""
 
-#: classes/class-core.php:673
+#: classes/class-core.php:720
 msgid "Edit Location category"
 msgstr ""
 
-#: classes/class-core.php:674
+#: classes/class-core.php:721
 msgid "Update Location category"
 msgstr ""
 
-#: classes/class-core.php:675
+#: classes/class-core.php:722
 msgid "Add New Location category"
 msgstr ""
 
-#: classes/class-core.php:676
+#: classes/class-core.php:723
 msgid "New Location category Name"
 msgstr ""
 
-#: classes/class-frontend.php:206
+#: classes/class-frontend.php:240
 msgid "Åland Islands"
 msgstr ""
 
-#: classes/class-frontend.php:207
+#: classes/class-frontend.php:241
 msgid "Afghanistan"
 msgstr ""
 
-#: classes/class-frontend.php:208
+#: classes/class-frontend.php:242
 msgid "Albania"
 msgstr ""
 
-#: classes/class-frontend.php:209
+#: classes/class-frontend.php:243
 msgid "Algeria"
 msgstr ""
 
-#: classes/class-frontend.php:210
+#: classes/class-frontend.php:244
 msgid "Andorra"
 msgstr ""
 
-#: classes/class-frontend.php:211
+#: classes/class-frontend.php:245
 msgid "Angola"
 msgstr ""
 
-#: classes/class-frontend.php:212
+#: classes/class-frontend.php:246
 msgid "Anguilla"
 msgstr ""
 
-#: classes/class-frontend.php:213
+#: classes/class-frontend.php:247
 msgid "Antarctica"
 msgstr ""
 
-#: classes/class-frontend.php:214
+#: classes/class-frontend.php:248
 msgid "Antigua and Barbuda"
 msgstr ""
 
-#: classes/class-frontend.php:215
+#: classes/class-frontend.php:249
 msgid "Argentina"
 msgstr ""
 
-#: classes/class-frontend.php:216
+#: classes/class-frontend.php:250
 msgid "Armenia"
 msgstr ""
 
-#: classes/class-frontend.php:217
+#: classes/class-frontend.php:251
 msgid "Aruba"
 msgstr ""
 
-#: classes/class-frontend.php:218
+#: classes/class-frontend.php:252
 msgid "Australia"
 msgstr ""
 
-#: classes/class-frontend.php:219
+#: classes/class-frontend.php:253
 msgid "Austria"
 msgstr ""
 
-#: classes/class-frontend.php:220
+#: classes/class-frontend.php:254
 msgid "Azerbaijan"
 msgstr ""
 
-#: classes/class-frontend.php:221
+#: classes/class-frontend.php:255
 msgid "Bahamas"
 msgstr ""
 
-#: classes/class-frontend.php:222
+#: classes/class-frontend.php:256
 msgid "Bahrain"
 msgstr ""
 
-#: classes/class-frontend.php:223
+#: classes/class-frontend.php:257
 msgid "Bangladesh"
 msgstr ""
 
-#: classes/class-frontend.php:224
+#: classes/class-frontend.php:258
 msgid "Barbados"
 msgstr ""
 
-#: classes/class-frontend.php:225
+#: classes/class-frontend.php:259
 msgid "Belarus"
 msgstr ""
 
-#: classes/class-frontend.php:226
+#: classes/class-frontend.php:260
 msgid "Belau"
 msgstr ""
 
-#: classes/class-frontend.php:227
+#: classes/class-frontend.php:261
 msgid "Belgium"
 msgstr ""
 
-#: classes/class-frontend.php:228
+#: classes/class-frontend.php:262
 msgid "Belize"
 msgstr ""
 
-#: classes/class-frontend.php:229
+#: classes/class-frontend.php:263
 msgid "Benin"
 msgstr ""
 
-#: classes/class-frontend.php:230
+#: classes/class-frontend.php:264
 msgid "Bermuda"
 msgstr ""
 
-#: classes/class-frontend.php:231
+#: classes/class-frontend.php:265
 msgid "Bhutan"
 msgstr ""
 
-#: classes/class-frontend.php:232
+#: classes/class-frontend.php:266
 msgid "Bolivia"
 msgstr ""
 
-#: classes/class-frontend.php:233
+#: classes/class-frontend.php:267
 msgid "Bonaire, Sint Eustatius and Saba"
 msgstr ""
 
-#: classes/class-frontend.php:234
+#: classes/class-frontend.php:268
 msgid "Bosnia and Herzegovina"
 msgstr ""
 
-#: classes/class-frontend.php:235
+#: classes/class-frontend.php:269
 msgid "Botswana"
 msgstr ""
 
-#: classes/class-frontend.php:236
+#: classes/class-frontend.php:270
 msgid "Bouvet Island"
 msgstr ""
 
-#: classes/class-frontend.php:237
+#: classes/class-frontend.php:271
 msgid "Brazil"
 msgstr ""
 
-#: classes/class-frontend.php:238
+#: classes/class-frontend.php:272
 msgid "British Indian Ocean Territory"
 msgstr ""
 
-#: classes/class-frontend.php:239
+#: classes/class-frontend.php:273
 msgid "British Virgin Islands"
 msgstr ""
 
-#: classes/class-frontend.php:240
+#: classes/class-frontend.php:274
 msgid "Brunei"
 msgstr ""
 
-#: classes/class-frontend.php:241
+#: classes/class-frontend.php:275
 msgid "Bulgaria"
 msgstr ""
 
-#: classes/class-frontend.php:242
+#: classes/class-frontend.php:276
 msgid "Burkina Faso"
 msgstr ""
 
-#: classes/class-frontend.php:243
+#: classes/class-frontend.php:277
 msgid "Burundi"
 msgstr ""
 
-#: classes/class-frontend.php:244
+#: classes/class-frontend.php:278
 msgid "Cambodia"
 msgstr ""
 
-#: classes/class-frontend.php:245
+#: classes/class-frontend.php:279
 msgid "Cameroon"
 msgstr ""
 
-#: classes/class-frontend.php:246
+#: classes/class-frontend.php:280
 msgid "Canada"
 msgstr ""
 
-#: classes/class-frontend.php:247
+#: classes/class-frontend.php:281
 msgid "Cape Verde"
 msgstr ""
 
-#: classes/class-frontend.php:248
+#: classes/class-frontend.php:282
 msgid "Cayman Islands"
 msgstr ""
 
-#: classes/class-frontend.php:249
+#: classes/class-frontend.php:283
 msgid "Central African Republic"
 msgstr ""
 
-#: classes/class-frontend.php:250
+#: classes/class-frontend.php:284
 msgid "Chad"
 msgstr ""
 
-#: classes/class-frontend.php:251
+#: classes/class-frontend.php:285
 msgid "Chile"
 msgstr ""
 
-#: classes/class-frontend.php:252
+#: classes/class-frontend.php:286
 msgid "China"
 msgstr ""
 
-#: classes/class-frontend.php:253
+#: classes/class-frontend.php:287
 msgid "Christmas Island"
 msgstr ""
 
-#: classes/class-frontend.php:254
+#: classes/class-frontend.php:288
 msgid "Cocos (Keeling) Islands"
 msgstr ""
 
-#: classes/class-frontend.php:255
+#: classes/class-frontend.php:289
 msgid "Colombia"
 msgstr ""
 
-#: classes/class-frontend.php:256
+#: classes/class-frontend.php:290
 msgid "Comoros"
 msgstr ""
 
-#: classes/class-frontend.php:257
+#: classes/class-frontend.php:291
 msgid "Congo (Brazzaville)"
 msgstr ""
 
-#: classes/class-frontend.php:258
+#: classes/class-frontend.php:292
 msgid "Congo (Kinshasa)"
 msgstr ""
 
-#: classes/class-frontend.php:259
+#: classes/class-frontend.php:293
 msgid "Cook Islands"
 msgstr ""
 
-#: classes/class-frontend.php:260
+#: classes/class-frontend.php:294
 msgid "Costa Rica"
 msgstr ""
 
-#: classes/class-frontend.php:261
+#: classes/class-frontend.php:295
 msgid "Croatia"
 msgstr ""
 
-#: classes/class-frontend.php:262
+#: classes/class-frontend.php:296
 msgid "Cuba"
 msgstr ""
 
-#: classes/class-frontend.php:263
+#: classes/class-frontend.php:297
 msgid "Curaçao"
 msgstr ""
 
-#: classes/class-frontend.php:264
+#: classes/class-frontend.php:298
 msgid "Cyprus"
 msgstr ""
 
-#: classes/class-frontend.php:265
+#: classes/class-frontend.php:299
 msgid "Czech Republic"
 msgstr ""
 
-#: classes/class-frontend.php:266
+#: classes/class-frontend.php:300
 msgid "Denmark"
 msgstr ""
 
-#: classes/class-frontend.php:267
+#: classes/class-frontend.php:301
 msgid "Djibouti"
 msgstr ""
 
-#: classes/class-frontend.php:268
+#: classes/class-frontend.php:302
 msgid "Dominica"
 msgstr ""
 
-#: classes/class-frontend.php:269
+#: classes/class-frontend.php:303
 msgid "Dominican Republic"
 msgstr ""
 
-#: classes/class-frontend.php:270
+#: classes/class-frontend.php:304
 msgid "Ecuador"
 msgstr ""
 
-#: classes/class-frontend.php:271
+#: classes/class-frontend.php:305
 msgid "Egypt"
 msgstr ""
 
-#: classes/class-frontend.php:272
+#: classes/class-frontend.php:306
 msgid "El Salvador"
 msgstr ""
 
-#: classes/class-frontend.php:273
+#: classes/class-frontend.php:307
 msgid "Equatorial Guinea"
 msgstr ""
 
-#: classes/class-frontend.php:274
+#: classes/class-frontend.php:308
 msgid "Eritrea"
 msgstr ""
 
-#: classes/class-frontend.php:275
+#: classes/class-frontend.php:309
 msgid "Estonia"
 msgstr ""
 
-#: classes/class-frontend.php:276
+#: classes/class-frontend.php:310
 msgid "Ethiopia"
 msgstr ""
 
-#: classes/class-frontend.php:277
+#: classes/class-frontend.php:311
 msgid "Falkland Islands"
 msgstr ""
 
-#: classes/class-frontend.php:278
+#: classes/class-frontend.php:312
 msgid "Faroe Islands"
 msgstr ""
 
-#: classes/class-frontend.php:279
+#: classes/class-frontend.php:313
 msgid "Fiji"
 msgstr ""
 
-#: classes/class-frontend.php:280
+#: classes/class-frontend.php:314
 msgid "Finland"
 msgstr ""
 
-#: classes/class-frontend.php:281
+#: classes/class-frontend.php:315
 msgid "France"
 msgstr ""
 
-#: classes/class-frontend.php:282
+#: classes/class-frontend.php:316
 msgid "French Guiana"
 msgstr ""
 
-#: classes/class-frontend.php:283
+#: classes/class-frontend.php:317
 msgid "French Polynesia"
 msgstr ""
 
-#: classes/class-frontend.php:284
+#: classes/class-frontend.php:318
 msgid "French Southern Territories"
 msgstr ""
 
-#: classes/class-frontend.php:285
+#: classes/class-frontend.php:319
 msgid "Gabon"
 msgstr ""
 
-#: classes/class-frontend.php:286
+#: classes/class-frontend.php:320
 msgid "Gambia"
 msgstr ""
 
-#: classes/class-frontend.php:287
+#: classes/class-frontend.php:321
 msgid "Georgia"
 msgstr ""
 
-#: classes/class-frontend.php:288
+#: classes/class-frontend.php:322
 msgid "Germany"
 msgstr ""
 
-#: classes/class-frontend.php:289
+#: classes/class-frontend.php:323
 msgid "Ghana"
 msgstr ""
 
-#: classes/class-frontend.php:290
+#: classes/class-frontend.php:324
 msgid "Gibraltar"
 msgstr ""
 
-#: classes/class-frontend.php:291
+#: classes/class-frontend.php:325
 msgid "Greece"
 msgstr ""
 
-#: classes/class-frontend.php:292
+#: classes/class-frontend.php:326
 msgid "Greenland"
 msgstr ""
 
-#: classes/class-frontend.php:293
+#: classes/class-frontend.php:327
 msgid "Grenada"
 msgstr ""
 
-#: classes/class-frontend.php:294
+#: classes/class-frontend.php:328
 msgid "Guadeloupe"
 msgstr ""
 
-#: classes/class-frontend.php:295
+#: classes/class-frontend.php:329
 msgid "Guatemala"
 msgstr ""
 
-#: classes/class-frontend.php:296
+#: classes/class-frontend.php:330
 msgid "Guernsey"
 msgstr ""
 
-#: classes/class-frontend.php:297
+#: classes/class-frontend.php:331
 msgid "Guinea"
 msgstr ""
 
-#: classes/class-frontend.php:298
+#: classes/class-frontend.php:332
 msgid "Guinea-Bissau"
 msgstr ""
 
-#: classes/class-frontend.php:299
+#: classes/class-frontend.php:333
 msgid "Guyana"
 msgstr ""
 
-#: classes/class-frontend.php:300
+#: classes/class-frontend.php:334
 msgid "Haiti"
 msgstr ""
 
-#: classes/class-frontend.php:301
+#: classes/class-frontend.php:335
 msgid "Heard Island and McDonald Islands"
 msgstr ""
 
-#: classes/class-frontend.php:302
+#: classes/class-frontend.php:336
 msgid "Honduras"
 msgstr ""
 
-#: classes/class-frontend.php:303
+#: classes/class-frontend.php:337
 msgid "Hong Kong"
 msgstr ""
 
-#: classes/class-frontend.php:304
+#: classes/class-frontend.php:338
 msgid "Hungary"
 msgstr ""
 
-#: classes/class-frontend.php:305
+#: classes/class-frontend.php:339
 msgid "Iceland"
 msgstr ""
 
-#: classes/class-frontend.php:306
+#: classes/class-frontend.php:340
 msgid "India"
 msgstr ""
 
-#: classes/class-frontend.php:307
+#: classes/class-frontend.php:341
 msgid "Indonesia"
 msgstr ""
 
-#: classes/class-frontend.php:308
+#: classes/class-frontend.php:342
 msgid "Iran"
 msgstr ""
 
-#: classes/class-frontend.php:309
+#: classes/class-frontend.php:343
 msgid "Iraq"
 msgstr ""
 
-#: classes/class-frontend.php:310
+#: classes/class-frontend.php:344
 msgid "Isle of Man"
 msgstr ""
 
-#: classes/class-frontend.php:311
+#: classes/class-frontend.php:345
 msgid "Israel"
 msgstr ""
 
-#: classes/class-frontend.php:312
+#: classes/class-frontend.php:346
 msgid "Italy"
 msgstr ""
 
-#: classes/class-frontend.php:313
+#: classes/class-frontend.php:347
 msgid "Ivory Coast"
 msgstr ""
 
-#: classes/class-frontend.php:314
+#: classes/class-frontend.php:348
 msgid "Jamaica"
 msgstr ""
 
-#: classes/class-frontend.php:315
+#: classes/class-frontend.php:349
 msgid "Japan"
 msgstr ""
 
-#: classes/class-frontend.php:316
+#: classes/class-frontend.php:350
 msgid "Jersey"
 msgstr ""
 
-#: classes/class-frontend.php:317
+#: classes/class-frontend.php:351
 msgid "Jordan"
 msgstr ""
 
-#: classes/class-frontend.php:318
+#: classes/class-frontend.php:352
 msgid "Kazakhstan"
 msgstr ""
 
-#: classes/class-frontend.php:319
+#: classes/class-frontend.php:353
 msgid "Kenya"
 msgstr ""
 
-#: classes/class-frontend.php:320
+#: classes/class-frontend.php:354
 msgid "Kiribati"
 msgstr ""
 
-#: classes/class-frontend.php:321
+#: classes/class-frontend.php:355
 msgid "Kuwait"
 msgstr ""
 
-#: classes/class-frontend.php:322
+#: classes/class-frontend.php:356
 msgid "Kyrgyzstan"
 msgstr ""
 
-#: classes/class-frontend.php:323
+#: classes/class-frontend.php:357
 msgid "Laos"
 msgstr ""
 
-#: classes/class-frontend.php:324
+#: classes/class-frontend.php:358
 msgid "Latvia"
 msgstr ""
 
-#: classes/class-frontend.php:325
+#: classes/class-frontend.php:359
 msgid "Lebanon"
 msgstr ""
 
-#: classes/class-frontend.php:326
+#: classes/class-frontend.php:360
 msgid "Lesotho"
 msgstr ""
 
-#: classes/class-frontend.php:327
+#: classes/class-frontend.php:361
 msgid "Liberia"
 msgstr ""
 
-#: classes/class-frontend.php:328
+#: classes/class-frontend.php:362
 msgid "Libya"
 msgstr ""
 
-#: classes/class-frontend.php:329
+#: classes/class-frontend.php:363
 msgid "Liechtenstein"
 msgstr ""
 
-#: classes/class-frontend.php:330
+#: classes/class-frontend.php:364
 msgid "Lithuania"
 msgstr ""
 
-#: classes/class-frontend.php:331
+#: classes/class-frontend.php:365
 msgid "Luxembourg"
 msgstr ""
 
-#: classes/class-frontend.php:332
+#: classes/class-frontend.php:366
 msgid "Macao S.A.R., China"
 msgstr ""
 
-#: classes/class-frontend.php:333
+#: classes/class-frontend.php:367
 msgid "Macedonia"
 msgstr ""
 
-#: classes/class-frontend.php:334
+#: classes/class-frontend.php:368
 msgid "Madagascar"
 msgstr ""
 
-#: classes/class-frontend.php:335
+#: classes/class-frontend.php:369
 msgid "Malawi"
 msgstr ""
 
-#: classes/class-frontend.php:336
+#: classes/class-frontend.php:370
 msgid "Malaysia"
 msgstr ""
 
-#: classes/class-frontend.php:337
+#: classes/class-frontend.php:371
 msgid "Maldives"
 msgstr ""
 
-#: classes/class-frontend.php:338
+#: classes/class-frontend.php:372
 msgid "Mali"
 msgstr ""
 
-#: classes/class-frontend.php:339
+#: classes/class-frontend.php:373
 msgid "Malta"
 msgstr ""
 
-#: classes/class-frontend.php:340
+#: classes/class-frontend.php:374
 msgid "Marshall Islands"
 msgstr ""
 
-#: classes/class-frontend.php:341
+#: classes/class-frontend.php:375
 msgid "Martinique"
 msgstr ""
 
-#: classes/class-frontend.php:342
+#: classes/class-frontend.php:376
 msgid "Mauritania"
 msgstr ""
 
-#: classes/class-frontend.php:343
+#: classes/class-frontend.php:377
 msgid "Mauritius"
 msgstr ""
 
-#: classes/class-frontend.php:344
+#: classes/class-frontend.php:378
 msgid "Mayotte"
 msgstr ""
 
-#: classes/class-frontend.php:345
+#: classes/class-frontend.php:379
 msgid "Mexico"
 msgstr ""
 
-#: classes/class-frontend.php:346
+#: classes/class-frontend.php:380
 msgid "Micronesia"
 msgstr ""
 
-#: classes/class-frontend.php:347
+#: classes/class-frontend.php:381
 msgid "Moldova"
 msgstr ""
 
-#: classes/class-frontend.php:348
+#: classes/class-frontend.php:382
 msgid "Monaco"
 msgstr ""
 
-#: classes/class-frontend.php:349
+#: classes/class-frontend.php:383
 msgid "Mongolia"
 msgstr ""
 
-#: classes/class-frontend.php:350
+#: classes/class-frontend.php:384
 msgid "Montenegro"
 msgstr ""
 
-#: classes/class-frontend.php:351
+#: classes/class-frontend.php:385
 msgid "Montserrat"
 msgstr ""
 
-#: classes/class-frontend.php:352
+#: classes/class-frontend.php:386
 msgid "Morocco"
 msgstr ""
 
-#: classes/class-frontend.php:353
+#: classes/class-frontend.php:387
 msgid "Mozambique"
 msgstr ""
 
-#: classes/class-frontend.php:354
+#: classes/class-frontend.php:388
 msgid "Myanmar"
 msgstr ""
 
-#: classes/class-frontend.php:355
+#: classes/class-frontend.php:389
 msgid "Namibia"
 msgstr ""
 
-#: classes/class-frontend.php:356
+#: classes/class-frontend.php:390
 msgid "Nauru"
 msgstr ""
 
-#: classes/class-frontend.php:357
+#: classes/class-frontend.php:391
 msgid "Nepal"
 msgstr ""
 
-#: classes/class-frontend.php:358
+#: classes/class-frontend.php:392
 msgid "Netherlands"
 msgstr ""
 
-#: classes/class-frontend.php:359
+#: classes/class-frontend.php:393
 msgid "Netherlands Antilles"
 msgstr ""
 
-#: classes/class-frontend.php:360
+#: classes/class-frontend.php:394
 msgid "New Caledonia"
 msgstr ""
 
-#: classes/class-frontend.php:361
+#: classes/class-frontend.php:395
 msgid "New Zealand"
 msgstr ""
 
-#: classes/class-frontend.php:362
+#: classes/class-frontend.php:396
 msgid "Nicaragua"
 msgstr ""
 
-#: classes/class-frontend.php:363
+#: classes/class-frontend.php:397
 msgid "Niger"
 msgstr ""
 
-#: classes/class-frontend.php:364
+#: classes/class-frontend.php:398
 msgid "Nigeria"
 msgstr ""
 
-#: classes/class-frontend.php:365
+#: classes/class-frontend.php:399
 msgid "Niue"
 msgstr ""
 
-#: classes/class-frontend.php:366
+#: classes/class-frontend.php:400
 msgid "Norfolk Island"
 msgstr ""
 
-#: classes/class-frontend.php:367
+#: classes/class-frontend.php:401
 msgid "North Korea"
 msgstr ""
 
-#: classes/class-frontend.php:368
+#: classes/class-frontend.php:402
 msgid "Norway"
 msgstr ""
 
-#: classes/class-frontend.php:369
+#: classes/class-frontend.php:403
 msgid "Oman"
 msgstr ""
 
-#: classes/class-frontend.php:370
+#: classes/class-frontend.php:404
 msgid "Pakistan"
 msgstr ""
 
-#: classes/class-frontend.php:371
+#: classes/class-frontend.php:405
 msgid "Palestinian Territory"
 msgstr ""
 
-#: classes/class-frontend.php:372
+#: classes/class-frontend.php:406
 msgid "Panama"
 msgstr ""
 
-#: classes/class-frontend.php:373
+#: classes/class-frontend.php:407
 msgid "Papua New Guinea"
 msgstr ""
 
-#: classes/class-frontend.php:374
+#: classes/class-frontend.php:408
 msgid "Paraguay"
 msgstr ""
 
-#: classes/class-frontend.php:375
+#: classes/class-frontend.php:409
 msgid "Peru"
 msgstr ""
 
-#: classes/class-frontend.php:376
+#: classes/class-frontend.php:410
 msgid "Philippines"
 msgstr ""
 
-#: classes/class-frontend.php:377
+#: classes/class-frontend.php:411
 msgid "Pitcairn"
 msgstr ""
 
-#: classes/class-frontend.php:378
+#: classes/class-frontend.php:412
 msgid "Poland"
 msgstr ""
 
-#: classes/class-frontend.php:379
+#: classes/class-frontend.php:413
 msgid "Portugal"
 msgstr ""
 
-#: classes/class-frontend.php:380
+#: classes/class-frontend.php:414
 msgid "Qatar"
 msgstr ""
 
-#: classes/class-frontend.php:381
+#: classes/class-frontend.php:415
 msgid "Republic of Ireland"
 msgstr ""
 
-#: classes/class-frontend.php:382
+#: classes/class-frontend.php:416
 msgid "Reunion"
 msgstr ""
 
-#: classes/class-frontend.php:383
+#: classes/class-frontend.php:417
 msgid "Romania"
 msgstr ""
 
-#: classes/class-frontend.php:384
+#: classes/class-frontend.php:418
 msgid "Russia"
 msgstr ""
 
-#: classes/class-frontend.php:385
+#: classes/class-frontend.php:419
 msgid "Rwanda"
 msgstr ""
 
-#: classes/class-frontend.php:386
+#: classes/class-frontend.php:420
 msgid "São Tomé and Príncipe"
 msgstr ""
 
-#: classes/class-frontend.php:387
+#: classes/class-frontend.php:421
 msgid "Saint Barthélemy"
 msgstr ""
 
-#: classes/class-frontend.php:388
+#: classes/class-frontend.php:422
 msgid "Saint Helena"
 msgstr ""
 
-#: classes/class-frontend.php:389
+#: classes/class-frontend.php:423
 msgid "Saint Kitts and Nevis"
 msgstr ""
 
-#: classes/class-frontend.php:390
+#: classes/class-frontend.php:424
 msgid "Saint Lucia"
 msgstr ""
 
-#: classes/class-frontend.php:391
+#: classes/class-frontend.php:425
 msgid "Saint Martin (Dutch part)"
 msgstr ""
 
-#: classes/class-frontend.php:392
+#: classes/class-frontend.php:426
 msgid "Saint Martin (French part)"
 msgstr ""
 
-#: classes/class-frontend.php:393
+#: classes/class-frontend.php:427
 msgid "Saint Pierre and Miquelon"
 msgstr ""
 
-#: classes/class-frontend.php:394
+#: classes/class-frontend.php:428
 msgid "Saint Vincent and the Grenadines"
 msgstr ""
 
-#: classes/class-frontend.php:395
+#: classes/class-frontend.php:429
 msgid "San Marino"
 msgstr ""
 
-#: classes/class-frontend.php:396
+#: classes/class-frontend.php:430
 msgid "Saudi Arabia"
 msgstr ""
 
-#: classes/class-frontend.php:397
+#: classes/class-frontend.php:431
 msgid "Senegal"
 msgstr ""
 
-#: classes/class-frontend.php:398
+#: classes/class-frontend.php:432
 msgid "Serbia"
 msgstr ""
 
-#: classes/class-frontend.php:399
+#: classes/class-frontend.php:433
 msgid "Seychelles"
 msgstr ""
 
-#: classes/class-frontend.php:400
+#: classes/class-frontend.php:434
 msgid "Sierra Leone"
 msgstr ""
 
-#: classes/class-frontend.php:401
+#: classes/class-frontend.php:435
 msgid "Singapore"
 msgstr ""
 
-#: classes/class-frontend.php:402
+#: classes/class-frontend.php:436
 msgid "Slovakia"
 msgstr ""
 
-#: classes/class-frontend.php:403
+#: classes/class-frontend.php:437
 msgid "Slovenia"
 msgstr ""
 
-#: classes/class-frontend.php:404
+#: classes/class-frontend.php:438
 msgid "Solomon Islands"
 msgstr ""
 
-#: classes/class-frontend.php:405
+#: classes/class-frontend.php:439
 msgid "Somalia"
 msgstr ""
 
-#: classes/class-frontend.php:406
+#: classes/class-frontend.php:440
 msgid "South Africa"
 msgstr ""
 
-#: classes/class-frontend.php:407
+#: classes/class-frontend.php:441
 msgid "South Georgia/Sandwich Islands"
 msgstr ""
 
-#: classes/class-frontend.php:408
+#: classes/class-frontend.php:442
 msgid "South Korea"
 msgstr ""
 
-#: classes/class-frontend.php:409
+#: classes/class-frontend.php:443
 msgid "South Sudan"
 msgstr ""
 
-#: classes/class-frontend.php:410
+#: classes/class-frontend.php:444
 msgid "Spain"
 msgstr ""
 
-#: classes/class-frontend.php:411
+#: classes/class-frontend.php:445
 msgid "Sri Lanka"
 msgstr ""
 
-#: classes/class-frontend.php:412
+#: classes/class-frontend.php:446
 msgid "Sudan"
 msgstr ""
 
-#: classes/class-frontend.php:413
+#: classes/class-frontend.php:447
 msgid "Suriname"
 msgstr ""
 
-#: classes/class-frontend.php:414
+#: classes/class-frontend.php:448
 msgid "Svalbard and Jan Mayen"
 msgstr ""
 
-#: classes/class-frontend.php:415
+#: classes/class-frontend.php:449
 msgid "Swaziland"
 msgstr ""
 
-#: classes/class-frontend.php:416
+#: classes/class-frontend.php:450
 msgid "Sweden"
 msgstr ""
 
-#: classes/class-frontend.php:417
+#: classes/class-frontend.php:451
 msgid "Switzerland"
 msgstr ""
 
-#: classes/class-frontend.php:418
+#: classes/class-frontend.php:452
 msgid "Syria"
 msgstr ""
 
-#: classes/class-frontend.php:419
+#: classes/class-frontend.php:453
 msgid "Taiwan"
 msgstr ""
 
-#: classes/class-frontend.php:420
+#: classes/class-frontend.php:454
 msgid "Tajikistan"
 msgstr ""
 
-#: classes/class-frontend.php:421
+#: classes/class-frontend.php:455
 msgid "Tanzania"
 msgstr ""
 
-#: classes/class-frontend.php:422
+#: classes/class-frontend.php:456
 msgid "Thailand"
 msgstr ""
 
-#: classes/class-frontend.php:423
+#: classes/class-frontend.php:457
 msgid "Timor-Leste"
 msgstr ""
 
-#: classes/class-frontend.php:424
+#: classes/class-frontend.php:458
 msgid "Togo"
 msgstr ""
 
-#: classes/class-frontend.php:425
+#: classes/class-frontend.php:459
 msgid "Tokelau"
 msgstr ""
 
-#: classes/class-frontend.php:426
+#: classes/class-frontend.php:460
 msgid "Tonga"
 msgstr ""
 
-#: classes/class-frontend.php:427
+#: classes/class-frontend.php:461
 msgid "Trinidad and Tobago"
 msgstr ""
 
-#: classes/class-frontend.php:428
+#: classes/class-frontend.php:462
 msgid "Tunisia"
 msgstr ""
 
-#: classes/class-frontend.php:429
+#: classes/class-frontend.php:463
 msgid "Turkey"
 msgstr ""
 
-#: classes/class-frontend.php:430
+#: classes/class-frontend.php:464
 msgid "Turkmenistan"
 msgstr ""
 
-#: classes/class-frontend.php:431
+#: classes/class-frontend.php:465
 msgid "Turks and Caicos Islands"
 msgstr ""
 
-#: classes/class-frontend.php:432
+#: classes/class-frontend.php:466
 msgid "Tuvalu"
 msgstr ""
 
-#: classes/class-frontend.php:433
+#: classes/class-frontend.php:467
 msgid "Uganda"
 msgstr ""
 
-#: classes/class-frontend.php:434
+#: classes/class-frontend.php:468
 msgid "Ukraine"
 msgstr ""
 
-#: classes/class-frontend.php:435
+#: classes/class-frontend.php:469
 msgid "United Arab Emirates"
 msgstr ""
 
-#: classes/class-frontend.php:436
+#: classes/class-frontend.php:470
 msgid "United Kingdom (UK)"
 msgstr ""
 
-#: classes/class-frontend.php:437
+#: classes/class-frontend.php:471
 msgid "United States (US)"
 msgstr ""
 
-#: classes/class-frontend.php:438
+#: classes/class-frontend.php:472
 msgid "Uruguay"
 msgstr ""
 
-#: classes/class-frontend.php:439
+#: classes/class-frontend.php:473
 msgid "Uzbekistan"
 msgstr ""
 
-#: classes/class-frontend.php:440
+#: classes/class-frontend.php:474
 msgid "Vanuatu"
 msgstr ""
 
-#: classes/class-frontend.php:441
+#: classes/class-frontend.php:475
 msgid "Vatican"
 msgstr ""
 
-#: classes/class-frontend.php:442
+#: classes/class-frontend.php:476
 msgid "Venezuela"
 msgstr ""
 
-#: classes/class-frontend.php:443
+#: classes/class-frontend.php:477
 msgid "Vietnam"
 msgstr ""
 
-#: classes/class-frontend.php:444
+#: classes/class-frontend.php:478
 msgid "Wallis and Futuna"
 msgstr ""
 
-#: classes/class-frontend.php:445
+#: classes/class-frontend.php:479
 msgid "Western Sahara"
 msgstr ""
 
-#: classes/class-frontend.php:446
+#: classes/class-frontend.php:480
 msgid "Western Samoa"
 msgstr ""
 
-#: classes/class-frontend.php:447
+#: classes/class-frontend.php:481
 msgid "Yemen"
 msgstr ""
 
-#: classes/class-frontend.php:448
+#: classes/class-frontend.php:482
 msgid "Zambia"
 msgstr ""
 
-#: classes/class-frontend.php:449
+#: classes/class-frontend.php:483
 msgid "Zimbabwe"
 msgstr ""
 
-#: classes/class-metaboxes.php:48
+#: classes/class-metaboxes.php:58
 msgid "Business address details"
 msgstr ""
 
-#: classes/class-metaboxes.php:78
+#: classes/class-metaboxes.php:91
 msgid "Copy data from another location"
 msgstr ""
 
-#: classes/class-metaboxes.php:79
+#: classes/class-metaboxes.php:92
 msgid "Choose your location"
 msgstr ""
 
-#: classes/class-metaboxes.php:86
+#: classes/class-metaboxes.php:99
 msgid ""
 "selecting a location will overwrite all data below. If you accidently "
 "selected a location, just refresh the page and make sure you don't save it."
 msgstr ""
 
-#: classes/class-metaboxes.php:119
+#: classes/class-metaboxes.php:132
 msgid "Choose your business type"
 msgstr ""
 
-#: classes/class-metaboxes.php:126
+#: classes/class-metaboxes.php:139
 msgid "Business address:"
 msgstr ""
 
-#: classes/class-metaboxes.php:135
+#: classes/class-metaboxes.php:148
 msgid "Choose your country"
 msgstr ""
 
-#: classes/class-metaboxes.php:142
+#: classes/class-metaboxes.php:155
 msgid "Main phone number"
 msgstr ""
 
-#: classes/class-metaboxes.php:144
+#: classes/class-metaboxes.php:157
 msgid "Second phone number"
 msgstr ""
 
-#: classes/class-metaboxes.php:146
+#: classes/class-metaboxes.php:159
 msgid "Fax number"
 msgstr ""
 
-#: classes/class-metaboxes.php:148
+#: classes/class-metaboxes.php:161
 msgid "Email address"
 msgstr ""
 
-#: classes/class-metaboxes.php:158 classes/class-metaboxes.php:160
-#: classes/class-metaboxes.php:162
+#: classes/class-metaboxes.php:171 classes/class-metaboxes.php:173
+#: classes/class-metaboxes.php:175
 msgid "Notes"
 msgstr ""
 
-#: classes/class-metaboxes.php:170
+#: classes/class-metaboxes.php:183
 msgid ""
 "If the marker is not in the right location for your store, you can drag the "
 "pin to the location where you want it."
 msgstr ""
 
-#: classes/class-metaboxes.php:173
+#: classes/class-metaboxes.php:192
 msgid "This address is a postal address (not a physical location)"
 msgstr ""
 
-#: classes/class-metaboxes.php:360
+#: classes/class-metaboxes.php:403
 msgid "Insert Google map"
 msgstr ""
 
-#: classes/class-metaboxes.php:360
+#: classes/class-metaboxes.php:403
 msgid "Map"
 msgstr ""
 
-#: classes/class-metaboxes.php:362 classes/class-metaboxes.php:811
+#: classes/class-metaboxes.php:405 classes/class-metaboxes.php:906
 msgid "Insert address"
 msgstr ""
 
-#: classes/class-metaboxes.php:362
+#: classes/class-metaboxes.php:405
 msgid "Address"
 msgstr ""
 
-#: classes/class-metaboxes.php:364
+#: classes/class-metaboxes.php:407
 msgid "Insert Opening hours"
 msgstr ""
 
-#: classes/class-metaboxes.php:367 classes/class-metaboxes.php:878
-#: classes/class-metaboxes.php:929
+#: classes/class-metaboxes.php:410 classes/class-metaboxes.php:974
+#: classes/class-metaboxes.php:1042
 msgid "Insert Store locator"
 msgstr ""
 
-#: classes/class-metaboxes.php:367
+#: classes/class-metaboxes.php:410
 msgid "Store locator"
 msgstr ""
 
-#: classes/class-metaboxes.php:389 classes/class-metaboxes.php:439
-#: classes/class-metaboxes.php:492
+#: classes/class-metaboxes.php:442 classes/class-metaboxes.php:492
+#: classes/class-metaboxes.php:545
 msgid "Please select a location"
 msgstr ""
 
-#: classes/class-metaboxes.php:394 classes/class-metaboxes.php:444
+#: classes/class-metaboxes.php:447 classes/class-metaboxes.php:497
 msgid "If you want to use a category, please set location to 'all'"
 msgstr ""
 
-#: classes/class-metaboxes.php:399
+#: classes/class-metaboxes.php:452
 msgid "If you select a single location , please set center to 'all'"
 msgstr ""
 
-#: classes/class-metaboxes.php:610
+#: classes/class-metaboxes.php:665
 msgid "Insert Google Map"
 msgstr ""
 
-#: classes/class-metaboxes.php:616 classes/class-metaboxes.php:736
-#: classes/class-metaboxes.php:827 widgets/widget-show-address.php:141
-#: widgets/widget-show-map.php:124 widgets/widget-show-openinghours.php:112
+#: classes/class-metaboxes.php:671 classes/class-metaboxes.php:816
+#: classes/class-metaboxes.php:922 widgets/widget-show-address.php:171
+#: widgets/widget-show-map.php:155 widgets/widget-show-openinghours.php:146
 msgid "Select a location"
 msgstr ""
 
-#: classes/class-metaboxes.php:627 classes/class-metaboxes.php:663
+#: classes/class-metaboxes.php:682 classes/class-metaboxes.php:718
 msgid "All locations"
 msgstr ""
 
-#: classes/class-metaboxes.php:638 classes/class-metaboxes.php:764
+#: classes/class-metaboxes.php:693 classes/class-metaboxes.php:844
 msgid "Select a category"
 msgstr ""
 
-#: classes/class-metaboxes.php:651
+#: classes/class-metaboxes.php:706
 msgid "Center map on this location"
 msgstr ""
 
-#: classes/class-metaboxes.php:677 classes/class-metaboxes.php:894
+#: classes/class-metaboxes.php:732 classes/class-metaboxes.php:997
 msgid "Map style"
 msgstr ""
 
-#: classes/class-metaboxes.php:703
+#: classes/class-metaboxes.php:758
 msgid "Width"
 msgstr ""
 
-#: classes/class-metaboxes.php:704
+#: classes/class-metaboxes.php:759
 msgid "Height"
 msgstr ""
 
-#: classes/class-metaboxes.php:705
+#: classes/class-metaboxes.php:760
 msgid "Zoom level"
 msgstr ""
 
-#: classes/class-metaboxes.php:707
+#: classes/class-metaboxes.php:762
 msgid "Auto"
 msgstr ""
 
-#: classes/class-metaboxes.php:711 classes/class-metaboxes.php:883
+#: classes/class-metaboxes.php:785 classes/class-metaboxes.php:980
 msgid "Allow scrolling of the map"
 msgstr ""
 
-#: classes/class-metaboxes.php:712 classes/class-metaboxes.php:884
+#: classes/class-metaboxes.php:787 classes/class-metaboxes.php:982
 msgid "Allow dragging of the map"
 msgstr ""
 
-#: classes/class-metaboxes.php:713 widgets/widget-show-map.php:193
+#: classes/class-metaboxes.php:789 widgets/widget-show-map.php:220
 msgid "Show route planner"
 msgstr ""
 
-#: classes/class-metaboxes.php:714
+#: classes/class-metaboxes.php:791
 msgid "Show state in info-popup"
 msgstr ""
 
-#: classes/class-metaboxes.php:715
+#: classes/class-metaboxes.php:793
 msgid "Show country in info-popup"
 msgstr ""
 
-#: classes/class-metaboxes.php:716
+#: classes/class-metaboxes.php:795
 msgid "Show URL in info-popup"
 msgstr ""
 
-#: classes/class-metaboxes.php:717
+#: classes/class-metaboxes.php:797
 msgid "Show email in info popup"
 msgstr ""
 
-#: classes/class-metaboxes.php:720
+#: classes/class-metaboxes.php:800
 msgid "Insert map"
 msgstr ""
 
-#: classes/class-metaboxes.php:721 classes/class-metaboxes.php:812
-#: classes/class-metaboxes.php:867 classes/class-metaboxes.php:930
+#: classes/class-metaboxes.php:801 classes/class-metaboxes.php:907
+#: classes/class-metaboxes.php:963 classes/class-metaboxes.php:1043
 msgid "Cancel"
 msgstr ""
 
-#: classes/class-metaboxes.php:730
+#: classes/class-metaboxes.php:810
 msgid "Insert Address"
 msgstr ""
 
-#: classes/class-metaboxes.php:747 widgets/widget-show-map.php:105
+#: classes/class-metaboxes.php:827 widgets/widget-show-map.php:136
 msgid "Show all locations"
 msgstr ""
 
-#: classes/class-metaboxes.php:778
+#: classes/class-metaboxes.php:858
 msgid "Order by"
 msgstr ""
 
-#: classes/class-metaboxes.php:780
+#: classes/class-metaboxes.php:860
 msgid "Alphabetical"
 msgstr ""
 
-#: classes/class-metaboxes.php:781
+#: classes/class-metaboxes.php:861
 msgid "By publish date"
 msgstr ""
 
-#: classes/class-metaboxes.php:784
+#: classes/class-metaboxes.php:864
 msgid "Order"
 msgstr ""
 
-#: classes/class-metaboxes.php:786
+#: classes/class-metaboxes.php:866
 msgid "Ascending"
 msgstr ""
 
-#: classes/class-metaboxes.php:787
+#: classes/class-metaboxes.php:867
 msgid "Descending"
 msgstr ""
 
-#: classes/class-metaboxes.php:794
+#: classes/class-metaboxes.php:874
 msgid "Hide business name"
 msgstr ""
 
-#: classes/class-metaboxes.php:795 classes/class-metaboxes.php:917
+#: classes/class-metaboxes.php:876 classes/class-metaboxes.php:1020
 msgid "Show address on one line"
 msgstr ""
 
-#: classes/class-metaboxes.php:796 classes/class-metaboxes.php:918
-#: widgets/widget-show-address.php:165
+#: classes/class-metaboxes.php:878 classes/class-metaboxes.php:1022
+#: widgets/widget-show-address.php:196
 msgid "Show state"
 msgstr ""
 
-#: classes/class-metaboxes.php:797 classes/class-metaboxes.php:919
-#: widgets/widget-show-address.php:157
+#: classes/class-metaboxes.php:880 classes/class-metaboxes.php:1024
+#: widgets/widget-show-address.php:188
 msgid "Show country"
 msgstr ""
 
-#: classes/class-metaboxes.php:798 classes/class-metaboxes.php:920
-#: widgets/widget-show-address.php:173
+#: classes/class-metaboxes.php:882 classes/class-metaboxes.php:1026
+#: widgets/widget-show-address.php:204
 msgid "Show phone number"
 msgstr ""
 
-#: classes/class-metaboxes.php:799 classes/class-metaboxes.php:921
+#: classes/class-metaboxes.php:884 classes/class-metaboxes.php:1028
 msgid "Show 2nd phone number"
 msgstr ""
 
-#: classes/class-metaboxes.php:800 classes/class-metaboxes.php:922
-#: widgets/widget-show-address.php:189
+#: classes/class-metaboxes.php:886 classes/class-metaboxes.php:1030
+#: widgets/widget-show-address.php:220
 msgid "Show fax number"
 msgstr ""
 
-#: classes/class-metaboxes.php:801 classes/class-metaboxes.php:923
+#: classes/class-metaboxes.php:888 classes/class-metaboxes.php:1032
 msgid "Show email"
 msgstr ""
 
-#: classes/class-metaboxes.php:802 classes/class-metaboxes.php:924
+#: classes/class-metaboxes.php:890 classes/class-metaboxes.php:1034
 msgid "Show URL"
 msgstr ""
 
-#: classes/class-metaboxes.php:803 widgets/widget-show-address.php:205
+#: classes/class-metaboxes.php:892 widgets/widget-show-address.php:236
 msgid "Show logo"
 msgstr ""
 
-#: classes/class-metaboxes.php:804 widgets/widget-show-address.php:213
+#: classes/class-metaboxes.php:894 widgets/widget-show-address.php:244
 msgid "Show VAT ID"
 msgstr ""
 
-#: classes/class-metaboxes.php:805 widgets/widget-show-address.php:221
+#: classes/class-metaboxes.php:896 widgets/widget-show-address.php:252
 msgid "Show Tax ID"
 msgstr ""
 
-#: classes/class-metaboxes.php:806 widgets/widget-show-address.php:229
+#: classes/class-metaboxes.php:898 widgets/widget-show-address.php:260
 msgid "Show Chamber of Commerce ID"
 msgstr ""
 
-#: classes/class-metaboxes.php:807 classes/class-metaboxes.php:925
-#: widgets/widget-show-address.php:237
+#: classes/class-metaboxes.php:900 classes/class-metaboxes.php:1036
+#: widgets/widget-show-address.php:268
 msgid "Show opening hours"
 msgstr ""
 
-#: classes/class-metaboxes.php:808 classes/class-metaboxes.php:863
-#: classes/class-metaboxes.php:926 widgets/widget-show-address.php:245
-#: widgets/widget-show-openinghours.php:142
+#: classes/class-metaboxes.php:902 classes/class-metaboxes.php:958
+#: classes/class-metaboxes.php:1038 widgets/widget-show-address.php:276
+#: widgets/widget-show-openinghours.php:180
 msgid "Hide closed days"
 msgstr ""
 
-#: classes/class-metaboxes.php:821
+#: classes/class-metaboxes.php:916
 msgid "Insert Opening Hours"
 msgstr ""
 
-#: classes/class-metaboxes.php:859
+#: classes/class-metaboxes.php:954
 msgid "Show %s"
 msgstr ""
 
-#: classes/class-metaboxes.php:866
+#: classes/class-metaboxes.php:962
 msgid "Insert opening hours"
 msgstr ""
 
-#: classes/class-metaboxes.php:882
+#: classes/class-metaboxes.php:978
 msgid "Show Map with the search results"
 msgstr ""
 
-#: classes/class-metaboxes.php:885
+#: classes/class-metaboxes.php:984
 msgid "Show filter to narrow down search results"
 msgstr ""
 
-#: classes/class-metaboxes.php:886
+#: classes/class-metaboxes.php:986
 msgid "Show radius to limit your search"
 msgstr ""
 
-#: classes/class-metaboxes.php:887
+#: classes/class-metaboxes.php:988
 msgid "Show the nearest location, if none are found within radius"
 msgstr ""
 
-#: classes/class-metaboxes.php:890
+#: classes/class-metaboxes.php:992
 msgid "Search radius (in %s)"
 msgstr ""
 
-#: classes/class-metaboxes.php:893
+#: classes/class-metaboxes.php:996
 msgid "Please specify below how the search results should look like."
 msgstr ""
 
-#: classes/class-metaboxes.php:963 classes/class-metaboxes.php:1022
+#: classes/class-metaboxes.php:1076 classes/class-metaboxes.php:1140
 msgid ""
 "Your title does not contain your location's city, you should really add "
 "that."
 msgstr ""
 
-#: classes/class-metaboxes.php:968 classes/class-metaboxes.php:1023
+#: classes/class-metaboxes.php:1082 classes/class-metaboxes.php:1141
 msgid "Your title contains your location's city, well done!"
 msgstr ""
 
-#: classes/class-metaboxes.php:975 classes/class-metaboxes.php:1024
+#: classes/class-metaboxes.php:1089 classes/class-metaboxes.php:1142
 msgid "Your URL does not contain your location's city, you should really add that."
 msgstr ""
 
-#: classes/class-metaboxes.php:980 classes/class-metaboxes.php:1025
+#: classes/class-metaboxes.php:1095 classes/class-metaboxes.php:1143
 msgid "Your URL contains your location's city, well done!"
 msgstr ""
 
-#: classes/class-metaboxes.php:998
+#: classes/class-metaboxes.php:1114
 msgid "Business Markup"
 msgstr ""
 
-#: classes/class-metaboxes.php:999
+#: classes/class-metaboxes.php:1115
 msgid ""
 "If this is your contact page, check this box to add OpenGraph markup so "
 "your business details are shared when this page is shared on Facebook."
 msgstr ""
 
-#: classes/class-storelocator.php:65 widgets/widget-storelocator-form.php:16
+#: classes/class-storelocator.php:94 widgets/widget-storelocator-form.php:34
 msgid "Enter your postal code or city"
 msgstr ""
 
-#: classes/class-storelocator.php:69
+#: classes/class-storelocator.php:100
 msgid "within"
 msgstr ""
 
-#: classes/class-storelocator.php:90
+#: classes/class-storelocator.php:128
 msgid "Filter by category"
 msgstr ""
 
-#: classes/class-storelocator.php:102 widgets/widget-storelocator-form.php:43
+#: classes/class-storelocator.php:142 widgets/widget-storelocator-form.php:61
 msgid "Search"
 msgstr ""
 
-#: classes/class-storelocator.php:143
+#: classes/class-storelocator.php:184
 msgid "%s result has been found"
 msgid_plural "%s results have been found"
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/class-storelocator.php:149 classes/class-storelocator.php:163
+#: classes/class-storelocator.php:191 classes/class-storelocator.php:206
 msgid "No results found"
 msgstr ""
 
-#: classes/class-storelocator.php:153
+#: classes/class-storelocator.php:195
 msgid "The nearest location is %s miles away"
 msgstr ""
 
-#: classes/class-storelocator.php:154
+#: classes/class-storelocator.php:196
 msgid "The nearest location is %s kilometers away"
 msgstr ""
 
-#: classes/class-storelocator.php:181
+#: classes/class-storelocator.php:229
 msgid "Please enter a zipcode or city"
 msgstr ""
 
-#: classes/class-storelocator.php:211
+#: classes/class-storelocator.php:259
 msgid "No valid JSON response. We cannot complete the search."
 msgstr ""
 
-#: classes/class-storelocator.php:217
+#: classes/class-storelocator.php:265
 msgid "No valid coordinates. We cannot complete the search."
 msgstr ""
 
-#: classes/class-taxonomy.php:37
+#: classes/class-taxonomy.php:45
 msgid "Local SEO Settings"
 msgstr ""
 
-#: classes/class-taxonomy.php:46
+#: classes/class-taxonomy.php:54
 msgid ""
 "A custom marker can be set per category. If no marker is set here, the "
 "global marker will be used."
 msgstr ""
 
-#: includes/wpseo-local-functions.php:57
+#: includes/wpseo-local-functions.php:60
 msgid ""
 "Please provide a post ID if you want to show an address outside a Locations "
 "singular page"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:112
+#: includes/wpseo-local-functions.php:115
 msgid "Phone"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:116
+#: includes/wpseo-local-functions.php:119
 msgid "Secondary phone"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:120
+#: includes/wpseo-local-functions.php:123
 msgid "Fax"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:124
+#: includes/wpseo-local-functions.php:127
 msgid "Email"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:325
+#: includes/wpseo-local-functions.php:330
 msgid "There are no locations to show."
 msgstr ""
 
@@ -1972,162 +1972,162 @@ msgid ""
 "singular page"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:556
+#: includes/wpseo-local-functions.php:569
 msgid "Route"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:559
+#: includes/wpseo-local-functions.php:572
 msgid "Your location"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:561
+#: includes/wpseo-local-functions.php:574
 msgid "No route could be calculated."
 msgstr ""
 
-#: includes/wpseo-local-functions.php:691
-#: includes/wpseo-local-functions.php:786
+#: includes/wpseo-local-functions.php:745
+#: includes/wpseo-local-functions.php:843
 msgid "Closed"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:695
+#: includes/wpseo-local-functions.php:750
 msgid "and"
 msgstr ""
 
-#: includes/wpseo-local-functions.php:1168
+#: includes/wpseo-local-functions.php:1293
 msgid ""
 "If you want the map to display a custom marker pin for your locations, "
 "please upload it here."
 msgstr ""
 
-#: local-seo.php:127
+#: local-seo.php:131
 msgid ""
 "Please upgrade the Yoast SEO plugin to the latest version to allow the "
 "Local SEO module to work."
 msgstr ""
 
-#: widgets/widget-show-address.php:8
+#: widgets/widget-show-address.php:19
 msgid "Shows address of locations in Schema.org standards."
 msgstr ""
 
-#: widgets/widget-show-address.php:10
+#: widgets/widget-show-address.php:21
 msgid "WP SEO - Show Address"
 msgstr ""
 
-#: widgets/widget-show-address.php:120 widgets/widget-show-map.php:92
-#: widgets/widget-show-openinghours.php:91
-#: widgets/widget-storelocator-form.php:74
+#: widgets/widget-show-address.php:149 widgets/widget-show-map.php:121
+#: widgets/widget-show-openinghours.php:123
+#: widgets/widget-storelocator-form.php:106
 msgid "Title:"
 msgstr ""
 
-#: widgets/widget-show-address.php:128 widgets/widget-show-map.php:111
-#: widgets/widget-show-openinghours.php:99
+#: widgets/widget-show-address.php:156 widgets/widget-show-map.php:142
+#: widgets/widget-show-openinghours.php:133
 msgid "Location:"
 msgstr ""
 
-#: widgets/widget-show-address.php:142 widgets/widget-show-map.php:125
-#: widgets/widget-show-openinghours.php:113
+#: widgets/widget-show-address.php:172 widgets/widget-show-map.php:156
+#: widgets/widget-show-openinghours.php:147
 msgid "Use current location"
 msgstr ""
 
-#: widgets/widget-show-address.php:181
+#: widgets/widget-show-address.php:212
 msgid "Show second phone number"
 msgstr ""
 
-#: widgets/widget-show-address.php:197
+#: widgets/widget-show-address.php:228
 msgid "Show email address"
 msgstr ""
 
-#: widgets/widget-show-address.php:253
+#: widgets/widget-show-address.php:284
 msgid "Show address in one line"
 msgstr ""
 
-#: widgets/widget-show-address.php:258 widgets/widget-show-openinghours.php:147
+#: widgets/widget-show-address.php:289 widgets/widget-show-openinghours.php:185
 msgid "Extra comment"
 msgstr ""
 
-#: widgets/widget-show-map.php:8
+#: widgets/widget-show-map.php:19
 msgid "Shows Google Map of your location"
 msgstr ""
 
-#: widgets/widget-show-map.php:10
+#: widgets/widget-show-map.php:21
 msgid "WP SEO - Show Map"
 msgstr ""
 
-#: widgets/widget-show-map.php:99
+#: widgets/widget-show-map.php:129
 msgid ""
 "Choose to show all your locations in the map, otherwise just pick one in "
 "the selectbox below"
 msgstr ""
 
-#: widgets/widget-show-map.php:135
+#: widgets/widget-show-map.php:172
 msgid "Maps settings"
 msgstr ""
 
-#: widgets/widget-show-map.php:138
+#: widgets/widget-show-map.php:175
 msgid "Width:"
 msgstr ""
 
-#: widgets/widget-show-map.php:144
+#: widgets/widget-show-map.php:181
 msgid "Height:"
 msgstr ""
 
-#: widgets/widget-show-map.php:153
+#: widgets/widget-show-map.php:190
 msgid "Zoom level:"
 msgstr ""
 
-#: widgets/widget-show-map.php:167
+#: widgets/widget-show-map.php:201
 msgid "Show state in info-window"
 msgstr ""
 
-#: widgets/widget-show-map.php:175
+#: widgets/widget-show-map.php:207
 msgid "Show country in info-window"
 msgstr ""
 
-#: widgets/widget-show-map.php:183
+#: widgets/widget-show-map.php:213
 msgid "Show URL in info-window"
 msgstr ""
 
-#: widgets/widget-show-openinghours.php:8
+#: widgets/widget-show-openinghours.php:19
 msgid "Shows opening hours of locations in Schema.org standards."
 msgstr ""
 
-#: widgets/widget-show-openinghours.php:10
+#: widgets/widget-show-openinghours.php:21
 msgid "WP SEO - Show Opening hours"
 msgstr ""
 
-#: widgets/widget-show-openinghours.php:122
+#: widgets/widget-show-openinghours.php:159
 msgid "Show days"
 msgstr ""
 
-#: widgets/widget-storelocator-form.php:8
+#: widgets/widget-storelocator-form.php:19
 msgid ""
 "Shows form to search the nearest store. Will submit to the page which "
 "contains the store locator."
 msgstr ""
 
-#: widgets/widget-storelocator-form.php:10
+#: widgets/widget-storelocator-form.php:21
 msgid "WP SEO - Storelocator form"
 msgstr ""
 
-#: widgets/widget-storelocator-form.php:78
+#: widgets/widget-storelocator-form.php:110
 msgid "Search label:"
 msgstr ""
 
-#: widgets/widget-storelocator-form.php:82
+#: widgets/widget-storelocator-form.php:114
 msgid "Default radius:"
 msgstr ""
 
-#: widgets/widget-storelocator-form.php:84
+#: widgets/widget-storelocator-form.php:116
 msgid "This field will be a hidden field and is only used for calculation."
 msgstr ""
 
-#: widgets/widget-storelocator-form.php:88
+#: widgets/widget-storelocator-form.php:120
 msgid ""
 "Select the page where your store locator shortcode is added. This is the "
 "page whereto the form is submitted."
 msgstr ""
 
-#: widgets/widget-storelocator-form.php:95
+#: widgets/widget-storelocator-form.php:127
 msgid "Select a page"
 msgstr ""
 

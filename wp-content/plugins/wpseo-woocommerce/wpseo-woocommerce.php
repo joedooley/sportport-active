@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Yoast WooCommerce SEO
- * Version:     3.1.1
+ * Version:     3.2
  * Plugin URI:  https://yoast.com/wordpress/plugins/yoast-woocommerce-seo/
  * Description: This extension to WooCommerce and WordPress SEO by Yoast makes sure there's perfect communication between the two plugins.
  * Author:      Team Yoast
@@ -28,7 +28,7 @@ class Yoast_WooCommerce_SEO {
 	/**
 	 * @const string Version of the plugin.
 	 */
-	const VERSION = '3.1.1';
+	const VERSION = '3.2';
 
 	/**
 	 * @var object $option_instance Instance of the WooCommerce_SEO option management class
@@ -107,6 +107,8 @@ class Yoast_WooCommerce_SEO {
 				add_filter( 'wpseo_metadesc', array( $this, 'metadesc' ) );
 
 				// OpenGraph
+				add_filter( 'language_attributes', array( $this, 'og_product_namespace' ), 11 );
+				add_filter( 'wpseo_opengraph_type', array( $this, 'return_type_product' ) );
 				add_filter( 'wpseo_opengraph_desc', array( $this, 'og_desc_enhancement' ) );
 				add_action( 'wpseo_opengraph', array( $this, 'og_enhancement' ), 50 );
 
@@ -316,7 +318,7 @@ class Yoast_WooCommerce_SEO {
 		</select>
 		<br class="clear"/>
 
-		<label class="select" for="schema_manufacturer">' . sprintf( __( 'Manufacturer', 'yoast-woo-seo' ), $i ) . ':</label>
+		<label class="select" for="schema_manufacturer">' . __( 'Manufacturer', 'yoast-woo-seo' ) . ':</label>
 		<select class="select" id="schema_manufacturer" name="' . esc_attr( $this->short_name . '[schema_manufacturer]' ) . '">
 			<option value="">-</option>' . "\n";
 		if ( is_array( $taxonomies ) && $taxonomies !== array() ) {
@@ -454,11 +456,28 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
+	 * Filter for the namespace, adding the OpenGraph namespace.
+	 *
+	 * @link https://developers.facebook.com/docs/reference/opengraph/object-type/product/
+	 *
+	 * @param string $input The input namespace string.
+	 *
+	 * @return string
+	 */
+	public function og_product_namespace( $input ) {
+		if ( is_singular( 'product' ) ) {
+			$input = preg_replace( '/prefix="([^"]+)"/', 'prefix="$1 product: http://ogp.me/ns/product#"', $input );
+		}
+
+		return $input;
+	}
+
+	/**
 	 * Adds the other product images to the OpenGraph output
 	 *
 	 * @since 1.0
 	 */
-	function og_enhancement() {
+	public function og_enhancement() {
 		global $wpseo_og;
 
 		if ( is_product_category() || ! function_exists( 'is_product_category' ) ) {
@@ -503,12 +522,12 @@ class Yoast_WooCommerce_SEO {
 		 * @api bool unsigned Defaults to true.
 		 */
 		if ( apply_filters( 'wpseo_woocommerce_og_price', true ) ) {
-			echo '<meta property="og:price:amount" content="' . esc_attr( $product->get_price() ) . "\"/>\n";
-			echo '<meta property="og:price:currency" content="' . esc_attr( get_woocommerce_currency() ) . "\"/>\n";
+			echo '<meta property="product:price:amount" content="' . esc_attr( $product->get_price() ) . "\"/>\n";
+			echo '<meta property="product:price:currency" content="' . esc_attr( get_woocommerce_currency() ) . "\"/>\n";
 		}
 
 		if ( $product->is_in_stock() ) {
-			echo '<meta property="og:price:availability" content="instock"/>' . "\n";
+			echo '<meta property="product:availability" content="instock"/>' . "\n";
 		}
 	}
 
@@ -534,6 +553,22 @@ class Yoast_WooCommerce_SEO {
 		}
 
 		return $desc;
+	}
+
+	/**
+	 * Return 'product' when current page is, well... a product.
+	 *
+	 * @since 1.0
+	 *
+	 * @param string $type Passed on without changing if not a product.
+	 *
+	 * @return string
+	 */
+	public function return_type_product( $type ) {
+		if ( is_singular( 'product' ) ) {
+			return 'product';
+		}
+		return $type;
 	}
 
 	/**
@@ -664,21 +699,6 @@ class Yoast_WooCommerce_SEO {
 	 */
 	public function twitter_enhancement() {
 		_deprecated_function( __CLASS__ . '::' . __METHOD__, 'WooCommerce SEO 3.1', null );
-	}
-
-	/**
-	 * Return 'product' when current page is, well... a product.
-	 *
-	 * @deprecated 3.1
-	 * @since 1.0
-	 *
-	 * @param string $type Passed on without changing if not a product.
-	 *
-	 * @return string
-	 */
-	public function return_type_product( $type ) {
-		_deprecated_function( __CLASS__ . '::' . __METHOD__, 'WooCommerce SEO 3.1', null );
-		return $type;
 	}
 
 	/**

@@ -1,7 +1,8 @@
-var wpseo_directions = new Array();
-var wpseo_maps = new Array();
+var wpseo_directions = [];
+var wpseo_maps = [];
+var markers = new Array();
 
-function wpseo_show_map(location_data, counter, directionsDisplay, center_lat, center_long, zoom, map_style, show_route, scrollable, draggable) {
+function wpseo_show_map(location_data, counter, center_lat, center_long, zoom, map_style, scrollable, draggable) {
     var bounds = new google.maps.LatLngBounds();
     var center = new google.maps.LatLng(center_lat, center_long);
     var mobileBreakpoint = 480;
@@ -14,7 +15,7 @@ function wpseo_show_map(location_data, counter, directionsDisplay, center_lat, c
         mapTypeId: google.maps.MapTypeId[ map_style.toUpperCase() ],
         draggable: draggable && window.innerWidth > mobileBreakpoint,
         scrollwheel: scrollable && window.innerWidth > mobileBreakpoint,
-    }
+    };
 
     // Set center
     if (zoom == -1) {
@@ -34,7 +35,6 @@ function wpseo_show_map(location_data, counter, directionsDisplay, center_lat, c
     }
 
     // Set markers + info
-    var markers = new Array();
     var infoWindow = new google.maps.InfoWindow({
         content: infoWindowHTML
     });
@@ -71,6 +71,12 @@ function wpseo_show_map(location_data, counter, directionsDisplay, center_lat, c
             document.getElementById('wpseo_coordinates_long').value = event.latLng.lng();
         });
     }
+
+    return map;
+}
+
+function wpseo_get_directions( map, location_data, counter, show_route ) {
+    var directionsDisplay = '';
 
     if (show_route && location_data.length >= 1) {
         directionsDisplay = new google.maps.DirectionsRenderer();
@@ -115,18 +121,21 @@ function getInfoBubbleText(business_name, business_city_zip, business_country, s
     return infoWindowHTML;
 }
 
-function wpseo_calculate_route(dirDisplay, coords_lat, coords_long, counter) {
+function wpseo_calculate_route(map, dirDisplay, coords_lat, coords_long, counter) {
     if( document.getElementById( 'wpseo-sl-coords-lat' ) != null )
         coords_lat = document.getElementById( 'wpseo-sl-coords-lat' ).value;
     if( document.getElementById( 'wpseo-sl-coords-long' ) != null )
         coords_long = document.getElementById( 'wpseo-sl-coords-long' ).value;
 
-    var start = document.getElementById("origin" + ( counter != 0 ? "_" + counter : "" )).value;
-    var end = new google.maps.LatLng(coords_lat, coords_long);
+    var start = document.getElementById("origin" + ( counter != 0 ? "_" + counter : "" )).value + ' ' + wpseo_local_data.default_country;
     var unit_system = google.maps.UnitSystem.METRIC;
     if (wpseo_local_data.unit_system == 'IMPERIAL')
         unit_system = google.maps.UnitSystem.IMPERIAL;
 
+    // Clear all markers from the map, only show A and B
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
 
     // Change button to link to Google Maps. iPhones and Android phones will automatically open them in Maps app, when available.
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {

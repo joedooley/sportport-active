@@ -107,6 +107,9 @@ class WooThemes_Updater_Admin {
 		add_action( 'wp_ajax_woothemes_activate_license_keys', array( $this, 'ajax_process_request' ) );
 		add_action( 'wp_ajax_woothemes_helper_dismiss_renew', array( $this, 'ajax_process_dismiss_renew' ) );
 		add_action( 'wp_ajax_woothemes_helper_dismiss_activation', array( $this, 'ajax_process_dismiss_activation' ) );
+
+		// Be sure to update our local autorenew flag (key 4) when we refresh the transient.
+		add_action( 'setted_transient', array( $this, 'update_autorenew_status' ), 10, 2 );
 	} // End __construct()
 
 	/**
@@ -142,6 +145,55 @@ class WooThemes_Updater_Admin {
 	} // End maybe_display_activation_notice()
 
 	/**
+	 * Update auto-renew statuses every time we reset the updates transient.
+	 * @param  string  $transient The name of the transient we're working on.
+	 * @param  object  $value The current transient value.
+	 */
+	public function update_autorenew_status( $transient, $value ) {
+		// Deal only with our own transient.
+		if ( 'woothemes_helper_updates' != $transient ) {
+			return;
+		}
+
+		$local_data = get_option( 'woothemes-updater-activated' );
+		$transient_data = $value;
+
+		if ( is_array( $local_data ) && 0 < count( $local_data ) ) {
+			foreach ( $local_data as $k => $v ) {
+				$has_autorenew = $this->is_autorenew_enabled( $k );
+				$local_data[$k][4] = (bool)$has_autorenew;
+			}
+		}
+
+		update_option( 'woothemes-updater-activated', $local_data );
+	}
+
+	/**
+	 * Check if auto-renew is enabled for a product.
+	 * @param  string  $file The plugin filename we're looking at.
+	 * @return boolean       Whether or not auto-renew is enabled.
+	 */
+	public function is_autorenew_enabled( $file ) {
+		$response = 0;
+		$local_data = get_option( 'woothemes-updater-activated' );
+
+		if ( isset( $local_data[$file][4] ) && 1 == $local_data[$file][4] ) {
+			$response = 1;
+		} else {
+			$data = get_transient( 'woothemes_helper_updates' );
+
+			if ( is_object( $data ) ) {
+				if ( isset( $data->plugins->$file->autorenew ) ) {
+					$response = (bool)$data->plugins->$file->autorenew;
+				} else if ( isset( $data->themes->$file->autorenew ) ) {
+					$response = (bool)$data->themes->$file->autorenew;
+				}
+			}
+		}
+		return $response;
+	}
+
+	/**
 	 * Display an admin notice if a product subscription is about to expire.
 	 * @return [type] [description]
 	 */
@@ -153,6 +205,13 @@ class WooThemes_Updater_Admin {
 		$dismiss_url = add_query_arg( 'action', 'woothemes-helper-dismiss-renew', add_query_arg( 'nonce', wp_create_nonce( 'woothemes-helper-dismiss-renew' ) ) );
 
 		foreach ( $products as $file => $product ) {
+			$has_autorenew = $this->is_autorenew_enabled( $file );
+
+			// Skip this product if autorenew is enabled, and the Helper knows about it.
+			if ( 1 == $has_autorenew ) {
+				continue;
+			}
+
 			if ( isset( $product['license_expiry'] ) ) {
 				try {
 					$date = new DateTime( $product['license_expiry'] );
@@ -826,8 +885,8 @@ if ( jQuery( 'form[name="upgrade-themes"]' ).length ) {
 				$activate = $this->api->activate( $products[$k], $product_keys[$k]['product_id'], $k );
 
 				if ( ! ( ! $activate ) ) {
-					// key: base file, 0: product id, 1: file_id, 2: hashed license, 3: expiry date
-					$already_active[$k] = array( $product_keys[$k]['product_id'], $product_keys[$k]['file_id'], md5( $products[$k] ), $activate->expiry_date );
+					// key: base file, 0: product id, 1: file_id, 2: hashed license, 3: expiry date, 4: autorenew status
+					$already_active[$k] = array( $product_keys[$k]['product_id'], $product_keys[$k]['file_id'], md5( $products[$k] ), $activate->expiry_date, (bool)$activate->autorenew );
 					$has_update = true;
 				}
 			}

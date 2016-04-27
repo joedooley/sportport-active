@@ -1,20 +1,22 @@
-/* global YoastSEO: true, wpseoVideoL10n */
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/* global YoastSEO: true, wpseoVideoL10n, AssessmentResult */
 (function() {
-
 	'use strict';
+
+	var AssessmentResult = require( 'yoastseo/js/values/AssessmentResult' );
 
 	/**
 	 * Adds eventListener on page load to load the videoSEO.
 	 */
 	if ( wpseoVideoL10n.has_video === '1' ) {
 		if ( typeof YoastSEO !== 'undefined' && typeof YoastSEO.app !== 'undefined' ) {
-			new YoastVideoSEOplugin();
+			new YoastVideoSEOplugin( YoastSEO.app );
 		}
 		else {
 			jQuery( window ).on(
 				'YoastSEO:ready',
 				function() {
-					new YoastVideoSEOplugin();
+					new YoastVideoSEOplugin( YoastSEO.app );
 				}
 			);
 		}
@@ -23,92 +25,268 @@
 	/**
 	 * Adds the plugin for videoSEO to the YoastSEO Analyzer.
 	 */
-	function YoastVideoSEOplugin() {
-		YoastSEO.app.registerPlugin( 'YoastVideoSEO', { 'status': 'ready' } );
+	function YoastVideoSEOplugin( app ) {
 
-		YoastSEO.app.registerTest( 'videoTitle', this.videoTitle, videoTitleScore, 'YoastVideoSEO' );
+		app.registerPlugin( 'YoastVideoSEO', { 'status': 'ready' } );
 
-		YoastSEO.app.registerTest( 'videoBodyLength', this.videoBodyLength, videoBodyLengthScore, 'YoastVideoSEO' );
+		app.registerAssessment( 'videoTitle', { getResult: this.videoTitle.bind( this ) }, 'YoastVideoSEO' );
+
+		app.registerAssessment( 'videoBodyLength', { getResult: this.videoBodyLength.bind( this ) }, 'YoastVideoSEO' );
+
 	}
 
 	/**
 	 * Tests if the word video appears in the title, returns number of matches
-	 * @returns int
+	 * @param {object} paper The paper to run this assessment on
+	 * @param {object} researcher The researcher used for the assessment
+	 * @param {object} i18n The i18n-object used for parsing translations
+	 * @returns {object} an assessmentresult with the score and formatted text.
 	 */
-	YoastVideoSEOplugin.prototype.videoTitle = function() {
+	YoastVideoSEOplugin.prototype.videoTitle = function( paper, researcher, i18n ) {
 		var videoRegex = new RegExp( wpseoVideoL10n.video, 'ig' );
-		var matches = YoastSEO.app.rawData.title.match( videoRegex );
-		var result = 0;
-		if ( matches !== null ){
-			result = matches.length;
-		}
-		return result;
+		var matches = paper.getTitle().match( videoRegex ) || 0;
+		var assessmentResult = new AssessmentResult();
+		var result = this.scoreVideoTitle( matches );
+		assessmentResult.setScore( result.score ) ;
+		assessmentResult.setText( result.text );
+		return assessmentResult;
 	};
 
 	/**
-	 * score for the video title
-	 * @type {{scoreArray: *[]}}
+	 * Returns the scoreobject based on the number of matches in the videotitle
+	 * @param {array} matches The matches in the videotitle.
+	 * @returns {{score: number, text: *}} The object containing the score and text
 	 */
-	var videoTitleScore = {
-		scoreArray: [
-			{
-				max: 0,
-				score: 6,
-				text: wpseoVideoL10n.video_title_ok
-			},
-			{
-				min: 1,
+	YoastVideoSEOplugin.prototype.scoreVideoTitle = function( matches ) {
+		if ( matches.length > 0 ){
+			return {
 				score: 9,
 				text: wpseoVideoL10n.video_title_good
-			}
-		]
+			};
+		}
+		return{
+			score: 6,
+			text:wpseoVideoL10n.video_title_ok
+		};
 	};
 
 	/**
 	 * returns the wordcount for of the text
 	 * @returns int
 	 */
-	YoastVideoSEOplugin.prototype.videoBodyLength = function(){
-		var wordCount = YoastSEO.app.pageAnalyzer.wordCount();
+	YoastVideoSEOplugin.prototype.videoBodyLength = function( paper, researcher, i18n ) {
+		var wordCount = researcher.getResearch( "wordCountInText" );
+		var assessmentResult = new AssessmentResult();
+		var result = this.scoreVideoBodyLength( wordCount, i18n );
+		assessmentResult.setScore( result.score ) ;
+		assessmentResult.setText( result.text );
 
-		wordCount = wordCount[0].result;
-
-		return wordCount;
+		return assessmentResult;
 	};
 
 	/**
-	 * score for the video body length
-	 * @type {{scoreArray: *[]}}
+	 * Returns the score and text based on the wordcount.
+	 * @param {number} wordCount The number of words in the text
+	 * @returns {{score: number, text: *}} The resultobject
 	 */
-	var videoBodyLengthScore = {
-		scoreArray: [
-			{
-				max: 150,
+	YoastVideoSEOplugin.prototype.scoreVideoBodyLength = function( wordCount, i18n ) {
+		if ( wordCount <= 150 ){
+			return {
 				score: 6,
 				text: wpseoVideoL10n.video_body_short
-			},
-			{
-				min: 150,
-				max: 400,
+			}
+		}
+		if ( wordCount > 150 && wordCount < 400 ){
+			return {
 				score: 9,
 				text: wpseoVideoL10n.video_body_good
-			},
-			{
-				min: 400,
+			}
+		}
+		if ( wordCount >= 400 ) {
+			return {
 				score: 6,
-				text: wpseoVideoL10n.video_body_long
+				text: i18n.sprintf( wpseoVideoL10n.video_body_long, wpseoVideoL10n.video_body_long_url, '</a>' )
 			}
-		],
-		replaceArray: [
-			{
-				name: 'url',
-				position: '%1$s',
-				value: wpseoVideoL10n.video_body_long_url
-			},
-			{	name: 'endTag',
-				position: '%2$s',
-				value: '</a>'
-			}
-		]
+		}
 	};
 }());
+
+},{"yoastseo/js/values/AssessmentResult":2}],2:[function(require,module,exports){
+var isUndefined = require( "lodash/isUndefined" );
+var isNumber = require( "lodash/isNumber" );
+
+/**
+ * Construct the AssessmentResult value object.
+ * @constructor
+ */
+var AssessmentResult = function() {
+	this._hasScore = false;
+	this.score = 0;
+	this.text = "";
+};
+
+/**
+ * Check if a score is available.
+ * @returns {boolean} Whether or not a score is available.
+ */
+AssessmentResult.prototype.hasScore = function() {
+	return this._hasScore;
+};
+
+/**
+ * Get the available score
+ * @returns {number} The score associated with the AssessmentResult.
+ */
+AssessmentResult.prototype.getScore = function() {
+	return this.score;
+};
+
+/**
+ * Set the score for the assessment.
+ * @param {number} score The score to be used for the score property
+ * @returns {void}
+ */
+AssessmentResult.prototype.setScore = function( score ) {
+	if ( isNumber( score ) ) {
+		this.score = score;
+		this._hasScore = true;
+	}
+};
+
+/**
+ * Check if a text is available.
+ * @returns {boolean} Whether or not a text is available.
+ */
+AssessmentResult.prototype.hasText = function() {
+	return this.text !== "";
+};
+
+/**
+ * Get the available text
+ * @returns {string} The text associated with the AssessmentResult.
+ */
+AssessmentResult.prototype.getText = function() {
+	return this.text;
+};
+
+/**
+ * Set the text for the assessment.
+ * @param {string} text The text to be used for the text property
+ * @returns {void}
+ */
+AssessmentResult.prototype.setText = function( text ) {
+	if ( isUndefined( text ) ) {
+		text = "";
+	}
+
+	this.text = text;
+};
+
+module.exports = AssessmentResult;
+
+},{"lodash/isNumber":3,"lodash/isUndefined":5}],3:[function(require,module,exports){
+var isObjectLike = require('./isObjectLike');
+
+/** `Object#toString` result references. */
+var numberTag = '[object Number]';
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var objectToString = objectProto.toString;
+
+/**
+ * Checks if `value` is classified as a `Number` primitive or object.
+ *
+ * **Note:** To exclude `Infinity`, `-Infinity`, and `NaN`, which are
+ * classified as numbers, use the `_.isFinite` method.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is correctly classified,
+ *  else `false`.
+ * @example
+ *
+ * _.isNumber(3);
+ * // => true
+ *
+ * _.isNumber(Number.MIN_VALUE);
+ * // => true
+ *
+ * _.isNumber(Infinity);
+ * // => true
+ *
+ * _.isNumber('3');
+ * // => false
+ */
+function isNumber(value) {
+  return typeof value == 'number' ||
+    (isObjectLike(value) && objectToString.call(value) == numberTag);
+}
+
+module.exports = isNumber;
+
+},{"./isObjectLike":4}],4:[function(require,module,exports){
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return !!value && typeof value == 'object';
+}
+
+module.exports = isObjectLike;
+
+},{}],5:[function(require,module,exports){
+/**
+ * Checks if `value` is `undefined`.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is `undefined`, else `false`.
+ * @example
+ *
+ * _.isUndefined(void 0);
+ * // => true
+ *
+ * _.isUndefined(null);
+ * // => false
+ */
+function isUndefined(value) {
+  return value === undefined;
+}
+
+module.exports = isUndefined;
+
+},{}]},{},[1]);
