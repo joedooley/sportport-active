@@ -2522,6 +2522,8 @@ Miscellaneous
     .genesis-nav-menu .menu-item.current-menu-item > a {
       background-color: #89a;
       color: #ff9934; }
+      .genesis-nav-menu .menu-item.current-menu-item > a:hover {
+        color: #fff; }
   .genesis-nav-menu a {
     border-bottom-width: 0;
     color: #232525;
@@ -2532,8 +2534,6 @@ Miscellaneous
     font-weight: 400;
     padding: 37px 10px 38px;
     text-transform: uppercase; }
-    .genesis-nav-menu a:hover, .genesis-nav-menu a:active, .genesis-nav-menu a:focus {
-      font-weight: 800; }
   .genesis-nav-menu .sub-menu {
     left: -9999px;
     letter-spacing: 0.2em;
@@ -2563,12 +2563,10 @@ Miscellaneous
   .nav-primary a {
     color: #fff;
     font-size: 0.75rem;
-    font-weight: 700;
     text-decoration: none;
     text-transform: uppercase; }
     .nav-primary a:hover, .nav-primary a:focus, .nav-primary a:active {
       background-color: #89a;
-      font-weight: bold;
       -webkit-transition: all 0.5s ease-in-out;
       -moz-transition: all 0.5s ease-in-out;
       transition: all 0.5s ease-in-out; }
@@ -2701,7 +2699,7 @@ Miscellaneous
       .js .genesis-nav-menu .menu-item .sub-menu > .menu-item:last-child {
         border-bottom: 0; }
       .js .genesis-nav-menu .menu-item .sub-menu > .menu-item a:hover {
-        color: #567; }
+        color: #fff; }
 
   .js .genesis-nav-menu .menu-item:hover {
     position: relative; }
@@ -3279,6 +3277,10 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p,
 body.woocommerce .quantity .qty {
   color: #333;
   font-size: 1em; }
+
+body.woocommerce div.product div.images div.thumbnails {
+  margin-left: 5em;
+  padding-top: 11em; }
 
 /*! ## Layout
 --------------------------- */

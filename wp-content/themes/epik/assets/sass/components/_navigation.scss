@@ -22,7 +22,11 @@
 
 		&.current-menu-item > a {
 			background-color: #89a;
-			color: $orange
+			color: $orange;
+
+			&:hover {
+				color: #fff;
+			}
 		}
 
 	}
@@ -40,11 +44,6 @@
 		@include padding(37px 10px 38px 10px);
 		text-transform: uppercase;
 
-		&:hover,
-		&:active,
-		&:focus {
-			font-weight: 800;
-		}
 	}
 
 	.sub-menu {

@@ -208,3 +208,10 @@ body.woocommerce .quantity .qty {
 	color: #333;
 	font-size: em(16);
 }
+
+
+// Thumbnail Container
+body.woocommerce div.product div.images div.thumbnails {
+	margin-left: 5em;
+	padding-top: 11em;
+}
