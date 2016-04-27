@@ -67,8 +67,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 				/**
 				 * woocommerce_after_single_variation Hook.
 				 */
-				do_action( 'woocommerce_after_single_variation' );
-			?>
+				do_action( 'woocommerce_after_single_variation' ); ?>
 		</div>
 
 		<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>

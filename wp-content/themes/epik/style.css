@@ -3278,8 +3278,14 @@ body.woocommerce .quantity .qty {
   font-size: 1em; }
 
 body.woocommerce div.product div.images div.thumbnails {
-  margin-left: 5em;
-  padding-top: 11em; }
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-top: 11em; }
+
+body.woocommerce div.product form.cart .woocommerce-variation-description p:first-child {
+  border-top: 1px solid #cacaca;
+  margin-top: 7em;
+  padding-top: 2em; }
 
 /*! ## Layout
 --------------------------- */

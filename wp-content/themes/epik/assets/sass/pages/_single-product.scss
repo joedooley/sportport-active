@@ -214,6 +214,14 @@ body.woocommerce .quantity .qty {
 
 // Thumbnail Container
 body.woocommerce div.product div.images div.thumbnails {
-	margin-left: 5em;
-	padding-top: 11em;
+	margin-left: 1em;
+	margin-right: 1em;
+	margin-top: 11em;
+}
+
+// Variation Description
+body.woocommerce div.product form.cart .woocommerce-variation-description p:first-child {
+	border-top: $border;
+	margin-top: 7em;
+	padding-top: 2em;
 }

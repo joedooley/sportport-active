@@ -1,4 +1,4 @@
-/* global wc_cart_params */
+w/* global wc_cart_params */
 jQuery( function( $ ) {
 
 	// wc_cart_params is required to continue, ensure the object exists
