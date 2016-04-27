@@ -43,8 +43,12 @@
 				text-transform: uppercase;
 
 				&:hover {
-					color: #888;
+					color: #f93;
 				}
+			}
+
+			&.current-menu-item > a {
+				color: #f93;
 			}
 		}
 
