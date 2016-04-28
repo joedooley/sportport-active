@@ -10,6 +10,11 @@ body.single-product {
 
 	.site-inner {
 		padding-top: 0;
+
+		@include media($xlarge-screen-up) {
+			padding-left: 0;
+			padding-right: 0;
+		}
 	}
 
 	// WooCommerce Message Section

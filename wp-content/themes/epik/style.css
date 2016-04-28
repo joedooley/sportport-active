@@ -3169,6 +3169,10 @@ body.single-product .site-inner .wrap {
   max-width: none; }
 body.single-product .site-inner {
   padding-top: 0; }
+  @media screen and (max-width: 1023px) {
+    body.single-product .site-inner {
+      padding-left: 0;
+      padding-right: 0; } }
 body.single-product.woocommerce .woocommerce-error, body.single-product.woocommerce .woocommerce-info, body.single-product.woocommerce .woocommerce-message {
   background: #ebebeb;
   margin-bottom: 0 !important;
