@@ -20,15 +20,19 @@ if ( ! class_exists( 'Yoast_Product_WPSEO_Video' ) ) {
 		 * Set up the WPSEO_Video product
 		 */
 		public function __construct() {
+			$file = plugin_basename( WPSEO_Video_Sitemap::get_plugin_file() );
+			$slug = dirname( $file );
+
 			parent::__construct(
 				'http://yoast.com/edd-sl-api',
 				'Video SEO for WordPress',
-				plugin_basename( WPSEO_Video_Sitemap::get_plugin_file() ),
+				$slug,
 				WPSEO_VIDEO_VERSION,
 				'https://yoast.com/wordpress/plugins/video-seo/',
 				'admin.php?page=wpseo_licenses#top#licenses',
 				'yoast-video-seo',
-				'Yoast'
+				'Yoast',
+				$file
 			);
 		}
 

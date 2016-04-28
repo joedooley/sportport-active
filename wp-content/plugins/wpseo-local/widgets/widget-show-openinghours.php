@@ -1,16 +1,34 @@
 <?php
+/**
+ * @package WPSEO_Local\Frontend
+ */
 
+/**
+ * Class WPSEO_Show_OpeningHours.
+ *
+ * Creates widget for showing the address.
+ */
 class WPSEO_Show_OpeningHours extends WP_Widget {
-	/** constructor */
+
+	/**
+	 * WPSEO_Show_OpeningHours constructor.
+	 */
 	function __construct() {
 		$widget_options = array(
 			'classname'   => 'WPSEO_Show_OpeningHours',
-			'description' => __( 'Shows opening hours of locations in Schema.org standards.', 'yoast-local-seo' )
+			'description' => __( 'Shows opening hours of locations in Schema.org standards.', 'yoast-local-seo' ),
 		);
 		parent::__construct( false, $name = __( 'WP SEO - Show Opening hours', 'yoast-local-seo' ), $widget_options );
 	}
 
-	/** @see WP_Widget::widget */
+	/** @see WP_Widget::widget
+	 * Displays the store locator form.
+	 *
+	 * @param array $args     Array of options for this widget.
+	 * @param array $instance Instance of the widget.
+	 *
+	 * @return string|void
+	 */
 	function widget( $args, $instance ) {
 		global $wpseo_local_core;
 
@@ -29,14 +47,17 @@ class WPSEO_Show_OpeningHours extends WP_Widget {
 			'widget_title' => $title,
 			'before_title' => $args['before_title'],
 			'after_title'  => $args['after_title'],
-			'hide_closed'  => $instance['hide_closed'] ? 1 : 0,
+			'hide_closed'  => ( $instance['hide_closed'] ) ? 1 : 0,
 			'show_days'    => $instance['show_days'],
 		);
 
+		if ( 'current' == $location_id ) {
+			$location_id = get_the_ID();
+		}
+
 		$location_data = $wpseo_local_core->get_location_data( $location_id );
 		$location_data = ! empty( $location_data['businesses'] ) ? $location_data['businesses'][0] : null;
-
-		if( null == $location_data ) {
+		if ( null == $location_data ) {
 			return '';
 		}
 
@@ -48,11 +69,11 @@ class WPSEO_Show_OpeningHours extends WP_Widget {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
 
-		if ( ! isset ( $instance['hide_closed'] ) ) {
+		if ( ! isset( $instance['hide_closed'] ) ) {
 			$instance['hide_closed'] = 0;
 		}
 
-		// Displaying location data as <meta> tags, so the schema.org validation will be positive
+		// Displaying location data as <meta> tags, so the schema.org validation will be positive.
 		echo '<div itemscope itemtype="http://schema.org/' . esc_attr( $location_data['business_type'] ) . '">';
 		echo '<meta itemprop="name" content="' . esc_attr( $location_data['business_name'] ) . '">';
 
@@ -63,10 +84,15 @@ class WPSEO_Show_OpeningHours extends WP_Widget {
 			echo $args['after_widget'];
 		}
 
-		return true;
+		return '';
 	}
 
-	/** @see WP_Widget::update */
+	/** @see WP_Widget::update
+	 * @param array $new_instance New option values for this widget.
+	 * @param array $old_instance Old, current option values for this widget.
+	 *
+	 * @return array
+	 */
 	function update( $new_instance, $old_instance ) {
 		$instance                = $old_instance;
 		$instance['title']       = esc_attr( $new_instance['title'] );
@@ -78,7 +104,13 @@ class WPSEO_Show_OpeningHours extends WP_Widget {
 		return $instance;
 	}
 
-	/** @see WP_Widget::form */
+	/** @see WP_Widget::form
+	 * Displays the form for the widget options.
+	 *
+	 * @param array $instance Array with all the (saved) option values.
+	 *
+	 * @return string
+	 */
 	function form( $instance ) {
 		$title       = ! empty( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
 		$location_id = ! empty( $instance['location_id'] ) ? esc_attr( $instance['location_id'] ) : '';
@@ -88,57 +120,63 @@ class WPSEO_Show_OpeningHours extends WP_Widget {
 		?>
 		<p>
 			<label
-					for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'yoast-local-seo' ); ?></label>
+				for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'yoast-local-seo' ); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>"
-						 name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" />
+			       name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" />
 		</p>
 
-		<?php if ( wpseo_has_multiple_locations() ) { ?>
+		<?php
+		if ( wpseo_has_multiple_locations() ) {
+			?>
 			<p>
 				<label
-						for="<?php echo $this->get_field_id( 'location_id' ); ?>"><?php _e( 'Location:', 'yoast-local-seo' ); ?></label>
+					for="<?php echo $this->get_field_id( 'location_id' ); ?>"><?php _e( 'Location:', 'yoast-local-seo' ); ?></label>
 				<?php
-				$args = array(
+				$args      = array(
 					'post_type'      => 'wpseo_locations',
 					'orderby'        => 'name',
 					'order'          => 'ASC',
-					'posts_per_page' => - 1,
-					'fields'		 => 'ids'
+					'posts_per_page' => -1,
+					'fields'         => 'ids',
 				);
 				$locations = get_posts( $args );
 				?>
 				<select name="<?php echo $this->get_field_name( 'location_id' ); ?>"
-								id="<?php echo $this->get_field_id( 'location_id' ); ?>">
+				        id="<?php echo $this->get_field_id( 'location_id' ); ?>">
 					<option value=""><?php _e( 'Select a location', 'yoast-local-seo' ); ?></option>
 					<option value="current" <?php selected( $location_id, 'current' ); ?>><?php _e( 'Use current location', 'yoast-local-seo' ); ?></option>
 					<?php foreach ( $locations as $loc_id ) { ?>
 						<option
-								value="<?php echo $loc_id; ?>" <?php selected( $location_id, $loc_id ); ?>><?php echo get_the_title( $loc_id ); ?></option>
+							value="<?php echo $loc_id; ?>" <?php selected( $location_id, $loc_id ); ?>><?php echo get_the_title( $loc_id ); ?></option>
 					<?php } ?>
 				</select>
 			</p>
-		<?php } ?>
+			<?php
+		}
+		?>
+
 		<p>
-			<?php _e( 'Show days', 'yoast-seo-local' ); ?>:<br>
+			<?php _e( 'Show days', 'yoast-local-seo' ); ?>:<br>
 			<?php
 			$days = array(
-				'sunday' => __( 'Sunday', 'yoast-local-seo' ),
-				'monday' => __( 'Monday', 'yoast-local-seo' ),
-				'tuesday' => __( 'Tuesday', 'yoast-local-seo' ),
+				'sunday'    => __( 'Sunday', 'yoast-local-seo' ),
+				'monday'    => __( 'Monday', 'yoast-local-seo' ),
+				'tuesday'   => __( 'Tuesday', 'yoast-local-seo' ),
 				'wednesday' => __( 'Wednesday', 'yoast-local-seo' ),
-				'thursday' => __( 'Thursday', 'yoast-local-seo' ),
-				'friday' => __( 'Friday', 'yoast-local-seo' ),
-				'saturday' => __( 'Saturday', 'yoast-local-seo' ),
+				'thursday'  => __( 'Thursday', 'yoast-local-seo' ),
+				'friday'    => __( 'Friday', 'yoast-local-seo' ),
+				'saturday'  => __( 'Saturday', 'yoast-local-seo' ),
 			);
-			foreach( $days as $key => $day ) {
+			foreach ( $days as $key => $day ) {
 				echo '<label for="' . $this->get_field_id( 'show_days' . $key ) . '"><input type="checkbox" id="' . $this->get_field_id( 'show_days' . $key ) . '" value="' . $key . '" name="' . $this->get_field_name( 'show_days[]' ) . '" ' . ( ! empty( $show_days ) ? ( in_array( $key, $show_days ) ? 'checked' : '' ) : 'checked' ) . ' />' . $day . '</label><br>';
-			} ?>
+			}
+			?>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'hide_closed' ); ?>">
 				<input id="<?php echo $this->get_field_id( 'hide_closed' ); ?>"
-							 name="<?php echo $this->get_field_name( 'hide_closed' ); ?>" type="checkbox"
-							 value="1" <?php echo ! empty( $hide_closed ) ? ' checked="checked"' : ''; ?> />
+				       name="<?php echo $this->get_field_name( 'hide_closed' ); ?>" type="checkbox"
+				       value="1" <?php echo ! empty( $hide_closed ) ? ' checked="checked"' : ''; ?> />
 				<?php _e( 'Hide closed days', 'yoast-local-seo' ); ?>
 			</label>
 		</p>
@@ -148,6 +186,8 @@ class WPSEO_Show_OpeningHours extends WP_Widget {
 			<textarea id="<?php echo $this->get_field_id( 'comment' ); ?>" class="widefat" name="<?php echo $this->get_field_name( 'comment' ); ?>"><?php echo esc_attr( $comment ); ?></textarea>
 		</p>
 
-	<?php
+		<?php
+
+		return '';
 	}
 }

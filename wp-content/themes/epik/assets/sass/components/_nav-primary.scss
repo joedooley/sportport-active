@@ -2,7 +2,7 @@
 
 .nav-primary {
 	float: right;
-	margin-top: em(25);
+	//margin-top: em(25);
 
 	@include media($xlarge-screen-up) {
 		width: 100%;
@@ -10,15 +10,18 @@
 
 	a {
 		color: #fff;
-		font-size: em(14);
+		font-size: 0.75rem;
 		text-decoration: none;
+		text-transform: uppercase;
 
-		&:hover,
-		&:focus,
+
 		&:active {
-			color: #fff;
-			font-weight: bold;
-			@include transition(all 0.5s ease-in-out);
+			background-color: $menu-grey;
+		}
+
+		&:hover {
+			background-color: $orange-hover;
+			@include transition(all 0.2s ease-in);
 		}
 	}
 
@@ -31,7 +34,6 @@
 	}
 
 	.sub-menu {
-		border-top: 1px solid #ddd;
 		z-index: 1;
 	}
 

@@ -1,8 +1,8 @@
 Video SEO
 =========
-Requires at least: 4.0<br/>
-Tested up to: 4.4<br/>
-Stable tag: 3.0<br/>
+Requires at least: 4.3<br/>
+Tested up to: 4.5<br/>
+Stable tag: 3.2<br/>
 Depends: wordpress-seo
 
 Video SEO adds Video SEO capabilities to WordPress SEO.
@@ -31,6 +31,11 @@ You can find the FAQ [online here](http://kb.yoast.com/category/8-video-seo).
 Changelog
 =========
 
+### 3.2: April 20th, 2016
+
+* Fixes a bug where the video sitemap cache wasn't cleared on activation. 
+* Fixes a bug where video specific checks that were added to the content analysis would no longer work in combination with Yoast SEO 3.2 and higher.
+* Fixes a bug where clicking the 'Update now' button on the plugin page didn't update correctly.
 
 ### 3.1: March 1st, 2016
 

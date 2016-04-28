@@ -1,6 +1,6 @@
 <?php
 /**
- * @package Admin
+ * @package WPSEO_LOCA\Admin
  */
 
 if ( ! defined( 'WPSEO_LOCAL_VERSION' ) ) {
@@ -10,12 +10,20 @@ if ( ! defined( 'WPSEO_LOCAL_VERSION' ) ) {
 }
 
 if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
+
 	/**
 	 * Class that holds most of the admin functionality for WP SEO Local.
 	 */
 	class WPSEO_Local_Admin {
 
+		/**
+		 * @var string    Group name for the options.
+		 */
 		var $group_name = 'yoast_wpseo_local_options';
+
+		/**
+		 * @var string    Option name.
+		 */
 		var $option_name = 'wpseo_local';
 
 		/**
@@ -25,28 +33,29 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 
 			add_action( 'admin_init', array( $this, 'options_init' ) );
 
-			// Adds page to WP SEO menu
+			// Adds page to WP SEO menu.
 			add_action( 'wpseo_submenu_pages', array( $this, 'register_settings_page' ), 20 );
 
-			// Register local into admin_pages
+			// Register local into admin_pages.
 			$this->register_wpseo();
 
-			// Add import options for Local SEO to general import panel of WP SEO
+			// Add import options for Local SEO to general import panel of WP SEO.
 			if ( wpseo_has_multiple_locations() ) {
 				if ( version_compare( WPSEO_VERSION, '2', '>=' ) ) {
 					add_action( 'wpseo_import_tab_header', array( $this, 'create_import_tab_header' ) );
 					add_action( 'wpseo_import_tab_content', array( $this, 'create_import_tab_content' ) );
-				} else {
+				}
+				else {
 					add_action( 'wpseo_import', array( $this, 'import_panel' ), 10, 1 );
 				}
 			}
 
-			// Add styles and scripts
+			// Add styles and scripts.
 			add_action( 'admin_enqueue_scripts', array( $this, 'config_page_scripts' ) );
 			add_action( 'admin_print_styles', array( $this, 'config_page_styles' ) );
 			add_action( 'admin_footer', array( $this, 'config_page_footer' ) );
 
-			// Flush the rewrite rules after options change
+			// Flush the rewrite rules after options change.
 			add_action( 'update_option_wpseo_local', array( $this, 'update_multiple_locations' ), 10, 2 );
 			add_action( 'admin_init', array( $this, 'flush_rewrite_rules' ) );
 		}
@@ -69,6 +78,10 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 
 		/**
 		 * Registers local page
+		 *
+		 * @param array $pages Array of admin pages.
+		 *
+		 * @return array
 		 */
 		function register_local_page( $pages ) {
 			$pages[] = 'wpseo_local';
@@ -77,9 +90,13 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 		}
 
 		/**
-		 * Registers the settings page in the WP SEO menu
+		 * Registers the settings page in the WP SEO menu.
 		 *
 		 * @since 1.0
+		 *
+		 * @param array $submenu_pages Array of submenu pages for SEO admin menu item.
+		 *
+		 * @return array
 		 */
 		function register_settings_page( $submenu_pages ) {
 			$submenu_pages[] = array(
@@ -95,7 +112,7 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 		}
 
 		/**
-		 * Load the form for a WPSEO admin page
+		 * Load the form for a WPSEO admin page.
 		 */
 		function load_page() {
 			if ( isset( $_GET['page'] ) ) {
@@ -113,16 +130,23 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 
 			if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				$css_ext = '.css';
-			} else {
+			}
+			else {
 				$css_ext = '.min.css';
 			}
 
 			if ( $pagenow == 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] == 'wpseo_local' ) {
 				wp_enqueue_style( 'yoast-local-admin-css', plugins_url( 'styles/yst_plugin_tools' . $css_ext, dirname( __FILE__ ) ), WPSEO_LOCAL_VERSION );
-			} else if ( ( $pagenow == 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] == 'wpseo_local' ) || ( in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) && $post->post_type == 'wpseo_locations' ) ) {
+			}
+			else if ( ( $pagenow == 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] == 'wpseo_local' ) || ( in_array( $pagenow, array(
+				'post.php',
+				'post-new.php',
+			) ) && $post->post_type == 'wpseo_locations' )
+			) {
 				wp_enqueue_style( 'jquery-chosen-css', plugins_url( 'styles/chosen' . $css_ext, dirname( __FILE__ ) ), WPSEO_LOCAL_VERSION );
 				wp_enqueue_style( 'wpseo-local-admin-css', plugins_url( 'styles/admin' . $css_ext, dirname( __FILE__ ) ), WPSEO_LOCAL_VERSION );
-			} else {
+			}
+			else {
 				if ( $pagenow == 'post-new.php' || $pagenow == 'post.php' ) {
 					wp_enqueue_style( 'wpseo-local-admin-css', plugins_url( 'styles/admin' . $css_ext, dirname( __FILE__ ) ), WPSEO_LOCAL_VERSION );
 				}
@@ -136,14 +160,19 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 			if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				$css_ext = '.css';
 				$js_ext  = '.js';
-			} else {
+			}
+			else {
 				$css_ext = '.min.css';
 				$js_ext  = '.min.js';
 			}
 
 			wp_enqueue_script( 'wpseo-local-global-script', plugins_url( 'js/wp-seo-local-global' . $js_ext, dirname( __FILE__ ) ), array( 'jquery' ), WPSEO_LOCAL_VERSION, true );
 			global $pagenow, $post;
-			if ( ( $pagenow == 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] == 'wpseo_local' ) || ( in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) && $post->post_type == 'wpseo_locations' ) || ( 'edit-tags.php' == $pagenow ) ) {
+			if ( ( $pagenow == 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] == 'wpseo_local' ) || ( in_array( $pagenow, array(
+				'post.php',
+				'post-new.php',
+			) ) && $post->post_type == 'wpseo_locations' ) || ( 'edit-tags.php' == $pagenow )
+			) {
 				wp_enqueue_script( 'jquery-chosen', plugins_url( 'js/chosen.jquery.min.js', dirname( __FILE__ ) ), array( 'jquery' ), WPSEO_LOCAL_VERSION, true );
 				wp_enqueue_style( 'jquery-chosen-css', plugins_url( 'styles/chosen' . $css_ext, dirname( __FILE__ ) ), WPSEO_LOCAL_VERSION );
 				wp_enqueue_media();
@@ -155,7 +184,11 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 		 */
 		function config_page_footer() {
 			global $pagenow, $post;
-			if ( ( $pagenow == 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] == 'wpseo_local' ) || ( in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) && $post->post_type == 'wpseo_locations' ) ) {
+			if ( ( $pagenow == 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] == 'wpseo_local' ) || ( in_array( $pagenow, array(
+				'post.php',
+				'post-new.php',
+			) ) && $post->post_type == 'wpseo_locations' )
+			) {
 				?>
 				<script>
 					jQuery(document).ready(function ($) {
@@ -170,6 +203,7 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 
 		/**
 		 * Creates new import tab
+		 *
 		 * @since 1.3.5
 		 */
 		function create_import_tab_header() {
@@ -178,6 +212,7 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 
 		/**
 		 * Creates content for Local SEO import tab
+		 *
 		 * @since 1.3.5
 		 */
 		function create_import_tab_content() {
@@ -198,7 +233,7 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 		 */
 		function output_import_html() {
 			$upload_dir       = wp_upload_dir();
-			$wpseo_upload_dir = $upload_dir["basedir"] . '/wpseo/import/';
+			$wpseo_upload_dir = $upload_dir['basedir'] . '/wpseo/import/';
 
 			echo '<p>' . sprintf( __( 'View the %sdocumentation%s to check what format of the CSV file should be.', 'yoast-local-seo' ), '<a href="https://yoast.com/question/csv-import-file-local-seo-look-like/" target="_blank">', '</a>' ) . '</p>';
 
@@ -223,7 +258,7 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 				echo '<p>' . sprintf( __( 'Make sure the %s directory is writeable.', 'yoast-local-seo' ), '<code>"' . $wpseo_upload_dir . '"</code>' ) . '</p>';
 			}
 
-			# Add a NONCE field
+			// Add a NONCE field.
 			echo wp_nonce_field( 'wpseo_local_import_nonce', 'wpseo_local_import_nonce_field' );
 
 			echo '<input type="submit" class="button-primary" name="csv-import" value="Import" ' . ( ! is_writable( $wpseo_upload_dir ) ? ' disabled="disabled"' : '' ) . ' />';
@@ -254,11 +289,12 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 		public function handle_csv_import() {
 			/**
 			 * Set the max execution time of this script to 3600 seconds (1 hour)
+			 *
 			 * @TODO: Devide the upload in batches of 10 locations per batch.
 			 */
 			ini_set( 'max_execution_time', 3600 );
 			$upload_dir       = wp_upload_dir();
-			$wpseo_upload_dir = $upload_dir["basedir"] . '/wpseo/import/';
+			$wpseo_upload_dir = $upload_dir['basedir'] . '/wpseo/import/';
 			$options          = get_option( $this->option_name );
 			$count            = 0;
 			$last_imported    = 0;
@@ -267,71 +303,91 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 				$csv_path = $wpseo_upload_dir . basename( $_FILES['wpseo']['name']['csvuploadlocations'] );
 				if ( ! empty( $_FILES['wpseo'] ) && ! move_uploaded_file( $_FILES['wpseo']['tmp_name']['csvuploadlocations'], $csv_path ) ) {
 					echo '<p class="error">' . __( 'Sorry, there was an error while uploading the CSV file.<br>Please make sure the ' . $wpseo_upload_dir . ' directory is writable (chmod 777).', 'yoast-local-seo' ) . '</p>';
-				} else {
+				}
+				else {
 					$is_simplemap_import = ! empty( $_POST['is-simplemap-import'] ) && $_POST['is-simplemap-import'] == '1';
 
-					$separator = ",";
-					if ( ( ! empty( $_POST['csv_separator'] ) && $_POST['csv_separator'] == "semicolon" ) && false == $is_simplemap_import ) {
-						$separator = ";";
+					$separator = ',';
+					if ( ( ! empty( $_POST['csv_separator'] ) && $_POST['csv_separator'] == 'semicolon' ) && false == $is_simplemap_import ) {
+						$separator = ';';
 					}
 
-					// Get location data from CSV
+					// Get location data from CSV.
 					$column_names = array(
-						"name",
-						"address",
-						"city",
-						"zipcode",
-						"state",
-						"country",
-						"phone",
-						"phone2nd",
-						"fax",
-						"email",
-						"description",
-						"image",
-						"category",
-						"url",
-						"vat_id",
-						"tax_id",
-						"coc_id",
-						"notes_1",
-						"notes_2",
-						"notes_3",
-						"business_type",
-						"opening_hours_monday_from",
-						"opening_hours_monday_to",
-						"opening_hours_monday_second_from",
-						"opening_hours_monday_second_to",
-						"opening_hours_tuesday_from",
-						"opening_hours_tuesday_to",
-						"opening_hours_tuesday_second_from",
-						"opening_hours_tuesday_second_to",
-						"opening_hours_wednesday_from",
-						"opening_hours_wednesday_to",
-						"opening_hours_wednesday_second_from",
-						"opening_hours_wednesday_second_to",
-						"opening_hours_thursday_from",
-						"opening_hours_thursday_to",
-						"opening_hours_thursday_second_from",
-						"opening_hours_thursday_second_to",
-						"opening_hours_friday_from",
-						"opening_hours_friday_to",
-						"opening_hours_friday_second_from",
-						"opening_hours_friday_second_to",
-						"opening_hours_saturday_from",
-						"opening_hours_saturday_to",
-						"opening_hours_saturday_second_from",
-						"opening_hours_saturday_second_to",
-						"opening_hours_sunday_from",
-						"opening_hours_sunday_to",
-						"opening_hours_sunday_second_from",
-						"opening_hours_sunday_second_to"
+						'name',
+						'address',
+						'city',
+						'zipcode',
+						'state',
+						'country',
+						'phone',
+						'phone2nd',
+						'fax',
+						'email',
+						'description',
+						'image',
+						'category',
+						'url',
+						'vat_id',
+						'tax_id',
+						'coc_id',
+						'notes_1',
+						'notes_2',
+						'notes_3',
+						'business_type',
+						'opening_hours_monday_from',
+						'opening_hours_monday_to',
+						'opening_hours_monday_second_from',
+						'opening_hours_monday_second_to',
+						'opening_hours_tuesday_from',
+						'opening_hours_tuesday_to',
+						'opening_hours_tuesday_second_from',
+						'opening_hours_tuesday_second_to',
+						'opening_hours_wednesday_from',
+						'opening_hours_wednesday_to',
+						'opening_hours_wednesday_second_from',
+						'opening_hours_wednesday_second_to',
+						'opening_hours_thursday_from',
+						'opening_hours_thursday_to',
+						'opening_hours_thursday_second_from',
+						'opening_hours_thursday_second_to',
+						'opening_hours_friday_from',
+						'opening_hours_friday_to',
+						'opening_hours_friday_second_from',
+						'opening_hours_friday_second_to',
+						'opening_hours_saturday_from',
+						'opening_hours_saturday_to',
+						'opening_hours_saturday_second_from',
+						'opening_hours_saturday_second_to',
+						'opening_hours_sunday_from',
+						'opening_hours_sunday_to',
+						'opening_hours_sunday_second_from',
+						'opening_hours_sunday_second_to',
 					);
 					if ( $is_simplemap_import ) {
-						$column_names = array( "name", "address", "address2", "city", "state", "zipcode", "country", "phone", "email", "fax", "url", "description", "special", "lat", "long", "pubdate", "category", "tag" );
+						$column_names = array(
+							'name',
+							'address',
+							'address2',
+							'city',
+							'state',
+							'zipcode',
+							'country',
+							'phone',
+							'email',
+							'fax',
+							'url',
+							'description',
+							'special',
+							'lat',
+							'long',
+							'pubdate',
+							'category',
+							'tag',
+						);
 					}
 
-					$handle    = fopen( $csv_path, "r" );
+					$handle    = fopen( $csv_path, 'r' );
 					$locations = array();
 					$row       = 0;
 					while ( ( $csvdata = fgetcsv( $handle, 2000, $separator ) ) !== false ) {
@@ -339,8 +395,16 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 							$tmp_location = array();
 							for ( $i = 0; $i < count( $column_names ); $i ++ ) {
 
-								// Skip columns for simplemap import
-								if ( $is_simplemap_import && in_array( $column_names[ $i ], array( 'address2', 'email', 'url', 'special', 'pubdate', 'tag' ) ) ) {
+								// Skip columns for simplemap import.
+								if ( $is_simplemap_import && in_array( $column_names[ $i ], array(
+									'address2',
+									'email',
+									'url',
+									'special',
+									'pubdate',
+									'tag',
+								) )
+								) {
 									continue;
 								}
 
@@ -360,16 +424,16 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 					$business_types = $wpseo_local_core->get_local_business_types();
 					array_walk( $business_types, 'wpseo_local_sanitize_business_types' );
 
-					// Create WordPress posts in custom post type
+					// Create WordPress posts in custom post type.
 					$errors = array();
 
 					foreach ( $locations as $location ) {
-						// Create standard post data
+						// Create standard post data.
 						$current_post['ID']           = '';
-						$current_post['post_title']   = isset( $location["name"] ) ? $location["name"] : '';
-						$current_post['post_content'] = isset( $location["description"] ) ? $location["description"] : '';
-						$current_post['post_status']  = "publish";
-						$current_post['post_date']    = date( "Y-m-d H:i:s", time() );
+						$current_post['post_title']   = isset( $location['name'] ) ? $location['name'] : '';
+						$current_post['post_content'] = isset( $location['description'] ) ? $location['description'] : '';
+						$current_post['post_status']  = 'publish';
+						$current_post['post_date']    = date( 'Y-m-d H:i:s', time() );
 						$current_post['post_type']    = 'wpseo_locations';
 
 						$post_id = wp_insert_post( $current_post );
@@ -386,7 +450,8 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 								if ( ! is_wp_error( $geo_data ) && ! empty( $geo_data->results[0] ) ) {
 									$location['lat']  = $geo_data->results[0]->geometry->location->lat;
 									$location['long'] = $geo_data->results[0]->geometry->location->lng;
-								} else {
+								}
+								else {
 									$location['lat']  = '';
 									$location['long'] = '';
 
@@ -396,32 +461,33 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 											$errors[] = sprintf( __( 'The last successfully imported location is <a href="%s" title="%s">%s</a>', 'yoast-local-seo' ), get_edit_post_link( $last_imported ), get_the_title( $last_imported ), get_the_title( $last_imported ) );
 										}
 										break;
-									} else {
-										$errors[] = sprintf( __( 'Location <em>' . esc_attr( $location["name"] ) . '</em> could not be geo-coded. %sEdit this location%s.', 'yoast-local-seo' ), '<a href="' . admin_url( 'post.php?post=' . esc_attr( $post_id ) . '&action=edit' ) . '">', '</a>' );
+									}
+									else {
+										$errors[] = sprintf( __( 'Location <em>' . esc_attr( $location['name'] ) . '</em> could not be geo-coded. %sEdit this location%s.', 'yoast-local-seo' ), '<a href="' . admin_url( 'post.php?post=' . esc_attr( $post_id ) . '&action=edit' ) . '">', '</a>' );
 									}
 								}
 							}
 
-							// Insert custom fields for location details
+							// Insert custom fields for location details.
 							if ( ! empty( $post_id ) ) {
-								add_post_meta( $post_id, "_wpseo_business_name", isset( $location["name"] ) ? sanitize_text_field( $location["name"] ) : '', true );
-								add_post_meta( $post_id, '_wpseo_business_address', isset( $location["address"] ) ? sanitize_text_field( $location["address"] ) : '', true );
-								add_post_meta( $post_id, '_wpseo_business_city', isset( $location["city"] ) ? sanitize_text_field( $location["city"] ) : '', true );
-								add_post_meta( $post_id, '_wpseo_business_state', isset( $location["state"] ) ? sanitize_text_field( $location["state"] ) : '', true );
-								add_post_meta( $post_id, '_wpseo_business_zipcode', isset( $location["zipcode"] ) ? sanitize_text_field( $location["zipcode"] ) : '', true );
-								add_post_meta( $post_id, '_wpseo_business_country', isset( $location["country"] ) ? sanitize_text_field( $location["country"] ) : '', true );
-								add_post_meta( $post_id, '_wpseo_business_phone', isset( $location["phone"] ) ? sanitize_text_field( $location["phone"] ) : '', true );
-								add_post_meta( $post_id, '_wpseo_business_fax', isset( $location["fax"] ) ? sanitize_text_field( $location["fax"] ) : '', true );
-								add_post_meta( $post_id, '_wpseo_business_email', isset( $location["email"] ) ? sanitize_email( $location["email"] ) : '', true );
-								add_post_meta( $post_id, '_wpseo_business_vat_id', isset( $location["vat_id"] ) ? sanitize_text_field( $location["vat_id"] ) : '', true );
-								add_post_meta( $post_id, '_wpseo_business_tax_id', isset( $location["tax_id"] ) ? sanitize_text_field( $location["tax_id"] ) : '', true );
-								add_post_meta( $post_id, '_wpseo_business_coc_id', isset( $location["coc_id"] ) ? sanitize_text_field( $location["coc_id"] ) : '', true );
-								add_post_meta( $post_id, '_wpseo_business_notes_1', isset( $location["notes_1"] ) ? sanitize_text_field( $location["notes_1"] ) : '', true );
-								add_post_meta( $post_id, '_wpseo_business_notes_2', isset( $location["notes_2"] ) ? sanitize_text_field( $location["notes_2"] ) : '', true );
-								add_post_meta( $post_id, '_wpseo_business_notes_3', isset( $location["notes_3"] ) ? sanitize_text_field( $location["notes_3"] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_name', isset( $location['name'] ) ? sanitize_text_field( $location['name'] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_address', isset( $location['address'] ) ? sanitize_text_field( $location['address'] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_city', isset( $location['city'] ) ? sanitize_text_field( $location['city'] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_state', isset( $location['state'] ) ? sanitize_text_field( $location['state'] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_zipcode', isset( $location['zipcode'] ) ? sanitize_text_field( $location['zipcode'] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_country', isset( $location['country'] ) ? sanitize_text_field( $location['country'] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_phone', isset( $location['phone'] ) ? sanitize_text_field( $location['phone'] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_fax', isset( $location['fax'] ) ? sanitize_text_field( $location['fax'] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_email', isset( $location['email'] ) ? sanitize_email( $location['email'] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_vat_id', isset( $location['vat_id'] ) ? sanitize_text_field( $location['vat_id'] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_tax_id', isset( $location['tax_id'] ) ? sanitize_text_field( $location['tax_id'] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_coc_id', isset( $location['coc_id'] ) ? sanitize_text_field( $location['coc_id'] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_notes_1', isset( $location['notes_1'] ) ? sanitize_text_field( $location['notes_1'] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_notes_2', isset( $location['notes_2'] ) ? sanitize_text_field( $location['notes_2'] ) : '', true );
+								add_post_meta( $post_id, '_wpseo_business_notes_3', isset( $location['notes_3'] ) ? sanitize_text_field( $location['notes_3'] ) : '', true );
 
-								if ( isset( $location["phone_2nd"] ) ) {
-									add_post_meta( $post_id, '_wpseo_business_phone_2nd', $location["phone_2nd"], true );
+								if ( isset( $location['phone_2nd'] ) ) {
+									add_post_meta( $post_id, '_wpseo_business_phone_2nd', $location['phone_2nd'], true );
 								}
 
 								if ( isset( $location['category'] ) ) {
@@ -442,43 +508,46 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 									add_post_meta( $post_id, '_wpseo_business_url', sanitize_text_field( $location['url'] ), true );
 								}
 
-								// Add notes
+								// Add notes.
 								for ( $i = 0; $i < 3; $i ++ ) {
-									$n = $i + 1;
+									$n = ( $i + 1 );
 									if ( ! empty( $location[ 'notes_' . $n ] ) ) {
 										add_post_meta( $post_id, '_wpseo_business_notes_' . $n, $location[ 'notes_' . $n ] );
 									}
 								}
 
-								add_post_meta( $post_id, '_wpseo_coordinates_lat', sanitize_text_field( $location["lat"] ), true );
-								add_post_meta( $post_id, '_wpseo_coordinates_long', sanitize_text_field( $location["long"] ), true );
+								add_post_meta( $post_id, '_wpseo_coordinates_lat', sanitize_text_field( $location['lat'] ), true );
+								add_post_meta( $post_id, '_wpseo_coordinates_long', sanitize_text_field( $location['long'] ), true );
 
 								$count ++;
 								$last_imported = $post_id;
 							}
 
-							// Add image as post thumbnail
+							// Add image as post thumbnail.
 							if ( ! empty( $location['image'] ) ) {
 								$wpseo_local_core->insert_attachment( $post_id, $location['image'], true );
 							}
 
-							// Opening hours
+							// Opening hours.
 							foreach ( $wpseo_local_core->days as $key => $day ) {
 								if ( isset( $location[ 'opening_hours_' . $key . '_from' ] ) && ! empty( $location[ 'opening_hours_' . $key . '_from' ] ) && isset( $location[ 'opening_hours_' . $key . '_to' ] ) && ! empty( $location[ 'opening_hours_' . $key . '_to' ] ) ) {
 									if ( 'closed' == strtolower( $location[ 'opening_hours_' . $key . '_from' ] ) || 'closed' == strtolower( $location[ 'opening_hours_' . $key . '_to' ] ) ) {
 										add_post_meta( $post_id, '_wpseo_opening_hours_' . $key . '_from', 'closed', true );
-									} else {
+									}
+									else {
 										$time_from = strtotime( $location[ 'opening_hours_' . $key . '_from' ] );
 										$time_to   = strtotime( $location[ 'opening_hours_' . $key . '_to' ] );
 
 										if ( false !== $time_from && false !== $time_to ) {
 											add_post_meta( $post_id, '_wpseo_opening_hours_' . $key . '_from', date( 'H:i', $time_from ), true );
 											add_post_meta( $post_id, '_wpseo_opening_hours_' . $key . '_to', date( 'H:i', $time_to ), true );
-										} else {
+										}
+										else {
 											add_post_meta( $post_id, '_wpseo_opening_hours_' . $key . '_from', 'closed', true );
 											if ( false === $time_from ) {
 												$errors[] = sprintf( __( '%s is not a valid time notation', 'yoast-local-seo' ), $location[ 'opening_hours_' . $key . '_from' ] );
-											} else if ( false === $time_to ) {
+											}
+											else if ( false === $time_to ) {
 												$errors[] = sprintf( __( '%s is not a valid time notation', 'yoast-local-seo' ), $location[ 'opening_hours_' . $key . '_to' ] );
 											}
 										}
@@ -493,19 +562,23 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 
 												// Multiple openingtimes are set. Enable them in the backend.
 												update_post_meta( $post_id, '_wpseo_multiple_opening_hours', 'on', true );
-											} else {
+											}
+											else {
 												add_post_meta( $post_id, '_wpseo_opening_hours_' . $key . '_second_from', 'closed', true );
 												if ( false === $time_second_from ) {
 													$errors[] = sprintf( __( '%s is not a valid time notation', 'yoast-local-seo' ), $location[ 'opening_hours_' . $key . '_second_from' ] );
-												} else if ( false === $time_second_to ) {
+												}
+												else if ( false === $time_second_to ) {
 													$errors[] = sprintf( __( '%s is not a valid time notation', 'yoast-local-seo' ), $location[ 'opening_hours_' . $key . '_second_to' ] );
 												}
 											}
-										} else {
+										}
+										else {
 											add_post_meta( $post_id, '_wpseo_opening_hours_' . $key . '_second_from', 'closed', true );
 										}
 									}
-								} else {
+								}
+								else {
 									add_post_meta( $post_id, '_wpseo_opening_hours_' . $key . '_from', 'closed', true );
 								}
 							}
@@ -537,6 +610,9 @@ if ( ! class_exists( 'WPSEO_Local_Admin' ) ) {
 		 * Flushes the rewrite rules if multiple locations is turned on or off or the slug is changed.
 		 *
 		 * @since 1.3.1
+		 *
+		 * @param mixed $old_option_value Value of the current option.
+		 * @param mixed $new_option_value Value of the new, currently saved option.
 		 */
 		public function update_multiple_locations( $old_option_value, $new_option_value ) {
 			$old_value_exists = array_key_exists( 'use_multiple_locations', $old_option_value );

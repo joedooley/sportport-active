@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: woothemes-updater 1.5.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-24 15:01+0200\n"
+"POT-Creation-Date: 2016-04-18 12:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,181 +26,181 @@ msgstr ""
 msgid "WooThemes Helper"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:139
+#: classes/class-woothemes-updater-admin.php:142
 #, php-format
 msgid ""
 "%sYour WooThemes products are almost ready.%s To get started, %sactivate "
 "your product subscriptions%s."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:164
+#: classes/class-woothemes-updater-admin.php:223
 #, php-format
 msgid ""
 "Your subscription for <strong>%s</strong> expires on %s, %sEnable auto-renew"
 "%s."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:166
+#: classes/class-woothemes-updater-admin.php:225
 #, php-format
 msgid ""
 "Your subscription for <strong>%s</strong> has expired. Please %senable auto-"
 "renew%s to be eligible for future updates and support."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:172
+#: classes/class-woothemes-updater-admin.php:231
 msgid "a subscription is about to expire"
 msgid_plural "several subscriptions are about to expire"
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/class-woothemes-updater-admin.php:173
+#: classes/class-woothemes-updater-admin.php:232
 msgid "Warning:"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:195
+#: classes/class-woothemes-updater-admin.php:254
 msgid ""
 "Any customizations you have made to theme files will be lost. Are you sure "
 "you would like to update?"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:229
+#: classes/class-woothemes-updater-admin.php:288
 msgid "Welcome to WooThemes Helper"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:233
+#: classes/class-woothemes-updater-admin.php:292
 msgid "This is your one-stop-spot for activating your subscriptions."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:237
+#: classes/class-woothemes-updater-admin.php:296
 #, php-format
 msgid ""
 "To make sure your subscriptions stay active, %1$sadd a saved card%2$s and "
 "%3$senable auto-renew%2$s on the subscriptions you’re continuing to enjoy."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:298
+#: classes/class-woothemes-updater-admin.php:357
 msgid "Documentation Portal"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:299
+#: classes/class-woothemes-updater-admin.php:358
 msgid "Knowledgebase"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:300
+#: classes/class-woothemes-updater-admin.php:359
 msgid "FAQ"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:301
+#: classes/class-woothemes-updater-admin.php:360
 msgid "Blog"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:303
-#: classes/class-woothemes-updater-admin.php:304
-#: classes/class-woothemes-updater-admin.php:318
-#: classes/class-woothemes-updater-admin.php:338
-#: classes/class-woothemes-updater-admin.php:357
+#: classes/class-woothemes-updater-admin.php:362
+#: classes/class-woothemes-updater-admin.php:363
+#: classes/class-woothemes-updater-admin.php:377
+#: classes/class-woothemes-updater-admin.php:397
+#: classes/class-woothemes-updater-admin.php:416
 msgid "Getting Started"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:306
+#: classes/class-woothemes-updater-admin.php:365
 msgid "Follow WooThemes on Twitter"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:319
+#: classes/class-woothemes-updater-admin.php:378
 msgid "Theme Compatibility"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:320
+#: classes/class-woothemes-updater-admin.php:379
 msgid "Product Variations"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:321
+#: classes/class-woothemes-updater-admin.php:380
 msgid "WooCommerce Self Service Guide"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:323
-#: classes/class-woothemes-updater-admin.php:324
+#: classes/class-woothemes-updater-admin.php:382
+#: classes/class-woothemes-updater-admin.php:383
 msgid "WooCommerce"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:326
+#: classes/class-woothemes-updater-admin.php:385
 msgid "Find out more about WooCommerce"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:339
+#: classes/class-woothemes-updater-admin.php:398
 msgid "Theming Sensei"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:340
+#: classes/class-woothemes-updater-admin.php:399
 msgid "Import Sensei Dummy Data"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:342
-#: classes/class-woothemes-updater-admin.php:343
+#: classes/class-woothemes-updater-admin.php:401
+#: classes/class-woothemes-updater-admin.php:402
 msgid "Sensei"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:345
+#: classes/class-woothemes-updater-admin.php:404
 msgid "Find out more about Sensei"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:358
+#: classes/class-woothemes-updater-admin.php:417
 msgid "Setting up Canvas"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:359
+#: classes/class-woothemes-updater-admin.php:418
 msgid "WooCodex"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:361
-#: classes/class-woothemes-updater-admin.php:362
+#: classes/class-woothemes-updater-admin.php:420
+#: classes/class-woothemes-updater-admin.php:421
 msgid "Themes"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:364
+#: classes/class-woothemes-updater-admin.php:423
 msgid "Find out more about our Themes"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:375
+#: classes/class-woothemes-updater-admin.php:434
 msgid "Help!"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:375
+#: classes/class-woothemes-updater-admin.php:434
 msgid "Panic Button"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:375
+#: classes/class-woothemes-updater-admin.php:434
 msgid "For when all else fails"
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:538
-#: classes/class-woothemes-updater-admin.php:641
+#: classes/class-woothemes-updater-admin.php:597
+#: classes/class-woothemes-updater-admin.php:700
 msgid "Products activated successfully."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:538
+#: classes/class-woothemes-updater-admin.php:597
 msgid "Refreshing the products list..."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:543
-#: classes/class-woothemes-updater-admin.php:643
+#: classes/class-woothemes-updater-admin.php:602
+#: classes/class-woothemes-updater-admin.php:702
 msgid "There was an error and not all products were activated."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:562
-#: classes/class-woothemes-updater-admin.php:627
+#: classes/class-woothemes-updater-admin.php:621
+#: classes/class-woothemes-updater-admin.php:686
 msgid "No license keys were specified for activation."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:632
+#: classes/class-woothemes-updater-admin.php:691
 msgid "Product deactivated successfully."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:634
+#: classes/class-woothemes-updater-admin.php:693
 msgid "There was an error while deactivating the product."
 msgstr ""
 
-#: classes/class-woothemes-updater-admin.php:731
+#: classes/class-woothemes-updater-admin.php:790
 msgid "Please activate"
 msgstr ""
 

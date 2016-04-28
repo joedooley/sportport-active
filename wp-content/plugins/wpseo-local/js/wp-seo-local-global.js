@@ -1,15 +1,21 @@
 jQuery(document).ready(function($) {
 	$('#use_multiple_locations').click( function() {
 		if( $(this).is(':checked') ) {
+			$('#use_multiple_locations').attr('disabled', true);
 			$('#show-single-location').slideUp( function() {
-				$('#show-multiple-locations').slideDown();	
-				$('#show-opening-hours').slideUp();
+				$('#show-multiple-locations').slideDown();
+				$('#show-opening-hours').slideUp( function() {
+					$('#use_multiple_locations').removeAttr('disabled');
+				});
 			});
 		}
 		else {
+			$('#use_multiple_locations').attr('disabled', true);
 			$('#show-multiple-locations').slideUp( function() {
 				$('#show-single-location').slideDown();
-				$('#show-opening-hours').slideDown();
+				$('#show-opening-hours').slideDown(  function() {
+					$('#use_multiple_locations').removeAttr('disabled');
+				});
 			});
 		}
 	});
@@ -31,18 +37,9 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-	if( $('#wpseo-checkbox-multiple-locations-wrapper').length > 0 ) {
-		$('#wpseo-checkbox-multiple-locations-wrapper input[type=checkbox]').click( function() {
-			var parent = $(this).parents('.widget-inside');
-
-			if( $(this).is(':checked') ) {
-				$('#wpseo-locations-wrapper', parent).slideUp();
-			}
-			else {
-				$('#wpseo-locations-wrapper', parent).slideDown();
-			}
-		});
-	}
+	$('.widget-content').on('click', '#wpseo-checkbox-multiple-locations-wrapper input[type=checkbox]', function() {
+		wpseo_show_all_locations_selectbox( $(this) );
+	});
 
 	// Show locations metabox before WP SEO metabox
 	if ( $('#wpseo_locations').length > 0 && $('#wpseo_meta').length > 0 ) {
@@ -103,9 +100,11 @@ jQuery(document).ready(function($) {
                 return false;
             });
         }
-    };
+    }
 
-    $('.remove_custom_image').on('click', function() {
+    $('.remove_custom_image').on('click', function(e) {
+		e.preventDefault();
+
 		var id = $(this).attr('data-id');
     	$('#' + id ).attr( 'src', '' );
     	$('#hidden_' + id ).attr( 'value', '' );
@@ -155,3 +154,18 @@ jQuery(document).ready(function($) {
     	});
     });
 });
+
+function wpseo_show_all_locations_selectbox(obj) {
+	$ = jQuery;
+
+	$obj = $(obj);
+	var parent = $obj.parents('.widget-inside');
+	var $locationsWrapper = $('#wpseo-locations-wrapper', parent);
+
+	if( $obj.is(':checked') ) {
+		$locationsWrapper.slideUp();
+	}
+	else {
+		$locationsWrapper.slideDown();
+	}
+}

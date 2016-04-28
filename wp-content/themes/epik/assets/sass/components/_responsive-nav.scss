@@ -99,6 +99,23 @@
 		margin-top: 1px;
 		position: relative;
 		text-align: left;
+
+		.sub-menu > .menu-item {
+			border-bottom: 1px solid $base-border-color;
+
+			&:hover {
+				border-bottom: 1px solid $base-border-color;
+			}
+
+			&:last-child {
+				border-bottom: 0;
+			}
+
+			a:hover {
+				color: #fff;
+				background-color: $orange-hover;
+			}
+		}
 	}
 
 	.js .genesis-nav-menu .menu-item:hover {
@@ -140,13 +157,6 @@
 		margin: 0;
 	}
 
-	.js .genesis-nav-menu .sub-menu a {
-		border-bottom: 1px solid $base-border-color;
-
-		&:hover {
-			border-bottom: 1px solid $base-border-color;
-		}
-	}
 
 	.js nav button:hover,
 	.js .menu-toggle:hover,

@@ -2,7 +2,7 @@ Local SEO
 =========
 Requires at least: 4.0<br/>
 Tested up to: 4.4<br/>
-Stable tag: 3.1
+Stable tag: 3.2.1
 Depends: wordpress-seo
 
 Description
@@ -14,8 +14,30 @@ Changelog
 =========
 
 Trunk
-------------
-### 3.1: March 2nd, 2015
+-----
+### 3.2.1:
+* Bugfixes
+    * Fixes a fatal error.
+
+### 3.2:
+* Enhancements
+	* Added a support beacon, so you can reach support directly from the Local SEO settings page.
+	* Make it possible to empty the "default country" field for the store locator, so it will not pollute the search results when you have locations in mutiple countries.
+* Bugfixes
+    * Fixed a bug where Custom Marker Upload field was shown on all taxonomy and category edit pages.
+    * Fixed issue where routeplanner showed destination marker and location marker
+    * Fixed WooCommerce product search. Local search was interfering this product search with location details. Since location details are not needed in product search, this has been removed.
+    * In some cases the map was unable to find a route when only a zip code was entered. The default country from the options is added to the route calculation now.
+    * "Show Locations Per Category" is now also working at regular pages.
+    * itemprop="openingHours" added to standalone Opening hours widget/shortcode
+    * The comma displayed after city when 'Show State' is not selected has now been removed
+ 	* Don't show store locator when not having multiple locations
+ 	* Disabled the store locator functionality when not having multiple locations (you could a regular map with route calculation instead)
+ 	* Location specific checks that were added to the content analysis would no longer work in combination with Yoast SEO 3.2 and higher.
+ 	* In Map widget: Show map widget: Location dropdown no longer hides/shows after saving
+	* Opening hours widget for "current location" is working again
+
+### 3.1: March 2nd, 2016
 
 * Bugfixes
 	* Fixes deprecation warnings for filters that have been removed in Yoast SEO 3.0

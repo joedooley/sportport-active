@@ -2,12 +2,6 @@
 	# Front Page | front-page.php
 \* ---------------------------------- */
 
-.home .site-inner {
-	max-width: none;
-	padding: 0;
-	width: auto;
-}
-
 @include media($large-screen-up) {
 	.wrap {
 		padding-left: 0;
@@ -16,8 +10,8 @@
 }
 
 .row {
-	max-width: 1200px;
 	margin: 0 auto;
+	max-width: 1200px;
 
 	@include media($xxxlarge-screen-up) {
 		max-width: none;
@@ -32,6 +26,7 @@
 	background-color: #fff;
 	max-width: none;
 	padding-top: 0;
+	width: auto;
 
 	@include media($ipad-screen-up) {
 		padding-left: 0;
@@ -59,8 +54,8 @@
 	}
 
 	.hero--overlay {
-		font-size: 3rem;
-		font-family: $lato-bold;
+		font-family: $yanone;
+		font-size: 3.4rem;
 
 		@include media($ipad-screen-up) {
 			font-size: 3.3rem;
@@ -82,8 +77,8 @@
 
 		@include media($ipad-screen-up) {
 			@include span-columns(12 of 12);
-			text-align: center;
 			margin-bottom: 2rem;
+			text-align: center;
 		}
 	}
 }
@@ -96,8 +91,8 @@
 
 		@include media($ipad-screen-up) {
 			@include span-columns(3 of 6);
-			text-align: center;
 			margin-right: 2.41458%;
+			text-align: center;
 		}
 
 		@include media($small-screen-up) {
@@ -120,8 +115,8 @@
 
 		@include media($ipad-screen-up) {
 			@include span-columns(3 of 6);
-			text-align: center;
 			margin-right: 2.41458%;
+			text-align: center;
 		}
 
 		@include media($small-screen-up) {
@@ -170,9 +165,9 @@
 }
 
 .featured-image--overlay {
+	@include transform(translateY(245px));
 	margin: 0;
 	text-align: center;
-	@include transform(translateY(245px));
 }
 
 .featured-post--overlay {

@@ -35,20 +35,20 @@
     },
     {
         "name": "yoast/wp-helpscout",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Yoast/wp-helpscout.git",
-            "reference": "61d402a7f89ea4d55bbb477c739151d69840e5ee"
+            "reference": "a9f7d19180dd2d53699c528646c2595a3112b4a7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Yoast/wp-helpscout/zipball/61d402a7f89ea4d55bbb477c739151d69840e5ee",
-            "reference": "61d402a7f89ea4d55bbb477c739151d69840e5ee",
+            "url": "https://api.github.com/repos/Yoast/wp-helpscout/zipball/a9f7d19180dd2d53699c528646c2595a3112b4a7",
+            "reference": "a9f7d19180dd2d53699c528646c2595a3112b4a7",
             "shasum": ""
         },
-        "time": "2016-02-26 13:11:02",
+        "time": "2016-04-14 11:59:20",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

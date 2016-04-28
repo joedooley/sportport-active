@@ -1,0 +1,4797 @@
+/* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/neat/grid/_box-sizing.scss */
+html {
+  box-sizing: border-box; }
+
+/* line 9, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/neat/grid/_box-sizing.scss */
+*, *::after, *::before {
+  box-sizing: inherit; }
+
+/* line 3, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_float-clearing.scss */
+.archive-pagination::before,
+.clearfix::before,
+.entry::before,
+.entry-pagination::before,
+.footer-widgets::before,
+.nav-primary::before,
+.nav-secondary::before,
+.site-container::before,
+.site-footer::before,
+.site-header::before,
+.site-inner::before,
+.wrap::before {
+  content: " ";
+  display: table; }
+
+/* line 19, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_float-clearing.scss */
+.archive-pagination::after,
+.clearfix::after,
+.entry::after,
+.entry-pagination::after,
+.footer-widgets::after,
+.nav-primary::after,
+.nav-secondary::after,
+.site-container::after,
+.site-footer::after,
+.site-header::after,
+.site-inner::after,
+.wrap::after {
+  clear: both;
+  content: " ";
+  display: table; }
+
+/* line 36, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_float-clearing.scss */
+.clear {
+  clear: both; }
+
+/* line 1, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_buttons.scss */
+.button,
+.entry-content .sp-button,
+.entry-content .sp-button a,
+button, input[type="button"], input[type="reset"], input[type="submit"] {
+  appearance: none;
+  background-color: #ff9934;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  font-family: ralewayregular, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: background-color 150ms ease;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap; }
+  /* line 22, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_buttons.scss */
+  .button:hover, .button:focus,
+  .entry-content .sp-button:hover,
+  .entry-content .sp-button:focus,
+  .entry-content .sp-button a:hover,
+  .entry-content .sp-button a:focus,
+  button:hover,
+  button:focus, input[type="button"]:hover, input[type="button"]:focus, input[type="reset"]:hover, input[type="reset"]:focus, input[type="submit"]:hover, input[type="submit"]:focus {
+    background-color: #72461a;
+    color: #fff;
+    transition: all 0.3s ease; }
+  /* line 29, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_buttons.scss */
+  .button:disabled,
+  .entry-content .sp-button:disabled,
+  .entry-content .sp-button a:disabled,
+  button:disabled, input[type="button"]:disabled, input[type="reset"]:disabled, input[type="submit"]:disabled {
+    cursor: not-allowed;
+    opacity: 0.5; }
+    /* line 33, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_buttons.scss */
+    .button:disabled:hover,
+    .entry-content .sp-button:disabled:hover,
+    .entry-content .sp-button a:disabled:hover,
+    button:disabled:hover, input[type="button"]:disabled:hover, input[type="reset"]:disabled:hover, input[type="submit"]:disabled:hover {
+      background-color: #8e5721; }
+
+/* line 39, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_buttons.scss */
+.double-button {
+  margin-right: 1em; }
+  @media screen and (max-width: 480px) {
+    /* line 39, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_buttons.scss */
+    .double-button {
+      display: block;
+      margin-bottom: 2em;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 240px; } }
+
+/*! Buttons
+--------------------------------------------- */
+/* line 54, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_buttons.scss */
+a.button.small {
+  background-color: #303236;
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 13px;
+  padding: 8px 20px; }
+
+/* line 63, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_buttons.scss */
+a.button.medium {
+  background-color: #303236;
+  color: #fff;
+  font-size: 16px;
+  line-height: 26px;
+  padding: 8px 20px; }
+
+/* line 71, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_buttons.scss */
+a.button.large {
+  background-color: #303236;
+  color: #fff;
+  font-size: 18px;
+  line-height: 24px;
+  padding: 16px 32px; }
+
+/* line 79, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_buttons.scss */
+a.button.slim {
+  background-color: #303236;
+  color: #fff;
+  font-size: 14px;
+  line-height: 22px;
+  margin: 0;
+  padding: 4px 40px;
+  text-transform: uppercase; }
+
+/* line 90, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_buttons.scss */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button {
+  display: none; }
+
+/* line 1, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+fieldset {
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+legend {
+  font-weight: 600;
+  margin-bottom: 0.325em;
+  padding: 0; }
+
+/* line 14, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.325em; }
+
+/* line 20, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+input,
+select {
+  display: block;
+  font-family: ralewayregular, sans-serif;
+  font-size: 16px; }
+
+/* line 27, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], input:not([type]), textarea,
+select[multiple] {
+  background-color: #fff;
+  border: 1px solid #909090;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  font-family: ralewayregular, sans-serif;
+  margin-bottom: 0.65em;
+  transition: border-color 150ms ease;
+  width: 100%; }
+  /* line 37, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+  input[type="color"]:hover, input[type="date"]:hover, input[type="datetime"]:hover, input[type="datetime-local"]:hover, input[type="email"]:hover, input[type="month"]:hover, input[type="number"]:hover, input[type="password"]:hover, input[type="search"]:hover, input[type="tel"]:hover, input[type="text"]:hover, input[type="time"]:hover, input[type="url"]:hover, input[type="week"]:hover, input:not([type]):hover, textarea:hover,
+  select[multiple]:hover {
+    border-color: #737373; }
+  /* line 41, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+  input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="email"]:focus, input[type="month"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="time"]:focus, input[type="url"]:focus, input[type="week"]:focus, input:not([type]):focus, textarea:focus,
+  select[multiple]:focus {
+    border-color: #18d;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 5px rgba(15, 121, 197, 0.7);
+    outline: none; }
+  /* line 47, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+  input[type="color"]:disabled, input[type="date"]:disabled, input[type="datetime"]:disabled, input[type="datetime-local"]:disabled, input[type="email"]:disabled, input[type="month"]:disabled, input[type="number"]:disabled, input[type="password"]:disabled, input[type="search"]:disabled, input[type="tel"]:disabled, input[type="text"]:disabled, input[type="time"]:disabled, input[type="url"]:disabled, input[type="week"]:disabled, input:not([type]):disabled, textarea:disabled,
+  select[multiple]:disabled {
+    background-color: #f2f2f2;
+    cursor: not-allowed; }
+    /* line 51, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+    input[type="color"]:disabled:hover, input[type="date"]:disabled:hover, input[type="datetime"]:disabled:hover, input[type="datetime-local"]:disabled:hover, input[type="email"]:disabled:hover, input[type="month"]:disabled:hover, input[type="number"]:disabled:hover, input[type="password"]:disabled:hover, input[type="search"]:disabled:hover, input[type="tel"]:disabled:hover, input[type="text"]:disabled:hover, input[type="time"]:disabled:hover, input[type="url"]:disabled:hover, input[type="week"]:disabled:hover, input:not([type]):disabled:hover, textarea:disabled:hover,
+    select[multiple]:disabled:hover {
+      border: 1px solid #909090; }
+
+/* line 57, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+textarea {
+  resize: vertical; }
+
+/* line 61, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+[type="search"] {
+  appearance: none; }
+
+/* line 65, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+[type="checkbox"],
+[type="radio"] {
+  display: inline;
+  margin-right: 0.325em; }
+
+/* line 71, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+[type="file"] {
+  margin-bottom: 0.65em;
+  width: 100%; }
+
+/* line 76, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+select {
+  -webkit-appearance: menulist-button;
+  border: 1px solid #dce1e7;
+  height: 30px;
+  margin-bottom: 1.3em;
+  max-width: 100%;
+  width: auto; }
+
+/*! Forms
+--------------------------------------------- */
+/* line 88, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+input,
+textarea {
+  padding: 0.75rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 3px #eee;
+  color: #999;
+  font-family: latoregular, sans-serif;
+  font-size: 0.75rem; }
+  /* line 100, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+  input:focus, input:focus,
+  textarea:focus,
+  textarea:focus {
+    border: 1px solid #aaa;
+    outline: none; }
+
+/* line 107, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+::-webkit-input-placeholder {
+  color: #999; }
+
+/* Clear placeholder text upon focus */
+/* line 112, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+input:focus::-webkit-input-placeholder {
+  color: transparent; }
+
+/* line 114, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+input:focus:-moz-placeholder {
+  color: transparent; }
+
+/* line 116, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+input:focus::-moz-placeholder {
+  color: transparent; }
+
+/* line 118, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_forms.scss */
+input:focus:-ms-input-placeholder {
+  color: transparent; }
+
+/* line 1, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_lists.scss */
+ul,
+ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_lists.scss */
+dl {
+  margin-bottom: 0.65em; }
+  /* line 11, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_lists.scss */
+  dl dt {
+    font-weight: 600;
+    margin-top: 0.65em; }
+  /* line 16, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_lists.scss */
+  dl dd {
+    margin: 0; }
+
+/* line 1, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_tables.scss */
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%; }
+
+/* line 7, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_tables.scss */
+th {
+  font-weight: 600;
+  padding: 0.65em 0;
+  text-align: left; }
+
+/* line 13, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_tables.scss */
+td {
+  padding: 0.65em 0; }
+
+/* line 17, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_tables.scss */
+tr,
+td,
+th {
+  vertical-align: middle; }
+
+/* line 1, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+::selection {
+  background-color: #ff9934;
+  color: #000; }
+
+/* line 6, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+html {
+  font-size: 16px;
+  line-height: 1.3; }
+  @media (min-width: 800px) {
+    /* line 6, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+    html {
+      font-size: 18px; } }
+  @media (min-width: 1200px) {
+    /* line 6, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+    html {
+      font-size: 20px;
+      line-height: 1.4; } }
+
+/* line 20, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+body {
+  background: rgba(211, 220, 235, 0.59);
+  color: #333;
+  font-family: ralewayregular, sans-serif;
+  font-size: 18px;
+  font-weight: 100;
+  letter-spacing: 0.025em;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased; }
+
+/* line 31, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: ralewayregular, sans-serif;
+  font-size: 16px;
+  line-height: 1.2;
+  margin: 0 0 0.65em; }
+
+/* line 43, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+p {
+  margin: 0 0 1.25em; }
+
+/* line 47, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+a {
+  color: #000;
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 150ms ease; }
+  /* line 53, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+  a:active, a:focus, a:hover {
+    color: #888; }
+
+/* line 60, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+hr {
+  border-bottom: 1px solid #909090;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  margin: 1.3em 0; }
+
+/* line 68, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+img,
+picture {
+  margin: 0;
+  max-width: 100%; }
+
+/* line 74, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+a img {
+  margin-bottom: -4px; }
+
+/* line 78, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+address a {
+  line-height: 1.4;
+  text-decoration: none; }
+
+/* line 83, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+strong,
+b {
+  font-family: latobold, sans-serif; }
+
+/* line 88, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+a,
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  transition: all 0.1s ease-in-out; }
+
+/* line 100, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+ol,
+ul {
+  margin: 0;
+  padding: 0; }
+
+/* line 106, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+blockquote,
+blockquote::before {
+  color: #999; }
+
+/* line 111, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+blockquote {
+  margin: 5px 5px 20px;
+  padding: 0 30px 5px 60px;
+  border: none; }
+
+/* line 117, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+pre {
+  background: #333;
+  color: #ccc;
+  overflow: scroll;
+  padding: 0 20px;
+  white-space: pre; }
+
+/* line 125, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/base/_typography.scss */
+cite {
+  font-style: normal; }
+
+/*! HTML5 Reset
+---------------------------------------------------------------------------------------------------- */
+/*! Baseline Reset (normalize.css 2.1.2)
+	Link: http://necolas.github.com/normalize.css/
+--------------------------------------------- */
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+  display: block; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+audio, canvas, video {
+  display: inline-block; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+[hidden] {
+  display: none; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body {
+  margin: 0; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+a:focus {
+  outline: thin dotted; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+a:active, a:hover {
+  outline: 0; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+h1 {
+  font-size: 2em;
+  margin: .67em 0; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+abbr[title] {
+  border-bottom: 1px dotted; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+b, strong {
+  font-weight: bold; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+dfn {
+  font-style: italic; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+mark {
+  background: #ff0;
+  color: #000; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+code, kbd, pre, samp {
+  font-family: monospace,serif;
+  font-size: 1em; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+pre {
+  white-space: pre-wrap; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019"; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+small {
+  font-size: 80%; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+sup {
+  top: -0.5em; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+sub {
+  bottom: -0.25em; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+img {
+  border: 0; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+svg:not(:root) {
+  overflow: hidden; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+figure {
+  margin: 0; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+fieldset {
+  border: 1px solid silver;
+  margin: 0 2px;
+  padding: .35em .625em .75em; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+legend {
+  border: 0;
+  padding: 0; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+button, input {
+  line-height: normal; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+button, select {
+  text-transform: uppercase; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+button, html input[type="button"], input[type="reset"], input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+button[disabled], html input[disabled] {
+  cursor: default; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+input[type="checkbox"], input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+textarea {
+  overflow: auto;
+  vertical-align: top; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/*! MY CUSTOM CODE START ==================================================== */
+/* line 12, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.new-product-a .entry-title {
+  color: #0CE !important; }
+
+/* line 14, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.new-product-a .entry-title:before {
+  background-image: url(//sportportactive.com/wp-content/uploads/2016/01/Turquoise.png);
+  display: inline-block;
+  content: "";
+  width: 270px;
+  height: 270px;
+  float: left;
+  background-repeat: no-repeat; }
+
+/*! AUTHORIZE.NET & SECURITY ---------------------------------------- */
+/* line 25, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.AuthorizeNetSeal {
+  float: left;
+  margin: 0 12px 0 0 !important; }
+
+/* line 29, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.security-box {
+  background: #fffdd5;
+  padding: 20px 20px 20px 20px;
+  border: 1px solid #AB1;
+  margin: 24px 0; }
+
+/* line 35, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.security-head {
+  font-size: 16px;
+  font-family: ralewaysemibold, sans-serif;
+  margin: 0 0 0 0;
+  color: #AB1; }
+
+/*! .review-only ---------------------------------------- */
+/* line 43, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.review-only {
+  background: #FFF; }
+
+/* line 45, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.review-only .head-wrap,
+body.review-only .site-footer,
+body.review-only .breadcrumb {
+  display: none; }
+
+/* line 50, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar-tag {
+  font-size: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.29);
+  padding: 18px;
+  margin-bottom: 0; }
+
+/* line 57, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.mejs-container {
+  margin: 25px 0;
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #FFF;
+  border-left: 3px solid #999;
+  border-right: 3px solid #CCC; }
+
+/*! body.inspire [x69] ---------------------------------------- */
+/* line 66, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.inspire {
+  background: #FFF; }
+
+/* line 67, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.inspire .head-wrap {
+  background: #000;
+  background-image: url(//sportportactive.com/wp-content/uploads/2015/08/SportPort-Type-Only-360-x-31.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 155px 28px; }
+
+/* line 74, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.inspire h1.entry-title {
+  font-size: 3em;
+  font-family: ralewaysemibold, sans-serif;
+  color: #000;
+  line-height: 1.15;
+  letter-spacing: -.72px;
+  margin-bottom: 12px; }
+
+/* line 82, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.inspire .entry,
+body.inspire .entry-title,
+body.inspire .content .entry-content {
+  padding: 0;
+  margin-top: 0; }
+
+/* line 88, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.inspire h4 {
+  font-family: ralewayextrabold, sans-serif;
+  font-weight: normal;
+  color: #F93;
+  font-size: 1.4em;
+  margin-bottom: 0; }
+
+/* line 95, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.inspire .woo-float-left {
+  float: left;
+  margin: 0 30px 5px 0;
+  width: 150px; }
+
+/* line 100, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.inspire .woo-float-left .woo-inspire-shop {
+  text-align: center;
+  background: #BCE;
+  font-family: ralewaysemibold, sans-serif;
+  padding: 5px; }
+
+/* line 106, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.inspire .woo-float-left .woo-inspire-shop a {
+  color: #FFF;
+  text-decoration: none; }
+
+/* line 110, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.inspire .woo-float-left .woo-inspire-shop a:hover {
+  color: #000; }
+
+/* line 113, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.inspire .grey-boxed {
+  border: 1px solid #CCC;
+  padding: 4px;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24); }
+
+/*! Hide Purchase Options */
+/* line 119, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.inspire .woocommerce ul.products li.product .button,
+body.inspire ul.products li.product .categories {
+  display: none; }
+
+/* line 121, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.inspire .woocommerce-page.columns-1 ul.products li.product,
+body.inspire .woocommerce.columns-1 ul.products li.product {
+  margin-bottom: 0; }
+
+/*! body.gallery [x68] ---------------------------------------- */
+/* line 126, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.gallery {
+  background: #FFF; }
+
+/* line 127, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.gallery .entry-title {
+  font-size: 3em;
+  color: #000;
+  line-height: 1.15;
+  letter-spacing: -.72px;
+  margin: 0 0 15px 0; }
+
+/* line 134, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.gallery .entry,
+body.gallery .entry-title,
+body.gallery .content .entry-content {
+  margin-top: 0;
+  padding: 0 0 0 0; }
+
+/* line 140, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.gallery .grey-boxed {
+  border: 1px solid #333;
+  padding: 13px 20px;
+  margin: 0 0 5px 8px;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24); }
+
+/*! main.content SITEWIDE RULES [x31] ---------------------------------------- */
+/* line 150, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.content[role="main"] .entry {
+  background: rgba(255, 255, 255, 0.25);
+  margin: 2em 0 2.5em 0;
+  padding: 0; }
+
+/* line 155, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.content[role="main"] .entry-header {
+  background: rgba(255, 255, 255, 0.35);
+  margin: 0 0 8px 0;
+  padding: 0 0 14px 10px;
+  border-top: 1px solid #AAA;
+  border-bottom: 1px solid #AAA; }
+
+/* line 162, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.content[role="main"] .entry-title,
+.content[role="main"] .entry-title a {
+  color: rgba(78, 78, 78, 0.8); }
+
+/* line 166, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.content[role="main"] .entry-content {
+  margin: 0;
+  padding: 15px 30px 20px 30px;
+  border-bottom: 1px solid #AAA; }
+
+/* line 171, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.content[role="main"] .entry-content p {
+  margin: 0 0 7px 0; }
+
+/* line 174, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.content[role="main"] .entry-footer {
+  padding: 0 40px 0 30px; }
+
+/* line 176, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.content[role="main"] .entry img {
+  margin: 6px 20px 5px 0; }
+
+/* line 179, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+h1 {
+  font-size: 28px; }
+
+/* line 180, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+h2 {
+  font-size: 23px; }
+
+/* line 181, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+h3 {
+  font-size: 18px; }
+
+/* line 182, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+h4 {
+  font-size: 15px;
+  margin: 15px 0 5px 0; }
+
+/* line 184, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+h5 {
+  font-size: 12px; }
+
+/* line 185, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+h6 {
+  font-size: 10px; }
+
+/* line 187, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+h1, h2, h3, h4, h5, h6 {
+  font-family: ralewaysemibold, sans-serif;
+  font-weight: normal; }
+
+/*! SALE [x41] ---------------------------------------- */
+/* line 194, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+ins {
+  font-family: ralewaysemibold, sans-serif;
+  font-weight: normal;
+  font-size: 24px;
+  color: #08D;
+  text-decoration: none;
+  margin-left: 5px; }
+
+/*! CUSTOM BODY CSS [x28] ======================================= */
+/*! CUSTOM BODY BLOG (.page-template-page_blog) [x60] ---------------------------------------- */
+/* line 207, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.sp-blog-post {
+  background: #FFF !important; }
+
+/* line 209, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.single-post .entry-title {
+  font-size: 2.8em;
+  font-family: ralewaysemibold, sans-serif;
+  color: #567;
+  line-height: 1.15;
+  letter-spacing: -.15px;
+  margin-bottom: 7px; }
+
+/* line 217, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.sp-blog-post .entry,
+body.sp-blog-post .entry-title,
+body.sp-blog-post .content .entry-content {
+  padding: 0;
+  margin-top: 0; }
+
+/* line 223, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.page-template-page_blog {
+  background: #E4E4E4; }
+
+/* line 226, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.page-template-page_blog .post-image.entry-image {
+  width: 200px; }
+
+/* line 229, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sp-blog-bullets {
+  margin: 0 0 .75em 0;
+  padding: 0 0 .75em 0;
+  border-bottom: 1px solid #D3DCEB; }
+
+/*! sp-blockquote [x61] ---------------------------------------- */
+/* line 236, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sp-blockquote-holder {
+  float: right;
+  font-family: ralewaysemibold, sans-serif;
+  width: 50%;
+  margin: 6px 0 10px 20px;
+  padding: 0 0 .7em 0;
+  text-align: center;
+  background: #FFF;
+  border-bottom-right-radius: 1em;
+  border-bottom-left-radius: 1em; }
+
+/* line 247, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sp-blockquote-img img {
+  -webkit-box-shadow: 0px 10px 5px 0px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 0px 10px 5px 0px rgba(0, 0, 0, 0.22);
+  box-shadow: 0px 10px 5px 0px rgba(0, 0, 0, 0.22);
+  padding: 10px; }
+
+/* line 253, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sp-blockquote-text {
+  padding: 10px 20px 0 20px;
+  color: #E80;
+  text-transform: uppercase; }
+
+/* line 258, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sp-blockquote-text strong {
+  font-family: ralewaysemibold, sans-serif;
+  color: #567; }
+
+/*! sp-start-graph [x62] ---------------------------------------- */
+/* line 264, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.blog-post-sub {
+  font-family: ralewaysemibold, sans-serif;
+  color: #678;
+  font-size: 1.6em;
+  line-height: 1.3em;
+  text-transform: uppercase; }
+
+/* line 271, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sp-start-graph {
+  background: #F93;
+  font-family: ralewaysemibold, sans-serif;
+  color: #FFF;
+  font-size: 1.2em;
+  line-height: 1.4;
+  margin: 15px 0 18px 0;
+  padding: 15px 20px 16px 20px; }
+
+/* line 280, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sp-start-graph a,
+.sp-close-graph a {
+  color: #FE8 !important; }
+
+/* line 282, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sp-start-graph a:hover,
+.sp-close-graph a:hover {
+  color: #FFF !important; }
+
+/* line 285, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sp-intro-graph {
+  display: inline-block;
+  font-family: ralewaysemibold, sans-serif;
+  color: #E70;
+  font-size: 1.2em;
+  line-height: 1.42;
+  margin: 4px 0 12px 0; }
+
+/* line 293, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sp-start-graph h2 {
+  margin-bottom: 0; }
+
+/* line 296, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sp-close-graph {
+  background: #F93;
+  font-family: ralewaymedium, sans-serif;
+  color: #FFF;
+  font-size: 1.1em;
+  line-height: 1.4;
+  margin: 15px 0 35px 0;
+  padding: 15px 20px 20px 20px; }
+
+/*! sp-blog-table [x63] ---------------------------------------- */
+/* line 307, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+table.sp-blog-table {
+  width: 100%;
+  padding: 4px;
+  font-family: ralewaysemibold, sans-serif;
+  margin: 1.6em 0 2em 0; }
+
+/* line 313, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+table.sp-blog-table .table-title {
+  text-transform: uppercase;
+  color: #F90; }
+
+/* line 317, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+table.sp-blog-table td {
+  background: #FFF;
+  border-top: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
+  padding: 4px 6px; }
+
+/* line 323, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+table.sp-blog-table td.bold-left {
+  text-align: left;
+  border-right: 1px dotted #DDD;
+  color: #E80;
+  width: 30%;
+  text-transform: uppercase; }
+
+/*! FONT AWESOME BLOG POST ICONS [x70] ---------------------------------------- */
+/* line 331, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.fa-2x {
+  background: #FFF;
+  color: rgba(255, 153, 51, 0.74);
+  float: right;
+  padding: 12px 0;
+  border: 1px solid #c9d1e1;
+  text-align: center;
+  width: 54px;
+  height: 54px;
+  margin: 0 0 0 4px;
+  border-radius: 30px; }
+
+/* line 343, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.icon-blue {
+  color: #6CF; }
+
+/* line 344, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.icon-green {
+  color: #9DB; }
+
+/* line 345, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.icon-purple {
+  color: #BAF; }
+
+/* line 346, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.icon-gold {
+  color: #FB1; }
+
+/* line 347, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.icon-red {
+  color: #C43; }
+
+/* line 348, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.icon-grey-light {
+  color: #CCC; }
+
+/* line 349, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.icon-grey-med {
+  color: #999; }
+
+/* line 350, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.icon-grey-dark {
+  color: #666; }
+
+/*! CUSTOM BODY GARMENT-TECH [x38] ---------------------------------------- */
+/* line 354, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-garment-technology {
+  background: rgba(211, 226, 238, 0.42); }
+
+/* line 355, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-garment-technology .post-image {
+  width: 160px; }
+
+/*! OTHER CUSTOM BODY ---------------------------------------- */
+/* line 359, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-science {
+  background: rgba(238, 238, 187, 0.44); }
+
+/* line 361, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-support {
+  background: rgba(238, 155, 5, 0.12); }
+
+/* line 363, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-media {
+  background: rgba(221, 221, 255, 0.54); }
+
+/* line 365, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-protection {
+  background: rgba(238, 215, 161, 0.35); }
+
+/* line 367, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.intro-welcome {
+  background: rgba(238, 118, 155, 0.16); }
+
+/* line 368, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.intro-welcome .entry-content h2 {
+  font-family: ralewaylight, sans-serif;
+  font-weight: normal;
+  font-size: 24px;
+  margin: 0 0 10px 0;
+  color: #A35;
+  line-height: 1.4; }
+
+/* line 375, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.intro-welcome .content[role="main"] .entry-title,
+body.intro-welcome .content[role="main"] .entry-title a {
+  font-family: ralewaysemibold, sans-serif;
+  font-weight: normal;
+  color: #000; }
+
+/*! garment-technology SECTION DETAILS [X36] -------------------------------------------- */
+/* line 383, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-box {
+  background: rgba(255, 255, 255, 0.4);
+  padding: 25px;
+  font-size: 13px;
+  color: #777;
+  clear: both;
+  margin: 25px 0 0 0;
+  -webkit-box-shadow: 0px 9px 20px -12px black;
+  -moz-box-shadow: 0px 9px 20px -12px black;
+  box-shadow: 0px 9px 20px -12px black; }
+
+/* line 394, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+img.fabrics-icon {
+  width: 78px;
+  -webkit-box-shadow: 0px 9px 20px -12px black;
+  -moz-box-shadow: 0px 9px 20px -12px black;
+  box-shadow: 0px 9px 20px -12px black;
+  border: 1px solid #FFF;
+  float: left;
+  margin: 0 12px 0 0; }
+
+/* line 403, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.more-about-fabrics-wrap {
+  background: rgba(255, 255, 255, 0.6);
+  padding: 22px 20px 30px 25px;
+  margin: 20px 0 25px 0;
+  -webkit-box-shadow: 0px 9px 20px -12px black;
+  -moz-box-shadow: 0px 9px 20px -12px black;
+  box-shadow: 0px 9px 20px -12px black;
+  clear: both; }
+
+/* line 412, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.more-about-fabrics-wrap h4 {
+  font-size: 14px;
+  margin: 0 0 3px 0; }
+
+/* line 416, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.content[role="main"] .entry .more-about-fabrics-wrap img {
+  margin: -6px 8px 25px 0; }
+
+/* line 418, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+table.fabrics-grid {
+  font-size: 13px;
+  width: 95%; }
+
+/* line 422, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+table.fabrics-grid td {
+  width: 33%;
+  vertical-align: middle;
+  border-width: 0;
+  padding: 12px 0 0 0;
+  border-style: none; }
+
+/* line 429, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+img.small-fabrics-icon {
+  width: 52px;
+  -webkit-box-shadow: 0px 9px 20px -12px black;
+  -moz-box-shadow: 0px 9px 20px -12px black;
+  box-shadow: 0px 9px 20px -12px black;
+  border: 1px solid #FFF;
+  float: left;
+  margin: 0 8px 8px 0; }
+
+/* line 438, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.more-about-fabrics-wrap .content[role="main"] .entry img {
+  margin: 0; }
+
+/* line 441, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.snasm-footer-wrap {
+  text-align: right;
+  margin: 20px 0 0 0;
+  padding: 15px 0 0 0;
+  border-top: 1px solid #999;
+  letter-spacing: .085em; }
+
+/* line 448, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.snasm-footer-reg-italic {
+  font-family: SnasmRg-Italic, 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+/* line 450, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.snasm-footer-light-italic {
+  font-family: SnasmLt-Italic, 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+/* .PRIMARY-SIDEBAR CUSTOMIZATION START [x29] -------------------------------------------- */
+/* line 454, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar .widget-wrap {
+  margin: 6px 0 0 0;
+  padding: 0 0 8px 0; }
+
+/* line 458, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar .widget {
+  margin: 0;
+  overflow: hidden;
+  padding: 0; }
+
+/* line 463, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar .more-from-category {
+  font-size: 12px;
+  font-family: ralewaysemibold, sans-serif;
+  text-align: right;
+  border-bottom: 1px solid #CCC;
+  padding: 3px 0 6px 0; }
+
+/* line 470, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar .more-from-category a {
+  color: #48B; }
+
+/* line 473, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar-primary .entry-content {
+  padding: 0;
+  margin: 0;
+  border: none; }
+
+/* line 478, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar-primary .entry-title {
+  margin: 0 0 4px 0; }
+
+/* line 480, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar-primary .entry-content p {
+  margin: 0 0 6px 0; }
+
+/* line 482, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar-primary img {
+  float: left;
+  /*width: 90px;*/
+  height: 52px;
+  margin: 1px 10px 4px 0; }
+
+/*! .HOME CUSTOMIZATION START [x21] -------------------------------------------- */
+/* line 491, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home-show-1-wrap, .home-show-2-wrap, .home-show-3-wrap {
+  padding: 5px 0 2px 0;
+  border-left: 1px solid #777;
+  border-right: 1px solid #555;
+  border-bottom: 1px solid #000; }
+
+/* line 497, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home-show-head-1, .home-show-head-1 a,
+.home-show-head-2, .home-show-head-2 a,
+.home-show-head-3, .home-show-head-3 a {
+  font-family: ralewaylight, sans-serif;
+  font-size: 20px;
+  font-weight: 100;
+  letter-spacing: .06em;
+  margin: 6px 0 0 0;
+  padding: 0;
+  text-align: center !important;
+  text-decoration: none !important; }
+
+/* line 509, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home-show-head-1, .home-show-head-1 a {
+  color: #F33 !important; }
+
+/* line 510, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home-show-head-2, .home-show-head-2 a {
+  color: #7DF !important; }
+
+/* line 511, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home-show-head-3, .home-show-head-3 a {
+  color: #F93 !important; }
+
+/* line 513, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home-show-head-1 a:hover,
+.home-show-head-2 a:hover,
+.home-show-head-3 a:hover {
+  font-family: ralewaymedium, sans-serif;
+  letter-spacing: .08em;
+  color: #FFF !important; }
+
+/* line 520, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+#home-show-function-1,
+#home-show-function-2,
+#home-show-function-3 {
+  padding: 18px 0 11px 0;
+  font-size: 13px; }
+
+/* line 526, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+#home-show-function-1 {
+  background: #F44; }
+
+/* line 527, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+#home-show-function-2 {
+  background: #27A; }
+
+/* line 528, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+#home-show-function-3 {
+  background: #F93; }
+
+/* line 530, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.go-tag {
+  font-family: ralewaysemibold, sans-serif; }
+
+/* line 531, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.go-button {
+  font-family: ralewayblack, sans-serif;
+  font-size: 24px;
+  border-radius: 35px;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 5px;
+  padding: 9px 0; }
+
+/* line 540, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.go-button-wrap {
+  margin: 10px 0 18px 0; }
+
+/* line 543, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.go-button-small {
+  display: inline-block;
+  font-family: ralewayblack, sans-serif;
+  font-size: 18px;
+  border-radius: 25px;
+  width: 35px;
+  height: 35px;
+  margin: 0 auto 5px;
+  padding: 4px 0 0 4px;
+  margin: 0 0 0 6px;
+  background: rgba(0, 0, 0, 0.1); }
+
+/* line 555, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.go-button-wrap .go-button-small a {
+  color: rgba(255, 255, 255, 0.6); }
+
+/* line 556, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.go-button-wrap .go-button-small a:hover {
+  color: #FFF;
+  text-decoration: none; }
+
+/* line 561, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+#home-show-function-1 .go-button,
+#home-show-function-1 .go-button a {
+  background: #E52121;
+  color: #F33; }
+
+/* line 565, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+#home-show-function-2 .go-button,
+#home-show-function-2 .go-button a {
+  background: #168;
+  color: #27A; }
+
+/* line 569, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+#home-show-function-3 .go-button,
+#home-show-function-3 .go-button a {
+  background: #E82;
+  color: #F93; }
+
+/* line 574, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+#home-show-function-1 .go-button:hover,
+#home-show-function-1 .go-button:hover a,
+#home-show-function-2 .go-button:hover,
+#home-show-function-2 .go-button:hover a,
+#home-show-function-3 .go-button:hover,
+#home-show-function-3 .go-button:hover a {
+  color: #FFF;
+  font-size: 28px;
+  border-radius: 40px;
+  padding: 7px 0;
+  text-decoration: none; }
+
+/*! ADD SHADOWS TO PRODUCTS on CATEGORY and SHOP PAGES [x34] ---------------------------------------- */
+/* line 588, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce ul.products li.product a img {
+  box-shadow: 0px 9px 20px -12px black; }
+
+/*! WOO PRODUCT-CATEGORY CUSTOM [x33] ---------------------------------------- */
+/* line 593, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.tax-product_cat .breadcrumb {
+  display: none; }
+
+/* line 594, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.tax-product_cat .sidebar {
+  display: none; }
+
+/* line 595, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.tax-product_cat .content {
+  width: 100%; }
+
+/* line 596, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce table.shop_table td {
+  font-size: 15px; }
+
+/*! Special (maybe temporary) code for vertex arm bands [x65] ---------------- */
+/*! NOTE: Using product IDs ---------------- */
+/* line 600, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.postid-462 .product_meta,
+body.postid-473 .product_meta,
+body.postid-476 .product_meta,
+body.postid-479 .product_meta {
+  margin-bottom: 5em; }
+
+/*! WOOCOMMERCE-CART and CHECKOUT CUSTOM [x37] ---------------------------------------- */
+/* line 608, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+tr.shipping {
+  background: #FFFDD5; }
+
+/* line 610, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce-cart table.cart td,
+.woocommerce-cart table.cart th {
+  font-weight: normal; }
+
+/* line 612, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce-cart table.cart td a,
+.woocommerce-cart table.cart th a {
+  font-family: ralewaysemibold, sans-serif;
+  font-weight: normal;
+  color: #1AC; }
+
+/* line 617, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-cart .breadcrumb,
+body.woocommerce-checkout .breadcrumb {
+  display: none; }
+
+/* line 619, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-cart .sidebar,
+body.woocommerce-checkout .sidebar {
+  display: none; }
+
+/* line 621, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-cart .content,
+body.woocommerce-checkout .content {
+  width: 100%; }
+
+/* line 623, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-cart table.cart img {
+  width: 96px; }
+
+/* line 624, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-cart .entry-title,
+body.woocommerce-checkout .entry-title,
+body.woocommerce-cart .cart_totals h2,
+.woocommerce td.product-name dl.variation dt,
+.woocommerce-cart .cart-collaterals .cart_totals tr td,
+.woocommerce-cart .cart-collaterals .cart_totals tr th,
+body.woocommerce-checkout h3 {
+  font-family: ralewaysemibold, sans-serif;
+  font-weight: normal; }
+
+/* line 633, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-cart .entry-title {
+  color: #F93; }
+
+/* line 634, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-cart .cart_totals h2,
+body.woocommerce-checkout h3 {
+  color: #1AC; }
+
+/* line 636, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce td.product-name dl.variation dt {
+  color: #F93; }
+
+/* line 637, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce-cart .cart-collaterals .cart_totals tr td,
+.woocommerce-cart .cart-collaterals .cart_totals tr th {
+  padding-left: 8px;
+  font-size: 13px; }
+
+/* line 641, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce table.shop_table th,
+.woocommerce table.shop_table td,
+.woocommerce table.shop_table tbody th,
+.woocommerce table.shop_table tfoot td,
+.woocommerce table.shop_table tfoot th {
+  font-weight: normal; }
+
+/* line 646, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+tr.cart_item {
+  background: #EEE; }
+
+/* line 647, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce-cart table.cart td.actions .coupon .input-text {
+  width: 120px; }
+
+/* line 648, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.pp_gallery ul {
+  display: none; }
+
+/* hide thumbnails in popup windows * /
+
+/*! CUSTOM BODY WOOCOMMERCE-PAGE START [x23] ---------------------------------------- */
+/* line 652, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page {
+  background: #FFF; }
+
+/* line 653, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .content {
+  font-size: 12px; }
+
+/* line 654, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .breadcrumb {
+  margin: 0 30px 0 18px; }
+
+/* line 655, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .footer-widgets img {
+  border: none; }
+
+/* line 657, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .page-title {
+  font-family: ralewaysemibold, sans-serif;
+  font-weight: normal;
+  color: #000;
+  font-size: 32px;
+  margin: 0 0 15px 0; }
+
+/* line 664, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .page-title:before {
+  content: "SportPort "; }
+
+/* line 667, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+table.product-features-grid {
+  font-size: 13px;
+  width: 95%; }
+
+/* line 671, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+table.product-features-grid td {
+  border: 0 none;
+  padding: 0 25px 8px 0;
+  vertical-align: middle;
+  width: 48%; }
+
+/*! ------------------------------ */
+/* line 681, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce ul.products li.product .price {
+  color: #000 !important;
+  font-size: 16px;
+  margin-top: 5px;
+  text-align: right;
+  margin-right: 8px; }
+
+/* line 688, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce ul.products li.product a img {
+  margin: 0; }
+
+/* line 691, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce ul.products li.product h3 {
+  background: #89A;
+  height: 6em;
+  padding: 8px 8px;
+  font-size: 12px;
+  font-weight: normal;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  color: #FFF;
+  line-height: 1.5; }
+
+/* line 703, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .entry-content .entry-title {
+  border-bottom: none;
+  border-top: none;
+  color: #567;
+  font-family: ralewaylight, sans-serif;
+  font-size: 3em;
+  font-weight: normal;
+  letter-spacing: -.2px;
+  line-height: 1.2; }
+
+/* line 713, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .summary p {
+  font-size: 14px;
+  margin: 0 0 6px 0; }
+
+/* line 717, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .variations_form.cart {
+  color: #F93;
+  font-size: 14px;
+  font-weight: normal; }
+
+/*! ADDS RULES TO MAIN PRODUCT IMAGES */
+/* line 723, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .attachment-shop_single.wp-post-image,
+body.woocommerce-page .attachment-shop_thumbnail {
+  border: 1px solid #888; }
+
+/*! REMOVES RULES FROM SIDEBAR IMAGES */
+/* line 729, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .attachment-shop_single.wp-post-image .sidebar-primary img,
+body.woocommerce-page .attachment-shop_thumbnail .sidebar-primary img,
+.woocommerce img, .woocommerce-page img .sidebar-primary img {
+  border: none; }
+
+/* line 734, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .posted_in a {
+  font-family: ralewaysemibold, sans-serif;
+  text-transform: uppercase;
+  color: #5AF; }
+
+/*! ----- Description Tabs ----- */
+/* line 741, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce-tabs img.alignleft {
+  width: 42px;
+  border: none;
+  margin: 0 10px 10px 0; }
+
+/* line 746, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .woocommerce-tabs h2,
+body.woocommerce-page .related.products h2,
+body.woocommerce-page .woocommerce-tabs h4 {
+  font-family: ralewaysemibold, sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0 0 12px 0;
+  padding: 0; }
+
+/* line 756, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .woocommerce-tabs h4 {
+  border-bottom: 1px solid #999;
+  margin: 0 0 12px 0;
+  padding: 0 0 12px 0; }
+
+/* line 761, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce .product .woocommerce-tabs .tabs .active a {
+  font-family: ralewaysemibold, sans-serif;
+  font-weight: normal; }
+
+/* line 765, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce div.product .woocommerce-tabs ul.tabs li a {
+  font-weight: normal;
+  color: #999; }
+
+/* line 769, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .content[role="main"] .entry-content {
+  border: none;
+  margin-top: 0; }
+
+/* line 772, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.woocommerce-page .related.products h2:after {
+  content: " exclusively from SportPort";
+  color: #F93;
+  font-family: ralewayblack, sans-serif; }
+
+/*! ---------------------------------------- */
+/*! CUSTOM BODY TECHNOLOGY START [x27] ---------------------------------------- */
+/*!--- Technology Orange ---*/
+/* line 783, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.technology {
+  background: #FA5; }
+
+/* line 785, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.technology .sp-logo-div {
+  background-image: url(/wp-content/uploads/2015/08/SportPort-Symbol-Floater-White-184-H-Shadow.png); }
+
+/* line 789, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+#tech-layers-animation {
+  background: rgba(255, 255, 255, 0.24);
+  width: 100%;
+  height: 290px;
+  border: 1px solid #FFF;
+  text-align: center;
+  padding-top: 100px;
+  color: #000;
+  margin-top: 20px; }
+
+/*! ---------------------------------------- */
+/*! CUSTOM BODY TESTIMONIAL START (x22A) ---------------------------------------- */
+/* line 803, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-testimonials {
+  background: #ACE; }
+
+/* line 805, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-testimonials .entry {
+  background: #ACE;
+  margin: 0 0 2.2em 0;
+  padding: 0; }
+
+/* line 810, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-testimonials .entry-header {
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0; }
+
+/* line 816, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-testimonials .entry-content {
+  padding: 0 0 0 0;
+  border: none; }
+
+/* line 820, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-testimonials .entry-footer .entry-meta {
+  display: none; }
+
+/* line 823, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-testimonials .content .entry-title,
+body.category-testimonials .content .entry-title a {
+  font-family: ralewaylight, sans-serif;
+  text-align: right;
+  font-weight: normal;
+  color: #FFF;
+  margin: 0 20px 12px 0;
+  padding: 0 0 0 4px;
+  border: none; }
+
+/* line 833, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-testimonials img.alignleft.post-image.entry-image {
+  display: none; }
+
+/*! ----- .quote-bubble-right ----- */
+/* line 838, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-testimonials .entry-footer {
+  padding: 0; }
+
+/* line 840, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-testimonials .quote-bubble-right,
+body.category-testimonials .quote-bubble-left,
+body.category-testimonials .entry-content p {
+  /*--- For archive page ---*/
+  position: relative;
+  padding: 30px 28px 30px 35px;
+  margin: 0;
+  font-weight: normal;
+  font-weight: 100;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  color: #000;
+  background: #FFF; }
+
+/* line 854, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-testimonials .quote-bubble-right:after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  /*--- for down ---*/
+  /*top: -50px;*/
+  /*--- for up ---*/
+  right: 30px;
+  /*--- adjustable, can also be left ---*/
+  border-width: 0 0px 40px 50px;
+  /*--- for down ---*/
+  /*border-width: 50px 0px 0px 20px;*/
+  /*--- for up ---*/
+  border-style: solid;
+  /* reduce the damage in FF3.0 */
+  display: block;
+  width: 0;
+  border-color: transparent #FFF;
+  color: #000; }
+
+/* line 869, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-testimonials .quote-bubble-left:after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  /*--- for down ---*/
+  left: 40px;
+  border-width: 0 0px 40px 50px;
+  /*--- for down ---*/
+  border-style: solid;
+  display: block;
+  width: 0;
+  border-color: transparent #FFF;
+  color: #000; }
+
+/*! ----- Author ----- */
+/* line 883, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-testimonials .quote-author-right {
+  float: right;
+  margin: 28px 25px 0 0;
+  color: #000;
+  font-size: 14px; }
+
+/* line 889, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-testimonials .quote-author-left {
+  float: left;
+  margin: 28px 0 0 30px;
+  color: #000;
+  font-size: 14px; }
+
+/*! HOME CUSTOM TESTIMONIALS SIDEBAR [x22B] ------------------------ */
+/* line 897, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.category-testimonials .sidebar .entry-content p {
+  background: transparent;
+  margin: 0;
+  padding: 0; }
+
+/*! ---------------------------------------- */
+/*! HOME CUSTOM WOOCOMMERCE PRODUCTS [x24] ------------------------ */
+/* line 906, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home-tag {
+  font-size: 14px;
+  color: #000;
+  margin: 0 0 2em 0;
+  line-height: 1.8;
+  border: 1px solid #000;
+  padding: 14px;
+  margin: 15px 0;
+  background: #ffd3e2; }
+
+/* line 916, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.tag-plus {
+  font-size: 24px;
+  font-family: ralewayextralight, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin-top: 3px;
+  padding: 6px;
+  position: relative;
+  top: .15em;
+  color: BBB; }
+
+/* line 925, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.woocommerce ul.cart_list, .woocommerce ul.product_list_widget {
+  display: inline-block;
+  /*--- was display: table ---*/
+  clear: both;
+  padding: 0 0 15px 0;
+  /*--- Necessary to allow drop shadow bottoms to show ---*/
+  line-height: 0;
+  /*--- Necessary to close up space in product boxes ---*/ }
+
+/* line 931, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.home .woocommerce img {
+  border: none; }
+
+/*! ---------------------------------------- */
+/*! BODY.HOME CUSTOM START [x25] ------------------------ */
+/* line 937, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.home .woocommerce ul.product_list_widget li {
+  float: left;
+  background: #FFF;
+  margin: 0 3px 0 6px;
+  padding: 0;
+  width: 18.4%;
+  border: 1px solid #888; }
+
+/* line 946, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.home .woocommerce ul.product_list_widget li a {
+  color: #999;
+  font-weight: 100 !important;
+  font-size: 12px;
+  background: #FFF;
+  -webkit-box-shadow: 0px 9px 20px -12px black;
+  -moz-box-shadow: 0px 9px 20px -12px black;
+  box-shadow: 0px 9px 20px -12px black; }
+
+/* line 956, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.home .woocommerce ul.product_list_widget li img {
+  /*---PK---*/
+  width: 148px;
+  float: none;
+  margin: 0 0 0 0; }
+
+/* line 962, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.home .product-title {
+  background: #89A;
+  padding: 18px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  width: 100%;
+  color: #FFF; }
+
+/*! TABLE on HOME PAGE for 20% SALE FEB 2016 ---------------------------------------- */
+/* line 977, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.home table a {
+  font-family: ralewayextrabold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #27A; }
+
+/* line 981, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.home table th, body.home table td {
+  text-align: center;
+  background: #FFF;
+  padding: 0 10px; }
+
+/* line 986, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.home table th img, body.home table td img {
+  padding: 0 0 0 0;
+  margin: 0 0 0 0; }
+
+/*! ---------------------------------------- */
+/* line 992, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.shop-head {
+  font-family: ralewaylight, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 25px;
+  margin: 9px 0 16px 0;
+  letter-spacing: .3em;
+  line-height: 1.2; }
+
+/* line 1000, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.shop-head strong {
+  font-family: ralewayextrabold, 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+/*! ---------------------------------------- */
+/*! CUSTOM COLOR CLASSES START ---------------------------------------- */
+/* line 1008, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.white {
+  color: #FFF; }
+
+/*! ---------------------------------------- */
+/*! CUSTOM FONT-RELATED START ---------------------------------------- */
+/* line 1014, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home-feature-fa {
+  /*--- Font Awesome ---*/
+  color: #FFF;
+  padding: 10px 0 0 0; }
+
+/*! ---------------------------------------- */
+/*! SPEECH BUBBLES (in section .home-feature-9) ---------------------------------------- */
+/* line 1022, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home-quote {
+  /*--- in .home-feature-11 ---*/
+  background: #FFF;
+  border-radius: 10px;
+  color: #000;
+  margin: 0;
+  padding: 15px 15px 1px 15px;
+  position: relative; }
+
+/*! display of quote author (alternatively use a class on the element following the blockquote) */
+/* line 1031, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.example-right + p {
+  margin: 15px 0 2em 85px;
+  font-style: italic; }
+
+/*! creates the triangle */
+/* line 1034, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home-quote:after {
+  content: "";
+  position: absolute;
+  bottom: -30px;
+  right: 70px;
+  border-width: 0 50px 50px 0px;
+  border-style: solid;
+  border-color: transparent #FFF;
+  /* reduce the damage in FF3.0 */
+  display: block;
+  width: 0; }
+
+/* line 1046, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home-quote p {
+  font-size: 14px; }
+
+/* line 1048, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home-quote a {
+  color: #F93; }
+
+/* line 1051, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.quote-author {
+  margin: 10px 15px 2em 85px;
+  font-size: 11px;
+  text-align: right; }
+
+/*! ---------------------------------------- */
+/*! SITE-WIDE CUSTOMIZATION .CONTENT + .SIDEBAR  [x26] ---------------------------- */
+/* line 1061, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+body.testimonials .sidebar .entry-content {
+  border-bottom: 1px solid #FFF; }
+
+/* line 1064, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar .entry-content,
+body.category-testimonials .sidebar .entry-content {
+  padding: 0;
+  margin: 0; }
+
+/* line 1069, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar .entry-content p {
+  font-size: 13px;
+  margin: 12px 0 12px 0; }
+
+/* line 1073, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar .featured-content .entry-title {
+  font-family: ralewaymedium, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: normal;
+  font-size: 13px;
+  margin: 0 0 3px 0;
+  padding: 0;
+  border: none;
+  background: none; }
+
+/* line 1083, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar .featured-content .entry {
+  background: transparent;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  padding: 0;
+  margin: 0; }
+
+/*! --------- BACK TO TOP -------- */
+/* line 1093, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.wpsstt_btn {
+  width: 42px !important;
+  height: 42px !important;
+  background-color: #F93 !important;
+  border: none !important;
+  -webkit-box-shadow: 0px 9px 10px -3px rgba(0, 0, 0, 0.29) !important;
+  -moz-box-shadow: 0px 9px 10px -3px rgba(0, 0, 0, 0.29) !important;
+  box-shadow: 0px 9px 10px -3px rgba(0, 0, 0, 0.29) !important;
+  padding-top: 2px;
+  margin: 15px; }
+
+/* line 1104, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.wpsstt_roundedcorners {
+  border-radius: 25px !important; }
+
+/*! MY CUSTOM CODE END ======================================================= */
+/*!
+Defaults
+---------------------------------------------------------------------------------------------------- */
+/*! Typographical Elements --------------------------------------------- */
+/* line 1118, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.quote {
+  background: #fff;
+  border: 1px solid #ddd;
+  color: #888;
+  padding: 20px; }
+
+/* line 1125, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.quote-arrow {
+  background-image: url(images/quote-arrow.png);
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  bottom: 1px;
+  display: block;
+  margin: 0 0 10px;
+  padding: 14px 0 0;
+  position: relative; }
+
+/* line 1136, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.quote-gray {
+  background: #eee;
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 20px; }
+
+/* line 1143, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.quote-arrow-gray {
+  background-image: url(images/quote-arrow-gray.png);
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  bottom: 1px;
+  display: block;
+  margin: 0 0 10px;
+  padding: 14px 0 0;
+  position: relative; }
+
+/* line 1154, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.quote-black {
+  background: #121212;
+  border: 1px solid #353535;
+  color: #fff;
+  padding: 20px; }
+
+/* line 1161, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.quote-arrow-black {
+  background-image: url(images/quote-arrow-black.png);
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  bottom: 1px;
+  display: block;
+  margin: 0 0 10px;
+  padding: 14px 0 0;
+  position: relative; }
+
+/* line 1172, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.quote-black a {
+  color: #fff !important; }
+
+/* line 1176, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.quote-black p {
+  color: #fff; }
+
+/* line 1180, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.quote strong {
+  color: #333;
+  padding: 10px 0 0; }
+
+/*! Objects
+--------------------------------------------- */
+/* line 1188, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+embed,
+iframe,
+img,
+object,
+video {
+  max-width: 100%; }
+
+/* line 1196, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+img {
+  height: auto; }
+
+/* line 1200, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.format-gallery #gallery-1 img {
+  border: none; }
+
+/*! Message Boxes
+--------------------------------------------- */
+/* line 1211, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.download-box {
+  box-shadow: 0 2px 2px 0 #ddd;
+  border-radius: 3px;
+  background: #d2eac2 url(images/download-arrow.png) no-repeat 10px 15px;
+  border: 1px solid #a7d28a;
+  color: #689c2a;
+  margin: 0 2px 20px;
+  padding: 14px 15px 20px 55px; }
+
+/* line 1221, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.info-box {
+  box-shadow: 0 2px 2px 0 #ddd;
+  border-radius: 3px;
+  background: #cae0ec url(images/info-button.png) no-repeat 10px 15px;
+  border: 1px solid #aec3ce;
+  color: #08557e;
+  margin: 0 2px 20px;
+  padding: 17px 15px 20px 55px; }
+
+/* line 1231, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.alert-box {
+  box-shadow: 0 2px 2px 0 #ddd;
+  -moz-box-shadow: 0 2px 2px 0 #ddd;
+  -webkit-box-shadow: 0 2px 2px 0 #ddd;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background: #f2dbdb url(images/alert-button.png) no-repeat 10px 15px;
+  border: 1px solid #eab4b4;
+  color: #c8001c;
+  margin: 0 2px 20px;
+  padding: 17px 15px 20px 55px; }
+
+/* line 1245, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.note-box {
+  box-shadow: 0 2px 2px 0 #ddd;
+  -moz-box-shadow: 0 2px 2px 0 #ddd;
+  -webkit-box-shadow: 0 2px 2px 0 #ddd;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background: #ffec97 url(images/note-button.png) no-repeat 10px 15px;
+  border: 1px solid #ded5af;
+  color: #ac670e;
+  margin: 0 2px 20px;
+  padding: 17px 15px 20px 55px; }
+
+/* line 1259, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.black-box {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background: #000;
+  color: #fff;
+  font-weight: 300;
+  margin: 0 2px 20px;
+  padding: 30px; }
+
+/* line 1270, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.blue-box {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background: #7adaff;
+  color: #005e82;
+  font-weight: 300;
+  margin: 0 2px 20px;
+  padding: 30px; }
+
+/* line 1281, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.gray-box {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background: #eee;
+  color: #888;
+  font-weight: 300;
+  margin: 0 2px 20px;
+  padding: 30px; }
+
+/* line 1292, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.green-box {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background: #d2eac2;
+  color: #689c2a;
+  font-weight: 300;
+  margin: 0 2px 20px;
+  padding: 30px; }
+
+/* line 1303, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.orange-box {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background: #ff7f3a;
+  color: #fff;
+  font-weight: 300;
+  margin: 0 2px 20px;
+  padding: 30px; }
+
+/* line 1315, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.pink-box {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background: #f2dbdb;
+  color: #c8001c;
+  font-weight: 300;
+  margin: 0 2px 20px;
+  padding: 30px; }
+
+/* line 1326, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.red-box {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background: #ff3d3d;
+  color: #fff;
+  font-weight: 300;
+  margin: 0 2px 20px;
+  padding: 30px; }
+
+/* line 1337, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.yellow-box {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background: #ffec97;
+  color: #ac670e;
+  font-weight: 300;
+  margin: 0 2px 20px;
+  padding: 30px; }
+
+/*! Circles */
+/* line 1350, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.circle {
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  background: #000;
+  color: #fff;
+  display: inline-block;
+  font-size: 18px;
+  line-height: 18px;
+  margin: 0 2px;
+  min-width: 10px;
+  padding: 10px 14px;
+  text-align: center;
+  text-decoration: none; }
+
+/*!
+20 Pricing Plans
+---------------------------------------------------------------------------------------------------- */
+/* line 1371, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plans {
+  clear: both;
+  margin: 0 auto;
+  padding: 20px 0 0;
+  text-align: center; }
+
+/* line 1378, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plan-col {
+  background: #eee;
+  float: left;
+  font-weight: 300;
+  padding: 0;
+  text-align: center;
+  vertical-align: top; }
+
+/* line 1387, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plan-col-popular {
+  background: #fff;
+  float: left;
+  font-weight: 300;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  vertical-align: top; }
+
+/* line 1397, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plan-col,
+.plan-col-popular {
+  width: 25%; }
+
+/* line 1402, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plan-col-wrap,
+.plan-col-popular-wrap {
+  border: 1px solid #d3d3d3;
+  margin: 0 auto;
+  padding: 40px 10px; }
+
+/* line 1409, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plans .plan-head h4 {
+  font-size: 20px;
+  font-weight: 300;
+  margin: 0 0 20px;
+  text-transform: uppercase;
+  text-align: center; }
+
+/* line 1417, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plan-head em {
+  font-size: 14px; }
+
+/* line 1421, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plan-pricing {
+  background: url(images/border-img-x.png) repeat-x scroll center bottom;
+  clear: both;
+  margin: 0 0 20px;
+  padding: 0 0 20px;
+  text-align: center; }
+
+/* line 1429, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plan-price {
+  font-size: 60px; }
+
+/* line 1433, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plan-price sup {
+  font-size: 24px; }
+
+/* line 1437, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plan-pricing .monthly {
+  font-size: 14px; }
+
+/* line 1441, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plan-list {
+  margin: 0 0 20px;
+  overflow: hidden; }
+
+/* line 1446, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plan-list li,
+.entry-content .plan-list li {
+  list-style: none;
+  margin: 0 0 20px; }
+
+/* line 1452, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plan-button {
+  clear: both; }
+
+/* line 1456, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plan-button a,
+.entry-content .plan-button a {
+  border-radius: 3px;
+  background: #303236;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 400;
+  padding: 6px 25px 8px; }
+
+/* line 1466, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.plan-button a:hover {
+  opacity: .7;
+  transition: all .5s ease;
+  text-decoration: underline; }
+
+/*! Column Classes
+	Link: http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css
+--------------------------------------------- */
+/* line 1477, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.five-sixths,
+.four-sixths,
+.one-fourth,
+.one-half,
+.one-sixth,
+.one-third,
+.three-fourths,
+.three-sixths,
+.two-fourths,
+.two-sixths,
+.two-thirds {
+  float: left;
+  margin-left: 2.564102564102564%; }
+
+/* line 1492, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.one-half,
+.three-sixths,
+.two-fourths {
+  width: 48.717948717948715%; }
+
+/* line 1498, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.one-third,
+.two-sixths {
+  width: 31.623931623931625%; }
+
+/* line 1503, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.four-sixths,
+.two-thirds {
+  width: 65.81196581196582%; }
+
+/* line 1508, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.one-fourth {
+  width: 23.076923076923077%; }
+
+/* line 1512, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.three-fourths {
+  width: 74.35897435897436%; }
+
+/* line 1516, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.one-sixth {
+  width: 14.52991452991453%; }
+
+/* line 1520, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.five-sixths {
+  width: 82.90598290598291%; }
+
+/* line 1524, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.first {
+  clear: both;
+  margin-left: 0; }
+
+/*!
+Common Classes
+---------------------------------------------------------------------------------------------------- */
+/*! WordPress
+--------------------------------------------- */
+/* line 1537, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.avatar {
+  float: left; }
+
+/* line 1541, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.alignleft .avatar {
+  margin-right: 24px; }
+
+/* line 1545, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.alignright .avatar {
+  margin-left: 24px; }
+
+/* line 1549, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.search-form input[type="submit"] {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  position: absolute;
+  width: 1px; }
+
+/* line 1560, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+img.centered,
+.aligncenter {
+  display: block;
+  margin: 0 auto 24px; }
+
+/* line 1566, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+img.alignnone {
+  margin-bottom: 0; }
+
+/* line 1570, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.alignleft {
+  float: left;
+  text-align: left; }
+
+/* line 1575, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.alignright {
+  float: right;
+  text-align: right; }
+
+/* line 1580, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+img.alignleft,
+.wp-caption.alignleft {
+  margin: 0 15px 15px 0; }
+
+/* line 1585, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+img.alignright,
+.wp-caption.alignright {
+  margin: 0 0 0 10px; }
+
+/* line 1589, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.wp-caption-text {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  text-align: center; }
+
+/* line 1596, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.widget_calendar table {
+  width: 100%; }
+
+/* line 1600, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.widget_calendar td {
+  text-align: center; }
+
+/*! Genesis
+--------------------------------------------- */
+/* line 1607, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.breadcrumb {
+  text-align: right;
+  margin: 0 0 15px 0;
+  padding: 0 0 15px 0;
+  font-size: 13px;
+  color: #567;
+  border-bottom: 1px solid #9AB; }
+
+/* line 1616, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.archive-description p {
+  margin: 0 0 22px 0; }
+
+/*! Titles
+--------------------------------------------- */
+/* line 1623, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-title {
+  margin-bottom: 0;
+  padding: 0 40px 0 20px;
+  line-height: 1.1;
+  font-weight: normal;
+  font-size: 2em;
+  font-family: ralewaymedium, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #567;
+  letter-spacing: -0.2px; }
+
+/* line 1633, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-title a {
+  color: #567;
+  font-weight: normal;
+  text-decoration: none; }
+
+/* line 1638, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar .widgettitle a {
+  color: #333; }
+
+/* line 1642, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-title a:hover {
+  color: #6BC;
+  text-decoration: none; }
+
+/* line 1646, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.widgettitle {
+  color: #333;
+  font-size: 18px;
+  letter-spacing: 1px;
+  margin-bottom: 16px; }
+
+/* line 1654, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar .widgettitle {
+  border: none;
+  font-size: 14px;
+  text-transform: uppercase; }
+
+/* line 1660, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.sidebar .widgettitle a {
+  border: none; }
+
+/* line 1664, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.archive-title, .page-title {
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 2em;
+  margin: 0 0 6px 0;
+  font-weight: normal;
+  line-height: 1.2; }
+
+/*!
+Widgets
+---------------------------------------------------------------------------------------------------- */
+/*! Slider Wide
+--------------------------------------------- */
+/* line 1678, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.slider-wide {
+  clear: both;
+  width: 100%;
+  background: #000;
+  margin-bottom: -1px; }
+
+/* line 1685, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.slider-wide .wrap {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 100%; }
+
+/* line 1691, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.slider-wide .widget {
+  margin: 0; }
+
+/* line 1695, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.slider-wide .flexslider .slides img {
+  width: 100% !important; }
+
+/* line 1699, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.slider-wide .flexslider {
+  max-width: 100% !important; }
+
+/*! Featured Page and Featured Post
+--------------------------------------------- */
+/* line 1709, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.featured-content .entry {
+  margin-bottom: 20px;
+  padding: 0 0 20px; }
+
+/* line 1713, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.featured-content .entry-title {
+  border: none;
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 10px 0; }
+
+/* line 1719, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home .featured-content .entry-title,
+.home .featured-content .entry-title a {
+  font-size: 14px;
+  padding: 0;
+  color: #FFF; }
+
+/* line 1725, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.featured-content .entry-title a {
+  border: none; }
+
+/*!
+Content Area
+---------------------------------------------------------------------------------------------------- */
+/*! Entries
+--------------------------------------------- */
+/* line 1734, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry {
+  /*--- [x50] ---*/
+  background: rgba(255, 255, 255, 0.5);
+  margin: 0 3px 10px 0;
+  padding: 0 16px 16px 16px; }
+
+/* line 1741, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.content .entry-content {
+  padding: 10px 10px 0px 20px;
+  overflow: hidden; }
+
+/* line 1746, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home .entry-content {
+  padding: 0 0 20px; }
+
+/* line 1750, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-content a {
+  font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #18D;
+  text-decoration: underline; }
+
+/* line 1755, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-content a:hover {
+  color: #F93; }
+
+/* line 1758, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-content strong {
+  font-family: ralewayextrabold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  color: #567;
+  text-transform: uppercase; }
+
+/* line 1764, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-content a strong {
+  color: #18D; }
+
+/* line 1765, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-content a strong:hover {
+  color: #E80; }
+
+/* line 1767, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-content .attachment a,
+.entry-content .gallery a {
+  border: none; }
+
+/* line 1772, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-content ol,
+.entry-content p,
+.entry-content ul,
+.quote-caption {
+  margin: 0 0 10px 0; }
+
+/* line 1778, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-content ol li,
+.entry-content ul li {
+  margin: 0 30px 10px 40px; }
+
+/* line 1782, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-content ol li {
+  list-style-type: decimal; }
+
+/* line 1786, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-content ul li {
+  list-style-type: disc;
+  margin: 4px 0 0 20px; }
+
+/* line 1790, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-content ol ol,
+.entry-content ul ul,
+.entry-content .wp-caption p {
+  margin-bottom: 0; }
+
+/* line 1796, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-meta {
+  clear: both;
+  color: #666;
+  font-size: 14px; }
+
+/* line 1802, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-meta a {
+  font-family: ralewaysemibold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: normal; }
+
+/* line 1807, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-header .entry-meta {
+  border-bottom: 1px solid #eee;
+  font-size: 12px;
+  font-weight: 400;
+  margin: 10px 0 5px 20px;
+  padding: 0 0 0 0;
+  text-transform: uppercase; }
+
+/* line 1816, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.home .entry-header .entry-meta {
+  padding: 10px 0 20px; }
+
+/* line 1820, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-footer .entry-meta {
+  margin: 0;
+  overflow: hidden;
+  padding: 0 0 15px 0; }
+
+/* line 1826, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-footer {
+  padding: 0 20px; }
+
+/* line 1830, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-comments-link::before {
+  content: "\2014";
+  margin: 0 6px 0 2px; }
+
+/* line 1835, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-categories {
+  display: block;
+  float: left;
+  font-size: 12px; }
+
+/* line 1841, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-tags {
+  float: right;
+  font-size: 12px; }
+
+/*! After Entry widget
+--------------------------------------------- */
+/* line 1849, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.after-entry {
+  background: #222;
+  color: #aaa;
+  margin: 60px 0;
+  overflow: hidden;
+  text-align: center; }
+
+/* line 1857, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.after-entry .wrap {
+  padding: 40px; }
+
+/* line 1861, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.after-entry a {
+  color: #fff; }
+
+/* line 1865, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.after-entry .widget-title,
+.after-entry h4 {
+  color: #fff;
+  font-size: 30px; }
+
+/* line 1871, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.after-entry h1,
+.after-entry h2,
+.after-entry h3,
+.after-entry h4,
+.after-entry h5,
+.after-entry h6 {
+  color: #fff;
+  font-weight: 400; }
+
+/* line 1881, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.after-entry .enews-widget input {
+  width: 50%; }
+
+/* line 1885, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.after-entry .enews-widget input[type="submit"] {
+  width: auto; }
+
+/*! Pagination
+--------------------------------------------- */
+/* line 1892, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.archive-pagination,
+.entry-pagination {
+  clear: both;
+  font-size: 14px;
+  margin: 40px 0; }
+
+/* line 1899, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.archive-pagination li {
+  display: inline; }
+
+/* line 1903, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.archive-pagination li a {
+  background: #444;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  padding: 4px 12px; }
+
+/* line 1913, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.archive-pagination li a:hover,
+.archive-pagination li.active a {
+  background: #1e1e1e; }
+
+/*! Comments
+--------------------------------------------- */
+/* line 1922, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-comments,
+.ping-list,
+#respond {
+  margin-bottom: 40px; }
+
+/* line 1928, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.entry-comments .comment-author {
+  margin: 0; }
+
+/* line 1932, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+#respond input[type="email"],
+#respond input[type="text"],
+#respond input[type="url"] {
+  width: 50%; }
+
+/* line 1938, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+#respond label {
+  display: block;
+  margin-right: 12px; }
+
+/* line 1943, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.comment-list li,
+.ping-list li {
+  list-style-type: none;
+  margin-top: 24px;
+  padding: 32px; }
+
+/* line 1951, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+li.comment {
+  padding: 30px; }
+
+/* line 1955, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+li.comment ul li {
+  border-radius: 0;
+  border-left: 1px solid #ddd; }
+
+/* line 1960, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.thread-alt li.comment {
+  border-radius: 0;
+  border-left: 1px solid #aaa; }
+
+/* line 1965, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.comment .avatar {
+  margin: 0 16px 24px 0; }
+
+/* line 1969, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.thread-alt {
+  background-color: #ddd; }
+
+/* line 1973, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.thread-even {
+  background-color: #fff; }
+
+/* line 1977, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.form-allowed-tags {
+  background: #D3DCEB;
+  font-size: 14px;
+  padding: 24px; }
+
+/*!
+Miscellaneous
+---------------------------------------------------------------------------------------------------- */
+/* line 1987, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.clear-line {
+  border-bottom: 1px solid #eee;
+  clear: both;
+  margin-bottom: 26px; }
+
+/* Embedded Gists */
+/* line 1994, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.line-pre::before,
+.line-pre::after,
+.line::before,
+.line::after {
+  content: ''; }
+
+/* line 2001, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.line-number,
+.gist .line-data > .line-pre {
+  line-height: 1.2; }
+
+/* line 2006, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.tagcloud a {
+  background: #e3e3e3;
+  float: left;
+  padding: 3px 10px;
+  margin: 0 2px 5px; }
+
+/* line 2013, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.tagcloud a:hover {
+  background: #f5f5f5; }
+
+/* line 2017, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.search .entry {
+  padding: 40px 20px 10px; }
+
+/*! Content Align (Left & Right) */
+/* line 2023, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.feature-left {
+  float: left;
+  margin: 0 2% 0 0;
+  width: 48%; }
+
+/* line 2029, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.feature-right {
+  float: right;
+  width: 48%; }
+
+/* line 2034, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.feature-margin {
+  margin-top: 80px; }
+
+/*! Check List */
+/* line 2040, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.check-list {
+  list-style: none;
+  margin: 0 0 30px; }
+
+/* line 2045, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.check-list li {
+  padding: 0 0 0 30px; }
+
+/* Responsive Videos */
+/* line 2051, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.video-container {
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  position: relative; }
+
+/* line 2059, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+.video-container iframe,
+.video-container object,
+.video-container embed {
+  left: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%; }
+
+/*! iPads (portrait)
+--------------------------------------------- */
+@media only screen and (max-width: 1023px) {
+  /* line 2078, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+  .slider .wrap,
+  .home-feature-bg .wrap,
+  .home-feature-bg-alt .wrap,
+  .home-feature-bg-dark .wrap,
+  .footer-widgets .wrap {
+    width: 90%; }
+  /* line 2088, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+  .sidebar .widget.enews-widget {
+    padding: 40px; }
+  /* line 2092, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+  .wp-caption {
+    width: 100% !important; }
+  /* line 2096, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+  .footer-widgets .widget {
+    margin-bottom: 40px; } }
+
+@media only screen and (max-width: 480px) {
+  /* line 2105, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+  .content .portfolio {
+    text-align: center;
+    width: 100%; }
+  /* line 2110, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+  .content .portfolio .post-image {
+    width: 100%; }
+  /* line 2114, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/_orig-styles.scss */
+  .content .portfolio .more-link {
+    margin: 20px auto 0;
+    padding: 6px;
+    width: 60%; } }
+
+/* --------------------------------- *       # Genesis Nav Menu #
+\* --------------------------------- */
+/* line 5, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_navigation.scss */
+.genesis-nav-menu {
+  clear: both;
+  line-height: 1;
+  width: 100%; }
+  /* line 10, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_navigation.scss */
+  .genesis-nav-menu .menu-item {
+    display: inline-block;
+    text-align: left; }
+    /* line 14, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_navigation.scss */
+    .genesis-nav-menu .menu-item:hover {
+      position: static; }
+      /* line 17, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_navigation.scss */
+      .genesis-nav-menu .menu-item:hover > .sub-menu {
+        left: auto;
+        opacity: 1; }
+  /* line 24, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_navigation.scss */
+  .genesis-nav-menu a {
+    border-bottom-width: 0;
+    color: #232525;
+    display: block;
+    font-family: latoregular, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    font-weight: 400;
+    padding: 10px;
+    text-transform: uppercase; }
+    /* line 37, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_navigation.scss */
+    .genesis-nav-menu a:hover, .genesis-nav-menu a:active, .genesis-nav-menu a:focus {
+      font-weight: 800; }
+  /* line 44, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_navigation.scss */
+  .genesis-nav-menu .sub-menu {
+    background-color: #f93;
+    border-bottom: 1px solid #909090;
+    left: -9999px;
+    letter-spacing: 0.2em;
+    opacity: 0;
+    position: absolute;
+    width: 180px; }
+    /* line 53, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_navigation.scss */
+    .genesis-nav-menu .sub-menu a {
+      border: 1px solid #eee;
+      border-top: 0;
+      font-size: 70%;
+      padding: 15px;
+      position: relative;
+      width: 180px; }
+      /* line 61, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_navigation.scss */
+      .genesis-nav-menu .sub-menu a .genesis-nav-menu .sub-menu a {
+        margin: -44px 0 0 179px; }
+
+/* line 3, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_nav-primary.scss */
+.nav-primary {
+  float: right;
+  margin-top: 1.5625em; }
+  @media screen and (max-width: 1023px) {
+    /* line 3, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_nav-primary.scss */
+    .nav-primary {
+      width: 100%; } }
+  /* line 11, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_nav-primary.scss */
+  .nav-primary a {
+    color: #fff;
+    font-size: 0.875em;
+    text-decoration: none; }
+    /* line 16, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_nav-primary.scss */
+    .nav-primary a:hover, .nav-primary a:focus, .nav-primary a:active {
+      color: #fff;
+      font-weight: bold;
+      -webkit-transition: all 0.5s ease-in-out;
+      -moz-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out; }
+  /* line 25, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_nav-primary.scss */
+  .nav-primary .genesis-nav-menu li.last a {
+    padding-right: 0; }
+  /* line 29, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_nav-primary.scss */
+  .nav-primary .genesis-nav-menu li li {
+    margin-left: 0; }
+  /* line 33, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_nav-primary.scss */
+  .nav-primary .sub-menu {
+    border-top: 1px solid #ddd;
+    z-index: 1; }
+
+/*! Secondary Navigation
+--------------------------------------------- */
+/* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_nav-secondary.scss */
+.nav-secondary {
+  background: #222;
+  clear: both; }
+
+/* line 9, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_nav-secondary.scss */
+.nav-secondary .genesis-nav-menu a {
+  font-size: 12px;
+  padding: 8px 13px; }
+
+/* line 14, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_nav-secondary.scss */
+.nav-secondary .genesis-nav-menu > .right {
+  padding: 8px 0 8px 20px; }
+
+/* line 18, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_nav-secondary.scss */
+.nav-secondary a:hover,
+.nav-secondary .current-menu-item > a {
+  color: #aaa; }
+
+/* line 23, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_nav-secondary.scss */
+.nav-secondary .genesis-nav-menu > .right > a,
+.nav-secondary .genesis-nav-menu > .right > a:hover {
+  background: none;
+  padding: 0; }
+
+/* line 29, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_nav-secondary.scss */
+.nav-secondary .sub-menu a:hover {
+  color: #aaa; }
+
+/* line 33, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_nav-secondary.scss */
+.nav-secondary .genesis-nav-menu .sub-menu .sub-menu {
+  margin: -34px 0 0 201px; }
+
+/* Responsive Navigation
+--------------------------------------------- */
+/* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+.sub-menu-toggle,
+.menu-toggle {
+  display: none;
+  visibility: hidden; }
+
+@media screen and (max-width: 1023px) {
+  /* line 12, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js .nav-primary .sub-menu a {
+    background: none;
+    border: none; }
+  /* line 17, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js nav.nav-primary {
+    display: none;
+    position: relative; }
+  /* line 22, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js nav .wrap {
+    padding: 0; }
+  /* line 26, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js nav.pagination {
+    display: block; }
+  /* line 30, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .menu-toggle,
+  .sub-menu-toggle {
+    background: none;
+    border-radius: 0;
+    border-width: 0;
+    color: #1e1e1e;
+    display: block;
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: center;
+    visibility: visible; }
+  /* line 43, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .menu-toggle:hover,
+  .menu-toggle:focus,
+  .sub-menu-toggle:hover,
+  .sub-menu-toggle:focus {
+    background: none;
+    border-width: 0; }
+  /* line 51, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .menu-toggle {
+    padding-bottom: 0;
+    padding-top: 10px;
+    position: relative;
+    right: 0;
+    width: 100%;
+    z-index: 1000; }
+  /* line 60, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .menu-toggle:before,
+  .menu-toggle.activated:before {
+    color: #fff;
+    content: "\f130";
+    display: inline-block;
+    font: normal 20px/1 'ionicons';
+    margin: 0 auto;
+    padding-right: 10px;
+    text-rendering: auto;
+    transform: translate(0, 0);
+    vertical-align: middle; }
+  /* line 73, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .sub-menu-toggle {
+    float: right;
+    padding: 8px 18px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 100; }
+  /* line 82, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .sub-menu-toggle:before {
+    color: #fff;
+    content: "\f3d0";
+    display: inline-block;
+    font: normal 16px/1 'ionicons';
+    text-rendering: auto;
+    transform: translate(0, 0); }
+  /* line 91, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .sub-menu-toggle.activated:before {
+    content: "\f3d8"; }
+  /* line 95, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js .genesis-nav-menu .menu-item {
+    display: block;
+    float: none;
+    margin-bottom: 1px;
+    margin-top: 1px;
+    position: relative;
+    text-align: left; }
+  /* line 104, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js .genesis-nav-menu .menu-item:hover {
+    position: relative; }
+  /* line 108, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js .genesis-nav-menu .menu-item a {
+    border: none;
+    padding: 10px;
+    width: 100%; }
+  /* line 114, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js .genesis-nav-menu .menu-item a:hover,
+  .js .genesis-nav-menu .sub-menu {
+    border: none; }
+  /* line 119, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js .genesis-nav-menu .menu-item > a:focus ul.sub-menu,
+  .js .genesis-nav-menu .menu-item > a:focus ul.sub-menu .sub-menu {
+    left: 0;
+    margin-left: 0; }
+  /* line 125, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js .genesis-nav-menu > .menu-item-has-children > a:after {
+    content: none; }
+  /* line 129, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js .genesis-nav-menu .sub-menu {
+    clear: both;
+    display: none;
+    margin: 0;
+    opacity: 1;
+    padding-left: 15px;
+    position: static;
+    width: 100%; }
+  /* line 139, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js .genesis-nav-menu .sub-menu .sub-menu {
+    margin: 0; }
+  /* line 143, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js .genesis-nav-menu .sub-menu a {
+    border-bottom: 1px solid #909090; }
+    /* line 146, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+    .js .genesis-nav-menu .sub-menu a:hover {
+      border-bottom: 1px solid #909090; }
+  /* line 151, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js nav button:hover,
+  .js .menu-toggle:hover,
+  .js .nav-primary {
+    color: #fff;
+    font-weight: bold; }
+  /* line 158, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_responsive-nav.scss */
+  .js nav button:focus,
+  .js .menu-toggle:focus {
+    color: #fff; } }
+
+/* line 1, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_breadcrumbs.scss */
+.woocommerce nav.woocommerce-breadcrumb {
+  border-bottom: 1px solid #9ab;
+  color: #567;
+  font-size: 0.75em;
+  margin-right: 0.9375em;
+  padding-bottom: 0.9375em;
+  padding-right: 0.9375em;
+  text-align: right; }
+  /* line 10, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_breadcrumbs.scss */
+  .woocommerce nav.woocommerce-breadcrumb a {
+    text-decoration: none; }
+    /* line 13, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_breadcrumbs.scss */
+    .woocommerce nav.woocommerce-breadcrumb a:first-child {
+      color: #000; }
+    /* line 17, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_breadcrumbs.scss */
+    .woocommerce nav.woocommerce-breadcrumb a:hover {
+      color: #888;
+      text-decoration: underline; }
+
+/* line 24, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_breadcrumbs.scss */
+.breadcrumb {
+  margin-top: 0.9375em;
+  padding-top: 0.9375em;
+  font-size: 13px;
+  color: #567;
+  border-bottom: 1px solid #9ab;
+  text-align: right; }
+
+/*! ## Accordion
+---------------------------- */
+/* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_accordion.scss */
+#accordion {
+  margin-bottom: 0.625em;
+  padding-top: 1.5em; }
+  /* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_accordion.scss */
+  #accordion h2 {
+    margin: 1em 0;
+    border-bottom: 1px solid #cacaca;
+    cursor: pointer;
+    font-family: "open_sans_condensedbold", sans-serif;
+    font-weight: bold;
+    text-transform: uppercase; }
+  /* line 17, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_accordion.scss */
+  #accordion .accordion-item h2:before {
+    margin: -0.3125em 0.8125em 0 0;
+    content: "-";
+    float: right;
+    font-size: 1.875em; }
+  /* line 24, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_accordion.scss */
+  #accordion .accordion-item.closed h2:before {
+    content: "+"; }
+  /* line 28, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_accordion.scss */
+  #accordion .accordion-content {
+    padding: 0;
+    height: 0;
+    overflow: hidden;
+    transition: 0.5s height; }
+
+/*! ## Avatar
+--------------------------------- */
+/* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_avatar.scss */
+.avatar {
+  border-radius: 50%;
+  float: left; }
+
+/* line 9, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_avatar.scss */
+.after-entry .avatar {
+  float: right;
+  height: 180px;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  width: 180px; }
+
+/* line 17, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_avatar.scss */
+.alignleft .avatar,
+.author-box .avatar {
+  margin-right: 30px; }
+
+/* line 22, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_avatar.scss */
+.alignright .avatar {
+  margin-left: 30px; }
+
+/* line 26, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_avatar.scss */
+.author-box {
+  background: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+  margin-top: 10%;
+  padding-top: 10%;
+  margin-bottom: 10%;
+  padding-bottom: 10%;
+  text-align: center; }
+  /* line 36, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_avatar.scss */
+  .author-box .avatar {
+    display: inline-block;
+    float: none;
+    height: 80px;
+    margin: 0 auto 20px;
+    width: 80px; }
+  /* line 44, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_avatar.scss */
+  .author-box .author-box-title {
+    font-size: 2rem;
+    letter-spacing: -1px;
+    margin-bottom: 10px; }
+  /* line 50, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_avatar.scss */
+  .author-box a {
+    color: #18d; }
+
+/* line 56, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_avatar.scss */
+.comment .avatar {
+  height: 60px;
+  margin: 0 16px 24px 0;
+  width: 60px; }
+
+/* line 62, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_avatar.scss */
+.author-box,
+.author-box p,
+.author-box .author-box-title {
+  margin-left: auto;
+  margin-right: auto; }
+
+/* line 69, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_avatar.scss */
+.author-box p:last-child {
+  margin-bottom: 0; }
+
+/*! ## Single Product Social Media Links
+---------------------------------------- */
+@media screen and (max-width: 768px) {
+  /* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_social-media-links.scss */
+  .social-share {
+    text-align: center; } }
+
+/* line 10, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_social-media-links.scss */
+.social-share h2 {
+  color: #222;
+  font-family: "open_sans_condensedbold", sans-serif;
+  font-size: 2.5em;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 0.5em;
+  text-rendering: optimizeLegibility;
+  text-transform: uppercase; }
+
+/* line 22, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_social-media-links.scss */
+.social-share .social-media-menu-list-item {
+  display: inline-block; }
+
+/* line 26, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/components/_social-media-links.scss */
+.social-share .fa {
+  padding: 1em 1.3em;
+  font-size: 2em; }
+
+/* ---------------------------------- *	# Front Page | front-page.php
+\* ---------------------------------- */
+/* line 5, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.home .site-inner {
+  max-width: none;
+  padding: 0;
+  width: auto; }
+
+@media screen and (max-width: 800px) {
+  /* line 12, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+  .wrap {
+    padding-left: 0;
+    padding-right: 0; } }
+
+/* line 18, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.row {
+  max-width: 1200px;
+  margin: 0 auto; }
+  @media screen and (max-width: 1200px) {
+    /* line 18, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+    .row {
+      max-width: none; } }
+  @media screen and (max-width: 768px) {
+    /* line 18, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+    .row {
+      padding: 0; } }
+
+/* line 31, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.home .site-inner {
+  background-color: #fff;
+  max-width: none;
+  padding-top: 0; }
+  @media screen and (max-width: 768px) {
+    /* line 31, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+    .home .site-inner {
+      padding-left: 0;
+      padding-right: 0; } }
+  /* line 41, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+  .home .site-inner .content {
+    max-width: none; }
+    @media screen and (max-width: 1200px) {
+      /* line 41, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+      .home .site-inner .content {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        float: none; }
+        /* line 20, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/bourbon/addons/_clearfix.scss */
+        .home .site-inner .content::after {
+          clear: both;
+          content: "";
+          display: table; } }
+
+/* line 51, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.hero {
+  border-bottom: 2px solid #ff9934;
+  color: #fff;
+  padding: 220px 120px;
+  text-align: center; }
+  @media screen and (max-width: 768px) {
+    /* line 51, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+    .hero {
+      padding: 80px 30px; } }
+  /* line 61, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+  .hero .hero--overlay {
+    font-size: 3rem;
+    font-family: latobold, sans-serif; }
+    @media screen and (max-width: 768px) {
+      /* line 61, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+      .hero .hero--overlay {
+        font-size: 3.3rem; } }
+
+/* line 73, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.featured-four-columns .section--title {
+  padding-top: 330px; }
+
+/* line 77, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.featured-images {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%; }
+  /* line 89, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/neat/grid/_span-columns.scss */
+  .featured-images:last-child {
+    margin-right: 0; }
+  /* line 80, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+  .featured-images .featured-image {
+    float: left;
+    display: block;
+    margin-right: 4.82916%;
+    width: 47.58542%; }
+    /* line 89, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/neat/grid/_span-columns.scss */
+    .featured-images .featured-image:last-child {
+      margin-right: 0; }
+    @media screen and (max-width: 768px) {
+      /* line 80, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+      .featured-images .featured-image {
+        float: left;
+        display: block;
+        margin-right: 2.35765%;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 2rem; }
+        /* line 89, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/neat/grid/_span-columns.scss */
+        .featured-images .featured-image:last-child {
+          margin-right: 0; } }
+
+/* line 91, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.article-container {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%; }
+  /* line 89, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/neat/grid/_span-columns.scss */
+  .article-container:last-child {
+    margin-right: 0; }
+  /* line 94, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+  .article-container .featured-posts {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 23.23176%; }
+    /* line 89, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/neat/grid/_span-columns.scss */
+    .article-container .featured-posts:last-child {
+      margin-right: 0; }
+    @media screen and (max-width: 768px) {
+      /* line 94, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+      .article-container .featured-posts {
+        float: left;
+        display: block;
+        margin-right: 4.82916%;
+        width: 47.58542%;
+        text-align: center;
+        margin-right: 2.41458%; }
+        /* line 89, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/neat/grid/_span-columns.scss */
+        .article-container .featured-posts:last-child {
+          margin-right: 0; } }
+    @media screen and (max-width: 480px) {
+      /* line 94, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+      .article-container .featured-posts {
+        float: left;
+        display: block;
+        margin-right: 2.35765%;
+        width: 100%; }
+        /* line 89, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/neat/grid/_span-columns.scss */
+        .article-container .featured-posts:last-child {
+          margin-right: 0; } }
+
+/* line 109, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.featured-links {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  text-align: center; }
+  /* line 89, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/neat/grid/_span-columns.scss */
+  .featured-links:last-child {
+    margin-right: 0; }
+  @media screen and (max-width: 480px) {
+    /* line 109, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+    .featured-links {
+      padding: 0 5%; } }
+  /* line 117, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+  .featured-links .featured-link {
+    padding: 30px 0;
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 23.23176%; }
+    /* line 89, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/neat/grid/_span-columns.scss */
+    .featured-links .featured-link:last-child {
+      margin-right: 0; }
+    @media screen and (max-width: 768px) {
+      /* line 117, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+      .featured-links .featured-link {
+        float: left;
+        display: block;
+        margin-right: 4.82916%;
+        width: 47.58542%;
+        text-align: center;
+        margin-right: 2.41458%; }
+        /* line 89, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/neat/grid/_span-columns.scss */
+        .featured-links .featured-link:last-child {
+          margin-right: 0; } }
+    @media screen and (max-width: 480px) {
+      /* line 117, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+      .featured-links .featured-link {
+        float: left;
+        display: block;
+        margin-right: 2.35765%;
+        width: 100%; }
+        /* line 89, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/neat/grid/_span-columns.scss */
+        .featured-links .featured-link:last-child {
+          margin-right: 0; } }
+    /* line 131, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+    .featured-links .featured-link a {
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: bold; }
+      /* line 135, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+      .featured-links .featured-link a:hover {
+        color: #fff; }
+
+/* line 144, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.section--title {
+  font-family: latolight, sans-serif;
+  margin-bottom: 0;
+  padding: 1.5rem 0;
+  text-align: center;
+  text-transform: uppercase; }
+  /* line 151, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+  .section--title .bold--heading {
+    font-weight: bold; }
+
+/* line 156, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.image-overlay,
+.featured-link {
+  color: white;
+  font-family: yanone_kaffeesatzregular, yanone_kaffeesatzlight, yanone_kaffeesatzextralight, yanone_kaffeesatzbold, sans-serif;
+  font-size: 2.7rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase; }
+  /* line 167, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+  .image-overlay:hover,
+  .featured-link:hover {
+    color: #d1cece; }
+
+/* line 172, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.featured-image--overlay {
+  margin: 0;
+  text-align: center;
+  -webkit-transform: translateY(245px);
+  -moz-transform: translateY(245px);
+  -ms-transform: translateY(245px);
+  -o-transform: translateY(245px);
+  transform: translateY(245px); }
+
+/* line 178, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.featured-post--overlay {
+  bottom: 55px;
+  opacity: 0.8;
+  position: relative;
+  text-align: center;
+  z-index: 1; }
+
+/* line 186, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.featured-link__grey {
+  background-color: #8d9ba6; }
+
+/* line 190, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.featured-link__blue {
+  background-color: #286aa6; }
+
+/* line 194, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.featured-link__orange {
+  background-color: #ff9934; }
+
+/* line 198, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.featured-link__yellow {
+  background-color: #8d9ba6; }
+
+/* line 201, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.featured-image {
+  height: 300px; }
+
+/* line 206, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_front-page.scss */
+.lower-four-columns {
+  -webkit-transform: translateY(-65px);
+  -moz-transform: translateY(-65px);
+  -ms-transform: translateY(-65px);
+  -o-transform: translateY(-65px);
+  transform: translateY(-65px); }
+
+/*! Portfolio
+---------------------------------------------------------------------------------------------------- */
+/* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_portfolio.scss */
+.entry-portfolio {
+  margin: 0 0 40px;
+  padding: 0; }
+
+/* line 9, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_portfolio.scss */
+.content .portfolio {
+  background: #fff;
+  float: left;
+  margin: 0 2% 40px 0 !important;
+  overflow: hidden;
+  padding: 0;
+  width: 23%; }
+
+/* line 18, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_portfolio.scss */
+.portfolio .post-image {
+  margin: 0; }
+
+/* line 22, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_portfolio.scss */
+.portfolio .post-image:hover {
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+  opacity: 0.6; }
+
+/* line 30, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_portfolio.scss */
+.portfolio .entry-title {
+  font-size: 18px;
+  margin: 0;
+  padding: 15px 0; }
+
+/* line 36, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_portfolio.scss */
+.page-template-page_portfolio-php h1 {
+  padding: 0; }
+
+/* line 40, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_portfolio.scss */
+.portfolio .entry-title a {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  margin: 0;
+  text-decoration: none; }
+
+/* line 47, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_portfolio.scss */
+.portfolio p {
+  font-size: 16px; }
+
+/* line 51, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_portfolio.scss */
+.portfolio .more-link {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background: #2a2a2a;
+  color: #fff;
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 4px 12px;
+  margin: 20px 0 0;
+  text-align: center;
+  text-decoration: none;
+  width: 110px; }
+
+/* line 67, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_portfolio.scss */
+.content .portfolio .more-link:hover {
+  background: #555;
+  color: #fff; }
+
+/* line 72, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_portfolio.scss */
+.portfolio .entry-content {
+  padding: 0 20px 0; }
+
+/* line 76, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_portfolio.scss */
+.portfolio .entry-footer {
+  background: none;
+  padding: 0; }
+
+/*! single-product.php - WooCommerce Product Page
+------------------------------------------------- */
+/* line 6, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product .site-inner,
+body.single-product .site-inner .wrap {
+  max-width: none; }
+
+/* line 11, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product .site-inner {
+  padding-top: 0; }
+
+/* line 16, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product.woocommerce .woocommerce-error,
+body.single-product.woocommerce .woocommerce-info,
+body.single-product.woocommerce .woocommerce-message {
+  background: #ebebeb;
+  margin-bottom: 0 !important;
+  padding-top: 2em !important; }
+  /* line 23, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+  body.single-product.woocommerce .woocommerce-error:before, body.single-product.woocommerce .woocommerce-error:before, body.single-product.woocommerce .woocommerce-error:before,
+  body.single-product.woocommerce .woocommerce-info:before,
+  body.single-product.woocommerce .woocommerce-info:before,
+  body.single-product.woocommerce .woocommerce-info:before,
+  body.single-product.woocommerce .woocommerce-message:before,
+  body.single-product.woocommerce .woocommerce-message:before,
+  body.single-product.woocommerce .woocommerce-message:before {
+    top: 2em;
+    left: 13.5em; }
+
+/* line 31, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product div.breadcrumb {
+  border-bottom: 1px solid #cacaca;
+  margin-left: 0;
+  text-align: left; }
+  /* line 36, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+  body.single-product div.breadcrumb a {
+    color: #9d9d9d; }
+  /* line 40, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+  body.single-product div.breadcrumb .breadcrumb_last {
+    color: #222; }
+
+/* line 45, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product .entry {
+  margin: 0;
+  padding: 0; }
+
+/* line 50, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product .images {
+  background: #fff;
+  padding-top: 50px;
+  text-align: center;
+  width: 50%; }
+
+/* line 57, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product .summary {
+  background: #ebebeb;
+  min-height: 100vh;
+  width: 50%; }
+
+/* line 63, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product div.product .product_title {
+  color: #222;
+  font-family: "open_sans_condensedbold", sans-serif;
+  font-size: 2.25em;
+  font-weight: 800;
+  margin-top: 2rem;
+  text-rendering: optimizeLegibility;
+  text-transform: uppercase; }
+
+/* line 75, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product .product-essential {
+  max-width: 670px;
+  padding: 0 5em; }
+  @media screen and (max-width: 768px) {
+    /* line 75, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+    body.single-product .product-essential {
+      padding: 0 1em; } }
+
+/* line 84, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product div.swatch-label {
+  color: #222;
+  font-family: "open_sans_condensedbold", sans-serif; }
+
+/* line 89, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product div.product p.price,
+body.single-product div.product span.price {
+  margin-top: 1em; }
+
+/* line 94, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product p.price > .amount {
+  color: #222;
+  font-family: "open_sans_condensedbold", sans-serif;
+  font-size: 1.5em; }
+
+/* line 103, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product .label > label {
+  display: none; }
+
+/* line 107, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product .value {
+  width: 100%; }
+
+/* line 111, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product .variations tr {
+  border-bottom: 1px solid #cacaca; }
+
+/* line 118, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product div.radio-select li {
+  float: left; }
+  /* line 121, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+  body.single-product div.radio-select li > input.radio-option {
+    display: block;
+    visibility: hidden; }
+    /* line 125, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+    body.single-product div.radio-select li > input.radio-option:checked + label {
+      background: #000;
+      color: #fff; }
+  /* line 131, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+  body.single-product div.radio-select li label {
+    margin: 0 5px 5px 0;
+    border: 1px solid #000;
+    cursor: pointer;
+    display: block;
+    font-size: 1rem;
+    line-height: 40px;
+    min-height: 40px;
+    min-width: 50px;
+    text-align: center; }
+
+/* line 147, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product.woocommerce div.product form.cart .reset_variations {
+  clear: both;
+  display: block !important; }
+
+/* line 153, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product div.product form.cart button.button {
+  background-color: #ff9934;
+  padding: 14px 3.75em; }
+
+/* line 159, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product #accordion {
+  border-top: 1px solid #cacaca; }
+
+/* line 164, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product.woocommerce ul.products li.product,
+body.single-product.woocommerce-page ul.products li.product {
+  margin: 0 5.9% 2.992em 0;
+  width: 44.10%; }
+  @media screen and (max-width: 768px) {
+    /* line 164, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+    body.single-product.woocommerce ul.products li.product,
+    body.single-product.woocommerce-page ul.products li.product {
+      width: 100%; } }
+
+/* line 174, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product.woocommerce .upsells ul.products li.product .price {
+  text-align: center; }
+
+/* line 178, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product .upsells ul.products li.product .button,
+body.single-product .upsells ul.products li.product .categories {
+  display: none; }
+
+/* line 185, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.woocommerce div.product div.images,
+body.woocommerce div.product div.summary {
+  margin-bottom: 0; }
+
+/* line 190, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.single-product div.product div.images .attachment-shop_single.wp-post-image,
+body.single-product div.product div.images .attachment-shop_thumbnail {
+  border: none;
+  display: inline;
+  width: auto; }
+
+/* line 197, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.woocommerce div.product form.cart .variations label {
+  color: #567; }
+  /* line 200, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+  body.woocommerce div.product form.cart .variations label select {
+    font-size: 1em;
+    min-width: 0; }
+
+/* line 206, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/pages/_single-product.scss */
+body.woocommerce div.product form.cart .woocommerce-variation-description p,
+body.woocommerce .quantity .qty {
+  color: #333;
+  font-size: 1em; }
+
+/*! ## Layout
+--------------------------- */
+/* line 3, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+.before-header {
+  background-color: #dce1e7;
+  color: #909090;
+  text-align: center; }
+  @media screen and (max-width: 768px) {
+    /* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+    .before-header .wrap {
+      margin-top: 0;
+      padding: 0; } }
+  @media screen and (max-width: 1023px) {
+    /* line 15, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+    .before-header .before-header-widget {
+      width: 100%; } }
+
+@media screen and (max-width: 1023px) {
+  /* line 25, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+  .before-header-left-container {
+    display: none; } }
+
+/* line 30, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+.before-header-left-container .menu {
+  margin-left: 15px;
+  margin-top: 3px;
+  text-align: left; }
+  /* line 35, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+  .before-header-left-container .menu .menu-item {
+    display: inline-block; }
+    /* line 38, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+    .before-header-left-container .menu .menu-item a {
+      color: #909090;
+      font-family: "open_sans_condensedbold", sans-serif;
+      font-size: 0.6875rem;
+      font-weight: bold;
+      text-transform: uppercase; }
+      /* line 45, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+      .before-header-left-container .menu .menu-item a:hover {
+        color: #888; }
+  /* line 51, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+  .before-header-left-container .menu li + li:before {
+    color: #909090;
+    content: " | ";
+    padding: 0; }
+
+/* line 65, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+.before-header-middle-container .free-shipping-notification {
+  padding: 0;
+  color: #909090;
+  font-family: "open_sans_condensedbold", sans-serif;
+  font-size: 0.6875rem;
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-top: 10px;
+  text-transform: uppercase; }
+  @media screen and (max-width: 1023px) {
+    /* line 65, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+    .before-header-middle-container .free-shipping-notification {
+      padding: 5px 0; } }
+  @media screen and (max-width: 480px) {
+    /* line 65, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+    .before-header-middle-container .free-shipping-notification {
+      display: inline; } }
+
+@media screen and (max-width: 1023px) {
+  /* line 88, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+  .before-header-right-container {
+    display: none; } }
+
+@media screen and (max-width: 768px) {
+  /* line 88, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+  .before-header-right-container {
+    margin-left: 0; } }
+
+/* line 97, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+.before-header-right-container .search-form {
+  width: auto; }
+  /* line 100, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+  .before-header-right-container .search-form input[type="search"] {
+    background-color: #ebecf1;
+    border: none;
+    margin-bottom: 0;
+    padding: 6px; }
+    /* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/bourbon/css3/_placeholder.scss */
+    .before-header-right-container .search-form input[type="search"]::-webkit-input-placeholder {
+      font-family: "open_sans_condensedbold", sans-serif;
+      font-size: 0.6875rem;
+      padding-top: 3px; }
+    /* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/bourbon/css3/_placeholder.scss */
+    .before-header-right-container .search-form input[type="search"]::-moz-placeholder {
+      font-family: "open_sans_condensedbold", sans-serif;
+      font-size: 0.6875rem;
+      padding-top: 3px; }
+    /* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/bourbon/css3/_placeholder.scss */
+    .before-header-right-container .search-form input[type="search"]:-moz-placeholder {
+      font-family: "open_sans_condensedbold", sans-serif;
+      font-size: 0.6875rem;
+      padding-top: 3px; }
+    /* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/vendors/bourbon/css3/_placeholder.scss */
+    .before-header-right-container .search-form input[type="search"]:-ms-input-placeholder {
+      font-family: "open_sans_condensedbold", sans-serif;
+      font-size: 0.6875rem;
+      padding-top: 3px; }
+    @media screen and (max-width: 768px) {
+      /* line 100, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_before-header.scss */
+      .before-header-right-container .search-form input[type="search"] {
+        padding: 6px 0; } }
+
+/* line 3, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_header.scss */
+.site-header {
+  background-color: #567;
+  border-bottom: 1px solid #909090;
+  width: 100%; }
+  @media screen and (max-width: 1023px) {
+    /* line 3, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_header.scss */
+    .site-header {
+      padding-bottom: 1.875rem; } }
+  /* line 12, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_header.scss */
+  .site-header .title-area {
+    float: left; }
+    @media screen and (min-width: 1180px) {
+      /* line 12, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_header.scss */
+      .site-header .title-area {
+        width: 300px; } }
+    @media screen and (max-width: 1023px) {
+      /* line 12, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_header.scss */
+      .site-header .title-area {
+        width: 100%; } }
+    /* line 23, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_header.scss */
+    .site-header .title-area .site-title {
+      margin: 0; }
+      @media screen and (max-width: 1023px) {
+        /* line 23, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_header.scss */
+        .site-header .title-area .site-title {
+          text-align: center; } }
+      /* line 30, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_header.scss */
+      .site-header .title-area .site-title img {
+        position: relative;
+        top: 30px;
+        z-index: 999; }
+
+/*! ## WooCommerce Message - After Header
+----------------------------------------- */
+/* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_woocommerce-message.scss */
+body.woocommerce div.woocommerce-message div.wrap {
+  margin: 0 auto;
+  max-width: 1200px; }
+
+/*! ## Site Structure and Layout
+------------------------------------------- */
+/*! ## Site Containers
+---------------------- */
+/* line 7, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+.site-inner,
+.wrap {
+  margin: 0 auto;
+  max-width: 1200px; }
+  @media screen and (max-width: 1180px) {
+    /* line 7, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+    .site-inner,
+    .wrap {
+      max-width: 960px; } }
+  @media screen and (max-width: 1023px) {
+    /* line 7, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+    .site-inner,
+    .wrap {
+      width: 800px; } }
+  @media screen and (max-width: 800px) {
+    /* line 7, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+    .site-inner,
+    .wrap {
+      width: 100%;
+      padding-left: 2.5%;
+      padding-right: 2.5%; } }
+
+/* line 27, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+.site-inner {
+  clear: both;
+  padding-top: 60px; }
+  @media screen and (max-width: 1023px) {
+    /* line 27, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+    .site-inner {
+      background: none; } }
+
+/*! Column Widths and Positions for Sidebar Layouts
+------------------------------------------------------- */
+/* line 41, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+.content-sidebar-sidebar .content-sidebar-wrap,
+.sidebar-content-sidebar .content-sidebar-wrap,
+.sidebar-sidebar-content .content-sidebar-wrap {
+  width: 980px; }
+  @media screen and (max-width: 1180px) {
+    /* line 41, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+    .content-sidebar-sidebar .content-sidebar-wrap,
+    .sidebar-content-sidebar .content-sidebar-wrap,
+    .sidebar-sidebar-content .content-sidebar-wrap {
+      width: 740px; } }
+  @media screen and (max-width: 1023px) {
+    /* line 41, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+    .content-sidebar-sidebar .content-sidebar-wrap,
+    .sidebar-content-sidebar .content-sidebar-wrap,
+    .sidebar-sidebar-content .content-sidebar-wrap {
+      width: 100%; } }
+
+/* line 56, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+.content-sidebar-sidebar .content-sidebar-wrap {
+  float: left; }
+
+/* line 60, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+.sidebar-content-sidebar .content-sidebar-wrap,
+.sidebar-sidebar-content .content-sidebar-wrap {
+  float: right; }
+
+/* line 67, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+.content {
+  float: right;
+  font-size: 15px;
+  width: 800px; }
+  @media screen and (max-width: 1180px) {
+    /* line 67, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+    .content {
+      width: 620px; } }
+  @media screen and (max-width: 1023px) {
+    /* line 67, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+    .content {
+      width: 100%; } }
+
+/* line 81, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+.content-sidebar .content,
+.content-sidebar-sidebar .content,
+.sidebar-content-sidebar .content {
+  float: left; }
+
+/* line 88, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+.content-sidebar-sidebar .content,
+.sidebar-content-sidebar .content,
+.sidebar-sidebar-content .content {
+  width: 580px; }
+  @media screen and (max-width: 1023px) {
+    /* line 88, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+    .content-sidebar-sidebar .content,
+    .sidebar-content-sidebar .content,
+    .sidebar-sidebar-content .content {
+      width: 100%; } }
+
+/* line 99, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+.full-width-content .content {
+  width: 100%; }
+
+/* line 103, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+.sidebar-primary {
+  background: none;
+  float: right;
+  width: 360px; }
+  @media screen and (max-width: 1180px) {
+    /* line 103, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+    .sidebar-primary {
+      width: 300px; } }
+  @media screen and (max-width: 1023px) {
+    /* line 103, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+    .sidebar-primary {
+      width: 100%; } }
+
+/* line 119, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+.sidebar-secondary {
+  float: left;
+  width: 180px; }
+  @media screen and (max-width: 1023px) {
+    /* line 119, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+    .sidebar-secondary {
+      width: 100%; } }
+
+/* line 129, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_structure.scss */
+.content-sidebar-sidebar .sidebar-secondary {
+  float: right; }
+
+/*! Sidebars
+---------------------------------------------------------------------------------------------------- */
+/* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_sidebars.scss */
+.sidebar {
+  color: #666;
+  font-size: 13px; }
+
+/* line 9, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_sidebars.scss */
+.sidebar p:last-child,
+.sidebar ul {
+  margin: 0; }
+
+/* line 14, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_sidebars.scss */
+.sidebar li {
+  list-style-type: none;
+  margin-bottom: 6px;
+  padding: 0;
+  word-wrap: break-word; }
+
+/* line 21, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_sidebars.scss */
+.sidebar ul > li:last-child {
+  margin-bottom: 0; }
+
+/* line 25, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_sidebars.scss */
+.sidebar .search-form {
+  width: 100%; }
+
+/* line 29, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_sidebars.scss */
+.sidebar .enews-widget {
+  background: rgba(255, 255, 255, 0.45);
+  color: #666;
+  padding: 16px 14px 12px 18px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15); }
+
+/* line 37, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_sidebars.scss */
+.sidebar .enews-widget p {
+  margin: 0 0 10px 0; }
+
+/* line 41, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_sidebars.scss */
+.sidebar .enews-widget p strong {
+  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: #27a; }
+
+/* ------------------------------- *        # Above Footer Widgets #
+|* ------------------------------- */
+/* line 5, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_above-footer.scss */
+.above-footer-widgets {
+  background-color: #dce1e7;
+  position: relative; }
+
+/* line 10, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_above-footer.scss */
+.above-footer-container {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  box-direction: normal;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  box-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -o-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  box-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  -ms-flex-align: center; }
+  @media screen and (max-width: 480px) {
+    /* line 10, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_above-footer.scss */
+    .above-footer-container {
+      -webkit-box-orient: vertical;
+      -moz-box-orient: vertical;
+      box-orient: vertical;
+      -webkit-box-direction: normal;
+      -moz-box-direction: normal;
+      box-direction: normal;
+      -webkit-flex-direction: column;
+      -moz-flex-direction: column;
+      flex-direction: column;
+      -ms-flex-direction: column; } }
+  /* line 20, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_above-footer.scss */
+  .above-footer-container > div {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    box-flex: 1;
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 50%; }
+    @media screen and (max-width: 480px) {
+      /* line 20, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_above-footer.scss */
+      .above-footer-container > div {
+        width: 100%; } }
+
+/*! Footer Widgets
+---------------------------------------------------------------------------------------------------- */
+/* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_footer-widgets.scss */
+.footer-widgets {
+  background-color: #3c4143;
+  padding: 1.25rem 0;
+  clear: both;
+  color: #aaa;
+  font-size: 11px;
+  line-height: 1; }
+  /* line 12, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_footer-widgets.scss */
+  .footer-widgets a,
+  .footer-widgets p {
+    color: #909090;
+    margin-bottom: 0.4375rem; }
+  /* line 18, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_footer-widgets.scss */
+  .footer-widgets li {
+    list-style-type: none;
+    margin-bottom: 6px;
+    word-wrap: break-word; }
+  /* line 24, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_footer-widgets.scss */
+  .footer-widgets .widgettitle {
+    color: #ff9934;
+    font-family: ralewayregular, sans-serif;
+    font-size: 0.6875rem;
+    font-weight: normal;
+    text-transform: uppercase; }
+  /* line 34, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_footer-widgets.scss */
+  .footer-widgets a:hover,
+  .footer-widgets a:active,
+  .footer-widgets a:focus {
+    color: #fff; }
+
+/* Widget #3
+------------------------ */
+/* line 47, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_footer-widgets.scss */
+.footer-widgets-3 .widget_text {
+  margin: 0; }
+
+/* line 51, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_footer-widgets.scss */
+.footer-widgets-3 .featured-content .entry-title {
+  padding: 0;
+  text-align: center; }
+  /* line 55, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_footer-widgets.scss */
+  .footer-widgets-3 .featured-content .entry-title a {
+    color: #fff;
+    font-size: 0.55rem; }
+
+/* Widget #4
+------------------------ */
+/* line 65, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_footer-widgets.scss */
+.footer-widgets-4 {
+  margin-top: 1.25rem; }
+  /* line 68, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_footer-widgets.scss */
+  .footer-widgets-4:first-child {
+    margin-bottom: 1.25rem; }
+  /* line 72, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_footer-widgets.scss */
+  .footer-widgets-4 address {
+    font-size: 0.875rem;
+    margin-top: 1em; }
+
+/* -------------------------------- *        # Site Footer #
+\* -------------------------------- */
+/* line 5, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_footer.scss */
+.site-footer {
+  text-align: center;
+  background: #000;
+  color: #909090;
+  font-size: 0.6875rem;
+  padding: 0.625rem 0; }
+  /* line 12, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_footer.scss */
+  .site-footer a {
+    color: white; }
+  /* line 16, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/layout/_footer.scss */
+  .site-footer img {
+    margin: 0 0 -0.3125rem 0.3125rem; }
+
+/**
+ * ./assets/js/custom/vanilla-modal.js
+ */
+/* line 5, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/js-plugins/_vanilla-modal.scss */
+.modal {
+  display: none; }
+
+/* line 9, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/js-plugins/_vanilla-modal.scss */
+.vanilla-modal .modal {
+  background: rgba(0, 0, 0, 0.6);
+  bottom: 0;
+  content: "";
+  display: block;
+  font-size: 0;
+  left: 0;
+  opacity: 0;
+  overflow: hidden;
+  overflow-y: auto;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: 0;
+  transition: opacity 0.2s, z-index 0s 0.2s;
+  white-space: nowrap;
+  z-index: -1; }
+  /* line 27, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/js-plugins/_vanilla-modal.scss */
+  .vanilla-modal .modal > * {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    white-space: normal; }
+
+/* line 37, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/js-plugins/_vanilla-modal.scss */
+.vanilla-modal .modal:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  overflow: hidden;
+  vertical-align: middle;
+  width: 0; }
+
+/* line 46, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/js-plugins/_vanilla-modal.scss */
+.vanilla-modal.modal-visible .modal {
+  opacity: 1;
+  transition: opacity 0.2s;
+  z-index: 99; }
+
+/* line 52, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/js-plugins/_vanilla-modal.scss */
+.modal-inner {
+  background: #fff;
+  max-height: 90%;
+  max-width: 90%;
+  opacity: 0;
+  overflow: hidden;
+  overflow-y: auto;
+  position: relative;
+  transform: scale(0);
+  transition: opacity 0.2s, transform 0.2s, z-index 0s 0.2s;
+  z-index: -1; }
+
+/* line 65, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/js-plugins/_vanilla-modal.scss */
+.modal-visible .modal-inner {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 100; }
+
+/* line 72, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/js-plugins/_vanilla-modal.scss */
+a[rel="modal:close"] {
+  background: #fff;
+  box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-size: 13px;
+  height: 25px;
+  line-height: 25px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 25px;
+  z-index: 2; }
+
+/*! ## Plugins
+--------------------------- */
+/* --------------------------------- *         # Superside Me Menu #
+\* --------------------------------- */
+/* line 5, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_supersideme.scss */
+.slide-nav-link {
+  background-color: #ff9934;
+  padding: 8px; }
+  @media screen and (max-width: 480px) {
+    /* line 5, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_supersideme.scss */
+    .slide-nav-link {
+      padding: 9.5px; } }
+  /* line 13, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_supersideme.scss */
+  .slide-nav-link::before {
+    font-size: 18px; }
+  /* line 17, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_supersideme.scss */
+  .slide-nav-link:hover {
+    background-color: #8e5721; }
+
+/*! ## WooCommerce Custom Styles
+----------------------------------------- */
+/*! ## Checkout
+----------------------------------------- */
+/* line 7, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+.woocommerce-checkout .entry {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0; }
+
+/* line 14, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+body.woocommerce #payment #place_order,
+body.woocommerce-page #payment #place_order {
+  float: left;
+  min-width: 300px;
+  padding: 15px 0; }
+  @media screen and (max-width: 800px) {
+    /* line 14, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+    body.woocommerce #payment #place_order,
+    body.woocommerce-page #payment #place_order {
+      width: 100%;
+      min-width: 0; } }
+
+/* line 26, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+body.woocommerce-checkout #payment .payment_method_authorize_net_aim {
+  list-style: none; }
+
+/* line 30, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+body.woocommerce #payment .form-row select,
+body.woocommerce-page #payment .form-row select {
+  display: inline-block; }
+
+@media screen and (max-width: 800px) {
+  /* line 38, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+  body#add_payment_method #payment div.payment_box .form-row,
+  body.woocommerce-checkout #payment div.payment_box .form-row {
+    width: 100%; } }
+
+/* line 45, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+.woocommerce ul.products li.product h3 {
+  height: auto;
+  font-size: 24px; }
+
+/* line 51, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+#gform_wrapper_3 .gform_footer {
+  margin: 3.05em 0 0; }
+
+/* line 55, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+.woocommerce button.button {
+  border-radius: 0;
+  color: #222;
+  font-family: "open_sans_condensedbold", sans-serif;
+  font-size: 1rem; }
+
+/* line 64, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+.woocommerce #respond input#submit.alt.disabled, .woocommerce #respond input#submit.alt.disabled:hover, .woocommerce #respond input#submit.alt:disabled, .woocommerce #respond input#submit.alt:disabled:hover, .woocommerce #respond input#submit.alt:disabled[disabled], .woocommerce #respond input#submit.alt:disabled[disabled]:hover, .woocommerce a.button.alt.disabled, .woocommerce a.button.alt.disabled:hover, .woocommerce a.button.alt:disabled, .woocommerce a.button.alt:disabled:hover, .woocommerce a.button.alt:disabled[disabled], .woocommerce a.button.alt:disabled[disabled]:hover, .woocommerce button.button.alt.disabled, .woocommerce button.button.alt.disabled:hover, .woocommerce button.button.alt:disabled, .woocommerce button.button.alt:disabled:hover, .woocommerce button.button.alt:disabled[disabled], .woocommerce button.button.alt:disabled[disabled]:hover, .woocommerce input.button.alt.disabled, .woocommerce input.button.alt.disabled:hover, .woocommerce input.button.alt:disabled, .woocommerce input.button.alt:disabled:hover, .woocommerce input.button.alt:disabled[disabled], .woocommerce input.button.alt:disabled[disabled]:hover {
+  background: #ff9934; }
+
+/* line 70, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+body.woocommerce div.woocommerce-message a.button {
+  background-color: #ff9934;
+  border-radius: 0;
+  color: #fff !important; }
+
+/* line 78, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+.quantity > input[type=number] {
+  display: inline-block;
+  padding: 15px; }
+
+/* line 83, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+.quantity .buttons_added {
+  float: none; }
+  /* line 86, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+  .quantity .buttons_added.dec {
+    float: left;
+    padding: 14px 17px; }
+  /* line 91, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+  .quantity .buttons_added.inc {
+    margin-right: 5px;
+    padding: 14px 17px; }
+
+/* line 98, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+.cart_item .quantity .buttons_added.dec {
+  padding: 14px 19px; }
+
+/* line 103, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+.single-product.woocommerce div.product form.cart .quantity .buttons_added.dec {
+  float: none;
+  vertical-align: top; }
+
+/* line 108, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+body.woocommerce-cart .quantity .qty {
+  margin-left: 5px; }
+
+/* line 114, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
+
+/* line 120, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce.scss */
+input[type=number] {
+  -moz-appearance: textfield; }
+
+/* line 1, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce-variation-swatches.scss */
+.single-product .swatch-wrapper {
+  overflow: hidden; }
+
+/*! ## WooCommerce Sizing Chart
+------------------------------- */
+/* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_woocommerce-sizing-chart.scss */
+a#chart-button {
+  background-color: #ff9934;
+  border-radius: 0; }
+
+/* --------------------------------- *       # Simple Social Icons #
+\* --------------------------------- */
+/* line 5, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_simple-social-icons.scss */
+#simple-social-icons-2 {
+  margin-bottom: 0; }
+  /* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_simple-social-icons.scss */
+  #simple-social-icons-2 li {
+    float: left;
+    margin: 0 0 0.625rem 0 !important; }
+  /* line 13, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_simple-social-icons.scss */
+  #simple-social-icons-2 a {
+    background-color: #3c4143 !important;
+    color: #aaa !important;
+    margin-top: 1em;
+    opacity: 0.5;
+    padding: 0.3125rem 0.5rem; }
+    /* line 20, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_simple-social-icons.scss */
+    #simple-social-icons-2 a:hover {
+      opacity: 1; }
+
+/* line 27, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_simple-social-icons.scss */
+#simple-social-icons-3 a {
+  background-color: transparent !important; }
+  @media screen and (max-width: 480px) {
+    /* line 27, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_simple-social-icons.scss */
+    #simple-social-icons-3 a {
+      padding: 14px; } }
+
+/* ------------------------------------------ *        # Gravity Forms #
+\* ------------------------------------------ */
+/* line 5, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+.gfield_required {
+  visibility: hidden; }
+
+/* line 11, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+div.gform_wrapper input[type="email"],
+div.gform_wrapper input[type="text"],
+div.gform_wrapper textarea,
+div.gform_wrapper .ginput_complex label {
+  font-size: 16px;
+  padding: 8px; }
+
+/* line 19, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+div.gform_wrapper .ginput_complex label {
+  padding: 0; }
+
+/* line 23, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+div.gform_wrapper li,
+div.gform_wrapper form li {
+  margin: 16px 0 0; }
+
+/* line 28, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+div.gform_wrapper .gform_footer input[type="submit"] {
+  font-size: 18px; }
+
+/* line 34, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+#gform_wrapper_3 {
+  margin: 0 1em; }
+  /* line 37, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+  #gform_wrapper_3 li {
+    margin: 0; }
+  /* line 41, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+  #gform_wrapper_3 .gform_footer {
+    display: inline-block;
+    margin: 3.25em 0 0;
+    padding-top: 0.7em;
+    width: 20%; }
+    @media screen and (max-width: 1023px) {
+      /* line 41, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+      #gform_wrapper_3 .gform_footer {
+        width: 100%;
+        margin: 0; } }
+    /* line 52, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+    #gform_wrapper_3 .gform_footer .gform_button {
+      padding: 9px 35px;
+      background-color: #ff9934;
+      border-radius: 0;
+      color: #fff; }
+      @media screen and (max-width: 1023px) {
+        /* line 52, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+        #gform_wrapper_3 .gform_footer .gform_button {
+          max-width: 300px;
+          width: 97.5%; } }
+  @media screen and (max-width: 1023px) and (max-width: 480px) {
+    /* line 52, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+    #gform_wrapper_3 .gform_footer .gform_button {
+      max-width: none; } }
+      /* line 67, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+      #gform_wrapper_3 .gform_footer .gform_button:hover {
+        background-color: #8e5721; }
+  /* line 73, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+  #gform_wrapper_3 .gform_body {
+    display: inline-block;
+    float: left;
+    width: 80%; }
+    @media screen and (max-width: 1023px) {
+      /* line 73, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+      #gform_wrapper_3 .gform_body {
+        width: 100%; } }
+    @media screen and (max-width: 1023px) {
+      /* line 83, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+      #gform_wrapper_3 .gform_body input.large {
+        max-width: 300px; } }
+  @media screen and (max-width: 1023px) and (max-width: 480px) {
+    /* line 83, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+    #gform_wrapper_3 .gform_body input.large {
+      max-width: none; } }
+
+/* line 98, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+#gform_widget-2 {
+  margin-bottom: 0; }
+  /* line 101, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+  #gform_widget-2 .widget-wrap {
+    padding: 0; }
+  /* line 105, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+  #gform_widget-2 .gform_wrapper,
+  #gform_widget-2 .gfield,
+  #gform_widget-2 .gfield_label {
+    margin: 0; }
+  /* line 111, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+  #gform_widget-2 input.medium,
+  #gform_widget-2 .gform_button {
+    max-width: 14.0625rem;
+    width: 100%;
+    margin: 0; }
+  /* line 118, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+  #gform_widget-2 .gform_footer {
+    margin: 0; }
+    /* line 121, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_gravity-forms.scss */
+    #gform_widget-2 .gform_footer .gform_button {
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      width: 100%;
+      padding: inherit; }
+
+/*! Genesis eNews Extended [X42] [NOTE: CSS Already Included]
+--------------------------------------------- */
+/* line 4, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_enews.scss */
+.enews-widget .widgettitle {
+  color: #333; }
+
+/* line 8, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_enews.scss */
+.sidebar .enews-widget .widgettitle {
+  color: #16c;
+  margin-bottom: 5px; }
+
+/* line 13, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_enews.scss */
+.enews-widget input {
+  margin-bottom: 20px; }
+
+/* line 17, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_enews.scss */
+.enews-widget input:focus {
+  border: 1px solid #ddd; }
+
+/* line 21, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_enews.scss */
+.enews-widget input[type="submit"] {
+  background: #2a2a2a;
+  border: none;
+  color: #fff;
+  margin: 0 0 20px;
+  width: auto; }
+
+/* line 29, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_enews.scss */
+.sidebar .enews-widget input[type="submit"] {
+  background: #f93;
+  border: none;
+  box-shadow: none;
+  border-radius: 30px;
+  margin: 6px 0 0 0; }
+
+/* line 37, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_enews.scss */
+.footer-widgets .enews-widget input[type="submit"] {
+  background: #ccc;
+  padding: 16px 24px; }
+
+/* line 42, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_enews.scss */
+.enews-widget input:hover[type="submit"] {
+  opacity: .7;
+  transition: all .5s ease; }
+
+/* line 47, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_enews.scss */
+.sidebar .enews-widget input:hover[type="submit"] {
+  background: #48b;
+  box-shadow: none;
+  opacity: 10;
+  transition: 0; }
+
+/* line 54, /Users/joe/Sites/VVV/www/sportport/htdocs/wp-content/themes/epik/assets/sass/plugins/_enews.scss */
+.widget-wrap .enews input {
+  /*---PK---*/
+  width: 96%;
+  border-radius: 0;
+  margin: 0 0 6px 0; }

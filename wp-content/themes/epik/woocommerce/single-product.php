@@ -33,6 +33,15 @@ add_action( 'woocommerce_single_product_summary', 'genesis_do_breadcrumbs', 4 );
 remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
 
+/** Switch Add To Cart and Summary sections */
+remove_action( 'woocommerce_single_variation',
+	'woocommerce_single_variation_add_to_cart_button', 10 );
+remove_action( 'woocommerce_single_variation',
+	'woocommerce_single_variation_add_to_cart_button', 20 );
+add_action( 'woocommerce_before_add_to_cart_button',
+	'woocommerce_single_variation_add_to_cart_button', 10 );
+
+
 
 /**
  * Outputs ACF Repeator for Accordion.

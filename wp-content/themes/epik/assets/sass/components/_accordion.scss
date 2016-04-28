@@ -19,6 +19,10 @@
 		content: "-";
 		float: right;
 		font-size: em(30);
+
+		@include media($medium-screen-up) {
+			margin-right: 0;
+		}
 	}
 
 	.accordion-item.closed h2:before {

@@ -1,21 +1,38 @@
 <?php
-if ( !class_exists( 'WPSEO_Local_Frontend' ) ) {
+/**
+ * @package WPSEO_Local\Frontend
+ */
 
+if ( ! class_exists( 'WPSEO_Local_Frontend' ) ) {
+
+	/**
+	 * Class WPSEO_Local_Frontend
+	 *
+	 * Handles all frontend functionality.
+	 */
 	class WPSEO_Local_Frontend {
+
+		/**
+		 * @var array $options Stores the options for this plugin.
+		 */
 		var $options = array();
+
+		/**
+		 * @var boolean $options Whether to load external stylesheet or not.
+		 */
 		var $load_styles = false;
 
 		/**
-		 * Constructor
+		 * Constructor.
 		 */
 		function __construct() {
-			$this->options = get_option( "wpseo_local" );
+			$this->options = get_option( 'wpseo_local' );
 
-			// Create shortcode functionality. Functions are defined in includes/wpseo-local-functions.php because they're also used by some widgets
+			// Create shortcode functionality. Functions are defined in includes/wpseo-local-functions.php because they're also used by some widgets.
 			add_shortcode( 'wpseo_address', 'wpseo_local_show_address' );
 			add_shortcode( 'wpseo_all_locations', 'wpseo_local_show_all_locations' );
 			add_shortcode( 'wpseo_map', 'wpseo_local_show_map' );
-			add_shortcode( 'wpseo_opening_hours', 'wpseo_local_show_opening_hours' );
+			add_shortcode( 'wpseo_opening_hours', 'wpseo_local_show_openinghours_shortcode_cb' );
 			add_shortcode( 'wpseo_local_show_logo', 'wpseo_local_show_logo' );
 
 			add_action( 'wpseo_opengraph', array( $this, 'opengraph_location' ) );
@@ -33,18 +50,20 @@ if ( !class_exists( 'WPSEO_Local_Frontend' ) ) {
 		 *
 		 * @since 1.1.7
 		 *
-		 * @link https://yoast.com/schema-org-genesis-2-0/
-		 * @link http://schema.org/ContactPage
+		 * @link  https://yoast.com/schema-org-genesis-2-0/
+		 * @link  http://schema.org/ContactPage
 		 *
-		 * @param array $attr The Schema.org attributes
+		 * @param array $attr The Schema.org attributes.
+		 *
 		 * @return array $attr
 		 */
 		function genesis_contact_page_schema( $attr ) {
 			if ( is_singular( 'wpseo_locations' ) ) {
-				$attr['itemtype'] = 'http://schema.org/ContactPage';
-				$attr['itemprop'] = '';
+				$attr['itemtype']  = 'http://schema.org/ContactPage';
+				$attr['itemprop']  = '';
 				$attr['itemscope'] = 'itemscope';
 			}
+
 			return $attr;
 		}
 
@@ -53,15 +72,17 @@ if ( !class_exists( 'WPSEO_Local_Frontend' ) ) {
 		 *
 		 * @since 1.1.7
 		 *
-		 * @link https://yoast.com/schema-org-genesis-2-0/
+		 * @link  https://yoast.com/schema-org-genesis-2-0/
 		 *
-		 * @param array $attr The Schema.org attributes
+		 * @param array $attr The Schema.org attributes.
+		 *
 		 * @return array $attr
 		 */
 		function genesis_empty_schema( $attr ) {
-			$attr['itemtype'] = '';
-			$attr['itemprop'] = '';
+			$attr['itemtype']  = '';
+			$attr['itemprop']  = '';
 			$attr['itemscope'] = '';
+
 			return $attr;
 		}
 
@@ -70,31 +91,33 @@ if ( !class_exists( 'WPSEO_Local_Frontend' ) ) {
 		 *
 		 * @since 1.1.7
 		 *
-		 * @link https://yoast.com/schema-org-genesis-2-0/
+		 * @link  https://yoast.com/schema-org-genesis-2-0/
 		 *
-		 * @param array $attr The Schema.org attributes
+		 * @param array $attr The Schema.org attributes.
+		 *
 		 * @return array $attr
 		 */
 		function genesis_itemprop_name( $attr ) {
 			$attr['itemprop'] = 'name';
+
 			return $attr;
 		}
 
 		/**
 		 * Output opengraph location tags.
 		 *
-		 * @link https://developers.facebook.com/docs/reference/opengraph/object-type/business.business
-		 * @link https://developers.facebook.com/docs/reference/opengraph/object-type/restaurant.restaurant
+		 * @link  https://developers.facebook.com/docs/reference/opengraph/object-type/business.business
+		 * @link  https://developers.facebook.com/docs/reference/opengraph/object-type/restaurant.restaurant
 		 *
 		 * @since 1.0
 		 */
 		function opengraph_location() {
-			if ( is_singular( 'wpseo_locations' ) || ( "on" == WPSEO_Meta::get_value( 'opengraph-local' ) && ! wpseo_has_multiple_locations() ) ) {
+			if ( is_singular( 'wpseo_locations' ) || ( 'on' == WPSEO_Meta::get_value( 'opengraph-local' ) && ! wpseo_has_multiple_locations() ) ) {
 
-				
-				$options = get_option('wpseo_local');
+
+				$options            = get_option( 'wpseo_local' );
 				$hide_opening_hours = isset( $options['hide_opening_hours'] ) && $options['hide_opening_hours'] == 'on';
-				$location_data = wpseo_get_location_details( get_the_ID() );
+				$location_data      = wpseo_get_location_details( get_the_ID() );
 
 				echo '<meta property="place:location:latitude" content="' . esc_attr( $location_data['business_coords_lat'] ) . '"/>' . "\n";
 				echo '<meta property="place:location:longitude" content="' . esc_attr( $location_data['business_coords_long'] ) . '"/>' . "\n";
@@ -104,17 +127,21 @@ if ( !class_exists( 'WPSEO_Local_Frontend' ) ) {
 				echo '<meta property="business:contact_data:postal_code" content="' . esc_attr( $location_data['business_zipcode'] ) . '"/>' . "\n";
 				echo '<meta property="business:contact_data:website" content="' . trailingslashit( wpseo_xml_sitemaps_base_url( '' ) ) . '"/>' . "\n";
 
-				if ( ! empty( $location_data['business_state'] ) )
+				if ( ! empty( $location_data['business_state'] ) ) {
 					echo '<meta property="business:contact_data:region" content="' . esc_attr( $location_data['business_state'] ) . '"/>' . "\n";
-				if ( ! empty( $location_data['business_email'] ) )
+				}
+				if ( ! empty( $location_data['business_email'] ) ) {
 					echo '<meta property="business:contact_data:email" content="' . esc_attr( $location_data['business_email'] ) . '"/>' . "\n";
-				if ( ! empty( $location_data['business_phone'] ) )
+				}
+				if ( ! empty( $location_data['business_phone'] ) ) {
 					echo '<meta property="business:contact_data:phone_number" content="' . esc_attr( $location_data['business_phone'] ) . '"/>' . "\n";
-				if ( ! empty( $location_data['business_fax'] ) )
+				}
+				if ( ! empty( $location_data['business_fax'] ) ) {
 					echo '<meta property="business:contact_data:fax_number" content="' . esc_attr( $location_data['business_fax'] ) . '"/>' . "\n";
+				}
 
-				// Opening Hours
-				if( false == $hide_opening_hours ) {
+				// Opening Hours.
+				if ( false == $hide_opening_hours ) {
 					$days = array( 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday' );
 					foreach ( $days as $day ) {
 						$field_name = '_wpseo_opening_hours_' . $day;
@@ -125,7 +152,7 @@ if ( !class_exists( 'WPSEO_Local_Frontend' ) ) {
 						}
 
 						$end = get_post_meta( get_the_ID(), $field_name . '_to', true );
-						if( $start == 'closed' ) {
+						if ( $start == 'closed' ) {
 							$end = 'closed';
 						}
 						echo '<meta property="business:hours:day" content="' . esc_attr( $day ) . '"/>' . "\n";
@@ -142,14 +169,14 @@ if ( !class_exists( 'WPSEO_Local_Frontend' ) ) {
 		 * @link https://developers.facebook.com/docs/reference/opengraph/object-type/business.business
 		 * @link https://developers.facebook.com/docs/reference/opengraph/object-type/restaurant.restaurant
 		 *
-		 * @param $type string The OpenGraph type to be altered
+		 * @param string $type The OpenGraph type to be altered.
 		 *
 		 * @return string
 		 */
 		function opengraph_type( $type ) {
 			global $post;
 
-			if ( !empty( $post ) && ( ( isset( $post->post_type ) && $post->post_type == 'wpseo_locations' ) || ( "on" == WPSEO_Meta::get_value( 'opengraph-local', $post->ID ) && ! wpseo_has_multiple_locations() ) ) ) {
+			if ( ! empty( $post ) && ( ( isset( $post->post_type ) && $post->post_type == 'wpseo_locations' ) || ( 'on' == WPSEO_Meta::get_value( 'opengraph-local', $post->ID ) && ! wpseo_has_multiple_locations() ) ) ) {
 				$business_type = get_post_meta( $post->ID, '_wpseo_business_type', true );
 				switch ( $business_type ) {
 					case 'BarOrPub':
@@ -169,16 +196,18 @@ if ( !class_exists( 'WPSEO_Local_Frontend' ) ) {
 		/**
 		 * Filter the OG title output
 		 *
-		 * @param string $title
+		 * @param string $title The title to be filtered.
 		 *
 		 * @return string
 		 */
 		function opengraph_title_filter( $title ) {
-			if ( "on" == WPSEO_Meta::get_value( 'opengraph-local' ) && ! wpseo_has_multiple_locations() ) {
-				return get_bloginfo('name');
-			} else if ( wpseo_has_multiple_locations() && is_singular( 'wpseo_locations' ) ) {
+			if ( 'on' == WPSEO_Meta::get_value( 'opengraph-local' ) && ! wpseo_has_multiple_locations() ) {
+				return get_bloginfo( 'name' );
+			}
+			else if ( wpseo_has_multiple_locations() && is_singular( 'wpseo_locations' ) ) {
 				return get_the_title( get_the_ID() );
 			}
+
 			return $title;
 		}
 
@@ -187,20 +216,25 @@ if ( !class_exists( 'WPSEO_Local_Frontend' ) ) {
 		 *
 		 * @since 0.1
 		 *
-		 * @param string $country_code Two char country code
+		 * @param string $country_code Two char country code.
 		 *
-		 * @return string Country name
+		 * @return string Country name.
 		 */
 		public static function get_country( $country_code = '' ) {
 			$countries = WPSEO_Local_Frontend::get_country_array();
 
-			if( $country_code == '' || ! array_key_exists( $country_code, $countries ) ) {
+			if ( $country_code == '' || ! array_key_exists( $country_code, $countries ) ) {
 				return false;
 			}
 
-			return $countries[$country_code];
+			return $countries[ $country_code ];
 		}
 
+		/**
+		 * Retrieves array of all countries and their ISO country code.
+		 *
+		 * @return array Array of countries.
+		 */
 		public static function get_country_array() {
 			$countries = array(
 				'AX' => __( 'Åland Islands', 'yoast-local-seo' ),

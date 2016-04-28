@@ -1,28 +1,32 @@
 <?php
-/*
-Plugin Name: Local SEO for Yoast SEO
-Version: 3.1
-Plugin URI: https://yoast.com/wordpress/local-seo/
-Description: This Local SEO module adds all the needed functionality to get your site ready for Local Search Optimization
-Author: Team Yoast and Arjan Snaterse
-Author URI: https://yoast.com
+/**
+ * @package WPSEO_Local\Main
+ */
 
-Copyright 2012-2016 Joost de Valk & Arjan Snaterse
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/**
+ * Plugin Name: Local SEO for Yoast SEO
+ * Version: 3.2.1
+ * Plugin URI: https://yoast.com/wordpress/local-seo/
+ * Description: This Local SEO module adds all the needed functionality to get your site ready for Local Search Optimization
+ * Author: Team Yoast and Arjan Snaterse
+ * Author URI: https://yoast.com
+ *
+ * Copyright 2012-2016 Joost de Valk & Arjan Snaterse
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 
 /**
  * All functionality for fetching location data and creating an KML file with it.
@@ -31,7 +35,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * @subpackage Yoast SEO Local
  */
 
-define( 'WPSEO_LOCAL_VERSION', '3.1' );
+define( 'WPSEO_LOCAL_VERSION', '3.2.1' );
 
 if ( ! defined( 'WPSEO_LOCAL_PATH' ) ) {
 	define( 'WPSEO_LOCAL_PATH', plugin_dir_path( __FILE__ ) );
@@ -41,23 +45,19 @@ if ( ! defined( 'WPSEO_LOCAL_FILE' ) ) {
 	define( 'WPSEO_LOCAL_FILE', __FILE__ );
 }
 
-// Load text domain
+if ( file_exists( WPSEO_LOCAL_PATH . '/vendor/autoload_52.php' ) ) {
+	require WPSEO_LOCAL_PATH . '/vendor/autoload_52.php';
+}
+
+// Load text domain.
 load_plugin_textdomain( 'yoast-local-seo', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
-require_once 'classes/class-core.php';
-require_once 'includes/wpseo-local-functions.php';
-require_once 'includes/ajax-functions.php';
-require_once 'classes/class-core.php';
-require_once 'classes/class-admin.php';
-require_once 'classes/class-admin-wrappers.php';
-require_once 'classes/class-metaboxes.php';
-require_once 'classes/class-frontend.php';
-require_once 'classes/class-storelocator.php';
-require_once 'classes/class-taxonomy.php';
-require_once 'widgets/widget-show-address.php';
-require_once 'widgets/widget-show-map.php';
-require_once 'widgets/widget-show-openinghours.php';
-require_once 'widgets/widget-storelocator-form.php';
+// Actions moved from includes/ajax-functions.php and includes/wpseo-local-functions.php
+// so those files can be autoloaded (as they will contain just functions then).
+add_action( 'wp_ajax_wpseo_copy_location', 'wpseo_copy_location_callback' );
+add_action( 'wp_ajax_nopriv_wpseo_copy_location', 'wpseo_copy_location_callback' );
+add_action( 'wp_footer', 'wpseo_enqueue_geocoder' );
+add_action( 'admin_footer', 'wpseo_enqueue_geocoder' );
 
 /**
  * Initialize the Local SEO module on plugins loaded, so WP SEO should have set its constants and loaded its main classes.
@@ -81,7 +81,6 @@ function wpseo_local_seo_init() {
 		else {
 			add_action( 'all_admin_notices', 'yoast_wpseo_local_upgrade_error' );
 		}
-
 	}
 	else {
 		add_action( 'all_admin_notices', 'wpseo_local_missing_error' );
@@ -90,18 +89,23 @@ function wpseo_local_seo_init() {
 
 add_action( 'init', 'wpseo_local_seo_init' );
 
+/**
+ * Register all widgets used for Local SEO plugin
+ *
+ * @since 3.1
+ */
 function wpseo_local_seo_init_widgets() {
 	$widgets = array(
-		"WPSEO_Show_Address",
-		"WPSEO_Show_Map",
-		"WPSEO_Show_OpeningHours",
+		'WPSEO_Show_Address',
+		'WPSEO_Show_Map',
+		'WPSEO_Show_OpeningHours',
 	);
 
 	if ( wpseo_has_multiple_locations() ) {
-		$widgets[] = "WPSEO_Storelocator_Form";
+		$widgets[] = 'WPSEO_Storelocator_Form';
 	}
 
-	foreach( $widgets as $widget ) {
+	foreach ( $widgets as $widget ) {
 		register_widget( $widget );
 	}
 }
@@ -130,7 +134,7 @@ function yoast_wpseo_local_upgrade_error() {
 /**
  * Instantiate the plugin license manager for the current plugin and activate it's license.
  */
-function yoast_wpseo_local_activate_license( ) {
+function yoast_wpseo_local_activate_license() {
 	if ( class_exists( 'Yoast_Plugin_License_Manager' ) ) {
 		if ( ! class_exists( 'Yoast_Product_WPSEO_Local' ) ) {
 			require_once dirname( WPSEO_LOCAL_FILE ) . '/classes/class-product.php';

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Video SEO for WordPress SEO by Yoast
-Version: 3.1
+Version: 3.2
 Plugin URI: https://yoast.com/wordpress/plugins/video-seo/
 Description: This Video SEO module adds all needed meta data and XML Video sitemap capabilities to the metadata capabilities of WordPress SEO to fully optimize your site for video results in the search results.
 Author: Team Yoast
@@ -38,7 +38,7 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload_52.php' ) ) {
 	require dirname( __FILE__ ) . '/vendor/autoload_52.php';
 }
 
-define( 'WPSEO_VIDEO_VERSION', '3.1' );
+define( 'WPSEO_VIDEO_VERSION', '3.2' );
 define( 'WPSEO_VIDEO_FILE', __FILE__ );
 
 /**
@@ -1548,7 +1548,6 @@ class WPSEO_Video_Sitemap {
 		require plugin_dir_path( __FILE__ ) . 'xml-video-sitemap.php';
 		die();
 	}
-
 
 	/**
 	 * The main function of this class: it generates the XML sitemap's contents.
@@ -3370,6 +3369,15 @@ if ( ! wp_installing() ) {
 	add_action( 'plugins_loaded', 'yoast_wpseo_video_seo_init', 5 );
 }
 
+/**
+ * Clear the sitemap index
+ */
+function yoast_wpseo_video_clear_sitemap_cache() {
+	if ( class_exists( 'WPSEO_Sitemaps_Cache' ) && method_exists( 'WPSEO_Sitemaps_Cache', 'invalidate' ) ) {
+		$sitemap_instance = new WPSEO_Video_Sitemap();
+		WPSEO_Sitemaps_Cache::invalidate( $sitemap_instance->video_sitemap_basename() );
+	}
+}
 
 /**
  * Self-deactivate plugin
@@ -3392,17 +3400,32 @@ function yoast_wpseo_video_seo_self_deactivate( $message ) {
 	}
 }
 
-
 /**
  * Execute option cleanup actions on activate
+ *
+ * There are a couple of things being done on activation:
+ * - Clean up te options to be sure it's set well
+ * - Activating the license, because updating the plugin results in deactivating the license
+ * - Clear the sitemap cache to rebuild the sitemap.
  */
 function yoast_wpseo_video_activate() {
 	$option_instance = WPSEO_Option_Video::get_instance();
 	$option_instance->clean();
+
+	yoast_wpseo_video_clear_sitemap_cache();
 
 	// Activate the license
 	$license_manager = new Yoast_Plugin_License_Manager( new Yoast_Product_WPSEO_Video() );
 	$license_manager->activate_license();
 }
 
+/**
+ * Empty sitemap cache on plugin deactivate
+ */
+function yoast_wpseo_video_deactivate() {
+	yoast_wpseo_video_clear_sitemap_cache();
+}
+
 register_activation_hook( __FILE__, 'yoast_wpseo_video_activate' );
+
+register_deactivation_hook( __FILE__, 'yoast_wpseo_video_deactivate' );

@@ -1,22 +1,32 @@
 <?php
+/**
+ * @package WPSEO_Local\Main
+ */
 
-if( ! class_exists( 'Yoast_Product_WPSEO_Local' ) ) {
+if ( ! class_exists( 'Yoast_Product_WPSEO_Local' ) ) {
 
 	/**
 	 * Class Yoast_Product_WPSEO_Local
 	 */
 	class Yoast_Product_WPSEO_Local extends Yoast_Product {
 
+		/**
+		 * Yoast_Product_WPSEO_Local constructor.
+		 */
 		public function __construct() {
+			$file = plugin_basename( WPSEO_LOCAL_FILE );
+			$slug = dirname( $file );
+
 			parent::__construct(
-					'http://yoast.com/edd-sl-api',
-					'Local SEO for WordPress',
-					plugin_basename( WPSEO_LOCAL_FILE ),
-					WPSEO_LOCAL_VERSION,
-					'https://yoast.com/wordpress/plugins/local-seo/',
-					'admin.php?page=wpseo_licenses#top#licenses',
-					'yoast-local-seo',
-					'Yoast'
+				'http://yoast.com/edd-sl-api',
+				'Local SEO for WordPress',
+				$slug,
+				WPSEO_LOCAL_VERSION,
+				'https://yoast.com/wordpress/plugins/local-seo/',
+				'admin.php?page=wpseo_licenses#top#licenses',
+				'yoast-local-seo',
+				'Yoast',
+				$file
 			);
 		}
 

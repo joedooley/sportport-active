@@ -36,7 +36,7 @@ class WooThemes_Updater_API {
 	private $version;
 
 	public function __construct () {
-		$this->version = '1.6.0';
+		$this->version = '1.6.2';
 		$this->token = 'woothemes-updater';
 		$this->api_url = 'https://www.woothemes.com/wc-api/product-key-api';
 		$this->products_api_url = 'https://www.woothemes.com/wc-api/woothemes-installer-api';
