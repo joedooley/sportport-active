@@ -21,19 +21,13 @@
 		}
 
 		&.current-menu-item > a {
-			background-color: #89a;
-			color: $orange;
-
-			&:hover {
-				color: #fff;
-			}
+			background-color: $menu-grey;
 		}
 
 	}
 
 	a {
 		border-bottom-width: 0;
-		color: #232525;
 		display: block;
 		font: {
 			family: $lato;
@@ -54,11 +48,15 @@
 		width: 180px;
 
 		&> li:first-child {
-			border-top: 1px solid #f93;
+			border-top: 2px solid $orange;
+
+			@include media($xlarge-screen-up) {
+				border-top: 0;
+			}
 		}
 
 		a {
-			background-color: #89a;
+			background-color: $orange;
 			border-bottom: 1px solid #eee;
 			border-top: 0;
 			font-size: 70%;
@@ -71,7 +69,11 @@
 			}
 
 			&:hover {
-				background-color: #f93;
+				background-color: $orange-hover;
+			}
+
+			&:active {
+				background-color: $menu-grey;
 			}
 		}
 	}

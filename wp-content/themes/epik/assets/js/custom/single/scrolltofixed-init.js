@@ -20,7 +20,7 @@ jQuery(function ($) {
 		var imageHeight = leftHeight - paddingTop;
 
 
-		if (window.matchMedia("(min-width: 768px)").matches) {
+		if (window.matchMedia("(min-width: 1024px)").matches) {
 
 			//Set Media Query
 			//if (Modernizr.mq('only screen and (min-width: 769px)')) {

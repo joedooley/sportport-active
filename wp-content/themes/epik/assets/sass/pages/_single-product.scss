@@ -52,12 +52,20 @@ body.single-product {
 		padding-top: 50px;
 		text-align: center;
 		width: 50%;
+
+		@include media($xlarge-screen-up) {
+			width: 100%;
+		}
 	}
 
 	&.woocommerce div.product div.summary {
 		background: #ebebeb;
 		min-height: 100vh;
 		width: 50%;
+
+		@include media($xlarge-screen-up) {
+			width: 100%;
+		}
 	}
 
 	div.product div.images,
@@ -158,6 +166,11 @@ body.single-product {
 	div.product form.cart button.button {
 		background-color: $orange;
 		@include padding(14px em(60));
+
+		@include media($medium-screen-up) {
+			padding-left: 3em;
+			padding-right: 3em;
+		}
 	}
 
 	// Accordion
@@ -217,6 +230,10 @@ body.woocommerce div.product div.images div.thumbnails {
 	margin-left: 1em;
 	margin-right: 1em;
 	margin-top: 11em;
+
+	@include media($xlarge-screen-up) {
+		margin-top: 0;
+	}
 }
 
 // Variation Description
@@ -224,4 +241,8 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 	border-top: $border;
 	margin-top: 7em;
 	padding-top: 2em;
+
+	@include media($medium-screen-up) {
+		margin-top: 5em;
+	}
 }

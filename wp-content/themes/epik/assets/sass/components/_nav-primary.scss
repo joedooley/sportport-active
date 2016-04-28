@@ -14,11 +14,14 @@
 		text-decoration: none;
 		text-transform: uppercase;
 
-		&:hover,
-		&:focus,
+
 		&:active {
-			background-color: #89a;
-			@include transition(all 0.5s ease-in-out);
+			background-color: $menu-grey;
+		}
+
+		&:hover {
+			background-color: $orange-hover;
+			@include transition(all 0.2s ease-in);
 		}
 	}
 
