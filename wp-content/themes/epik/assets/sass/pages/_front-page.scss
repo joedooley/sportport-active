@@ -44,7 +44,7 @@
 }
 
 .hero {
-	border-bottom: 2px solid #ff9934;
+	border-bottom: 2px solid $orange;
 	color: #fff;
 	padding: 220px 120px;
 	text-align: center;
@@ -187,7 +187,7 @@
 }
 
 .featured-link__orange {
-	background-color: #ff9934;
+	background-color: $orange;
 }
 
 .featured-link__yellow {

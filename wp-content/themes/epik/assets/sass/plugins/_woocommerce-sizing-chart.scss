@@ -4,4 +4,8 @@
 a#chart-button {
 	background-color: $orange;
 	border-radius: 0;
+
+	&:hover {
+		background-color: $orange-hover;
+	}
 }

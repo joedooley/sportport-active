@@ -56,8 +56,13 @@ function spa_add_theme_support() {
 remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
 
 
-//* Customize search form input box text
-add_filter( 'genesis_search_text', function ( $text ) {
+
+/**
+ * Customize search form input box text
+ *
+ * @return string|void
+ */
+add_filter( 'genesis_search_text', function () {
 	return esc_attr( 'Search...' );
 } );
 
@@ -72,23 +77,28 @@ remove_action( 'genesis_meta', 'genesis_load_stylesheet' );
 add_action( 'wp_enqueue_scripts', 'genesis_enqueue_main_stylesheet', 15 );
 
 
-
-add_action( 'init', 'spa_register_custom_image_sizes' );
 /**
  * Register custom image sizes
  */
-function spa_register_custom_image_sizes() {
+add_action( 'init', function() {
 
 	add_image_size( 'featured-img', 730, 420, true );
 	add_image_size( 'featured-page', 341, 173, true );
 	add_image_size( 'portfolio-thumbnail', 264, 200, true );
 	add_image_size( 'featured-posts', 450, 250, true );
 
-}
+});
 
 
-//* Modify breadcrumb arguments.
+
 add_filter( 'genesis_breadcrumb_args', 'sp_breadcrumb_args' );
+/**
+ * Modify breadcrumb arguments.
+ *
+ * @param $args
+ *
+ * @return mixed
+ */
 function sp_breadcrumb_args( $args ) {
 	$args['home']                    = 'Home';
 	$args['sep']                     = ' ::: ';
@@ -142,31 +152,50 @@ function pn_body_class_add_categories( $classes ) {
 }
 
 
-//* Customize author box title
+
 add_filter( 'genesis_author_box_title', 'spa_author_box_title' );
+/**
+ * Customize author box title
+ *
+ * @return string
+ */
 function spa_author_box_title() {
 
 	return '<span itemprop="name">' . get_the_author() . '</span>';
 
 }
 
-//* Modify size of the Gravatar in the author box
-add_filter( 'genesis_author_box_gravatar_size', 'spa_author_box_gravatar' );
-function spa_author_box_gravatar( $size ) {
+
+
+/**
+ * Modify size of the Gravatar in the author box
+ *
+ * @param $size
+ *
+ * @return int
+ */
+add_filter( 'genesis_author_box_gravatar_size', function() {
 
 	return 160;
 
-}
+});
 
-//* Modify size of the Gravatar in the entry comments
-add_filter( 'genesis_comment_list_args', 'spa_comments_gravatar' );
-function spa_comments_gravatar( $args ) {
+
+
+/**
+ * Modify Comment Author Avatar Size
+ * @param $args
+ *
+ * @return mixed
+ */
+add_filter( 'genesis_comment_list_args', function( $args ) {
 
 	$args['avatar_size'] = 120;
 
 	return $args;
 
-}
+});
+
 
 
 

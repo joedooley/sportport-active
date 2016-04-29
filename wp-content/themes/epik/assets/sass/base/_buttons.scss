@@ -1,21 +1,23 @@
 .button,
 .entry-content .sp-button,
 .entry-content .sp-button a,
+body.woocommerce .cart .button,
+body.woocommerce .cart input.button,
 #{$all-buttons} {
 	appearance: none;
 	background-color: $orange;
 	color: #fff;
+	cursor: pointer;
+	display: inline-block;
 	font: {
+		family: $base-font-family;
 		size: rem(16);
 		weight: $bold;
 	}
-	padding: 25px;
-	text-decoration: none;
-	cursor: pointer;
-	display: inline-block;
-	font-family: $base-font-family;
 	-webkit-font-smoothing: antialiased;
 	line-height: 1;
+	padding: 25px;
+	text-decoration: none;
 	text-transform: uppercase;
 	transition: background-color $base-duration $base-timing;
 	user-select: none;
@@ -24,7 +26,7 @@
 
 	&:hover,
 	&:focus {
-		background-color: shade($orange-hover, 20%);
+		background-color: $orange-hover;
 		color: #fff;
 		transition: all 0.3s ease;
 	}
@@ -34,7 +36,7 @@
 		opacity: 0.5;
 
 		&:hover {
-			background-color: $orange-hover;
+			background-color: shade($orange-hover, 20%);
 		}
 	}
 }

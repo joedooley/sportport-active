@@ -3,6 +3,7 @@
 .before-header {
 	background-color: #dce1e7;
 	color: $light-gray;
+	font-family: $raleway-bold;
 	text-align: center;
 
 	.wrap {
@@ -37,18 +38,16 @@
 
 			a {
 				color: $light-gray;
-				font-family: $open-sans-condensed-bold;
 				font-size: rem(11);
-				font-weight: bold;
 				text-transform: uppercase;
 
 				&:hover {
-					color: #f93;
+					color: $orange-hover;
 				}
 			}
 
 			&.current-menu-item > a {
-				color: #f93;
+				color: $orange-hover;
 			}
 		}
 
@@ -69,9 +68,10 @@
 	.free-shipping-notification {
 		@include padding(0);
 		color: $light-gray;
-		font-family: $open-sans-condensed-bold;
-		font-size: rem(11);
-		font-weight: bold;
+		font: {
+			family: $raleway-bold;
+			size: rem(11);
+		}
 		margin-bottom: 0;
 		margin-top: 10px;
 		text-transform: uppercase;
@@ -108,7 +108,6 @@
 			@include padding(6px);
 
 			@include placeholder {
-				font-family: $open-sans-condensed-bold;
 				font-size: rem(11);
 				padding-top: 3px;
 			}
