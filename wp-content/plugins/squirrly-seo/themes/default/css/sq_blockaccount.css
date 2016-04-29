@@ -1,0 +1,26 @@
+.update-nag, .updated, .show-settings, .screen-meta-toggle{
+    display: none !important;
+}
+
+
+@media only screen and (max-width: 1030px){
+    .sq_helpside {
+        clear: both;
+        float: left;
+        width: 808px;
+        height: 275px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .sq_helpside > div {
+        float: left;
+        width: 175px;
+        border: 1px solid #ccc;
+        background-color: #fcfcfc;
+        padding: 10px;
+        margin: 10px 5px 10px 0;
+        height: 240px;
+        margin-bottom: 10px;
+    }
+}
