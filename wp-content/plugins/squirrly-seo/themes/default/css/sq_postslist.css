@@ -1,0 +1,664 @@
+#postmiddlesquirrly{
+    display: block;
+}
+#sq_posts{
+    margin: 15px 15px 0 0;
+}
+th#sq_rank_column {
+    color: brown;
+    width: 125px;
+}
+td.sq_rank_column {
+
+}
+
+#sq_posts th.column-title{
+    width: 30%;
+}
+
+#sq_posts th.column-type{
+    width: 70px;
+}
+
+#sq_posts th.column-traffic{
+    width: 100px;
+}
+
+#sq_posts th.column-rank{
+    width: 150px;
+}
+
+#sq_posts th.column-keywords{
+    width: 100px;
+}
+
+#sq_posts th.column-date{
+    width: 90px;
+}
+
+/********************************************************/
+progress.sq_post_progress{
+    width: 100px;
+    height: 6px;
+    margin: 5px auto 0 auto;
+    padding: 0;
+    display: block;
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: 1px solid #eee;
+}
+/* This rule sets the appearance of the progress bar background */
+progress.sq_post_progress::-webkit-progress-bar{
+    background: transparent;
+    border-radius: 0px;
+}
+
+/* This rule sets the appearance of the progress bar meter */
+progress.sq_post_progress::-webkit-progress-value {
+    background-color: #20bc49;
+    border-radius: 0px;
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
+    background-size: 100px;
+    -webkit-animation: move 5s linear 0 infinite;
+    animation: move 5s linear 0;
+    background-image: linear-gradient(90deg, red 0%, orange 30%, orange 60%, #20bc49 100%);
+}
+progress.sq_post_100progress::-webkit-progress-value {
+    background-color: #20bc49;
+}
+
+@keyframes move {
+    0% {background-position: 0px 0px, 0 0, 0 0}
+    100% {background-position: -100px 0px, 0 0, 0 0}
+}
+
+@-webkit-keyframes move {
+    0% {background-position: 0px 0px, 0 0, 0 0}
+    100% {background-position: -100px 0px, 0 0, 0 0}
+}
+/********************************************************/
+
+td.sq_rank_column .sq_rank_column_row{
+    text-align: center;
+    position: relative;
+    width: 100%;
+    min-height: 25px;
+}
+
+td.sq_rank_column .sq_rank_column_row .sq_optimize{
+    font-size: 12px;
+    color: lightcoral;
+    cursor: pointer;
+}
+td.sq_rank_column .sq_rank_column_row .sq_no_rank{
+    color: #999;
+}
+
+td.sq_rank_column .sq_rank_column_row .sq_chart_title{
+    position: absolute;
+    font-size: 9px;
+    color: #cfcfcf;
+    top: 33px;
+    text-align: center;
+    width: 100%;
+}
+
+td.sq_rank_column .sq_rank_column_row:hover .sq_chart_title{
+    color: darkgoldenrod;
+}
+
+td.column-rank .sq_rank_column_button,
+td.sq_rank_column .sq_rank_column_button{
+    display: block;
+    margin: 1px auto 10px auto;
+    background-color: #15b14a;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    line-height: 16px;
+    text-shadow: none;
+    padding: 7px 0px;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border: none;
+    box-shadow: 0px 0px 2px 0px white;
+    cursor: pointer;
+    width: 100px;
+    text-align: center;
+    z-index: 2;
+}
+
+td.column-rank .sq_rank_column_button{
+    padding: 3px 0px;
+    font-size: 11px;
+    width: 90px;
+    line-height: 14px;
+    background-color: lightgrey;
+}
+
+.sq_rank_layout_content .sq_rank_zone_header .sq_rank_zone_title{
+    background-position: -60px -74px;
+}
+
+
+
+/************************** Details ****************************/
+/**************************************************************/
+.sq_post_rank_row  {
+    position: relative;
+    padding: 0px 0 5px 0 !important;
+    margin: 0px !important;
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    background-color: #fff;
+    min-width: 460px;
+    overflow: visible !important;
+    box-shadow: 0px 5px 6px -4px #000 !important;
+    -moz-box-shadow: 0px 5px 6px -4px #000 !important;
+    -webkit-box-shadow: 0px 5px 6px -4px #000 !important;
+}
+
+.sq_post_rank_row:before{
+    display: block;
+    border: none;
+    content: " ";
+    background: transparent url('../img/sprite.png') repeat-x;
+    background-position: 0 -360px;
+    width: 100%;
+    height: 5px;
+    border-radius: 2px 2px 0 0;
+}
+
+.sq_post_rank_row .sq_post_rank_title{
+    display: block;
+    text-align: left;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 30px;
+    color: #333;
+    margin: 0 0 10px 0;
+    padding: 10px 0 10px 10px;
+    height: 16px;
+}
+.sq_post_rank_row .sq_separator{
+    display: block;
+    clear: both;
+    background: transparent url("../img/sprite.png") repeat-x;
+    background-position: 0px -367px;
+    width: 100%;
+    height: 3px;
+    margin: 2px auto 30px auto;
+}
+
+.sq_post_rank_row .sq_post_rank_close{
+    position: absolute;
+    background-color: #e5d8cd;
+    right: -7px;
+    top: -7px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #333;
+    width: 8px;
+    line-height: 16px;
+    padding: 0px 5px 3px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border: 1px solid darkOliveGreen;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.sq_post_rank_row .sq_post_rank_refresh{
+    position: absolute;
+    right: 30px;
+    top: 18px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    line-height: 16px;
+    padding: 2px 9px;
+    background-color: #15b14a;
+    text-shadow: 1px 1px #333;
+    border: 1px solid #20bc49;
+    box-shadow: 0px 0px 2px 0px #57c332;
+    cursor: pointer;
+    z-index: 2;
+
+}
+/******************************/
+#sq_analytics .sq_first_header_column{
+    width: 122px;
+}
+#sq_analytics .sq_second_column{
+    width: 528px;
+}
+#sq_analytics .sq_second_column span{
+    width: 100%;
+}
+#sq_analytics .sq_third_column{
+    position: relative;
+    overflow: visible;
+    width: 300px;
+    text-align: center;
+}
+
+#sq_analytics .sq_analytics_task_completed {
+    display: block;
+    top: -22px;
+    float: left;
+    position: relative;
+    line-height: 40px;
+    width: auto;
+    height: auto;
+    min-width: 50px;
+    min-height: 40px;
+    margin: 0 20px;
+    padding: 10px;
+    text-align: center;
+    font-size: 30px;
+    color: #fff;
+    box-shadow: 1px 1px 2px 0px #999;
+    filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=1, OffY=1, Color='#999');
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=270, Color='#999')";
+    border-radius: 5px 5px 5px 0;
+    -moz-border-radius: 5px 5px 5px 0;
+    -webkit-border-radius: 5px 5px 5px 0;
+}
+#sq_analytics .sq_analytics_tasks .sq_analytics_task_completed{
+    display: block;
+    width: 100px;
+    height: 65px;
+    font-size: 20px;
+    color: #fff;
+    text-shadow: 1px 1px #555;
+    line-height: 29px;
+    vertical-align: middle;
+}
+/* creates the larger triangle */
+#sq_analytics  .sq_analytics_task_completed:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: -13px;
+    left: 0;
+    border-width: 0 0 14px 25px;
+    border-style: solid;
+    z-index: 2;
+}
+
+/* creates the larger triangle*/
+#sq_analytics  .sq_analytics_task_completed:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    border-collapse:collapse;
+    border-width: 0 0 15px 28px;
+    border-style: solid;
+    border-color: transparent transparent transparent #999;
+}
+
+#sq_analytics .sq_audit_task_completed_green{
+    color: #fff;
+    background: #15b14a;
+}
+#sq_analytics .sq_audit_task_completed_green_text{
+    color: #20bc49;
+}
+#sq_analytics .sq_audit_task_completed_green:before {
+    border-color: transparent transparent transparent #20bc49;
+}
+
+#sq_analytics .sq_audit_task_completed_yellow{
+    color: #fff;
+    background: #f6a304;
+}
+#sq_analytics .sq_audit_task_completed_yellow_text{
+    color: #f6a304;
+}
+#sq_analytics .sq_audit_task_completed_yellow:before {
+    border-color: transparent transparent transparent #f6a304;
+}
+
+#sq_analytics .sq_audit_task_completed_red{
+    color: #fff;
+    background: #bb0d0c;
+}
+#sq_analytics .sq_audit_task_completed_red_text{
+    color: #bb0d0c;
+}
+#sq_analytics .sq_audit_task_completed_red:before {
+    border-color: transparent transparent transparent #bb0d0c;
+}
+
+/*************************************************************/
+#sq_analytics div.sq_analytics_groups{
+    width: 95%;
+    margin: 0 auto 50px auto;
+}
+#sq_analytics .sq_analytics_list > li{
+    margin-top: 40px;
+}
+#sq_analytics .sq_analytics_list td{
+    border: none;
+    vertical-align: top;
+    overflow: visible;
+}
+#sq_analytics .sq_analytics_list .sq_analytics_tasks_header {
+    height: 50px;
+    overflow: visible;
+}
+#sq_analytics .sq_analytics_list .sq_analytics_tasks_header .sq_analytics_tasks_header_title{
+    float: left;
+    font-size: 36px;
+    line-height: 16px;
+}
+#sq_analytics .sq_analytics_list .sq_analytics_tasks_header .sq_analytics_task_completed {
+    margin: 0 21px !important;
+    padding: 10px;
+}
+/* creates the larger triangle */
+#sq_analytics .sq_analytics_list .sq_analytics_tasks_header .sq_analytics_task_completed:before {
+    right: 4px;
+    left: auto;
+}
+
+/* creates the larger triangle */
+#sq_analytics .sq_analytics_list .sq_analytics_tasks_header .sq_analytics_task_completed:after {
+    bottom: -15px;
+    right: 2px;
+    left: auto;
+    border-width: 0 0 15px 26px;
+}
+
+.sq_analytics_tasks_pass{
+    display: block;
+    background: transparent url("../img/sprite.png") repeat-x;
+    background-position: -5px -380px;
+    height: 84px;
+    width: 97px;
+    margin-right: 20px;
+}
+
+.sq_analytics_tasks_fail{
+    display: block;
+    background: transparent url("../img/sprite.png") repeat-x;
+    background-position: -103px -380px;
+    height: 84px;
+    width: 97px;
+    margin-right: 20px;
+}
+#sq_analytics .sq_analytics_tasks_row{
+    width: 100%;
+    position: relative;
+    margin-top: 30px;
+}
+#sq_analytics .sq_analytics_tasks_row > table{
+    width: 100%;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_title{
+    font-size: 24px;
+    line-height: 28px;
+    color: #a8a8a8;
+    padding-right: 10px;
+}
+
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_value{
+    font-size: 24px;
+    line-height: 28px;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_value_pass a{
+    font-size: 15px;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_value_fail a{
+    font-size: 15px;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_value_pass{
+    color: #20bc49;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_value_fail{
+    color: #f7681a;
+}
+
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description{
+    padding-top: 20px;
+    max-width: 540px;
+    font-size: 16px;
+    line-height: 21px;
+    color: #a8a8a8;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description span{
+    display: block;
+    margin-bottom: 15px;
+    margin-left: 0;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description span.sq_analytics_tasks_alias{
+    margin-bottom: 10px;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description .sq_analytics_tasks_value{
+    font-size: 15px;
+    line-height: 21px;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description a{
+    text-decoration: none;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description ul li{
+    margin-left: 10px;
+    margin-top: 7px;
+    font-size: 14px;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description .sq_tip,
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description .sq_fix{
+    font-size: 14px;
+    line-height: 19px;
+    color: #333333;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description .sq_tip a,
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description .sq_fix a{
+    text-decoration: none;
+    font-weight: bold;
+    color: orange;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description .sq_fix strong{
+    color: #f7681a;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description .sq_analytics_values{
+    width: 330px;
+    margin: 30px auto 0 auto;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description .sq_analytics_values li > div{
+    float: left;
+    margin-right: 10px;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description .sq_analytics_values li{
+    clear: both;
+    height: 30px;
+    line-height: 20px;
+    border-bottom: 1px dashed #eee;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description .sq_analytics_values li .sq_analytics_values_title{
+    font-size: 16px;
+    width: 195px;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description .sq_analytics_values li .sq_analytics_values_value{
+    font-weight: bold;
+    width: 75px;
+    text-align: right;
+}
+
+#sq_analytics .sq_list_error_title,
+#sq_analytics .sq_list_success_title{
+    display: block;
+    font-size: 20px;
+    color: #333;
+    height: 31px;
+    width: 90% !important;
+    margin-top: 30px;
+    padding-left: 30px;
+    border-bottom: 5px solid #ccc;
+    box-shadow: 0px 1px 0 0 #999;
+    filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=0, OffY=1, Color='#999');
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=270, Color='#999')";
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    background: transparent url("../img/list_icon.png") no-repeat 1px 3px;
+}
+
+#sq_analytics .sq_list_error,
+#sq_analytics .sq_list_success{
+    display: block;
+    font-size: 15px;
+    font-weight: normal;
+    color: #333;
+    margin-left: 0px;
+    margin-top: 5px;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_description .sq_list_success span{
+    margin-bottom: 10px;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_value .sq_list_error,
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_value .sq_list_success{
+    font-style: italic;
+}
+
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_video_cover{
+    background: #333 url("../img/sprite.png") no-repeat;
+    background-position: -208px -375px;
+    width: 280px;
+    height: 158px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_video a{
+    display: block;
+    width: 280px;
+    text-align: center;
+    font-size: 15px;
+    margin-top: 3px;
+    margin: 0 5px;
+}
+
+#sq_analytics .sq_analytics_tasks_row .sq_chart_text{
+    position: absolute;
+    font-size: 14px;
+    line-height: 20px;
+    color: #cfcfcf;
+    top: 80px;
+    text-align: center;
+    width: 93%;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_side{
+    text-align: center;
+}
+#sq_analytics .sq_analytics_tasks_row .sq_analytics_tasks_side .sq_analytics_tasks_side_text{
+    display: block;
+    font-size: 14px;
+    line-height: 21px;
+    color: #cfcfcf;
+    text-align: center;
+}
+/**********************/
+#sq_analytics .sq_rank_sprite{
+    float: left;
+    display: block;
+
+    margin: 1px 0 0 0;
+    background: transparent url('../img/sprite.png') no-repeat;
+    background-position: 20px 0px;
+    width: 20px;
+    height: 20px;
+}
+#sq_analytics .sq_rank_flag_big{
+    display: block;
+    float: none;
+    margin: 0 auto 6px auto;
+    background-position: -7px -279px;
+    width: 72px;
+    height: 70px;
+}
+#sq_analytics .sq_rank_flag_facebook{
+    background-position: -10px -253px;
+}
+#sq_analytics .sq_rank_flag_facebook_big{
+    background-position: -7px -279px;
+}
+#sq_analytics .sq_rank_flag_facebook_like{
+    background-position: -212px -253px;
+}
+#sq_analytics .sq_rank_flag_twitter{
+    background-position: -53px -253px;
+}
+#sq_analytics .sq_rank_flag_twitter_big{
+    background-position: -372px -279px;
+}
+#sq_analytics .sq_rank_flag_googleplus{
+    background-position: -31px -253px;
+}
+#sq_analytics .sq_rank_flag_googleplus_big{
+    background-position: -153px -279px;
+}
+#sq_analytics .sq_rank_flag_stumbleupon{
+    background-position: -190px -253px;
+}
+#sq_analytics .sq_rank_flag_stumbleupon_big{
+    background-position: -299px -279px;
+}
+#sq_analytics .sq_rank_flag_linkedin{
+    background-position: -231px -253px;
+}
+#sq_analytics .sq_rank_flag_linkedin_big{
+    background-position: -80px -279px;
+}
+#sq_analytics .sq_rank_flag_reddit{
+    background-position: -250px -253px;
+}
+#sq_analytics .sq_rank_flag_reddit_big{
+    background-position: -226px -279px;
+}
+
+#sq_analytics .sq_rank_seomoz_inbound{
+    background-position: -97px -253px;
+}
+#sq_analytics .sq_rank_seomoz_authority{
+    background-position: -119px -253px;
+}
+#sq_analytics .sq_rank_seomoz_rank{
+    background-position: -273px -253px;
+}
+#sq_analytics .sq_rank_google_pagerank{
+    background-position: -273px -253px;
+}
+#sq_analytics .sq_rank_squirrly_rank{
+    background-position: -314px -253px;
+}
+#sq_analytics .sq_rank_ahrefs_rank{
+    background-position: -333px -253px;
+}
+/*********************** Custom meta ***************************/
+.sq_rank_custom_meta{
+    display: block;
+    font-size: 13px;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    float: right;
+
+}
+
+.sq_rank_customtitle{
+    background-position: -308px -75px;
+}
+
+.sq_rank_customdescription{
+    background-position: -326px -75px;
+}

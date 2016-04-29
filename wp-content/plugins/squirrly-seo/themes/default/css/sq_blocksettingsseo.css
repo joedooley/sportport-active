@@ -1,0 +1,175 @@
+.update-nag, .updated, .show-settings, .screen-meta-toggle{
+    display: none !important;
+}
+
+#sq_helpsettingsseocontent{
+    float: left;
+    clear: left;
+    width: 550px;
+}
+
+
+.sq_checkissues{
+    display: inline-block;
+    background-color: #ff9b00;
+    line-height: 37px;
+    color: white;
+    font-size: 17px;
+    text-shadow: 0.1em 0.1em #ff9b00;
+    cursor: pointer;
+    border: 1px solid #F7A504;
+    font-weight: bold;
+    padding: 0px 10px;
+    margin: 18px auto;
+    min-width: 170px;
+    height: 39px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 1px 1px 1px 0 #777777;
+}
+
+.sq_helpside > div{
+    min-height: 241px;
+}
+
+
+#sq_settings #sq_settings_title .sq_checkissues{
+    display: block;
+    float: left;
+    line-height: 25px;
+    padding: 5px 10px;
+    margin: 6px 0 0 10px;
+    height: 25px;
+}
+#sq_settings .sq_option_img{
+    float: left;
+    vertical-align: middle;
+    margin: 0 10px 15px 0;
+    width: 200px;
+    cursor: pointer;
+}
+#sq_settings #sq_option_facebook,
+#sq_settings #sq_option_twitter{
+    position: relative;
+    clear: both;
+}
+
+#sq_settings #sq_option_facebook .sq_option_img{
+    background: transparent url('../img/settings/facebook_tmb.png') no-repeat;
+    height: 170px;
+}
+
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+#sq_settings #sq_option_facebook .sq_option_img:hover:after{
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+    -moz-transition: display 0.5s ease;
+    -webkit-transition: display 0.5s ease;
+    content: "";
+    top: -150px;
+    left: -30%;
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    background: transparent url('../img/settings/facebook.png') no-repeat;
+    z-index: 100;
+
+}
+
+#sq_settings #sq_option_facebook .sq_option_content{
+    clear: none;
+    float: left;
+    max-width: 57%;
+    margin-top: 13%;
+}
+
+#sq_settings #sq_option_twitter .sq_option_img{
+    background: transparent url('../img/settings/twitter_tmb.png') no-repeat;
+    height: 128px;
+}
+
+#sq_settings #sq_option_twitter .sq_option_img:hover:after{
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+    -moz-transition: display 0.2s ease;
+    -webkit-transition: display 0.2s ease;
+    content: "";
+    top: -150px;
+    left: -30%;
+    position: absolute;
+    width: 520px;
+    height: 334px;
+    background: transparent url('../img/settings/twitter.png') no-repeat;
+    z-index: 100;
+
+}
+
+#sq_settings #sq_option_twitter .sq_option_content{
+    clear: none;
+    float: left;
+    max-width: 57%;
+    margin-top: 7%;
+}
+
+#sq_settings #sq_option_twitter .sq_option_account{
+    float: left;
+    width: 57%;
+    margin-top: 22px;
+}
+
+#sq_settings #sq_sitemap_option{
+    margin: 0;
+}
+#sq_settings #sq_sitemap_buid,
+#sq_settings #sq_sitemap_include{
+    width: 98%;
+    margin:  0;
+    padding: 10px 0 5px 10px;
+    display: table;
+    border: 1px solid #e1e1e1;
+}
+#sq_settings #sq_sitemap_buid li,
+#sq_settings #sq_sitemap_include li{
+    float: left;
+    margin-right: 12px;
+    width: 46%;
+}
+
+#sq_settings #sq_sitemap_buid li.sq_selectall,
+#sq_settings #sq_sitemap_include li.sq_selectall{
+    float: none;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+#sq_settings #sq_jsonld_option .sq_option_img{
+    background: transparent url('../img/settings/googlejsonld_tmb.png') no-repeat;
+    height: 128px;
+}
+
+#sq_settings #sq_jsonld_option .sq_option_img:hover:after{
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+    -moz-transition: display 0.2s ease;
+    -webkit-transition: display 0.2s ease;
+    content: "";
+    top: -100px;
+    left: 0%;
+    border: 1px solid #ddd;
+    position: absolute;
+    width: 520px;
+    height: 276px;
+    background: transparent url('../img/settings/googlejsonld.png') no-repeat;
+    z-index: 100;
+
+}

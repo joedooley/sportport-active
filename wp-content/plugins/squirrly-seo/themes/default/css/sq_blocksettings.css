@@ -1,0 +1,37 @@
+.update-nag, .updated, .show-settings, .screen-meta-toggle{
+    display: none !important;
+}
+
+#sq_helpsettingscontent{
+    float: left;
+    clear: left;
+    width: 550px;
+}
+
+.sq_helpside > div{
+    min-height: 241px;
+}
+
+#sq_settings #sq_post_type_option{
+    margin: 0;
+}
+#sq_settings #sq_post_types{
+    width: 98%;
+    margin:  0;
+    padding: 10px 0 5px 10px;
+    display: table;
+    border: 1px solid #e1e1e1;
+    background-color: #fbfbde;
+}
+#sq_settings #sq_post_types li{
+    float: left;
+    margin-right: 12px;
+    width: 46%;
+}
+
+#sq_settings #sq_post_types li.sq_selectall{
+    float: none;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+

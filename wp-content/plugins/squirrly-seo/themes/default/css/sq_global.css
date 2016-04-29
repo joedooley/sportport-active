@@ -1,0 +1,471 @@
+.sq_message{
+    line-height: 19px;
+    width: calc(100% - 22px) !important;
+    margin: -1px 0;
+    padding: 0px;
+    font-size: 13px;
+    text-align: center;
+
+    border-width: 1px;
+    border-style: solid;
+    -webkit-border-bottom-right-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background-color: #FFFBCC;
+    border-color: #E6DB55;
+}
+.sq_notices{
+    font-size: 13px;
+    color: #555;
+}
+.sq_error{
+    width: calc(100% - 22px) !important;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: brown;
+    margin: 32px 0 5px 0 !important;;
+    padding: 0 !important;
+}
+
+.sq_success{
+    position: relative;
+    line-height: 30px;
+    width: calc(100% - 22px) !important;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    margin: 32px 0 5px 0;
+    margin: 32px 0 5px 0 !important;;
+    padding: 0 !important;
+    background-color: #20bc49;
+}
+
+.sq_popup{
+    position: fixed;
+    padding: 20px !important;
+    margin: 0 !important;
+    top: calc(50% - 50px);
+    left: calc(50% - 200px);
+    width: 400px;
+    height: 100px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 38px 0 #333;
+    text-align: center;
+    z-index: 1000;
+}
+
+.sq_popup span{
+    line-height: 30px;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+.sq_popup .sq_close{
+    position: absolute;
+    background-color: #e5d8cd;
+    right: -6px;
+    top: -9px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #333;
+    width: 8px;
+    line-height: 16px;
+    padding: 2px 6px 3px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border: 1px solid darkOliveGreen;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.squirrly_page_sq_seo .sq_error,
+.squirrly_page_sq_seo .sq_success,
+.toplevel_page_sq_dashboard .sq_error,
+.toplevel_page_sq_dashboard .sq_success,
+.squirrly_page_sq_settings .sq_error,
+.squirrly_page_sq_settings .sq_success,
+.squirrly_page_sq_account .sq_error,
+.squirrly_page_sq_account .sq_success,
+.squirrly_page_sq_affiliate .sq_error,
+.squirrly_page_sq_affiliate .sq_success
+.squirrly_page_sq_posts .sq_error,
+.squirrly_page_sq_posts .sq_success
+{
+    margin-top: 5px !important;
+}
+
+.sq_absolute{
+    position: fixed;
+    top: 28px;
+    z-index: 10000;
+    text-align: center;
+}
+
+.sq_savenotice{
+    width: 70%;
+}
+
+.sq_absolute span{
+    width: 50% !important;
+    display: inline-block;
+}
+
+.sq_error strong{
+    line-height: 25px;
+}
+
+.sq_helpnotice{
+    display: none;
+    position: relative;
+    background-color: lightyellow;
+    color: #999;
+}
+.sq_helpnotice p{
+    margin: 3px;
+}
+.sq_helpnotice strong{
+    display: block;
+    font-size: 14px;
+    max-width: 90%;
+
+}
+.sq_helpnotice  a{
+    color: lightgray;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.sq_helpnotice .sq_button{
+    display: inline-block;
+    background-color: #FFF;
+    line-height: 25px;
+    color: #504310;
+    font-size: 14px;
+    text-shadow: 0.1em 0.1em #FFFF52;
+    background: #FFD424;
+    cursor: pointer;
+    border: 1px solid #F7A504;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    font-weight: bold;
+    padding: 0px 25px;
+    margin: 6px 0 5px 6px;
+    width: auto;
+    text-align: center;
+    text-decoration: none;
+}
+
+.sq_notice_author{
+    position: absolute;
+    color: #a8a8a8;
+    font-size: 10px;
+    line-height: 15px;
+    top: 0px;
+    right: 2px;
+    text-shadow: none;
+}
+
+.sq_loading {
+    height: 60px;
+    background: transparent url('../img/loading.gif') no-repeat center !important;
+}
+
+@-webkit-keyframes play {
+    from { background-position:    0px; }
+    to { background-position: -400px; }
+}
+
+@-moz-keyframes play {
+    from { background-position:    0px; }
+    to { background-position: -400px; }
+}
+
+@-ms-keyframes play {
+    from { background-position:    0px; }
+    to { background-position: -400px; }
+}
+
+@-o-keyframes play {
+    from { background-position:    0px; }
+    to { background-position: -400px; }
+}
+
+@keyframes play {
+    from { background-position:    0px; }
+    to { background-position: -400px; }
+}
+.sq_minloading{
+    position: relative;
+    opacity: 0.5;
+}
+.sq_minloading:before {
+    position: absolute;
+    right: calc(50% - 10px);
+    top: calc(50% - 8px);
+    display: block;
+    float: right;
+    line-height: 30px;
+    content: "";
+    padding: 0px 0px;
+    margin: 0 0 0 5px;
+    height: 16px;
+    width: 20px;
+    background: transparent url('../img/minloading.png') no-repeat;
+
+    -webkit-animation: play 1s steps(10) infinite;
+    -moz-animation: play 1s steps(10) infinite;
+    -ms-animation: play 1s steps(10) infinite;
+    -o-animation: play 1s steps(10) infinite;
+    animation: play 1s steps(10) infinite;
+}
+#sq_preloading {
+    text-align: center;
+    font-size: 15px;
+    line-height: 24px;
+    color: gray;
+}
+
+noscript{
+    color: red;
+}
+
+#adminmenu li.current a .awaiting-mod{
+    background: inherit;
+}
+
+.sq_beta{
+    font-size: 11px;
+    color: darkRed;
+    vertical-align: top;
+    line-height: 16px;
+    display: inline-block;
+    margin: 0 0 0 5px;
+    border: 1px solid darkRed;
+    padding: 0 3px;
+}
+
+.sq_tooltip{
+    display: inline;
+    position: relative;
+}
+
+.sq_tooltip:hover:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    bottom: 26px;
+    color: #fff;
+    font-size: 14px;
+    content: attr(title);
+    left: 20%;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 250px;
+}
+
+.sq_tooltip:hover:before{
+    border: solid;
+    border-color: #333 transparent;
+    border-width: 6px 6px 0 6px;
+    bottom: 20px;
+    content: "";
+    left: 30px;
+    position: absolute;
+    z-index: 99;
+}
+/********************* SNIPPET *****************************/
+#sq_settings #sq_snippet{
+    max-width: 550px;
+}
+#sq_settings #sq_snippet #sq_snippet_ul{
+    min-height: 65px;
+}
+#sq_snippet{
+    position: relative !important;
+    margin: 20px 1px !important;
+    clear: both;
+
+    box-shadow: 0px 1px 2px -1px #444;
+    -moz-box-shadow: 0px 1px 2px -1px #444;
+    -webkit-box-shadow: 0px 1px 2px -1px #444;
+}
+#sq_snippet:before{
+    display: block;
+    content: " ";
+    background: transparent url('../img/sprite.png') repeat-x;
+    background-position: 0 -360px;
+    width: 100%;
+    height: 5px;
+    border-radius: 2px 2px 0 0;
+    opacity: 0.3;
+}
+#sq_snippet:hover:before{
+    opacity: 0.8;
+}
+#sq_snippet #sq_snippet_ul{
+    background-color: white;
+    width: auto;
+    padding: 15px;
+    margin: 0 0 20px 0;
+    min-height: 40px;
+}
+#sq_snippet #sq_snippet_ul li{
+    font-family: arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+
+    line-height: 10px;
+    margin: 0;
+    padding: 0;
+}
+#sq_snippet #sq_snippet_ul li#sq_snippet_update,
+#sq_snippet #sq_snippet_ul li#sq_snippet_customize,
+#sq_snippet #sq_snippet_ul li#sq_snippet_reset{
+    background-color: #ff9b00;
+    min-width: 40px;
+    height: 10px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: nonw;
+    box-shadow: 1px 1px 0px 0px white;
+    border: none;
+    border-radius: 5px;
+    padding: 7px 8px;
+    cursor: pointer;
+    float: right;
+    margin: 13px 3px;
+    text-align: center;
+}
+#sq_settings #sq_snippet #sq_snippet_ul li#sq_snippet_update{
+    margin: 1px;
+}
+
+#sq_settings #sq_snippet_image{
+    min-height: 30px;
+}
+
+#sq_snippet #sq_snippet_ul #sq_snippet_title,
+#sq_snippet #sq_snippet_ul #sq_snippet_title_value{
+    color: #12c;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 16px;
+    font-size: 14px;
+    font-weight: normal;
+}
+#sq_snippet #sq_snippet_ul #sq_snippet_title {
+    max-width: 450px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#sq_snippet #sq_snippet_ul #sq_snippet_title_value{
+    max-width: 480px;
+}
+
+#sq_snippet #sq_snippet_ul #sq_snippet_title_value input{
+    font-size: 12px;
+    width: 410px;
+    height: 20px;
+    margin: 2px 0;
+    background-color: lightgoldenrodyellow;
+}
+#sq_snippet #sq_snippet_ul #sq_snippet_url,
+#sq_snippet #sq_snippet_ul #sq_snippet_url a{
+    color: #093;
+    height: 16px;
+    line-height: 14px;
+    overflow: visible;
+    text-decoration: none;
+}
+
+#sq_snippet #sq_snippet_ul #sq_snippet_description,
+#sq_snippet #sq_snippet_ul #sq_snippet_description_value{
+    color: #222;
+    font-size: 12px;
+    line-height: 16px;
+    margin-top: 4px;
+    max-width: 480px;
+    overflow: hidden;
+}
+#sq_snippet #sq_snippet_ul #sq_snippet_description_value textarea{
+    font-size: 12px;
+    width: 410px;
+    height: 40px;
+    margin: 2px 0;
+    background-color: lightgoldenrodyellow;
+}
+#sq_snippet #sq_snippet_name{
+    position: absolute;
+    right: 0;
+    top: -8px;
+    background-color: linen;
+    border: 1px solid #ddd;
+    font-size: 10px;
+    padding: 0px 10px;
+}
+#sq_snippet #sq_snippet_disclaimer{
+    position: absolute;
+    left: 0;
+    bottom: -17px;
+    color: #999;
+    font-size: 10px;
+    padding: 0px 3px;
+}
+#sq_snippet #sq_snippet_ul #sq_snippet_source{
+    position: absolute;
+    bottom: 1px;
+    right: 2px;
+}
+#sq_snippet #sq_snippet_ul #sq_snippet_source a{
+    font-size: 10px;
+    color: lightslategray;
+    text-decoration: none;
+}
+
+#sq_snippet .sq_meta_info{
+    display: inline-block;
+    font-size: 11px;
+    color: gray;
+    margin: 4px 3px;
+    vertical-align: top;
+}
+
+#sq_snippet #sq_snippet_ul li#sq_snippet_keywords{
+    margin: 10px 0 0 0;
+    color: blue;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+#sq_snippet #sq_upload{
+    margin:10px 0 5px 0;
+}
+
+#sq_snippet #ogimage_preview{
+    margin: 10px 0;
+    max-height: 300px;
+    max-width: 400px;
+    clear: both;
+    display: block;
+}
+
+#sq_snippet #sq_uploadstats{
+    margin: 8px 0;
+    color: red;
+}
+
+@media only screen and (max-width: 1024px){
+    #sq_snippet #sq_snippet_ul #sq_snippet_title {
+        clear: both;
+    }
+}
+/**************************************************/

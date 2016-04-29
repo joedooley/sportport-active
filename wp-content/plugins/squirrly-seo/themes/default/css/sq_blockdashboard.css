@@ -1,0 +1,117 @@
+.update-nag, .updated, .show-settings, .screen-meta-toggle{
+    display: none !important;
+}
+
+.sq_helpside{
+    margin-top: 10px;
+}
+
+#sq_helpdashboardcontent{
+    float: left;
+    width: 700px;
+}
+
+#sq_settings ul.sq_slidelist{
+    max-width: 700px;
+}
+
+#sq_settings ul.sq_slidelist li{
+    position: relative;
+    background: white;
+    height: 250px;
+    min-height: 225px;
+    position: relative;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    margin: 0 10px 40px 10px;
+    max-width: 100%;
+    min-width: 327px;
+    width: 327px;
+    vertical-align: top;
+    float: left;
+    border: 1px solid #ccc;
+}
+
+#sq_settings ul.sq_slidelist li a{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    height: 225px;
+}
+
+#sq_settings ul.sq_slidelist li div{
+    background: white;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-top: 1px dashed #ccc;
+    border-radius: 2px;
+    bottom: -5px;
+    cursor: pointer;
+    font-size: 15px;
+    height: 35px;
+    padding: 10px 0 4px 0;
+    margin: 0 0 5px 0;
+    overflow: hidden;
+    position: absolute;
+    text-align: center;
+    -webkit-transition: bottom,0.3s;
+    -moz-transition: bottom,0.3s;
+    -ms-transition: bottom,0.3s;
+    -o-transition: bottom,0.3s;
+    transition: bottom,0.3s;
+    width: 100%;
+}
+
+#sq_settings ul.sq_slidelist li span{
+    position: absolute;
+    top: -6px;
+    right: -7px;
+    font-size: 11px;
+    height: 5px;
+    width: 5px;
+    padding: 5px;
+    line-height: 5px;
+    background-color: #f9f9f9;
+    color: #999;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    z-index: 10;
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width: 1160px){
+    #sq_helpdashboardcontent{
+        width: 575px;
+    }
+}
+
+@media only screen and (max-width: 1030px){
+    #sq_helpdashboardcontent{
+        width: 803px;
+    }
+
+    .sq_helpside {
+        clear: both;
+        float: left;
+        width: 808px;
+        height: 275px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .sq_helpside > div {
+        float: left;
+        width: 175px;
+        border: 1px solid #ccc;
+        background-color: #fcfcfc;
+        padding: 10px;
+        margin: 10px 5px 10px 0;
+        height: 240px;
+        margin-bottom: 10px;
+    }
+
+
+}
