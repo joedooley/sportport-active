@@ -41,6 +41,10 @@
 				font-size: rem(11);
 				text-transform: uppercase;
 
+				@include media($xxlarge-screen-up) {
+					font-size: rem(9);
+				}
+
 				&:hover {
 					color: $orange-hover;
 				}
@@ -75,6 +79,10 @@
 		margin-bottom: 0;
 		margin-top: 10px;
 		text-transform: uppercase;
+
+		@include media($xxlarge-screen-up) {
+			font-size: rem(9);
+		}
 
 		@include media($xlarge-screen-up) {
 			@include padding(5px 0);
