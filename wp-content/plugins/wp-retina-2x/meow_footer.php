@@ -31,7 +31,8 @@
 			if ( defined( 'WP_HIDE_DONATION_BUTTONS' ) && WP_HIDE_DONATION_BUTTONS == true )
 				return;
 			if ( $showWPE ) {
-				echo '<a style="float: right;" target="_blank" href="http://shareasale.com/r.cfm?b=786112&amp;u=767054&amp;m=41388&amp;urllink=&amp;afftrack="><img src="http://static.shareasale.com/image/41388/ShareASale-4Ss-728x90.jpg" height="60" border="0" /></a>';
+				echo '<a style="float: right;" target="_blank" href="http://goo.gl/mmRFlf">
+				<img src="http://i.imgur.com/kEfTLqz.png" height="60" border="0" /></a>';
 			}
 		}
 	}

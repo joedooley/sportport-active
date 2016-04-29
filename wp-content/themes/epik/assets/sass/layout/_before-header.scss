@@ -3,7 +3,7 @@
 .before-header {
 	background-color: #dce1e7;
 	color: $light-gray;
-	font-family: $raleway-bold;
+	font-family: $open-sans-condensed-bold;
 	text-align: center;
 
 	.wrap {
@@ -38,12 +38,9 @@
 
 			a {
 				color: $light-gray;
+				font-family: $open-sans-condensed-bold;
 				font-size: rem(11);
 				text-transform: uppercase;
-
-				@include media($xxlarge-screen-up) {
-					font-size: rem(9);
-				}
 
 				&:hover {
 					color: $orange-hover;
@@ -80,16 +77,13 @@
 		margin-top: 10px;
 		text-transform: uppercase;
 
-		@include media($xxlarge-screen-up) {
-			font-size: rem(9);
-		}
 
 		@include media($xlarge-screen-up) {
 			@include padding(5px 0);
 		}
 
 		@include media($small-screen-up) {
-			display: inline;
+			display: inlin;
 		}
 	}
 }
