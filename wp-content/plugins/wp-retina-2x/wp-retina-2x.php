@@ -3,7 +3,7 @@
 Plugin Name: WP Retina 2x
 Plugin URI: http://www.meow.fr
 Description: Make your website look beautiful and crisp on modern displays by creating + displaying retina images. WP 4.4 is also supported and enhanced.
-Version: 4.4.4
+Version: 4.4.6
 Author: Jordy Meow
 Author URI: http://www.meow.fr
 Text Domain: wp-retina-2x
@@ -26,10 +26,10 @@ Originally developed for two of my websites:
  *
  */
 
-$wr2x_version = '4.4.4';
-$wr2x_retinajs = '1.3.0';
-$wr2x_picturefill = '3.0.1';
-$wr2x_lazysizes = '1.1';
+$wr2x_version = '4.4.6';
+$wr2x_retinajs = '1.4.0';
+$wr2x_picturefill = '3.0.2';
+$wr2x_lazysizes = '1.5';
 $wr2x_retina_image = '1.7.2';
 $wr2x_extra_debug = false;
 
@@ -152,13 +152,33 @@ function wr2x_picture_rewrite( $buffer ) {
 				$nodes_count--;
 				continue;
 			}
+
+			// Original HTML
+			$from = substr( $element, 0 );
+
+			// SRC-SET already exists, let's check if LazySize is used
 			if ( !empty( $element->srcset ) ) {
-				wr2x_log( "The src-set has already been created. Tag ignored." );
+				if ( $lazysize ) {
+					wr2x_log( "The src-set has already been created but it will be modifid to data-srcset for lazyload." );
+					$element->class = $element->class . ' lazyload';
+					$element->{'data-srcset'} =  $element->srcset;
+					$element->srcset = null;
+					if ( $killsrc )
+						$element->src = null;
+					$to = $element;
+					$buffer = str_replace( trim( $from, "</> "), trim( $to, "</> " ), $buffer );
+					wr2x_log( "The img tag '$from' was rewritten to '$to'" );
+					$nodes_replaced++;
+				}
+				else {
+					wr2x_log( "The src-set has already been created. Tag ignored." );
+				}
 				continue;
 			}
+
+			// Process of SRC-SET creation
 			$retina_url = wr2x_get_retina_from_url( $element->src );
 			$retina_url = apply_filters( 'wr2x_img_retina_url', $retina_url );
-			$from = substr( $element, 0 );
 			if ( $retina_url != null ) {
 				$retina_url = wr2x_cdn_this( $retina_url );
 				$img_url = wr2x_cdn_this( $element->src );
@@ -230,6 +250,27 @@ function wr2x_html_rewrite( $buffer ) {
 	}
 	wr2x_log( "$nodes_replaced/$nodes_count were replaced." );
 	return $buffer;
+}
+
+
+// Converts PHP INI size type (e.g. 24M) to int
+function wr2x_parse_ini_size( $size ) {
+	$unit = preg_replace('/[^bkmgtpezy]/i', '', $size);
+	$size = preg_replace('/[^0-9\.]/', '', $size);
+	if ( $unit )
+		return round( $size * pow( 1024, stripos( 'bkmgtpezy', $unit[0] ) ) );
+	else
+		round( $size );
+}
+
+function wr2x_get_max_filesize() {
+	if ( defined ('HHVM_VERSION' ) ) {
+		return ini_get( 'upload_max_filesize' ) ? (int)wr2x_parse_ini_size( ini_get( 'upload_max_filesize' ) ) :
+			(int)ini_get( 'hhvm.server.upload.upload_max_file_size' );
+	}
+	else {
+		return (int)wr2x_parse_ini_size( ini_get( 'upload_max_filesize' ) );
+	}
 }
 
 /**

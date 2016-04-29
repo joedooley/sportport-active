@@ -188,14 +188,14 @@ function wpr2x_wp_retina_2x() {
 		$max_width = $max_width * 2;
 		$max_height = $max_height * 2;
 
-		$upload_max_size = ini_get( 'upload_max_filesize' );
+		$upload_max_size = wr2x_get_max_filesize();
 	?>
 
 	<p>
 		<?php printf( __( 'The full-size images should have a resolution of <b>%d×%d</b> at least for the plugin to be able generate the <b>%d retina images</b> required by your website.', 'wp-retina-2x' ), $max_width, $max_height, count( $active_sizes ) ); ?>
 		<?php if ( $full_size_needed ) printf( __(  "You <b>also need</b> to upload a retina image for the Full-Size image (might be <b>%d×%d</b>).", 'wp-retina-2x' ), $max_width * 2, $max_height * 2 ); ?>
 		<?php _e("You can upload or replace the images by drag & drop.", 'wp-retina-2x' ); ?>
-		<?php printf( __( "Your PHP configuration allows uploads of <b>%dMB</b> maximum.", 'wp-retina-2x'), $upload_max_size ); ?>
+		<?php printf( __( "Your PHP configuration allows uploads of <b>%dMB</b> maximum.", 'wp-retina-2x'), $upload_max_size / 1000000 ); ?>
 
 		<?php
 			if ( file_exists( plugin_dir_path( __FILE__ ) . '/wp-retina-2x.log' ) ) {

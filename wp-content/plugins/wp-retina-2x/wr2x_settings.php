@@ -11,7 +11,7 @@ add_action( 'admin_init', 'wr2x_admin_init' );
 function wr2x_settings_page() {
   global $wr2x_settings_api;
 	echo '<div class="wrap">';
-  jordy_meow_donation(true);
+  jordy_meow_donation( true );
 	$method = wr2x_getoption( "method", "wr2x_advanced", 'Picturefill' );
 	echo "<h1>Retina";
   by_jordy_meow();
@@ -82,24 +82,24 @@ function wr2x_admin_init() {
 	}
 
 	$sections = array(
-        array(
-            'id' => 'wr2x_basics',
-            'title' => __( 'Basics', 'wp-retina-2x' )
-        ),
-		    array(
-            'id' => 'wr2x_advanced',
-            'title' => __( 'Advanced', 'wp-retina-2x' )
-        ),
-        array(
-            'id' => 'wr2x_pro',
-            'title' => __( 'Pro', 'wp-retina-2x' )
-        )
-    );
+      array(
+          'id' => 'wr2x_basics',
+          'title' => __( 'Basics', 'wp-retina-2x' )
+      ),
+	    array(
+          'id' => 'wr2x_advanced',
+          'title' => __( 'Advanced', 'wp-retina-2x' )
+      ),
+      array(
+          'id' => 'wr2x_pro',
+          'title' => __( 'Pro', 'wp-retina-2x' )
+      )
+  );
 
-    // Default Auto-Generate
-    $auto_generate = wr2x_getoption( 'auto_generate', 'wr2x_basics', null );
-    if ( $auto_generate === null )
-        wr2x_setoption( 'auto_generate', 'wr2x_basics', 'on' );
+  // Default Auto-Generate
+  $auto_generate = wr2x_getoption( 'auto_generate', 'wr2x_basics', null );
+  if ( $auto_generate === null )
+      wr2x_setoption( 'auto_generate', 'wr2x_basics', 'on' );
 
 	$wpsizes = wr2x_get_image_sizes();
 	$sizes = array();
@@ -287,7 +287,7 @@ function wr2x_update_option( $option ) {
 function wr2x_generate_rewrite_rules( $wp_rewrite, $flush = false ) {
 	global $wp_rewrite;
 	$method = wr2x_getoption( "method", "wr2x_advanced", "retina.js" );
-	if ($method == "Retina-Images") {
+	if ( $method == "Retina-Images" ) {
 
 		// MODIFICATION: docwhat
 		// get_home_url() -> trailingslashit(site_url())

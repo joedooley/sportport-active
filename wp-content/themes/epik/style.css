@@ -219,7 +219,7 @@ textarea {
 
 ::-webkit-input-placeholder {
   color: #909090;
-  font-family: ralewayextrabold, sans-serif; }
+  font-family: open_sans_condensedbold, sans-serif; }
 
 /* Clear placeholder text upon focus */
 input:focus::-webkit-input-placeholder {
@@ -3305,7 +3305,7 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 .before-header {
   background-color: #dce1e7;
   color: #909090;
-  font-family: ralewayextrabold, sans-serif;
+  font-family: open_sans_condensedbold, sans-serif;
   text-align: center; }
   @media screen and (max-width: 768px) {
     .before-header .wrap {
@@ -3326,11 +3326,9 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
     display: inline-block; }
     .before-header-left-container .menu .menu-item a {
       color: #909090;
+      font-family: open_sans_condensedbold, sans-serif;
       font-size: 0.6875rem;
       text-transform: uppercase; }
-      @media screen and (max-width: 1180px) {
-        .before-header-left-container .menu .menu-item a {
-          font-size: 0.5625rem; } }
       .before-header-left-container .menu .menu-item a:hover {
         color: #ff9933; }
     .before-header-left-container .menu .menu-item.current-menu-item > a {
@@ -3348,15 +3346,12 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
   margin-bottom: 0;
   margin-top: 10px;
   text-transform: uppercase; }
-  @media screen and (max-width: 1180px) {
-    .before-header-middle-container .free-shipping-notification {
-      font-size: 0.5625rem; } }
   @media screen and (max-width: 1023px) {
     .before-header-middle-container .free-shipping-notification {
       padding: 5px 0; } }
   @media screen and (max-width: 480px) {
     .before-header-middle-container .free-shipping-notification {
-      display: inline; } }
+      display: inlin; } }
 
 @media screen and (max-width: 1023px) {
   .before-header-right-container {
