@@ -94,8 +94,12 @@ body.single-product {
 		max-width: 670px;
 		@include padding(0 em(80));
 
-		@include media($ipad-screen-up) {
-			@include padding(0 1em);
+		@include media($xlarge-screen-up) {
+			max-width: none;
+
+			@include media($ipad-screen-up) {
+				@include padding(0 1em);
+			}
 		}
 	}
 
@@ -237,7 +241,8 @@ body.woocommerce div.product div.images div.thumbnails {
 	margin-top: 11em;
 
 	@include media($xlarge-screen-up) {
-		margin-top: 0;
+		margin: 1em auto;
+		max-width: 750px;
 	}
 }
 
