@@ -1,59 +1,14 @@
 /*! Genesis eNews Extended [X42] [NOTE: CSS Already Included]
 --------------------------------------------- */
 
-.enews-widget .widgettitle {
-	color: #333;
-}
+.enews-widget [type="submit"] {
+	@include margin(6px 0);
+	@include padding(16px);
+	width: 100%;
 
-.sidebar .enews-widget .widgettitle {
-	color: #16c;
-	margin-bottom: 5px;
-}
-
-.enews-widget input {
-	margin-bottom: 20px;
-}
-
-.enews-widget input:focus {
-	border: 1px solid #ddd;
-}
-
-.enews-widget input[type="submit"] {
-	background: #2a2a2a;
-	border: none;
-	color: #fff;
-	margin: 0 0 20px;
-	width: auto;
-}
-
-.sidebar .enews-widget input[type="submit"] {
-	background: #f93;
-	border: none;
-	box-shadow: none;
-	border-radius: 30px;
-	margin: 6px 0 0 0;
-}
-
-.footer-widgets .enews-widget input[type="submit"] {
-	background: #ccc;
-	padding: 16px 24px;
-}
-
-.enews-widget input:hover[type="submit"] {
-	opacity: .7;
-	transition: all .5s ease;
-}
-
-.sidebar .enews-widget input:hover[type="submit"] {
-	background: #48b;
-	box-shadow: none;
-	opacity: 10;
-	transition: 0;
-}
-
-.widget-wrap .enews input { /*---PK---*/
-	width: 96%;
-	border-radius: 0;
-	margin: 0 0 6px 0;
+	&:hover,
+	&:active {
+		background-color: $orange-hover;
+	}
 }
 

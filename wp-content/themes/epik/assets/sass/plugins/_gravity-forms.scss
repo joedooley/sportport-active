@@ -30,9 +30,12 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 }
 
 // Above Footer Newsletter Signup
-
 #gform_wrapper_3 {
 	@include margin(0 1em);
+
+	@include media($xlarge-screen-up) {
+		max-width: 300px;
+	}
 
 	li {
 		@include margin(0);
@@ -55,8 +58,11 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 			border-radius: 0;
 			color: #fff;
 
+			&:hover {
+				background-color: $orange-hover;
+			}
+
 			@include media($xlarge-screen-up) {
-				max-width: 300px;
 				width: 97.5%;
 
 				@include media($small-screen-up) {
@@ -64,9 +70,6 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 				}
 			}
 
-			&:hover {
-				background-color: $orange-hover;
-			}
 		}
 	}
 
@@ -76,6 +79,7 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 		width: 80%;
 
 		@include media($xlarge-screen-up) {
+			max-width: 380px;
 			width: 100%;
 		}
 
@@ -89,6 +93,11 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 			}
 
 		}
+	}
+
+	.top_label .gfield_label {
+		max-width: 380px;
+		word-break: break-all;
 	}
 }
 

@@ -21,8 +21,8 @@ $open-sans-condensed-bold: open_sans_condensedbold, sans-serif;
 $yanone: yanone_kaffeesatzregular, sans-serif;
 
 
-$base-font-family: $raleway;
-$heading-font-family: $base-font-family;
+$base-font-family: $lato;
+$heading-font-family: $raleway-medium;
 
 // Font Sizes
 $base-font-size: 16px;
@@ -48,9 +48,13 @@ $medium-gray: #999;
 $dark-gray: #333;
 $menu-grey: #89a;
 
-// Orange
-$orange: #ff9934;
-$orange-hover: #8e5721;
+// Old Oranges
+//$orange: #ff9934;
+//$orange-hover: #8e5721;
+
+// New Orange Color
+$orange: #fdab59;
+$orange-hover: #ff9933;
 
 // White
 $white: rgba(255, 255, 255, 1);
