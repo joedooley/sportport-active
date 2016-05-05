@@ -1,0 +1,178 @@
+form.bewpi-settings-form {
+    width: 75%;
+    display: block;
+    float: left;
+    padding-right: 40px;
+    box-sizing: border-box;
+}
+.bewpi-settings-form select,
+.bewpi-settings-form input[type="text"],
+.bewpi-settings-form textarea {
+    width: 348px;
+}
+.bewpi-settings-form input[type="number"],
+#bewpi-color-theme {
+    width: 70px;
+}
+#bewpi-company-logo-wrapper {
+    margin-top: 10px;
+    position: relative;
+    display: inline-block;
+    padding: 21px 21px 0 0;
+}
+#bewpi-company-logo-image {
+    position: relative;
+    max-height: 150px;
+}
+#bewpi-company-logo-wrapper:hover #bewpi-company-logo-delete{
+    display: block;
+}
+#bewpi-company-logo-delete{
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+}
+.bewpi-admin-order-create-invoice-btn {
+    background-image: url(../images/invoice-icon.png) !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    text-indent: -9999px;
+    position: relative;
+    padding: 0 !important;
+    height: 2em !important;
+    width: 2em;
+}
+.bewpi-admin-order-create-invoice-btn button {
+    display: none;
+}
+.notes {
+    display: inline;
+    font-style: italic;
+}
+.block {
+    display: block;
+}
+.foot {
+    font-size: 12px;
+}
+.invoice-info {
+    margin-bottom: 10px;
+}
+.invoice-btn {
+    margin-right: 3px !important;
+}
+#footer-left #footer-thankyou {
+    font-style: normal !important;
+}
+.bewpi-checkbox-option-title, .bewpi-notes {
+    cursor: default;
+}
+.bewpi-notes {
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 3px;
+}
+#bewpi-plugin-activated-notice button.notice-dismiss {
+    display: none;
+}
+/* Sidebar */
+.bewpi-sidebar {
+    width: 25%;
+    box-sizing: border-box;
+    display: block;
+    float: right;
+    clear: right;
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 0 20px 20px;
+    margin-top: 20px;
+}
+.bewpi-sidebar.premium h3 {
+    color: white;
+}
+.bewpi-sidebar.premium {
+    background: #222;
+    color: #ccc;
+}
+.bewpi-sidebar.support .btn {
+    margin: 10px 10px 10px 0;
+}
+.bewpi-sidebar.support .github.btn {
+    margin-bottom: -3px !important;
+    margin-top: 20px;
+}
+.bewpi-sidebar.support .twitter.btn {
+    margin-bottom: 0 !important;
+}
+#bewpi-mc-embed-signup {
+    background: #222;
+    clear:left;
+}
+#bewpi-mc-embed-signup form {
+    margin: 0 !important;
+    padding: 0;
+}
+#bewpi-mc-embed-signup input[type="text"] {
+    width: 100%;
+}
+.bewpi-learn-more {
+    padding: 10px 0;
+    background-color: #F48C2D;
+    color: white;
+    text-decoration: none;
+    display: block;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+}
+.bewpi-learn-more:hover {
+    background-color: #EE7600;
+    color: white;
+}
+#bewpi-mc-embed-signup input.button {
+    margin: 0 !important;
+}
+#bewpi-mc-embedded-subscribe:hover {
+    background-color: #EE7600 !important;
+}
+#bewpi-mc-embedded-subscribe {
+    padding: 10px 0;
+    background-color: #F48C2D;
+    color: white;
+    text-decoration: none;
+    display: block;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    border-radius: 0;
+    box-shadow: none;
+    height: auto;
+    width: 100%;
+    line-height: normal;
+    border: none;
+}
+#bewpi-mce-EMAIL {
+    width: 100%;
+    border-radius: 0;
+    margin-top: 20px;
+    margin-left: 0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.bewpi-no-spam {
+    font-size: 11px;
+    text-align: center;
+    margin-top: 1px !important;
+}
+/* End sidebar */
+
+@media screen and (max-width: 790px) {
+    .bewpi-sidebar {
+        display: none;
+    }
+}
