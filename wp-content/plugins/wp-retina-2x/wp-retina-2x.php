@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WP Retina 2x
-Plugin URI: http://www.meow.fr
+Plugin URI: http://apps.meow.fr
 Description: Make your website look beautiful and crisp on modern displays by creating + displaying retina images. WP 4.4 is also supported and enhanced.
-Version: 4.4.6
+Version: 4.5.0
 Author: Jordy Meow
-Author URI: http://www.meow.fr
+Author URI: http://apps.meow.fr
 Text Domain: wp-retina-2x
 Domain Path: /languages
 
@@ -14,19 +14,19 @@ http://www.opensource.org/licenses/mit-license.php
 http://www.gnu.org/licenses/gpl.html
 
 Originally developed for two of my websites:
-- Totoro Times (http://www.totorotimes.com)
+- Jordy Meow (http://jordymeow.com)
 - Haikyo (http://www.haikyo.org)
 */
 
 /**
  *
- * @author      Jordy Meow  <http://www.meow.fr>
+ * @author      Jordy Meow  <http://apps.meow.fr>
  * @package     Wordpress
  * @subpackage	Administration
  *
  */
 
-$wr2x_version = '4.4.6';
+$wr2x_version = '4.5.0';
 $wr2x_retinajs = '1.4.0';
 $wr2x_picturefill = '3.0.2';
 $wr2x_lazysizes = '1.5';
