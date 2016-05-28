@@ -5,7 +5,8 @@
  *
  * @author Squirrly
  */
-class SQ_Tools extends SQ_FrontController {
+class SQ_Tools extends SQ_FrontController
+{
 
     /** @var array Saved options in database */
     public static $options = array();
@@ -17,7 +18,8 @@ class SQ_Tools extends SQ_FrontController {
     private static $debug;
     private static $source_code;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         self::$options = $this->getOptions();
@@ -25,7 +27,8 @@ class SQ_Tools extends SQ_FrontController {
         $this->checkDebug(); //dev mode
     }
 
-    public static function getUserID() {
+    public static function getUserID()
+    {
         global $current_user;
         return $current_user->ID;
     }
@@ -35,7 +38,8 @@ class SQ_Tools extends SQ_FrontController {
      *
      * @return void
      */
-    function hookInit() {
+    function hookInit()
+    {
         //TinyMCE editor required
         //set_user_setting('editor', 'tinymce');
 
@@ -52,7 +56,8 @@ class SQ_Tools extends SQ_FrontController {
      * @param type $file
      * @return array
      */
-    public function hookActionlink($links, $file) {
+    public function hookActionlink($links, $file)
+    {
         if ($file == _SQ_PLUGIN_NAME_ . '/squirrly.php') {
             $link = '<a href="' . admin_url('admin.php?page=sq_dashboard') . '">' . __('Getting started', _SQ_PLUGIN_NAME_) . '</a>';
             array_unshift($links, $link);
@@ -66,7 +71,8 @@ class SQ_Tools extends SQ_FrontController {
      *
      * @return void
      */
-    public static function getOptions() {
+    public static function getOptions()
+    {
         $default = array(
             'sq_ver' => 0,
             'sq_api' => '',
@@ -181,7 +187,8 @@ class SQ_Tools extends SQ_FrontController {
         return $default;
     }
 
-    public static function getBriefOptions() {
+    public static function getBriefOptions()
+    {
         if ($pageId = get_option('page_on_front')) {
             $title = SQ_ObjController::getModel('SQ_Frontend')->getAdvancedMeta($pageId, 'title');
             $description = SQ_ObjController::getModel('SQ_Frontend')->getAdvancedMeta($pageId, 'description');
@@ -204,15 +211,15 @@ class SQ_Tools extends SQ_FrontController {
             'sq_auto_twitter' => SQ_Tools::$options['sq_auto_twitter'],
             'sq_auto_facebook' => SQ_Tools::$options['sq_auto_facebook'],
             'sq_auto_seo' => SQ_Tools::$options['sq_auto_seo'],
-            'sq_auto_title' => (int) (SQ_Tools::$options['sq_auto_title'] == 1 && $title <> ''),
-            'sq_auto_description' => (int) (SQ_Tools::$options['sq_auto_description'] == 1 && $description <> ''),
-            'sq_google_plus' => (int) (SQ_Tools::$options['sq_google_plus'] <> ''),
-            'sq_google_wt' => (int) (SQ_Tools::$options['sq_google_wt'] <> ''),
-            'sq_google_analytics' => (int) (SQ_Tools::$options['sq_google_analytics'] <> ''),
-            'sq_facebook_insights' => (int) (SQ_Tools::$options['sq_facebook_insights'] <> ''),
-            'sq_bing_wt' => (int) (SQ_Tools::$options['sq_bing_wt'] <> ''),
-            'sq_pinterest' => (int) (SQ_Tools::$options['sq_pinterest'] <> ''),
-            'sq_alexa' => (int) (SQ_Tools::$options['sq_alexa'] <> ''),
+            'sq_auto_title' => (int)(SQ_Tools::$options['sq_auto_title'] == 1 && $title <> ''),
+            'sq_auto_description' => (int)(SQ_Tools::$options['sq_auto_description'] == 1 && $description <> ''),
+            'sq_google_plus' => (int)(SQ_Tools::$options['sq_google_plus'] <> ''),
+            'sq_google_wt' => (int)(SQ_Tools::$options['sq_google_wt'] <> ''),
+            'sq_google_analytics' => (int)(SQ_Tools::$options['sq_google_analytics'] <> ''),
+            'sq_facebook_insights' => (int)(SQ_Tools::$options['sq_facebook_insights'] <> ''),
+            'sq_bing_wt' => (int)(SQ_Tools::$options['sq_bing_wt'] <> ''),
+            'sq_pinterest' => (int)(SQ_Tools::$options['sq_pinterest'] <> ''),
+            'sq_alexa' => (int)(SQ_Tools::$options['sq_alexa'] <> ''),
             'sq_keyword_help' => SQ_Tools::$options['sq_keyword_help'],
             'sq_keyword_information' => SQ_Tools::$options['sq_keyword_information'],
             'sq_google_country_strict' => SQ_Tools::$options['sq_google_country_strict'],
@@ -226,7 +233,8 @@ class SQ_Tools extends SQ_FrontController {
      *
      * @return void
      */
-    public static function saveOptions($key = null, $value = '') {
+    public static function saveOptions($key = null, $value = '')
+    {
         if (isset($key)) {
             self::$options[$key] = $value;
         }
@@ -238,7 +246,8 @@ class SQ_Tools extends SQ_FrontController {
      * Set the header type
      * @param type $type
      */
-    public static function setHeader($type) {
+    public static function setHeader($type)
+    {
         if (SQ_Tools::getValue('sq_debug') == 'on')
             return;
 
@@ -266,10 +275,11 @@ class SQ_Tools extends SQ_FrontController {
      * @param mixed $defaultValue (optional)
      * @return mixed Value
      */
-    public static function getValue($key, $defaultValue = false, $withcode = false) {
-        if (!isset($key) OR empty($key) OR ! is_string($key))
+    public static function getValue($key, $defaultValue = false, $withcode = false)
+    {
+        if (!isset($key) OR empty($key) OR !is_string($key))
             return false;
-        $ret = (isset($_POST[$key]) ? $_POST[$key] : (isset($_GET[$key]) ? (is_string($_GET[$key]) ? urldecode($_GET[$key]) : $_GET[$key]) : $defaultValue));
+        $ret = (isset($_POST[$key]) ? (is_string($_POST[$key]) ? urldecode($_POST[$key]) : $_POST[$key]) : (isset($_GET[$key]) ? (is_string($_GET[$key]) ? urldecode($_GET[$key]) : $_GET[$key]) : $defaultValue));
 
         if (is_string($ret) === true && $withcode === false) {
             $ret = sanitize_text_field($ret);
@@ -284,8 +294,9 @@ class SQ_Tools extends SQ_FrontController {
      * @param string $key
      * @return boolean
      */
-    public static function getIsset($key) {
-        if (!isset($key) OR empty($key) OR ! is_string($key))
+    public static function getIsset($key)
+    {
+        if (!isset($key) OR empty($key) OR !is_string($key))
             return false;
         return isset($_POST[$key]) ? true : (isset($_GET[$key]) ? true : false);
     }
@@ -295,10 +306,11 @@ class SQ_Tools extends SQ_FrontController {
      *
      * @return void
      */
-    public static function showNotices($message, $type = 'sq_notices') {
+    public static function showNotices($message, $type = 'sq_notices')
+    {
         if (file_exists(_SQ_THEME_DIR_ . 'SQ_notices.php')) {
             ob_start();
-            include (_SQ_THEME_DIR_ . 'SQ_notices.php');
+            include(_SQ_THEME_DIR_ . 'SQ_notices.php');
             $message = ob_get_contents();
             ob_end_clean();
         }
@@ -309,7 +321,8 @@ class SQ_Tools extends SQ_FrontController {
     /**
      * Load the multilanguage support from .mo
      */
-    private function loadMultilanguage() {
+    private function loadMultilanguage()
+    {
         if (!defined('WP_PLUGIN_DIR')) {
             load_plugin_textdomain(_SQ_PLUGIN_NAME_, _SQ_PLUGIN_NAME_ . '/languages/');
         } else {
@@ -320,7 +333,8 @@ class SQ_Tools extends SQ_FrontController {
     /**
      * Connect remote with CURL if exists
      */
-    public static function sq_remote_get($url, $param = array(), $options = array()) {
+    public static function sq_remote_get($url, $param = array(), $options = array())
+    {
         $parameters = '';
         $cookies = array();
         $cookie_string = '';
@@ -368,9 +382,9 @@ class SQ_Tools extends SQ_FrontController {
         }
         $options['sslverify'] = false;
 
-        if (!$response = self::sq_wpcall($url, $options)) {
+        if (!$response = self::sq_wpcall($url, $options, 'get')) {
             if (function_exists('curl_init') && !ini_get('safe_mode') && !ini_get('open_basedir')) {
-                $response = self::sq_curl($url, $options);
+                $response = self::sq_curl($url, $options, 'get');
             } else {
                 return false;
             }
@@ -382,7 +396,8 @@ class SQ_Tools extends SQ_FrontController {
     /**
      * Connect remote with CURL if exists
      */
-    public static function sq_remote_post($url, $param = array(), $options = array()) {
+    public static function sq_remote_post($url, $param = array(), $options = array())
+    {
         $parameters = '';
         $cookies = array();
         $cookie_string = '';
@@ -445,7 +460,8 @@ class SQ_Tools extends SQ_FrontController {
      * @param array $param
      * @return string
      */
-    private static function sq_curl($url, $options, $method = 'get') {
+    private static function sq_curl($url, $options, $method = 'get')
+    {
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -463,7 +479,7 @@ class SQ_Tools extends SQ_FrontController {
 
         if (isset($options['sslverify'])) {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-        }else{
+        } else {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         }
 
@@ -503,7 +519,8 @@ class SQ_Tools extends SQ_FrontController {
      * @param array $param
      * @return string
      */
-    private static function sq_wpcall($url, $options, $method = 'get') {
+    private static function sq_wpcall($url, $options, $method = 'get')
+    {
         if ($method == 'post') {
             $response = wp_remote_post($url, $options);
         } else {
@@ -522,7 +539,8 @@ class SQ_Tools extends SQ_FrontController {
     /**
      * Connect remote with CURL if exists
      */
-    public static function sq_remote_head($url) {
+    public static function sq_remote_head($url)
+    {
         $response = array();
 
         if (function_exists('curl_exec')) {
@@ -548,7 +566,8 @@ class SQ_Tools extends SQ_FrontController {
      * @param string $response
      * @return string
      */
-    private static function cleanResponce($response) {
+    private static function cleanResponce($response)
+    {
 
         if (function_exists('substr_count'))
             if (substr_count($response, '(') > 1)
@@ -563,14 +582,15 @@ class SQ_Tools extends SQ_FrontController {
     /**
      * Check for SEO blog bad settings
      */
-    public static function checkErrorSettings($count_only = false) {
+    public static function checkErrorSettings($count_only = false)
+    {
         if (current_user_can('manage_options')) {
 
             $fixit = "<a href=\"javascript:void(0);\"  onclick=\"%s jQuery(this).closest('div').fadeOut('slow'); if(parseInt(jQuery('.sq_count').html())>0) { var notif = (parseInt(jQuery('.sq_count').html()) - 1); if (notif > 0) {jQuery('.sq_count').html(notif); }else{ jQuery('.sq_count').html(notif); jQuery('.sq_count').hide(); } } jQuery.post(ajaxurl, { action: '%s', nonce: '" . wp_create_nonce(_SQ_NONCE_ID_) . "'});\" >" . __("Fix it for me!", _SQ_PLUGIN_NAME_) . "</a>";
 
             /* IF SEO INDEX IS OFF */
             if (self::getAutoSeoSquirrly()) {
-                self::$errors_count ++;
+                self::$errors_count++;
                 if (!$count_only) {
                     SQ_Error::setError(__('Activate the Squirrly SEO for your blog (recommended)', _SQ_PLUGIN_NAME_) . " <br />" . sprintf($fixit, "jQuery('#sq_use_on').trigger('click');", "sq_fixautoseo") . "", 'settings', 'sq_fix_auto');
                 }
@@ -581,7 +601,7 @@ class SQ_Tools extends SQ_FrontController {
             if (self::$source_code <> '') {
                 /* IF TITLE DUPLICATES */
                 if (self::getDuplicateTitle()) {
-                    self::$errors_count ++;
+                    self::$errors_count++;
                     if (!$count_only) {
                         SQ_Error::setError(__('You have META Title Duplicates. Disable the Squirrly Title Optimization or disable the other SEO Plugins', _SQ_PLUGIN_NAME_) . " <br />" . sprintf($fixit, "jQuery('#sq_auto_title0').attr('checked', true); jQuery('#sq_automatically').attr('checked', true);", "sq_fix_titleduplicate") . "", 'settings', 'sq_fix_descduplicate');
                     }
@@ -589,7 +609,7 @@ class SQ_Tools extends SQ_FrontController {
 
                 /* IF DESCRIPTION DUPLICATES */
                 if (self::getDuplicateDescription()) {
-                    self::$errors_count ++;
+                    self::$errors_count++;
                     if (!$count_only) {
                         SQ_Error::setError(__('You have META Description Duplicates. Disable the Squirrly Description Optimization or disable the other SEO Plugins', _SQ_PLUGIN_NAME_) . " <br />" . sprintf($fixit, "jQuery('#sq_auto_description0').attr('checked', true); jQuery('#sq_automatically').attr('checked', true);", "sq_fix_descduplicate") . "", 'settings', 'sq_fix_descduplicate');
                     }
@@ -597,7 +617,7 @@ class SQ_Tools extends SQ_FrontController {
 
                 /* IF OG DUPLICATES */
                 if (self::getDuplicateOG()) {
-                    self::$errors_count ++;
+                    self::$errors_count++;
                     if (!$count_only) {
                         SQ_Error::setError(__('You have Open Graph META Duplicates. Disable the Squirrly SEO Open Graph or disable the other SEO Plugins', _SQ_PLUGIN_NAME_) . " <br />" . sprintf($fixit, "jQuery('#sq_auto_facebook0').attr('checked', true);", "sq_fix_ogduplicate") . "", 'settings', 'sq_fix_ogduplicate');
                     }
@@ -605,7 +625,7 @@ class SQ_Tools extends SQ_FrontController {
 
                 /* IF TWITTER CARD DUPLICATES */
                 if (self::getDuplicateTC()) {
-                    self::$errors_count ++;
+                    self::$errors_count++;
                     if (!$count_only) {
                         SQ_Error::setError(__('You have Twitter Card META Duplicates. Disable the Squirrly SEO Twitter Card or disable the other SEO Plugins', _SQ_PLUGIN_NAME_) . " <br />" . sprintf($fixit, "jQuery('#sq_auto_twitter0').attr('checked', true);", "sq_fix_tcduplicate") . "", 'settings', 'sq_fix_tcduplicate');
                     }
@@ -640,9 +660,10 @@ class SQ_Tools extends SQ_FrontController {
      * Check if the automatically seo si active
      * @return bool
      */
-    private static function getAutoSeoSquirrly() {
+    private static function getAutoSeoSquirrly()
+    {
         if (isset(self::$options['sq_use']))
-            return ((int) self::$options['sq_use'] == 0 );
+            return ((int)self::$options['sq_use'] == 0);
 
         return true;
     }
@@ -651,7 +672,8 @@ class SQ_Tools extends SQ_FrontController {
      * Check for META duplicates
      * @return boolean
      */
-    private static function getDuplicateOG() {
+    private static function getDuplicateOG()
+    {
         if (!function_exists('preg_match_all')) {
             return false;
         }
@@ -673,7 +695,8 @@ class SQ_Tools extends SQ_FrontController {
      * Check for META duplicates
      * @return boolean
      */
-    private static function getDuplicateTC() {
+    private static function getDuplicateTC()
+    {
         if (!function_exists('preg_match_all')) {
             return false;
         }
@@ -695,7 +718,8 @@ class SQ_Tools extends SQ_FrontController {
      * Check for META duplicates
      * @return boolean
      */
-    private static function getDuplicateDescription() {
+    private static function getDuplicateDescription()
+    {
         if (!function_exists('preg_match_all')) {
             return false;
         }
@@ -721,7 +745,8 @@ class SQ_Tools extends SQ_FrontController {
      * Check for META duplicates
      * @return boolean
      */
-    private static function getDuplicateTitle() {
+    private static function getDuplicateTitle()
+    {
         if (!function_exists('preg_match_all')) {
             return false;
         }
@@ -747,15 +772,17 @@ class SQ_Tools extends SQ_FrontController {
      * Check if the blog is in private mode
      * @return bool
      */
-    public static function getPrivateBlog() {
-        return ((int) get_option('blog_public') == 0 );
+    public static function getPrivateBlog()
+    {
+        return ((int)get_option('blog_public') == 0);
     }
 
     /**
      * Check if the blog has a bad link structure
      * @return bool
      */
-    private static function getBadLinkStructure() {
+    private static function getBadLinkStructure()
+    {
         global $wp_rewrite;
         if (function_exists('apache_get_modules')) {
             //Check if mod_rewrite is installed in apache
@@ -779,7 +806,8 @@ class SQ_Tools extends SQ_FrontController {
      * @param string $in
      * @return string $in localized
      */
-    public static function i18n($in) {
+    public static function i18n($in)
+    {
         if (function_exists('langswitch_filter_langs_with_message')) {
             $in = langswitch_filter_langs_with_message($in);
         }
@@ -800,13 +828,15 @@ class SQ_Tools extends SQ_FrontController {
      * @param int $decimals Precision of the number of decimal places.
      * @return string Converted number in string format.
      */
-    public static function i18n_number_format($number, $decimals = 0) {
+    public static function i18n_number_format($number, $decimals = 0)
+    {
         global $wp_locale;
         $formatted = number_format($number, absint($decimals), $wp_locale->number_format['decimal_point'], $wp_locale->number_format['thousands_sep']);
         return apply_filters('number_format_i18n', $formatted);
     }
 
-    public static function getBrowserInfo() {
+    public static function getBrowserInfo()
+    {
         $ub = '';
         $u_agent = $_SERVER['HTTP_USER_AGENT'];
         $bname = 'Unknown';
@@ -871,44 +901,61 @@ class SQ_Tools extends SQ_FrontController {
      * @param string $url
      * @return array
      */
-    public static function getSnippet($url) {
-        if ($url == '' || !function_exists('preg_match'))
+    public static function getSnippet($url)
+    {
+        if ($url == '' || !function_exists('preg_match')) {
             return;
+        }
+
         $snippet = array();
-        $length = array('title' => 66,
-            'description' => 240,
-            'url' => 45);
+        $frontend = SQ_ObjController::getModel('SQ_Frontend');
 
-        self::$source_code = self::sq_remote_get($url, array(), array('timeout' => 10, 'followlocation' => true));
+        $postid = url_to_postid($url);
+        if ($postid > 0) {
+            $frontend->setPost(get_post($postid));
+            $snippet['title'] = $frontend->getTitle();
+            $snippet['description'] = $frontend->getDescription();
+            $snippet['url'] = $url;
+            self::dump($snippet);
+        } else {
+            $length = array('title' => 66,
+                'description' => 240,
+                'url' => 45);
 
-        $title_regex = "/<title[^>]*>([^<>]*)<\/title>/si";
-        preg_match($title_regex, self::$source_code, $title);
+            self::$source_code = self::sq_remote_get($url, array(), array('timeout' => 10, 'followlocation' => true));
 
-        if (is_array($title) && count($title) > 0) {
-            $snippet['title'] = $title[1];
-            $snippet['title'] = self::i18n(trim(strip_tags($snippet['title'])));
+            $title_regex = "/<title[^>]*>([^<>]*)<\/title>/si";
+            preg_match($title_regex, self::$source_code, $title);
+
+            if (is_array($title) && count($title) > 0) {
+                $snippet['title'] = $title[1];
+                $snippet['title'] = self::i18n(trim(strip_tags($snippet['title'])));
+            }
+
+            $description_regex = '/<meta[^>]*(name|property)=["\']description["\'][^>]*content="([^"<>]+)"[^<>]*>/si';
+            preg_match($description_regex, self::$source_code, $description);
+            if (is_array($description) && count($description) > 0) {
+                $snippet['description'] = self::i18n(trim(strip_tags($description[2])));
+
+                if (strlen($snippet['description']) > $length['description'])
+                    $snippet['description'] = substr($snippet['description'], 0, ($length['description'] - 1)) . '...';
+            }
+
+            $snippet['url'] = $url;
+            if (strlen($snippet['url']) > $length['url'])
+                $snippet['url'] = substr($snippet['url'], 0, ($length['url'] - 1)) . '...';
+
         }
-
-        $description_regex = '/<meta[^>]*(name|property)=["\']description["\'][^>]*content="([^"<>]+)"[^<>]*>/si';
-        preg_match($description_regex, self::$source_code, $description);
-        if (is_array($description) && count($description) > 0) {
-            $snippet['description'] = self::i18n(trim(strip_tags($description[2])));
-
-            if (strlen($snippet['description']) > $length['description'])
-                $snippet['description'] = substr($snippet['description'], 0, ($length['description'] - 1)) . '...';
-        }
-
-        $snippet['url'] = $url;
-        if (strlen($snippet['url']) > $length['url'])
-            $snippet['url'] = substr($snippet['url'], 0, ($length['url'] - 1)) . '...';
 
         return $snippet;
+
     }
 
     /**
      * Check if debug is called
      */
-    private function checkDebug() {
+    private function checkDebug()
+    {
         //if debug is called
         if (self::getIsset('sq_debug')) {
             if (self::getValue('sq_debug') == self::$options['sq_api']) {
@@ -928,7 +975,8 @@ class SQ_Tools extends SQ_FrontController {
     /**
      * Store the debug for a later view
      */
-    public static function dump() {
+    public static function dump()
+    {
         if (self::getValue('sq_debug') !== 'on') {
             return;
         }
@@ -944,26 +992,26 @@ class SQ_Tools extends SQ_FrontController {
 
         $run_time = number_format(microtime(true) - REQUEST_TIME, 3);
         if (function_exists('debug_backtrace'))
-            list( $callee ) = debug_backtrace();
+            list($callee) = debug_backtrace();
 
         $output .= '<fieldset style="background: #FFFFFF; border: 1px #CCCCCC solid; padding: 5px; font-size: 9pt; margin: 0;">';
         $output .= '<legend style="background: #EEEEEE; padding: 2px; font-size: 8pt;">' . $callee['file'] . ' Time: ' . $run_time . ' @ line: ' . $callee['line']
-                . '</legend><pre style="margin: 0; font-size: 8pt; text-align: left;">';
+            . '</legend><pre style="margin: 0; font-size: 8pt; text-align: left;">';
 
         $i = 0;
         foreach ($arguments as $argument) {
             if (count($arguments) > 1)
-                $output .= "\n" . '<strong>#' . ( ++$i ) . ' of ' . $total_arguments . '</strong>: ';
+                $output .= "\n" . '<strong>#' . (++$i) . ' of ' . $total_arguments . '</strong>: ';
 
             // if argument is boolean, false value does not display, so ...
             if (is_bool($argument))
-                $argument = ( $argument ) ? 'TRUE' : 'FALSE';
+                $argument = ($argument) ? 'TRUE' : 'FALSE';
             else
-            if (is_object($argument) && function_exists('array_reverse') && function_exists('class_parents'))
-                $output .= implode("\n" . '|' . "\n", array_reverse(class_parents($argument))) . "\n" . '|' . "\n";
+                if (is_object($argument) && function_exists('array_reverse') && function_exists('class_parents'))
+                    $output .= implode("\n" . '|' . "\n", array_reverse(class_parents($argument))) . "\n" . '|' . "\n";
 
             $output .= htmlspecialchars(print_r($argument, TRUE))
-                    . ( ( is_object($argument) && function_exists('spl_object_hash') ) ? spl_object_hash($argument) : '' );
+                . ((is_object($argument) && function_exists('spl_object_hash')) ? spl_object_hash($argument) : '');
         }
         $output .= "</pre>";
         $output .= "</fieldset>";
@@ -974,27 +1022,30 @@ class SQ_Tools extends SQ_FrontController {
     /**
      * Show the debug dump
      */
-    public static function showDebug() {
+    public static function showDebug()
+    {
         global $wp_query;
         echo "Debug result: <br />" . '<div id="wpcontent">' . @implode('<br />', self::$debug) . '</div>';
 
         $run_time = number_format(microtime(true) - REQUEST_TIME, 3);
         $pps = number_format(1 / $run_time, 0);
         $memory_avail = ini_get('memory_limit');
-        $memory_used = number_format(memory_get_usage(true) / ( 1024 * 1024 ), 2);
-        $memory_peak = number_format(memory_get_peak_usage(true) / ( 1024 * 1024 ), 2);
+        $memory_used = number_format(memory_get_usage(true) / (1024 * 1024), 2);
+        $memory_peak = number_format(memory_get_peak_usage(true) / (1024 * 1024), 2);
 
         echo PHP_EOL . " Load: {$memory_avail} (avail) / {$memory_used}M (used) / {$memory_peak}M (peak)";
         echo "  | Time: {$run_time}s | {$pps} req/sec";
         echo "<pre>" . print_r($wp_query, true) . "</pre>";
     }
 
-    public function sq_activate() {
+    public function sq_activate()
+    {
         set_transient('sq_activate', true);
         set_transient('sq_rewrite', true);
     }
 
-    public function sq_deactivate() {
+    public function sq_deactivate()
+    {
         //clear the cron job
         wp_clear_scheduled_hook('sq_processCron');
 
@@ -1007,7 +1058,8 @@ class SQ_Tools extends SQ_FrontController {
         $wp_rewrite->flush_rules();
     }
 
-    public static function emptyCache($post_id = null) {
+    public static function emptyCache($post_id = null)
+    {
         if (function_exists('w3tc_pgcache_flush')) {
             w3tc_pgcache_flush();
         }
@@ -1024,7 +1076,8 @@ class SQ_Tools extends SQ_FrontController {
         }
     }
 
-    public static function checkUpgrade() {
+    public static function checkUpgrade()
+    {
         if (self::$options['sq_ver'] == 0 || self::$options['sq_ver'] < SQ_VERSION_ID) {
             //Delete the old versions table
             global $wpdb;

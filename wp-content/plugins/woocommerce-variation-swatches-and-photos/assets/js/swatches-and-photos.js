@@ -170,14 +170,14 @@
 			var $option_wrapper = $this.closest('div.select').eq(0);
 			var $label = $option_wrapper.parent().find('.swatch-label').eq(0);
 			var $wc_select_box = $option_wrapper.find('select').first();
-			
+
 			// Decode entities
 			var attr_val = $('<div/>').html($this.data('value')).text();
 
 			// Add slashes
 			attr_val = attr_val.replace(/'/g, '\\\'');
 			attr_val = attr_val.replace(/"/g, '\\\"');
-			
+
 			if ($label) {
 				$label.html($wc_select_box.children("[value='" + attr_val + "']").eq(0).text());
 			}
@@ -371,8 +371,11 @@
 
 	$(document).on('wc_variation_form', function (e) {
 		var $form = $(e.target);
-		if ($form.find('.swatch-control').length) {
-			$form.wc_swatches_form();
+		if (! $form.data('has_swatches_form') ) {
+			if ($form.find('.swatch-control').length) {
+				$form.data('has_swatches_form', true);
+				$form.wc_swatches_form();
+			}
 		}
 	});
 })(jQuery, window, document);

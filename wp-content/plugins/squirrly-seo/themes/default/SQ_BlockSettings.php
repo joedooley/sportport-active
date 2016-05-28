@@ -149,6 +149,7 @@
                                     <option value="com.br"><?php _e('Brazil', _SQ_PLUGIN_NAME_); ?> (http://www.google.com.br/)</option>
                                     <option value="vg"><?php _e('British Virgin Islands', _SQ_PLUGIN_NAME_); ?> (http://www.google.vg/)</option>
                                     <option value="bi"><?php _e('Burundi', _SQ_PLUGIN_NAME_); ?> (http://www.google.bi/)</option>
+                                    <option value="bg"><?php _e('Bulgaria', _SQ_PLUGIN_NAME_); ?> (http://www.google.bg/)</option>
                                     <option value="ca"><?php _e('Canada', _SQ_PLUGIN_NAME_); ?> (http://www.google.ca/)</option>
                                     <option value="td"><?php _e('Chad', _SQ_PLUGIN_NAME_); ?> (http://www.google.td/)</option>
                                     <option value="cl"><?php _e('Chile', _SQ_PLUGIN_NAME_); ?> (http://www.google.cl/)</option>
@@ -226,6 +227,7 @@
                                     <option value="sk"><?php _e('Slovakia', _SQ_PLUGIN_NAME_); ?> (http://www.google.sk/)</option>
                                     <option value="co.za"><?php _e('South Africa', _SQ_PLUGIN_NAME_); ?> (http://www.google.co.za/)</option>
                                     <option value="es"><?php _e('Spain', _SQ_PLUGIN_NAME_); ?> (http://www.google.es/)</option>
+                                    <option value="lk"><?php _e('Sri Lanka', _SQ_PLUGIN_NAME_); ?> (http://www.google.lk/)</option>
                                     <option value="se"><?php _e('Sweden', _SQ_PLUGIN_NAME_); ?> (http://www.google.se/)</option>
                                     <option value="ch"><?php _e('Switzerland', _SQ_PLUGIN_NAME_); ?> (http://www.google.ch/)</option>
                                     <option value="com.tw"><?php _e('Taiwan', _SQ_PLUGIN_NAME_); ?> (http://www.google.com.tw/)</option>

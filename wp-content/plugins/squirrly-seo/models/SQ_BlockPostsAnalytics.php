@@ -138,7 +138,6 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
         $query = compact('post_type', 'author', 'post_status', 'perm', 'order', 'orderby', 'meta_key', 'posts_per_page');
 
         $query['post__in'] = (array) $post__in;
-
         wp($query);
         return $avail_post_stati;
     }
@@ -386,6 +385,7 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
                     case 'keywords':
                         $value = '';
                         if (isset($json->keyword)) {
+                            $json->keyword = str_replace('\\','',$json->keyword);
                             $value = sprintf('<a href="%s">%s</a>', esc_attr(add_query_arg(array('page' => 'sq_posts', 'keyword' => strtolower($json->keyword)), 'admin.php')), $json->keyword);
                         } else {
                             $value = __('No Tags');

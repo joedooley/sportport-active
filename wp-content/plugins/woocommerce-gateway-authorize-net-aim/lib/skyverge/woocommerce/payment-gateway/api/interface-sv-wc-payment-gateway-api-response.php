@@ -18,7 +18,7 @@
  *
  * @package   SkyVerge/WooCommerce/Payment-Gateway/API
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2015, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2016, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -80,6 +80,17 @@ interface SV_WC_Payment_Gateway_API_Response extends SV_WC_API_Response {
 	 * @return string transaction id
 	 */
 	public function get_transaction_id();
+
+
+	/**
+	 * Returns the payment type: 'credit-card', 'echeck', etc
+	 *
+	 * Intentionally commented out to prevent fatal errors. Possibly re-introduce as part of a larger refactor.
+	 *
+	 * @since 4.3.0
+	 * @return string payment type or null if not available
+	 */
+	// public function get_payment_type();
 
 
 	/**

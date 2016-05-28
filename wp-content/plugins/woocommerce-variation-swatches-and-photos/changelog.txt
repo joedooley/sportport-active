@@ -1,4 +1,7 @@
 *** WooCommerce Variation Swatches and Photos***
+2016.04.14 - version 2.1.4
+	* Fix:  Compatibility with WooCommerce Quick View. 
+	
 2016.02.17 - version 2.1.3
 	* Update:  wc_core_dropdown_variation_attribute_options to match latest wc_dropdown_variation_attribute_options function. 
 	* Update:  Render label for default variation selections. 
