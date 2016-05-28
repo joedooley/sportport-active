@@ -232,16 +232,27 @@ class Receiptful_Admin {
 	 */
 	public function receiptful_status_tools( $tools ) {
 
+		$sync_queue = get_option( '_receiptful_queue', array( 'products' => array(), 'orders' => array() ) );
+		$product_count_message = '';
+		$order_count_message = '';
+		if ( ! empty( $sync_queue['products'] ) ) {
+			$product_count_message = '<strong>' . sprintf(  __( '%d products to be synced.', 'receiptful-for-woocommerce' ), count( $sync_queue['products']) ) . '</strong>&nbsp;';
+		}
+
+		if ( ! empty( $sync_queue['orders'] ) ) {
+			$order_count_message = '<strong>' . sprintf(  __( '%d orders to be synced.', 'receiptful-for-woocommerce' ), count( $sync_queue['orders']) ) . '</strong>&nbsp;';
+		}
+
 		$tools['receiptful_product_sync'] = array(
 			'name'		=> __( 'Synchronize products with Receiptful', 'receiptful-for-woocommerce' ),
 			'button'	=> __( 'Synchronize', 'receiptful-for-woocommerce' ),
-			'desc'		=> __( 'This will update all products in Receiptful with all its latest data', 'receiptful-for-woocommerce' ),
+			'desc'		=> $product_count_message . __( 'This will update all products in Receiptful with all its latest data', 'receiptful-for-woocommerce' ),
 		);
 
 		$tools['receiptful_receipt_sync'] = array(
 			'name'		=> __( 'Synchronize receipts with Receiptful', 'receiptful-for-woocommerce' ),
 			'button'	=> __( 'Synchronize', 'receiptful-for-woocommerce' ),
-			'desc'		=> __( 'This will update all orders in Receiptful with the latest data', 'receiptful-for-woocommerce' ),
+			'desc'		=> $order_count_message . __( 'This will update all orders in Receiptful with the latest data', 'receiptful-for-woocommerce' ),
 		);
 
 		$tools['receiptful_clear_coupons'] = array(
@@ -335,6 +346,9 @@ class Receiptful_Admin {
 		if ( 'receiptful_clear_resend_queue' == $_GET['action'] ) {
 			update_option( '_receiptful_resend_queue', '' );
 		}
+
+		wp_redirect( esc_url_raw( admin_url( 'admin.php?page=wc-status&tab=tools' ) ) );
+		die;
 
 	}
 

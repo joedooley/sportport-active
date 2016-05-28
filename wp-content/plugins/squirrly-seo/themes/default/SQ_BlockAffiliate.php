@@ -15,7 +15,7 @@
                 <fieldset>
                     <legend>
                         <span class="sq_legend_title"><?php _e('Join Squirrly today!', _SQ_PLUGIN_NAME_); ?></span>
-                        <span><?php echo sprintf(__('%sHow I Started Making Money With the Squirrly Affiliate Program%s', _SQ_PLUGIN_NAME_), '<a href="http://www.squirrly.co/affiliate_program_squirrly-pagblog-article_id62228.html" target="_blank">', '</a>'); ?></span>
+                        <span><?php echo sprintf(__('%sHow I Started Making Money With the Squirrly Affiliate Program%s', _SQ_PLUGIN_NAME_), '<a href="https://plugin.squirrly.co/wp-content/uploads/Squirrly-Affiliate-Program.pdf" target="_blank">', '</a>'); ?></span>
 
                         <span><p class="sq_settings_affiliate_bigtitle">
                                 <?php _e('Affiliate Benefits', _SQ_PLUGIN_NAME_); ?>

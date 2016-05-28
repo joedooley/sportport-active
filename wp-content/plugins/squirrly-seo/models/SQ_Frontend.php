@@ -303,6 +303,11 @@ class Model_SQ_Frontend {
         return $ret;
     }
 
+    public function setPost($newpost){
+        global $post;
+        $this->post = $post = $newpost;
+    }
+
     private function getTwitterCard() {
         $meta = "\n";
 
@@ -461,13 +466,17 @@ class Model_SQ_Frontend {
         return (($meta <> '') ? apply_filters('sq_prevnext_meta', $meta) . "\n" : '');
     }
 
+    public function getTitle() {
+        $this->getCustomTitle();
+        return $this->title;
+    }
+
     /**
      * Get the correct title of the article
      *
      * @return string
      */
     public function getCustomTitle() {
-        $title = '';
         $sep = ' | ';
 
         if (isset($this->title)) {
@@ -479,89 +488,88 @@ class Model_SQ_Frontend {
             //If is category
             if (is_category()) { //for category
                 $category = get_category(get_query_var('cat'), false);
-                $title = $category->cat_name;
-                if ($title == '') {
-                    $title = $this->grabTitleFromPost();
+                $this->title = $category->cat_name;
+                if ($this->title == '') {
+                    $this->title = $this->grabTitleFromPost();
                 }
                 if (is_paged()) {
-                    $title .= $sep . __('Page', _SQ_PLUGIN_NAME_) . " " . get_query_var('paged');
+                    $this->title .= $sep . __('Page', _SQ_PLUGIN_NAME_) . " " . get_query_var('paged');
                 }
             } elseif (is_author()) { //for author
-                if ($title == '') {
-                    $title = $this->grabTitleFromPost() . $sep . ucfirst($this->getAuthor('display_name'));
+                if ($this->title == '') {
+                    $this->title = $this->grabTitleFromPost() . $sep . ucfirst($this->getAuthor('display_name'));
                 }
-                if ($title == '') {
-                    $title = __('About') . " " . ucfirst($this->getAuthor('display_name'));
+                if ($this->title == '') {
+                    $this->title = __('About') . " " . ucfirst($this->getAuthor('display_name'));
                 }
                 if (is_paged()) {
-                    $title .= $sep . __('Page', _SQ_PLUGIN_NAME_) . " " . get_query_var('paged');
+                    $this->title .= $sep . __('Page', _SQ_PLUGIN_NAME_) . " " . get_query_var('paged');
                 }
             } elseif (is_tag()) { //for tags
                 if (is_paged()) {
                     $tag = get_query_var('tag');
-                    $title = ucfirst(str_replace('-', ' ', $tag)) . $sep . __('Page', _SQ_PLUGIN_NAME_) . " " . get_query_var('paged');
+                    $this->title = ucfirst(str_replace('-', ' ', $tag)) . $sep . __('Page', _SQ_PLUGIN_NAME_) . " " . get_query_var('paged');
                 }
             } elseif (is_archive()) { //for archive and products
                 if (isset($this->post) && isset($this->post->ID)) {
-                    $title = $this->grabTitleFromPost($this->post->ID);
+                    $this->title = $this->grabTitleFromPost($this->post->ID);
 
                     //if woocommerce is installed and is a product category
                     if (function_exists('is_product_category') && is_product_category()) {
                         global $wp_query;
                         $cat = $wp_query->get_queried_object();
                         if (!empty($cat) && $cat->name <> '') {
-                            $title = $cat->name;
+                            $this->title = $cat->name;
                         }
                     } else {
                         $cat = get_the_terms($this->post->ID, 'category');
                         if (!empty($cat)) {
-                            $title .= $sep . $cat[0]->name;
+                            $this->title .= $sep . $cat[0]->name;
                         }
                     }
                 }
 
                 if (is_paged()) {
-                    $title .= $sep . __('Page', _SQ_PLUGIN_NAME_) . " " . get_query_var('paged');
+                    $this->title .= $sep . __('Page', _SQ_PLUGIN_NAME_) . " " . get_query_var('paged');
                 }
             } elseif (is_single() || is_page() || is_singular() || in_array(get_post_type(), $this->post_type)) {
                 if (isset($this->post) && isset($this->post->ID)) {
                     //is a post page
-                    $title = $this->grabTitleFromPost($this->post->ID);
+                    $this->title = $this->grabTitleFromPost($this->post->ID);
 
                     //if woocommerce is installed and is a product
                     if (function_exists('is_product') && is_product()) {
                         $cat = get_the_terms($this->post->ID, 'product_cat');
                         if (!empty($cat) && count($cat) > 1) {
-                            $title .= $sep . $cat[0]->name;
+                            $this->title .= $sep . $cat[0]->name;
                         }
                     }
                 }
             }
 
             //If title then clear it and truncate it
-            if ($title <> '') {
-                $title = $this->truncate($title, $this->min_title_length, $this->max_title_length);
+            if ($this->title <> '') {
+                $this->title = $this->truncate($this->title, $this->min_title_length, $this->max_title_length);
             }
         } elseif (SQ_Tools::$options ['sq_auto_title'] == 1) { /* Check if is a predefined Title for home page */
 
             //If the home page is a static page that has custom snippet
             if (is_page() && isset($this->post) && isset($this->post->ID) && $this->getAdvancedMeta($this->post->ID, 'title') <> '') {
-                $title = $this->getAdvancedMeta($this->post->ID, 'title');
+                $this->title = $this->getAdvancedMeta($this->post->ID, 'title');
             } elseif (SQ_Tools::$options['sq_fp_title'] <> '') {
-                $title = SQ_Tools::$options['sq_fp_title'];
+                $this->title = SQ_Tools::$options['sq_fp_title'];
             } else {
                 if (isset($this->post->ID)) {
-                    $title = $this->grabTitleFromPost($this->post->ID);
-                    if ($title <> "" && $this->meta['blogname'] <> '') {
-                        $title .= $sep . $this->meta ['blogname'];
+                    $this->title = $this->grabTitleFromPost($this->post->ID);
+                    if ($this->title <> "" && $this->meta['blogname'] <> '') {
+                        $this->title .= $sep . $this->meta['blogname'];
                     }
                 } else {
-                    $title = get_the_title();
+                    $this->title = get_the_title();
                 }
             }
         }
-
-        return apply_filters('sq_title', $title);
+        return apply_filters('sq_title', $this->title);
     }
 
     public function clearTitle($title) {
@@ -691,12 +699,16 @@ class Model_SQ_Frontend {
         return $videos;
     }
 
+    public function getDescription() {
+        $this->getCustomDescription();
+        return $this->description;
+    }
     /**
      * Get the description from last/current article
      *
      * @return string
      */
-    private function getCustomDescription() {
+    public function getCustomDescription() {
 
         $sep = ' | ';
         $description = '';
@@ -780,11 +792,10 @@ class Model_SQ_Frontend {
                     }
                 }
             }
-        }
+        }else
 
         /* Check if is a predefined TitleIn Snippet */
-        if ($this->isHomePage() &&
-                SQ_Tools::$options['sq_auto_description'] == 1) {
+        if (SQ_Tools::$options['sq_auto_description'] == 1) {
 
             //If the home page is a static page that has custom snippet
             if (is_page() && isset($this->post) && isset($this->post->ID) && $this->getAdvancedMeta($this->post->ID, 'description') <> '') {

@@ -18,7 +18,7 @@
  *
  * @package   WC-Gateway-Authorize-Net-AIM/API
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2015, SkyVerge, Inc.
+ * @copyright Copyright (c) 2011-2016, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -341,7 +341,7 @@ class WC_Authorize_Net_AIM_API extends SV_WC_API_Base implements SV_WC_Payment_G
 		// authorize.net should rarely return a non-200 status
 		if ( 200 != $this->get_response_code() ) {
 
-			throw new SV_WC_API_Exception( sprintf( __( 'HTTP %s: %s', WC_Authorize_Net_AIM::TEXT_DOMAIN ), $this->get_response_code(), $this->get_response_message() ) );
+			throw new SV_WC_API_Exception( sprintf( __( 'HTTP %s: %s', 'woocommerce-gateway-authorize-net-aim' ), $this->get_response_code(), $this->get_response_message() ) );
 		}
 	}
 
@@ -360,7 +360,7 @@ class WC_Authorize_Net_AIM_API extends SV_WC_API_Base implements SV_WC_Payment_G
 
 			$exception_code = intval( str_ireplace( array( 'E', 'I' ), '', $this->get_response()->get_api_error_code() ) );
 
-			throw new SV_WC_API_Exception( sprintf( __( 'Code: %s, Message: %s', WC_Authorize_Net_AIM::TEXT_DOMAIN ), $this->get_response()->get_api_error_code(), $this->get_response()->get_api_error_message() ), $exception_code );
+			throw new SV_WC_API_Exception( sprintf( __( 'Code: %s, Message: %s', 'woocommerce-gateway-authorize-net-aim' ), $this->get_response()->get_api_error_code(), $this->get_response()->get_api_error_message() ), $exception_code );
 
 		} elseif ( $this->get_response()->is_test_request() ) {
 
@@ -419,7 +419,7 @@ class WC_Authorize_Net_AIM_API extends SV_WC_API_Base implements SV_WC_Payment_G
 	 * @return object
 	 */
 	protected function get_plugin() {
-		return $GLOBALS['wc_authorize_net_aim'];
+		return wc_authorize_net_aim();
 	}
 
 

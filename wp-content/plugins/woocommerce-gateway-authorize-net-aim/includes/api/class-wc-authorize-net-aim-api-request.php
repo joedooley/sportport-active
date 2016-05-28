@@ -18,7 +18,7 @@
  *
  * @package   WC-Gateway-Authorize-Net-AIM/API/Request
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2015, SkyVerge, Inc.
+ * @copyright Copyright (c) 2011-2016, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *
  * @since 3.0
  */
-class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Request {
+class WC_Authorize_Net_AIM_API_Request extends SV_WC_API_XML_Request implements SV_WC_Payment_Gateway_API_Request {
 
 
 	/** auth/capture transaction type */
@@ -54,12 +54,6 @@ class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Requ
 
 	/** @var WC_Order optional order object if this request was associated with an order */
 	protected $order;
-
-	/** @var array request data */
-	private $request_data;
-
-	/** @var string raw request xml */
-	private $request_xml;
 
 	/** @var string API login ID value */
 	private $api_login_id;
@@ -166,7 +160,7 @@ class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Requ
 				),
 				'refTransId'      => $order->refund->trans_id,
 				'order'           => array(
-					'invoiceNumber' => ltrim( $this->order->get_order_number(), _x( '#', 'hash before the order number', WC_Authorize_Net_AIM::TEXT_DOMAIN ) ),
+					'invoiceNumber' => ltrim( $this->order->get_order_number(), _x( '#', 'hash before the order number', 'woocommerce-gateway-authorize-net-aim' ) ),
 					'description'   => SV_WC_Helper::str_truncate( $this->order->refund->reason, 255 ),
 				),
 			),
@@ -189,7 +183,7 @@ class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Requ
 				'transactionType' => self::VOID,
 				'refTransId'      => $order->refund->trans_id,
 				'order'           => array(
-					'invoiceNumber' => ltrim( $this->order->get_order_number(), _x( '#', 'hash before the order number', WC_Authorize_Net_AIM::TEXT_DOMAIN ) ),
+					'invoiceNumber' => ltrim( $this->order->get_order_number(), _x( '#', 'hash before the order number', 'woocommerce-gateway-authorize-net-aim' ) ),
 					'description'   => SV_WC_Helper::str_truncate( $this->order->refund->reason, 255 ),
 				),
 			),
@@ -219,7 +213,7 @@ class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Requ
 					'id' => 'A1000065',
 				),
 				'order'               => array(
-					'invoiceNumber' => ltrim( $this->order->get_order_number(), _x( '#', 'hash before the order number', WC_Authorize_Net_AIM::TEXT_DOMAIN ) ),
+					'invoiceNumber' => ltrim( $this->order->get_order_number(), _x( '#', 'hash before the order number', 'woocommerce-gateway-authorize-net-aim' ) ),
 					'description'   => SV_WC_Helper::str_truncate( $this->order->description, 255 ),
 				),
 				'lineItems'           => $this->get_line_items(),
@@ -300,8 +294,8 @@ class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Requ
 
 				$line_items[] = array(
 					'itemId'      => $item->id,
-					'name'        => SV_WC_Helper::str_truncate( $item->name, 31 ),
-					'description' => SV_WC_Helper::str_truncate( $item->description, 255 ),
+					'name'        => SV_WC_Helper::str_to_sane_utf8( SV_WC_Helper::str_truncate( $item->name, 31 ) ),
+					'description' => SV_WC_Helper::str_to_sane_utf8( SV_WC_Helper::str_truncate( $item->description, 255 ) ),
 					'quantity'    => $item->quantity,
 					'unitPrice'   => SV_WC_Helper::number_format( $item->item_total ),
 				);
@@ -316,7 +310,7 @@ class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Requ
 				$line_items[] = array(
 					'itemId'      => $fee_id,
 					'name'        => SV_WC_Helper::str_truncate( htmlentities( $fee['name'], ENT_QUOTES, 'UTF-8', false ), 31 ),
-					'description' => __( 'Order Fee', WC_Authorize_Net_AIM::TEXT_DOMAIN ),
+					'description' => __( 'Order Fee', 'woocommerce-gateway-authorize-net-aim' ),
 					'quantity'    => 1,
 					'unitPrice'   => SV_WC_Helper::number_format( $this->order->get_item_total( $fee ) ),
 				);
@@ -351,7 +345,7 @@ class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Requ
 
 			return array(
 				'amount'      => SV_WC_Helper::number_format( $this->order->get_total_tax() ),
-				'name'        => __( 'Order Taxes', WC_Authorize_Net_AIM::TEXT_DOMAIN ),
+				'name'        => __( 'Order Taxes', 'woocommerce-gateway-authorize-net-aim' ),
 				'description' => SV_WC_Helper::str_truncate( implode( ', ', $taxes ), 255 ),
 			);
 
@@ -374,7 +368,7 @@ class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Requ
 
 			return array(
 				'amount'      => SV_WC_Helper::number_format( $this->order->get_total_shipping() ),
-				'name'        => __( 'Order Shipping', WC_Authorize_Net_AIM::TEXT_DOMAIN ),
+				'name'        => __( 'Order Shipping', 'woocommerce-gateway-authorize-net-aim' ),
 				'description' => SV_WC_Helper::str_truncate( $this->order->get_shipping_method(), 255 ),
 			);
 
@@ -420,22 +414,22 @@ class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Requ
 				'firstName'   => array( 'value' => $this->order->billing_first_name,                                        'limit' => 50 ),
 				'lastName'    => array( 'value' => $this->order->billing_last_name,                                         'limit' => 50 ),
 				'company'     => array( 'value' => $this->order->billing_company,                                           'limit' => 50 ),
-				'address'     => array( 'value' => $this->order->billing_address_1 . ( ! empty( $this->order->billing_address_2 ) ? $this->order->billing_address_2 : '' ), 'limit' => 60 ),
+				'address'     => array( 'value' => $this->order->billing_address_1 . ( ! empty( $this->order->billing_address_2 ) ? ' ' . $this->order->billing_address_2 : '' ), 'limit' => 60 ),
 				'city'        => array( 'value' => $this->order->billing_city,                                              'limit' => 40 ),
 				'state'       => array( 'value' => $this->order->billing_state,                                             'limit' => 40 ),
 				'zip'         => array( 'value' => $this->order->billing_postcode,                                          'limit' => 20 ),
-				'country'     => array( 'value' => $this->order->billing_country,                                           'limit' => 60 ),
+				'country'     => array( 'value' => SV_WC_Helper::convert_country_code( $this->order->billing_country ),     'limit' => 60 ),
 				'phoneNumber' => array( 'value' => $this->order->billing_phone,                                             'limit' => 25 ),
 			),
 			'shipping' => array(
 				'firstName' => array( 'value' => $this->order->shipping_first_name,                                         'limit' => 50 ),
 				'lastName'  => array( 'value' => $this->order->shipping_last_name,                                          'limit' => 50 ),
 				'company'   => array( 'value' => $this->order->shipping_company,                                            'limit' => 50 ),
-				'address'   => array( 'value' => $this->order->shipping_address_1 . ( ! empty( $this->order->shipping_address_2 ) ? $this->order->shipping_address_2 : '' ), 'limit' => 60 ),
+				'address'   => array( 'value' => $this->order->shipping_address_1 . ( ! empty( $this->order->shipping_address_2 ) ? ' ' . $this->order->shipping_address_2 : '' ), 'limit' => 60 ),
 				'city'      => array( 'value' => $this->order->shipping_city,                                               'limit' => 40 ),
 				'state'     => array( 'value' => $this->order->shipping_state,                                              'limit' => 40 ),
 				'zip'       => array( 'value' => $this->order->shipping_postcode,                                           'limit' => 20 ),
-				'country'   => array( 'value' => $this->order->shipping_country,                                            'limit' => 60 ),
+				'country'   => array( 'value' => SV_WC_Helper::convert_country_code($this->order->shipping_country ),       'limit' => 60 ),
 			),
 		);
 
@@ -507,25 +501,12 @@ class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Requ
 
 
 	/**
-	 * Helper to return completed XML document
+	 * Get the request data to be converted to XML.
 	 *
-	 * @since 3.0
-	 * @return string XML
+	 * @since 3.6.0
+	 * @return array
 	 */
-	private function to_xml() {
-
-		if ( ! empty( $this->request_xml ) ) {
-			return $this->request_xml;
-		}
-
-		// setup XML document
-		$xml = new XMLWriter();
-
-		// Create XML document in memory
-		$xml->openMemory();
-
-		// Set XML version & encoding
-		$xml->startDocument( '1.0', 'UTF-8' );
+	public function get_request_data() {
 
 		// required for every transaction
 		$transaction_data = array(
@@ -536,8 +517,10 @@ class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Requ
 			),
 		);
 
-		// add specific request data
-		$this->request_data = array(  'createTransactionRequest' => array_merge( $transaction_data, $this->request_data ) );
+		// add required request data
+		$this->request_data = array(
+			$this->get_root_element() => array_merge( $transaction_data, $this->request_data )
+		);
 
 		/**
 		 * API Request Data
@@ -551,28 +534,11 @@ class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Requ
 		 */
 		$this->request_data = apply_filters( 'wc_authorize_net_aim_api_request_data', $this->request_data, $this->order, $this );
 
-		// generate XML from request data, recursively using the `request` root element
-		SV_WC_Helper::array_to_xml( $xml, 'createTransactionRequest', $this->request_data['createTransactionRequest'] );
-
-		$xml->endDocument();
-
-		return $this->request_xml = $xml->outputMemory();
+		return $this->request_data;
 	}
 
 
 	/** API Helper Methods ******************************************************/
-
-
-	/**
-	 * Returns the string representation of this request
-	 *
-	 * @since 3.0
-	 * @return string request XML
-	 */
-	public function to_string() {
-
-		return $this->to_xml();
-	}
 
 
 	/**
@@ -615,37 +581,7 @@ class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Requ
 			$string = preg_replace( '/<routingNumber>\d+<\/routingNumber>/', '<routingNumber>' . str_repeat( '*', strlen( $matches[1] ) ) . '</routingNumber>', $string );
 		}
 
-		$dom = new DOMDocument();
-
-		// suppress errors for invalid XML syntax issues
-		if ( @$dom->loadXML( $string ) ) {
-			$dom->formatOutput = true;
-			$string = $dom->saveXML();
-		}
-
-		return $string;
-	}
-
-
-	/**
-	 * Returns the method for this request. Authorize.net uses the API default
-	 * (POST)
-	 *
-	 * @since 3.4.0
-	 * @return null
-	 */
-	public function get_method() { }
-
-
-	/**
-	 * Returns the request path for this request. Authorize.net request paths
-	 * do not vary per request.
-	 *
-	 * @since 3.4.0
-	 * @return string
-	 */
-	public function get_path() {
-		return '';
+		return $this->prettify_xml( $string );
 	}
 
 
@@ -658,6 +594,17 @@ class WC_Authorize_Net_AIM_API_Request implements SV_WC_Payment_Gateway_API_Requ
 	public function get_order() {
 
 		return $this->order;
+	}
+
+
+	/**
+	 * Get the root element for the XML document.
+	 *
+	 * @since 3.6.0
+	 * @return string
+	 */
+	protected function get_root_element() {
+		return 'createTransactionRequest';
 	}
 
 

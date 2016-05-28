@@ -18,7 +18,7 @@
  *
  * @package   SkyVerge/WooCommerce/Payment-Gateway/API
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2015, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2016, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -66,22 +66,23 @@ interface SV_WC_Payment_Gateway_API_Payment_Notification_Response extends SV_WC_
 
 
 	/**
-	 * Returns the payment type: 'credit-card', 'echeck', etc
-	 *
-	 * TODO: move to SV_WC_Payment_Gateway_API_Response
-	 * @since 2.2.0
-	 * @return string payment type or null if not available
-	 */
-	public function get_payment_type();
-
-
-	/**
 	 * Returns the card PAN or checking account number, if available
 	 *
 	 * @since 2.2.0
 	 * @return string PAN or account number or null if not available
 	 */
 	public function get_account_number();
+
+
+	/**
+	 * Determine if this is an IPN response.
+	 *
+	 * Intentionally commented out to prevent fatal errors in older plugins
+	 *
+	 * @since 4.3.0
+	 * @return bool
+	 */
+	// public function is_ipn();
 
 
 }

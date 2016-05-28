@@ -392,7 +392,7 @@ if ( ! class_exists( 'Receiptful_Email_Customer_New_Order' ) ) {
 			$first_item_id			= $order_item['reference'];
 			$product				= wc_get_product( $first_item_id );
 			$related_products		= array();
-			$related_product_ids	= $product->get_related( 2 );
+			$related_product_ids	= $product ? $product->get_related( 2 ) : array();
 
 			// Fallback to random products when no related were found.
 			if ( empty( $related_product_ids ) ) {

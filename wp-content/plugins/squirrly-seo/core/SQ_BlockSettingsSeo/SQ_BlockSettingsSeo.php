@@ -79,11 +79,12 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
 
                     if (!empty($meta))
                         SQ_ObjController::getModel('SQ_Post')->saveAdvMeta($pageId, $meta);
-                }else {
-                    SQ_Tools::saveOptions('sq_fp_title', SQ_Tools::getValue('sq_fp_title'));
-                    SQ_Tools::saveOptions('sq_fp_description', SQ_Tools::getValue('sq_fp_description'));
-                    SQ_Tools::saveOptions('sq_fp_keywords', SQ_Tools::getValue('sq_fp_keywords'));
                 }
+
+                SQ_Tools::saveOptions('sq_fp_title', SQ_Tools::getValue('sq_fp_title'));
+                SQ_Tools::saveOptions('sq_fp_description', SQ_Tools::getValue('sq_fp_description'));
+                SQ_Tools::saveOptions('sq_fp_keywords', SQ_Tools::getValue('sq_fp_keywords'));
+
 
                 ///////////////////////////////////////////
                 /////////////////////////////SITEMAP OPTION
@@ -226,6 +227,7 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
                 SQ_Tools::saveOptions('ignore_warn', 1);
                 break;
             case 'sq_get_snippet':
+
                 if (SQ_Tools::getValue('url') <> '') {
                     $url = SQ_Tools::getValue('url');
                 } else {

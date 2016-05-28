@@ -109,16 +109,24 @@ function receiptful_initial_product_sync() {
 		'has_password'		=> false,
 		'post_status'		=> 'publish',
 		'meta_query'		=> array(
-			'relation' 		=> 'AND',
+			'relation' 		=> 'OR',
+			// @since 1.2.5 - This is for a re-sync that should be initialised
 			array(
 				'key'		=> '_receiptful_last_update',
-				'compare'	=> 'NOT EXISTS',
-				'value'		=> '',
+				'compare'	=> '<',
+				'value'		=> strtotime( '2016-05-06' ),
 			),
 			array(
-				'key'		=> '_visibility',
-				'compare'	=> '!=',
-				'value'		=> 'hidden',
+				array(
+					'key'		=> '_receiptful_last_update',
+					'compare'	=> 'NOT EXISTS',
+					'value'		=> '',
+				),
+				array(
+					'key'		=> '_visibility',
+					'compare'	=> '!=',
+					'value'		=> 'hidden',
+				),
 			),
 		),
 	) );

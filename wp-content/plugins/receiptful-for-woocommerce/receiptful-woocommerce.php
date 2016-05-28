@@ -5,7 +5,7 @@
  * Description: 	Receiptful replaces and supercharges the default WooCommerce receipts. Just activate, add API key and be awesome.
  * Author: 			Receiptful
  * Author URI: 		https://receiptful.com
- * Version: 		1.2.4
+ * Version: 		1.2.5
  * Text Domain: 	receiptful-for-woocommerce
  * Domain Path: 	/languages/
  *
@@ -35,7 +35,7 @@ class Receiptful_WooCommerce {
 	 * @since 1.0.1
 	 * @var string $version Plugin version number.
 	 */
-	public $version = '1.2.4';
+	public $version = '1.2.5';
 
 
 	/**
@@ -288,6 +288,11 @@ class Receiptful_WooCommerce {
 		// 1.1.9 - re-sync orders
 		if ( version_compare( get_option( 'receiptful_woocommerce_version' ), '1.1.9', '<' ) ) {
 			delete_option( 'receiptful_completed_initial_receipt_sync' );
+		}
+
+		// 1.2.5 - Re-sync products
+		if ( version_compare( get_option( 'receiptful_woocommerce_version' ), '1.2.5', '<' ) ) {
+			delete_option( 'receiptful_completed_initial_product_sync' );
 		}
 
 		// Update version number if its not the same

@@ -2,8 +2,8 @@
 Contributors: receiptful
 Tags: receiptful, receiptful woocommerce, receipt, receipts, invoice, email, order confirmation, order mail, ecommerce mail
 Requires at least: 3.7.0
-Tested up to: 4.4.2
-Stable tag: 1.2.4
+Tested up to: 4.5.1
+Stable tag: 1.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,12 @@ Yes, Receiptful works with any theme - whether free, commercial or custom. You d
 
 
 == Changelog ==
+
+= 1.2.5 - 06/05/2016 =
+
+* [Add] - Re-sync products for data accuracy with new features.
+* [Fix] - Fix error when sending a receipt including a product that doesn't exist.
+* [Add] - Allow check to see if Receiptful is activated.
 
 = 1.2.4 - 24/03/2016 =
 

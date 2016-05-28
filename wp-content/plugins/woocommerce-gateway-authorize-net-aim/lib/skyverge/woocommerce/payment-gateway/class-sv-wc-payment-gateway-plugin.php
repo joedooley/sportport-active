@@ -18,7 +18,7 @@
  *
  * @package   SkyVerge/WooCommerce/Payment-Gateway/Classes
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2015, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2016, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -85,6 +85,9 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 	/** @var SV_WC_Payment_Gateway_Admin_User_Edit_Handler adds admin user edit payment gateway functionality */
 	private $admin_user_edit_handler;
 
+	/** @var \SV_WC_Payment_Gateway_Admin_User_Handler user handler instance */
+	protected $admin_user_handler;
+
 	/** @var SV_WC_Payment_Gateway_My_Payment_Methods adds My Payment Method functionality */
 	private $my_payment_methods;
 
@@ -103,12 +106,11 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 	 * @see SV_WC_Plugin::__construct()
 	 * @param string $id plugin id
 	 * @param string $version plugin version number
-	 * @param string $text_domain the plugin text domain
 	 * @param array $args plugin arguments
 	 */
-	public function __construct( $id, $version, $text_domain, $args ) {
+	public function __construct( $id, $version, $args ) {
 
-		parent::__construct( $id, $version, $text_domain, $args );
+		parent::__construct( $id, $version, $args );
 
 		// optional parameters: the supported gateways
 		if ( isset( $args['gateways'] ) ) {
@@ -135,7 +137,7 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 		}
 
 		// Admin
-		if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
+		if ( is_admin() && ! is_ajax() ) {
 
 			if ( $this->supports( self::FEATURE_CAPTURE_CHARGE ) ) {
 
@@ -154,6 +156,9 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 				add_action( 'admin_print_styles-woocommerce_page_wc-settings', array( $this, 'subscriptions_add_renewal_support_status_inline_style' ) );
 				add_filter( 'woocommerce_payment_gateways_renewal_support_status_html', array( $this, 'subscriptions_maybe_edit_renewal_support_status' ), 10, 2 );
 			}
+
+			// Add gateway information to the system status report
+			add_action( 'woocommerce_system_status_report', array( $this, 'add_system_status_information' ) );
 		}
 
 		// Add classes to WC Payment Methods
@@ -170,15 +175,7 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 	 */
 	public function load_gateways( $gateways ) {
 
-		if ( SV_WC_Plugin_Compatibility::is_wc_version_gte_2_3() ) {
-
-				$gateways = array_merge( $gateways, $this->get_gateways() );
-		} else {
-
-				$gateways = array_merge( $gateways, $this->get_gateway_class_names() );
-		}
-
-		return $gateways;
+		return array_merge( $gateways, $this->get_gateways() );
 	}
 
 
@@ -213,9 +210,12 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 		require_once( $payment_gateway_framework_path . '/class-sv-wc-payment-gateway.php' );
 		require_once( $payment_gateway_framework_path . '/class-sv-wc-payment-gateway-direct.php' );
 		require_once( $payment_gateway_framework_path . '/class-sv-wc-payment-gateway-hosted.php' );
-		require_once( $payment_gateway_framework_path . '/class-sv-wc-payment-gateway-payment-token.php' );
 		require_once( $payment_gateway_framework_path . '/class-sv-wc-payment-gateway-payment-form.php' );
 		require_once( $payment_gateway_framework_path . '/class-sv-wc-payment-gateway-my-payment-methods.php' );
+
+		// payment tokens
+		require_once( $payment_gateway_framework_path . '/payment-tokens/class-sv-wc-payment-gateway-payment-token.php' );
+		require_once( $payment_gateway_framework_path . '/payment-tokens/class-sv-wc-payment-gateway-payment-tokens-handler.php' );
 
 		// helpers
 		require_once( $payment_gateway_framework_path . '/api/class-sv-wc-payment-gateway-api-response-message-helper.php' );
@@ -234,10 +234,11 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 			require_once( $payment_gateway_framework_path . '/integrations/class-sv-wc-payment-gateway-integration-pre-orders.php' );
 		}
 
-		// admin user edit handler
+		// Admin user handler
 		if ( is_admin() ) {
-			require_once( $payment_gateway_framework_path . '/admin/class-sv-wc-payment-gateway-admin-user-edit-handler.php' );
-			$this->get_admin_user_edit_handler();
+			require_once( $payment_gateway_framework_path . '/admin/class-sv-wc-payment-gateway-admin-user-handler.php' );
+			require_once( $payment_gateway_framework_path . '/admin/class-sv-wc-payment-gateway-admin-payment-token-editor.php' );
+			$this->admin_user_handler = new SV_WC_Payment_Gateway_Admin_User_Handler( $this );
 		}
 	}
 
@@ -245,17 +246,48 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 	/** My Payment Methods methods ***********************************/
 
 
+	/**
+	 * Instantiates the My Payment Methods table class instance when a user is
+	 * logged in on an account page and tokenization is enabled for at least
+	 * one of the active gateways
+	 *
+	 * @since 4.0.0
+	 */
 	public function maybe_init_my_payment_methods() {
 
-		if ( is_account_page() && is_user_logged_in() ) {
+		if ( is_account_page() && is_user_logged_in() && $this->tokenization_enabled() ) {
 
 			$this->my_payment_methods = $this->get_my_payment_methods_instance();
 		}
 	}
 
+
 	/**
+	 * Returns true if tokenization is supported and enabled for at least one
+	 * active gateway
 	 *
-	 * @return SV_WC_Payment_Gateway_My_Payment_Methods
+	 * @since 4.2.0
+	 * @return bool
+	 */
+	public function tokenization_enabled() {
+
+		foreach ( $this->get_gateways() as $gateway ) {
+
+			if ( $gateway->is_enabled() && $gateway->supports_tokenization() && $gateway->tokenization_enabled() ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * Returns the My Payment Methods table instance, overrideable by concrete
+	 * gateway plugins to return a custom instance as needed
+	 *
+	 * @since 4.0.0
+	 * @return \SV_WC_Payment_Gateway_My_Payment_Methods
 	 */
 	protected function get_my_payment_methods_instance() {
 
@@ -360,11 +392,14 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 					if ( isset( $settings['environment'] ) && 'production' == $settings['environment'] ) {
 
 						// SSL check if gateway enabled/production mode
-						if ( 'no' === get_option( 'woocommerce_force_ssl_checkout' ) ) {
+						if ( ! SV_WC_Plugin_Compatibility::wc_checkout_is_https() ) {
 
-							$message = sprintf( _x( "%s: WooCommerce is not being forced over SSL; your customer's payment data may be at risk.", 'Requires SSL', $this->text_domain ), '<strong>' . $this->get_plugin_name() . '</strong>' );
+							/* translators: Placeholders: %s - plugin name */
+							$message = sprintf( esc_html__( "%s: WooCommerce is not being forced over SSL; your customer's payment data may be at risk.", 'woocommerce-plugin-framework' ), '<strong>' . $this->get_plugin_name() . '</strong>' );
 
-							$this->get_admin_notice_handler()->add_admin_notice( $message, 'ssl-required' );
+							$this->get_admin_notice_handler()->add_admin_notice( $message, 'ssl-required', array(
+								'notice_class' => 'error',
+							) );
 
 							// just show the message once for plugins with multiple gateway support
 							break;
@@ -414,21 +449,24 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 				$accepted_currencies = $this->get_accepted_currencies();
 			}
 
+			/* translators: [Plugin name] accepts payments in [currency/list of currencies] only */
 			$message = sprintf(
+				/* translators: Placeholders: %1$s - plugin name, %2$s - a currency/comma-separated list of currencies, %3$s - <a> tag, %4$s - </a> tag */
 				_n(
-					'%s accepts payment in %s only.  <a href="%s">Configure</a> WooCommerce to accept %s to enable this gateway for checkout.',
-					'%s accepts payment in one of %s only.  <a href="%s">Configure</a> WooCommerce to accept one of %s to enable this gateway for checkout.',
+					'%1$s accepts payment in %2$s only. %3$sConfigure%4$s WooCommerce to accept %2$s to enable this gateway for checkout.',
+					'%1$s accepts payment in one of %2$s only. %3$sConfigure%4$s WooCommerce to accept one of %2$s to enable this gateway for checkout.',
 					count( $accepted_currencies ),
-					'(Plugin) accepts payments in (currency/currencies) only.',
-					$this->text_domain
+					'woocommerce-plugin-framework'
 				),
 				$name,
 				'<strong>' . implode( ', ', $accepted_currencies ) . '</strong>',
-				$this->get_general_configuration_url(),
-				'<strong>' . implode( ', ', $accepted_currencies ) . '</strong>'
+				'<a href="' . $this->get_general_configuration_url() . '">',
+				'</a>'
 			);
 
-			$this->get_admin_notice_handler()->add_admin_notice( $message, 'accepted-currency' . $suffix );
+			$this->get_admin_notice_handler()->add_admin_notice( $message, 'accepted-currency' . $suffix, array(
+				'notice_class' => 'error',
+			) );
 
 		}
 	}
@@ -456,21 +494,37 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 				// subscriptions
 				if ( $this->is_subscriptions_active() && $gateway->is_enabled() && $tokenization_supported_but_not_enabled ) {
 
-					$message = sprintf( __( '%1$s is inactive for subscription transactions. Please <a href="%2$s">enable tokenization</a> to activate %1$s for Subscriptions.', $this->get_text_domain() ),
-						$gateway->get_method_title(), $this->get_payment_gateway_configuration_url( get_class( $gateway ) ) );
+					/* translators: Placeholders: %1$s - payment gateway title (such as Authorize.net, Braintree, etc), %2$s - <a> tag, %3$s - </a> tag */
+					$message = sprintf(
+						esc_html__( '%1$s is inactive for subscription transactions. Please %2$senable tokenization%3$s to activate %1$s for Subscriptions.', 'woocommerce-plugin-framework' ),
+						$gateway->get_method_title(),
+						'<a href="' . $this->get_payment_gateway_configuration_url( get_class( $gateway ) ) . '">',
+						'</a>'
+					);
 
 					// add notice -- allow it to be dismissed even on the settings page as the admin may not want to use subscriptions with a particular gateway
-					$this->get_admin_notice_handler()->add_admin_notice( $message, 'subscriptions-tokenization-' . $gateway->get_id(), array( 'always_show_on_settings' => false ) );
+					$this->get_admin_notice_handler()->add_admin_notice( $message, 'subscriptions-tokenization-' . $gateway->get_id(), array(
+						'always_show_on_settings' => false,
+						'notice_class'            => 'error',
+					) );
 				}
 
 				// pre-orders
 				if ( $this->is_pre_orders_active() && $gateway->is_enabled() && $tokenization_supported_but_not_enabled ) {
 
-					$message = sprintf( __( '%1$s is inactive for pre-order transactions. Please <a href="%2$s">enable tokenization</a> to activate %1$s for Pre-Orders.', $this->get_text_domain() ),
-						$gateway->get_method_title(), $this->get_payment_gateway_configuration_url( get_class( $gateway ) ) );
+					/* translators: Placeholders: %1$s - payment gateway title (such as Authorize.net, Braintree, etc), %2$s - <a> tag, %3$s - </a> tag */
+					$message = sprintf(
+						esc_html__( '%1$s is inactive for pre-order transactions. Please %2$senable tokenization%3$s to activate %1$s for Pre-Orders.', 'woocommerce-plugin-framework' ),
+						$gateway->get_method_title(),
+						'<a href="' . $this->get_payment_gateway_configuration_url( get_class( $gateway ) ) . '">',
+						'</a>'
+					);
 
 					// add notice -- allow it to be dismissed even on the settings page as the admin may not want to use pre-orders with a particular gateway
-					$this->get_admin_notice_handler()->add_admin_notice( $message, 'pre-orders-tokenization-' . $gateway->get_id(), array( 'always_show_on_settings' => false ) );
+					$this->get_admin_notice_handler()->add_admin_notice( $message, 'pre-orders-tokenization-' . $gateway->get_id(), array(
+						'always_show_on_settings' => false,
+						'notice_class'            => 'error',
+					) );
 				}
 			}
 		}
@@ -496,8 +550,8 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 
 		if ( $gateway->is_enabled() && $gateway->supports_tokenization() && ! $gateway->tokenization_enabled() ) {
 
-			$tool_tip = esc_attr__( 'You must enable tokenization for this gateway in order to support automatic renewal payments with the WooCommerce Subscriptions extension.', $this->get_text_domain() );
-			$status   = esc_html__( 'Inactive', $this->get_text_domain() );
+			$tool_tip = esc_attr__( 'You must enable tokenization for this gateway in order to support automatic renewal payments with the WooCommerce Subscriptions extension.', 'woocommerce-plugin-framework' );
+			$status   = esc_html__( 'Inactive', 'woocommerce-plugin-framework' );
 
 			$html = sprintf( '<a href="%1$s"><span class="sv-wc-payment-gateway-renewal-status-inactive tips" data-tip="%2$s">%3$s</span></a>',
 						esc_url( SV_WC_Payment_Gateway_Helper::get_payment_gateway_configuration_url( $this->get_gateway_class_name( $gateway->get_id() ) ) ),
@@ -560,7 +614,7 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 		// since a capture results in an update to the post object (by updating
 		// the paid date) we need to unhook the meta box save action, otherwise we
 		// can get boomeranged and change the status back to on-hold
-		remove_action( 'woocommerce_process_shop_order_meta', 'WC_Meta_Box_Order_Data::save', 40, 2 );
+		remove_action( 'woocommerce_process_shop_order_meta', 'WC_Meta_Box_Order_Data::save', 40 );
 
 		// perform the capture
 		$gateway->do_credit_card_capture( $order );
@@ -635,7 +689,7 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 					jQuery( document ).ready( function ( $ ) {
 						if ( 0 == $( 'select[name^=action] option[value=wc_capture_charge]' ).size() ) {
 							$( 'select[name^=action]' ).append(
-								$( '<option>' ).val( '<?php echo esc_js( 'wc_capture_charge' ); ?>' ).text( '<?php _ex( 'Capture Charge', 'Supports capture charge', $this->text_domain ); ?>' )
+								$( '<option>' ).val( '<?php echo esc_js( 'wc_capture_charge' ); ?>' ).text( '<?php _e( 'Capture Charge', 'woocommerce-plugin-framework' ); ?>' )
 							);
 						}
 					});
@@ -701,9 +755,33 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 	 */
 	public function add_order_action_charge_action( $actions ) {
 
-		$actions[ 'wc_' . $this->get_id() . '_capture_charge' ] = _x( 'Capture Charge', 'Supports capture charge', $this->text_domain );
+		/* translators: verb, as in "Capture credit card charge".
+		 Used when an amount has been pre-authorized before, but funds have not yet been captured (taken) from the card.
+		 Capturing the charge will take the money from the credit card and put it in the merchant's pockets. */
+		$actions[ 'wc_' . $this->get_id() . '_capture_charge' ] = esc_html__( 'Capture Charge', 'woocommerce-plugin-framework' );
 
 		return $actions;
+	}
+
+
+	/**
+	 * Add gateway information to the system status report.
+	 *
+	 * @since 4.3.0
+	 */
+	public function add_system_status_information() {
+
+		foreach ( $this->get_gateways() as $gateway ) {
+
+			// Skip gateways that aren't enabled
+			if ( ! $gateway->is_enabled() ) {
+				continue;
+			}
+
+			$environment = $gateway->get_environment_name();
+
+			include( $this->get_payment_gateway_framework_path() . '/admin/views/html-admin-gateway-status.php' );
+		}
 	}
 
 
@@ -739,17 +817,13 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 
 
 	/**
-	 * Returns the admin notice handler instance
+	 * Get the admin user handler instance.
 	 *
-	 * @since 3.0.0
+	 * @since 4.3.0
+	 * @return \SV_WC_Payment_Gateway_Admin_User_Handler
 	 */
-	public function get_admin_user_edit_handler() {
-
-		if ( ! is_null( $this->admin_user_edit_handler ) ) {
-			return $this->admin_user_edit_handler;
-		}
-
-		return $this->admin_user_edit_handler = new SV_WC_Payment_Gateway_Admin_User_Edit_Handler( $this, $this->text_domain );
+	public function get_admin_user_handler() {
+		return $this->admin_user_handler;
 	}
 
 
@@ -984,13 +1058,13 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 	 * @since 4.0.0
 	 * @param string|int $user_id the user ID associated with the token
 	 * @param string $token the token string
-	 * @return SV_WC_Payment_Gateway|null gateway if found, null otherwise
+	 * @return \SV_WC_Payment_Gateway|\SV_WC_Payment_Gateway_Direct|null gateway if found, null otherwise
 	 */
 	public function get_gateway_from_token( $user_id, $token ) {
 
 		foreach ( $this->get_gateways() as $gateway ) {
 
-			if ( $gateway->has_payment_token( $user_id, $token ) ) {
+			if ( $gateway->get_payment_tokens_handler()->user_has_token( $user_id, $token ) ) {
 				return $gateway;
 			}
 		}

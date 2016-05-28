@@ -1,11 +1,11 @@
 ﻿=== SEO by SQUIRRLY™ ===
-Contributors: cifi, calinvingan, florinmuresan
+Contributors: calinvingan, florinmuresan, nagy.sorel
 Tags: seo,seo plugin,wordpress seo,seo optimization,seo content,plugin,content seo,search engine optimization,xml,sitemap,keyword,keyword research,post,posts,page,multisite,squirrly,wordpress,tag,image,images,photos,flickr,statistics,stats,google,content,title,description,favicon,mobile,canonical,author,google plus,analytics,admin,seo correction,seo title,seo meta,meta,google,twitter,news,blog,e-commerce,ecommerce,woocommerce,feed,feeds,marketing,buddypress,social,social media,url,automatic,iphone
-Requires at least: 3.5
-Tested up to: 4.5
-Stable tag: trunk
-Donate link: https://www.squirrly.co/wordpress-seo-by-squirrly
-
+Requires at least: 3.5   
+Tested up to: 4.6 
+Stable tag: trunk 
+Donate link: https://www.squirrly.co/wordpress-seo-by-squirrly  
+ 
 SEO Plugin By Squirrly is for the NON-SEO experts. Get Excellent Seo with Better Content, Ranking and Analytics. For Both Humans and Search Bots.
 
 == Description ==
@@ -83,15 +83,15 @@ Once you start having bigger content marketing and SEO needs (more than one arti
 
 <strong>You can read reviews from Internet Marketing experts on http://howto.squirrly.co/testimonials/</strong>
 
-Over 1,000,000 Downloads. Our startup consists of 10 content marketing professionals dedicated to making Squirrly an amazing piece of software and writing great training materials to help you be successful and stay successful.
+Over 1,460,000 Downloads. Our startup consists of 10 content marketing professionals dedicated to making Squirrly an amazing piece of software and writing great training materials to help you be successful and stay successful.
 
-Over 550 Content Marketing Experts have reviewed our Wordpress SEO plugin and loved it.
+Over 860 Content Marketing Experts have reviewed our Wordpress SEO plugin and loved it.
 
-Over 2500 students to our $147 Content Marketing Training on Udemy. Part of that training you'll be receiving for free when signing up for this Wordpress seo plugin.
+Over 2580 students to our $147 Content Marketing Training on Udemy. Part of that training you'll be receiving for free when signing up for this Wordpress seo plugin.
 
 over +285% increase in traffic to over 49,000 survey participants.
 
-Recently our team grew to 10 people. More than helping you with your internet marketing efforts, we strive to offer Excellence in Customer Service.
+Recently our team grew to 20 people. More than helping you with your internet marketing efforts, we strive to offer Excellence in Customer Service.
 
 * we have a Free Training session with 14 lessons and 10 actionable work files, awaiting you after you install the plugin and connect to squirrly.co (you'll receive them by email)
 
@@ -137,9 +137,15 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
 
 == Changelog ==
+= 6.1.0 =
+* Compatible with WP 4.6
+* Fixed the Front Page SEO to work with more WP themes
+* Fixed compatibility with PolyLang plugin
+* Fixed compatibility with Customizr theme
+* Fixed Squirrly SEO Snippet for arabic lang
+
 = 6.0.9 =
 * Compatible with WP 4.5
-* Fixed compatibility with PolyLang plugin
 * Fixed Squirrly Analaytics in Performance Analytics
 
 = 6.0.6 =
@@ -413,21 +419,23 @@ Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO require
 * Added Google Country Select in Squirrly SEO > Settings
 
 == Credits ==
-Florin Muresan - CEO at Squirrly
-Calin Vingan - CTO at Squirrly
-Andreea Leau - VP Marketing
-Cristina Leau  - Squirrly mascot designer
-Alexandra Nicola - Content Writer, future COO
-Tim - Content Writer
-Lynn Silva - Content Writer
-Teodora Vingan - SEO Analyser
-Ana Darstaru - Chief of Customer Service
-Lucian Nertan - VP of Agency
-Sorel Nagy - Developer
+* Florin Muresan - CEO at Squirrly
+* Calin Vingan - CTO at Squirrly
+* Sorel Nagy - Developer
+* Andreea Leau - VP Marketing
+* Cristina Leau  - Squirrly mascot designer
+* Alexandra Nicola - COO
+* Teodora Vingan - SEO Analyser
+* Tim - Content Writer
+* Olivia Barbu - Content Writer
+* Alex Iftode - Content Writer
+* Irina Pogor - Content Writer
+* Ana Darstaru - Chief of Customer Service
+* Lucian Nertan - VP of Agency
 
-Investors:
-Ibrahim Evsan, serial entrepreneur, one of the best known bloggers in Germany
-Philipp Kandal, co-Founder and CTO of Skobbler (recently aquired for $24M by Telenav)
+== Investors ==
+* Ibrahim Evsan, serial entrepreneur, one of the best known bloggers in Germany
+* Philipp Kandal, co-Founder and CTO of Skobbler (recently aquired for $24M by Telenav)
 
 Many Thanks.
 
@@ -529,16 +537,16 @@ used our SEO techniques, and they have gotten lots of hits from search engines d
 - Integrated with other Ecommerce Plugins like WooCommerce, WP Ecommerce, MarketPress, Ready!, Shopp
 - Compatibility with all the other plugins, like Auto Meta, Ultimate Tag Warrior and others.
 - Works best with multisites
-- SEO error check and fix the META duplicates
+- SEO error check and fix the META duplicates  
 
 And the best ones that we have (and the others don't):
  - *Keyword research and SEO Analysis*: find the keywords that are easier to rank for
  - *SEO Live Assistant*: Your WordPress gives you SEO advice as you type or Edit your article
- - *Inspiration box*: get images you can use for free, tweets you can quote and get up to date with latest news about your subject
+ - *Inspiration box*: get images you can use for free, tweets you can quote and get up to date with latest news about your subject 
  - *SEO Rank*: Measure and Monitor the impact of SEO and Social Signals for each of your articles
 
-= Where can I enter the title and page description? =
-If you click the Squirrly tab in your dashboard, go to the "First Page Optimization" section and switch the Title and Description option on. You can enter custom Title, Description and Keywords.
+= Where can I enter the title and page description? = 
+If you click the Squirrly tab in your dashboard, go to the "First Page Optimization" section and switch the Title and Description option on. You can enter custom Title, Description and Keywords. 
 
 = Is this Wordpress SEO plugin the only SEO plugin I will need to install? =
-It all depends on how you have setup your Wordpress until now. Some people use Squirrly seo plugin only for the Content Optimization with the Live Assistant part, some use use it to check their SEO stats and see where they need to improve their Wordpress seo, but most of our users and customer use Squirrly for everything related to SEO: from keyword analysis, to seo settings on Wordpress, to analytics and to weekly monitoring and audit reports.
+It all depends on how you have setup your Wordpress until now. Some people use Squirrly seo plugin only for the Content Optimization with the Live Assistant part, some use use it to check their SEO stats and see where they need to improve their Wordpress seo, but most of our users and customer use Squirrly for everything related to SEO: from keyword analysis, to seo settings on Wordpress, to analytics and to weekly monitoring and audit reports.  

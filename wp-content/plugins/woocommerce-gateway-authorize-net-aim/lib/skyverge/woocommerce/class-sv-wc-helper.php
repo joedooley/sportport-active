@@ -18,7 +18,7 @@
  *
  * @package   SkyVerge/WooCommerce/Plugin/Classes
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2015, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2016, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -37,6 +37,10 @@ if ( ! class_exists( 'SV_WC_Helper' ) ) :
 	class SV_WC_Helper {
 
 
+		/** encoding used for mb_*() string functions */
+		const MB_ENCODING = 'UTF-8';
+
+
 		/** String manipulation functions (all multi-byte safe) ***************/
 
 		/**
@@ -51,17 +55,23 @@ if ( ! class_exists( 'SV_WC_Helper' ) ) :
 		 */
 		public static function str_starts_with( $haystack, $needle) {
 
-			if ( '' === $needle ) {
-				return true;
-			}
-
 			if ( self::multibyte_loaded() ) {
 
-				return 0 === mb_strpos( $haystack, $needle );
+				if ( '' === $needle ) {
+					return true;
+				}
+
+				return 0 === mb_strpos( $haystack, $needle, 0, self::MB_ENCODING );
 
 			} else {
 
-				return 0 === strpos( self::str_to_ascii( $haystack ), self::str_to_ascii( $needle ) ); // @codeCoverageIgnore
+				$needle = self::str_to_ascii( $needle );
+
+				if ( '' === $needle ) {
+					return true;
+				}
+
+				return 0 === strpos( self::str_to_ascii( $haystack ), self::str_to_ascii( $needle ) );
 			}
 		}
 
@@ -84,7 +94,7 @@ if ( ! class_exists( 'SV_WC_Helper' ) ) :
 
 			if ( self::multibyte_loaded() ) {
 
-				return mb_substr( $haystack, -mb_strlen( $needle ) ) === $needle;
+				return mb_substr( $haystack, -mb_strlen( $needle, self::MB_ENCODING ), null, self::MB_ENCODING ) === $needle;
 
 			} else {
 
@@ -110,9 +120,19 @@ if ( ! class_exists( 'SV_WC_Helper' ) ) :
 
 			if ( self::multibyte_loaded() ) {
 
-				return false !== mb_strpos( $haystack, $needle );
+				if ( '' === $needle ) {
+					return false;
+				}
+
+				return false !== mb_strpos( $haystack, $needle, 0, self::MB_ENCODING );
 
 			} else {
+
+				$needle = self::str_to_ascii( $needle );
+
+				if ( '' === $needle ) {
+					return false;
+				}
 
 				return false !== strpos( self::str_to_ascii( $haystack ), self::str_to_ascii( $needle ) );
 			}
@@ -135,13 +155,13 @@ if ( ! class_exists( 'SV_WC_Helper' ) ) :
 			if ( self::multibyte_loaded() ) {
 
 				// bail if string doesn't need to be truncated
-				if ( mb_strlen( $string ) <= $length ) {
+				if ( mb_strlen( $string, self::MB_ENCODING ) <= $length ) {
 					return $string;
 				}
 
-				$length -= mb_strlen( $omission );
+				$length -= mb_strlen( $omission, self::MB_ENCODING );
 
-				return mb_substr( $string, 0, $length ) . $omission;
+				return mb_substr( $string, 0, $length, self::MB_ENCODING ) . $omission;
 
 			} else {
 
@@ -162,20 +182,20 @@ if ( ! class_exists( 'SV_WC_Helper' ) ) :
 		/**
 		 * Returns a string with all non-ASCII characters removed. This is useful
 		 * for any string functions that expect only ASCII chars and can't
-		 * safely handle UTF-8
-		 *
-		 * Note: We must do a strict false check on the iconv() output due to a
-		 * bug in PHP/glibc {@link https://bugs.php.net/bug.php?id=63450}
+		 * safely handle UTF-8. Note this only allows ASCII chars in the range
+		 * 33-126 (newlines/carriage returns are stripped)
 		 *
 		 * @since 2.2.0
 		 * @param string $string string to make ASCII
-		 * @return string|null ASCII string or null if error occurred
+		 * @return string
 		 */
 		public static function str_to_ascii( $string ) {
 
-			$ascii = iconv( 'UTF-8', 'ASCII//IGNORE', $string );
+			// strip ASCII chars 32 and under
+			$string = filter_var( $string, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW );
 
-			return false === $ascii ? preg_replace( '/[^a-zA-Z0-9]/', '', $string ) : $ascii;
+			// strip ASCII chars 127 and higher
+			return filter_var( $string, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH );
 		}
 
 
@@ -418,6 +438,13 @@ if ( ! class_exists( 'SV_WC_Helper' ) ) :
 
 				$meta = SV_WC_Plugin_Compatibility::is_wc_version_gte_2_4() ? $item : $item['item_meta'];
 
+				$item_desc = array();
+
+				// add SKU to description if available
+				if ( is_callable( array( $product, 'get_sku' ) ) && $product->get_sku() ) {
+					$item_desc[] = sprintf( 'SKU: %s', $product->get_sku() );
+				}
+
 				// get meta + format it
 				$item_meta = new WC_Order_Item_Meta( $meta );
 
@@ -425,19 +452,12 @@ if ( ! class_exists( 'SV_WC_Helper' ) ) :
 
 				if ( ! empty( $item_meta ) ) {
 
-					$item_desc = array();
-
 					foreach ( $item_meta as $meta ) {
 						$item_desc[] = sprintf( '%s: %s', $meta['label'], $meta['value'] );
 					}
-
-					$item_desc = implode( ', ', $item_desc );
-
-				} else {
-
-					// default description to SKU
-					$item_desc = is_callable( array( $product, 'get_sku') ) && $product->get_sku() ? sprintf( 'SKU: %s', $product->get_sku() ) : null;
 				}
+
+				$item_desc = implode( ', ', $item_desc );
 
 				$line_item->id          = $id;
 				$line_item->name        = htmlentities( $item['name'], ENT_QUOTES, 'UTF-8', false );
@@ -544,6 +564,18 @@ if ( ! class_exists( 'SV_WC_Helper' ) ) :
 		}
 
 
+		/**
+		 * Gets the full URL to the log file for a given $handle
+		 *
+		 * @since 4.0.0
+		 * @param string $handle log handle
+		 * @return string URL to the WC log file identified by $handle
+		 */
+		public static function get_wc_log_file_url( $handle ) {
+			return admin_url( sprintf( 'admin.php?page=wc-status&tab=logs&log_file=%s-%s-log', $handle, sanitize_file_name( wp_hash( $handle ) ) ) );
+		}
+
+
 		/** JavaScript helper functions ***************************************/
 
 
@@ -557,7 +589,7 @@ if ( ! class_exists( 'SV_WC_Helper' ) ) :
 		 *       data-action="wc_cart_notices_json_search_product_categories"
 		 *       data-nonce="<?php echo wp_create_nonce( 'search-categories' ); ?>"
 		 *       data-request_data = "<?php echo esc_attr( json_encode( array( 'field_name' => 'something_exciting', 'default' => 'default_label' ) ) ) ?>"
-		 *       data-placeholder="<?php _e( 'Search for a category&hellip;', WC_Cart_Notices::TEXT_DOMAIN ) ?>"
+		 *       data-placeholder="<?php esc_attr_e( 'Search for a category&hellip;', 'wc-cart-notices' ) ?>"
 		 *       data-allow_clear="true"
 		 *       data-selected="<?php
 		 *          $json_ids    = array();
@@ -574,6 +606,7 @@ if ( ! class_exists( 'SV_WC_Helper' ) ) :
 		 * - `value` should be a comma-separated list of selected keys
 		 * - `data-request_data` can be used to pass any additional data to the AJAX request
 		 *
+		 * @codeCoverageIgnore no need to unit test this since it's mostly JS
 		 * @since 3.1.0
 		 */
 		public static function render_select2_ajax() {
@@ -713,20 +746,148 @@ if ( ! class_exists( 'SV_WC_Helper' ) ) :
 
 				wc_enqueue_js( $javascript );
 
+				/**
+				 * WC Select2 Ajax Rendered Action.
+				 *
+				 * Fired when an Ajax select2 is rendered.
+				 *
+				 * @since 3.1.0
+				 */
 				do_action( 'sv_wc_select2_ajax_rendered' );
 			}
 		}
 
 
+		/** Framework translation functions ***********************************/
+
+
 		/**
-		 * Gets the full URL to the log file for a given $handle
+		 * Gettext `__()` wrapper for framework-translated strings
 		 *
-		 * @since 4.0.0
-		 * @param string $handle log handle
-		 * @return string URL to the WC log file identified by $handle
+		 * Warning! This function should only be used if an existing
+		 * translation from the framework is to be used. It should
+		 * never be called for plugin-specific or untranslated strings!
+		 * Untranslated = not registered via string literal.
+		 *
+		 * @since 4.1.0
+		 * @param string $text
+		 * @return string translated text
 		 */
-		public static function get_wc_log_file_url( $handle ) {
-			return admin_url( sprintf( 'admin.php?page=wc-status&tab=logs&log_file=%s-%s-log', $handle, sanitize_file_name( wp_hash( $handle ) ) ) );
+		public static function f__( $text ) {
+
+			return __( $text, 'woocommerce-plugin-framework' );
+		}
+
+
+		/**
+		 * Gettext `_e()` wrapper for framework-translated strings
+		 *
+		 * Warning! This function should only be used if an existing
+		 * translation from the framework is to be used. It should
+		 * never be called for plugin-specific or untranslated strings!
+		 * Untranslated = not registered via string literal.
+		 *
+		 * @since 4.1.0
+		 * @param string $text
+		 */
+		public static function f_e( $text ) {
+
+			_e( $text, 'woocommerce-plugin-framework' );
+		}
+
+
+		/**
+		 * Gettext `_x()` wrapper for framework-translated strings
+		 *
+		 * Warning! This function should only be used if an existing
+		 * translation from the framework is to be used. It should
+		 * never be called for plugin-specific or untranslated strings!
+		 * Untranslated = not registered via string literal.
+		 *
+		 * @since 4.1.0
+		 * @param string $text
+		 * @return string translated text
+		 */
+		public static function f_x( $text, $context ) {
+
+			return _x( $text, $context, 'woocommerce-plugin-framework' );
+		}
+
+
+		/** Misc functions ****************************************************/
+
+
+		/**
+		 * Convert a 2-character country code into its 3-character equivalent, or
+		 * vice-versa, e.g.
+		 *
+		 * 1) given USA, returns US
+		 * 2) given US, returns USA
+		 *
+		 * @since 4.2.0
+		 * @param string $code ISO-3166-alpha-2 or ISO-3166-alpha-3 country code
+		 * @return string country code
+		 */
+		public static function convert_country_code( $code ) {
+
+			// ISO 3166-alpha-2 => ISO 3166-alpha3
+			$countries = array(
+					'AF' => 'AFG', 'AL' => 'ALB', 'DZ' => 'DZA', 'AD' => 'AND', 'AO' => 'AGO',
+					'AG' => 'ATG', 'AR' => 'ARG', 'AM' => 'ARM', 'AU' => 'AUS', 'AT' => 'AUT',
+					'AZ' => 'AZE', 'BS' => 'BHS', 'BH' => 'BHR', 'BD' => 'BGD', 'BB' => 'BRB',
+					'BY' => 'BLR', 'BE' => 'BEL', 'BZ' => 'BLZ', 'BJ' => 'BEN', 'BT' => 'BTN',
+					'BO' => 'BOL', 'BA' => 'BIH', 'BW' => 'BWA', 'BR' => 'BRA', 'BN' => 'BRN',
+					'BG' => 'BGR', 'BF' => 'BFA', 'BI' => 'BDI', 'KH' => 'KHM', 'CM' => 'CMR',
+					'CA' => 'CAN', 'CV' => 'CPV', 'CF' => 'CAF', 'TD' => 'TCD', 'CL' => 'CHL',
+					'CN' => 'CHN', 'CO' => 'COL', 'KM' => 'COM', 'CD' => 'COD', 'CG' => 'COG',
+					'CR' => 'CRI', 'CI' => 'CIV', 'HR' => 'HRV', 'CU' => 'CUB', 'CY' => 'CYP',
+					'CZ' => 'CZE', 'DK' => 'DNK', 'DJ' => 'DJI', 'DM' => 'DMA', 'DO' => 'DOM',
+					'EC' => 'ECU', 'EG' => 'EGY', 'SV' => 'SLV', 'GQ' => 'GNQ', 'ER' => 'ERI',
+					'EE' => 'EST', 'ET' => 'ETH', 'FJ' => 'FJI', 'FI' => 'FIN', 'FR' => 'FRA',
+					'GA' => 'GAB', 'GM' => 'GMB', 'GE' => 'GEO', 'DE' => 'DEU', 'GH' => 'GHA',
+					'GR' => 'GRC', 'GD' => 'GRD', 'GT' => 'GTM', 'GN' => 'GIN', 'GW' => 'GNB',
+					'GY' => 'GUY', 'HT' => 'HTI', 'HN' => 'HND', 'HU' => 'HUN', 'IS' => 'ISL',
+					'IN' => 'IND', 'ID' => 'IDN', 'IR' => 'IRN', 'IQ' => 'IRQ', 'IE' => 'IRL',
+					'IL' => 'ISR', 'IT' => 'ITA', 'JM' => 'JAM', 'JP' => 'JPN', 'JO' => 'JOR',
+					'KZ' => 'KAZ', 'KE' => 'KEN', 'KI' => 'KIR', 'KP' => 'PRK', 'KR' => 'KOR',
+					'KW' => 'KWT', 'KG' => 'KGZ', 'LA' => 'LAO', 'LV' => 'LVA', 'LB' => 'LBN',
+					'LS' => 'LSO', 'LR' => 'LBR', 'LY' => 'LBY', 'LI' => 'LIE', 'LT' => 'LTU',
+					'LU' => 'LUX', 'MK' => 'MKD', 'MG' => 'MDG', 'MW' => 'MWI', 'MY' => 'MYS',
+					'MV' => 'MDV', 'ML' => 'MLI', 'MT' => 'MLT', 'MH' => 'MHL', 'MR' => 'MRT',
+					'MU' => 'MUS', 'MX' => 'MEX', 'FM' => 'FSM', 'MD' => 'MDA', 'MC' => 'MCO',
+					'MN' => 'MNG', 'ME' => 'MNE', 'MA' => 'MAR', 'MZ' => 'MOZ', 'MM' => 'MMR',
+					'NA' => 'NAM', 'NR' => 'NRU', 'NP' => 'NPL', 'NL' => 'NLD', 'NZ' => 'NZL',
+					'NI' => 'NIC', 'NE' => 'NER', 'NG' => 'NGA', 'NO' => 'NOR', 'OM' => 'OMN',
+					'PK' => 'PAK', 'PW' => 'PLW', 'PA' => 'PAN', 'PG' => 'PNG', 'PY' => 'PRY',
+					'PE' => 'PER', 'PH' => 'PHL', 'PL' => 'POL', 'PT' => 'PRT', 'QA' => 'QAT',
+					'RO' => 'ROU', 'RU' => 'RUS', 'RW' => 'RWA', 'KN' => 'KNA', 'LC' => 'LCA',
+					'VC' => 'VCT', 'WS' => 'WSM', 'SM' => 'SMR', 'ST' => 'STP', 'SA' => 'SAU',
+					'SN' => 'SEN', 'RS' => 'SRB', 'SC' => 'SYC', 'SL' => 'SLE', 'SG' => 'SGP',
+					'SK' => 'SVK', 'SI' => 'SVN', 'SB' => 'SLB', 'SO' => 'SOM', 'ZA' => 'ZAF',
+					'ES' => 'ESP', 'LK' => 'LKA', 'SD' => 'SDN', 'SR' => 'SUR', 'SZ' => 'SWZ',
+					'SE' => 'SWE', 'CH' => 'CHE', 'SY' => 'SYR', 'TJ' => 'TJK', 'TZ' => 'TZA',
+					'TH' => 'THA', 'TL' => 'TLS', 'TG' => 'TGO', 'TO' => 'TON', 'TT' => 'TTO',
+					'TN' => 'TUN', 'TR' => 'TUR', 'TM' => 'TKM', 'TV' => 'TUV', 'UG' => 'UGA',
+					'UA' => 'UKR', 'AE' => 'ARE', 'GB' => 'GBR', 'US' => 'USA', 'UY' => 'URY',
+					'UZ' => 'UZB', 'VU' => 'VUT', 'VA' => 'VAT', 'VE' => 'VEN', 'VN' => 'VNM',
+					'YE' => 'YEM', 'ZM' => 'ZMB', 'ZW' => 'ZWE', 'TW' => 'TWN', 'CX' => 'CXR',
+					'CC' => 'CCK', 'HM' => 'HMD', 'NF' => 'NFK', 'NC' => 'NCL', 'PF' => 'PYF',
+					'YT' => 'MYT', 'GP' => 'GLP', 'PM' => 'SPM', 'WF' => 'WLF', 'TF' => 'ATF',
+					'BV' => 'BVT', 'CK' => 'COK', 'NU' => 'NIU', 'TK' => 'TKL', 'GG' => 'GGY',
+					'IM' => 'IMN', 'JE' => 'JEY', 'AI' => 'AIA', 'BM' => 'BMU', 'IO' => 'IOT',
+					'VG' => 'VGB', 'KY' => 'CYM', 'FK' => 'FLK', 'GI' => 'GIB', 'MS' => 'MSR',
+					'PN' => 'PCN', 'SH' => 'SHN', 'GS' => 'SGS', 'TC' => 'TCA', 'MP' => 'MNP',
+					'PR' => 'PRI', 'AS' => 'ASM', 'UM' => 'UMI', 'GU' => 'GUM', 'VI' => 'VIR',
+					'HK' => 'HKG', 'MO' => 'MAC', 'FO' => 'FRO', 'GL' => 'GRL', 'GF' => 'GUF',
+					'MQ' => 'MTQ', 'RE' => 'REU', 'AX' => 'ALA', 'AW' => 'ABW', 'AN' => 'ANT',
+					'SJ' => 'SJM', 'AC' => 'ASC', 'TA' => 'TAA', 'AQ' => 'ATA',
+			);
+
+			if ( 3 === strlen( $code ) ) {
+				$countries = array_flip( $countries );
+			}
+
+			return isset( $countries[ $code ] ) ? $countries[ $code ] : $code;
 		}
 
 

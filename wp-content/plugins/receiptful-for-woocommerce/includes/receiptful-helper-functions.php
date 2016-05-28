@@ -145,27 +145,27 @@ if ( ! function_exists( 'wc_tax_enabled' ) ) {
 function receiptful_clear_unused_coupons() {
 
 	$expired_coupons = new WP_Query( array(
-			'post_type' => 'shop_coupon',
-			'fields' => 'ids',
-			'posts_per_page' => 1000,
-			'meta_query' => array(
-					array(
-							'key' => 'receiptful_coupon',
-							'compare' => '=',
-							'value' => 'yes',
-					),
-					array(
-							'key' => 'expiry_date',
-							'compare' => '<',
-							'type' => 'DATE',
-							'value' => date_i18n( 'Y-m-d', strtotime( '-7 days' ) ),
-					),
-					array(
-							'key' => 'usage_count',
-							'compare' => '=',
-							'value' => '0',
-					),
+		'post_type' => 'shop_coupon',
+		'fields' => 'ids',
+		'posts_per_page' => 1000,
+		'meta_query' => array(
+			array(
+				'key' => 'receiptful_coupon',
+				'compare' => '=',
+				'value' => 'yes',
 			),
+			array(
+				'key' => 'expiry_date',
+				'compare' => '<',
+				'type' => 'DATE',
+				'value' => date_i18n( 'Y-m-d', strtotime( '-7 days' ) ),
+			),
+			array(
+				'key' => 'usage_count',
+				'compare' => '=',
+				'value' => '0',
+			),
+		),
 	) );
 
 	// Trash expired coupons
@@ -173,4 +173,24 @@ function receiptful_clear_unused_coupons() {
 		wp_trash_post( $post_id );
 	}
 
+}
+
+
+/**
+ * Add Receiptful version endpoint.
+ *
+ * Adds a simple Receiptful version check endpoint, allowing
+ * to check if Receiptful is active and which version.
+ *
+ * @since 1.2.5
+ */
+function receiptful_add_active_endpoint() {
+
+	if ( isset( $_GET['receiptful_version'] ) ) {
+		wp_send_json( Receiptful()->version );
+	}
+
+}
+if ( isset( $_GET['receiptful_version'] ) ) {
+	add_action( 'init', 'receiptful_add_active_endpoint' );
 }
