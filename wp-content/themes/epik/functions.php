@@ -24,7 +24,7 @@ load_child_theme_textdomain(
 
 require_once( get_template_directory() . '/lib/init.php' );
 include_once( get_stylesheet_directory() . '/assets/functions/theme-functions.php' );
-include_once( get_stylesheet_directory() . '/assets/functions/output.php' );
+//include_once( get_stylesheet_directory() . '/assets/functions/output.php' );
 require_once( get_stylesheet_directory() . '/assets/functions/widgets.php' );
 require_once( get_stylesheet_directory() . '/assets/functions/genesis.php' );
 require_once( get_stylesheet_directory() . '/assets/functions/scripts-and-styles.php' );
@@ -36,9 +36,9 @@ require_once( get_stylesheet_directory() . '/assets/functions/theme-options-page
 /**
  * Add Image upload to WordPress Theme Customizer
  */
-add_action( 'customize_register', function() {
-	require_once( get_stylesheet_directory() . '/assets/functions/customize.php' );
-});
+//add_action( 'customize_register', function() {
+//	require_once( get_stylesheet_directory() . '/assets/functions/customize.php' );
+//});
 
 
 
