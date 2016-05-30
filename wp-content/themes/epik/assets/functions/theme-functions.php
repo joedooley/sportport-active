@@ -14,27 +14,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 add_filter( 'genesis_seo_title', 'spa_header_inline_logo', 10, 3 );
 /**
+ * Replace Header Site Title with Inline Logo.
+ * Use a Mobile Logo if wp_is_mobile().
  *
- * Replace Header Site Title with Inline Logo
+ * @param $title
+ * @param $inside
+ * @param $wrap
  *
- * Fixes Genesis bug - when using static front page and blog page (admin reading settings) Home page is <p> tag and Blog page is <h1> tag
- *
- * Replaces "is_home" with "is_front_page" to correctly display Home page wit <h1> tag and Blog page with <p> tag
- *
- * @author AlphaBlossom / Tony Eppright
- * @link   http://www.alphablossom.com/a-better-wordpress-genesis-responsive-logo-header/
- *
- * @edited by Sridhar Katakam
- * @link   http://www.sridharkatakam.com/use-inline-logo-instead-background-image-genesis/
- *
- **/
+ * @return string
+ */
 function spa_header_inline_logo( $title, $inside, $wrap ) {
 
-	$logo = '<img src="' . get_stylesheet_directory_uri() . '/images/logo.png" alt="' . esc_attr(
-			get_bloginfo(
-				'name' ) ) . '" title="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="317" height="91" />';
+	$logo_mobile = '<img id="mobile-logo" src="' . get_stylesheet_directory_uri() . '/images/mobile-logo@2x.png" alt="' . esc_attr( get_bloginfo( 'name' ) ) .
+	               '" title="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="262" height="23" />';
 
-	$inside = sprintf( '<a href="%s" title="%s">%s</a>', trailingslashit( home_url() ), esc_attr( get_bloginfo( 'name' ) ), $logo );
+	$logo = '<img src="' . get_stylesheet_directory_uri() . '/images/logo.png" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" title="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="317" height="91" />';
+
+	$inside = wp_is_mobile() ? sprintf( '<a href="%s" title="%s">%s</a>', trailingslashit( home_url() ), esc_attr( get_bloginfo( 'name' ) ), $logo_mobile ) : sprintf( '<a href="%s" title="%s">%s</a>', trailingslashit( home_url() ), esc_attr( get_bloginfo( 'name' ) ), $logo );
 
 	// Determine which wrapping tags to use - changed is_home to is_front_page to fix Genesis bug
 	$wrap = is_front_page() && 'title' === genesis_get_seo_option( 'home_h1_on' ) ? 'h1' : 'p';
