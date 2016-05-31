@@ -2859,11 +2859,11 @@ Miscellaneous
 .social-share .social-media-menu-list-item {
   display: inline-block; }
 .social-share .fa {
-  padding: 1em 1.3em;
+  padding: 1em 0.6em;
   font-size: 2em; }
   @media screen and (max-width: 600px) {
     .social-share .fa {
-      padding: 1em 0.65em; } }
+      padding: 1em 0.5em; } }
 
 /* ---------------------------------- *\
 	# Front Page | front-page.php
@@ -3907,7 +3907,7 @@ a#chart-button {
     color: #aaa !important;
     margin-top: 1em;
     opacity: 0.5;
-    padding: 0.3125rem 0.5rem; }
+    padding: 0.3125rem 0.4rem; }
     #simple-social-icons-2 a:hover {
       opacity: 1; }
 
@@ -3915,7 +3915,7 @@ a#chart-button {
   background-color: transparent !important; }
   @media screen and (max-width: 480px) {
     #simple-social-icons-3 a {
-      padding: 14px; } }
+      padding: 10px; } }
 
 /* ------------------------------------------ *\
         # Gravity Forms #
@@ -3986,8 +3986,7 @@ div.gform_wrapper .gform_footer input[type="submit"] {
       max-width: none; } }
 
   #gform_wrapper_3 .top_label .gfield_label {
-    max-width: 380px;
-    word-break: break-all; }
+    max-width: 380px; }
 
 #gform_widget-2 {
   margin-bottom: 0; }

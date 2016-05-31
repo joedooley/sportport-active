@@ -3,11 +3,11 @@
     "title": "Theme Settings",
     "fields": [
         {
-            "key": "field_56d6caa912d7a",
-            "label": "Free Shipping Notification",
-            "name": "free_shipping_notification",
-            "type": "text",
-            "instructions": "Update the free shipping notification in the before header section here.",
+            "key": "field_574c32f5fd0d8",
+            "label": "Header Notification",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -15,13 +15,62 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "placeholder": "Free shipping and returns!",
-            "prepend": "",
-            "append": "",
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_56d6caa912d7a",
+            "label": "Site Notification",
+            "name": "site_notification",
+            "type": "textarea",
+            "instructions": "You can use this area to notify users about a sitewide sale, to inform them about free shipping, or relay any other message.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Free Shipping and Returns Free Shipping and Returns Free Shipping and Returns",
+            "placeholder": "",
             "maxlength": "",
+            "rows": 2,
+            "new_lines": "wpautop",
             "readonly": 0,
             "disabled": 0
+        },
+        {
+            "key": "field_574c332cfd0d9",
+            "label": "Social Media Channels",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_574c337ffd0db",
+            "label": "Tab Info",
+            "name": "tab_info",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Changing a Social Media URL will change the URL wherever the Social Media icon is present. For example... If you want to change the Facebook page URL on the Products page to something different. The Facebook icons in the footer widgets will be changed too.",
+            "new_lines": "wpautop",
+            "esc_html": 0
         },
         {
             "key": "field_5710dba728d7f",
@@ -118,6 +167,56 @@
             },
             "default_value": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_574c3351fd0da",
+            "label": "You Tube",
+            "name": "you_tube",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_574c73abfd0dc",
+            "label": "Footer Copyright Information",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_574c73dafd0dd",
+            "label": "Footer Copyright",
+            "name": "footer_copyright",
+            "type": "wysiwyg",
+            "instructions": "Anything added here will be output in the site footer with the copyright information.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Copyright \u00a9 2016 ComWear LLC | <a href=\"\">Design by C&D STUDIOS<\/a> | <a href=\"\"?Development by Developing Designs<\/a>",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1
         }
     ],
     "location": [
@@ -137,5 +236,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1461247334
+    "modified": 1464663676
 }

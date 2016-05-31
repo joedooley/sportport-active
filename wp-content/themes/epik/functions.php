@@ -9,26 +9,37 @@
  * @license    GPL-2.0+
  */
 
-//* Child theme (do not remove)
+/**
+ * Bootstrap Genesis
+ */
+require_once( get_template_directory() . '/lib/init.php' );
+
+
+/**
+ * Define Child Theme Constants
+ */
 define( 'CHILD_THEME_NAME', 'Epik Theme' );
 define( 'CHILD_THEME_URL', 'https://www.sportportactive.com/' );
 define( 'CHILD_THEME_VERSION', '1.0.0' );
 define( 'CHILD_THEME_TEXTDOMAIN', 'epik' );
+define( 'CHILD_FUNCTIONS_DIR', CHILD_DIR . '/assets/functions' );
 
-require_once( get_template_directory() . '/lib/init.php' );
-include_once( get_stylesheet_directory() . '/assets/functions/theme-functions.php' );
 
-load_child_theme_textdomain( CHILD_THEME_TEXTDOMAIN, get_stylesheet_directory() . '/languages' );
+/**
+ * Load Internationalization File
+ */
+load_child_theme_textdomain( CHILD_THEME_TEXTDOMAIN, CHILD_DIR . '/languages' );
 
-//require_once( get_stylesheet_directory() . '/assets/functions/customize.php' );
-//include_once( get_stylesheet_directory() . '/assets/functions/output.php' );
+//require_once( CHILD_FUNCTIONS_DIR . '/customize.php' );
+//include_once( CHILD_FUNCTIONS_DIR . '/output.php' );
 
-require_once( get_stylesheet_directory() . '/assets/functions/widgets.php' );
-require_once( get_stylesheet_directory() . '/assets/functions/genesis.php' );
-require_once( get_stylesheet_directory() . '/assets/functions/scripts-and-styles.php' );
-require_once( get_stylesheet_directory() . '/assets/functions/woocommerce.php' );
-require_once( get_stylesheet_directory() . '/assets/functions/layout.php' );
-require_once( get_stylesheet_directory() . '/assets/functions/theme-options-page.php' );
+include_once( CHILD_FUNCTIONS_DIR . '/theme-functions.php' );
+require_once( CHILD_FUNCTIONS_DIR . '/widgets.php' );
+require_once( CHILD_FUNCTIONS_DIR . '/genesis.php' );
+require_once( CHILD_FUNCTIONS_DIR . '/scripts-and-styles.php' );
+require_once( CHILD_FUNCTIONS_DIR . '/woocommerce.php' );
+require_once( CHILD_FUNCTIONS_DIR . '/layout.php' );
+require_once( CHILD_FUNCTIONS_DIR . '/theme-options-page.php' );
 
 
 

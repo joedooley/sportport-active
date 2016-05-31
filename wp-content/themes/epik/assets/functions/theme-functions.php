@@ -28,7 +28,8 @@ function spa_header_inline_logo( $title, $inside, $wrap ) {
 	$logo_mobile = '<img id="mobile-logo" src="' . get_stylesheet_directory_uri() . '/images/mobile-logo@2x.png" alt="' . esc_attr( get_bloginfo( 'name' ) ) .
 	               '" title="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="262" height="23" />';
 
-	$logo = '<img src="' . get_stylesheet_directory_uri() . '/images/logo.png" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" title="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="317" height="91" />';
+	$logo = '<img src="' . get_stylesheet_directory_uri() . '/images/logo@2x.png" alt="' . esc_attr( get_bloginfo( 'name' ) ) .
+	        '" title="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="317" height="91" />';
 
 	$inside = wp_is_mobile() ? sprintf( '<a href="%s" title="%s">%s</a>', trailingslashit( home_url() ), esc_attr( get_bloginfo( 'name' ) ), $logo_mobile ) : sprintf( '<a href="%s" title="%s">%s</a>', trailingslashit( home_url() ), esc_attr( get_bloginfo( 'name' ) ), $logo );
 

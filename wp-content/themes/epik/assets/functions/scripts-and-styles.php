@@ -11,7 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 /**
  * Enqueue global theme scripts and styles. Includes
  * localization script for accessibility mobile navigation.
@@ -21,7 +20,7 @@ function spa_scripts_styles() {
 
 	wp_enqueue_style(
 		'fonts',
-		get_stylesheet_directory_uri() . '/dist/fonts/fonts.css',
+		CHILD_URL . '/dist/fonts/fonts.css',
 		array(),
 		CHILD_THEME_VERSION
 	);
@@ -36,7 +35,7 @@ function spa_scripts_styles() {
 
 	wp_enqueue_script(
 		'spa-all-js',
-		get_stylesheet_directory_uri() . '/dist/js/all.js',
+		CHILD_URL . '/dist/js/all.js',
 		array(),
 		CHILD_THEME_VERSION,
 		true
@@ -44,8 +43,8 @@ function spa_scripts_styles() {
 
 
 	$output = array(
-		'mainMenu' => __( 'Menu', 'epik' ),
-		//'subMenu'  => __( 'Menu', 'epik' ),
+		'mainMenu' => __( 'Menu', CHILD_THEME_TEXTDOMAIN ),
+		//'subMenu'  => __( 'Menu', CHILD_THEME_TEXTDOMAIN' ),
 	);
 
 

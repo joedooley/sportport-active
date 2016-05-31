@@ -20,11 +20,11 @@
 	}
 
 	.fa {
-		@include padding(1em 1.3em);
+		@include padding(1em 0.6em);
 		font-size: 2em;
 
 		@include media($medium-screen-up) {
-			@include padding(1em .65em);
+			@include padding(1em .5em);
 		}
 	}
 
