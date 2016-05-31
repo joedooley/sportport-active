@@ -15,7 +15,7 @@
 		color: #aaa !important;
 		margin-top: 1em;
 		opacity: 0.5;
-		@include padding(rem(5) rem(8));
+		@include padding(rem(5) 0.4rem);
 
 		&:hover {
 			opacity: 1;
@@ -28,6 +28,6 @@
 	background-color: transparent !important;
 
 	@include media($small-screen-up) {
-		@include padding(14px);
+		@include padding(10px);
 	}
 }

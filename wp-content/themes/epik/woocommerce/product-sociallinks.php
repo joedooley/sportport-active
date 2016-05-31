@@ -14,6 +14,8 @@
 						class="social-icons fa fa-rss"></i></a></li>
 			<li class="social-media-menu-list-item"><a class="social-media-menu-item" target="blank" href="<?php the_field( 'twitter', 'option' ); ?>"><i
 						class="social-icons fa fa-twitter"></i></a></li>
+			<li class = "social-media-menu-list-item"><a class = "social-media-menu-item" target = "blank" href = "<?php the_field( 'you_tube', 'option' ); ?>"><i
+						class = "social-icons fa fa-youtube"></i></a></li>
 		</ul>
 	</nav>
 </div>
