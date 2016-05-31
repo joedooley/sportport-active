@@ -82,8 +82,14 @@
 			@include padding(5px 0);
 		}
 
+		@include media($large-screen-up) {
+			@include padding(3.5px 0);
+			font-size: rem(14);
+			margin-top: 0;
+		}
+
 		@include media($small-screen-up) {
-			display: inlin;
+			display: inline;
 		}
 	}
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Customize Background Image Control Class
  *
@@ -7,66 +6,87 @@
  * @subpackage Customize
  * @since 3.4.0
  */
-class Child_Epik_Image_Control extends WP_Customize_Image_Control {
 
-	/**
-	 * Constructor.
-	 *
-	 * If $args['settings'] is not defined, use the $id as the setting ID.
-	 *
-	 * @since 3.4.0
-	 * @uses WP_Customize_Upload_Control::__construct()
-	 *
-	 * @param WP_Customize_Manager $manager
-	 * @param string $id
-	 * @param array $args
-	 */
-	public function __construct( $manager, $id, $args ) {
-		$this->statuses = array( '' => __( 'No Image', 'epik' ) );
-
-		parent::__construct( $manager, $id, $args );
-
-		$this->add_tab( 'upload-new', __( 'Upload New', 'epik' ), array( $this, 'tab_upload_new' ) );
-		$this->add_tab( 'uploaded',   __( 'Uploaded', 'epik' ),   array( $this, 'tab_uploaded' ) );
-		
-		if ( $this->setting->default )
-			$this->add_tab( 'default',  __( 'Default', 'epik' ),  array( $this, 'tab_default_background' ) );
-
-		// Early priority to occur before $this->manager->prepare_controls();
-		add_action( 'customize_controls_init', array( $this, 'prepare_control' ), 5 );
-	}
-
-	/**
-	 * @since 3.4.0
-	 * @uses WP_Customize_Image_Control::print_tab_image()
-	 */
-	public function tab_default_background() {
-		$this->print_tab_image( $this->setting->default );
-	}
-	
+/**
+ * Get default link color for Customizer.
+ *
+ * Abstracted here since at least two functions use it.
+ *
+ * @since 1.0.0
+ *
+ * @return string Hex color code for link color.
+ */
+function atmosphere_customizer_get_default_link_color() {
+	return '#55acee';
 }
+
+/**
+ * Get default accent color for Customizer.
+ *
+ * Abstracted here since at least two functions use it.
+ *
+ * @since 1.0.0
+ *
+ * @return string Hex color code for accent color.
+ */
+
+function atmosphere_customizer_get_default_accent_color() {
+	return '#34313b';
+}
+
+add_action( 'customize_register', 'atmosphere_customizer_register' );
+/**
+ * Register settings and controls with the Customizer.
+ *
+ * @since 1.0.0
+ *
+ * @param WP_Customize_Manager $wp_customize Customizer object.
+ */
+function atmosphere_customizer_register() {
 
 	global $wp_customize;
 
-	$images = apply_filters( 'epik_images', array( '1', '3', '4', '5', '6', '7', '8', '9', '14'  ) );
-	
-	$wp_customize->add_section( 'epik-settings', array(
-		'title'    => __( 'Background Images', 'epik' ),
-		'priority' => 35,
+	$wp_customize->add_section( 'atmosphere-image', array(
+		'title'       => __( 'Front Page Image', 'atmosphere' ),
+		'description' => __( '<p>Use the default image or personalize your site by uploading your own image for the front page 1 widget background.</p><p>The default image is <strong>1600 x 1050 pixels</strong>.</p>', 'atmosphere' ),
+		'priority'    => 75,
 	) );
 
-	foreach( $images as $image ){
+	$wp_customize->add_setting( 'atmosphere-front-image', array(
+		'default'           => sprintf( '%s/images/front-page-1.jpg', get_stylesheet_directory_uri() ),
+		'sanitize_callback' => 'esc_url_raw',
+		'type'              => 'option',
+	) );
 
-		$wp_customize->add_setting( $image .'-image', array(
-			'default'  => sprintf( '%s/images/bg-%s.jpg', get_stylesheet_directory_uri(), $image ),
-			'type'     => 'option',
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'front-background-image', array(
+				'label'    => __( 'Front Image Upload', 'atmosphere' ),
+				'section'  => 'atmosphere-image',
+				'settings' => 'atmosphere-front-image',
+			) ) );
+
+	$wp_customize->add_setting( 'atmosphere_link_color', array(
+			'default'           => atmosphere_customizer_get_default_link_color(),
+			'sanitize_callback' => 'sanitize_hex_color',
 		) );
 
-		$wp_customize->add_control( new Child_Epik_Image_Control( $wp_customize, $image .'-image', array(
-			'label'    => sprintf( __( 'Home Featured Section %s Image:', 'epik' ), $image ),
-			'section'  => 'epik-settings',
-			'settings' => $image .'-image',
-			'priority' => $image+1,
-		) ) );
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'atmosphere_link_color', array(
+				'description' => __( 'Change the default color for linked titles, menu links, post info links and more.', 'atmosphere' ),
+				'label'       => __( 'Link Color', 'atmosphere' ),
+				'section'     => 'colors',
+				'settings'    => 'atmosphere_link_color',
+			) ) );
 
-	}
+	$wp_customize->add_setting( 'atmosphere_accent_color', array(
+			'default'           => atmosphere_customizer_get_default_accent_color(),
+			'sanitize_callback' => 'sanitize_hex_color',
+		) );
+
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'atmosphere_accent_color', array(
+				'description' => __( 'Change the default color for button hover and the footer widget background.', 'atmosphere' ),
+				'label'       => __( 'Accent Color', 'atmosphere' ),
+				'section'     => 'colors',
+				'settings'    => 'atmosphere_accent_color',
+			) ) );
+
+}
+

@@ -50,3 +50,21 @@ add_action( 'genesis_before', function() {
 
 });
 
+
+add_filter( 'genesis_footer_creds_text', 'spa_personalize_footer_creds' );
+/**
+ * Personalize the copyright output in the footer
+ *
+ * @param $output
+ *
+ */
+function spa_personalize_footer_creds( $output ) {
+
+	if ( get_field( 'footer_copyright', 'option' ) ) {
+		$footer_copyright = get_field( 'footer_copyright', 'option' );
+
+		echo '<div class="footer-copyright">' . $footer_copyright . '</div>';
+
+	}
+
+}

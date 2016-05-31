@@ -1,3 +1,14 @@
+/*! # Genesis Child Theme
+Theme Name: Epik
+Theme URI: http://appfinite.com/themes/epik/
+Description: Epik is a mobile responsive and HTML5 theme built for the Genesis Framework.
+Author: Appfinite
+Author URI: http://www.appfinite.com/
+Version: 1.0.0
+Text Domain: epik
+Template: genesis
+Tags: mobile-first, responsive, genesis, bourbon, neat, bitters, refills, gulp, i18n, accessible, woocommerce, acf
+*/
 html {
   box-sizing: border-box; }
 
@@ -2848,11 +2859,11 @@ Miscellaneous
 .social-share .social-media-menu-list-item {
   display: inline-block; }
 .social-share .fa {
-  padding: 1em 1.3em;
+  padding: 1em 0.6em;
   font-size: 2em; }
   @media screen and (max-width: 600px) {
     .social-share .fa {
-      padding: 1em 0.65em; } }
+      padding: 1em 0.5em; } }
 
 /* ---------------------------------- *\
 	# Front Page | front-page.php
@@ -3349,9 +3360,14 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
   @media screen and (max-width: 1023px) {
     .before-header-middle-container .free-shipping-notification {
       padding: 5px 0; } }
+  @media screen and (max-width: 800px) {
+    .before-header-middle-container .free-shipping-notification {
+      padding: 3.5px 0;
+      font-size: 0.875rem;
+      margin-top: 0; } }
   @media screen and (max-width: 480px) {
     .before-header-middle-container .free-shipping-notification {
-      display: inlin; } }
+      display: inline; } }
 
 @media screen and (max-width: 1023px) {
   .before-header-right-container {
@@ -3387,7 +3403,7 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
   width: 100%; }
   @media screen and (max-width: 1023px) {
     .site-header {
-      padding-bottom: 1.875rem; } }
+      min-height: 65px; } }
   .site-header .title-area {
     float: left; }
     @media screen and (min-width: 1180px) {
@@ -3405,6 +3421,9 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
         position: relative;
         top: 30px;
         z-index: 999; }
+      @media screen and (max-width: 1023px) {
+        .site-header .title-area .site-title #mobile-logo {
+          top: 5px; } }
 
 /*! ## WooCommerce Message - After Header
 ----------------------------------------- */
@@ -3684,8 +3703,8 @@ body.woocommerce div.woocommerce-message div.wrap {
   padding: 0.625rem 0; }
   .site-footer a {
     color: white; }
-  .site-footer img {
-    margin: 0 0 -0.3125rem 0.3125rem; }
+  .site-footer p {
+    margin: 0; }
 
 /**
  * ./assets/js/custom/vanilla-modal.js
@@ -3888,7 +3907,7 @@ a#chart-button {
     color: #aaa !important;
     margin-top: 1em;
     opacity: 0.5;
-    padding: 0.3125rem 0.5rem; }
+    padding: 0.3125rem 0.4rem; }
     #simple-social-icons-2 a:hover {
       opacity: 1; }
 
@@ -3896,7 +3915,7 @@ a#chart-button {
   background-color: transparent !important; }
   @media screen and (max-width: 480px) {
     #simple-social-icons-3 a {
-      padding: 14px; } }
+      padding: 10px; } }
 
 /* ------------------------------------------ *\
         # Gravity Forms #
@@ -3967,8 +3986,7 @@ div.gform_wrapper .gform_footer input[type="submit"] {
       max-width: none; } }
 
   #gform_wrapper_3 .top_label .gfield_label {
-    max-width: 380px;
-    word-break: break-all; }
+    max-width: 380px; }
 
 #gform_widget-2 {
   margin-bottom: 0; }
