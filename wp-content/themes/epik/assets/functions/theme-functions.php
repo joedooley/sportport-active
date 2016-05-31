@@ -46,27 +46,6 @@ function spa_header_inline_logo( $title, $inside, $wrap ) {
 
 }
 
-//add_filter( 'genesis_footer_creds_text', 'spa_personalize_footer_creds' );
-///**
-// * Personalize the copyright output in the footer
-// *
-// * @param $output
-// *
-// */
-//function spa_personalize_footer_creds( $output ) {
-//
-//	echo '<div class="creds">
-//		    <p><span>Copyright &copy;' . date( 'Y' ) . '</span>
-//		        <a href="/" title="spa Places Mystical Tours of Ireland">- spa Places Tour</a>
-//		         - All Rights Reserved<br>Designed and Developed by
-//		        <a href="https://www.developingdesigns.com/" title="Developing Designs is a marketing
-//		        agency specializing in custom WordPress Development, Digital Advertising and SEO"
-//		        target="blank">Developing Designs</a>
-//		    </p>
-//		 </div>';
-//
-//}
-
 
 /**
  * Set it and Forget it! Fix Gravity Form Tabindex Conflicts.

@@ -3703,8 +3703,8 @@ body.woocommerce div.woocommerce-message div.wrap {
   padding: 0.625rem 0; }
   .site-footer a {
     color: white; }
-  .site-footer img {
-    margin: 0 0 -0.3125rem 0.3125rem; }
+  .site-footer p {
+    margin: 0; }
 
 /**
  * ./assets/js/custom/vanilla-modal.js

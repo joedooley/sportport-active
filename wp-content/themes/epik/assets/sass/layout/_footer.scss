@@ -13,8 +13,8 @@
 		color: $white;
 	}
 
-	img {
-		margin: 0 0 rem(-5) rem(5);
+	p {
+		@include margin(0);
 	}
 
 }
