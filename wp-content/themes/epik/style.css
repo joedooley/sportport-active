@@ -991,15 +991,6 @@ img.small-fabrics-icon {
   font-family: SnasmLt-Italic, 'Helvetica Neue', Helvetica, Arial, sans-serif; }
 
 /* .PRIMARY-SIDEBAR CUSTOMIZATION START [x29] -------------------------------------------- */
-.sidebar .widget-wrap {
-  margin: 6px 0 0 0;
-  padding: 0 0 8px 0; }
-
-.sidebar .widget {
-  margin: 0;
-  overflow: hidden;
-  padding: 0; }
-
 .sidebar .more-from-category {
   font-size: 12px;
   font-family: ralewaysemibold, sans-serif;
@@ -1023,120 +1014,8 @@ img.small-fabrics-icon {
 
 .sidebar-primary img {
   float: left;
-  /*width: 90px;*/
   height: 52px;
   margin: 1px 10px 4px 0; }
-
-/*! .HOME CUSTOMIZATION START [x21] -------------------------------------------- */
-.home-show-1-wrap, .home-show-2-wrap, .home-show-3-wrap {
-  padding: 5px 0 2px 0;
-  border-left: 1px solid #777;
-  border-right: 1px solid #555;
-  border-bottom: 1px solid #000; }
-
-.home-show-head-1, .home-show-head-1 a,
-.home-show-head-2, .home-show-head-2 a,
-.home-show-head-3, .home-show-head-3 a {
-  font-family: ralewaylight, sans-serif;
-  font-size: 20px;
-  font-weight: 100;
-  letter-spacing: .06em;
-  margin: 6px 0 0 0;
-  padding: 0;
-  text-align: center !important;
-  text-decoration: none !important; }
-
-.home-show-head-1, .home-show-head-1 a {
-  color: #F33 !important; }
-
-.home-show-head-2, .home-show-head-2 a {
-  color: #7DF !important; }
-
-.home-show-head-3, .home-show-head-3 a {
-  color: #F93 !important; }
-
-.home-show-head-1 a:hover,
-.home-show-head-2 a:hover,
-.home-show-head-3 a:hover {
-  font-family: ralewaymedium, sans-serif;
-  letter-spacing: .08em;
-  color: #FFF !important; }
-
-#home-show-function-1,
-#home-show-function-2,
-#home-show-function-3 {
-  padding: 18px 0 11px 0;
-  font-size: 13px; }
-
-#home-show-function-1 {
-  background: #F44; }
-
-#home-show-function-2 {
-  background: #27A; }
-
-#home-show-function-3 {
-  background: #F93; }
-
-.go-tag {
-  font-family: ralewaysemibold, sans-serif; }
-
-.go-button {
-  font-family: ralewayblack, sans-serif;
-  font-size: 24px;
-  border-radius: 35px;
-  width: 55px;
-  height: 55px;
-  margin: 0 auto 5px;
-  padding: 9px 0; }
-
-.go-button-wrap {
-  margin: 10px 0 18px 0; }
-
-.go-button-small {
-  display: inline-block;
-  font-family: ralewayblack, sans-serif;
-  font-size: 18px;
-  border-radius: 25px;
-  width: 35px;
-  height: 35px;
-  margin: 0 auto 5px;
-  padding: 4px 0 0 4px;
-  margin: 0 0 0 6px;
-  background: rgba(0, 0, 0, 0.1); }
-
-.go-button-wrap .go-button-small a {
-  color: rgba(255, 255, 255, 0.6); }
-
-.go-button-wrap .go-button-small a:hover {
-  color: #FFF;
-  text-decoration: none; }
-
-#home-show-function-1 .go-button,
-#home-show-function-1 .go-button a {
-  background: #E52121;
-  color: #F33; }
-
-#home-show-function-2 .go-button,
-#home-show-function-2 .go-button a {
-  background: #168;
-  color: #27A; }
-
-#home-show-function-3 .go-button,
-#home-show-function-3 .go-button a {
-  background: #E82;
-  color: #F93; }
-
-#home-show-function-1 .go-button:hover,
-#home-show-function-1 .go-button:hover a,
-#home-show-function-2 .go-button:hover,
-#home-show-function-2 .go-button:hover a,
-#home-show-function-3 .go-button:hover,
-#home-show-function-3 .go-button:hover a {
-  color: #FFF;
-  font-size: 28px;
-  border-radius: 40px;
-  padding: 7px 0;
-  text-decoration: none; }
 
 /*! ADD SHADOWS TO PRODUCTS on CATEGORY and SHOP PAGES [x34] ---------------------------------------- */
 .woocommerce ul.products li.product a img {
@@ -1668,21 +1547,6 @@ body.category-testimonials .sidebar .entry-content {
   padding: 0;
   margin: 0; }
 
-/*! --------- BACK TO TOP -------- */
-.wpsstt_btn {
-  width: 42px !important;
-  height: 42px !important;
-  background-color: #F93 !important;
-  border: none !important;
-  -webkit-box-shadow: 0px 9px 10px -3px rgba(0, 0, 0, 0.29) !important;
-  -moz-box-shadow: 0px 9px 10px -3px rgba(0, 0, 0, 0.29) !important;
-  box-shadow: 0px 9px 10px -3px rgba(0, 0, 0, 0.29) !important;
-  padding-top: 2px;
-  margin: 15px; }
-
-.wpsstt_roundedcorners {
-  border-radius: 25px !important; }
-
 /*! MY CUSTOM CODE END ======================================================= */
 /*!
 Defaults
@@ -1902,94 +1766,6 @@ img {
   padding: 10px 14px;
   text-align: center;
   text-decoration: none; }
-
-/*!
-20 Pricing Plans
----------------------------------------------------------------------------------------------------- */
-.plans {
-  clear: both;
-  margin: 0 auto;
-  padding: 20px 0 0;
-  text-align: center; }
-
-.plan-col {
-  background: #eee;
-  float: left;
-  font-weight: 300;
-  padding: 0;
-  text-align: center;
-  vertical-align: top; }
-
-.plan-col-popular {
-  background: #fff;
-  float: left;
-  font-weight: 300;
-  padding: 0;
-  position: relative;
-  text-align: center;
-  vertical-align: top; }
-
-.plan-col,
-.plan-col-popular {
-  width: 25%; }
-
-.plan-col-wrap,
-.plan-col-popular-wrap {
-  border: 1px solid #d3d3d3;
-  margin: 0 auto;
-  padding: 40px 10px; }
-
-.plans .plan-head h4 {
-  font-size: 20px;
-  font-weight: 300;
-  margin: 0 0 20px;
-  text-transform: uppercase;
-  text-align: center; }
-
-.plan-head em {
-  font-size: 14px; }
-
-.plan-pricing {
-  background: url(images/border-img-x.png) repeat-x scroll center bottom;
-  clear: both;
-  margin: 0 0 20px;
-  padding: 0 0 20px;
-  text-align: center; }
-
-.plan-price {
-  font-size: 60px; }
-
-.plan-price sup {
-  font-size: 24px; }
-
-.plan-pricing .monthly {
-  font-size: 14px; }
-
-.plan-list {
-  margin: 0 0 20px;
-  overflow: hidden; }
-
-.plan-list li,
-.entry-content .plan-list li {
-  list-style: none;
-  margin: 0 0 20px; }
-
-.plan-button {
-  clear: both; }
-
-.plan-button a,
-.entry-content .plan-button a {
-  border-radius: 3px;
-  background: #303236;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 400;
-  padding: 6px 25px 8px; }
-
-.plan-button a:hover {
-  opacity: .7;
-  transition: all .5s ease;
-  text-decoration: underline; }
 
 /*! Column Classes
 	Link: http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css
@@ -2638,7 +2414,7 @@ Miscellaneous
 
   .menu-toggle {
     padding-bottom: 0;
-    padding-top: 10px;
+    padding-top: 0;
     position: relative;
     right: 0;
     width: 100%;
@@ -3363,7 +3139,7 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
   @media screen and (max-width: 800px) {
     .before-header-middle-container .free-shipping-notification {
       padding: 3.5px 0;
-      font-size: 0.875rem;
+      font-size: 0.875em;
       margin-top: 0; } }
   @media screen and (max-width: 480px) {
     .before-header-middle-container .free-shipping-notification {
@@ -3403,7 +3179,7 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
   width: 100%; }
   @media screen and (max-width: 1023px) {
     .site-header {
-      min-height: 65px; } }
+      min-height: 75px; } }
   .site-header .title-area {
     float: left; }
     @media screen and (min-width: 1180px) {
@@ -3411,6 +3187,7 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
         width: 300px; } }
     @media screen and (max-width: 1023px) {
       .site-header .title-area {
+        margin-bottom: 0.5rem;
         width: 100%; } }
     .site-header .title-area .site-title {
       margin: 0; }
@@ -3539,39 +3316,22 @@ body.woocommerce div.woocommerce-message div.wrap {
 ---------------------------------------------------------------------------------------------------- */
 .sidebar {
   color: #666;
-  font-size: 13px; }
+  font-size: 13px;
+  margin-top: 4.75em; }
+  @media screen and (max-width: 1023px) {
+    .sidebar {
+      margin-top: 0; } }
+  .sidebar p:last-child,
+  .sidebar ul {
+    margin: 0; }
+  .sidebar > div {
+    margin: 1em 0; }
+  .sidebar .search-form {
+    width: 100%; }
 
 .sidebar p:last-child,
 .sidebar ul {
   margin: 0; }
-
-.sidebar li {
-  list-style-type: none;
-  margin-bottom: 6px;
-  padding: 0;
-  word-wrap: break-word; }
-
-.sidebar ul > li:last-child {
-  margin-bottom: 0; }
-
-.sidebar .search-form {
-  width: 100%; }
-
-.sidebar .enews-widget {
-  background: rgba(255, 255, 255, 0.45);
-  color: #666;
-  padding: 16px 14px 12px 18px;
-  margin-bottom: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15); }
-
-.sidebar .enews-widget p {
-  margin: 0 0 10px 0; }
-
-.sidebar .enews-widget p strong {
-  font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: normal;
-  text-transform: uppercase;
-  color: #27a; }
 
 /* ------------------------------- *\
         # Above Footer Widgets #
@@ -4009,6 +3769,28 @@ div.gform_wrapper .gform_footer input[type="submit"] {
       box-shadow: none;
       width: 100%;
       padding: inherit; }
+
+#gform_wrapper_5, #gform_confirmation_wrapper_5 {
+  background: #ffffff4a;
+  border: 1px solid #00000026;
+  max-width: 100%;
+  padding: 1em; }
+  #gform_wrapper_5 li, #gform_confirmation_wrapper_5 li {
+    max-width: 100%; }
+    #gform_wrapper_5 li label, #gform_confirmation_wrapper_5 li label {
+      display: none; }
+    #gform_wrapper_5 li input, #gform_confirmation_wrapper_5 li input {
+      padding: 0.75rem;
+      width: 100%; }
+  #gform_wrapper_5 .gform_footer, #gform_confirmation_wrapper_5 .gform_footer {
+    margin: 0;
+    padding: 0; }
+    #gform_wrapper_5 .gform_footer input, #gform_confirmation_wrapper_5 .gform_footer input {
+      padding: 1rem;
+      width: 100%; }
+
+#gform_confirmation_wrapper_5 {
+  margin: 1em 0; }
 
 /*! Genesis eNews Extended [X42] [NOTE: CSS Already Included]
 --------------------------------------------- */

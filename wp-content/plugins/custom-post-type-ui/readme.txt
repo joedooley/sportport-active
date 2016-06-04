@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: custom post types, CPT, CMS, post, types, post type, cck, taxonomy, tax, custom
 Requires at least: 4.2
 Tested up to: 4.5
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 License: GPLv2
 
 Admin UI for creating custom post types and custom taxonomies in WordPress
@@ -16,6 +16,8 @@ This plugin provides an easy to use interface for creating and administrating cu
 Please note that Custom Post Type UI alone will not display post types or taxonomies data in customized places within your site; it simply registers them for you to use. Check out [Custom Post Type UI Extended](https://pluginize.com/product/custom-post-type-ui-extended/?utm_source=cptui-desription&utm_medium=text&utm_campaign=wporg) for an easy way to display post type content from any registered types on your site, including those created with Custom Post Type UI and more.
 
 All official development on this plugin is on GitHub. New releases are still published here on WordPress.org. The version shown here should be considered the latest stable release. You can find the repo at [https://github.com/WebDevStudios/custom-post-type-ui](https://github.com/WebDevStudios/custom-post-type-ui). Please file confirmed issues, bugs, and enhancement ideas there, when possible.
+
+[Pluginize](https://pluginize.com/?utm_source=cptui&utm_medium=text&utm_campaign=wporg) was launched in 2016 by [WebDevStudios](https://webdevstudios.com/) to promote, support, and house all of their [WordPress products](https://pluginize.com/shop/?utm_source=cptui-&utm_medium=text&utm_campaign=wporg). Pluginize is not only [creating new products for WordPress all the time, like CPTUI Extended](https://pluginize.com/product/custom-post-type-ui-extended/?utm_source=cptui&utm_medium=text&utm_campaign=wporg), but also provides ongoing support and development for WordPress community favorites like [CMB2](https://wordpress.org/plugins/cmb2/) and more.
 
 == Screenshots ==
 
@@ -32,6 +34,9 @@ All official development on this plugin is on GitHub. New releases are still pub
 11. About/Update Information/Donate screen.
 
 == Changelog ==
+
+= 1.3.5 - 2016-6-3 =
+* Removed undefined index error for publicly_queryable in "Get Code" area. That parameter is targeted for 1.4.0 release.
 
 = 1.3.4 - 2016-5-4 =
 * Fixed: moved WDS-based services "ads" to within the plugin itself. Will not request remote resources.
@@ -214,6 +219,9 @@ All official development on this plugin is on GitHub. New releases are still pub
 * Bug fixes not mentioned above.
 
 == Upgrade Notice ==
+
+= 1.3.5 - 2016-6-3 =
+* Removed undefined index error for publicly_queryable in "Get Code" area. That parameter is targeted for 1.4.0 release.
 
 = 1.3.4 - 2016-5-4 =
 * Fixed: moved WDS-based services "ads" to within the plugin itself. Will not request remote resources.
@@ -417,11 +425,9 @@ That's it! Now you can easily start creating custom post types and taxonomies in
 
 == Frequently Asked Questions ==
 
-Please see the Help/Support section for FAQs and start a new thread on the support forums for Custom Post Type UI if none of those answer your question.
+User documentation: http://docs.pluginize.com/collection/1-custom-post-type-ui
+Code/API documentation: http://codex.pluginize.com/cptui/
 
 == Other Notes ==
 
 Import/Export functionality amended from original contribution by [Ben Allfree](http://wordpress.org/support/profile/benallfree).
-
-= Outside contributors that we wish to thank =
-[brandondove](https://github.com/brandondove)
