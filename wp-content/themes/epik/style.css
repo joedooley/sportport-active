@@ -2414,7 +2414,7 @@ Miscellaneous
 
   .menu-toggle {
     padding-bottom: 0;
-    padding-top: 10px;
+    padding-top: 0;
     position: relative;
     right: 0;
     width: 100%;
@@ -3139,7 +3139,7 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
   @media screen and (max-width: 800px) {
     .before-header-middle-container .free-shipping-notification {
       padding: 3.5px 0;
-      font-size: 0.875rem;
+      font-size: 0.875em;
       margin-top: 0; } }
   @media screen and (max-width: 480px) {
     .before-header-middle-container .free-shipping-notification {
@@ -3179,7 +3179,7 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
   width: 100%; }
   @media screen and (max-width: 1023px) {
     .site-header {
-      min-height: 65px; } }
+      min-height: 75px; } }
   .site-header .title-area {
     float: left; }
     @media screen and (min-width: 1180px) {
@@ -3187,6 +3187,7 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
         width: 300px; } }
     @media screen and (max-width: 1023px) {
       .site-header .title-area {
+        margin-bottom: 0.5rem;
         width: 100%; } }
     .site-header .title-area .site-title {
       margin: 0; }
