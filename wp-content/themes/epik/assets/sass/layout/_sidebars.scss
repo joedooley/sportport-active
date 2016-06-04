@@ -4,6 +4,24 @@
 .sidebar {
 	color: #666;
 	font-size: 13px;
+	margin-top: 4.75em;
+
+	@include media($xlarge-screen-up) {
+		margin-top: 0;
+	}
+
+	p:last-child,
+	ul {
+		@include margin(0);
+	}
+
+	> div {
+		@include margin(1em 0);
+	}
+
+	.search-form {
+		width: 100%;
+	}
 }
 
 .sidebar p:last-child,
@@ -11,36 +29,9 @@
 	margin: 0;
 }
 
-.sidebar li {
-	list-style-type: none;
-	margin-bottom: 6px;
-	padding: 0;
-	word-wrap: break-word;
-}
 
-.sidebar ul > li:last-child {
-	margin-bottom: 0;
-}
 
-.sidebar .search-form {
-	width: 100%;
-}
 
-.sidebar .enews-widget {
-	background: rgba(255, 255, 255, 0.45);;
-	color: #666;
-	padding: 16px 14px 12px 18px;
-	margin-bottom: 20px;
-	border: 1px solid rgba(0, 0, 0, 0.15);
-}
 
-.sidebar .enews-widget p {
-	margin: 0 0 10px 0;
-}
 
-.sidebar .enews-widget p strong {
-	font-family: ralewaybold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-weight: normal;
-	text-transform: uppercase;
-	color: #27a;
-}
+
