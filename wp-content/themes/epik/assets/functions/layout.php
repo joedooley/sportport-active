@@ -68,3 +68,28 @@ function spa_personalize_footer_creds( $output ) {
 	}
 
 }
+
+/**
+ * Add after post Call To Action section on all post types except for
+ * Pages and any WooCoomerce page or product page.
+ *
+ * @return void
+ */
+add_action('genesis_after_entry', function () {
+	if ( is_single() ) {
+
+		$cta_headline = get_field( 'cta_headline' );
+		$cta          = get_field( 'call_to_action' );
+
+		echo '<section class = "after-post-cta"><div class = "wrap">';
+
+		if ( $cta_headline ) {
+			echo '<h2 class="cta-headline">' . $cta_headline . '</h2>';
+		}
+		if ( $cta ) {
+			echo $cta;
+		}
+
+		echo '</div></section>';
+	}
+}, 5);
