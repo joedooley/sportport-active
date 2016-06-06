@@ -2561,6 +2561,13 @@ Miscellaneous
     overflow: hidden;
     transition: 0.5s height; }
 
+.after-post-cta {
+  background: #ffffff80;
+  margin-top: 5%;
+  text-align: center; }
+  .after-post-cta .cta-headline {
+    padding: 1.5rem 0 1rem; }
+
 /*! ## Avatar
 --------------------------------- */
 .avatar {
