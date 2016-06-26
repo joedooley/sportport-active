@@ -191,11 +191,15 @@ function genesis_cpt_option( $key, $post_type_name, $use_cache = true ) {
  *
  * @param string $field          Custom field key.
  * @param string $output_pattern printf() compatible output pattern.
+ * @param int    $post_id Optional. Post ID to use for Post Meta lookup, defaults to get_the_ID()
  */
-function genesis_custom_field( $field, $output_pattern = '%s' ) {
+function genesis_custom_field( $field, $output_pattern = '%s', $post_id = null ) {
 
-	if ( $value = genesis_get_custom_field( $field ) )
+	if ( $value = genesis_get_custom_field( $field, $post_id ) ) {
+
 		printf( $output_pattern, $value );
+
+	}
 
 }
 

@@ -211,6 +211,66 @@ function genesis_footer_wordpress_link_shortcode( $atts ) {
 
 }
 
+add_shortcode( 'footer_site_title', 'genesis_footer_site_title_shortcode' );
+/**
+ * Produces the site title.
+ *
+ * Supported shortcode attributes are:
+ *   after (output after link, default is empty string),
+ *   before (output before link, default is empty string).
+ *
+ * Output passes through 'genesis_footer_site_title_shortcode' filter before returning.
+ *
+ * @since 2.2.0
+ *
+ * @param array|string $atts Shortcode attributes. Empty string if no attributes.
+ * @return string Shortcode output
+ */
+function genesis_footer_site_title_shortcode( $atts ) {
+
+	$defaults = array(
+		'after'  => '',
+		'before' => '',
+	);
+	$atts = shortcode_atts( $defaults, $atts, 'footer_site_title' );
+
+	$output = $atts['before'] . get_bloginfo( 'name' ) . $atts['after'];
+
+	return apply_filters( 'genesis_footer_site_title_shortcode', $output, $atts );
+
+}
+
+add_shortcode( 'footer_home_link', 'genesis_footer_home_link_shortcode' );
+/**
+ * Produces a link to the home URL.
+ *
+ * Supported shortcode attributes are:
+ *   after (output after link, default is empty string),
+ *   before (output before link, default is empty string),
+ *   text (link text, default is site title).
+ *
+ * Output passes through 'genesis_footer_home_link_shortcode' filter before returning.
+ *
+ * @since 2.2.0
+ *
+ * @param array|string $atts Shortcode attributes. Empty string if no attributes.
+ * @return string Shortcode output
+ */
+function genesis_footer_home_link_shortcode( $atts ) {
+
+	$defaults = array(
+		'after'  => '',
+		'before' => '',
+		'text'   => get_bloginfo( 'name' ),
+	);
+	$atts = shortcode_atts( $defaults, $atts, 'footer_home_link' );
+
+	$output = sprintf( '%s<a href="%s">%s</a>%s', $atts['before'], home_url(), $atts['text'], $atts['after'] );
+
+	return apply_filters( 'genesis_footer_home_link_shortcode', $output, $atts );
+
+}
+
 add_shortcode( 'footer_loginout', 'genesis_footer_loginout_shortcode' );
 /**
  * Adds admin login / logout link.

@@ -31,15 +31,21 @@ add_shortcode( 'post_date', 'genesis_post_date_shortcode' );
 function genesis_post_date_shortcode( $atts ) {
 
 	$defaults = array(
-		'after'  => '',
-		'before' => '',
-		'format' => get_option( 'date_format' ),
-		'label'  => '',
+		'after'          => '',
+		'before'         => '',
+		'format'         => get_option( 'date_format' ),
+		'label'          => '',
+		'relative_depth' => 2,
 	);
 
 	$atts = shortcode_atts( $defaults, $atts, 'post_date' );
 
-	$display = ( 'relative' === $atts['format'] ) ? genesis_human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . ' ' . __( 'ago', 'genesis' ) : get_the_time( $atts['format'] );
+	if ( 'relative' === $atts['format'] ) {
+		$display = genesis_human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ), $atts['relative_depth'] );
+		$display .= ' ' . __( 'ago', 'genesis' );
+	} else {
+		$display = get_the_time( $atts['format'] );
+	}
 
 	if ( genesis_html5() )
 		$output = sprintf( '<time %s>', genesis_attr( 'entry-time' ) ) . $atts['before'] . $atts['label'] . $display . $atts['after'] . '</time>';
@@ -107,15 +113,21 @@ add_shortcode( 'post_modified_date', 'genesis_post_modified_date_shortcode' );
 function genesis_post_modified_date_shortcode( $atts ) {
 
 	$defaults = array(
-		'after'  => '',
-		'before' => '',
-		'format' => get_option( 'date_format' ),
-		'label'  => '',
+		'after'          => '',
+		'before'         => '',
+		'format'         => get_option( 'date_format' ),
+		'label'          => '',
+		'relative_depth' => 2,
 	);
 
 	$atts = shortcode_atts( $defaults, $atts, 'post_modified_date' );
 
-	$display = ( 'relative' === $atts['format'] ) ? genesis_human_time_diff( get_the_modified_time( 'U' ), current_time( 'timestamp' ) ) . ' ' . __( 'ago', 'genesis' ) : get_the_modified_time( $atts['format'] );
+	if ( 'relative' === $atts['format'] ) {
+		$display = genesis_human_time_diff( get_the_modified_time( 'U' ), current_time( 'timestamp' ), $atts['relative_depth'] );
+		$display .= ' ' . __( 'ago', 'genesis' );
+	} else {
+		$display = get_the_modified_time( $atts['format'] );
+	}
 
 	if ( genesis_html5() ) {
 		$output = sprintf( '<time %s>', genesis_attr( 'entry-modified-time' ) ) . $atts['before'] . $atts['label'] . $display . $atts['after'] . '</time>';
@@ -212,6 +224,10 @@ add_shortcode( 'post_author', 'genesis_post_author_shortcode' );
  */
 function genesis_post_author_shortcode( $atts ) {
 
+	if ( ! post_type_supports( get_post_type(), 'author' ) ) {
+		return '';
+	}
+
 	$defaults = array(
 		'after'  => '',
 		'before' => '',
@@ -221,6 +237,10 @@ function genesis_post_author_shortcode( $atts ) {
 
 	$author = get_the_author();
 
+	if ( ! $author ) {
+		return '';
+	}
+
 	if ( genesis_html5() ) {
 		$output  = sprintf( '<span %s>', genesis_attr( 'entry-author' ) );
 		$output .= $atts['before'];
@@ -229,6 +249,10 @@ function genesis_post_author_shortcode( $atts ) {
 		$output .= '</span>';
 	} else {
 		$output = sprintf( '<span class="author vcard">%2$s<span class="fn">%1$s</span>%3$s</span>', esc_html( $author ), $atts['before'], $atts['after'] );
+	}
+
+	if ( ! $author ) {
+		$output = '';
 	}
 
 	return apply_filters( 'genesis_post_author_shortcode', $output, $atts );
@@ -252,6 +276,10 @@ add_shortcode( 'post_author_link', 'genesis_post_author_link_shortcode' );
  */
 function genesis_post_author_link_shortcode( $atts ) {
 
+	if ( ! post_type_supports( get_post_type(), 'author' ) ) {
+		return '';
+	}
+
 	$defaults = array(
 		'after'    => '',
 		'before'   => '',
@@ -266,6 +294,10 @@ function genesis_post_author_link_shortcode( $atts ) {
 		return genesis_post_author_shortcode( $atts );
 
 	$author = get_the_author();
+
+	if ( ! $author ) {
+		return '';
+	}
 
 	if ( genesis_html5() ) {
 		$output  = sprintf( '<span %s>', genesis_attr( 'entry-author' ) );
@@ -300,6 +332,10 @@ add_shortcode( 'post_author_posts_link', 'genesis_post_author_posts_link_shortco
  */
 function genesis_post_author_posts_link_shortcode( $atts ) {
 
+	if ( ! post_type_supports( get_post_type(), 'author' ) ) {
+		return '';
+	}
+
 	$defaults = array(
 		'after'  => '',
 		'before' => '',
@@ -308,7 +344,12 @@ function genesis_post_author_posts_link_shortcode( $atts ) {
 	$atts = shortcode_atts( $defaults, $atts, 'post_author_posts_link' );
 
 	$author = get_the_author();
-	$url    = get_author_posts_url( get_the_author_meta( 'ID' ) );
+
+	if ( ! $author ) {
+		return '';
+	}
+
+	$url = get_author_posts_url( get_the_author_meta( 'ID' ) );
 
 	if ( genesis_html5() ) {
 		$output  = sprintf( '<span %s>', genesis_attr( 'entry-author' ) );
@@ -320,6 +361,10 @@ function genesis_post_author_posts_link_shortcode( $atts ) {
 	} else {
 		$link   = sprintf( '<a href="%s" rel="author">%s</a>', esc_url( $url ), esc_html( $author ) );
 		$output = sprintf( '<span class="author vcard">%2$s<span class="fn">%1$s</span>%3$s</span>', $link, $atts['before'], $atts['after'] );
+	}
+
+	if ( ! $author ) {
+		$output = '';
 	}
 
 	return apply_filters( 'genesis_post_author_posts_link_shortcode', $output, $atts );
@@ -347,6 +392,10 @@ add_shortcode( 'post_comments', 'genesis_post_comments_shortcode' );
  * @return string Shortcode output
  */
 function genesis_post_comments_shortcode( $atts ) {
+
+	if ( ! post_type_supports( get_post_type(), 'comments' ) ) {
+		return '';
+	}
 
 	$defaults = array(
 		'after'       => '',

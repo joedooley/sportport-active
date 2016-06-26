@@ -243,8 +243,9 @@ add_action( 'admin_menu', 'genesis_add_inpost_layout_box' );
  */
 function genesis_add_inpost_layout_box() {
 
-	if ( ! current_theme_supports( 'genesis-inpost-layouts' ) )
+	if ( ! current_theme_supports( 'genesis-inpost-layouts' ) ) {
 		return;
+	}
 
 	foreach ( (array) get_post_types( array( 'public' => true ) ) as $type ) {
 		if ( post_type_supports( $type, 'genesis-layouts' ) )
@@ -271,6 +272,7 @@ function genesis_inpost_layout_box() {
 	<table class="form-table">
 	<tbody>
 
+	<?php if ( genesis_has_multiple_layouts() ) : ?>
 		<tr valign="top">
 			<th scope="row"><?php _e( 'Select Layout', 'genesis' ); ?></th>
 			<td>
@@ -283,6 +285,7 @@ function genesis_inpost_layout_box() {
 				</fieldset>
 			</td>
 		</tr>
+	<?php endif; ?>
 
 		<tr valign="top">
 			<th scope="row"><label for="genesis_custom_body_class"><?php _e( 'Custom Body Class', 'genesis' ); ?></label></th>

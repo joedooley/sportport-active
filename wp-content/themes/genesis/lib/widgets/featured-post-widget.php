@@ -443,12 +443,10 @@ class Genesis_Featured_Post extends WP_Widget {
 				<p>
 					<label for="<?php echo esc_attr( $this->get_field_id( 'image_size' ) ); ?>"><?php _e( 'Image Size', 'genesis' ); ?>:</label>
 					<select id="<?php echo esc_attr( $this->get_field_id( 'image_size' ) ); ?>" class="genesis-image-size-selector" name="<?php echo esc_attr( $this->get_field_name( 'image_size' ) ); ?>">
-						<option value="thumbnail">thumbnail (<?php echo esc_html( get_option( 'thumbnail_size_w' ) ); ?>x<?php echo esc_html( get_option( 'thumbnail_size_h' ) ); ?>)</option>
 						<?php
-						$sizes = genesis_get_additional_image_sizes();
+						$sizes = genesis_get_image_sizes();
 						foreach( (array) $sizes as $name => $size )
-							#echo '<option value="' . esc_attr( $name ) . '" '. selected( $name, $instance['image_size'], FALSE ) . '>' . esc_html( $name ) . ' ( ' . esc_html( $size['width'] ) . 'x' . esc_html( $size['height'] ) . ' )</option>';
-							printf( '<option value="%s" %s>%s (%sx%s)</option>', esc_attr( $name ), selected( $name, $instance['image_size'], 0 ), esc_html( $name ), esc_html( $size['width'] ), esc_html( $size['height'] ) );
+							printf( '<option value="%s" %s>%s (%sx%s)</option>', esc_attr( $name ), selected( $name, $instance['image_size'], false ), esc_html( $name ), esc_html( $size['width'] ), esc_html( $size['height'] ) );
 						?>
 					</select>
 				</p>

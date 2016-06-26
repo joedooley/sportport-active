@@ -134,19 +134,19 @@ function genesis_update_check() {
 }
 
 /**
- * Upgrade the database to version 2210.
+ * Upgrade the database to version 2300.
  *
- * @since 2.2.7
+ * @since 2.3.0
  *
  * @uses genesis_update_settings()  Merges new settings with old settings and pushes them into the database.
  * @uses genesis_get_option()       Get theme setting value.
  */
-function genesis_upgrade_2210() {
+function genesis_upgrade_2301() {
 
 	//* Update Settings
 	genesis_update_settings( array(
-		'theme_version'        => '2.2.7',
-		'db_version'           => '2210',
+		'theme_version'        => '2.3.0',
+		'db_version'           => '2301',
 	) );
 
 }
@@ -592,11 +592,11 @@ function genesis_upgrade() {
 		genesis_upgrade_2209();
 
 	###########################
-	# UPDATE DB TO VERSION 2210
+	# UPDATE DB TO VERSION 2301
 	###########################
 
-	if ( genesis_get_option( 'db_version', null, false ) < '2210' )
-		genesis_upgrade_2210();
+	if ( genesis_get_option( 'db_version', null, false ) < '2301' )
+		genesis_upgrade_2301();
 
 	do_action( 'genesis_upgrade' );
 
@@ -653,11 +653,11 @@ add_action( 'genesis_upgrade', 'genesis_upgrade_redirect' );
  */
 function genesis_upgrade_redirect() {
 
-	if ( ! is_admin() || ! current_user_can( 'edit_theme_options' ) )
+	if ( ! is_admin() || ! current_user_can( 'edit_theme_options' ) || is_customize_preview() )
 		return;
 
-	genesis_admin_redirect( 'genesis', array( 'upgraded' => 'true' ) );
-	#genesis_admin_redirect( 'genesis-upgraded' );
+	#genesis_admin_redirect( 'genesis', array( 'upgraded' => 'true' ) );
+	genesis_admin_redirect( 'genesis-upgraded' );
 	exit;
 
 }

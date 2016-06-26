@@ -620,6 +620,27 @@ function genesis_attributes_entry_image( $attributes ) {
 
 }
 
+add_filter( 'genesis_attr_entry-image-link', 'genesis_attributes_entry_image_link' );
+/**
+ * Add attributes for entry image link element
+ *
+ * @since 2.3.0
+ *
+ * @param array $attributes Existing attributes.
+ *
+ * @return array Amended attributes
+ *
+ */
+function genesis_attributes_entry_image_link( $attributes ) {
+
+	$attributes['href']        = get_permalink();
+	$attributes['aria-hidden'] = 'true';
+	$attributes['class']       = 'entry-image-link';
+
+	return $attributes;
+
+}
+
 add_filter( 'genesis_attr_entry-image-widget', 'genesis_attributes_entry_image_widget' );
 /**
  * Add attributes for entry image element shown in a widget.

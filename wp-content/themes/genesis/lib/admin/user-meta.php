@@ -232,6 +232,10 @@ function genesis_user_layout_fields( $user ) {
 		return;
 	}
 
+	if ( ! genesis_has_multiple_layouts() ) {
+		return;
+	}
+
 	if ( ! current_user_can( 'edit_users', $user->ID ) )
 		return false;
 

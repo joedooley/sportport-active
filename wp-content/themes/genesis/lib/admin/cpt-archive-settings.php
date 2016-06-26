@@ -143,7 +143,9 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 			add_meta_box( 'genesis-cpt-archives-seo-settings', __( 'SEO Settings', 'genesis' ), array( $this, 'seo_box' ), $this->pagehook, 'main' );
 		}
 
-		add_meta_box( 'genesis-cpt-archives-layout-settings', __( 'Layout Settings', 'genesis' ), array( $this, 'layout_box' ), $this->pagehook, 'main' );
+		if ( genesis_has_multiple_layouts() ) {
+			add_meta_box( 'genesis-cpt-archives-layout-settings', __( 'Layout Settings', 'genesis' ), array( $this, 'layout_box' ), $this->pagehook, 'main' );
+		}
 
 		do_action( 'genesis_cpt_archives_settings_metaboxes', $this->pagehook );
 
@@ -178,7 +180,7 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 			<tr valign="top">
 				<th scope="row"><label for="<?php $this->field_id( 'intro_text' ); ?>"><b><?php _e( 'Archive Intro Text', 'genesis' ); ?></b></label></th>
 				<td>
-					<p><textarea class="widefat" rows="5" cols="30" name="<?php $this->field_name( 'intro_text' ); ?>" id="<?php $this->field_id( 'intro_text' ); ?>"><?php echo esc_textarea( $this->get_field_value( 'intro_text' ) ); ?></textarea></p>
+					<?php wp_editor( $this->get_field_value( 'intro_text' ), $this->settings_field . "-intro-text", array( 'textarea_name' => $this->get_field_name( 'intro_text' ) ) ); ?>
 					<p class="description"><?php _e( 'Leave empty if you do not want to display any intro text.', 'genesis' ); ?></p>
 				</td>
 			</tr>

@@ -573,84 +573,91 @@ function genesis_contributors() {
 		/*
 		array(
 			'name'     => 'Jared Atchison',
-			'url'      => 'http://twitter.com/jaredatch',
+			'url'      => 'https://twitter.com/jaredatch',
 			'gravatar' => '//0.gravatar.com/avatar/e341eca9e1a85dcae7127044301b4363?s=120',
 		),
 		/**/
-		//*
+		/*
 		array(
 			'name'     => 'Jen Baumann',
-			'url'      => 'http://twitter.com/dreamwhisper',
+			'url'      => 'https://twitter.com/dreamwhisper',
 			'gravatar' => '//0.gravatar.com/avatar/eb9c6d91d77db908473131160e71ef6f?s=120',
 		),
 		/**/
 		//*
 		array(
 			'name'     => 'Brian Bourn',
-			'url'      => 'http://twitter.com/brianbourn',
+			'url'      => 'https://twitter.com/brianbourn',
 			'gravatar' => '//0.gravatar.com/avatar/fd5093291ce465911f8a2d5aa2045de6?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Chris Cochran',
-			'url'      => 'http://twitter.com/tweetsfromchris',
+			'url'      => 'https://twitter.com/tweetsfromchris',
 			'gravatar' => '//0.gravatar.com/avatar/aa0bea067ea6bfb854387d73f595aa1c?s=120',
 		),
 		/**/
 		//*
 		array(
 			'name'     => 'Nick Cernis',
-			'url'      => 'http://twitter.com/NickCernis',
+			'url'      => 'https://twitter.com/NickCernis',
 			'gravatar' => '//0.gravatar.com/avatar/459313f5f8b00775ef71be0e5191ff62?s=120',
 		),
 		/**/
 		//*
 		array(
+			'name'     => 'Calvin Koepke',
+			'url'      => 'https://twitter.com/cjkoepke',
+			'gravatar' => '//0.gravatar.com/avatar/c4e7524abdec288e00e23dc1d15f91d7?s=120',
+		),
+		/**/
+		//*
+		array(
 			'name'     => 'Robin Cornett',
-			'url'      => 'http://twitter.com/robincornett',
+			'url'      => 'https://twitter.com/robincornett',
 			'gravatar' => '//0.gravatar.com/avatar/92f90103972341af5dcf421661209729?s=120',
 		),
 		/**/
-		/*
+		//*
 		array(
 			'name'     => 'Nick Croft',
-			'url'      => 'http://twitter.com/nick_thegeek',
+			'url'      => 'https://twitter.com/nick_thegeek',
 			'gravatar' => '//0.gravatar.com/avatar/3241d4eab93215b5487e162b87569e42?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'David Decker',
-			'url'      => 'http://twitter.com/deckerweb',
+			'url'      => 'https://twitter.com/deckerweb',
 			'gravatar' => '//0.gravatar.com/avatar/28d02f8d09fc32fccc0282efdc23a4e5?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Remkus de Vries',
-			'url'      => 'http://twitter.com/DeFries',
+			'url'      => 'https://twitter.com/DeFries',
 			'gravatar' => '//0.gravatar.com/avatar/e15799da17422f3fa7a6157339501e2c?s=120',
 		),
 		/**/
 		//*
 		array(
 			'name'     => 'Carrie Dils',
-			'url'      => 'http://twitter.com/cdils',
+			'url'      => 'https://twitter.com/cdils',
 			'gravatar' => '//0.gravatar.com/avatar/312a558dc3619f40b429d60b6fde9ee1?s=120',
 		),
 		/**/
-		//*
+		/*
 		array(
 			'name'     => 'Josh Eaton',
-			'url'      => 'http://twitter.com/jjeaton',
+			'url'      => 'https://twitter.com/jjeaton',
 			'gravatar' => '//0.gravatar.com/avatar/d32c3546dfa39bda008b07a91826df1d?s=120',
 		),
 		/**/
 		//*
 		array(
 			'name'     => 'Bill Erickson',
-			'url'      => 'http://twitter.com/billerickson',
+			'url'      => 'https://twitter.com/billerickson',
 			'gravatar' => '//0.gravatar.com/avatar/ae510affa31e5b946623bda4ff969b67?s=120',
 		),
 		/**/
@@ -664,91 +671,97 @@ function genesis_contributors() {
 		/*
 		array(
 			'name'     => 'Thomas Griffin',
-			'url'      => 'http://twitter.com/jthomasgriffin',
+			'url'      => 'https://twitter.com/jthomasgriffin',
 			'gravatar' => '//0.gravatar.com/avatar/fe4225114bfd1f8993c6d20d32227537?s=120',
 		),
 		/**/
+		//*
+		array(
+			'name'     => 'Mike Hemberger',
+			'url'      => 'https://twitter.com/jivedig',
+			'gravatar' => '//0.gravatar.com/avatar/371c8693fa81eb43dadc28eaaba367f8?s=120',
+		),
 		/*
 		array(
 			'name'     => 'Mark Jaquith',
-			'url'      => 'http://twitter.com/markjaquith',
+			'url'      => 'https://twitter.com/markjaquith',
 			'gravatar' => '//0.gravatar.com/avatar/682b7a49f9ed567186c4d1f707fe4523?s=120',
 		),
 		/**/
 		//*
 		array(
 			'name'     => 'Gary Jones',
-			'url'      => 'http://twitter.com/garyj',
+			'url'      => 'https://twitter.com/garyj',
 			'gravatar' => '//0.gravatar.com/avatar/e70d4086e89c2e1e081870865be68485?s=120',
 		),
 		/**/
-		/*
+		//*
 		array(
 			'name'     => 'Brandon Kraft',
-			'url'      => 'http://twitter.com/kraft',
+			'url'      => 'https://twitter.com/kraft',
 			'gravatar' => '//0.gravatar.com/avatar/fa4976cfd706b9be00f6494df9aa99d9?s=120',
 		),
 		/**/
-		/*
+		//*
 		array(
 			'name'     => 'Lauren Mancke',
-			'url'      => 'http://twitter.com/laurenmancke',
+			'url'      => 'https://twitter.com/laurenmancke',
 			'gravatar' => '//0.gravatar.com/avatar/f7478b09179c624a91ba6c45422fbf4e?s=120',
 		),
 		/**/
 		//*
 		array(
 			'name'     => 'Carlo Manf',
-			'url'      => 'http://twitter.com/manfcarlo',
+			'url'      => 'https://twitter.com/manfcarlo',
 			'gravatar' => '//0.gravatar.com/avatar/495aa472007b999d2489201fdb17aa35?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Andrew Norcross',
-			'url'      => 'http://twitter.com/norcross',
+			'url'      => 'https://twitter.com/norcross',
 			'gravatar' => '//0.gravatar.com/avatar/26ab8f9b2c86b10e7968b882403b3bf8?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Travis Northcutt',
-			'url'      => 'http://twitter.com/tnorthcutt',
+			'url'      => 'https://twitter.com/tnorthcutt',
 			'gravatar' => '//0.gravatar.com/avatar/a3b6222854e90883765f5f30375718bf?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Jeremy Pry',
-			'url'      => 'http://twitter.com/JPry',
+			'url'      => 'https://twitter.com/JPry',
 			'gravatar' => '//0.gravatar.com/avatar/84552f74b71a1a3e6aae380aa9ab3bd3?s=120',
 		),
 		/**/
-		//*
+		/*
 		array(
 			'name'     => 'Greg Rickaby',
-			'url'      => 'http://twitter.com/GregRickaby',
+			'url'      => 'https://twitter.com/GregRickaby',
 			'gravatar' => '//0.gravatar.com/avatar/28af3e39c0a1fe4c31367c7e9a8bcac3?s=120',
 		),
 		/**/
-		//*
+		/*
 		array(
 			'name'     => 'Rian Rietveld',
-			'url'      => 'http://twitter.com/RianRietveld',
+			'url'      => 'https://twitter.com/RianRietveld',
 			'gravatar' => '//0.gravatar.com/avatar/54b6a8a47f9d6f1a93f33be5909c59a5?s=120',
 		),
 		/**/
-		//*
+		/*
 		array(
 			'name'     => 'Travis Smith',
-			'url'      => 'http://twitter.com/wp_smith',
+			'url'      => 'https://twitter.com/wp_smith',
 			'gravatar' => '//0.gravatar.com/avatar/7e673cdf99e6d7448f3cbaf1424c999c?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Rafal Tomal',
-			'url'      => 'http://twitter.com/rafaltomal',
+			'url'      => 'https://twitter.com/rafaltomal',
 			'gravatar' => '//0.gravatar.com/avatar/c9f7b936cd19bd5aba8831ddea21f05d?s=120',
 		),
 		/**/

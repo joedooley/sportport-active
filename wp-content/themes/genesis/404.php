@@ -43,11 +43,11 @@ function genesis_404() {
 	<?php
 			endif;
 
-			if ( ! genesis_html5() ) {
-				genesis_sitemap( 'h4' );
-			} elseif ( genesis_a11y( '404-page' ) ) {
+			if ( genesis_a11y( '404-page' ) ) {
 				echo '<h2>' . __( 'Sitemap', 'genesis' ) . '</h2>';
 				genesis_sitemap( 'h3' );
+			} else {
+				genesis_sitemap( 'h4' );
 			}
 
 			echo '</div>';

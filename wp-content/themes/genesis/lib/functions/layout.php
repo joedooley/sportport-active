@@ -298,6 +298,27 @@ function genesis_get_default_layout() {
 }
 
 /**
+ * Determine if the site has more than 1 registered layouts.
+ *
+ * @since 2.3.0
+ *
+ * @uses genesis_get_layouts()
+ *
+ * @return bool True if more than 1 layout, false otherwise.
+ */
+function genesis_has_multiple_layouts() {
+
+	$layouts = genesis_get_layouts();
+
+	if ( count( $layouts ) < 2 ) {
+		return false;
+	}
+
+	return true;
+
+}
+
+/**
  * Return the site layout for different contexts.
  *
  * Checks both the custom field and the theme option to find the user-selected site layout, and returns it.

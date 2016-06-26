@@ -460,6 +460,8 @@ add_action( 'genesis_meta', 'genesis_responsive_viewport' );
  *
  * Child theme needs to support `genesis-responsive-viewport`.
  *
+ * Applies `genesis_viewport_value` filter on content attribute.
+ *
  * @since 1.9.0
  *
  * @return null Return early if child theme does not support viewport.
@@ -469,7 +471,19 @@ function genesis_responsive_viewport() {
 	if ( ! current_theme_supports( 'genesis-responsive-viewport' ) )
 		return;
 
-	echo '<meta name="viewport" content="width=device-width, initial-scale=1" />' . "\n";
+	/**
+	 * Filter the viewport meta tag value.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $viewport_default Default value of the viewport meta tag.
+	 */
+	$viewport_value = apply_filters( 'genesis_viewport_value', 'width=device-width, initial-scale=1' );
+
+	printf(
+		'<meta name="viewport" content="%s" />' . "\n",
+		esc_attr( $viewport_value )
+	);
 
 }
 
@@ -512,8 +526,9 @@ function genesis_load_favicon() {
 
 	$favicon = apply_filters( 'genesis_favicon_url', $favicon );
 
-	if ( $favicon )
-		echo '<link rel="Shortcut Icon" href="' . esc_url( $favicon ) . '" type="image/x-icon" />' . "\n";
+	if ( $favicon ) {
+		echo '<link rel="icon" href="' . esc_url( $favicon ) . '" />' . "\n";
+	}
 
 }
 

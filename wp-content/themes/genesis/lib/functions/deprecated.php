@@ -13,6 +13,23 @@
 
 
 /**
+ * Deprecated. Load the html5 shiv for IE8 and below. Can't enqueue with IE conditionals.
+ *
+ * @since 2.0.0
+ * @deprecated 2.3.0
+ *
+ * @uses genesis_html5() Check for HTML5 support.
+ *
+ * @return Return early if HTML5 not supported.
+ *
+ */
+function genesis_html5_ie_fix() {
+
+	_deprecated_function( __FUNCTION__, '2.3.0' );
+
+}
+
+/**
  * Deprecated. Echo custom rel="author" link tag.
  *
  * If the appropriate information has been entered, either for the homepage author, or for an individual post/page
