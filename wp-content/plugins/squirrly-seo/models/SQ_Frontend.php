@@ -876,7 +876,7 @@ class Model_SQ_Frontend {
     private function getCopyright() {
         $meta = '';
 
-        $name = $this->getAuthor();
+        $name = $this->getAuthor('display_name');
         if ($name == '') {
             $name = $this->meta['blogname'];
         }
@@ -982,7 +982,7 @@ class Model_SQ_Frontend {
         $date = null;
         $meta = '';
 
-        $name = $this->getAuthor();
+        $name = $this->getAuthor('display_name');
         if (!$name) {
             $name = $this->meta['blogname'];
         }

@@ -1,16 +1,16 @@
 ﻿=== SEO by SQUIRRLY™ ===
 Contributors: calinvingan, florinmuresan, nagy.sorel
-Tags: seo,seo plugin,wordpress seo,seo optimization,seo content,plugin,content seo,search engine optimization,xml,sitemap,keyword,keyword research,post,posts,page,multisite,squirrly,wordpress,tag,image,images,photos,flickr,statistics,stats,google,content,title,description,favicon,mobile,canonical,author,google plus,analytics,admin,seo correction,seo title,seo meta,meta,google,twitter,news,blog,e-commerce,ecommerce,woocommerce,feed,feeds,marketing,buddypress,social,social media,url,automatic,iphone
-Requires at least: 3.5   
-Tested up to: 4.6 
-Stable tag: trunk 
-Donate link: https://www.squirrly.co/wordpress-seo-by-squirrly  
- 
-SEO Plugin By Squirrly is for the NON-SEO experts. Get Excellent Seo with Better Content, Ranking and Analytics. For Both Humans and Search Bots.
-
-== Description ==
+Tags: seo,seo plugin,apps,wordpress seo,seo optimization,seo content,plugin,content seo,search engine optimization,xml,sitemap,keyword,keyword research,post,posts,page,multisite,squirrly,wordpress,tag,image,images,photos,flickr,statistics,stats,google,content,title,description,favicon,mobile,canonical,author,google plus,analytics,admin,seo correction,seo title,seo meta,meta,google,twitter,news,blog,e-commerce,ecommerce,woocommerce,feed,feeds,marketing,buddypress,social,social media,url,automatic,iphone
+Requires at least: 3.5    
+Tested up to: 4.5 
+Stable tag: trunk  
+Donate link: https://www.squirrly.co/wordpress-seo-by-squirrly      
+   
+SEO Plugin By Squirrly is for the NON-SEO experts. Get Excellent Seo with Better Content, Ranking and Analytics. For Both Humans and Search Bots.  
+  
+== Description ==    
 Squirrly SEO helps you write content that is SEO friendly and ALSO Human friendly. You'll get to improve your rankings, while providing your readers with great content. See Your SEO Stats, get a weekly SEO Audit and find the best keywords.
-
+ 
 It works well with Wordpress sites that already have <strong>Yoast</strong> or <strong>All In One SEO</strong>. You can opt-in to keep those settings, so no need to start over again :-)
 
 Recommended by <strong><a href="http://www.quicksprout.com/university/how-to-maximize-your-seo-traffic-with-these-must-have-wordpress-plugins/" >Neil Patel</a></strong>, the co-founder of Kissmetrics and Crazy Egg. Also by <strong>Brian Dean</strong> and over 100 content marketing experts
@@ -21,7 +21,7 @@ See all the Squirrly SEO 2016 features at: http://howto.squirrly.co/category/sid
 
 Based on the topic you're writing about, the interface will light up green while you're editing your text, so that you know you've done something right. When all the lights are green, you can publish it, because your text has excellent SEO and it's 100% optimized.
 
-Different customers, from areas such as e-commerce, law firms, digital agencies, online magazines, movie review sites, etc. have reported +285% increase in the number of readers, by optimizing their content with this seo plugin, and by measuring and improving as advized by our tool.
+Different customers, from areas such as e-commerce, law firms, digital agencies, online magazines, movie review sites, etc. have reported +285% increase in the number of readers, by optimizing their content with this seo plugin, and by measuring and improving as advized by our tool. 
 
 All-In-All: Squirrly SEO will help you get a tool that acts like an Expert Consultant, sitting right next to you, advising on SEO, and telling you where you need to improve.
 
@@ -137,8 +137,15 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
 
 == Changelog ==
+= 6.1.2 =
+* Compatible with WP 4.5.3
+* Fixed the google profile link
+* Corrected some old links
+* We moved js files on cloud for faster loading
+* Update Rank Check to the latest Google Requirements
+
 = 6.1.0 =
-* Compatible with WP 4.6
+* Compatible with WP 4.5.2
 * Fixed the Front Page SEO to work with more WP themes
 * Fixed compatibility with PolyLang plugin
 * Fixed compatibility with Customizr theme
@@ -549,4 +556,4 @@ And the best ones that we have (and the others don't):
 If you click the Squirrly tab in your dashboard, go to the "First Page Optimization" section and switch the Title and Description option on. You can enter custom Title, Description and Keywords. 
 
 = Is this Wordpress SEO plugin the only SEO plugin I will need to install? =
-It all depends on how you have setup your Wordpress until now. Some people use Squirrly seo plugin only for the Content Optimization with the Live Assistant part, some use use it to check their SEO stats and see where they need to improve their Wordpress seo, but most of our users and customer use Squirrly for everything related to SEO: from keyword analysis, to seo settings on Wordpress, to analytics and to weekly monitoring and audit reports.  
+It all depends on how you have setup your Wordpress until now. Some people use Squirrly seo plugin only for the Content Optimization with the Live Assistant part, some use use it to check their SEO stats and see where they need to improve their Wordpress seo, but most of our users and customer use Squirrly for everything related to SEO: from keyword analysis, to seo settings on Wordpress, to analytics and to weekly monitoring and audit reports.     

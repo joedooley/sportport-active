@@ -1,0 +1,189 @@
+# Copyright (C) 2015 Team Yoast
+# This file is distributed under the same license as the Yoast WooCommerce SEO package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Yoast WooCommerce SEO 1.1.6\n"
+"Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-woocommerce/issues\n"
+"POT-Creation-Date: 2015-11-17 14:57:24+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Yoast Translate Team <translations@yoast.com>\n"
+"Language-Team: Yoast Translate <translations@yoast.com>\n"
+"X-Generator: grunt-wp-i18n 0.4.9\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+
+#: class-wpseo-option-woo.php:82 wpseo-woocommerce.php:647
+msgid "Price"
+msgstr ""
+
+#: class-wpseo-option-woo.php:83
+msgid "Stock"
+msgstr ""
+
+#: wpseo-woocommerce.php:274
+msgid "WooCommerce SEO Settings"
+msgstr ""
+
+#: wpseo-woocommerce.php:274
+msgid "WooCommerce SEO"
+msgstr ""
+
+#: wpseo-woocommerce.php:305
+msgid "Twitter Product Cards"
+msgstr ""
+
+#: wpseo-woocommerce.php:306
+msgid ""
+"Twitter allows you to display two pieces of data in the Twitter card, pick "
+"which two are shown:"
+msgstr ""
+
+#: wpseo-woocommerce.php:311
+msgid "Data %d"
+msgstr ""
+
+#: wpseo-woocommerce.php:336
+msgid "Schema & OpenGraph additions"
+msgstr ""
+
+#: wpseo-woocommerce.php:337
+msgid ""
+"If you have product attributes for the following types, select them here, "
+"the plugin will make sure they're used for the appropriate Schema.org and "
+"OpenGraph markup."
+msgstr ""
+
+#: wpseo-woocommerce.php:338
+msgid "Brand"
+msgstr ""
+
+#: wpseo-woocommerce.php:352
+msgid "Manufacturer"
+msgstr ""
+
+#: wpseo-woocommerce.php:369
+msgid "Breadcrumbs"
+msgstr ""
+
+#: wpseo-woocommerce.php:370
+msgid ""
+"Both WooCommerce and WordPress SEO by Yoast have breadcrumbs functionality. "
+"The WP SEO breadcrumbs have a slightly higher chance of being picked up by "
+"search engines and you can configure them a bit more, on the %1$sInternal "
+"Links settings page%2$s. To enable them, check the box below and the "
+"WooCommerce breadcrumbs will be replaced."
+msgstr ""
+
+#: wpseo-woocommerce.php:371
+msgid "Replace WooCommerce Breadcrumbs"
+msgstr ""
+
+#: wpseo-woocommerce.php:376
+msgid "Admin"
+msgstr ""
+
+#: wpseo-woocommerce.php:377
+msgid ""
+"Both WooCommerce and WordPress SEO by Yoast add columns to the product "
+"page, to remove all but the SEO score column from Yoast on that page, check "
+"this box."
+msgstr ""
+
+#: wpseo-woocommerce.php:378
+msgid "Remove WordPress SEO columns"
+msgstr ""
+
+#: wpseo-woocommerce.php:382
+msgid ""
+"Both WooCommerce and WordPress SEO by Yoast add metaboxes to the edit "
+"product page, if you want WooCommerce to be above WordPress SEO, check the "
+"box."
+msgstr ""
+
+#: wpseo-woocommerce.php:383
+msgid "Move WooCommerce Up"
+msgstr ""
+
+#: wpseo-woocommerce.php:637
+msgid "In stock"
+msgstr ""
+
+#: wpseo-woocommerce.php:638
+msgid "Yes"
+msgstr ""
+
+#: wpseo-woocommerce.php:638
+msgid "No"
+msgstr ""
+
+#: wpseo-woocommerce.php:642
+msgid "Category"
+msgstr ""
+
+#: wpseo-woocommerce.php:764
+msgid "You should write a short description for this product."
+msgstr ""
+
+#: wpseo-woocommerce.php:765
+msgid "The short description for this product is too short."
+msgstr ""
+
+#: wpseo-woocommerce.php:766
+msgid "Your short description has a good length."
+msgstr ""
+
+#: wpseo-woocommerce.php:767
+msgid "The short description for this product is too long."
+msgstr ""
+
+#: wpseo-woocommerce.php:779
+msgid ""
+"Please %sinstall &amp; activate WordPress SEO by Yoast%s and then enable "
+"its XML sitemap functionality to allow the WooCommerce SEO module to work."
+msgstr ""
+
+#: wpseo-woocommerce.php:788
+msgid ""
+"Please upgrade WordPress to the latest version to allow WordPress and the "
+"WooCommerce SEO module to work properly."
+msgstr ""
+
+#: wpseo-woocommerce.php:797
+msgid ""
+"Please upgrade the WordPress SEO plugin to the latest version to allow the "
+"WooCommerce SEO module to work."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Yoast WooCommerce SEO"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://yoast.com/wordpress/plugins/yoast-woocommerce-seo/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"This extension to WooCommerce and WordPress SEO by Yoast makes sure there's "
+"perfect communication between the two plugins."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Team Yoast"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://yoast.com"
+msgstr ""

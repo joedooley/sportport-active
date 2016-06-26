@@ -200,7 +200,7 @@ class Receiptful_Abandoned_Cart {
 
 		if ( ! is_cart() ) {
 			// Redirect after add to cart
-			wp_redirect( add_query_arg( 'receiptful', $_GET['receiptful'], WC()->cart->get_cart_url() ) );
+			wp_redirect( esc_url_raw( remove_query_arg( 'rfcart', WC()->cart->get_cart_url() ) ) );
 			die;
 		}
 

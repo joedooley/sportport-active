@@ -382,10 +382,11 @@ class SQ_Tools extends SQ_FrontController
         }
         $options['sslverify'] = false;
 
-        if (!$response = self::sq_wpcall($url, $options, 'get')) {
-            if (function_exists('curl_init') && !ini_get('safe_mode') && !ini_get('open_basedir')) {
-                $response = self::sq_curl($url, $options, 'get');
-            } else {
+
+        if (function_exists('curl_init') && !ini_get('safe_mode') && !ini_get('open_basedir')) {
+            $response = self::sq_curl($url, $options, 'get');
+        } else {
+            if (!$response = self::sq_wpcall($url, $options, 'get')) {
                 return false;
             }
         }
@@ -443,13 +444,14 @@ class SQ_Tools extends SQ_FrontController
         }
         $options['sslverify'] = false;
 
-        if (!$response = self::sq_wpcall($url, $options, 'post')) {
-            if (function_exists('curl_init') && !ini_get('safe_mode') && !ini_get('open_basedir')) {
-                $response = self::sq_curl($url, $options, 'post');
-            } else {
+        if (function_exists('curl_init') && !ini_get('safe_mode') && !ini_get('open_basedir')) {
+            $response = self::sq_curl($url, $options, 'post');
+        } else {
+            if (!$response = self::sq_wpcall($url, $options, 'post')) {
                 return false;
             }
         }
+
 
         return $response;
     }

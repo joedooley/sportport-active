@@ -1,25 +1,28 @@
 <?php
 
-class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
+class Model_SQ_BlockPostsAnalytics extends WP_List_Table
+{
 
     public $_column_headers;
     public $posts; //save post list for Squirrly call
     private $order_posts;
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->posts = array();
         $this->order_posts = array();
     }
 
-    function wp_edit_posts_query($q = false) {
+    function wp_edit_posts_query($q = false)
+    {
         global $current_user;
         $post__in = array(0);
         if (false === $q)
             $q = $_GET;
 
-        $q['m'] = isset($q['m']) ? (int) $q['m'] : 0;
-        $q['cat'] = isset($q['cat']) ? (int) $q['cat'] : 0;
+        $q['m'] = isset($q['m']) ? (int)$q['m'] : 0;
+        $q['cat'] = isset($q['cat']) ? (int)$q['cat'] : 0;
         $post_stati = get_post_stati();
 
         if (isset($q['author'])) {
@@ -129,7 +132,7 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
         //////////////
 
         $per_page = 'edit_post_per_page';
-        $posts_per_page = (int) get_user_option($per_page);
+        $posts_per_page = (int)get_user_option($per_page);
         if (empty($posts_per_page) || $posts_per_page < 1)
             $posts_per_page = 20;
 
@@ -137,26 +140,39 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
         $posts_per_page = apply_filters('edit_posts_per_page', $posts_per_page, 'post');
         $query = compact('post_type', 'author', 'post_status', 'perm', 'order', 'orderby', 'meta_key', 'posts_per_page');
 
-        $query['post__in'] = (array) $post__in;
+        $query['post__in'] = (array)$post__in;
+
         wp($query);
         return $avail_post_stati;
     }
 
-    function order_by_type($query) {
+    function order_by_type($query)
+    {
         global $wpdb;
-        $query = str_replace("ORDER BY {$wpdb->posts}.post_date", "ORDER BY {$wpdb->posts}.post_type", $query);
-        return $query;
-    }
-
-    function order_by_rank($query) {
-        global $wpdb;
-        if (!empty($this->order_posts)) {
-            $query = str_replace("ORDER BY {$wpdb->posts}.post_date", "ORDER BY FIELD({$wpdb->posts}.ID, " . join(',', $this->order_posts) . ")", $query);
+        if (strpos($query, 'ORDER BY') !== false) {
+            $query = str_replace("ORDER BY {$wpdb->posts}.post_date", "ORDER BY {$wpdb->posts}.post_type", $query);
+        } else {
+            $query = str_replace("LIMIT", "ORDER BY {$wpdb->posts}.post_type LIMIT", $query);
         }
         return $query;
     }
 
-    function prepare_items() {
+    function order_by_rank($query)
+    {
+        global $wpdb;
+        if (!empty($this->order_posts)) {
+            if (strpos($query, 'ORDER BY') !== false) {
+                $query = str_replace("ORDER BY {$wpdb->posts}.post_date", "ORDER BY FIELD({$wpdb->posts}.ID, " . join(',', $this->order_posts) . ")", $query);
+            } else {
+                $query = str_replace("LIMIT", "ORDER BY FIELD({$wpdb->posts}.ID, " . join(',', $this->order_posts) . ") LIMIT", $query);
+
+            }
+        }
+        return $query;
+    }
+
+    function prepare_items()
+    {
         global $avail_post_stati, $wp_query, $per_page, $mode;
 
         $avail_post_stati = $this->wp_edit_posts_query();
@@ -177,7 +193,8 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
         ));
     }
 
-    function get_column_info() {
+    function get_column_info()
+    {
         if (isset($this->_column_headers))
             return $this->_column_headers;
 
@@ -189,7 +206,7 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
             if (empty($data))
                 continue;
 
-            $data = (array) $data;
+            $data = (array)$data;
             if (!isset($data[1]))
                 $data[1] = false;
 
@@ -201,7 +218,8 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
         return $this->_column_headers;
     }
 
-    function get_sortable_columns() {
+    function get_sortable_columns()
+    {
         return array(
             'title' => 'title',
             'type' => 'type',
@@ -211,12 +229,13 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
         );
     }
 
-    function print_column_headers($with_id = true) {
+    function print_column_headers($with_id = true)
+    {
         $strcolumn = '';
 
-        list( $columns, $sortable ) = $this->get_column_info();
+        list($columns, $sortable) = $this->get_column_info();
 
-        $current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $current_url = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $current_url = remove_query_arg('paged', $current_url);
 
         if (isset($_GET['orderby']))
@@ -241,7 +260,7 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
             }
 
             if (isset($sortable[$column_key])) {
-                list( $orderby, $desc_first ) = $sortable[$column_key];
+                list($orderby, $desc_first) = $sortable[$column_key];
 
                 if ($current_orderby == $orderby) {
                     $order = 'asc' == $current_order ? 'desc' : 'asc';
@@ -266,7 +285,8 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
         return $strcolumn;
     }
 
-    function get_columns() {
+    function get_columns()
+    {
         $post_type = 'post';
 
         $posts_columns = array();
@@ -288,7 +308,8 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
         return $posts_columns;
     }
 
-    function display_tablenav($which) {
+    function display_tablenav($which)
+    {
         if ('top' == $which)
             wp_nonce_field('bulk-' . $this->_args['plural']);
 
@@ -297,13 +318,29 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
         /* includes the block from theme directory */
         ?>
         <div class="tablenav <?php echo esc_attr($which); ?>">
-            <div class="alignleft actions"><input type="submit" name="" id="post-query-submit" class="button" value="<?php echo __('Reset Filters') ?>" onclick="location.href = '?page=sq_posts';"></div>
+            <div class="alignleft actions">
+                <input type="submit" name="" id="post-query-submit" class="button" value="<?php echo __('Reset Filters') ?>" onclick="location.href = '?page=sq_posts';">
+            </div>
+            <?php if ('top' == $which) { ?>
+                <div class="alignleft actions">
+                    <input type="search" id="post-search-input" autofocus name="s" value="<?php echo SQ_Tools::getValue('s') ?>" onkeypress="if(sq_check_enter(event)){jQuery('#search-submit').trigger('click')}">
+                    <input type="submit" id="search-submit" class="button" onclick="location.href = '?page=sq_posts&s=' + encodeURIComponent(jQuery('#post-search-input').val());" value="<?php echo __('Search Posts') ?>">
+                    <script>
+                        function sq_check_enter(e) {
+                            if (e.keyCode == 13) {
+                                return true;
+                            }
+                            return false;
+                        }
+                    </script>
+                </div>
+            <?php } ?>
             <?php
             $this->extra_tablenav($which);
             $this->pagination($which);
             ?>
 
-            <br class="clear" />
+            <br class="clear"/>
         </div>
         <?php
         $strnav = ob_get_contents();
@@ -311,7 +348,8 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
         return $strnav;
     }
 
-    function display_rows() {
+    function display_rows()
+    {
         global $wp_query, $post;
         static $alternate;
         $strrow = '';
@@ -332,7 +370,8 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
         return $strrow;
     }
 
-    public function single_row($a_post) {
+    public function single_row($a_post)
+    {
         global $post;
 
         $strcolumn = '';
@@ -350,7 +389,6 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
             $post_type_object = get_post_type_object($post->post_type);
             $can_edit_post = current_user_can($post_type_object->cap->edit_post, $post->ID);
             $json = SQ_ObjController::getModel('SQ_Post')->getKeyword($post->ID);
-
             foreach ($columns as $key => $column) {
                 switch ($key) {
                     case 'title':
@@ -385,7 +423,7 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
                     case 'keywords':
                         $value = '';
                         if (isset($json->keyword)) {
-                            $json->keyword = str_replace('\\','',$json->keyword);
+                            $json->keyword = str_replace('\\', '', $json->keyword);
                             $value = sprintf('<a href="%s">%s</a>', esc_attr(add_query_arg(array('page' => 'sq_posts', 'keyword' => strtolower($json->keyword)), 'admin.php')), $json->keyword);
                         } else {
                             $value = __('No Tags');
@@ -398,9 +436,9 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
                             if ($json->rank == -2) {
                                 $value = __('Could not receive data from google (Err: blocked IP)');
                             } elseif ($json->rank == -1) {
-                                $value = __('> 100');
+                                $value = __('Not in top 100 for: <br /> "'.$json->keyword.'"');
                             } elseif ($json->rank == 0) {
-                                $value = __('URL Indexed');
+                                $value = __('The URL is indexed');
                             } elseif ($json->rank > 0) {
                                 $value = '<strong style="display:block; font-size: 120%; width: 100px; margin: 0 auto; text-align:right;">' . sprintf(__('%s'), $json->rank) . '</strong>' . ((isset($json->country)) ? ' (' . $json->country . ')' : '');
                             }
@@ -440,9 +478,9 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
                                 if ($time_diff > 0)
                                     $value .= '<strong class="attention">' . __('Missed schedule') . '</strong>';
                                 else
-                                    $value .=__('Scheduled');
+                                    $value .= __('Scheduled');
                             } else {
-                                $value .=__('Last Modified');
+                                $value .= __('Last Modified');
                             }
                         }
                         $class = '';
@@ -462,12 +500,14 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
         return $strcolumn;
     }
 
-    public function hookFooter() {
+    public function hookFooter()
+    {
         $this->postlist->setPosts($this->posts);
         $this->postlist->hookFooter();
     }
 
-    public function getScripts() {
+    public function getScripts()
+    {
         return $this->postlist->getScripts();
     }
 

@@ -1,6 +1,7 @@
 <?php
 
-class SQ_PostsList extends SQ_FrontController {
+class SQ_PostsList extends SQ_FrontController
+{
 
     /** @var array Posts types in */
     private $types = array();
@@ -18,15 +19,18 @@ class SQ_PostsList extends SQ_FrontController {
     /**
      * Called in SQ_Menu > hookMenu
      */
-    public function init() {
+    public function init()
+    {
         $this->types = array_map(array($this, '_addPostsType'), SQ_Tools::$options['sq_post_types']);
     }
 
-    protected function _addPostsType($type) {
+    protected function _addPostsType($type)
+    {
         return $type . '_posts';
     }
 
-    public function setPosts($posts) {
+    public function setPosts($posts)
+    {
         if (!empty($posts)) {
             $this->posts = $posts;
             $this->is_list = true;
@@ -38,10 +42,11 @@ class SQ_PostsList extends SQ_FrontController {
      * Create the column and filter for the Posts List
      *
      */
-    public function hookInit() {
+    public function hookInit()
+    {
         $browser = SQ_Tools::getBrowserInfo();
 
-        if ($browser['name'] == 'IE' && (int) $browser['version'] < 9 && (int) $browser['version'] > 0)
+        if ($browser['name'] == 'IE' && (int)$browser['version'] < 9 && (int)$browser['version'] > 0)
             return;
 
         if (isset(SQ_Tools::$options['sq_api']) && SQ_Tools::$options['sq_api'] <> '') {
@@ -62,12 +67,13 @@ class SQ_PostsList extends SQ_FrontController {
      * @param string $where
      * @return string
      */
-    public function filterPosts($where) {
+    public function filterPosts($where)
+    {
         if (!is_admin())
             return;
 
         if (SQ_Tools::getIsset('sq_post_id')) {
-            $where .= " AND ID = " . (int) SQ_Tools::getValue('sq_post_id');
+            $where .= " AND ID = " . (int)SQ_Tools::getValue('sq_post_id');
         }
 
         return $where;
@@ -76,10 +82,11 @@ class SQ_PostsList extends SQ_FrontController {
     /**
      * Hook the Wordpress header
      */
-    public function loadHead() {
+    public function loadHead()
+    {
         parent::hookHead();
         SQ_ObjController::getController('SQ_DisplayController', false)
-                ->loadMedia(_SQ_THEME_URL_ . '/css/sq_postslist.css');
+            ->loadMedia(_SQ_THEME_URL_ . '/css/sq_postslist.css');
     }
 
     /**
@@ -88,7 +95,8 @@ class SQ_PostsList extends SQ_FrontController {
      * @param array $columns
      * @return array
      */
-    public function add_column($columns) {
+    public function add_column($columns)
+    {
         $this->loadHead(); //load the js only for post list
         $this->is_list = true;
 
@@ -101,7 +109,8 @@ class SQ_PostsList extends SQ_FrontController {
      * @param object $column
      * @param integer $post_id
      */
-    public function add_row($column, $post_id) {
+    public function add_row($column, $post_id)
+    {
         $title = '';
         $description = '';
         $frontend = null;
@@ -137,7 +146,8 @@ class SQ_PostsList extends SQ_FrontController {
      * Hook the Footer
      *
      */
-    public function hookFooter() {
+    public function hookFooter()
+    {
         if (!$this->is_list)
             return;
 
@@ -161,7 +171,8 @@ class SQ_PostsList extends SQ_FrontController {
     /**
      * Set the javascript variables
      */
-    public function setVars() {
+    public function setVars()
+    {
         echo '<script type="text/javascript">
                     var __sq_article_rank = "' . __('SEO Analytics, by Squirrly', _SQ_PLUGIN_NAME_) . '";
                     var __sq_refresh = "' . __('Update', _SQ_PLUGIN_NAME_) . '"
@@ -173,7 +184,8 @@ class SQ_PostsList extends SQ_FrontController {
               </script>';
     }
 
-    public function getScripts() {
+    public function getScripts()
+    {
         return '<script type="text/javascript">
                 //load the rank from squirrly
                 if (typeof sq_script === "undefined"){
@@ -224,7 +236,8 @@ class SQ_PostsList extends SQ_FrontController {
      * @param integer $pos
      * @return array
      */
-    public function insert($src, $in, $pos) {
+    public function insert($src, $in, $pos)
+    {
         $array = array();
         if (is_int($pos))
             $array = array_merge(array_slice($src, 0, $pos), $in, array_slice($src, $pos));
@@ -242,7 +255,8 @@ class SQ_PostsList extends SQ_FrontController {
      * Hook Get/Post action
      * @return string
      */
-    public function action() {
+    public function action()
+    {
         parent::action();
         switch (SQ_Tools::getValue('action')) {
             case 'sq_posts_rank':
@@ -265,7 +279,7 @@ class SQ_PostsList extends SQ_FrontController {
                 SQ_Tools::setHeader('json');
                 $args = array();
                 $rank = null;
-                $this->model->post_id = (int) SQ_Tools::getValue('post');
+                $this->model->post_id = (int)SQ_Tools::getValue('post');
                 $args['post_id'] = $this->model->post_id;
 
                 if ($json = SQ_ObjController::getModel('SQ_Post')->getKeyword($this->model->post_id)) {
@@ -277,7 +291,7 @@ class SQ_PostsList extends SQ_FrontController {
 
                     if (isset($rank) && $rank !== false) {
                         $ranking = SQ_ObjController::getController('SQ_Ranking', false);
-                        $args['rank'] = (string) $rank;
+                        $args['rank'] = (string)$rank;
                         $args['country'] = $ranking->getCountry();
                         $args['language'] = $ranking->getLanguage();
                     }
@@ -303,9 +317,10 @@ class SQ_PostsList extends SQ_FrontController {
                 break;
             case 'sq_recheck':
                 SQ_Tools::setHeader('json');
-                if (get_transient('google_blocked') === false) {
-                    $this->model->post_id = (int) SQ_Tools::getValue('post_id');
+                if (SQ_Tools::getValue('sq_debug') === 'on' || get_transient('google_blocked') === false) {
+                    $this->model->post_id = (int)SQ_Tools::getValue('post_id');
                     if ($json = SQ_ObjController::getModel('SQ_Post')->getKeyword($this->model->post_id)) {
+                        $oldrank = (isset($json->rank) ? $json->rank : -1);
                         if (get_transient('sq_rank' . $this->model->post_id) !== false) {
                             delete_transient('sq_rank' . $this->model->post_id);
                         }
@@ -316,11 +331,13 @@ class SQ_PostsList extends SQ_FrontController {
                             exit(json_encode(array('error' => true)));
                         } else {
                             if ($json->rank == -2) {
-                                $value = __('Could not receive data from google (Err: blocked IP)');
-                            } elseif ($json->rank == -1) {
-                                $value = __('> 100');
+                                $json->rank = $oldrank;
+                            }
+
+                            if ($json->rank == -1) {
+                                $value = sprintf(__('Not in top 100 for: %s'), '<br />' .$json->keyword);
                             } elseif ($json->rank == 0) {
-                                $value = __('URL Indexed');
+                                $value = __('The URL is Indexed', _SQ_PLUGIN_NAME_);
                             } elseif ($json->rank > 0) {
                                 $value = '<strong style="display:block; font-size: 120%; width: 100px; margin: 0 auto; text-align:right;">' . sprintf(__('%s'), $json->rank) . '</strong>' . ((isset($json->country)) ? ' (' . $json->country . ')' : '');
                             }
@@ -330,7 +347,21 @@ class SQ_PostsList extends SQ_FrontController {
 
                     exit(json_encode(array('error' => true)));
                 } else {
-                    $rank = __('Could not receive data from google (Err: blocked IP)');
+                    $this->model->post_id = (int)SQ_Tools::getValue('post_id');
+                    if ($json = SQ_ObjController::getModel('SQ_Post')->getKeyword($this->model->post_id)) {
+                        if ($json->rank === false) {
+                            exit(json_encode(array('error' => true)));
+                        } else {
+                            if ($json->rank == -1) {
+                                $value = sprintf(__('Not in top 100 for: %s'), '<br />' .$json->keyword);
+                            } elseif ($json->rank == 0) {
+                                $value = __('The URL is Indexed', _SQ_PLUGIN_NAME_);
+                            } elseif ($json->rank > 0) {
+                                $value = '<strong style="display:block; font-size: 120%; width: 100px; margin: 0 auto; text-align:right;">' . sprintf(__('%s'), $json->rank) . '</strong>' . ((isset($json->country)) ? ' (' . $json->country . ')' : '');
+                            }
+                            exit(json_encode(array('rank' => $value)));
+                        }
+                    }
                     exit(json_encode(array('rank' => $rank)));
                 }
                 break;
@@ -343,7 +374,8 @@ class SQ_PostsList extends SQ_FrontController {
      * @param type $keyword
      * @return type
      */
-    private function checkKeyword($keyword, $force = false) {
+    private function checkKeyword($keyword, $force = false)
+    {
         $rank = null;
 
         if ($keyword == '')
@@ -387,7 +419,7 @@ class SQ_PostsList extends SQ_FrontController {
             if ($rank !== false && $rank >= -1) {
                 $args = array();
                 $args['post_id'] = $this->model->post_id;
-                $args['rank'] = (string) $rank;
+                $args['rank'] = (string)$rank;
                 $args['country'] = $ranking->getCountry();
                 $args['language'] = $ranking->getLanguage();
                 SQ_Action::apiCall('sq/user-analytics/saveserp', $args);

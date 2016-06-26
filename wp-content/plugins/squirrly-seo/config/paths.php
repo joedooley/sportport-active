@@ -12,7 +12,7 @@ $scheme = (((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") || (defined(
 defined('SQ_URI') || define('SQ_URI', (WP_VERSION_ID >= 3000) ? 'wp350' : 'wp2');
 defined('_SQ_API_URL_') || define('_SQ_API_URL_', $scheme . '//api.squirrly.co/');
 
-defined('_SQ_STATIC_API_URL_') || define('_SQ_STATIC_API_URL_', $scheme . '//api.squirrly.co/static/');
+defined('_SQ_STATIC_API_URL_') || define('_SQ_STATIC_API_URL_', $scheme . '//storage.googleapis.com/squirrly/');
 defined('_SQ_SUPPORT_URL_') || define('_SQ_SUPPORT_URL_', 'https://plus.google.com/u/0/communities/104196720668136264985');
 
 /* Directories */

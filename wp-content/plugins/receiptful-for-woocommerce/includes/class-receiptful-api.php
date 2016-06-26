@@ -264,7 +264,7 @@ class Receiptful_Api {
 	 * @param	string	$method				API method to call.
 	 * @param	array	$args				Arguments to pass in the API call.
 	 * @param	array	$request_args		List of arguments to override default request arguments.
-	 * @return	array	$response|WP_Error	API response.
+	 * @return	array|WP_Error	$response	API response.
 	 */
 	protected function api_get( $method, $args = array(), $request_args = array() ) {
 
@@ -303,7 +303,7 @@ class Receiptful_Api {
 	 * @param	string	$method				API method to call.
 	 * @param	array	$args				Arguments to pass in the API call.
 	 * @param	array	$request_args		List of arguments to override default request arguments.
-	 * @return	array	$response|WP_Error	API response.
+	 * @return	array|WP_Error	$response	API response.
 	 */
 	protected function api_call( $method, $args = array(), $request_args = array() ) {
 
@@ -343,7 +343,7 @@ class Receiptful_Api {
 	 * @param	string	$method				API method to call.
 	 * @param	array	$args				Arguments to pass in the API call.
 	 * @param	array	$request_args		List of arguments to override default request arguments.
-	 * @return	array	$response|WP_Error	API response.
+	 * @return	array|WP_Error	$response	API response.
 	 */
 	protected function api_put( $method, $args = array(), $request_args = array() ) {
 
@@ -382,7 +382,7 @@ class Receiptful_Api {
 	 *
 	 * @param	string	$method				API method to call.
 	 * @param	array	$request_args		List of arguments to override default request arguments.
-	 * @return	array	$response|WP_Error	API response.
+	 * @return	array|WP_Error	$response	API response.
 	 */
 	protected function api_delete( $method, $request_args = array() ) {
 
