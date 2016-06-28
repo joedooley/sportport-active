@@ -121,6 +121,11 @@ $GLOBALS["gtm4wp_includefieldtexts"] = array(
 		"label"       => __( "Weather data units", 'duracelltomi-google-tag-manager' ),
 		"description" => __( "Select which temperature units you would like to use.", 'duracelltomi-google-tag-manager' ),
 		"phase"       => GTM4WP_PHASE_EXPERIMENTAL
+	),
+	GTM4WP_OPTION_INCLUDE_WEATHEROWMAPI => array(
+		"label"       => __( "OpenWeatherMap API key", 'duracelltomi-google-tag-manager' ),
+		"description" => __( 'Enter your OpenWeatherMap API key here. <a href="http://openweathermap.org/price" target="_blank">Get a free API key here</a>.', 'duracelltomi-google-tag-manager' ),
+		"phase"       => GTM4WP_PHASE_EXPERIMENTAL
 	)
 );
 
@@ -1085,6 +1090,13 @@ function gtm4wp_add_plugin_action_links( $links, $file ) {
 	return $links;
 }
 
+function gtm4wp_show_upgrade_notification( $current_plugin_metadata, $new_plugin_metadata ) {
+	if ( isset( $new_plugin_metadata->upgrade_notice ) && strlen( trim( $new_plugin_metadata->upgrade_notice ) ) > 0 ) {
+		echo '<p style="background-color: #d54e21; padding: 10px; color: #f9f9f9; margin-top: 10px"><strong>Important Upgrade Notice:</strong> ';
+		echo esc_html($new_plugin_metadata->upgrade_notice), '</p>';
+	}
+}
+
 add_action( 'admin_init', 'gtm4wp_admin_init' );
 add_action( 'admin_menu', 'gtm4wp_add_admin_page' );
 add_action( 'admin_enqueue_scripts', 'gtm4wp_add_admin_js' );
@@ -1092,3 +1104,4 @@ add_action( 'admin_notices', 'gtm4wp_show_warning' );
 add_action( 'admin_head', 'gtm4wp_admin_head' );
 add_filter( 'plugin_action_links', 'gtm4wp_add_plugin_action_links', 10, 2 );
 add_action( 'wp_ajax_gtm4wp_dismiss_notice', 'gtm4wp_dismiss_notice' );
+add_action( 'in_plugin_update_message-duracelltomi-google-tag-manager-for-wordpress/duracelltomi-google-tag-manager-for-wordpress.php', 'gtm4wp_show_upgrade_notification', 10, 2 );

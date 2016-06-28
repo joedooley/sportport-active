@@ -1,12 +1,12 @@
 {
     "key": "group_570b3c9715f67",
-    "title": "Accordion\/Vertical Tabs",
+    "title": "FAQ Accordion",
     "fields": [
         {
-            "key": "field_570b5172d77d2",
-            "label": "Accordion",
-            "name": "accordion",
-            "type": "repeater",
+            "key": "field_57716886bf6a4",
+            "label": "Accordion Container",
+            "name": "accordion_container",
+            "type": "flexible_content",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -15,50 +15,110 @@
                 "class": "",
                 "id": ""
             },
-            "collapsed": "field_570b5189d77d3",
+            "button_label": "Add Row",
             "min": "",
             "max": "",
-            "layout": "block",
-            "button_label": "Add Another Section",
-            "sub_fields": [
+            "layouts": [
                 {
-                    "key": "field_570b5189d77d3",
-                    "label": "Header",
-                    "name": "header",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": "",
-                    "readonly": 0,
-                    "disabled": 0
+                    "key": "57716a0efa6dd",
+                    "name": "section_headers",
+                    "label": "Section Headers",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_57716a35fa6de",
+                            "label": "Section Header",
+                            "name": "section_header",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "readonly": 0,
+                            "disabled": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 },
                 {
-                    "key": "field_570b520dd77d4",
-                    "label": "Hidden Content",
-                    "name": "hidden_content",
-                    "type": "wysiwyg",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "tabs": "all",
-                    "toolbar": "full",
-                    "media_upload": 1
+                    "key": "577168a4cb470",
+                    "name": "accordion_section",
+                    "label": "Accordion Section",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_577168e3bf6a7",
+                            "label": "accordion",
+                            "name": "accordion",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "collapsed": "",
+                            "min": "",
+                            "max": "",
+                            "layout": "block",
+                            "button_label": "Add Row",
+                            "sub_fields": [
+                                {
+                                    "key": "field_577168f9bf6a8",
+                                    "label": "Header",
+                                    "name": "header",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": "",
+                                    "readonly": 0,
+                                    "disabled": 0
+                                },
+                                {
+                                    "key": "field_5771690cbf6a9",
+                                    "label": "Hidden Content",
+                                    "name": "hidden_content",
+                                    "type": "wysiwyg",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "tabs": "all",
+                                    "toolbar": "full",
+                                    "media_upload": 1
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             ]
         }
@@ -66,24 +126,23 @@
     "location": [
         [
             {
-                "param": "post_type",
+                "param": "page_template",
                 "operator": "==",
-                "value": "product"
+                "value": "templates\/faq.php"
             }
         ]
     ],
     "menu_order": 0,
     "position": "acf_after_title",
-    "style": "default",
+    "style": "seamless",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": [
-        "the_content",
         "custom_fields",
         "slug",
         "author"
     ],
     "active": 1,
     "description": "",
-    "modified": 1460665262
+    "modified": 1467060975
 }

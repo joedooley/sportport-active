@@ -47,20 +47,6 @@ body.review-only .site-footer,
 body.review-only .breadcrumb {
 	display: none; }
 
-.sidebar-tag {
-	font-size: 12px;
-	border: 1px solid rgba(0, 0, 0, 0.15);
-	background: rgba(255, 255, 255, 0.29);
-	padding: 18px;
-	margin-bottom: 0; }
-
-.mejs-container {
-	margin: 25px 0;
-	border-top: 3px solid #000;
-	border-bottom: 3px solid #FFF;
-	border-left: 3px solid #999;
-	border-right: 3px solid #CCC; }
-
 /*! body.inspire [x69] ---------------------------------------- */
 
 body.inspire { background: #FFF; }
@@ -121,28 +107,6 @@ body.inspire ul.products li.product .categories { display: none; }
 body.inspire .woocommerce-page.columns-1 ul.products li.product,
 body.inspire .woocommerce.columns-1 ul.products li.product { margin-bottom: 0; }
 
-/*! body.gallery [x68] ---------------------------------------- */
-
-body.gallery { background: #FFF; }
-body.gallery .entry-title {
-	font-size: 3em;
-	color: #000;
-	line-height: 1.15;
-	letter-spacing: -.72px;
-	margin: 0 0 15px 0; }
-
-body.gallery .entry,
-body.gallery .entry-title,
-body.gallery .content .entry-content {
-	margin-top: 0;
-	padding: 0 0 0 0; }
-
-body.gallery .grey-boxed {
-	border: 1px solid #333;
-	padding: 13px 20px;
-	margin: 0 0 5px 8px;
-	box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24); }
-
 
 
 /*! main.content SITEWIDE RULES [x31] ---------------------------------------- */
@@ -176,13 +140,7 @@ body.gallery .grey-boxed {
 .content[role="main"] .entry img { margin: 6px 20px 5px 0; }
 
 
-h1 { font-size: 28px; }
-h2 { font-size: 23px; }
-h3 { font-size: 18px; }
-h4 { font-size: 15px;
-	margin: 15px 0 5px 0; }
-h5 { font-size: 12px; }
-h6 { font-size: 10px; }
+
 
 
 
@@ -203,16 +161,8 @@ ins {
 
 body.sp-blog-post { background: #FFF !important; }
 
-body.single-post .entry-title {
-	font-size: 2.8em;
-	font-family: $raleway-semibold;
-	color: #567;
-	line-height: 1.15;
-	letter-spacing: -.15px;
-	margin-bottom: 7px; }
 
 body.sp-blog-post .entry,
-body.sp-blog-post .entry-title,
 body.sp-blog-post .content .entry-content {
 	padding: 0;
 	margin-top: 0; }
@@ -1373,39 +1323,10 @@ img.alignright,
 	text-align: center;
 }
 
-/*! Genesis
---------------------------------------------- */
-
-.breadcrumb {
-	text-align: right;
-	margin: 0 0 15px 0;
-	padding: 0 0 15px 0;
-	font-size: 13px;
-	color: #567;
-	border-bottom: 1px solid #9AB;
-}
-
-.archive-description p { margin: 0 0 22px 0; }
-
 
 
 /*! Titles
 --------------------------------------------- */
-
-.entry-title {
-	margin-bottom: 0;
-	padding: 0 40px 0 20px;
-	line-height: 1.1;
-	font-weight: normal;
-	font-size: 2em;
-	font-family: ralewaymedium, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	color: #567;
-	letter-spacing: -0.2px; }
-
-.entry-title a {
-	color: #567;
-	font-weight: normal;
-	text-decoration: none; }
 
 .sidebar .widgettitle a {
 	color: #333;
@@ -1466,124 +1387,9 @@ Widgets
 
 .featured-content .entry-title a {
 	border: none; }
-/*!
-Content Area
----------------------------------------------------------------------------------------------------- */
-
-/*! Entries
---------------------------------------------- */
-
-.entry {  /*--- [x50] ---*/
-	background: rgba(255, 255, 255, 0.50);
-	margin: 0 3px 10px 0;
-	padding: 0 16px 16px 16px; }
 
 
 
-.content .entry-content {
-	padding: 10px 10px 0px 20px;
-	overflow: hidden;
-}
-
-.home .entry-content {
-	padding: 0 0 20px;
-}
-
-.entry-content a {
-	color: #18d;
-	font-family: $raleway-semibold;
-	text-decoration: underline; }
-
-.entry-content a:hover {
-	color: #f93; }
-
-.entry-content strong {
-	font-family: $raleway-bold;
-	font-weight: normal;
-	color: #567;
-	text-transform: uppercase; }
-
-.entry-content a strong { color: #18D; }
-.entry-content a strong:hover { color: #E80; }
-
-.entry-content .attachment a,
-.entry-content .gallery a {
-	border: none;
-}
-
-.entry-content ol,
-.entry-content p,
-.entry-content ul,
-.quote-caption {
-	margin: 0 0 10px 0; }
-
-.entry-content ol li,
-.entry-content ul li {
-	margin: 0 30px 10px 40px; }
-
-.entry-content ol li {
-	list-style-type: decimal;
-}
-
-.entry-content ul li {
-	list-style-type: disc;
-	margin: 4px 0 0 20px; }
-
-.entry-content ol ol,
-.entry-content ul ul,
-.entry-content .wp-caption p {
-	margin-bottom: 0;
-}
-
-.entry-meta {
-	clear: both;
-	color: #666;
-	font-size: 14px;
-}
-
-.entry-meta a {
-	font-family: $raleway-semibold;
-	font-weight: normal;
-}
-
-.entry-header .entry-meta {
-	@include padding(0);
-	border-bottom: 1px solid #eee;
-	font-size: 12px;
-	font-weight: 400;
-	margin: 10px 0 5px 20px;
-	text-transform: uppercase;
-}
-
-.home .entry-header .entry-meta {
-	padding: 10px 0 20px;
-}
-
-.entry-footer .entry-meta {
-	margin: 0;
-	overflow: hidden;
-	padding: 0 0 15px 0;
-}
-
-.entry-footer  {
-	padding: 0 20px;
-}
-
-.entry-comments-link::before {
-	content: "\2014";
-	margin: 0 6px 0 2px;
-}
-
-.entry-categories {
-	display: block;
-	float: left;
-	font-size: 12px;
-}
-
-.entry-tags {
-	float: right;
-	font-size: 12px;
-}
 
 /*! After Entry widget
 --------------------------------------------- */
@@ -1657,70 +1463,7 @@ Content Area
 	background: #1e1e1e;
 }
 
-/*! Comments
---------------------------------------------- */
 
-
-.entry-comments,
-.ping-list,
-#respond {
-	margin-bottom: 40px;
-}
-
-.entry-comments .comment-author {
-	margin: 0;
-}
-
-#respond input[type="email"],
-#respond input[type="text"],
-#respond input[type="url"] {
-	width: 50%;
-}
-
-#respond label {
-	display: block;
-	margin-right: 12px;
-}
-
-.comment-list li,
-.ping-list li {
-	list-style-type: none;
-	margin-top: 24px;
-	padding: 32px;
-}
-
-
-li.comment {
-	padding: 30px;
-}
-
-li.comment ul li {
-	border-radius: 0;
-	border-left: 1px solid #ddd;
-}
-
-.thread-alt li.comment {
-	border-radius: 0;
-	border-left: 1px solid #aaa;
-}
-
-.comment .avatar {
-	margin: 0 16px 24px 0;
-}
-
-.thread-alt {
-	background-color: #ddd;
-}
-
-.thread-even {
-	background-color: #fff;
-}
-
-.form-allowed-tags {
-	background: #D3DCEB;
-	font-size: 14px;
-	padding: 24px;
-}
 
 /*!
 Miscellaneous
@@ -1732,29 +1475,7 @@ Miscellaneous
 	margin-bottom: 26px;
 }
 
-/* Embedded Gists */
-.line-pre::before,
-.line-pre::after,
-.line::before,
-.line::after {
-	content: '';
-}
 
-.line-number,
-.gist .line-data > .line-pre {
-	line-height: 1.2;
-}
-
-.tagcloud a {
-	background: #e3e3e3;
-	float: left;
-	padding: 3px 10px;
-	margin: 0 2px 5px;
-}
-
-.tagcloud a:hover {
-	background: #f5f5f5;
-}
 
 .search .entry {
 	padding: 40px 20px 10px;

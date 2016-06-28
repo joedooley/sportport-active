@@ -1,19 +1,23 @@
 ul,
 ol {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+	li {
+		margin-bottom: rem(30);
+	}
 }
 
 dl {
-  margin-bottom: $small-spacing;
+	margin-bottom: $small-spacing;
 
-  dt {
-    font-weight: 600;
-    margin-top: $small-spacing;
-  }
+	dt {
+		font-weight: 600;
+		margin-top: $small-spacing;
+	}
 
-  dd {
-    margin: 0;
-  }
+	dd {
+		margin: 0;
+	}
 }

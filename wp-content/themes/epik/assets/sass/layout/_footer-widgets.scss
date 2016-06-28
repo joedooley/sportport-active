@@ -6,7 +6,7 @@
 	@include padding(rem(20) 0);
 	clear: both;
 	color: #aaa;
-	font-size: 0.875rem;
+	font-size: 1.4rem;
 	line-height: 1;
 
 	a,
@@ -25,7 +25,7 @@
 		color: $orange;
 		font: {
 			family: $raleway;
-			size: rem(11);
+			size: 1.6rem;
 			weight: normal;
 		}
 		text-transform: uppercase;
@@ -54,10 +54,10 @@
 
 		a {
 			color: #fff;
-			font-size: 0.55rem;
+			font-size: 1.2rem;
 		}
 	}
-	
+
 	.entry {
 		max-width: 341px;
 	}
@@ -74,7 +74,6 @@
 	}
 
 	address {
-		font-size: rem(14);
 		margin-top: 1em;
 	}
 }

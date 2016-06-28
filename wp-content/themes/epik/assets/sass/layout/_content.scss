@@ -1,0 +1,91 @@
+/*! ## Content Area/Main Article
+-------------------------------- */
+
+.content {
+
+	.entry {
+		@extend %content-bg;
+		@include margin(2em 0);
+	}
+
+}
+
+.entry-content a {
+	color: #18d;
+	font-family: $raleway-semibold;
+	text-decoration: underline; }
+
+.entry-content a:hover {
+	color: #f93; }
+
+.entry-content strong {
+	font-family: $raleway-bold;
+	font-weight: normal;
+	color: #567;
+	text-transform: uppercase; }
+
+.entry-content a strong { color: #18d; }
+
+.entry-content a strong:hover { color: #e80; }
+
+.entry-content .attachment a,
+.entry-content .gallery a {
+	border: none;
+}
+
+
+
+.entry-content ol li,
+.entry-content ul li {
+	margin: 0 30px 30px 40px; }
+
+.entry-content ol li {
+	list-style-type: decimal;
+}
+
+.entry-content ul li {
+	list-style-type: disc;
+}
+
+.entry-content ol ol,
+.entry-content ul ul,
+.entry-content .wp-caption p {
+	margin-bottom: 0;
+}
+
+.entry-meta {
+	clear: both;
+	color: #666;
+	font-size: 14px;
+}
+
+.entry-meta a {
+	font-family: $raleway-semibold;
+	font-weight: normal;
+}
+
+.entry-header .entry-meta {
+	@include padding(0);
+	border-bottom: 1px solid #eee;
+	font-size: 12px;
+	font-weight: 400;
+	margin: 10px 0 5px 20px;
+	text-transform: uppercase;
+}
+
+
+.entry-comments-link::before {
+	content: "\2014";
+	margin: 0 6px 0 2px;
+}
+
+.entry-categories {
+	display: block;
+	float: left;
+	font-size: 12px;
+}
+
+.entry-tags {
+	float: right;
+	font-size: 12px;
+}

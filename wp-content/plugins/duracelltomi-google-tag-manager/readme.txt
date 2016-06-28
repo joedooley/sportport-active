@@ -4,7 +4,7 @@ Donate link: https://duracelltomi.com/
 Tags: google tag manager, tag manager, gtm, google, adwords, google adwords, adwords remarketing, remarketing, google analytics, analytics
 Requires at least: 3.4.0
 Tested up to: 4.5.2
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -281,6 +281,14 @@ If you or your social plugin inserts the Facebook buttons using IFRAMEs (like So
 
 == Changelog ==
 
+= 1.3.2 =
+
+* Fixed: remove cart event not fired in WooCommerce 2.6
+* Fixed: ecomm_prodid.push error message on product detail pages
+* Fixed: proper tracking of cart actions on the cart page for WooCommerce 2.6
+* Fixed: 'Illegal string offset' errors in some cases in the cart
+* Fixed: OpenWeatherMap requires a (free) API key now, you can now enter this to use weather data in data layer
+
 = 1.3.1 =
 
 * Fixed: "json_encode() expects parameter 2 to be long, string given" on PHP 5.3 instances
@@ -436,6 +444,10 @@ Please report all bugs found in my plugin using the [contact form on my website]
 * First beta release
 
 == Upgrade Notice ==
+
+= 1.3.2 =
+
+Quickfix release for 1.3.x: major changes and improvements in the enhanced ecommerce implementation for WooCommerce. If you are already using this beta feature, please read the changelog before upgrading!
 
 = 1.3.1 =
 

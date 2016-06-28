@@ -26,6 +26,7 @@
 
 .site-inner {
 	clear: both;
+	margin-bottom: 2em;
 	padding-top: 60px;
 
 	@include media($xlarge-screen-up) {

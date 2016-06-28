@@ -49,6 +49,9 @@ function spa_add_theme_support() {
 	remove_action( 'genesis_after_header', 'genesis_do_nav' );
 	add_action( 'genesis_header', 'genesis_do_nav', 12 );
 
+	// Remove Page/Post Edit Links
+	add_filter( 'genesis_edit_post_link', '__return_false' );
+
 }
 
 

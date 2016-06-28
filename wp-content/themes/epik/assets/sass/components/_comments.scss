@@ -1,0 +1,60 @@
+/*! ## Comment Respond Box
+-------------------------- */
+
+.comment-respond {
+	@extend %content-bg;
+}
+
+.entry-comments .comment-author {
+	margin: 0;
+}
+
+#respond input[type="email"],
+#respond input[type="text"],
+#respond input[type="url"] {
+	width: 50%;
+}
+
+#respond label {
+	display: block;
+	margin-right: 12px;
+}
+
+.comment-list li,
+.ping-list li {
+	list-style-type: none;
+	margin-top: 24px;
+	padding: 32px;
+}
+
+li.comment {
+	padding: 30px;
+}
+
+li.comment ul li {
+	border-radius: 0;
+	border-left: 1px solid #ddd;
+}
+
+.thread-alt li.comment {
+	border-radius: 0;
+	border-left: 1px solid #aaa;
+}
+
+.comment .avatar {
+	margin: 0 16px 24px 0;
+}
+
+.thread-alt {
+	background-color: #ddd;
+}
+
+.thread-even {
+	background-color: #fff;
+}
+
+.form-allowed-tags {
+	background: #d3dceb;
+	font-size: 14px;
+	padding: 24px;
+}

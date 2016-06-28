@@ -239,7 +239,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	}
 
 	function a(e, n) {
-		return !! ~("" + e).indexOf(n);
+		return !!~("" + e).indexOf(n);
 	}
 
 	function l(e) {

@@ -24,7 +24,7 @@ var adminsubtabs = {
     },
     "weather": {
       tabtext: gtm4wp.weathertabtitle,
-      numitems: 2
+      numitems: 3
     }
   },
   2: {

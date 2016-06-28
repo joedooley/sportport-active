@@ -4,24 +4,19 @@
 }
 
 html {
-	font-size: $base-font-size;
-	line-height: $base-line-height;
+	font-size: 62.5%; // 10px browser default
+}
 
-	@media (min-width: 800px) {
-		font-size: 18px;
-	}
-
-	@media (min-width: 1200px) {
-		font-size: 20px;
-		line-height: 1.4;
-	}
+// Chrome fix
+body > div {
+	font-size: 2rem;
 }
 
 body {
 	background: rgba(211, 220, 235, 0.59);
 	color: #333;
 	font-family: $raleway;
-	font-size: 18px;
+	font-size: 2rem;
 	font-weight: 100;
 	letter-spacing: 0.025em;
 	line-height: 1.6;
@@ -35,13 +30,48 @@ h4,
 h5,
 h6 {
 	font-family: $heading-font-family;
-	font-size: $base-font-size;
-	line-height: $heading-line-height;
-	margin: 0 0 $small-spacing;
+	line-height: 1.2;
+	margin-bottom: rem(20);
 }
 
+h1 {
+	font-size: 2.8rem;
+}
+
+.entry-content h2 {
+	font-size: 2.3rem;
+	letter-spacing: 1px;
+	margin-top: 40px;
+	text-transform: uppercase;
+}
+
+.entry-content h4 {
+	font-size: 2rem;
+	letter-spacing: 1px;
+	margin-top: 40px;
+	text-transform: uppercase;
+}
+
+h3 {
+	font-size: 1.8rem;
+}
+
+h4 {
+	font-size: 1.5rem;
+}
+
+
+h5 {
+	font-size: 1.4rem;
+}
+
+h6 {
+	font-size: 1.4rem;
+}
+
+
 p {
-	margin: 0 0 em(20);
+	margin-bottom: rem(30);
 }
 
 a {

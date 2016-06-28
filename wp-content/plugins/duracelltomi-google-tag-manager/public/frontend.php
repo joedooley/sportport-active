@@ -357,7 +357,7 @@ function gtm4wp_add_basic_datalayer_data( $dataLayer ) {
 }
 
 function gtm4wp_wp_loaded() {
-        global $gtm4wp_options;
+	global $gtm4wp_options;
 
 	if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_WEATHER ] ) {
 		$gtm4wp_sessionid = array_key_exists( "gtm4wp_sessoionid", $_COOKIE ) ? $_COOKIE[ "gtm4wp_sessoionid" ] : "";
@@ -376,7 +376,7 @@ function gtm4wp_wp_loaded() {
 			if ( $gtm4wp_geodata ) {
 				$gtm4wp_geodata = unserialize( $gtm4wp_geodata );
 				if ( array_key_exists( 'geoplugin_latitude', $gtm4wp_geodata ) && array_key_exists( 'geoplugin_longitude', $gtm4wp_geodata ) ) {
-					$weatherdata = @file_get_contents('http://api.openweathermap.org/data/2.5/weather?lat=' . $gtm4wp_geodata[ "geoplugin_latitude" ] . '&lon=' . $gtm4wp_geodata[ "geoplugin_longitude" ] . '&units=' . ($gtm4wp_options[ GTM4WP_OPTION_INCLUDE_WEATHERUNITS ] == 0 ? 'metric' : 'imperial'));
+					$weatherdata = @file_get_contents('http://api.openweathermap.org/data/2.5/weather?appid=' . $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_WEATHEROWMAPI ] . '&lat=' . $gtm4wp_geodata[ "geoplugin_latitude" ] . '&lon=' . $gtm4wp_geodata[ "geoplugin_longitude" ] . '&units=' . ($gtm4wp_options[ GTM4WP_OPTION_INCLUDE_WEATHERUNITS ] == 0 ? 'metric' : 'imperial'));
 					if ( $weatherdata ) {
 						$weatherdata = @json_decode( $weatherdata );
 						if ( is_object( $weatherdata ) ) {

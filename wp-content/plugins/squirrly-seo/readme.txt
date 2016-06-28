@@ -137,6 +137,10 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
 
 == Changelog ==
+= 6.1.3 =
+* Rich Pins Validator Option
+* Added rich pins for Woocommerce Products
+
 = 6.1.2 =
 * Compatible with WP 4.5.3
 * Fixed the google profile link
@@ -556,4 +560,4 @@ And the best ones that we have (and the others don't):
 If you click the Squirrly tab in your dashboard, go to the "First Page Optimization" section and switch the Title and Description option on. You can enter custom Title, Description and Keywords. 
 
 = Is this Wordpress SEO plugin the only SEO plugin I will need to install? =
-It all depends on how you have setup your Wordpress until now. Some people use Squirrly seo plugin only for the Content Optimization with the Live Assistant part, some use use it to check their SEO stats and see where they need to improve their Wordpress seo, but most of our users and customer use Squirrly for everything related to SEO: from keyword analysis, to seo settings on Wordpress, to analytics and to weekly monitoring and audit reports.     
+It all depends on how you have setup your Wordpress until now. Some people use Squirrly seo plugin only for the Content Optimization with the Live Assistant part, some use use it to check their SEO stats and see where they need to improve their Wordpress seo, but most of our users and customer use Squirrly for everything related to SEO: from keyword analysis, to seo settings on Wordpress, to analytics and to weekly monitoring and audit reports.       
