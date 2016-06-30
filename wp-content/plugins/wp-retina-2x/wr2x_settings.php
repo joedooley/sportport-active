@@ -242,6 +242,13 @@ function wr2x_admin_init() {
                 'default' => false
             ),
             array(
+                'name' => 'hide_ads',
+                'label' => __( 'Hide Ads & Info', 'wp-retina-2x' ),
+                'desc' => __( 'Hide the ads, the Flattr button and the information about the Pro.', 'wp-retina-2x' ),
+                'type' => 'checkbox',
+                'default' => false
+            ),
+            array(
                 'name' => 'mobile',
                 'label' => '',
                 'desc' => __( '<h2>Mobiles</h2>', 'wp-retina-2x' ),
@@ -253,7 +260,7 @@ function wr2x_admin_init() {
                 'desc' => __( 'Doesn\'t deliver Retina images to mobiles.<br /><small>Only works with the IMG Rewrite method and cache will prevent it from working, unless the caching system supports it.</small>', 'wp-retina-2x' ),
                 'type' => 'checkbox',
                 'default' => false
-            ),
+            )
 		    ),
         'wr2x_pro' => array(
             array(

@@ -3,10 +3,6 @@ ol {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-
-	li {
-		margin-bottom: rem(30);
-	}
 }
 
 dl {
@@ -19,5 +15,12 @@ dl {
 
 	dd {
 		margin: 0;
+	}
+}
+
+.entry-content ul,
+.entry-content ol {
+	li {
+		margin-bottom: rem(30);
 	}
 }

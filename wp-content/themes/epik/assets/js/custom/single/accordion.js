@@ -6,12 +6,16 @@
 
 	// Grab the accordion items from the page
 	var accordionItems    = document.querySelectorAll('.accordion-item'),
+	    accordionHeading  = document.querySelectorAll('.accordion-heading'),
 	    accordionContent  = document.querySelectorAll('.accordion-content');
 
 	// Assign onclick events to the accordion item headings
 	for (var i = 0; i < accordionItems.length; i++) {
-		var h2     = getFirstChildWithTagName(accordionItems[i], 'H2');
-		h2.onclick = toggleItem;
+		// var h2     = getFirstChildWithTagName(accordionItems[i], 'H2');
+		var heading = accordionHeading,
+			heading = heading[i];
+		heading.onclick = toggleItem;
+		console.log(heading);
 	}
 
 	// Hide all accordion item bodies except the first

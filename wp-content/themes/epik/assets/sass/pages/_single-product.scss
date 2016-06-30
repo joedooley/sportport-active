@@ -155,7 +155,7 @@ body.single-product {
 				border: 1px solid #000;
 				cursor: pointer;
 				display: block;
-				font-size: 1rem;
+				font-size: 1em;
 				line-height: 40px;
 				min-height: 40px;
 				min-width: 50px;
@@ -174,6 +174,7 @@ body.single-product {
 	// Add to Cart Button
 	div.product form.cart button.button {
 		background-color: $orange;
+		font-size: 1.25em;
 		@include padding(14px em(60));
 
 		@include media($medium-screen-up) {
@@ -255,4 +256,9 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 	@include media($medium-screen-up) {
 		margin-top: 5em;
 	}
+}
+
+// Prevents overflow on left side of screen at footer widgets
+.single-product .above-footer-widgets {
+	position: relative;
 }

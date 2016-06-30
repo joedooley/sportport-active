@@ -41,7 +41,7 @@ function sp_acf_accordion() {
 
 			$section_heading = get_sub_field( 'section_header' );
 
-			echo '<h2 class = "section-header heading">' . $section_heading  . '</h2>';
+			echo '<h3 class = "section-header heading">' . $section_heading  . '</h3>';
 
 		}
 

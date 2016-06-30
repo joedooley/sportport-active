@@ -42,7 +42,9 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 	}
 
 
-	.top_label .gfield_label {
+	label.gfield_label {
+		font-size: 0.9em;
+		font-weight: 700;
 		max-width: 380px;
 	}
 
@@ -73,8 +75,8 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 	}
 
 	.gform_footer {
-		@include margin(2.4em 0 0);
 		display: inline-block;
+		margin-top: 2.05em;
 		width: 20%;
 
 		@include media($xlarge-screen-up) {
@@ -83,7 +85,7 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 		}
 
 		.gform_button {
-			@include padding(18px 35px);
+			@include padding(12px 35px);
 			background-color: $orange;
 			border-radius: 0;
 			color: #fff;
@@ -129,14 +131,15 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 	}
 
 	.gform_footer {
+		@include transform(translateY(50px));
 		@include margin(0);
 
 		.gform_button {
+			@include padding(inherit);
 			border: none;
 			border-radius: 0;
 			box-shadow: none;
 			width: 100%;
-			@include padding(inherit);
 		}
 	}
 }

@@ -195,10 +195,11 @@ function wr2x_admin_head() {
 			var wr2x_replace = jQuery(evt.target).parent().hasClass('wr2x-fullsize-replace');
 			var wr2x_upload = jQuery(evt.target).parent().hasClass('wr2x-fullsize-retina-upload');
 
-			function wr2x_handleReaderLoad(evt) {
-				var attachmentId = evt.target.attachmentId;
-				var fileData = evt.target.result;
-				fileData = fileData.substr(fileData.indexOf('base64') + 7);
+			function wr2x_handleprogress(prg) {
+				console.debug("Upload of " + prg.srcElement.filename + ": " + prg.loaded / prg.total * 100 + "%");
+			}
+
+			function wr2x_uploadFile(file, attachmentId, filename) {
 				var action = "";
 				if (wr2x_replace) {
 					action = 'wr2x_replace';
@@ -209,17 +210,25 @@ function wr2x_admin_head() {
 				else {
 					alert("Unknown command. Contact the developer.");
 				}
-				var data = {
-					action: action,
-					isAjax: true,
-					filename: evt.target.filename,
-					data: fileData,
-					attachmentId: evt.target.attachmentId
-				};
+				var data = new FormData();
+    		data.append('file', file);
+				data.append('action', action);
+				data.append('attachmentId', attachmentId);
+				data.append('isAjax', true);
+				data.append('filename', filename);
+				// var data = {
+				// 	action: action,
+				// 	isAjax: true,
+				// 	filename: evt.target.filename,
+				// 	data: form_data,
+				// 	attachmentId: attachmentId
+				// };
 
 				jQuery.ajax({
 					type: 'POST',
 					url: ajaxurl,
+					contentType: false,
+					processData: false,
 					data: data,
 					success: function (response) {
 						jQuery('[postid=' + attachmentId + '] td').removeClass('wr2x-loading-file');
@@ -232,7 +241,6 @@ function wr2x_admin_head() {
 							console.debug(response);
 							return;
 						}
-
 						if (wr2x_replace) {
 							var imgSelector = '[postid=' + attachmentId + '] .wr2x-info-thumbnail img';
 							jQuery(imgSelector).attr('src', jQuery(imgSelector).attr('src')+'?'+ Math.random());
@@ -260,20 +268,15 @@ function wr2x_admin_head() {
 				  }
 				});
 			}
-
 			var file = files[0];
 			if (file.size > maxPhpSize) {
 				jQuery(this).removeClass('wr2x-hover-drop');
 				alert( "Your PHP configuration only allows file upload of a maximum of " + (maxPhpSize / 1000000) + "MB." );
 				return;
 			}
-
+			var postId = jQuery(evt.target).parents('.wr2x-file-row').attr('postid');
 			jQuery(evt.target).parents('td').addClass('wr2x-loading-file');
-			var reader = new FileReader();
-			reader.filename = file.name;
-			reader.attachmentId = jQuery(evt.target).parents('.wr2x-file-row').attr('postid');
-			reader.onload = wr2x_handleReaderLoad;
-			reader.readAsDataURL(file);
+			wr2x_uploadFile(file, postId, file.name);
 		}
 
 		jQuery(document).ready(function () {
@@ -511,6 +514,7 @@ function wr2x_wp_ajax_wr2x_generate() {
 }
 
 function wr2x_check_get_ajax_uploaded_file() {
+
 		if ( !current_user_can('upload_files') ) {
 		echo json_encode( array(
 			'success' => false,
@@ -519,35 +523,7 @@ function wr2x_check_get_ajax_uploaded_file() {
 		die();
 	}
 
-	$data = $_POST['data'];
-
-	// Create the file as a TMP
-	if ( is_writable( sys_get_temp_dir() ) ) {
-		$tmpfname = tempnam( sys_get_temp_dir(), "wpx_" );
-		wr2x_log( "Upload a temporary file in $tmpfname (sys_get_temp_dir)." );
-	}
-	else if ( is_writable( wr2x_get_upload_root() ) ) {
-		if ( !file_exists( trailingslashit( wr2x_get_upload_root() ) . "wr2x-tmp" ) )
-			mkdir( trailingslashit( wr2x_get_upload_root() ) . "wr2x-tmp" );
-		$tmpfname = tempnam( trailingslashit( wr2x_get_upload_root() ) . "wr2x-tmp", "wpx_" );
-		wr2x_log( "Upload a temporary file in $tmpfname (wr2x_get_upload_root)." );
-	}
-
-	if ( $tmpfname == null || $tmpfname == FALSE ) {
-		$tmpdir = get_temp_dir();
-		error_log( "Retina: The temporary directory could not be created." );
-		wr2x_log( "The temporary directory could not be created." );
-		echo json_encode( array(
-			'success' => false,
-			'message' => __( "The temporary directory could not be created.", 'wp-retina-2x' )
-		));
-		die;
-	}
-
-	$handle = fopen( $tmpfname, "w" );
-	fwrite( $handle, base64_decode( $data ) );
-	fclose( $handle );
-	chmod( $tmpfname, 0664 );
+	$tmpfname = $_FILES['file']['tmp_name'];
 
 	// Check if it is an image
 	$file_info = getimagesize( $tmpfname );

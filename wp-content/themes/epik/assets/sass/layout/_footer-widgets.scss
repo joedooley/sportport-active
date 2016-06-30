@@ -12,12 +12,12 @@
 	a,
 	p {
 		color: $light-gray;
-		margin-bottom: rem(7);
+		font-size: 1.25em;
 	}
 
 	li {
 		list-style-type: none;
-		margin-bottom: 6px;
+		margin-bottom: 15px;
 		word-wrap: break-word;
 	}
 
@@ -25,7 +25,7 @@
 		color: $orange;
 		font: {
 			family: $raleway;
-			size: 1.6rem;
+			size: 1.45rem;
 			weight: normal;
 		}
 		text-transform: uppercase;
@@ -59,6 +59,7 @@
 	}
 
 	.entry {
+		background-color: rgba(255,255,255,0.5);
 		max-width: 341px;
 	}
 }
