@@ -1,0 +1,16 @@
+/*! ## Receiptful
+--------------------- */
+
+.sidebar-primary .rf-recommendations {
+	overflow: hidden;
+
+	.rf-recommendation-col {
+		width: 100%;
+	}
+
+	img {
+		float: none;
+		height: auto;
+		margin: auto;
+	}
+}
