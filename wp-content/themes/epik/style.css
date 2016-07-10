@@ -2663,11 +2663,14 @@ li.comment ul li {
 .faq #accordion {
   margin-left: 1em; }
   .faq #accordion .section-header {
-    border: 0;
+    border-bottom: 1px solid;
+    color: #27a;
     font-family: ralewayregular, sans-serif;
     font-size: 1.75em;
+    font-style: italic;
     margin-bottom: 2em; }
   .faq #accordion .accordion-heading {
+    border-bottom: 0;
     color: #567; }
   .faq #accordion .accordion-content p {
     padding: 0 6em 0 1em;

@@ -7,13 +7,16 @@
 		margin-left: 1em;
 
 		.section-header {
-			border: 0;
+			border-bottom: 1px solid;
+			color: $blue1;
 			font-family: $raleway;
 			font-size: 1.75em;
+			font-style: italic;
 			margin-bottom: 2em;
 		}
 
 		.accordion-heading {
+			border-bottom: 0;
 			color: $headline-color;
 		}
 

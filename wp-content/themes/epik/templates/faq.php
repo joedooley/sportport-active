@@ -21,8 +21,14 @@ add_action( 'body_class', function( $classes ) {
 }  );
 
 
+/**
+ * Remove Entry Header and Entry Title
+ */
+remove_all_actions( 'genesis_entry_header' );
+
+
 /** Remove default Genesis loop */
-//remove_action( 'genesis_entry_content', 'genesis_do_loop' );
+remove_action( 'genesis_entry_content', 'genesis_do_loop' );
 add_action( 'genesis_entry_content', 'sp_acf_accordion' );
 /**
  * Outputs ACF Repeator for Accordion.
@@ -41,17 +47,16 @@ function sp_acf_accordion() {
 
 			$section_heading = get_sub_field( 'section_header' );
 
-			echo '<h3 class = "section-header heading">' . $section_heading  . '</h3>';
+			echo '<h3 class = "section-header heading">' . $section_heading . '</h3>';
 
-		}
-
-		elseif ( get_row_layout() === 'accordion_section' ) {
+		} elseif ( get_row_layout() === 'accordion_section' ) {
 
 			if ( have_rows( 'accordion' ) ) :
 
-				echo '<div class = "accordion-item">';
-
 				while ( have_rows( 'accordion' ) ) : the_row();
+
+					echo '<div class = "accordion-item">';
+
 
 					$heading = get_sub_field( 'header' );
 					$content = get_sub_field( 'hidden_content' );
@@ -64,9 +69,11 @@ function sp_acf_accordion() {
 						echo '<div class = "accordion-content">' . $content . '</div>';
 					}
 
+					echo '</div>';
+
+
 				endwhile;
 
-				echo '</div>';
 
 			endif;
 
@@ -77,6 +84,8 @@ function sp_acf_accordion() {
 	echo '</div>';
 
 }
+
+
 
 
 /**
