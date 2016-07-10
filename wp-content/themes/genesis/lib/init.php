@@ -53,15 +53,43 @@ function genesis_theme_support() {
 	add_theme_support( 'genesis-breadcrumbs' );
 
 	//* Maybe add support for Genesis menus
-	if ( ! current_theme_supports( 'genesis-menus' ) )
-		add_theme_support( 'genesis-menus', array(
+	if ( ! current_theme_supports( 'genesis-menus' ) ) {
+
+		$menus = array(
 			'primary'   => __( 'Primary Navigation Menu', 'genesis' ),
 			'secondary' => __( 'Secondary Navigation Menu', 'genesis' ),
-		) );
+		);
+
+		/**
+		 * Filter for the menus that Genesis supports by default.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param array $menus The array of supported menus.
+		 */
+		$menus = apply_filters( 'genesis_theme_support_menus', $menus );
+
+		add_theme_support( 'genesis-menus', $menus );
+
+	}
 
 	//* Maybe add support for structural wraps
-	if ( ! current_theme_supports( 'genesis-structural-wraps' ) )
-		add_theme_support( 'genesis-structural-wraps', array( 'header', 'menu-primary', 'menu-secondary', 'footer-widgets', 'footer' ) );
+	if ( ! current_theme_supports( 'genesis-structural-wraps' ) ) {
+
+		$structural_wraps = array( 'header', 'menu-primary', 'menu-secondary', 'footer-widgets', 'footer' );
+
+		/**
+		 * Filter for the structural wraps that Genesis supports by default.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param array $structural_wraps The array of supported menus.
+		 */
+		$structural_wraps = apply_filters( 'genesis_theme_support_structural_wraps', $structural_wraps );
+
+		add_theme_support( 'genesis-structural-wraps', $structural_wraps );
+
+	}
 
 	//* Turn on HTML5 and responsive viewport if Genesis is active
 	if ( ! is_child_theme() ) {
@@ -109,6 +137,11 @@ function genesis_post_type_support_post_meta() {
 		}
 	}
 
+	//* For backward compatibility
+	if ( current_theme_supports( 'genesis-after-entry-widget-area' ) ) {
+		add_post_type_support( 'post', 'genesis-after-entry-widget-area' );
+	}
+
 }
 
 add_action( 'genesis_init', 'genesis_constants' );
@@ -121,10 +154,10 @@ function genesis_constants() {
 
 	//* Define Theme Info Constants
 	define( 'PARENT_THEME_NAME', 'Genesis' );
-	define( 'PARENT_THEME_VERSION', '2.2.7' );
-	define( 'PARENT_THEME_BRANCH', '2.2' );
-	define( 'PARENT_DB_VERSION', '2210' );
-	define( 'PARENT_THEME_RELEASE_DATE', date_i18n( 'F j, Y', '1457308800' ) );
+	define( 'PARENT_THEME_VERSION', '2.3.0' );
+	define( 'PARENT_THEME_BRANCH', '2.3' );
+	define( 'PARENT_DB_VERSION', '2301' );
+	define( 'PARENT_THEME_RELEASE_DATE', date_i18n( 'F j, Y', '1465948800' ) );
 #	define( 'PARENT_THEME_RELEASE_DATE', 'TBD' );
 
 	//* Define Directory Location Constants
@@ -212,6 +245,7 @@ function genesis_load_framework() {
 	require_once( GENESIS_FUNCTIONS_DIR . '/seo.php' );
 	require_once( GENESIS_FUNCTIONS_DIR . '/widgetize.php' );
 	require_once( GENESIS_FUNCTIONS_DIR . '/feed.php' );
+	require_once( GENESIS_FUNCTIONS_DIR . '/toolbar.php' );
 	if ( apply_filters( 'genesis_load_deprecated', true ) )
 		require_once( GENESIS_FUNCTIONS_DIR . '/deprecated.php' );
 
@@ -239,6 +273,7 @@ function genesis_load_framework() {
 	require_once( GENESIS_ADMIN_DIR . '/cpt-archive-settings.php' );
 	require_once( GENESIS_ADMIN_DIR . '/import-export.php' );
 	require_once( GENESIS_ADMIN_DIR . '/inpost-metaboxes.php' );
+	require_once( GENESIS_ADMIN_DIR . '/use-child-theme.php' );
 	require_once( GENESIS_ADMIN_DIR . '/whats-new.php' );
 	endif;
 	require_once( GENESIS_ADMIN_DIR . '/customizer.php' );

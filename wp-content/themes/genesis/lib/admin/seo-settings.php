@@ -44,7 +44,7 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 		);
 
 		$page_ops = array(
-			'save_button_text'  => __( 'Save Settings', 'genesis' ),
+			'save_button_text'  => __( 'Save Changes', 'genesis' ),
 			'reset_button_text' => __( 'Reset Settings', 'genesis' ),
 			'saved_notice_text' => __( 'Settings saved.', 'genesis' ),
 			'reset_notice_text' => __( 'Settings reset.', 'genesis' ),

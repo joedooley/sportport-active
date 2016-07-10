@@ -35,20 +35,6 @@ genesis_register_sidebar( array(
 	'description' => __( 'This widget will show up at the very end of each post.', 'epik' ),
 ) );
 
-//* Hooks after-entry widget area to single posts
-add_action( 'genesis_after_entry', function() {
-
-	if ( ! is_singular( 'post' ) ) {
-		return;
-	}
-
-	genesis_widget_area( 'after-entry', array(
-		'before' => '<div class="after-entry widget-area"><div class="wrap">',
-		'after'  => '</div></div>',
-	) );
-
-});
-
 
 
 add_action( 'genesis_before_footer', function() {

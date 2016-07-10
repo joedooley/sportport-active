@@ -42,6 +42,7 @@ function genesis_reset_loops() {
 	add_action( 'genesis_entry_footer', 'genesis_post_meta' );
 
 	add_action( 'genesis_after_entry', 'genesis_do_author_box_single', 8 );
+	add_action( 'genesis_after_entry', 'genesis_adjacent_entry_nav' );
 	add_action( 'genesis_after_entry', 'genesis_get_comments_template' );
 
 	//* Pre-HTML5 hooks
@@ -81,7 +82,7 @@ add_filter( 'post_class', 'genesis_entry_post_class' );
  */
 function genesis_entry_post_class( $classes ) {
 
-	if ( is_admin() ) {
+	if ( is_admin() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 		return $classes;
 	}
 
@@ -288,7 +289,8 @@ function genesis_post_info() {
 	}
 
 	$filtered = apply_filters( 'genesis_post_info', '[post_date] ' . __( 'by', 'genesis' ) . ' [post_author_posts_link] [post_comments] [post_edit]' );
-	if ( empty( $filtered ) ) {
+
+	if ( false == trim( $filtered ) ) {
 		return;
 	}
 
@@ -323,6 +325,7 @@ add_action( 'genesis_post_content', 'genesis_do_post_image' );
 function genesis_do_post_image() {
 
 	if ( ! is_singular() && genesis_get_option( 'content_archive_thumbnail' ) ) {
+
 		$img = genesis_get_image( array(
 			'format'  => 'html',
 			'size'    => genesis_get_option( 'image_size' ),
@@ -330,8 +333,18 @@ function genesis_do_post_image() {
 			'attr'    => genesis_parse_attr( 'entry-image', array ( 'alt' => get_the_title() ) ),
 		) );
 
-		if ( ! empty( $img ) )
-			printf( '<a href="%s" aria-hidden="true">%s</a>', get_permalink(), $img );
+		if ( ! empty( $img ) ) {
+
+			genesis_markup( array(
+ 				'html5'   => '<a %s>',
+ 				'xhtml'   => '<a href="' . get_permalink() . '" class="entry-image-link" aria-hidden="true">',
+ 				'context' => 'entry-image-link'
+ 			));
+
+  			echo $img . '</a>';
+
+ 		}
+
 	}
 
 }
@@ -393,13 +406,14 @@ add_action( 'genesis_post_content', 'genesis_do_post_content_nav' );
 function genesis_do_post_content_nav() {
 
 	wp_link_pages( array(
-		'before' => genesis_markup( array(
+		'before'      => genesis_markup( array(
 				'html5'   => '<div %s>',
 				'xhtml'   => '<p class="pages">',
 				'context' => 'entry-pagination',
 				'echo'    => false,
 			) ) . __( 'Pages:', 'genesis' ),
-		'after'  => genesis_html5() ? '</div>' : '</p>',
+		'after'       => genesis_html5() ? '</div>' : '</p>',
+		'link_before' => genesis_a11y( 'screen-reader-text' ) ? '<span class="screen-reader-text">' . __( 'Page ', 'genesis' ) .  '</span>' : '',
 	) );
 
 }
@@ -495,7 +509,8 @@ function genesis_post_meta() {
 	}
 
 	$filtered = apply_filters( 'genesis_post_meta', '[post_categories] [post_tags]' );
-	if ( empty( $filtered ) ) {
+
+	if ( false == trim( $filtered ) ) {
 		return;
 	}
 
@@ -526,7 +541,7 @@ add_action( 'genesis_after_post', 'genesis_do_author_box_single' );
  */
 function genesis_do_author_box_single() {
 
-	if ( ! is_single() )
+	if ( ! is_single() || ! post_type_supports( get_post_type(), 'author' ) )
 		return;
 
 	if ( get_the_author_meta( 'genesis_author_box_single', get_the_author_meta( 'ID' ) ) )
@@ -641,7 +656,7 @@ add_action( 'genesis_after_entry', 'genesis_after_entry_widget_area' );
  */
 function genesis_after_entry_widget_area() {
 
-	if ( ! is_singular( 'post' ) || ! current_theme_supports( 'genesis-after-entry-widget-area' ) ) {
+	if ( ! is_singular() || ! post_type_supports( get_post_type(), 'genesis-after-entry-widget-area' ) ) {
 		return;
 	}
 
@@ -806,17 +821,19 @@ function genesis_numeric_posts_nav() {
 
 }
 
+add_action( 'genesis_after_entry', 'genesis_adjacent_entry_nav' );
 /**
- * Display links to previous and next post, from a single post.
+ * Display links to previous and next entry.
  *
- * @since 1.5.1
+ * @since 2.3.0
  *
- * @return null Return early if not a post.
+ * @return null Return early if not singular or post type doesn't support feature.
  */
-function genesis_prev_next_post_nav() {
+function genesis_adjacent_entry_nav() {
 
-	if ( ! is_singular( 'post' ) )
+	if ( ! is_singular() || ! post_type_supports( get_post_type(), 'genesis-adjacent-entry-nav' ) ) {
 		return;
+	}
 
 	genesis_markup( array(
 		'html5'   => '<div %s>',
@@ -825,13 +842,26 @@ function genesis_prev_next_post_nav() {
 	) );
 
 	echo '<div class="pagination-previous alignleft">';
-	previous_post_link();
+	previous_post_link( '%link', '&#x000AB; %title' );
 	echo '</div>';
 
 	echo '<div class="pagination-next alignright">';
-	next_post_link();
+	next_post_link( '%link', '%title &#x000BB;' );
 	echo '</div>';
 
 	echo '</div>';
+
+}
+
+/**
+ * Helper function to display adjacent entry navigation on single posts. Must be hooked `genesis_after_entry` at priority 10 or earlier to work properly.
+ *
+ * @since 1.5.1
+ *
+ * @return null Return early if not a post.
+ */
+function genesis_prev_next_post_nav() {
+
+	add_post_type_support( 'post', 'genesis-adjacent-entry-nav' );
 
 }

@@ -36,6 +36,7 @@ function wr2x_admin_menu_dashboard () {
 }
 
 function wpr2x_wp_retina_2x() {
+	$hide_ads = wr2x_getoption( 'hide_ads', 'wr2x_advanced', false );
 	$view = isset ( $_GET[ 'view' ] ) ? $_GET[ 'view' ] : 'issues';
 	$paged = isset ( $_GET[ 'paged' ] ) ? $_GET[ 'paged' ] : 1;
 	$s = isset( $_GET[ 's' ] ) && !empty( $_GET[ 's' ] ) ? sanitize_text_field( $_GET[ 's' ] ) : null;
@@ -45,9 +46,9 @@ function wpr2x_wp_retina_2x() {
 	$ignored = wr2x_get_ignores();
 
 	echo '<div class="wrap">';
-  jordy_meow_donation(true);
+  $hide_ads ? "" : jordy_meow_donation(true);
 	echo "<h1>Retina";
-  by_jordy_meow();
+  by_jordy_meow( $hide_ads );
   echo "</h1>";
 
 	if ( wr2x_is_pro() && $view == 'issues' ) {
@@ -204,10 +205,13 @@ function wpr2x_wp_retina_2x() {
 		?>
 	</p>
 
+<!--
+	 It is activated through a serial key that you can buy here: <a href='http://apps.meow.fr/wp-retina-2x/'>Meow Apps</a>. -->
+
 	<?php
-	if ( !wr2x_is_pro() ) {
+	if ( !wr2x_is_pro() && !$hide_ads ) {
 		echo '<div class="updated"><p>';
-		echo __( '<b>Only Pro users have access to the features of this dashboard.</b> As a standard user, the dashboard allow you to Bulk Generate, Bulk Delete and access the Retina Logs. If you wish to stay a standard user and never see this dashboard aver again, you can hide it in the settings.<br /><br />The main features of the Pro version are: filter by <b>Issues</b> or Ignored, <b>Ignore</b> media (from the retina process), <b>Details</b> for more information, <b>replace</b> a full-size directly by drag & drop, upload a retina version of the full-size, various options and direct support by the developer. The serial key for the Pro has to be inserted in your WP Settings > Retina > Pro tab. Thank you for your support :)<br /><br /><a class="button-primary" href="http://apps.meow.fr/wp-retina-2x/" target="_blank">Get the serial key for the Pro</a>', 'wp-retina-2x' );
+		echo __( '<b>Only Pro users have access to the features of this dashboard.</b> As a standard user, the dashboard allow you to Bulk Generate, Bulk Delete and access the Retina Logs. If you wish to stay a standard user and never see this dashboard aver again, you can hide it in the settings.<br /><br />The Pro version of the plugin allows you to <b>replace directly an image already uploaded in the Media Library</b> by a simple drag & drop, upload a <b>retina image for a full-size image</b>, use <b>lazy-loading</b> to load your images (for better performance) and, more importantly, <b>supports the developer</b> :) The serial key for the Pro has to be inserted in your Settings > Retina > Pro tab. Thank you :)<br /><br /><a class="button-primary" href="http://apps.meow.fr/wp-retina-2x/" target="_blank">Get the serial key for the Pro</a>', 'wp-retina-2x' );
 		echo '</p></div>';
 	}
 	?>

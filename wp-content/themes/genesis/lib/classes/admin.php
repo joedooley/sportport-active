@@ -101,7 +101,7 @@ abstract class Genesis_Admin {
 		$this->page_ops = wp_parse_args(
 			$this->page_ops,
 			array(
-				'save_button_text'  => __( 'Save Settings', 'genesis' ),
+				'save_button_text'  => __( 'Save Changes', 'genesis' ),
 				'reset_button_text' => __( 'Reset Settings', 'genesis' ),
 				'saved_notice_text' => __( 'Settings saved.', 'genesis' ),
 				'reset_notice_text' => __( 'Settings reset.', 'genesis' ),
@@ -493,19 +493,13 @@ abstract class Genesis_Admin_Form extends Genesis_Admin {
 			<?php settings_fields( $this->settings_field ); ?>
 
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<p class="top-buttons">
-				<?php
-				submit_button( $this->page_ops['save_button_text'], 'primary', 'submit', false );
-				submit_button( $this->page_ops['reset_button_text'], 'secondary genesis-js-confirm-reset', $this->get_field_name( 'reset' ), false, array( 'id' => '' ) );
-				?>
-			</p>
 
 			<?php do_action( "{$this->pagehook}_settings_page_form", $this->pagehook ); ?>
 
 			<div class="bottom-buttons">
 				<?php
 				submit_button( $this->page_ops['save_button_text'], 'primary', 'submit', false );
-				submit_button( $this->page_ops['reset_button_text'], 'secondary genesis-js-confirm-reset', $this->get_field_name( 'reset' ), false, array( 'id' => '' ) );
+				submit_button( $this->page_ops['reset_button_text'], 'secondary genesis-js-confirm-reset', $this->get_field_name( 'reset' ), false );
 				?>
 			</div>
 		</form>
@@ -579,19 +573,13 @@ abstract class Genesis_Admin_Boxes extends Genesis_Admin {
 			<?php settings_fields( $this->settings_field ); ?>
 
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<p class="top-buttons">
-				<?php
-				submit_button( $this->page_ops['save_button_text'], 'primary', 'submit', false, array( 'id' => '' ) );
-				submit_button( $this->page_ops['reset_button_text'], 'secondary genesis-js-confirm-reset', $this->get_field_name( 'reset' ), false, array( 'id' => '' ) );
-				?>
-			</p>
 
 			<?php do_action( "{$this->pagehook}_settings_page_boxes", $this->pagehook ); ?>
 
 			<div class="bottom-buttons">
 				<?php
-				submit_button( $this->page_ops['save_button_text'], 'primary', 'submit', false, array( 'id' => '' ) );
-				submit_button( $this->page_ops['reset_button_text'], 'secondary genesis-js-confirm-reset', $this->get_field_name( 'reset' ), false, array( 'id' => '' ) );
+				submit_button( $this->page_ops['save_button_text'], 'primary', 'submit', false );
+				submit_button( $this->page_ops['reset_button_text'], 'secondary genesis-js-confirm-reset', $this->get_field_name( 'reset' ), false );
 				?>
 			</div>
 		</form>

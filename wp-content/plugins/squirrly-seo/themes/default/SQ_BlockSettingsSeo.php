@@ -659,6 +659,7 @@
                         <span class="sq_legend_title"><?php _e('Tracking Tools', _SQ_PLUGIN_NAME_); ?></span>
                         <span><?php echo sprintf(__('%sHow to Get the Most Out of Google Analytics%s', _SQ_PLUGIN_NAME_), '<a href="http://mashable.com/2012/01/04/google-analytics-guide/" target="_blank">', '</a>'); ?></span>
                         <span><?php echo sprintf(__('%sA Beginner’s Guide to Facebook Insights%s', _SQ_PLUGIN_NAME_), '<a href="http://mashable.com/2010/09/03/facebook-insights-guide/" target="_blank">', '</a>'); ?></span>
+                        <span><?php echo sprintf(__('%sRich Pins Validator%s', _SQ_PLUGIN_NAME_), '<a href="https://developers.pinterest.com/tools/url-debugger/" target="_blank">', '</a>'); ?></span>
 
                     </legend>
                     <div>
@@ -673,7 +674,7 @@
                         </p>
                         <p class="withborder withcode" >
                             <span class="sq_icon sq_icon_pinterest"></span>
-                            <?php echo sprintf(__('Pinterest META code:', _SQ_PLUGIN_NAME_), '<a href="#" target="_blank">', '</a>'); ?><br><strong> <input type="text" name="sq_pinterest" value="<?php echo ((SQ_Tools::$options['sq_pinterest'] <> '') ? SQ_Tools::$options['sq_pinterest'] : '') ?>" size="15" /> (e.g. &lt;meta name="p:domain_verify" content="XXXXXXXXXXXXXXXXXX" /&gt;)</strong>
+                            <?php echo sprintf(__('Pinterest Website Validator Code: (validate %sRich Pins%s )', _SQ_PLUGIN_NAME_), '<a href="https://developers.pinterest.com/tools/url-debugger/" target="_blank">', '</a>'); ?><br><strong> <input type="text" name="sq_pinterest" value="<?php echo ((SQ_Tools::$options['sq_pinterest'] <> '') ? SQ_Tools::$options['sq_pinterest'] : '') ?>" size="15" /> (e.g. &lt;meta name="p:domain_verify" content="XXXXXXXXXXXXXXXXXX" /&gt;)</strong>
                         </p>
                     </div>
                 </fieldset>

@@ -2,9 +2,10 @@
     <?php SQ_ObjController::getBlock('SQ_BlockSupport')->init(); ?>
     <div>
         <span class="sq_icon"></span>
-        <div id="sq_settings_title" ><?php _e('Settings', _SQ_PLUGIN_NAME_); ?> </div>
-        <div id="sq_settings_title" >
-            <input type="submit" name="sq_update" value="<?php _e('Save settings', _SQ_PLUGIN_NAME_) ?> &raquo;" />
+
+        <div id="sq_settings_title"><?php _e('Settings', _SQ_PLUGIN_NAME_); ?> </div>
+        <div id="sq_settings_title">
+            <input type="submit" name="sq_update" value="<?php _e('Save settings', _SQ_PLUGIN_NAME_) ?> &raquo;"/>
         </div>
     </div>
     <div id="sq_helpsettingscontent" class="sq_helpcontent"></div>
@@ -28,10 +29,16 @@
                             <p style="font-weight: bold;"><?php _e('Load Squirrly Live Assistant for', _SQ_PLUGIN_NAME_); ?>:</p>
                             <ul id="sq_post_types">
                                 <li class="sq_selectall"><input type="checkbox" id="sq_selectall"/>Select All</li>
-                                <li><input type="checkbox" class="sq_post_types" name="sq_post_types[]"  value="post" <?php echo (in_array('post', SQ_Tools::$options['sq_post_types']) ? 'checked="checked"' : ''); ?>><?php _e('Posts', _SQ_PLUGIN_NAME_); ?></li>
-                                <li><input type="checkbox" class="sq_post_types" name="sq_post_types[]" value="page" <?php echo (in_array('page', SQ_Tools::$options['sq_post_types']) ? 'checked="checked"' : ''); ?>><?php _e('Pages', _SQ_PLUGIN_NAME_); ?></li>
+                                <li>
+                                    <input type="checkbox" class="sq_post_types" name="sq_post_types[]" value="post" <?php echo(in_array('post', SQ_Tools::$options['sq_post_types']) ? 'checked="checked"' : ''); ?>><?php _e('Posts', _SQ_PLUGIN_NAME_); ?>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="sq_post_types" name="sq_post_types[]" value="page" <?php echo(in_array('page', SQ_Tools::$options['sq_post_types']) ? 'checked="checked"' : ''); ?>><?php _e('Pages', _SQ_PLUGIN_NAME_); ?>
+                                </li>
                                 <?php if (in_array('product', get_post_types())) { //check for ecommerce product ?>
-                                    <li><input type="checkbox" class="sq_post_types" name="sq_post_types[]" value="product" <?php echo (in_array('product', SQ_Tools::$options['sq_post_types']) ? 'checked="checked"' : ''); ?>><?php _e('Products', _SQ_PLUGIN_NAME_); ?></li>
+                                    <li>
+                                        <input type="checkbox" class="sq_post_types" name="sq_post_types[]" value="product" <?php echo(in_array('product', SQ_Tools::$options['sq_post_types']) ? 'checked="checked"' : ''); ?>><?php _e('Products', _SQ_PLUGIN_NAME_); ?>
+                                    </li>
                                 <?php } ?>
                                 <?php
                                 $types = get_post_types();
@@ -47,19 +54,22 @@
                                     } else {
                                         //echo '<pre>' . print_r($type_data, true) . '</pre>';
                                         ?>
-                                        <li><input type="checkbox" class="sq_post_types" name="sq_post_types[]" value="<?php echo $type ?>" <?php echo (in_array($type, SQ_Tools::$options['sq_post_types']) ? 'checked="checked"' : ''); ?>><?php echo $type_data->labels->name; ?></li>
+                                        <li>
+                                            <input type="checkbox" class="sq_post_types" name="sq_post_types[]" value="<?php echo $type ?>" <?php echo(in_array($type, SQ_Tools::$options['sq_post_types']) ? 'checked="checked"' : ''); ?>><?php echo $type_data->labels->name; ?>
+                                        </li>
                                         <?php
                                     }
                                 }
                                 ?>
                             </ul>
                         </div>
-                        <br />
+                        <br/>
+
                         <div class="sq_option_content">
                             <div class="sq_switch">
-                                <input id="sq_keyword_help1" type="radio" class="sq_switch-input" name="sq_keyword_help" value="1" <?php echo ((SQ_Tools::$options['sq_keyword_help'] == 1) ? "checked" : '') ?> />
+                                <input id="sq_keyword_help1" type="radio" class="sq_switch-input" name="sq_keyword_help" value="1" <?php echo((SQ_Tools::$options['sq_keyword_help'] == 1) ? "checked" : '') ?> />
                                 <label for="sq_keyword_help1" class="sq_switch-label sq_switch-label-off"><?php _e('Yes', _SQ_PLUGIN_NAME_); ?></label>
-                                <input id="sq_keyword_help0" type="radio" class="sq_switch-input" name="sq_keyword_help"  value="0" <?php echo ((SQ_Tools::$options['sq_keyword_help'] == 0) ? "checked" : '') ?> />
+                                <input id="sq_keyword_help0" type="radio" class="sq_switch-input" name="sq_keyword_help" value="0" <?php echo((SQ_Tools::$options['sq_keyword_help'] == 0) ? "checked" : '') ?> />
                                 <label for="sq_keyword_help0" class="sq_switch-label sq_switch-label-on"><?php _e('No', _SQ_PLUGIN_NAME_); ?></label>
                                 <span class="sq_switch-selection"></span>
                             </div>
@@ -68,9 +78,9 @@
 
                         <div class="sq_option_content">
                             <div class="sq_switch">
-                                <input id="sq_keyword_information1" type="radio" class="sq_switch-input" name="sq_keyword_information" value="1" <?php echo ((SQ_Tools::$options['sq_keyword_information'] == 1) ? "checked" : '') ?> />
+                                <input id="sq_keyword_information1" type="radio" class="sq_switch-input" name="sq_keyword_information" value="1" <?php echo((SQ_Tools::$options['sq_keyword_information'] == 1) ? "checked" : '') ?> />
                                 <label for="sq_keyword_information1" class="sq_switch-label sq_switch-label-off"><?php _e('Yes', _SQ_PLUGIN_NAME_); ?></label>
-                                <input id="sq_keyword_information0" type="radio" class="sq_switch-input" name="sq_keyword_information"  value="0" <?php echo ((SQ_Tools::$options['sq_keyword_information'] == 0) ? "checked" : '') ?> />
+                                <input id="sq_keyword_information0" type="radio" class="sq_switch-input" name="sq_keyword_information" value="0" <?php echo((SQ_Tools::$options['sq_keyword_information'] == 0) ? "checked" : '') ?> />
                                 <label for="sq_keyword_information0" class="sq_switch-label sq_switch-label-on"><?php _e('No', _SQ_PLUGIN_NAME_); ?></label>
                                 <span class="sq_switch-selection"></span>
                             </div>
@@ -80,20 +90,21 @@
 
                         <div class="sq_option_content">
                             <div class="sq_switch">
-                                <input id="sq_sla1" type="radio" class="sq_switch-input" name="sq_sla" value="1" <?php echo ((SQ_Tools::$options['sq_sla'] == 1) ? "checked" : '') ?> />
+                                <input id="sq_sla1" type="radio" class="sq_switch-input" name="sq_sla" value="1" <?php echo((SQ_Tools::$options['sq_sla'] == 1) ? "checked" : '') ?> />
                                 <label for="sq_sla1" class="sq_switch-label sq_switch-label-off"><?php _e('Yes', _SQ_PLUGIN_NAME_); ?></label>
-                                <input id="sq_sla0" type="radio" class="sq_switch-input" name="sq_sla"  value="0" <?php echo ((SQ_Tools::$options['sq_sla'] == 0) ? "checked" : '') ?> />
+                                <input id="sq_sla0" type="radio" class="sq_switch-input" name="sq_sla" value="0" <?php echo((SQ_Tools::$options['sq_sla'] == 0) ? "checked" : '') ?> />
                                 <label for="sq_sla0" class="sq_switch-label sq_switch-label-on"><?php _e('No', _SQ_PLUGIN_NAME_); ?></label>
                                 <span class="sq_switch-selection"></span>
                             </div>
                             <span><?php _e('Use <strong> the NEW version of the SEO Live Assistant</strong>.', _SQ_PLUGIN_NAME_); ?></span>
                         </div>
                         <p></p>
+
                         <div class="sq_option_content withbordertop">
                             <div class="sq_switch">
-                                <input id="sq_keywordtag1" type="radio" class="sq_switch-input" name="sq_keywordtag" value="1" <?php echo ((SQ_Tools::$options['sq_keywordtag'] == 1) ? "checked" : '') ?> />
+                                <input id="sq_keywordtag1" type="radio" class="sq_switch-input" name="sq_keywordtag" value="1" <?php echo((SQ_Tools::$options['sq_keywordtag'] == 1) ? "checked" : '') ?> />
                                 <label for="sq_keywordtag1" class="sq_switch-label sq_switch-label-off"><?php _e('Yes', _SQ_PLUGIN_NAME_); ?></label>
-                                <input id="sq_keywordtag0" type="radio" class="sq_switch-input" name="sq_keywordtag"  value="0" <?php echo ((SQ_Tools::$options['sq_keywordtag'] == 0) ? "checked" : '') ?> />
+                                <input id="sq_keywordtag0" type="radio" class="sq_switch-input" name="sq_keywordtag" value="0" <?php echo((SQ_Tools::$options['sq_keywordtag'] == 0) ? "checked" : '') ?> />
                                 <label for="sq_keywordtag0" class="sq_switch-label sq_switch-label-on"><?php _e('No', _SQ_PLUGIN_NAME_); ?></label>
                                 <span class="sq_switch-selection"></span>
                             </div>
@@ -102,9 +113,9 @@
 
                         <div class="sq_option_content">
                             <div class="sq_switch">
-                                <input id="sq_local_images1" type="radio" class="sq_switch-input" name="sq_local_images" value="1" <?php echo ((SQ_Tools::$options['sq_local_images'] == 1) ? "checked" : '') ?> />
+                                <input id="sq_local_images1" type="radio" class="sq_switch-input" name="sq_local_images" value="1" <?php echo((SQ_Tools::$options['sq_local_images'] == 1) ? "checked" : '') ?> />
                                 <label for="sq_local_images1" class="sq_switch-label sq_switch-label-off"><?php _e('Yes', _SQ_PLUGIN_NAME_); ?></label>
-                                <input id="sq_local_images0" type="radio" class="sq_switch-input" name="sq_local_images"  value="0" <?php echo ((SQ_Tools::$options['sq_local_images'] == 0) ? "checked" : '') ?> />
+                                <input id="sq_local_images0" type="radio" class="sq_switch-input" name="sq_local_images" value="0" <?php echo((SQ_Tools::$options['sq_local_images'] == 0) ? "checked" : '') ?> />
                                 <label for="sq_local_images0" class="sq_switch-label sq_switch-label-on"><?php _e('No', _SQ_PLUGIN_NAME_); ?></label>
                                 <span class="sq_switch-selection"></span>
                             </div>
@@ -114,9 +125,9 @@
 
                         <div class="sq_option_content">
                             <div class="sq_switch">
-                                <input id="sq_url_fix1" type="radio" class="sq_switch-input" name="sq_url_fix" value="1" <?php echo ((SQ_Tools::$options['sq_url_fix'] == 1) ? "checked" : '') ?> />
+                                <input id="sq_url_fix1" type="radio" class="sq_switch-input" name="sq_url_fix" value="1" <?php echo((SQ_Tools::$options['sq_url_fix'] == 1) ? "checked" : '') ?> />
                                 <label for="sq_url_fix1" class="sq_switch-label sq_switch-label-off"><?php _e('Yes', _SQ_PLUGIN_NAME_); ?></label>
-                                <input id="sq_url_fix0" type="radio" class="sq_switch-input" name="sq_url_fix"  value="0" <?php echo ((SQ_Tools::$options['sq_url_fix'] == 0) ? "checked" : '') ?> />
+                                <input id="sq_url_fix0" type="radio" class="sq_switch-input" name="sq_url_fix" value="0" <?php echo((SQ_Tools::$options['sq_url_fix'] == 0) ? "checked" : '') ?> />
                                 <label for="sq_url_fix0" class="sq_switch-label sq_switch-label-on"><?php _e('No', _SQ_PLUGIN_NAME_); ?></label>
                                 <span class="sq_switch-selection"></span>
                             </div>
@@ -133,8 +144,9 @@
                     <div>
                         <div class="sq_option_content">
                             <p>
-                                <span ><?php _e('Select the google extension for which Squirrly will check the google rank', _SQ_PLUGIN_NAME_); ?></span>
+                                <span><?php _e('Select the google extension for which Squirrly will check the google rank', _SQ_PLUGIN_NAME_); ?></span>
                             </p>
+
                             <div class="abh_select withborder">
                                 <select id="sq_google_country" name="sq_google_country">
                                     <option value="com"><?php _e('Default', _SQ_PLUGIN_NAME_); ?> - Google.com (http://www.google.com/)</option>
@@ -246,10 +258,15 @@
                             <p>
                                 <span><?php echo sprintf(__('Select how many pages to be checked by google rank every hour. %s5 pages (recommended)%s', _SQ_PLUGIN_NAME_), '<br /><span style="color:#aaa;font-size:12px;">', '</span>'); ?></span>
                             </p>
+
                             <div class="withborder">
                                 <select id="sq_google_ranksperhour" name="sq_google_ranksperhour">
-                                    <?php for ($i = 0; $i < 30; $i++) { ?>
-                                        <option value="<?php echo $i ?>" <?php echo ((SQ_Tools::$options['sq_google_ranksperhour'] == $i) ? "selected='selected'" : '') ?>><?php echo $i ?> <?php _e('pages', _SQ_PLUGIN_NAME_); ?></option>
+                                    <?php for ($i = 0; $i < 10; $i++) {
+                                        if ((int)SQ_Tools::$options['sq_google_ranksperhour'] > 10) {
+                                            SQ_Tools::$options['sq_google_ranksperhour'] = 9;
+                                        }
+                                        ?>
+                                        <option value="<?php echo $i ?>" <?php echo((SQ_Tools::$options['sq_google_ranksperhour'] == $i) ? "selected='selected'" : '') ?>><?php echo $i ?><?php _e('pages', _SQ_PLUGIN_NAME_); ?></option>
                                     <?php } ?>
                                 </select>
 
@@ -257,9 +274,9 @@
 
                             <div class="sq_option_content">
                                 <div class="sq_switch">
-                                    <input id="sq_google_country_strict1" type="radio" class="sq_switch-input" name="sq_google_country_strict" value="1" <?php echo ((SQ_Tools::$options['sq_google_country_strict'] == 1) ? "checked" : '') ?> />
+                                    <input id="sq_google_country_strict1" type="radio" class="sq_switch-input" name="sq_google_country_strict" value="1" <?php echo((SQ_Tools::$options['sq_google_country_strict'] == 1) ? "checked" : '') ?> />
                                     <label for="sq_google_country_strict1" class="sq_switch-label sq_switch-label-off"><?php _e('Yes', _SQ_PLUGIN_NAME_); ?></label>
-                                    <input id="sq_google_country_strict0" type="radio" class="sq_switch-input" name="sq_google_country_strict"  value="0" <?php echo ((SQ_Tools::$options['sq_google_country_strict'] == 0) ? "checked" : '') ?> />
+                                    <input id="sq_google_country_strict0" type="radio" class="sq_switch-input" name="sq_google_country_strict" value="0" <?php echo((SQ_Tools::$options['sq_google_country_strict'] == 0) ? "checked" : '') ?> />
                                     <label for="sq_google_country_strict0" class="sq_switch-label sq_switch-label-on"><?php _e('No', _SQ_PLUGIN_NAME_); ?></label>
                                     <span class="sq_switch-selection"></span>
                                 </div>
@@ -281,44 +298,51 @@
                     <div>
                         <p class="withborder withcode">
                             <span class="sq_icon sq_icon_googlewt"></span>
-                            <?php echo sprintf(__('Google META verification code for %sWebmaster Tool%s:', _SQ_PLUGIN_NAME_), '<a href="http://maps.google.com/webmasters/" target="_blank">', '</a>'); ?><br><strong><input type="text" name="sq_google_wt" value="<?php echo ((SQ_Tools::$options['sq_google_wt'] <> '') ? SQ_Tools::$options['sq_google_wt'] : '') ?>" size="15" /> (e.g. &lt;meta name="google-site-verification" content="XXXXXXXXXXXXXXXXXX" /&gt;)</strong>
+                            <?php echo sprintf(__('Google META verification code for %sWebmaster Tool%s:', _SQ_PLUGIN_NAME_), '<a href="https://www.google.com/webmasters" target="_blank">', '</a>'); ?>
+                            <br><strong><input type="text" name="sq_google_wt" value="<?php echo((SQ_Tools::$options['sq_google_wt'] <> '') ? SQ_Tools::$options['sq_google_wt'] : '') ?>" size="15"/> (e.g. &lt;meta name="google-site-verification" content="XXXXXXXXXXXXXXXXXX" /&gt;)</strong>
                         </p>
-                        <p class="withborder withcode" >
-                            <span class="sq_icon sq_icon_bingwt" ></span>
-                            <?php echo sprintf(__('Bing META code (for %sWebmaster Tool%s ):', _SQ_PLUGIN_NAME_), '<a href="http://www.bing.com/toolbox/webmaster/" target="_blank">', '</a>'); ?><br><strong> <input type="text" name="sq_bing_wt" value="<?php echo ((SQ_Tools::$options['sq_bing_wt'] <> '') ? SQ_Tools::$options['sq_bing_wt'] : '') ?>" size="15" /> (e.g. &lt;meta name="msvalidate.01" content="XXXXXXXXXXXXXXXXXX" /&gt;)</strong>
+
+                        <p class="withborder withcode">
+                            <span class="sq_icon sq_icon_bingwt"></span>
+                            <?php echo sprintf(__('Bing META code (for %sWebmaster Tool%s ):', _SQ_PLUGIN_NAME_), '<a href="http://www.bing.com/toolbox/webmaster/" target="_blank">', '</a>'); ?>
+                            <br><strong>
+                                <input type="text" name="sq_bing_wt" value="<?php echo((SQ_Tools::$options['sq_bing_wt'] <> '') ? SQ_Tools::$options['sq_bing_wt'] : '') ?>" size="15"/> (e.g. &lt;meta name="msvalidate.01" content="XXXXXXXXXXXXXXXXXX" /&gt;)</strong>
                         </p>
-                        <p class="withborder withcode" >
-                            <span class="sq_icon sq_icon_alexat" ></span>
-                            <?php echo sprintf(__('Alexa META code (for %sAlexa Tool%s ):', _SQ_PLUGIN_NAME_), '<a href="http://www.alexa.com/pro/subscription/signup?tsver=0&puid=200" target="_blank">', '</a>'); ?><br><strong><input type="text" name="sq_alexa" value="<?php echo ((SQ_Tools::$options['sq_alexa'] <> '') ? SQ_Tools::$options['sq_alexa'] : '') ?>" size="15" /> (e.g. &lt;meta name="alexaVerifyID" content="XXXXXXXXXXXXXXXXXX" /&gt;)</strong>
+
+                        <p class="withborder withcode">
+                            <span class="sq_icon sq_icon_alexat"></span>
+                            <?php echo sprintf(__('Alexa META code (for %sAlexa Tool%s ):', _SQ_PLUGIN_NAME_), '<a href="http://www.alexa.com/pro/subscription/signup?tsver=0&puid=200" target="_blank">', '</a>'); ?>
+                            <br><strong><input type="text" name="sq_alexa" value="<?php echo((SQ_Tools::$options['sq_alexa'] <> '') ? SQ_Tools::$options['sq_alexa'] : '') ?>" size="15"/> (e.g. &lt;meta name="alexaVerifyID" content="XXXXXXXXXXXXXXXXXX" /&gt;)</strong>
                         </p>
                     </div>
                 </fieldset>
 
                 <div id="sq_settings_submit">
-                    <input type="hidden" name="action" value="sq_settings_update" />
-                    <input type="hidden" name="nonce" value="<?php echo wp_create_nonce(_SQ_NONCE_ID_); ?>" />
-                    <input type="submit" name="sq_update" value="<?php _e('Save settings', _SQ_PLUGIN_NAME_) ?> &raquo;" />
+                    <input type="hidden" name="action" value="sq_settings_update"/>
+                    <input type="hidden" name="nonce" value="<?php echo wp_create_nonce(_SQ_NONCE_ID_); ?>"/>
+                    <input type="submit" name="sq_update" value="<?php _e('Save settings', _SQ_PLUGIN_NAME_) ?> &raquo;"/>
                 </div>
             </div>
         </form>
 
         <div class="sq_settings_backup">
             <form action="" method="POST">
-                <input type="hidden" name="action" value="sq_backup" />
-                <input type="hidden" name="nonce" value="<?php echo wp_create_nonce(_SQ_NONCE_ID_); ?>" />
-                <input type="submit" class="sq_button" name="sq_backup" value="<?php _e('Backup Settings', _SQ_PLUGIN_NAME_) ?>" />
-                <input type="button" class="sq_button sq_restore" name="sq_restore" value="<?php _e('Restore Settings', _SQ_PLUGIN_NAME_) ?>" />
+                <input type="hidden" name="action" value="sq_backup"/>
+                <input type="hidden" name="nonce" value="<?php echo wp_create_nonce(_SQ_NONCE_ID_); ?>"/>
+                <input type="submit" class="sq_button" name="sq_backup" value="<?php _e('Backup Settings', _SQ_PLUGIN_NAME_) ?>"/>
+                <input type="button" class="sq_button sq_restore" name="sq_restore" value="<?php _e('Restore Settings', _SQ_PLUGIN_NAME_) ?>"/>
             </form>
         </div>
 
         <div class="sq_settings_restore sq_popup" style="display: none">
             <span class="sq_close">x</span>
             <span><?php _e('Upload the file with the saved Squirrly Settings', _SQ_PLUGIN_NAME_) ?></span>
+
             <form action="" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="action" value="sq_restore" />
-                <input type="file" name="sq_options" id="favicon" style="float: left;" />
-                <input type="hidden" name="nonce" value="<?php echo wp_create_nonce(_SQ_NONCE_ID_); ?>" />
-                <input type="submit"  style="margin-top: 10px;" class="sq_button" name="sq_restore" value="<?php _e('Restore Backup', _SQ_PLUGIN_NAME_) ?>" />
+                <input type="hidden" name="action" value="sq_restore"/>
+                <input type="file" name="sq_options" id="favicon" style="float: left;"/>
+                <input type="hidden" name="nonce" value="<?php echo wp_create_nonce(_SQ_NONCE_ID_); ?>"/>
+                <input type="submit" style="margin-top: 10px;" class="sq_button" name="sq_restore" value="<?php _e('Restore Backup', _SQ_PLUGIN_NAME_) ?>"/>
             </form>
         </div>
     </div>

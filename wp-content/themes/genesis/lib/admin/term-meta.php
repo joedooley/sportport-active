@@ -79,9 +79,9 @@ function genesis_taxonomy_archive_options( $tag, $taxonomy ) {
 				</td>
 			</tr>
 			<tr class="form-field">
-				<th scope="row"><label for="genesis-meta[intro_text]"><?php _e( 'Archive Intro Text', 'genesis' ); ?></label></th>
+				<th scope="row"><label for="genesis-meta-intro-text"><?php _e( 'Archive Intro Text', 'genesis' ); ?></label></th>
 				<td>
-					<textarea name="genesis-meta[intro_text]" id="genesis-meta[intro_text]" rows="5" cols="50" class="large-text"><?php echo esc_textarea( get_term_meta( $tag->term_id, 'intro_text', true ) ); ?></textarea>
+					<?php wp_editor( get_term_meta( $tag->term_id, 'intro_text', true ), "genesis-meta-intro-text", array( 'textarea_name' => 'genesis-meta[intro_text]' ) ); ?>
 					<p class="description"><?php _e( 'Leave empty if you do not want to display any intro text.', 'genesis' ); ?></p>
 				</td>
 			</tr>
@@ -179,6 +179,10 @@ function genesis_add_taxonomy_layout_options() {
 		return;
 	}
 
+	if ( ! genesis_has_multiple_layouts() ) {
+		return;
+	}
+
 	foreach ( get_taxonomies( array( 'public' => true ) ) as $tax_name ) {
 		add_action( $tax_name . '_edit_form', 'genesis_taxonomy_layout_options', 10, 2 );
 	}
@@ -226,9 +230,7 @@ add_filter( 'get_term', 'genesis_get_term_filter', 10, 2 );
 /**
  * For backward compatibility only.
  *
- * Filter each term, pulling term meta automatically so it can be accessed directly by the term object.
- *
- * Applies `genesis_term_meta_defaults`, `genesis_term_meta_{field}` and `genesis_term_meta` filters.
+ * Sets $term->meta to empty array. All calls to $term->meta->key will be unset unless force set by `genesis_term_meta` filter.
  *
  * @since 1.2.0
  *
@@ -249,41 +251,8 @@ function genesis_get_term_filter( $term, $taxonomy ) {
 		return $term;
 	}
 
-	//* Pull all meta for this term ID
-	$term_meta = get_term_meta( $term->term_id );
-
-	//* Convert array values to string
-	foreach ( (array) $term_meta as $key => $value ) {
-		$term_meta[ $key ] = $value[0];
-	}
-
-	$term->meta = wp_parse_args( $term_meta, genesis_term_meta_defaults() );
-
-	//* Sanitize term meta
-	foreach ( $term->meta as $field => $value ) {
-
-		if ( is_array( $value ) ) {
-			$value = stripslashes_deep( array_filter( $value, 'wp_kses_decode_entities' ) );
-		} else {
-			$value = stripslashes( wp_kses_decode_entities( $value ) );
-		}
-
-		/**
-		 * Term meta value filter.
-		 *
-		 * Allow term meta value to be filtered before being injected into the $term->meta array.
-		 *
-		 * @since
-		 *
-		 * @param string|array  $value The term meta value.
-		 * @param string  $term The term that is being filtered.
-		 * @param string  $taxonomy The taxonomy to which the term belongs.
-		 */
-		$term->meta[ $field ] = apply_filters( "genesis_term_meta_{$field}", $value, $term, $taxonomy );
-
-	}
-
-	$term->meta = apply_filters( 'genesis_term_meta', $term->meta, $term, $taxonomy );
+	//* Still set $term->meta and apply filter, for backward compatibility
+	$term->meta = apply_filters( 'genesis_term_meta', array(), $term, $taxonomy );
 
 	return $term;
 
@@ -307,6 +276,18 @@ function genesis_get_terms_filter( array $terms, $taxonomy ) {
 	}
 
 	return $terms;
+
+}
+
+add_filter( 'get_term_metadata', 'genesis_term_meta_filter', 10, 4 );
+/**
+ * Maintain backward compatibility with the older `genesis_term_meta_{$key}` filter so old filter functions will still work.
+ *
+ * @since 2.3.0
+ */
+function genesis_term_meta_filter( $value, $object_id, $meta_key, $single ) {
+
+	return apply_filters( "genesis_term_meta_{$meta_key}", $value, get_term_field( 'slug', $object_id ), null );
 
 }
 

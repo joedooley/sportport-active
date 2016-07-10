@@ -24,16 +24,11 @@
 }
 
 .author-box {
-	background: rgba(255, 255, 255, 0.5);
-	font-size: 0.75rem;
-	margin-bottom: 10%;
-	margin-top: 10%;
-	padding-bottom: 10%;
-	padding-top: 10%;
+	@extend %content-bg;
+	@include margin(2em 0);
 	text-align: center;
 
 	@include media($ipad-screen-up) {
-		@include padding(rem(30) rem(20));
 		font-size: 1rem;
 	}
 
@@ -42,7 +37,6 @@
 		display: inline-block;
 		float: none;
 		height: 80px;
-		margin: 0 auto 20px;
 		width: 80px;
 	}
 
@@ -56,23 +50,16 @@
 		color: $action-color;
 	}
 
+	p:last-child {
+		margin-bottom: 0;
+	}
+
 }
 
 .comment .avatar {
 	height: 60px;
 	margin: 0 16px 24px 0;
 	width: 60px;
-}
-
-.author-box,
-.author-box p,
-.author-box .author-box-title {
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.author-box p:last-child {
-	margin-bottom: 0;
 }
 
 

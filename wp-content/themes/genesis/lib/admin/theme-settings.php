@@ -64,7 +64,7 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 		$page_ops = apply_filters(
 			'genesis_theme_settings_page_ops',
 			array(
-				'save_button_text'  => __( 'Save Settings', 'genesis' ),
+				'save_button_text'  => __( 'Save Changes', 'genesis' ),
 				'reset_button_text' => __( 'Reset Settings', 'genesis' ),
 				'saved_notice_text' => __( 'Settings saved.', 'genesis' ),
 				'reset_notice_text' => __( 'Settings reset.', 'genesis' ),
@@ -244,7 +244,7 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 			'<p>'  . __( 'The information box allows you to see the current Genesis theme information and display if desired.', 'genesis' ) . '</p>' .
 			'<p>'  . __( 'Normally, this should be unchecked. You can also set to enable automatic updates.', 'genesis' ) . '</p>' .
 			'<p>'  . __( 'This does not mean the updates happen automatically without your permission; it will just notify you that an update is available. You must select it to perform the update.', 'genesis' ) . '</p>' .
-			'<p>'  . __( 'If you provide an email address and select to notify that email address when the update is available, your site will email you when the update can be performed.No, updates only affect files being updated.', 'genesis' ) . '</p>';
+			'<p>'  . __( 'If you provide an email address, your site will email you when the update can be performed.', 'genesis' ) . '</p>';
 
 		$feeds_help =
 			'<h3>' . __( 'Custom Feeds', 'genesis' ) . '</h3>' .
@@ -295,13 +295,13 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 			'<h3>' . __( 'Content Archives', 'genesis' ) . '</h3>' .
 			'<p>'  . __( 'In the Genesis Theme Settings you may change the site wide Content Archives options to control what displays in the site\'s Archives.', 'genesis' ) . '</p>' .
 			'<p>'  . __( 'Archives include any pages using the blog template, category pages, tag pages, date archive, author archives, and the latest posts if there is no custom home page.', 'genesis' ) . '</p>' .
-			'<p>'  . __( 'The first option allows you to display the post content or the post excerpt. The Display post content setting will display the entire post including HTML code up to the <!--more--> tag if used (this is HTML for the comment tag that is not displayed in the browser).', 'genesis' ) . '</p>' .
+			'<p>'  . __( 'The first option allows you to display the entry content or the entry excerpt. The Display entry content setting will display the entire entry including HTML code up to the <!--more--> tag if used (this is HTML for the comment tag that is not displayed in the browser).', 'genesis' ) . '</p>' .
 			'<p>'  . __( 'It may also be coupled with the second field "Limit content to [___] characters" to limit the content to a specific number of letters or spaces. This will strip any HTML, but allows for more precise and easily changed lengths than the excerpt.', 'genesis' ) . '</p>' .
-			'<p>'  . __( 'The Display post excerpt setting will display the first 55 words of the post after also stripping any included HTML or the manual/custom excerpt added in the post edit screen.', 'genesis' ) . '</p>' .
-			'<p>'  . __( 'The \'Include post image?\' setting allows you to show a thumbnail of the first attached image or currently set featured image.', 'genesis' ) . '</p>' .
-			'<p>'  . __( 'This option should not be used with the post content unless the content is limited to avoid duplicate images.', 'genesis' ) . '</p>' .
+			'<p>'  . __( 'The Display entry excerpt setting will display the first 55 words of the entry after also stripping any included HTML or the manual/custom excerpt added in the edit screen.', 'genesis' ) . '</p>' .
+			'<p>'  . __( 'The \'Include featured image?\' setting allows you to show a thumbnail of the first attached image or currently set featured image.', 'genesis' ) . '</p>' .
+			'<p>'  . __( 'This option should not be used with the entry content unless the content is limited to avoid duplicate images.', 'genesis' ) . '</p>' .
 			'<p>'  . __( 'The \'Image Size\' list is populated by the available image sizes defined in the theme.', 'genesis' ) . '</p>' .
-			'<p>'  . __( 'Post Navigation Technique allows you to select one of three navigation methods.', 'genesis' ) . '</p>';
+			'<p>'  . __( 'Entry Pagination Technique allows you to select one of two navigation methods.', 'genesis' ) . '</p>';
 
 		$blog_help =
 			'<h3>' . __( 'Blog Page', 'genesis' ) . '</h3>' .
@@ -320,10 +320,10 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 			'<p>'  . __( 'To use this type of home page, make sure your latest posts are set to show on the front page. You can setup a page with the Blog page template to show a blog style list of your latest posts on another page.', 'genesis' ) . '</p>' .
 			'<p>'  . __( 'This home page is typically setup via widgets in the sidebars for the home page. This can be accessed via the Widgets menu item under Appearance.', 'genesis' ) . '</p>' .
 			'<p>'  . __( 'Child themes that include this type of home page typically include additional theme-specific tutorials which can be accessed via a sticky post at the top of that child theme support forum.', 'genesis' ) . '</p>' .
-			'<p>'  . __( 'If your theme uses a custom home page and you want to show the latest posts in a blog format, do not use the blog template. Instead, you need to rename the #home.php file to home-old.php instead.', 'genesis' ) . '</p>' .
+			'<p>'  . __( 'If your theme uses a custom home page and you want to show the latest posts in a blog format, do not use the blog template. Instead, you need to rename the home.php file to home-old.php instead.', 'genesis' ) . '</p>' .
 			'<p>'  . __( 'Another common home page is the "blog" type home page, which is common to most of the free child themes. This shows your latest posts and requires no additional setup.', 'genesis' ) . '</p>' .
 			'<p>'  . __( 'The third type of home page is the new dynamic home page. This is common on the newest child themes. It will show your latest posts in a blog type listing unless you put widgets into the home page sidebars.', 'genesis' ) . '</p>' .
-			'<p>'  . __( 'This setup is preferred because it makes it easier to show a blog on the front page (no need to rename the #home.php file) and does not have the confusion of no content on the home page when the theme is initially installed.', 'genesis' ) . '</p>';
+			'<p>'  . __( 'This setup is preferred because it makes it easier to show a blog on the front page (no need to rename the home.php file) and does not have the confusion of no content on the home page when the theme is initially installed.', 'genesis' ) . '</p>';
 
 		$screen->add_help_tab( array(
 			'id'      => $this->pagehook . '-theme-settings',
@@ -426,27 +426,35 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 
 		add_meta_box( 'genesis-theme-settings-version', __( 'Information', 'genesis' ), array( $this, 'info_box' ), $this->pagehook, 'main', 'high' );
 
-		if ( current_theme_supports( 'genesis-style-selector' ) )
+		if ( current_theme_supports( 'genesis-style-selector' ) ) {
 			add_meta_box( 'genesis-theme-settings-style-selector', __( 'Color Style', 'genesis' ), array( $this, 'style_box' ), $this->pagehook, 'main' );
+		}
 
 		add_meta_box( 'genesis-theme-settings-feeds', __( 'Custom Feeds', 'genesis' ), array( $this, 'feeds_box' ), $this->pagehook, 'main' );
-		add_meta_box( 'genesis-theme-settings-layout', __( 'Default Layout', 'genesis' ), array( $this, 'layout_box' ), $this->pagehook, 'main' );
 
-		if ( ! current_theme_supports( 'genesis-custom-header' ) && ! current_theme_supports( 'custom-header' ) )
+		if ( genesis_has_multiple_layouts() ) {
+			add_meta_box( 'genesis-theme-settings-layout', __( 'Default Layout', 'genesis' ), array( $this, 'layout_box' ), $this->pagehook, 'main' );
+		}
+
+		if ( ! current_theme_supports( 'genesis-custom-header' ) && ! current_theme_supports( 'custom-header' ) ) {
 			add_meta_box( 'genesis-theme-settings-header', __( 'Header', 'genesis' ), array( $this, 'header_box' ), $this->pagehook, 'main' );
+		}
 
-		if ( current_theme_supports( 'genesis-menus' ) && genesis_first_version_compare( '2.0.2', '<=' ) )
+		if ( current_theme_supports( 'genesis-menus' ) && genesis_first_version_compare( '2.0.2', '<=' ) ) {
 			add_meta_box( 'genesis-theme-settings-nav', __( 'Navigation', 'genesis' ), array( $this, 'nav_box' ), $this->pagehook, 'main' );
+		}
 
-		if ( current_theme_supports( 'genesis-breadcrumbs' ) )
+		if ( current_theme_supports( 'genesis-breadcrumbs' ) ) {
 			add_meta_box( 'genesis-theme-settings-breadcrumb', __( 'Breadcrumbs', 'genesis' ), array( $this, 'breadcrumb_box' ), $this->pagehook, 'main' );
+		}
 
 		add_meta_box( 'genesis-theme-settings-comments', __( 'Comments and Trackbacks', 'genesis' ), array( $this, 'comments_box' ), $this->pagehook, 'main' );
 		add_meta_box( 'genesis-theme-settings-posts', __( 'Content Archives', 'genesis' ), array( $this, 'post_archives_box' ), $this->pagehook, 'main' );
 		add_meta_box( 'genesis-theme-settings-blogpage', __( 'Blog Page Template', 'genesis' ), array( $this, 'blogpage_box' ), $this->pagehook, 'main' );
 
-		if ( current_user_can( 'unfiltered_html' ) )
+		if ( current_user_can( 'unfiltered_html' ) ) {
 			add_meta_box( 'genesis-theme-settings-scripts', __( 'Header and Footer Scripts', 'genesis' ), array( $this, 'scripts_box' ), $this->pagehook, 'main' );
+		}
 
 		do_action( 'genesis_theme_settings_metaboxes', $this->pagehook );
 
@@ -497,7 +505,7 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 
 			<tr valign="top">
 				<th scope="row"><?php _e( 'Version', 'genesis' ); ?></th>
-				<td><?php $this->field_value( 'theme_version' ); ?></td>
+				<td><?php echo PARENT_THEME_VERSION; ?></td>
 			</tr>
 
 			<tr valign="top">
@@ -513,7 +521,7 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 				<th scope="row"><?php _e( 'Updates', 'genesis' ); ?></th>
 				<td>
 					<p><label for="<?php $this->field_id( 'update' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'update' ); ?>" id="<?php $this->field_id( 'update' ); ?>" value="1"<?php checked( $this->get_field_value( 'update' ) ) . disabled( is_super_admin(), 0 ); ?> />
-					<?php _e( 'Enable Automatic Updates', 'genesis' ); ?></label></p>
+					<?php _e( 'Check For Updates', 'genesis' ); ?></label></p>
 
 					<p><input type="text" name="<?php $this->field_name( 'update_email_address' ); ?>" id="<?php $this->field_id( 'update_email_address' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'update_email_address' ) ); ?>" placeholder="<?php _e( 'Email address', 'genesis' ); ?>" size="30"<?php disabled( 0, is_super_admin() ); ?> /><br />
 					<span class="description"><label for="<?php $this->field_id( 'update_email_address' ); ?>"><?php _e( 'If you provide an email address above, you will be notified via email when a new version of Genesis is available.', 'genesis' ); ?></label></span></p>

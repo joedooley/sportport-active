@@ -51,7 +51,9 @@ function genesis_footer_widget_areas() {
 		dynamic_sidebar( 'footer-' . $counter );
 		$widgets = ob_get_clean();
 
-		$inside .= sprintf( '<div class="footer-widgets-%d widget-area">%s</div>', $counter, $widgets );
+		if ( $widgets ) {
+			$inside .= sprintf( '<div class="footer-widgets-%d widget-area">%s</div>', $counter, $widgets );
+		}
 
 		$counter++;
 

@@ -15,7 +15,7 @@
 		color: #aaa !important;
 		margin-top: 1em;
 		opacity: 0.5;
-		@include padding(rem(5) 0.4rem);
+		@include padding(rem(5) 0.75rem);
 
 		&:hover {
 			opacity: 1;

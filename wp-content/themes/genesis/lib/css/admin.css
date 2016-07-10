@@ -63,6 +63,11 @@ hr.div {
 	border-radius: 5px;
 }
 
+.changelog ul {
+	list-style: disc;
+	padding: 0 0 0 40px;
+}
+
 
 /* # Fix notice placment on our admin pages
 ----------- */
@@ -88,20 +93,8 @@ hr.div {
 	float: left;
 }
 
-.genesis-metaboxes .top-buttons {
-	float: right;
-}
-
-.genesis-metaboxes .top-buttons input {
-	margin-left: 10px;
-}
-
-.genesis-metaboxes .bottom-buttons {
-	text-align: right;
-}
-
-.genesis-metaboxes .bottom-buttons input {
-	margin-left: 10px;
+.genesis-metaboxes .bottom-buttons .button-primary {
+	margin-right: 10px;
 }
 
 .genesis-metaboxes .metabox-holder {

@@ -1,0 +1,30 @@
+/*! ## FAQ Page Template
+------------------------ */
+
+.faq {
+
+	#accordion {
+		margin-left: 1em;
+
+		.section-header {
+			border-bottom: 1px solid;
+			color: $blue1;
+			font-family: $raleway;
+			font-size: 1.75em;
+			font-style: italic;
+			margin-bottom: 2em;
+		}
+
+		.accordion-heading {
+			border-bottom: 0;
+			color: $headline-color;
+		}
+
+		.accordion-content {
+			p {
+				padding: 0 6em 0 1em;
+				text-align: left;
+			}
+		}
+	}
+}

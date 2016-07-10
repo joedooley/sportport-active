@@ -107,7 +107,10 @@ class Genesis_Customizer extends Genesis_Customizer_Base {
 		}
 
 		$this->color_scheme( $wp_customize );
-		$this->layout( $wp_customize );
+
+		if ( genesis_has_multiple_layouts() ) {
+			$this->layout( $wp_customize );
+		}
 
 		if ( current_theme_supports( 'genesis-breadcrumbs' ) ) {
 			$this->breadcrumbs( $wp_customize );
@@ -402,8 +405,8 @@ class Genesis_Customizer extends Genesis_Customizer_Base {
 				'settings' => $this->get_field_name( 'content_archive' ),
 				'type'     => 'select',
 				'choices'  => array(
-					'full'     => __( 'Display post content', 'genesis' ),
-					'excerpts' => __( 'Display post excerpts', 'genesis' ),
+					'full'     => __( 'Display entry content', 'genesis' ),
+					'excerpts' => __( 'Display entry excerpts', 'genesis' ),
 				),
 			)
 		);
@@ -456,7 +459,7 @@ class Genesis_Customizer extends Genesis_Customizer_Base {
 		$wp_customize->add_control(
 			'genesis_posts_nav',
 			array(
-				'label'    => __( 'Post Navigation Type', 'genesis' ),
+				'label'    => __( 'Entry Pagination Type', 'genesis' ),
 				'section'  => 'genesis_archives',
 				'settings' => $this->get_field_name( 'posts_nav' ),
 				'type'     => 'select',

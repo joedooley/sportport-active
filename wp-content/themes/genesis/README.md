@@ -24,3 +24,4 @@ For more specific instructions on getting started, please download the Genesis f
 On Genesis admin pages, see the contextual help via the Help tab in the top right of the screen.
 
 Please visit http://my.studiopress.com/help/ for further theme support.
+

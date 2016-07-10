@@ -75,21 +75,20 @@ function spa_personalize_footer_creds( $output ) {
  *
  * @return void
  */
-add_action('genesis_after_entry', function () {
+add_action( 'genesis_after_entry', function () {
+
 	if ( is_single() ) {
 
-		$cta_headline = get_field( 'cta_headline' );
-		$cta          = get_field( 'call_to_action' );
+		$cta = get_field( 'call_to_action' );
 
-		echo '<section class = "after-post-cta"><div class = "wrap">';
+		if ( $cta ) { ?>
 
-		if ( $cta_headline ) {
-			echo '<h2 class="cta-headline">' . $cta_headline . '</h2>';
-		}
-		if ( $cta ) {
-			echo $cta;
-		}
+			<section class = "after-post-cta">
+				<div class = "wrap">
+					<?php echo $cta; ?>
+				</div>
+			</section>
 
-		echo '</div></section>';
+		<?php }
 	}
-}, 5);
+}, 5 );

@@ -209,7 +209,7 @@ class Model_SQ_BlockSettingsSeo
         if ($account <> '' && strpos($account, 'google.') === false) {
             $account = 'https://plus.google.com/' . $account;
         }
-        return $account;
+        return str_replace(" ", "+", $account);
     }
 
     /**

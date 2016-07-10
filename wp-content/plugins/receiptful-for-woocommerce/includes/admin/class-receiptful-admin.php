@@ -38,7 +38,7 @@ class Receiptful_Admin {
 	 * URL for the store owner's Dashboard in the Receiptful app.
 	 * @var string
 	 */
-	public $receiptful_recommendations_url = 'https://app.receiptful.com/recommendations';
+	public $receiptful_recommendations_url = 'https://app.receiptful.com/feedback/widgets';
 
 
 	/**
@@ -143,8 +143,16 @@ class Receiptful_Admin {
 			),
 			array(
 				'title'   	=> __( 'Enable recommendations', 'receiptful-for-woocommerce' ),
-				'desc' 	  	=> sprintf( __( "Enable product recommendations. Requires to have set this up in the <a href='%s'>Recommendations section</a>.", 'receiptful-for-woocommerce' ), $this->receiptful_recommendations_url ),
+				'desc' 	  	=> sprintf( __( "Enable product recommendations. Requires to have set this up in the <a href='%s' target='_blank'>Recommendations section</a>.", 'receiptful-for-woocommerce' ), $this->receiptful_recommendations_url ),
 				'id' 	  	=> 'receiptful_enable_recommendations',
+				'default' 	=> 'no',
+				'type' 	  	=> 'checkbox',
+				'autoload'	=> false
+			),
+			array(
+				'title'   	=> __( 'Enable feedback widgets', 'receiptful-for-woocommerce' ),
+				'desc' 	  	=> sprintf( __( "Enable feedback widgets. Requires to have set this up in the <a href='%s' target='_blank'>Feedback section</a>.", 'receiptful-for-woocommerce' ), 'https://app.receiptful.com/feedback/widgets' ),
+				'id' 	  	=> 'receiptful_enable_feedback_widgets',
 				'default' 	=> 'no',
 				'type' 	  	=> 'checkbox',
 				'autoload'	=> false

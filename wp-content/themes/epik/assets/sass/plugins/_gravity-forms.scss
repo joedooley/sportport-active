@@ -41,10 +41,42 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 		@include margin(0);
 	}
 
+
+	label.gfield_label {
+		font-size: 0.9em;
+		font-weight: 700;
+		max-width: 380px;
+	}
+
+	.gform_body {
+		display: inline-block;
+		float: left;
+		width: 80%;
+
+		@include media($xlarge-screen-up) {
+			max-width: 380px;
+			width: 100%;
+		}
+
+		input.large {
+			@include padding(0.75rem);
+			border: 1px solid $light-gray;
+			border-radius: 0;
+
+			@include media($xlarge-screen-up) {
+				max-width: 300px;
+			}
+
+			@include media($small-screen-up) {
+				max-width: none;
+			}
+		}
+
+	}
+
 	.gform_footer {
 		display: inline-block;
-		@include margin(3.25em 0 0);
-		padding-top: 0.7em;
+		margin-top: 2.05em;
 		width: 20%;
 
 		@include media($xlarge-screen-up) {
@@ -53,7 +85,7 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 		}
 
 		.gform_button {
-			@include padding(9px 35px);
+			@include padding(12px 35px);
 			background-color: $orange;
 			border-radius: 0;
 			color: #fff;
@@ -73,31 +105,6 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 		}
 	}
 
-	.gform_body {
-		display: inline-block;
-		float: left;
-		width: 80%;
-
-		@include media($xlarge-screen-up) {
-			max-width: 380px;
-			width: 100%;
-		}
-
-		@include media($xlarge-screen-up) {
-			input.large {
-				max-width: 300px;
-
-				@include media($small-screen-up) {
-					max-width: none;
-				}
-			}
-
-		}
-	}
-
-	.top_label .gfield_label {
-		max-width: 380px;
-	}
 }
 
 
@@ -124,14 +131,15 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 	}
 
 	.gform_footer {
+		@include transform(translateY(50px));
 		@include margin(0);
 
 		.gform_button {
+			@include padding(inherit);
 			border: none;
 			border-radius: 0;
 			box-shadow: none;
 			width: 100%;
-			@include padding(inherit);
 		}
 	}
 }
@@ -139,12 +147,10 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 
 /// Blog Sidebar Newsletter Signup
 #gform_wrapper_5 {
-	background: #ffffff4a;
-	border: 1px solid #00000026;
 	max-width: 100%;
-	padding: 1em;
 
 	li {
+		@include padding(0);
 		max-width: 100%;
 
 		label {
@@ -153,6 +159,7 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 
 		input {
 			@include padding(rem(12));
+			border-radius: 0;
 			width: 100%;
 		}
 	}

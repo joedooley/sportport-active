@@ -3,8 +3,8 @@ Contributors: duracelltomi
 Donate link: https://duracelltomi.com/
 Tags: google tag manager, tag manager, gtm, google, adwords, google adwords, adwords remarketing, remarketing, google analytics, analytics
 Requires at least: 3.4.0
-Tested up to: 4.4
-Stable tag: 1.2
+Tested up to: 4.5.2
+Stable tag: 1.3.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -134,16 +134,16 @@ http://cutroni.com/blog/2012/02/21/advanced-content-tracking-with-google-analyti
 Google Tag Manager for WordPress can add every dataLayer variable as an AdWords remarketing custom parameter list.
 Using this you can create more sophisticated remarketing lists.
 
-= Blacklist & Whitelist Tag Manager tags and macros =
+= Blacklist & Whitelist Tag Manager tags and variables =
 
-To increase security on your website, you can whitelist and blacklist tags and macros.
-This means you can disable certain tags from being fired or prevent the use of certain macro types
+To increase security on your website, you can whitelist and blacklist tags and variables.
+This means you can disable certain tags from being fired or prevent the use of certain variable types
 from being used regardless of your current Tag Manager setup.
 
 If your Google account is being hacked that is associated with your Google Tag Manager account,
 an attacker could easily execute malware on your website without accessing its code on your hosting server.
 
-By blacklisting custom HTML tags and/or custom JavaScript macros for example you can have a more secure Tag Manager container
+By blacklisting custom HTML tags and/or custom JavaScript variables for example you can have a more secure Tag Manager container
 if you do not use those kind of elements.
 
 = Integration =
@@ -175,26 +175,27 @@ More integration to come!
 I created a step-by-step guide for this:
 http://duracelltomi.com/google-tag-manager-for-wordpress/how-to-articles/setup-enhanced-ecommerce-tracking
 
-= PayPal transactions in WooCommerce are not being tracked in Google Analyics =
+= PayPal / 3rd party payment gateway transactions in WooCommerce are not being tracked in Google Analyics =
 
-PayPal does not redirect the user back to your website by default.
+PayPal and some other 3rd party payment gateways does not redirect the user back to your website by default
+after a successful transaction.
 It offers the route back for your customer but it can happen that users simply close the browser
 before they get back to your thankyou page (aka. order received page)
 
 This means that neither Google Analyics tags or any other tags are being fired.
 
-Enable auto return in your PayPal settings. This will instruct PayPal to show a quick
+Enable auto return in your payment gateway settings. This will instruct them to show a quick
 info page after payment and then redirect the user back to your site. This will
 increase the number of tracked transactions.
 
-= Why isn't there an option to blacklist tag/macro classes =
+= Why isn't there an option to blacklist tag/variable classes =
 
-Although Google recommends to blacklist tags and macros using classes, I found it is complicated for people to understand
-what tags and macros are being blacklisted/whitelisted automatically using classses. Therefore I decided to include
-individual tags and macros on the blacklist tabs.
+Although Google recommends to blacklist tags and variables using classes, I found it is complicated for people to understand
+what tags and variables are being blacklisted/whitelisted automatically using classses. Therefore I decided to include
+individual tags and variables on the blacklist tabs.
 
-Please remember that tags are useless without macros so only blacklist macros if you are certain that you do not use them
-with any macro in your container.
+Please remember that tags are useless without variables so only blacklist variables if you are certain that you do not use them
+with any tags in your container.
 
 = How can I track add-to-cart events in WooCommerce =
 
@@ -279,6 +280,37 @@ If you or your social plugin inserts the Facebook buttons using IFRAMEs (like So
 6. Scroll tracking
 
 == Changelog ==
+
+= 1.3.2 =
+
+* Fixed: remove cart event not fired in WooCommerce 2.6
+* Fixed: ecomm_prodid.push error message on product detail pages
+* Fixed: proper tracking of cart actions on the cart page for WooCommerce 2.6
+* Fixed: 'Illegal string offset' errors in some cases in the cart
+* Fixed: OpenWeatherMap requires a (free) API key now, you can now enter this to use weather data in data layer
+
+= 1.3.1 =
+
+* Fixed: "json_encode() expects parameter 2 to be long, string given" on PHP 5.3 instances
+* Fixed: Fatal PHP error in cart if you enabled taxes to be included in your cart
+
+= 1.3 =
+
+Major changes to the Enhanced Ecommerce implementation of the WooCommerce integration!
+
+* Fixed: proper tracking of list positions
+* Fixed: opening product detail page in a new window/tab when user pressed the CTRL key
+* Fixed: ecomm_totalvalue included the total price of the cart without taxes
+* Fixed: ecomm_totalvalue does not take into account the quantity of ordered products on the order received page
+* Fixed: php error message on product lists when AdWords dynamic remarketing was enabled on WooCommerce 2.6
+* Fixed: added data-cfasync="false" to the GTM container code for better compatibility with CloudFlare
+* Added: introducing tracking of list names (general product list, recent products list, featured products list, etc.)
+  * Some list names (like cross-sells) will be shown as 'General Product List'. A proposed change in WooCommerce 2.6 will solve that issue
+* Added: tracking product lists in widgets
+* Added: tracking checkout options (payment and shipment)
+* Updated: better add-to-cart / remove-from-cart management in mini cart and while updating cart content
+* Updated: added currency code to each enhanced ecommerce call so that currency reporting is OK for multi currency sites
+* Updated: replaced usage of get_currentuser() to keep compatibility with WordPress 4.5
 
 = 1.2 =
 
@@ -412,6 +444,18 @@ Please report all bugs found in my plugin using the [contact form on my website]
 * First beta release
 
 == Upgrade Notice ==
+
+= 1.3.2 =
+
+Quickfix release for 1.3.x: major changes and improvements in the enhanced ecommerce implementation for WooCommerce. If you are already using this beta feature, please read the changelog before upgrading!
+
+= 1.3.1 =
+
+Quickfix release for 1.3: major changes and improvements in the enhanced ecommerce implementation for WooCommerce. If you are already using this beta feature, please read the changelog before upgrading!
+
+= 1.3 =
+
+Major changes and improvements in the enhanced ecommerce implementation for WooCommerce. If you are already using this beta feature, please read the changelog before upgrading!
 
 = 1.2 =
 

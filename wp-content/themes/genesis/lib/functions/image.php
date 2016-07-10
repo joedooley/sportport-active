@@ -202,25 +202,31 @@ function genesis_get_additional_image_sizes() {
  */
 function genesis_get_image_sizes() {
 
-	$builtin_sizes = array(
-		'large'		=> array(
-			'width'  => get_option( 'large_size_w' ),
-			'height' => get_option( 'large_size_h' ),
-		),
-		'medium'	=> array(
-			'width'  => get_option( 'medium_size_w' ),
-			'height' => get_option( 'medium_size_h' ),
-		),
-		'thumbnail'	=> array(
-			'width'  => get_option( 'thumbnail_size_w' ),
-			'height' => get_option( 'thumbnail_size_h' ),
-			'crop'   => get_option( 'thumbnail_crop' ),
-		),
-	);
+	global $_wp_additional_image_sizes;
 
-	$additional_sizes = genesis_get_additional_image_sizes();
+	$sizes = array();
 
-	return array_merge( $builtin_sizes, $additional_sizes );
+	foreach ( get_intermediate_image_sizes() as $_size ) {
+
+		if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
+
+			$sizes[ $_size ]['width']  = get_option( "{$_size}_size_w" );
+			$sizes[ $_size ]['height'] = get_option( "{$_size}_size_h" );
+			$sizes[ $_size ]['crop']   = (bool) get_option( "{$_size}_crop" );
+
+		} elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
+
+			$sizes[ $_size ] = array(
+				'width'  => $_wp_additional_image_sizes[ $_size ]['width'],
+				'height' => $_wp_additional_image_sizes[ $_size ]['height'],
+				'crop'   => $_wp_additional_image_sizes[ $_size ]['crop'],
+			);
+
+		}
+
+	}
+
+	return $sizes;
 
 }
 

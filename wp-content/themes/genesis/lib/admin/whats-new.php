@@ -66,14 +66,41 @@ class Genesis_Admin_Upgraded extends Genesis_Admin_Basic {
 			<h2><?php _e( 'What&#8217;s New', 'genesis' ); ?></h2>
 			<div class="feature-section">
 
-				<h3><?php _e( 'Accessibility', 'genesis' ); ?></h3>
-				<p><?php _e( 'Child themes now have the ability to turn on accessibility features like special text for screen readers, accessible search forms, consistent page and section headings, skip links, and an accessible drop-down navigation menu.', 'genesis' ); ?></p>
+			<p><?php _e( 'Occasionally, even the most mature software needs a little freshening up. Instead of focusing on big new features and large changes, we opted to go through the backlog of bug reports and enhancement suggestions. The result is a much more polished and stable Genesis Framework. Have a look at what has changed in 2.3.' , 'genesis' ); ?></p>
 
-				<h3><?php _e( 'Schema.org Microdata Improvements', 'genesis' ); ?></h3>
-				<p><?php _e( 'Genesis continues to improve its implementation of Schema.org microdata in our markup, now including breadcrumb microdata.', 'genesis' ); ?></p>
+				<h3><?php _e( 'New and Improved', 'genesis' ); ?></h3>
 
-				<h3><?php _e( 'WordPress Feature Compatibility', 'genesis' ); ?></h3>
-				<p><?php _e( 'WordPress recently included support for generated title tags, as well as adding support for uploading a custom site icon, and now Genesis is compatible with both new features.', 'genesis' ); ?></p>
+					<ul>
+						<li><?php _e( 'A CHANGELOG.md file for the project. (yay!)' , 'genesis' ); ?></li>
+						<li><?php _e( 'Update to normalize.css 4.1.1.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Update our theme tags in style.css.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Improve the look of the settings screens.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Pass entry image link through the markup API.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Add a toolbar link to CPT archive settings when viewing a CPT archive.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Add shortcodes for site title and home link.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Enable after entry widget area for all post types via post type support.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Hide layout selector when only one layout is supported.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Use TinyMCE (visual editor) for archive intro text input.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Allow foreign language characters in content limit functions.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Add accessibility to the paginated post navigation.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Allow adjacent single entry navigation via post type support.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Added relative_depth parameter to date shortcodes.' , 'genesis' ); ?></li>
+					</ul>
+
+
+				<h3><?php _e( 'Bug Fixes', 'genesis' ); ?></h3>
+				<p>
+					<ul>
+						<li><?php _e( 'Use correct class for superfish hover state.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Prevent empty footer widgets markup.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Prevent empty spaces in entry footer of CPTs.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Prevent author shortcode from outputting empty markup when no author is assigned.' , 'genesis' ); ?></li>
+						<li><?php _e( "Disable author box on entries where post type doesn't support author." , 'genesis' ); ?></li>
+						<li><?php _e( 'Disable author shortcode output if author is not supported by post type.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Fix issue with no sitemap when running html5 and no a11y support for 404 page.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Exclude posts page from page selection dropdown in Featured Page widget.' , 'genesis' ); ?></li>
+					</ul>
+				</p>
 
 				</div>
 		</div>

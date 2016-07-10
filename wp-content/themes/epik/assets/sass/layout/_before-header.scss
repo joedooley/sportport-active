@@ -39,7 +39,7 @@
 			a {
 				color: $light-gray;
 				font-family: $open-sans-condensed-bold;
-				font-size: rem(11);
+				font-size: 1.2rem;
 				text-transform: uppercase;
 
 				&:hover {
@@ -71,7 +71,7 @@
 		color: $light-gray;
 		font: {
 			family: $raleway-bold;
-			size: rem(11);
+			size: 1.2rem;
 		}
 		margin-bottom: 0;
 		margin-top: 10px;
@@ -116,7 +116,7 @@
 			@include padding(6px);
 
 			@include placeholder {
-				font-size: rem(11);
+				font-size: 1.2rem;
 				padding-top: 3px;
 			}
 

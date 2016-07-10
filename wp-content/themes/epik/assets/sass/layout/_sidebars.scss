@@ -17,6 +17,9 @@
 
 	> div {
 		@include margin(1em 0);
+		@include padding(1em);
+		background-color: rgba(255, 255, 255, 0.29);
+		border: 1px solid rgba(0, 0, 0, 0.15);
 	}
 
 	.search-form {

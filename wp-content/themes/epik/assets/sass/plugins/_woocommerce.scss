@@ -48,10 +48,6 @@ body.woocommerce-page #payment .form-row select {
 }
 
 
-#gform_wrapper_3 .gform_footer {
-	margin: 3.05em 0 0;
-}
-
 .woocommerce button.button {
 	border-radius: 0;
 	color: #222;
@@ -84,11 +80,13 @@ body.woocommerce div.woocommerce-message a.button {
 		float: none;
 
 		&.dec {
+			font-size: 1.25em;
 			float: left;
 			@include padding(14px 17px);
 		}
 
 		&.inc {
+			font-size: 1.25em;
 			margin-right: 5px;
 			@include padding(14px 17px);
 		}

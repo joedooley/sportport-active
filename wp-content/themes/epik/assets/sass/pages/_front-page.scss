@@ -24,6 +24,7 @@
 
 .home .site-inner {
 	background-color: #fff;
+	margin-bottom: 0;
 	max-width: none;
 	padding-top: 0;
 	width: auto;
@@ -54,12 +55,17 @@
 	}
 
 	.hero--overlay {
-		font-family: $yanone;
-		font-size: 3.4rem;
+		font-family: $lato-bold;
+		font-size: 3.7em;
 
 		@include media($ipad-screen-up) {
-			font-size: 3.3rem;
+			font-size: 3.3em;
 		}
+	}
+
+	.button {
+		font-size: 1.25em;
+		padding: 25px;
 	}
 }
 
@@ -110,6 +116,7 @@
 	}
 
 	.featured-link {
+		font-size: 4em;
 		padding: 30px 0;
 		@include span-columns(3 of 12);
 
@@ -166,12 +173,14 @@
 
 .featured-image--overlay {
 	@include transform(translateY(245px));
+	font-size: 3.5em;
 	margin: 0;
 	text-align: center;
 }
 
 .featured-post--overlay {
-	bottom: 55px;
+	bottom: 85px;
+	font-size: 3em;
 	opacity: 0.8;
 	position: relative;
 	text-align: center;

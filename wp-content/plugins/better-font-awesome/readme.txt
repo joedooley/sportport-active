@@ -4,13 +4,15 @@ Tags: better, font, awesome, icon, icons, bootstrap, fontstrap, cdn, shortcode
 Donate link: http://mightyminnow.com
 Requires at least: 3.0
 Tested up to: 4.4
-Stable tag: 1.5.0
+Stable tag: 1.6.0
 License: GPLv2+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 The Better Font Awesome plugin for WordPress. Shortcodes, HTML, TinyMCE, various Font Awesome versions, backwards compatibility, CDN speeds, and more.
 
 == Description ==
+
+[![Build Status](https://travis-ci.org/MickeyKay/better-font-awesome.svg?branch=master)](https://travis-ci.org/MickeyKay/better-font-awesome)
 
 **Do you find this plugin helpful? Please consider [leaving a 5-star review](https://wordpress.org/support/view/plugin-reviews/better-font-awesome).**
 
@@ -108,6 +110,9 @@ Better Font Awesome does it's best to load after any existing Font Awesome CSS, 
 
 
 == Changelog ==
+
+= 1.6.0 =
+* Update fallback Font Awesome to v4.6.3.
 
 = 1.5.0 =
 * Update fallback Font Awesome to v4.5.0.
@@ -225,6 +230,9 @@ Better Font Awesome does it's best to load after any existing Font Awesome CSS, 
 
 
 == Upgrade Notice ==
+
+= 1.6.0 =
+* Update fallback Font Awesome to v4.6.3.
 
 = 1.5.0 =
 * Update fallback Font Awesome to v4.5.0.

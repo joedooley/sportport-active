@@ -33,7 +33,7 @@ if ( !function_exists( "getallheaders") ) {
 }
 
 function gtm4wp_add_basic_datalayer_data( $dataLayer ) {
-	global $current_user, $wp_query, $gtm4wp_options;
+	global $wp_query, $gtm4wp_options;
 	
 	if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_LOGGEDIN ] ) {
 		if ( is_user_logged_in() ) {
@@ -44,7 +44,7 @@ function gtm4wp_add_basic_datalayer_data( $dataLayer ) {
 	}
 	
 	if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_USERROLE ] ) {
-		get_currentuserinfo();
+		$current_user = wp_get_current_user();
 		$dataLayer["visitorType"] = ( empty( $current_user->roles[0] ) ? "visitor-logged-out" : $current_user->roles[0] );
 	}
 
@@ -205,6 +205,10 @@ function gtm4wp_add_basic_datalayer_data( $dataLayer ) {
 		$dataLayer["postCountTotal"]  = (int) $wp_query->found_posts;
 	}
 
+  if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_POSTID ] ) {
+    $dataLayer["postID"]  = (int) get_the_ID();
+  }
+
 	if ( $gtm4wp_options[ GTM4WP_OPTION_BLACKLIST_ENABLE ] > 0 ) {
 		$_gtmrestrictlistitems = array();
 		
@@ -353,7 +357,7 @@ function gtm4wp_add_basic_datalayer_data( $dataLayer ) {
 }
 
 function gtm4wp_wp_loaded() {
-        global $gtm4wp_options;
+	global $gtm4wp_options;
 
 	if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_WEATHER ] ) {
 		$gtm4wp_sessionid = array_key_exists( "gtm4wp_sessoionid", $_COOKIE ) ? $_COOKIE[ "gtm4wp_sessoionid" ] : "";
@@ -372,7 +376,7 @@ function gtm4wp_wp_loaded() {
 			if ( $gtm4wp_geodata ) {
 				$gtm4wp_geodata = unserialize( $gtm4wp_geodata );
 				if ( array_key_exists( 'geoplugin_latitude', $gtm4wp_geodata ) && array_key_exists( 'geoplugin_longitude', $gtm4wp_geodata ) ) {
-					$weatherdata = @file_get_contents('http://api.openweathermap.org/data/2.5/weather?lat=' . $gtm4wp_geodata[ "geoplugin_latitude" ] . '&lon=' . $gtm4wp_geodata[ "geoplugin_longitude" ] . '&units=' . ($gtm4wp_options[ GTM4WP_OPTION_INCLUDE_WEATHERUNITS ] == 0 ? 'metric' : 'imperial'));
+					$weatherdata = @file_get_contents('http://api.openweathermap.org/data/2.5/weather?appid=' . $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_WEATHEROWMAPI ] . '&lat=' . $gtm4wp_geodata[ "geoplugin_latitude" ] . '&lon=' . $gtm4wp_geodata[ "geoplugin_longitude" ] . '&units=' . ($gtm4wp_options[ GTM4WP_OPTION_INCLUDE_WEATHERUNITS ] == 0 ? 'metric' : 'imperial'));
 					if ( $weatherdata ) {
 						$weatherdata = @json_decode( $weatherdata );
 						if ( is_object( $weatherdata ) ) {
@@ -397,7 +401,7 @@ function gtm4wp_get_the_gtm_tag() {
 			$_gtm_tag .= '
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=' . $one_gtm_code . '"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({\'gtm.start\':
+<script data-cfasync="false">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({\'gtm.start\':
 new Date().getTime(),event:\'gtm.js\'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!=\'dataLayer\'?\'&l=\'+l:\'\';j.async=true;j.src=
 \'//www.googletagmanager.com/gtm.js?id=\'+i+dl;f.parentNode.insertBefore(j,f);
@@ -445,10 +449,6 @@ function gtm4wp_enqueue_scripts() {
 		wp_enqueue_script( "gtm4wp-social-actions", $gtp4wp_plugin_url . "js/gtm4wp-social-tracker.js", array( "jquery" ), GTM4WP_VERSION, false );
 	}
 
-	if ( isset ( $GLOBALS["woocommerce"] ) ) {
-		require_once( dirname( __FILE__ ) . "/../integration/woocommerce.php" );
-	}
-
 	if ( $gtm4wp_options[ GTM4WP_OPTION_EVENTS_YOUTUBE ] ) {
 		require_once( dirname( __FILE__ ) . "/../integration/youtube.php" );
 	}
@@ -487,7 +487,7 @@ function gtm4wp_wp_header_begin() {
 
 	$_gtm_header_content = '
 <!-- Google Tag Manager for WordPress by DuracellTomi - http://duracelltomi.com -->
-<script type="text/javascript">
+<script data-cfasync="false" type="text/javascript">
 	var gtm4wp_datalayer_name = "' . $gtm4wp_datalayer_name . '";
 	var ' . $gtm4wp_datalayer_name . ' = ' . $gtm4wp_datalayer_name . ' || []';
 	
@@ -516,7 +516,7 @@ function gtm4wp_wp_header_end() {
 	if ( $gtm4wp_options[ GTM4WP_OPTION_GTM_CODE ] != "" ) {
 		$_gtm_tag .= '
 <!-- Google Tag Manager for WordPress by DuracellTomi -->
-<script type="text/javascript">';
+<script data-cfasync="false" type="text/javascript">';
 
 		$gtm4wp_datalayer_data = array();
 		$gtm4wp_datalayer_data = (array) apply_filters( GTM4WP_WPFILTER_COMPILE_DATALAYER, $gtm4wp_datalayer_data );
@@ -538,12 +538,18 @@ function gtm4wp_wp_header_end() {
 		gtm4wp_track_downloads( "' . str_replace( '"', '', $gtm4wp_options[ GTM4WP_OPTION_EVENTS_DWLEXT ] ) . '" );
 	});';
 		}
-//var_dump($gtm4wp_datalayer_data);		
+
+		if ( version_compare( PHP_VERSION, '5.4.0' ) >= 0 ) {
+			$dl_json_data = json_encode( $gtm4wp_datalayer_data, JSON_UNESCAPED_UNICODE );
+		} else {
+			$dl_json_data = json_encode( $gtm4wp_datalayer_data );
+		}
+
 		$_gtm_tag .= '
 	' . $gtm4wp_datalayer_name . '.push(' . str_replace(
 			array( '"-~-', '-~-"' ),
 			array( "", "" ),
-			json_encode( $gtm4wp_datalayer_data )
+			str_replace( "–", "-", $dl_json_data )
 		) . ');';
 
 		$_gtm_tag .= '
@@ -578,3 +584,7 @@ add_action( "body_open", "gtm4wp_wp_body_open" );
 
 // compatibility with existing themes that natively support code injection after opening body tag
 add_action( "genesis_before", "gtm4wp_wp_body_open" );
+if ( ( $GLOBALS[ "gtm4wp_options" ][ GTM4WP_OPTION_INTEGRATE_WCTRACKCLASSICEC ] || $GLOBALS[ "gtm4wp_options" ][ GTM4WP_OPTION_INTEGRATE_WCTRACKENHANCEDEC ] ) 
+	&& isset ( $GLOBALS["woocommerce"] ) ) {
+	require_once( dirname( __FILE__ ) . "/../integration/woocommerce.php" );
+}
