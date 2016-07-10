@@ -3687,4 +3687,15 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 #gform_confirmation_wrapper_5 {
   margin: 1em 0; }
 
+/*! ## Receiptful
+--------------------- */
+.sidebar-primary .rf-recommendations {
+  overflow: hidden; }
+  .sidebar-primary .rf-recommendations .rf-recommendation-col {
+    width: 100%; }
+  .sidebar-primary .rf-recommendations img {
+    float: none;
+    height: auto;
+    margin: auto; }
+
 /*# sourceMappingURL=style.css.map */
