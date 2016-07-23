@@ -65,31 +65,60 @@ else:
     define('NONCE_SALT',       $_ENV['NONCE_SALT']);
     /**#@-*/
 
-    /** A couple extra tweaks to help things run well on Pantheon. **/
-    if (isset($_SERVER['HTTP_HOST'])) {
-        // HTTP is still the default scheme for now. 
-        $scheme = 'http';
-        // If we have detected that the end use is HTTPS, make sure we pass that
-        // through here, so <img> tags and the like don't generate mixed-mode
-        // content warnings.
-        if (isset($_SERVER['HTTP_USER_AGENT_HTTPS']) && $_SERVER['HTTP_USER_AGENT_HTTPS'] == 'ON') {
-            $scheme = 'https';
-        }
-        define('WP_HOME', $scheme . '://' . $_SERVER['HTTP_HOST']);
-        define('WP_SITEURL', $scheme . '://' . $_SERVER['HTTP_HOST']);
+
+    /**
+     * Required for the custom domain's added from the Pantheon dashboard in the 
+     * domain section. We are also using CNAME's for all of our DNS records via Cloudflare. 
+     *
+     * We are not using any of Cloudflare's Page Rules to redirect to https. We are
+     * standardizing on https and redirecting to https://www in the conditional below where
+     * we defined WP_HOME and WP_SITEURL constants.
+     * 
+     * @link https://pantheon.io/docs/guides/cloudflare-enable-https/
+     * @since 4.4
+     */
+    if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
+      if ($_ENV['PANTHEON_ENVIRONMENT'] === 'dev'):
+        $domain = 'dev.sportportactive.com';
+      elseif ($_ENV['PANTHEON_ENVIRONMENT'] === 'test'):
+        $domain = 'test.sportportactive.com';
+      elseif ($_ENV['PANTHEON_ENVIRONMENT'] === 'live'):
+        $domain = 'www.sportportactive.com';
+      else:
+        /**
+         * Fallback value for multidev or other environments. This covers
+         * environment-sitename.pantheonsite.io domains that are generated
+         * per environment.
+         */
+        $domain = $_SERVER['HTTP_HOST'];
+
+      endif;
+
+      /**
+       * Define constants for WordPress on Pantheon.
+       */
+      define('WP_HOME', 'https://' . $domain);
+      define('WP_SITEURL', 'https://' . $domain);
+
+      /**
+       * Standardizing the live site on https://www with a 301 redirect in our headers
+       *
+       * @link https://pantheon.io/docs/redirects/
+       * @since 4.4
+       */
+      if (isset($_SERVER['PANTHEON_ENVIRONMENT']) && ($_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https' || $_SERVER['HTTP_HOST'] != $domain) && (php_sapi_name() != "cli")) {
+        header('HTTP/1.0 301 Moved Permanently');
+        header('Location: https://' . $domain . $_SERVER['REQUEST_URI']);
+        header('Cache-Control: public, max-age=3600');
+        exit();
+      }
+
     }
 
-    // Don't show deprecations; useful under PHP 5.5
+    /**
+     * Don't show deprecations; useful under PHP 5.5
+     */
     error_reporting(E_ALL ^ E_DEPRECATED);
-    // Force the use of a safe temp directory when in a container
-    if ( defined( 'PANTHEON_BINDING' ) ):
-        define( 'WP_TEMP_DIR', sprintf( '/srv/bindings/%s/tmp', PANTHEON_BINDING ) );
-    endif;
-
-    // FS writes aren't permitted in test or live, so we should let WordPress know to disable relevant UI
-    if ( in_array( $_ENV['PANTHEON_ENVIRONMENT'], array( 'test', 'live' ) ) && ! defined( 'DISALLOW_FILE_MODS' ) ) :
-        define( 'DISALLOW_FILE_MODS', true );
-    endif;
 
   else:
     /**
@@ -98,10 +127,10 @@ else:
      *
      * If you are only running on Pantheon, you can ignore this block.
      */
-    define('DB_NAME',          'sportport');
-    define('DB_USER',          'root');
-    define('DB_PASSWORD',      'root');
-    define('DB_HOST',          'localhost');
+    define('DB_NAME',          'database_name');
+    define('DB_USER',          'database_username');
+    define('DB_PASSWORD',      'database_password');
+    define('DB_HOST',          'database_host');
     define('DB_CHARSET', 'utf8');
     define('DB_COLLATE',       '');
     define('AUTH_KEY',         'put your unique phrase here');
@@ -145,15 +174,37 @@ $table_prefix = 'wp_';
  * You may want to examine $_ENV['PANTHEON_ENVIRONMENT'] to set this to be
  * "true" in dev, but false in test and live.
  */
-if ( ! defined( 'WP_DEBUG' ) ) {
-    define('WP_DEBUG', false);
+
+/**
+ * For developers: WordPress debugging mode.
+ *
+ * Debugging is enabled in Dev and Multi-Dev environments and
+ * disabled on your Test and Live environments.
+ *
+ * Unless you have to disable WP_DEBUG on a Dev site you shouldn't have
+ * to worry about setting WP_DEBUG to true or false depending on your 
+ * environment anymore.
+ *
+ * @since 4.4
+ */
+if ( defined( 'PANTHEON_ENVIRONMENT' ) ) {
+  if ( ! in_array( PANTHEON_ENVIRONMENT, array( 'test', 'live' ) ) ) {
+    define( 'WP_DEBUG', true );
+    define( 'WP_DEBUG_LOG', true );
+    define( 'WP_DEBUG_DISPLAY', false );
+  } else {
+    define( 'WP_DEBUG', false );
+    define( 'WP_DEBUG_LOG', false );
+    define( 'WP_DEBUG_DISPLAY', false );
+  }
 }
 
 
-define('AUTOSAVE_INTERVAL', 600);
-define('WP_POST_REVISIONS', 1);
-
-//* WP Retina @2x plugin - Removes Marketing Banner from Plugins Options Screen
+/**
+ * Removes Marketing Banner from Plugins Options Screen
+ *
+ * @package WP Retina @2x plugin
+ */
 define( 'WP_HIDE_DONATION_BUTTONS',  true );
 
 
