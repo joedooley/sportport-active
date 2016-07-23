@@ -8,7 +8,7 @@ class SQ_Sitemaps extends SQ_FrontController {
 
     var $root = 'sitemap';
     /* @var string post limit */
-    var $posts_limit = 10000;
+    var $posts_limit = 1000;
     var $news_limit = 50;
 
     public function __construct() {

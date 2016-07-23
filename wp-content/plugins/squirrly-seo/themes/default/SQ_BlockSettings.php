@@ -192,6 +192,7 @@
                                     <option value="com.hk"><?php _e('Hong Kong', _SQ_PLUGIN_NAME_); ?> (http://www.google.com.hk/)</option>
                                     <option value="co.hu"><?php _e('Hungary', _SQ_PLUGIN_NAME_); ?> (http://www.google.co.hu/)</option>
                                     <option value="co.in"><?php _e('India', _SQ_PLUGIN_NAME_); ?> (http://www.google.co.in/)</option>
+                                    <option value="co.id"><?php _e('Indonesia', _SQ_PLUGIN_NAME_); ?> (http://www.google.co.id/)</option>
                                     <option value="ie"><?php _e('Ireland', _SQ_PLUGIN_NAME_); ?> (http://www.google.ie/)</option>
                                     <option value="co.im"><?php _e('Isle of Man', _SQ_PLUGIN_NAME_); ?> (http://www.google.co.im/)</option>
                                     <option value="co.il"><?php _e('Israel', _SQ_PLUGIN_NAME_); ?> (http://www.google.co.il/)</option>

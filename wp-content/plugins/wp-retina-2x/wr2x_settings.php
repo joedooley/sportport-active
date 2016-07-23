@@ -10,11 +10,12 @@ add_action( 'admin_init', 'wr2x_admin_init' );
 
 function wr2x_settings_page() {
   global $wr2x_settings_api;
+  $hide_ads = wr2x_getoption( 'hide_ads', 'wr2x_advanced', false );
 	echo '<div class="wrap">';
-  jordy_meow_donation( true );
+  $hide_ads ? "" : jordy_meow_donation( true );
 	$method = wr2x_getoption( "method", "wr2x_advanced", 'Picturefill' );
 	echo "<h1>Retina";
-  by_jordy_meow();
+  by_jordy_meow( $hide_ads );
   echo "</h1>";
 	if ( $method == 'retina.js' ) {
 		echo "<p><span>" . __( "Current method:", 'wp-retina-2x' ) . " <u>" . __( "Client side", 'wp-retina-2x' ) . "</u>.</span>";

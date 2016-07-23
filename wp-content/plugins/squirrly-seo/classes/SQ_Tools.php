@@ -914,12 +914,25 @@ class SQ_Tools extends SQ_FrontController
 
         $postid = url_to_postid($url);
         if ($postid > 0) {
+            self::dump("it's a post", $url, $postid);
             $frontend->setPost(get_post($postid));
             $snippet['title'] = $frontend->getTitle();
             $snippet['description'] = $frontend->getDescription();
             $snippet['url'] = $url;
             self::dump($snippet);
-        } else {
+        } elseif($url ==  get_bloginfo('url')){
+            self::dump("it's main page",$url, get_bloginfo('url'));
+
+            if (self::$options ['sq_auto_title'] == 1){
+                $snippet['title'] = self::$options['sq_fp_title'];
+            }
+            if (self::$options['sq_auto_description'] == 1) {
+                $snippet['description'] = self::$options['sq_fp_description'];
+            }
+
+            $snippet['url'] = $url;
+            self::dump($snippet);
+        }else {
             $length = array('title' => 66,
                 'description' => 240,
                 'url' => 45);

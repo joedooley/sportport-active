@@ -293,8 +293,9 @@ class Model_SQ_Post {
             } else {
                 $sql = "INSERT INTO `" . $wpdb->postmeta . "`
                     (`post_id`,`meta_key`,`meta_value`)
-                    VALUES (" . (int) $post_id . ",'" . $meta['key'] . "','" . $meta['value'] . "')";
+                    VALUES (" . (int) $post_id . ",'" . $meta['key'] . "','" . addslashes($meta['value']) . "')";
             }
+            SQ_Tools::dump($sql);
             $wpdb->query($sql);
         }
 

@@ -23,6 +23,9 @@ class SQ_BlockSettings extends SQ_BlockController {
     public function action() {
         parent::action();
 
+        if (!current_user_can('manage_options')){
+            return;
+        }
 
         switch (SQ_Tools::getValue('action')) {
 
