@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: retina, images, image, responsive, admin, attachment, media, files, iphone, ipad, high-dpi
 Requires at least: 3.5
 Tested up to: 4.5.3
-Stable tag: 4.5.4
+Stable tag: 4.5.5
 
 Make your website look beautiful and crisp on modern displays by creating and displaying retina images. WP 4.4+ is also supported and enhanced.
 
@@ -32,7 +32,7 @@ More information and tutorial available one http://apps.meow.fr/wp-retina-2x/.
 
 == Changelog ==
 
-= 4.5.4 =
+= 4.5.5 =
 * Update: LazyLoad 2.0.0
 * Update: Retina.js 2.0.0
 * Fix: Drag & Drop upload was a bit buggy, it now has been improved a lot!

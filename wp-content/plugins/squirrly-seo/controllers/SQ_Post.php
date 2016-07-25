@@ -1,7 +1,6 @@
 <?php
 
-class SQ_Post extends SQ_FrontController
-{
+class SQ_Post extends SQ_FrontController {
 
     public $saved;
 
@@ -10,8 +9,7 @@ class SQ_Post extends SQ_FrontController
      *
      * @return void
      */
-    public function hookInit()
-    {
+    public function hookInit() {
         $this->saved = array();
 
         add_filter('tiny_mce_before_init', array($this->model, 'setCallback'));
@@ -34,8 +32,7 @@ class SQ_Post extends SQ_FrontController
      *
      * @global integer $post_ID
      */
-    public function hookHead()
-    {
+    public function hookHead() {
         global $post_ID;
         parent::hookHead();
 
@@ -59,8 +56,7 @@ class SQ_Post extends SQ_FrontController
     /**
      * Hook the Shopp plugin save product
      */
-    public function hookShopp($Product)
-    {
+    public function hookShopp($Product) {
         $this->checkSeo($Product->id);
     }
 
@@ -68,8 +64,7 @@ class SQ_Post extends SQ_FrontController
      * Hook the post save/update
      * @param type $post_id
      */
-    public function hookSavePost($post_id)
-    {
+    public function hookSavePost($post_id) {
 
 
         if (!isset($this->saved[$post_id])) {
@@ -107,8 +102,7 @@ class SQ_Post extends SQ_FrontController
      * @param integer $post_id
      * @return false|void
      */
-    public function checkImage($post_id)
-    {
+    public function checkImage($post_id) {
 
         //if the option to save the images locally is set on
         if (SQ_Tools::$options['sq_local_images'] == 1) {
@@ -193,8 +187,7 @@ class SQ_Post extends SQ_FrontController
      * @param integer $post_id
      * @param void
      */
-    public function checkSeo($post_id, $status = '')
-    {
+    public function checkSeo($post_id, $status = '') {
         $args = array();
 
         $seo = SQ_Tools::getValue('sq_seo');
@@ -231,9 +224,8 @@ class SQ_Post extends SQ_FrontController
         }
     }
 
-    public function getPaged($link)
-    {
-        $page = get_query_var('paged');
+    public function getPaged($link) {
+        $page = (int)get_query_var('paged');
         if ($page && $page > 1) {
             $link = trailingslashit($link) . "page/" . "$page" . '/';
         }
@@ -245,8 +237,7 @@ class SQ_Post extends SQ_FrontController
      *
      * @return void
      */
-    public function action()
-    {
+    public function action() {
         parent::action();
 
         switch (SQ_Tools::getValue('action')) {
@@ -298,8 +289,7 @@ class SQ_Post extends SQ_FrontController
      * @return array | false
      *
      */
-    private function _checkAdvMeta($post_id)
-    {
+    private function _checkAdvMeta($post_id) {
 
         $meta = array();
         if (SQ_Tools::getIsset('sq_canonical') || SQ_Tools::getIsset('sq_fp_title') || SQ_Tools::getIsset('sq_fp_description') || SQ_Tools::getIsset('sq_fp_keywords')) {
@@ -323,7 +313,7 @@ class SQ_Post extends SQ_FrontController
                 $meta[] = array('key' => '_sq_canonical',
                     'value' => SQ_Tools::getValue('sq_canonical'));
 
-
+            SQ_Tools::dump($meta);
             $this->model->saveAdvMeta($post_id, $meta);
 
             return $meta;
@@ -331,8 +321,7 @@ class SQ_Post extends SQ_FrontController
         return false;
     }
 
-    public function hookFooter()
-    {
+    public function hookFooter() {
         if (!defined('DISABLE_WP_CRON') || DISABLE_WP_CRON == true) {
             global $pagenow;
             if (in_array($pagenow, array('post.php', 'post-new.php'))) {
@@ -341,8 +330,7 @@ class SQ_Post extends SQ_FrontController
         }
     }
 
-    public function processCron()
-    {
+    public function processCron() {
         SQ_ObjController::getController('SQ_Tools', false);
         SQ_ObjController::getController('SQ_Action', false);
 

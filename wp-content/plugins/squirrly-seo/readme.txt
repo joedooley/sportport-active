@@ -7,7 +7,7 @@ Stable tag: trunk
 Donate link: https://www.squirrly.co/wordpress-seo-by-squirrly      
    
 SEO Plugin By Squirrly is for the NON-SEO experts. Get Excellent Seo with Better Content, Ranking and Analytics. For Both Humans and Search Bots.  
-  
+       
 == Description ==    
 Squirrly SEO helps you write content that is SEO friendly and ALSO Human friendly. You'll get to improve your rankings, while providing your readers with great content. See Your SEO Stats, get a weekly SEO Audit and find the best keywords.
  
@@ -83,7 +83,7 @@ Once you start having bigger content marketing and SEO needs (more than one arti
 
 <strong>You can read reviews from Internet Marketing experts on http://howto.squirrly.co/testimonials/</strong>
 
-Over 1,460,000 Downloads. Our startup consists of 10 content marketing professionals dedicated to making Squirrly an amazing piece of software and writing great training materials to help you be successful and stay successful.
+Over 1,600,000 Downloads. Our startup consists of 10 content marketing professionals dedicated to making Squirrly an amazing piece of software and writing great training materials to help you be successful and stay successful.
 
 Over 860 Content Marketing Experts have reviewed our Wordpress SEO plugin and loved it.
 
@@ -137,6 +137,12 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
 
 == Changelog ==
+= 6.1.5 =
+* July 2016 Security updates.
+* Fixed vulnerabilities between users who have rights in you site
+* Fixed some Squirrly SEO Snippet issues on first save
+* Added google.co.id in Rank Option
+
 = 6.1.3 =
 * Rich Pins Validator Option
 * Added rich pins for Woocommerce Products
@@ -471,6 +477,10 @@ Based on your article, Squirrly will find the most relevant text and add it in t
 
 You can opt-in to use the Squirrly Snippet in the Post/Page editor, which will allow you to customize how the META Title and Description will be. All while writing or editing your article.
 
+= 100% green in Squirrly Live Assistant but I’m not getting traffic yet =
+Sometimes we receive emails with this question and I want to help everybody have the correct image of Squirrly Live Assistance.
+http://howto.squirrly.co/wordpress-seo/100-green-in-squirrly-live-assistant-but-im-not-getting-traffic/
+
 = Is Squirrly SEO Plugin free? =
 Yes, you just have to install the plugin from the WP directory into your site. Then connect with your email to Squirrly. The Free Version will automatically start. Read below for more. Once you have bigger content marketing needs, you can opt-in to upgrade to the PRO Plan.
 
@@ -499,7 +509,7 @@ All of the features that we offer have been built having the customer's best int
 and we've proven time and again that we are a great team that knows all there is to know about good *SEO automation*. We had a community of 20,000 blogs that all
 used our SEO techniques, and they have gotten lots of hits from search engines due to our optimization. Now we offer the same quality for you:
 
- [UPDATE] Squirrly now has over 1,000,000 downloads, so we've been offering great software for over two years now.
+ [UPDATE] Squirrly now has over 1,500,000 downloads, so we've been offering great software for over two years now.
 
 - SEO Advice as you're typing your articles
 - Advice in real time from the SEO Live Assistant on how to write better content for your Human readers
@@ -560,4 +570,5 @@ And the best ones that we have (and the others don't):
 If you click the Squirrly tab in your dashboard, go to the "First Page Optimization" section and switch the Title and Description option on. You can enter custom Title, Description and Keywords. 
 
 = Is this Wordpress SEO plugin the only SEO plugin I will need to install? =
-It all depends on how you have setup your Wordpress until now. Some people use Squirrly seo plugin only for the Content Optimization with the Live Assistant part, some use use it to check their SEO stats and see where they need to improve their Wordpress seo, but most of our users and customer use Squirrly for everything related to SEO: from keyword analysis, to seo settings on Wordpress, to analytics and to weekly monitoring and audit reports.       
+It all depends on how you have setup your Wordpress until now. Some people use Squirrly seo plugin only for the Content Optimization with the Live Assistant part, some use use it to check their SEO stats and see where they need to improve their Wordpress seo, but most of our users and customer use Squirrly for everything related to SEO: from keyword analysis, to seo settings on Wordpress, to analytics and to weekly monitoring and audit reports.        
+                      

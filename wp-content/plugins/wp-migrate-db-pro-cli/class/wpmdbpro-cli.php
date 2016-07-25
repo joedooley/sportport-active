@@ -472,7 +472,7 @@ class WPMDBPro_CLI extends WPMDBPro_CLI_Export {
 	function check_wpmdbpro_version_before_migration( $profile ) {
 		// TODO: maybe instantiate WPMDBPro_CLI_Addon to make WPMDBPro_Addon::meets_version_requirements() available here
 		$wpmdb_pro_version = $GLOBALS['wpmdb_meta']['wp-migrate-db-pro']['version'];
-		if ( ! version_compare( $wpmdb_pro_version, '1.6', '>=' ) ) {
+		if ( ! version_compare( $wpmdb_pro_version, '1.6.1', '>=' ) ) {
 			return $this->cli_error( __( 'Please update WP Migrate DB Pro.', 'wp-migrate-db-pro-cli' ) );
 		}
 
@@ -496,6 +496,11 @@ class WPMDBPro_CLI extends WPMDBPro_CLI_Export {
 			return $this->cli_error( __( 'Profile ID missing.', 'wp-migrate-db-pro-cli' ) );
 		} elseif ( ! is_array( $profile ) ) {
 			$profile = $this->get_profile_by_key( absint( $profile ) );
+
+			// don't exclude post types if the option isn't checked
+			if( ! is_wp_error( $profile ) && ! $profile['exclude_post_types'] ) {
+				$profile['select_post_types'] = array();
+			}
 		}
 
 		return $profile;

@@ -18,7 +18,7 @@
 		 * Bind listeners to text fields (input and textarea)
 		 */
 		YoastACFAnalysis.prototype.bindListeners = function() {
-			$('#post-body, #edittag').find('input[type=text][id^=acf], textarea[id^=acf]').on('keyup paste cut blur', function() {
+			$('#post-body, #edittag').find('input[type="text"][id^="acf"], textarea[id^="acf"]').on('keyup paste cut blur', function() {
 				if ( YoastACFAnalysis.analysisTimeout ) {
 					window.clearTimeout(YoastACFAnalysis.analysisTimeout);
 				}
@@ -34,7 +34,7 @@
 		YoastACFAnalysis.prototype.addAcfFieldsToContent = function(data) {
 			var acf_content = ' ';
 			
-			$('#post-body, #edittag').find('input[type=text][id^=acf], textarea[id^=acf]').each(function() {
+			$('#post-body, #edittag').find('input[type="text"][id^="acf"], textarea[id^="acf"]').each(function() {
 				acf_content += ' ' + $(this).val();
 			});
 

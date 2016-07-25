@@ -64,7 +64,9 @@ function wc_rest_upload_image_from_url( $image_url ) {
 		'timeout' => 10
 	) );
 
-	if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+	if ( is_wp_error( $response ) ) {
+		return new WP_Error( 'woocommerce_rest_invalid_remote_image_url', sprintf( __( 'Error getting remote image %s.', 'woocommerce' ), $image_url ) . ' ' . sprintf( __( 'Error: %s.', 'woocommerce' ), $response->get_error_message() ), array( 'status' => 400 ) );
+	} elseif ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
 		return new WP_Error( 'woocommerce_rest_invalid_remote_image_url', sprintf( __( 'Error getting remote image %s.', 'woocommerce' ), $image_url ), array( 'status' => 400 ) );
 	}
 
@@ -122,10 +124,10 @@ function wc_rest_set_uploaded_image_as_attachment( $upload, $id = 0 ) {
 
 	if ( $image_meta = wp_read_image_metadata( $upload['file'] ) ) {
 		if ( trim( $image_meta['title'] ) && ! is_numeric( sanitize_title( $image_meta['title'] ) ) ) {
-			$title = $image_meta['title'];
+			$title = wc_clean( $image_meta['title'] );
 		}
 		if ( trim( $image_meta['caption'] ) ) {
-			$content = $image_meta['caption'];
+			$content = wc_clean( $image_meta['caption'] );
 		}
 	}
 

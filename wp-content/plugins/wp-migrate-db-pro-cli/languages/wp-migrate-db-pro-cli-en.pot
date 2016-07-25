@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wp-migrate-db-pro-cli\n"
 "Report-Msgid-Bugs-To: nom@deliciousbrains.com\n"
-"POT-Creation-Date: 2016-04-25 09:11-0700\n"
+"POT-Creation-Date: 2016-07-11 18:30-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgid ""
 msgstr ""
 
 #: class/wpmdbpro-cli.php:303
-#: class/wpmdbpro-cli.php:558
+#: class/wpmdbpro-cli.php:563
 msgid ""
 "One or more valid Blog IDs or Subsite URLs must be supplied to make use of "
 "the --media-subsites option"
@@ -81,34 +81,34 @@ msgstr ""
 msgid "Profile ID missing."
 msgstr ""
 
-#: class/wpmdbpro-cli.php:519
+#: class/wpmdbpro-cli.php:524
 msgid ""
 "The profile is set to migrate media files, however WP Migrate DB Pro Media "
 "Files does not seem to be installed/active on the local website."
 msgstr ""
 
-#: class/wpmdbpro-cli.php:541
+#: class/wpmdbpro-cli.php:546
 msgid ""
 "The profile is set to migrate media files, however WP Migrate DB Pro Media "
 "Files does not seem to be installed/active on the remote website."
 msgstr ""
 
-#: class/wpmdbpro-cli.php:548
+#: class/wpmdbpro-cli.php:553
 msgid ""
 "One or more subsites should exist on the remote to make use of the --media-"
 "subsites option"
 msgstr ""
 
-#: class/wpmdbpro-cli.php:595
+#: class/wpmdbpro-cli.php:600
 msgctxt "The caches and rewrite rules for the target are being flushed"
 msgid "Flushing caches and rewrite rules..."
 msgstr ""
 
-#: class/wpmdbpro-cli.php:646
+#: class/wpmdbpro-cli.php:651
 msgid "Performing backup"
 msgstr ""
 
-#: class/wpmdbpro-cli.php:648
+#: class/wpmdbpro-cli.php:653
 msgid "Migrating tables"
 msgstr ""
 

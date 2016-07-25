@@ -175,7 +175,7 @@ class SQ_Frontend extends SQ_FrontController {
                     }
                     break;
                 case 'touchicon':
-                    $size = get_query_var('sq_size');
+                    $size = (int) get_query_var('sq_size');
                     if (SQ_Tools::$options['favicon'] <> '') {
                         //show the favico file
                         SQ_Tools::setHeader('png');

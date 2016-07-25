@@ -33,6 +33,10 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
     public function action() {
         parent::action();
 
+        if (!current_user_can('manage_options')){
+            return;
+        }
+
         switch (SQ_Tools::getValue('action')) {
 
             case 'sq_settingsseo_update':
@@ -291,6 +295,7 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
                 $rules['favicon\.icon$'] = 'index.php?sq_get=favicon';
                 $rules['touch-icon\.png$'] = 'index.php?sq_get=touchicon';
                 foreach ($this->model->appleSizes as $size) {
+                    $size = (int) $size;
                     $rules['touch-icon' . $size . '\.png$'] = 'index.php?sq_get=touchicon&sq_size=' . $size;
                 }
             }

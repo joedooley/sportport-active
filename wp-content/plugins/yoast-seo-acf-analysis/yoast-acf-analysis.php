@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Yoast ACF Analysis
+ * Plugin Name: Yoast SEO: ACF Analysis
  * Plugin URI: https://forsberg.ax
  * Description: Adds the content of all ACF fields to the Yoast SEO score analysis.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Marcus Forsberg & Team Yoast
  * Author URI: https://forsberg.ax
  * License: GPL v3
@@ -11,6 +11,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
+
+if ( ! defined( 'YOAST_ACF_ANALYSIS_FILE ' ) ) {
+	define( 'YOAST_ACF_ANALYSIS_FILE', __FILE__ );
 }
 
 /**
@@ -21,8 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Yoast_ACF_Analysis {
 
-	/** @var array Plugin information. */
-	private $plugin_data = null;
+	const VERSION = '1.2.0';
 
 	/**
 	 * Yoast_ACF_Analysis constructor.
@@ -44,46 +47,39 @@ class Yoast_ACF_Analysis {
 	 */
 	public function admin_init() {
 
-		// Require ACF and Yoast
-		if ( current_user_can( 'activate_plugins' ) ) {
-			$deactivate = false;
+		$notice_functions = array();
 
-			// ACF
-			if ( ! is_plugin_active( 'advanced-custom-fields/acf.php' ) && ! is_plugin_active( 'advanced-custom-fields-pro/acf.php' ) ) {
-				add_action( 'admin_notices', array( $this, 'acf_not_active_notification' ) );
-				$deactivate = true;
+		// Check for: Yoast SEO for WordPress.
+		if ( defined( 'WPSEO_VERSION' ) ) {
+			// Make sure that version is >= 3.1
+			if ( version_compare( substr( WPSEO_VERSION, 0, 3 ), '3.1', '<' ) ) {
+				$notice_functions[] = 'wordpress_seo_requirements_not_met';
 			}
+		}
+		else  {
+			$notice_functions[] = 'wordpress_seo_requirements_not_met';
+		}
 
-			// Yoast SEO for WordPress
-			if ( ! is_plugin_active( 'wordpress-seo/wp-seo.php' ) && ! is_plugin_active( 'wordpress-seo-premium/wp-seo-premium.php' ) ) {
-				add_action( 'admin_notices', array( $this, 'wordpress_seo_requirements_not_met' ) );
-				$deactivate = true;
-			}
-			else {
-				// Compare if version is >= 3.0
-				if ( defined( 'WPSEO_VERSION' ) ) {
-					if ( version_compare( substr( WPSEO_VERSION, 0, 3 ), '3.1', '<' ) ) {
-						add_action( 'admin_notices', array( $this, 'wordpress_seo_requirements_not_met' ) );
-						$deactivate = true;
-					}
+		// Check for: ACF.
+		if ( ! class_exists( 'acf' ) && ! is_plugin_active( 'advanced-custom-fields-pro/acf.php' ) ) {
+			$notice_functions[] = 'acf_not_active_notification';
+		}
+
+		// Enqueue when no problems were found.
+		if ( empty( $notice_functions ) ) {
+			// Make sure we load very late to be able to check enqueue of scripts we depend on.
+			add_filter( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 999 );
+		}
+		else {
+			// Show notices to users who can act on them.
+			if ( current_user_can( 'activate_plugins' ) ) {
+				$this->show_notices( $notice_functions );
+
+				// Deactivate this plugin if we are not a mu-plugin.
+				if ( is_plugin_active( plugin_basename( YOAST_ACF_ANALYSIS_FILE ) ) ) {
+					$this->deactivate();
 				}
 			}
-
-			// Deactivate when we cannot do the job we are hired to do.
-			if ( $deactivate ) {
-				deactivate_plugins( plugin_basename( __FILE__ ) );
-
-				if ( isset( $_GET['activate'] ) ) {
-					unset( $_GET['activate'] );
-				}
-
-				return;
-			}
-
-			// Only enqueue when we are active.
-			add_filter( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-
-			$this->plugin_data = get_plugin_data( dirname( __FILE__ ) );
 		}
 	}
 
@@ -91,45 +87,62 @@ class Yoast_ACF_Analysis {
 	 * Notify that we need ACF to be installed and active.
 	 */
 	public function acf_not_active_notification() {
-		$message = __( 'ACF Yoast Analysis requires Advanced Custom Fields (free or pro) to be installed and activated.', 'yoast-acf-analysis' );
 
-		printf( '<div class="error"><p>%s</p></div>', esc_html( $message ) );
+		$message = sprintf(
+			__( 'Please %1$sinstall & activate Advanced Custom Fields%2$s to use Yoast SEO: ACF Analysis.', 'yoast-acf-analysis' ),
+			'<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=advanced+custom+fields&plugin-search-input=Search+Plugins' ) ) . '">',
+			'</a>'
+		);
+
+		printf( '<div class="error"><p>%s</p></div>', $message );
 	}
 
 	/**
 	 * Notify that we need Yoast SEO for WordPress to be installed and active.
 	 */
 	public function wordpress_seo_requirements_not_met() {
-		$message = __( 'ACF Yoast Analysis requires Yoast SEO for WordPress 3.1+ to be installed and activated.', 'yoast-acf-analysis' );
+		$message = sprintf(
+			__( 'Please %1$sinstall & activate Yoast SEO 3.1+%2$s to use Yoast SEO: ACF Analysis.', 'yoast-acf-analysis' ),
+			'<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=yoast+seo&plugin-search-input=Search+Plugins' ) ) . '">',
+			'</a>'
+		);
 
-		printf( '<div class="error"><p>%s</p></div>', esc_html( $message ) );
+		printf( '<div class="error"><p>%s</p></div>', $message );
 	}
 
 	/**
 	 * Enqueue JavaScript file to feed data to Yoast Content Analyses.
 	 */
 	public function enqueue_scripts() {
-		// Post page enqueue.
-		wp_enqueue_script(
-			'yoast-acf-analysis-post',
-			plugins_url( '/js/yoast-acf-analysis.js', __FILE__ ),
-			array(
-				'jquery',
-				'wp-seo-post-scraper',
-			),
-			$this->plugin_data['Version']
-		);
 
-		// Term page enqueue.
-		wp_enqueue_script(
-			'yoast-acf-analysis-term',
-			plugins_url( '/js/yoast-acf-analysis.js', __FILE__ ),
-			array(
-				'jquery',
-				'wp-seo-term-scraper',
-			),
-			$this->plugin_data['Version']
-		);
+		// If the Asset Manager exists then we need to use a different prefix.
+		$script_prefix = ( class_exists( 'WPSEO_Admin_Asset_Manager' ) ? 'yoast-seo' : 'wp-seo' );
+
+		if ( wp_script_is( $script_prefix . '-post-scraper', 'enqueued' ) ) {
+			// Post page enqueue.
+			wp_enqueue_script(
+				$script_prefix . '-analysis-post',
+				plugins_url( '/js/yoast-acf-analysis.js', YOAST_ACF_ANALYSIS_FILE ),
+				array(
+					'jquery',
+					$script_prefix . '-post-scraper',
+				),
+				self::VERSION
+			);
+		}
+
+		if ( wp_script_is( $script_prefix . '-term-scraper', 'enqueued' ) ) {
+			// Term page enqueue.
+			wp_enqueue_script(
+				$script_prefix . '-analysis-term',
+				plugins_url( '/js/yoast-acf-analysis.js', YOAST_ACF_ANALYSIS_FILE ),
+				array(
+					'jquery',
+					$script_prefix . '-term-scraper',
+				),
+				self::VERSION
+			);
+		}
 	}
 
 	/**
@@ -215,6 +228,38 @@ class Yoast_ACF_Analysis {
 		}
 
 		return trim( $output );
+	}
+
+	/**
+	 * Show the notices that are queued
+	 *
+	 * @param array $notice_functions Array of functions to call.
+	 */
+	private function show_notices( $notice_functions ) {
+		foreach ( $notice_functions as $function ) {
+			add_action( 'admin_notices', array( $this, $function ) );
+		}
+	}
+
+	/**
+	 * Deactivate this plugin
+	 */
+	private function deactivate() {
+		$file = plugin_basename( YOAST_ACF_ANALYSIS_FILE );
+		deactivate_plugins( $file, false, is_network_admin() );
+
+		// Add to recently active plugins list.
+		if ( ! is_network_admin() ) {
+			update_option( 'recently_activated', array( $file => $_SERVER['REQUEST_TIME'] ) + (array) get_option( 'recently_activated' ) );
+		}
+		else {
+			update_site_option( 'recently_activated', array( $file => $_SERVER['REQUEST_TIME'] ) + (array) get_site_option( 'recently_activated' ) );
+		}
+
+		// Prevent trying again on page reload.
+		if ( isset( $_GET['activate'] ) ) {
+			unset( $_GET['activate'] );
+		}
 	}
 }
 
