@@ -1,0 +1,62 @@
+msgid ""
+msgstr "MIME-Version: 1.0\n"
+
+#. Name.
+msgid "Disable Emojis"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "This plugin disables the new emoji functionality in WordPress 4.2."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Note: Emoticons will still work and emoji's will still work in browsers which have built in support for them. This plugin simply removes the extra code bloat used to add support for emoji's in older browswers."
+msgstr ""
+
+#. Found in installation list item.
+msgid "Upload the complete 'disable-emojis' folder to the '/wp-content/plugins/' directory OR install via the plugin installer"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Activate the plugin through the 'Plugins' menu in WordPress"
+msgstr ""
+
+#. Found in installation list item.
+msgid "And yer done!"
+msgstr ""
+
+#. Found in installation paragraph.
+msgid "After you've downloaded and extracted the files:"
+msgstr ""
+
+#. Found in installation paragraph.
+msgid "Visit the <a href=\"https://geek.hellyer.kiwi/plugins/disable-emojis/\">Disable Emojis plugin</a> for more information."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Updating documentation."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Catering for invalid $plugin array."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Updating to use Otto's code."
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Removing extraneous styles."
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Bug fix."
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Updating to work with latest beta."
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Initial release."
+msgstr ""

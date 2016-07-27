@@ -24,6 +24,10 @@ global $post, $product, $woocommerce;
 
 $attachment_ids = $product->get_gallery_attachment_ids();
 
+// Added so swap gallery image with main image
+array_unshift( $attachment_ids, get_post_thumbnail_id() );
+
+
 if ( $attachment_ids ) {
 	$loop    = 0;
 	$columns = apply_filters( 'woocommerce_product_thumbnails_columns', 3 );

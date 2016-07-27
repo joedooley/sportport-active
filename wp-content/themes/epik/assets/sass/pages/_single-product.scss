@@ -70,6 +70,7 @@ body.single-product {
 		width: 50%;
 
 		@include media($xlarge-screen-up) {
+			margin-top: 5em;
 			width: 100%;
 		}
 	}

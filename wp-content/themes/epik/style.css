@@ -2787,6 +2787,7 @@ body.single-product.woocommerce div.product div.summary {
   width: 50%; }
   @media screen and (max-width: 1023px) {
     body.single-product.woocommerce div.product div.summary {
+      margin-top: 5em;
       width: 100%; } }
 body.single-product div.product div.images,
 body.single-product div.product div.summary {
