@@ -98,7 +98,13 @@ button, input[type="button"], input[type="reset"], input[type="submit"] {
       background-color: #cc7a29; }
 
 .double-button {
+  background-color: transparent;
+  border: 3px solid white;
+  font-size: 1.25em;
   margin-right: 1em; }
+  .double-button:hover {
+    background-color: #fdab59;
+    border-color: #fdab59; }
   @media screen and (max-width: 480px) {
     .double-button {
       display: block;
@@ -2488,9 +2494,6 @@ li.comment ul li {
     @media screen and (max-width: 768px) {
       .hero .hero--overlay {
         font-size: 3.3em; } }
-  .hero .button {
-    font-size: 1.25em;
-    padding: 25px; }
 
 .featured-four-columns .section--title {
   padding-top: 330px; }
@@ -2963,7 +2966,7 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
   text-transform: uppercase; }
   @media screen and (max-width: 1023px) {
     .before-header-middle-container .free-shipping-notification {
-      padding: 5px 0; } }
+      padding: 0 0 5px; } }
   @media screen and (max-width: 800px) {
     .before-header-middle-container .free-shipping-notification {
       padding: 3.5px 0;
@@ -3007,7 +3010,7 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
   width: 100%; }
   @media screen and (max-width: 1023px) {
     .site-header {
-      min-height: 75px; } }
+      max-height: 105px; } }
   .site-header .title-area {
     float: left; }
     @media screen and (min-width: 1180px) {

@@ -105,3 +105,16 @@
 2016-07-27 07:27:57 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
 2016-07-27 07:27:57 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469618877.2597830295562744140625
 2016-07-27 07:27:57 - SyncApiModel::render() api=''
+2016-07-27 07:31:09 - SyncApiModel::__construct() request uri=/
+2016-07-27 07:31:09 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469619069.8235569000244140625000
+2016-07-27 07:31:10 - SyncApiModel::render() api=''
+2016-07-27 07:32:05 - SyncApiModel::__construct() request uri=/
+2016-07-27 07:32:05 - SyncApiModel::render() api=''
+2016-07-27 07:34:16 - SyncApiModel::__construct() request uri=/
+2016-07-27 07:34:16 - SyncApiModel::render() api=''
+2016-07-27 07:36:16 - SyncApiModel::__construct() request uri=/
+2016-07-27 07:36:17 - SyncApiModel::render() api=''
+2016-07-27 07:37:44 - SyncApiModel::__construct() request uri=/
+2016-07-27 07:37:45 - SyncApiModel::render() api=''
+2016-07-27 07:40:05 - SyncApiModel::__construct() request uri=/
+2016-07-27 07:40:05 - SyncApiModel::render() api=''
