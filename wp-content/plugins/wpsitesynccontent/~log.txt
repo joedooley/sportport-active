@@ -1,0 +1,120 @@
+2016-07-26 18:26:19 - SyncActivate::create_database_tables()
+2016-07-26 18:26:19 - SyncActivate::create_database_tables() sql=CREATE TABLE `wp_spectrom_sync_log` (
+					`id` 				INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+					`post_id` 			BIGINT(20) UNSIGNED NOT NULL,
+					`post_title` 		TEXT NOT NULL,
+					`push_date` 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					`operation`			VARCHAR(32) NOT NULL,
+					`source_user` 		BIGINT(20) UNSIGNED NOT NULL,
+					`source_site` 		VARCHAR(200) NOT NULL,
+					`source_site_key`	VARCHAR(40) NOT NULL,
+					`target_user`		BIGINT(20) UNSIGNED NOT NULL,
+
+					PRIMARY KEY (`id`),
+					INDEX `post_id` (`post_id`)
+				) DEFAULT CHARACTER SET utf8mb4  COLLATE utf8mb4_unicode_ci 
+2016-07-26 18:26:19 - SyncActivate::create_database_tables() dbDelta() results: 
+2016-07-26 18:26:19 - SyncActivate::create_database_tables() sql=CREATE TABLE `wp_spectrom_sync` (
+					`sync_id` 			INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+					`site_key` 			VARCHAR(60) NOT NULL,
+					`source_content_id` BIGINT(20) UNSIGNED NOT NULL,
+					`target_content_id`	BIGINT(20) UNSIGNED NOT NULL,
+					`target_site_key`	VARCHAR(60) NULL DEFAULT '',
+					`content_type`		VARCHAR(32) NOT NULL DEFAULT 'post',
+					`last_update`		DATETIME NOT NULL,
+					`wp_version`		VARCHAR(20) NOT NULL,
+					`sync_version`		VARCHAR(20) NOT NULL,
+
+					PRIMARY KEY (`sync_id`),
+					INDEX `source_content_id` (`source_content_id`),
+					INDEX `target_content_id` (`target_content_id`),
+					INDEX `content_type` (`content_type`)
+				) DEFAULT CHARACTER SET utf8mb4  COLLATE utf8mb4_unicode_ci 
+2016-07-26 18:26:19 - SyncActivate::create_database_tables() dbDelta() results: 
+2016-07-26 18:26:19 - SyncActivate::create_database_tables() sql=CREATE TABLE `wp_spectrom_sync_sources` (
+					`id`				INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+					`domain`			VARCHAR(200) NOT NULL,
+					`site_key`			VARCHAR(60) NOT NULL DEFAULT '',
+					`auth_name`			VARCHAR(60) NOT NULL,
+					`token`				VARCHAR(60) NOT NULL,
+					`allowed`			TINYINT(1) UNSIGNED NOT NULL DEFAULT '1',
+					PRIMARY KEY (`id`),
+					INDEX `site_key` (`site_key`),
+					INDEX `allowed` (`allowed`)
+				) DEFAULT CHARACTER SET utf8mb4  COLLATE utf8mb4_unicode_ci 
+2016-07-26 18:26:19 - SyncActivate::create_database_tables() dbDelta() results: 
+2016-07-26 18:26:19 - SyncActivate::create_database_tables() sql=CREATE TABLE `wp_spectrom_sync_media` (
+					`id`				INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+					`site_key` 			VARCHAR(60) NOT NULL,
+					`remote_media_name` VARCHAR(255) NOT NULL,
+					`local_media_name`	VARCHAR(255) NOT NULL,
+
+					PRIMARY KEY (`id`),
+					INDEX `site_key` (`site_key`)
+				) DEFAULT CHARACTER SET utf8mb4  COLLATE utf8mb4_unicode_ci 
+2016-07-26 18:26:19 - SyncActivate::create_database_tables() dbDelta() results: 
+2016-07-26 18:26:19 - SyncActivate::create_database_tables() - done
+2016-07-27 04:00:31 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 04:00:31 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469606431.8489720821380615234375
+2016-07-27 04:00:32 - SyncApiModel::render() api=''
+2016-07-27 04:39:56 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 04:39:57 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469608797.0921809673309326171875
+2016-07-27 04:39:57 - SyncApiModel::render() api=''
+2016-07-27 04:51:28 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 04:51:28 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469609488.6282050609588623046875
+2016-07-27 04:51:29 - SyncApiModel::render() api=''
+2016-07-27 04:57:50 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 04:57:50 - SyncApiModel::render() api=''
+2016-07-27 04:58:02 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 04:58:03 - SyncApiModel::render() api=''
+2016-07-27 04:58:13 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 04:58:13 - SyncApiModel::render() api=''
+2016-07-27 04:58:52 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 04:58:53 - SyncApiModel::render() api=''
+2016-07-27 05:04:23 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 05:04:24 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469610263.9823989868164062500000
+2016-07-27 05:04:24 - SyncApiModel::render() api=''
+2016-07-27 05:05:01 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 05:05:01 - SyncApiModel::render() api=''
+2016-07-27 05:48:40 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 05:48:40 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469612920.5939030647277832031250
+2016-07-27 05:48:41 - SyncApiModel::render() api=''
+2016-07-27 05:53:39 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 05:53:40 - SyncApiModel::render() api=''
+2016-07-27 05:55:25 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 05:55:25 - SyncApiModel::render() api=''
+2016-07-27 06:00:33 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 06:00:33 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469613633.8200271129608154296875
+2016-07-27 06:00:34 - SyncApiModel::render() api=''
+2016-07-27 06:54:08 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 06:54:08 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469616848.4218869209289550781250
+2016-07-27 06:54:09 - SyncApiModel::render() api=''
+2016-07-27 06:54:33 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 06:54:33 - SyncApiModel::render() api=''
+2016-07-27 06:56:14 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 06:56:15 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469616975.0544800758361816406250
+2016-07-27 06:56:15 - SyncApiModel::render() api=''
+2016-07-27 06:56:55 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 06:56:56 - SyncApiModel::render() api=''
+2016-07-27 07:01:40 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 07:01:41 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469617300.9195249080657958984375
+2016-07-27 07:01:41 - SyncApiModel::render() api=''
+2016-07-27 07:26:49 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 07:26:50 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469618809.9284090995788574218750
+2016-07-27 07:26:50 - SyncApiModel::render() api=''
+2016-07-27 07:27:57 - SyncApiModel::__construct() request uri=/shop/compression-tank-top/
+2016-07-27 07:27:57 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469618877.2597830295562744140625
+2016-07-27 07:27:57 - SyncApiModel::render() api=''
+2016-07-27 07:31:09 - SyncApiModel::__construct() request uri=/
+2016-07-27 07:31:09 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469619069.8235569000244140625000
+2016-07-27 07:31:10 - SyncApiModel::render() api=''
+2016-07-27 07:32:05 - SyncApiModel::__construct() request uri=/
+2016-07-27 07:32:05 - SyncApiModel::render() api=''
+2016-07-27 07:34:16 - SyncApiModel::__construct() request uri=/
+2016-07-27 07:34:16 - SyncApiModel::render() api=''
+2016-07-27 07:36:16 - SyncApiModel::__construct() request uri=/
+2016-07-27 07:36:17 - SyncApiModel::render() api=''
+2016-07-27 07:37:44 - SyncApiModel::__construct() request uri=/
+2016-07-27 07:37:45 - SyncApiModel::render() api=''
+2016-07-27 07:40:05 - SyncApiModel::__construct() request uri=/
+2016-07-27 07:40:05 - SyncApiModel::render() api=''

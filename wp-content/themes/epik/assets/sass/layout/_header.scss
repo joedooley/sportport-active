@@ -5,7 +5,8 @@
 	width: 100%;
 
 	@include media($xlarge-screen-up) {
-		min-height: 75px;
+		//.min-height: 75px;
+		max-height: 105px;
 	}
 
 	.title-area {

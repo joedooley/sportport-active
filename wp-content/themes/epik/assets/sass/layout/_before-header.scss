@@ -79,7 +79,7 @@
 
 
 		@include media($xlarge-screen-up) {
-			@include padding(5px 0);
+			@include padding(0 0 5px 0);
 		}
 
 		@include media($large-screen-up) {

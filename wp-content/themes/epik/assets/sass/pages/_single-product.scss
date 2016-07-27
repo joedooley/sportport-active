@@ -9,6 +9,7 @@ body.single-product {
 	}
 
 	.site-inner {
+		margin-bottom: 0;
 		padding-top: 0;
 
 		@include media($xlarge-screen-up) {
@@ -69,6 +70,7 @@ body.single-product {
 		width: 50%;
 
 		@include media($xlarge-screen-up) {
+			margin-top: 5em;
 			width: 100%;
 		}
 	}
@@ -247,7 +249,12 @@ body.woocommerce div.product div.images div.thumbnails {
 	}
 }
 
-// Variation Description
+body.woocommerce-page div.product div.thumbnails a {
+	float: none;
+	width: 100%;
+}
+
+	// Variation Description
 body.woocommerce div.product form.cart .woocommerce-variation-description p:first-child {
 	border-top: $border;
 	margin-top: 7em;
