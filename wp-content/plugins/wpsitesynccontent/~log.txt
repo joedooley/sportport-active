@@ -118,3 +118,6 @@
 2016-07-27 07:37:45 - SyncApiModel::render() api=''
 2016-07-27 07:40:05 - SyncApiModel::__construct() request uri=/
 2016-07-27 07:40:05 - SyncApiModel::render() api=''
+2016-07-27 07:45:04 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469619903.9601190090179443359375
+2016-07-27 07:45:51 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469619951.3925859928131103515625
+2016-07-27 07:58:09 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469620689.0852890014648437500000
