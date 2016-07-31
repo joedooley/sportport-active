@@ -1097,6 +1097,8 @@ body.woocommerce-page .breadcrumb {
 
 body.woocommerce-page .footer-widgets img {
   border: none; }
+  body.woocommerce-page .footer-widgets img:hover {
+    opacity: 0.7; }
 
 body.woocommerce-page .page-title {
   font-family: ralewaysemibold, sans-serif;
@@ -3344,6 +3346,9 @@ body.woocommerce div.woocommerce-message div.wrap {
 ------------------------ */
 .footer-widgets-3 .widget_text {
   margin: 0; }
+.footer-widgets-3 body.woocommerce-page .footer-widgets img {
+  border: none;
+  opacity: 0.4; }
 .footer-widgets-3 .featured-content .entry-title {
   padding: 0;
   text-align: center; }
