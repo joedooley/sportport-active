@@ -3,7 +3,7 @@ Contributors: automattic, mikejolley, jameskoster, claudiosanches, jshreve, code
 Tags: ecommerce, e-commerce, store, sales, sell, shop, cart, checkout, downloadable, downloads, paypal, storefront
 Requires at least: 4.4
 Tested up to: 4.5
-Stable tag: 2.6.3
+Stable tag: 2.6.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -158,11 +158,23 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/wooc
 
 == Changelog ==
 
+= 2.6.4 - 26/07/16 =
+* Fix - Security - Only allow image MIME type upload via REST APIs.
+* Fix - Shipping method title display in COD settings.
+* Fix - Order date input in Edge browser.
+* Fix - Ensure value is not null in variations to support empty show_option_none setting.
+* Fix - get_the_title does not need escape in grouped template file.
+* Fix - Ensure WC_ROUNDING_PRECISION is defined and use it as a low precision boundary in wc_get_rounding_precision().
+* Fix - Response body should be a string in webhook class.
+* Fix - Use h2 instead of h3 headings in profile screen.
+* Dev - API - Allow Allow meta_key/value filters for products.
+* Dev - CLI - Explode tags and category IDs to allow multiple comma separated values.
+* Dev - add $order arg to woocommerce_admin_order_item_class and woocommerce_admin_html_order_item_class filters.
+
 = 2.6.3 - 19/07/16 =
 * Fix - Security - Escape captions in product-thumbnail and product-image templates (template versions have been bumped).
-* Fix - Fixed how calculate shipping tax rates when using more than one tax class.
+* Fix - Fixed how we calculate shipping tax rates when using more than one tax class.
 * Fix - When duplicating product variations, set title, name, and guid.
-* Fix - Use permission id to revoke access to downloads to prevent removing wrong rows.
 * Fix - Normalized 'read more' buttons.
 * Fix - Add to cart notices for grouped products.
 * Fix - Do not sanitize passwords in the settings API.
