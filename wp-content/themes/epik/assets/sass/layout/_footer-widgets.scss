@@ -47,7 +47,7 @@
 	.widget_text {
 		@include margin(0);
 	}
-
+	body.woocommerce-page .footer-widgets img { border: none; opacity: 0.4; }
 	.featured-content .entry-title {
 		@include padding(0);
 		text-align: center;

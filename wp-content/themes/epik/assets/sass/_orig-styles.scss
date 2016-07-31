@@ -494,7 +494,14 @@ tr.cart_item { background: #EEE; }
 body.woocommerce-page { background: #FFF; }
 body.woocommerce-page .content { font-size: 12px; }
 body.woocommerce-page .breadcrumb { margin:  0 30px 0 18px; }
-body.woocommerce-page .footer-widgets img { border: none; }
+
+body.woocommerce-page .footer-widgets img {
+	border: none;
+
+	&:hover {
+		opacity: 0.7;
+	}
+}
 
 body.woocommerce-page .page-title {
 	font-family: $raleway-semibold;

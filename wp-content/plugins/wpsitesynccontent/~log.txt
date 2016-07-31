@@ -118,3 +118,34 @@
 2016-07-27 07:37:45 - SyncApiModel::render() api=''
 2016-07-27 07:40:05 - SyncApiModel::__construct() request uri=/
 2016-07-27 07:40:05 - SyncApiModel::render() api=''
+2016-07-27 07:45:04 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469619903.9601190090179443359375
+2016-07-27 07:45:51 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469619951.3925859928131103515625
+2016-07-27 07:58:09 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469620689.0852890014648437500000
+2016-07-31 02:46:41 - SyncApiModel::__construct() request uri=/shop/apex-sports-bra/
+2016-07-31 02:46:42 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469947601.9960761070251464843750
+2016-07-31 02:46:43 - SyncApiModel::render() api=''
+2016-07-31 02:46:45 - SyncApiModel::__construct() request uri=/shop/apex-sports-bra/?wc-ajax=get_refreshed_fragments
+2016-07-31 02:47:36 - SyncApiModel::__construct() request uri=/shop/apex-sports-bra/
+2016-07-31 02:47:40 - SyncApiModel::render() api=''
+2016-07-31 02:49:17 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469947757.5539059638977050781250
+2016-07-31 02:49:19 - SyncApiModel::__construct() request uri=/wp-login.php?redirect_to=https%3A%2F%2Fsp-active.dev%2Fwp-admin%2F&reauth=1
+2016-07-31 02:49:22 - SyncApiModel::__construct() request uri=/wp-login.php
+2016-07-31 02:49:26 - SyncApiModel::__construct() request uri=/wp-login.php
+2016-07-31 03:01:27 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469948487.6766788959503173828125
+2016-07-31 03:16:21 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469949381.1381790637969970703125
+2016-07-31 05:19:07 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469956747.7164220809936523437500
+2016-07-31 05:20:07 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469956807.7915859222412109375000
+2016-07-31 05:28:08 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469957288.8203699588775634765625
+2016-07-31 13:39:46 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469986786.5913960933685302734375
+2016-07-31 13:40:17 - SyncApiModel::__construct() request uri=/
+2016-07-31 13:40:18 - SyncApiModel::render() api=''
+2016-07-31 13:40:55 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469986854.9044110774993896484375
+2016-07-31 13:43:03 - WPSiteSyncCPT::filter_active_extensions()
+2016-07-31 13:43:12 - WPSiteSyncCPT::filter_active_extensions()
+2016-07-31 13:43:20 - WPSiteSyncCPT::filter_active_extensions()
+2016-07-31 13:43:46 - WPSiteSyncCPT::filter_active_extensions()
+2016-07-31 13:44:04 - WPSiteSyncCPT::filter_active_extensions()
+2016-07-31 13:45:12 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469987111.9420549869537353515625
+2016-07-31 13:46:12 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469987172.7062480449676513671875
+2016-07-31 13:52:07 - SyncApiModel::__construct() request uri=
+2016-07-31 13:52:55 - SyncApiModel::__construct() request uri=/wp-cron.php?doing_wp_cron=1469987570.3822729587554931640625
