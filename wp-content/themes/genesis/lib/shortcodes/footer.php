@@ -221,7 +221,7 @@ add_shortcode( 'footer_site_title', 'genesis_footer_site_title_shortcode' );
  *
  * Output passes through 'genesis_footer_site_title_shortcode' filter before returning.
  *
- * @since 2.2.0
+ * @since 2.3.0
  *
  * @param array|string $atts Shortcode attributes. Empty string if no attributes.
  * @return string Shortcode output
@@ -251,7 +251,7 @@ add_shortcode( 'footer_home_link', 'genesis_footer_home_link_shortcode' );
  *
  * Output passes through 'genesis_footer_home_link_shortcode' filter before returning.
  *
- * @since 2.2.0
+ * @since 2.3.0
  *
  * @param array|string $atts Shortcode attributes. Empty string if no attributes.
  * @return string Shortcode output

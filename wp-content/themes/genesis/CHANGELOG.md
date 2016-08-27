@@ -4,6 +4,10 @@ http://my.studiopress.com/themes/genesis/
 
 This project does not follow semantic versioning. It follows the WordPress policy where updates of _x_ and _y_ in an _x.y.z_ version number means a major release, and updates to _z_ means a patch release.
 
+## [2.3.1] - 2016-08-02
+
+* Remove type hinting in Genesis_Admin_CPT_Archive_Settings constructor to prevent fatal error in WordPress 4.6.
+
 ## [2.3.0] - 2016-06-15
 
 * Allow custom post classes on Ajax requests to account for endless scroll.
