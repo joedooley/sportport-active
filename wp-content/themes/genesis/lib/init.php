@@ -154,10 +154,10 @@ function genesis_constants() {
 
 	//* Define Theme Info Constants
 	define( 'PARENT_THEME_NAME', 'Genesis' );
-	define( 'PARENT_THEME_VERSION', '2.3.0' );
+	define( 'PARENT_THEME_VERSION', '2.3.1' );
 	define( 'PARENT_THEME_BRANCH', '2.3' );
-	define( 'PARENT_DB_VERSION', '2301' );
-	define( 'PARENT_THEME_RELEASE_DATE', date_i18n( 'F j, Y', '1465948800' ) );
+	define( 'PARENT_DB_VERSION', '2302' );
+	define( 'PARENT_THEME_RELEASE_DATE', date_i18n( 'F j, Y', '1470096000' ) );
 #	define( 'PARENT_THEME_RELEASE_DATE', 'TBD' );
 
 	//* Define Directory Location Constants

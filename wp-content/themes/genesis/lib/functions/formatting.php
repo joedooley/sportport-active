@@ -28,6 +28,10 @@
  */
 function genesis_truncate_phrase( $text, $max_characters ) {
 
+	if ( ! $max_characters ) {
+		return '';
+	}
+
 	$text = trim( $text );
 
 	if ( mb_strlen( $text ) > $max_characters ) {
@@ -364,7 +368,7 @@ function genesis_human_time_diff( $older_date, $newer_date = false, $relative_de
 		}
 		$i++;
 	}
-	
+
 	if ( empty( $date_partials ) ) {
 		$output = '';
 	} elseif ( 1 == count( $date_partials ) ) {
@@ -376,7 +380,7 @@ function genesis_human_time_diff( $older_date, $newer_date = false, $relative_de
 
 		//* Add 'and' separator.
 		$output .= ' ' . _x( 'and', 'separator in time difference', 'genesis' ) . ' ';
-		
+
 		//* Add last partial.
 		$output .= end( $date_partials );
 	}

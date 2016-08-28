@@ -33,9 +33,9 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 	 * @uses GENESIS_CPT_ARCHIVE_SETTINGS_FIELD_PREFIX Settings field key prefix.
 	 * @uses \Genesis_Admin::create()                  Create admin menu and settings page.
 	 *
-	 * @param \stdClass $post_type Post Type object.
+	 * @param object $post_type The post type object. WP_Post_Type in WP 4.6+.
 	 */
-	public function __construct( stdClass $post_type ) {
+	public function __construct( $post_type ) {
 		$this->post_type = $post_type;
 
 		$page_id = 'genesis-cpt-archive-' . $this->post_type->name;

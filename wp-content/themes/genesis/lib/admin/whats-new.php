@@ -99,6 +99,7 @@ class Genesis_Admin_Upgraded extends Genesis_Admin_Basic {
 						<li><?php _e( 'Disable author shortcode output if author is not supported by post type.' , 'genesis' ); ?></li>
 						<li><?php _e( 'Fix issue with no sitemap when running html5 and no a11y support for 404 page.' , 'genesis' ); ?></li>
 						<li><?php _e( 'Exclude posts page from page selection dropdown in Featured Page widget.' , 'genesis' ); ?></li>
+						<li><?php _e( 'Remove type hinting in Genesis_Admin_CPT_Archive_Settings constructor to prevent fatal error in WordPress 4.6.', 'genesis' ); ?></li>
 					</ul>
 				</p>
 
