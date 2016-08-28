@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * FunnyorDie Video SEO Details
  *
  * JSON response format [2014/7/22]:
@@ -33,7 +34,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "thumbnail_url":"http://t.fod4.com/t/e3ef08d14f/c480x270_3.jpg",
  *    "duration":181.0
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Funnyordie' ) ) {
 
 	/**
@@ -65,14 +66,14 @@ if ( ! class_exists( 'WPSEO_Video_Details_Funnyordie' ) ) {
 		 * Instantiate the class and determine which remote retrieval method we can use before
 		 * passing of to the parent constructor.
 		 *
-		 * @param array  $vid     The video array with all the data.
-		 * @param array  $old_vid The video array with all the data of the previous "fetch", if available.
+		 * @param array $vid     The video array with all the data.
+		 * @param array $old_vid The video array with all the data of the previous "fetch", if available.
 		 *
 		 * @return \WPSEO_Video_Details_Funnyordie
 		 */
 		public function __construct( $vid, $old_vid = array() ) {
 			if ( isset( $vid['url'] ) ) {
-				// Fix it as FoD oembed does not work with embed urls
+				// Fix it as FoD oembed does not work with embed urls.
 				$vid['url'] = str_replace( 'funnyordie.com/embed/', 'funnyordie.com/videos/', $vid['url'] );
 			}
 
@@ -98,7 +99,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Funnyordie' ) ) {
 				$this->vid['player_loc'] = 'http://www.funnyordie.com/embed/' . rawurlencode( $this->vid['id'] );
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

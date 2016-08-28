@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,13 +13,14 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the Vzaar Media Management plugin
  *
  * @see http://wordpress.org/extend/plugins/vzaar-media-management/
  *
  * @internal Last update: July 2014 based upon v 1.2
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Vzaar_Media_Management' ) ) {
 
 	/**
@@ -38,7 +39,6 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Vzaar_Media_Management' ) ) {
 				$this->shortcodes[] = 'vzaarmedia';
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

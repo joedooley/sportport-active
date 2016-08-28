@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,13 +13,14 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the Smart YouTube plugin
  *
  * @see http://wordpress.org/extend/plugins/smart-youtube/
  *
  * @internal Last update: July 2014 based upon v 4.2.5
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Smart_Youtube' ) ) {
 
 	/**
@@ -43,8 +44,8 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Smart_Youtube' ) ) {
 					'httpv://',
 					'httpvh://',
 					'httpvhd://',
-					//'httpvp://', = playlist, not (yet) supported
-					//'httpvhp://', = HD playlist, not (yet) supported
+					// 'httpvp://', = playlist, not (yet) supported
+					// 'httpvhp://', = HD playlist, not (yet) supported
 				);
 			}
 		}
@@ -55,10 +56,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Smart_Youtube' ) ) {
 		 *
 		 * @internal - This method is 100% the same as the YouTube one in JetPack, so made this an extending class
 		 *
-		 * @param  string  $full_shortcode  Full shortcode as found in the post content
-		 * @param  string  $sc              Shortcode found
-		 * @param  array   $atts            Shortcode attributes - already decoded if needed
-		 * @param  string  $content         The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode  Full shortcode as found in the post content.
+		 * @param  string $sc              Shortcode found.
+		 * @param  array  $atts            Shortcode attributes - already decoded if needed.
+		 * @param  string $content         The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array   An array with the usable information found or else an empty array
 		 */
@@ -67,7 +68,6 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Smart_Youtube' ) ) {
 			$vid['type'] = 'youtube';
 			return $vid;
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

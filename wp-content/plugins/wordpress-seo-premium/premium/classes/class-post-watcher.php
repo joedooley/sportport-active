@@ -27,7 +27,7 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher {
 	 */
 	public function page_scripts( $current_page ) {
 		if ( $current_page === 'edit.php' || $current_page === 'edit-tags.php' ) {
-			wp_enqueue_script( 'wp-seo-premium-quickedit-notification', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/js/wp-seo-premium-quickedit-notification' . WPSEO_CSSJS_SUFFIX . '.js', array( 'jquery' ), WPSEO_VERSION );
+			wp_enqueue_script( 'wp-seo-premium-quickedit-notification', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/js/wp-seo-premium-quickedit-notification-330' . WPSEO_CSSJS_SUFFIX . '.js', array( 'jquery' ), WPSEO_VERSION );
 		}
 	}
 
@@ -133,7 +133,7 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher {
 				'</a>'
 			);
 
-			$this->create_notification( $message, 'trash', $id );
+			$this->create_notification( $message, 'trash' ); // , $id );
 		}
 
 	}
@@ -152,13 +152,13 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher {
 			// Format the message.
 			/* translators: %1$s: Yoast SEO Premium, %2$s: <a href='{undo_redirect_url}'>, %3$s: </a> */
 			$message = sprintf(
-				__( '%1$s detected that you restored a post from the trash. %2$sClick here to remove the redirect%3$s.', 'wordpress-seo-premium' ),
+				__( '%1$s detected that you restored a post from the trash. %2$sClick here to remove the redirect%3$s', 'wordpress-seo-premium' ),
 				'Yoast SEO Premium',
-				'<a href=\'' . $this->javascript_undo_redirect( $redirect, $id ). '\'>',
-				'</a>'
+				'<button type="button" class="button" onclick=\'' . $this->javascript_undo_redirect( $redirect, $id ). '\'>',
+				'</button>'
 			);
 
-			$this->create_notification( $message, 'untrash', $id );
+			$this->create_notification( $message, 'untrash' );
 		}
 
 	}
@@ -293,8 +293,6 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher {
 
 		// Detect a post delete.
 		add_action( 'before_delete_post', array( $this, 'detect_post_delete' ) );
-
-		new WPSEO_Post_Slug_Watcher();
 	}
 
 	/**
@@ -303,9 +301,9 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher {
 	 * @return string
 	 */
 	protected function get_undo_slug_notification() {
-		/* translators: %1$s: Yoast SEO Premium, %2$s: <a href='{admin_redirect_url}'>, %3$s: <a href='{undo_redirect_url}'> and %4$s: </a> */
+		/* translators: %1$s: Yoast SEO Premium, %2$s and %3$s expand to a link to the admin page, %4$s: Old slug of the post, %5$s: New slug of the post, the text surrounded by %6$s and %7$s is placed in a button that can undo the created redirect */
 		return __(
-			'%1$s created a %2$sredirect%4$s from the old post URL to the new post URL. %3$sClick here to undo this%4$s.',
+			'%1$s created a %2$sredirect%3$s from the old post URL to the new post URL. %6$sClick here to undo this%7$s <br> Old URL: %4$s <br> New URL: %5$s',
 			'wordpress-seo-premium'
 		);
 	}

@@ -11,6 +11,7 @@ define( 'GTM4WP_OPTION_INCLUDE_USERID',        'include-userid' );
 define( 'GTM4WP_OPTION_INCLUDE_POSTTYPE',      'include-posttype' );
 define( 'GTM4WP_OPTION_INCLUDE_CATEGORIES',    'include-categories' );
 define( 'GTM4WP_OPTION_INCLUDE_TAGS',          'include-tags' );
+define( 'GTM4WP_OPTION_INCLUDE_AUTHORID',      'include-authorid' );
 define( 'GTM4WP_OPTION_INCLUDE_AUTHOR',        'include-author' );
 define( 'GTM4WP_OPTION_INCLUDE_POSTDATE',      'include-postdate' );
 define( 'GTM4WP_OPTION_INCLUDE_POSTTITLE',     'include-posttitle' );
@@ -23,6 +24,8 @@ define( 'GTM4WP_OPTION_INCLUDE_DEVICEDATA',    'include-devicedata' );
 define( 'GTM4WP_OPTION_INCLUDE_WEATHER',       'include-weather' );
 define( 'GTM4WP_OPTION_INCLUDE_WEATHERUNITS',  'weather-weatherunits' );
 define( 'GTM4WP_OPTION_INCLUDE_WEATHEROWMAPI', 'weather-openweathermap-apikey' );
+define( 'GTM4WP_OPTION_INCLUDE_SITEID',        'include-siteid' );
+define( 'GTM4WP_OPTION_INCLUDE_SITENAME',      'include-sitename' );
 
 define( 'GTM4WP_OPTION_EVENTS_OUTBOUND',       'event-outbound' );
 define( 'GTM4WP_OPTION_EVENTS_DOWNLOADS',      'event-downloads' );
@@ -87,6 +90,7 @@ define( 'GTM4WP_OPTION_INTEGRATE_WPECOMMERCE',   'integrate-wp-e-commerce' );
 define( 'GTM4WP_PLACEMENT_FOOTER',        0 );
 define( 'GTM4WP_PLACEMENT_BODYOPEN',      1 );
 define( 'GTM4WP_PLACEMENT_BODYOPEN_AUTO', 2 );
+define( 'GTM4WP_PLACEMENT_OFF',           3 );
 
 $gtm4wp_options = array();
 
@@ -103,6 +107,7 @@ $gtm4wp_defaultoptions = array(
 	GTM4WP_OPTION_INCLUDE_CATEGORIES    => true,
 	GTM4WP_OPTION_INCLUDE_TAGS          => true,
 	GTM4WP_OPTION_INCLUDE_AUTHOR        => true,
+	GTM4WP_OPTION_INCLUDE_AUTHORID      => false,
 	GTM4WP_OPTION_INCLUDE_POSTDATE      => false,
 	GTM4WP_OPTION_INCLUDE_POSTTITLE     => false,
 	GTM4WP_OPTION_INCLUDE_POSTCOUNT     => false,
@@ -114,6 +119,8 @@ $gtm4wp_defaultoptions = array(
 	GTM4WP_OPTION_INCLUDE_WEATHER       => false,
 	GTM4WP_OPTION_INCLUDE_WEATHERUNITS  => 0,
 	GTM4WP_OPTION_INCLUDE_WEATHEROWMAPI => '',
+  GTM4WP_OPTION_INCLUDE_SITEID        => false,
+  GTM4WP_OPTION_INCLUDE_SITENAME      => false,
 	
 	GTM4WP_OPTION_EVENTS_OUTBOUND    => false,
 	GTM4WP_OPTION_EVENTS_DOWNLOADS   => false,

@@ -35,6 +35,18 @@ if ( !function_exists( "getallheaders") ) {
 function gtm4wp_add_basic_datalayer_data( $dataLayer ) {
 	global $wp_query, $gtm4wp_options;
 	
+	if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_SITEID ] || $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_SITENAME ] ) {
+		$dataLayer["siteID"]   = 0;
+		$dataLayer["siteName"] = "";
+
+    if ( function_exists( 'get_blog_details' ) ) {
+      $gtm4wp_blogdetails = get_blog_details();
+      
+      $dataLayer["siteID"]   = $gtm4wp_blogdetails->blog_id;
+      $dataLayer["siteName"] = $gtm4wp_blogdetails->blogname;
+    }
+	}
+	
 	if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_LOGGEDIN ] ) {
 		if ( is_user_logged_in() ) {
 			$dataLayer["visitorLoginState"] = "logged-in";
@@ -85,10 +97,17 @@ function gtm4wp_add_basic_datalayer_data( $dataLayer ) {
 			}
 		}
 
-		if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_AUTHOR ] ) {
+		if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_AUTHORID ] || $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_AUTHOR ] ) {
 			$postuser = get_userdata( $GLOBALS["post"]->post_author );
+			
 			if ( false !== $postuser ) {
-				$dataLayer["pagePostAuthor"] = $postuser->display_name;
+				if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_AUTHORID ] ) {
+          $dataLayer["pagePostAuthorID"] = $postuser->ID;
+				}
+
+				if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_AUTHOR ] ) {
+          $dataLayer["pagePostAuthor"] = $postuser->display_name;
+        }
 			}
 		}
 
@@ -156,6 +175,11 @@ function gtm4wp_add_basic_datalayer_data( $dataLayer ) {
 			}
 		}
 
+		if ( ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_AUTHORID ] ) && ( is_author() ) ) {
+			global $authordata;
+			$dataLayer["pagePostAuthorID"] = isset( $authordata->ID ) ? $authordata->ID : 0;
+		}
+
 		if ( ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_AUTHOR ] ) && ( is_author() ) ) {
 			$dataLayer["pagePostAuthor"] = get_the_author();
 		}
@@ -176,27 +200,40 @@ function gtm4wp_add_basic_datalayer_data( $dataLayer ) {
 	}
 	
 	if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_BROWSERDATA ] || $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_OSDATA ] || $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_DEVICEDATA ] ) {
-		require_once( dirname( __FILE__ ) . "/../js/whichbrowser/libraries/whichbrowser.php" );
+		spl_autoload_register( function( $class ) {
+			$class_parts = explode( "\\", $class );
+			if ( "WhichBrowser" == $class_parts[0] ) {
+				include dirname( __FILE__ ) . "/../integration/whichbrowser/" . str_replace( array( "WhichBrowser", "\\" ), array( "src", "/" ), $class ) . ".php";
+			}
+		});
 
-		$detected = new WhichBrowser( array( "headers" => getallheaders() ) );
+		require_once( dirname( __FILE__ ) . "/../integration/whichbrowser/src/Parser.php" );
 
-		if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_BROWSERDATA ] ) {
-			$dataLayer["browserName"]         = isset( $detected->browser->name ) ? $detected->browser->name : "";
-			$dataLayer["browserVersion"]      = isset( $detected->browser->version->value ) ? $detected->browser->version->value : "";
-
-			$dataLayer["browserEngineName"]         = isset( $detected->engine->name ) ? $detected->engine->name : "";
-			$dataLayer["browserEngineVersion"]      = isset( $detected->engine->version->value ) ? $detected->engine->version->value : "";
+		$gtp4wp_headers = getallheaders();
+		if ( ( false === $gtp4wp_headers ) && isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
+			$gtp4wp_headers = $_SERVER['HTTP_USER_AGENT'];
 		}
+		if ( false !== $gtp4wp_headers ) {
+			$detected = new WhichBrowser\Parser($gtp4wp_headers);
 
-		if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_OSDATA ] ) {
-			$dataLayer["osName"]         = isset( $detected->os->name ) ? $detected->os->name : "";
-			$dataLayer["osVersion"]      = isset( $detected->os->version->value ) ? $detected->os->version->value : "";
-		}
+			if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_BROWSERDATA ] ) {
+				$dataLayer["browserName"]         = isset( $detected->browser->name ) ? $detected->browser->name : "";
+				$dataLayer["browserVersion"]      = isset( $detected->browser->version->value ) ? $detected->browser->version->value : "";
 
-		if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_DEVICEDATA ] ) {
-			$dataLayer["deviceType"]         = isset( $detected->device->type ) ? $detected->device->type : "";
-			$dataLayer["deviceManufacturer"] = isset( $detected->device->manufacturer ) ? $detected->device->manufacturer : "";
-			$dataLayer["deviceModel"]        = isset( $detected->device->model ) ? $detected->device->model : "";
+				$dataLayer["browserEngineName"]         = isset( $detected->engine->name ) ? $detected->engine->name : "";
+				$dataLayer["browserEngineVersion"]      = isset( $detected->engine->version->value ) ? $detected->engine->version->value : "";
+			}
+
+			if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_OSDATA ] ) {
+				$dataLayer["osName"]         = isset( $detected->os->name ) ? $detected->os->name : "";
+				$dataLayer["osVersion"]      = isset( $detected->os->version->value ) ? $detected->os->version->value : "";
+			}
+
+			if ( $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_DEVICEDATA ] ) {
+				$dataLayer["deviceType"]         = isset( $detected->device->type ) ? $detected->device->type : "";
+				$dataLayer["deviceManufacturer"] = isset( $detected->device->manufacturer ) ? $detected->device->manufacturer : "";
+				$dataLayer["deviceModel"]        = isset( $detected->device->model ) ? $detected->device->model : "";
+			}
 		}
 	}
 
@@ -365,20 +402,24 @@ function gtm4wp_wp_loaded() {
 		$gtm4wp_sessionid = str_replace( "'", "", trim( basename( $gtm4wp_sessionid ) ) );
 
 		if ( "" === $gtm4wp_sessionid ) {
-			$gtm4wp_sessionid = substr( md5( date("Ymd_His").rand() ), 0, 20 );
+			$gtm4wp_sessionid = substr( md5( date( "Ymd_His" ).rand() ), 0, 20 );
 			setcookie( "gtm4wp_sessoionid", $gtm4wp_sessionid, time()+(60*60*24*365*2) );
 		}
 
 		$weatherdata = get_transient( 'gtm4wp-weatherdata-'.$gtm4wp_sessionid );
 
 		if ( false === $weatherdata ) {
-			$gtm4wp_geodata = @file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['REMOTE_ADDR']);
-			if ( $gtm4wp_geodata ) {
-				$gtm4wp_geodata = unserialize( $gtm4wp_geodata );
+			$gtm4wp_geodata = wp_remote_get( 'http://www.geoplugin.net/php.gp?ip='.$_SERVER['REMOTE_ADDR'] );
+
+			if ( is_array( $gtm4wp_geodata ) && ( 200 == $gtm4wp_geodata[ "response" ][ "code" ] ) ) {
+				$gtm4wp_geodata = unserialize( $gtm4wp_geodata[ "body" ] );
+
 				if ( array_key_exists( 'geoplugin_latitude', $gtm4wp_geodata ) && array_key_exists( 'geoplugin_longitude', $gtm4wp_geodata ) ) {
-					$weatherdata = @file_get_contents('http://api.openweathermap.org/data/2.5/weather?appid=' . $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_WEATHEROWMAPI ] . '&lat=' . $gtm4wp_geodata[ "geoplugin_latitude" ] . '&lon=' . $gtm4wp_geodata[ "geoplugin_longitude" ] . '&units=' . ($gtm4wp_options[ GTM4WP_OPTION_INCLUDE_WEATHERUNITS ] == 0 ? 'metric' : 'imperial'));
-					if ( $weatherdata ) {
-						$weatherdata = @json_decode( $weatherdata );
+					$weatherdata = wp_remote_get( 'http://api.openweathermap.org/data/2.5/weather?appid=' . $gtm4wp_options[ GTM4WP_OPTION_INCLUDE_WEATHEROWMAPI ] . '&lat=' . $gtm4wp_geodata[ "geoplugin_latitude" ] . '&lon=' . $gtm4wp_geodata[ "geoplugin_longitude" ] . '&units=' . ($gtm4wp_options[ GTM4WP_OPTION_INCLUDE_WEATHERUNITS ] == 0 ? 'metric' : 'imperial') );
+
+					if ( is_array( $weatherdata ) && ( 200 == $weatherdata[ "response" ][ "code" ] ) ) {
+						$weatherdata = @json_decode( $weatherdata[ "body" ] );
+
 						if ( is_object( $weatherdata ) ) {
 							set_transient( 'gtm4wp-weatherdata-'.$gtm4wp_sessionid, $weatherdata, 60 * 60 );
 						}
@@ -394,6 +435,10 @@ function gtm4wp_get_the_gtm_tag() {
 	
 	$_gtm_tag = '';
 	
+	if ( GTM4WP_PLACEMENT_OFF == $gtm4wp_options[ GTM4WP_OPTION_GTM_PLACEMENT ] ) {
+    $gtm4wp_container_code_written = true;
+	}
+	
 	if ( ( $gtm4wp_options[ GTM4WP_OPTION_GTM_CODE ] != "" ) && ( ! $gtm4wp_container_code_written ) ) {
 		$_gtm_codes = explode( ",", str_replace( array(";"," "), array(",",""), $gtm4wp_options[ GTM4WP_OPTION_GTM_CODE ] ) );
 
@@ -404,7 +449,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script data-cfasync="false">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({\'gtm.start\':
 new Date().getTime(),event:\'gtm.js\'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!=\'dataLayer\'?\'&l=\'+l:\'\';j.async=true;j.src=
-\'//www.googletagmanager.com/gtm.js?id=\'+i+dl;f.parentNode.insertBefore(j,f);
+\'//www.googletagmanager.com/gtm.\''.'+\'js?id=\'+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,\'script\',\'' . $gtm4wp_datalayer_name . '\',\'' . $one_gtm_code . '\');</script>';
 		}
 
@@ -426,27 +471,33 @@ function gtm4wp_enqueue_scripts() {
 	global $gtm4wp_options, $gtp4wp_plugin_url;
 		
 	if ( $gtm4wp_options[ GTM4WP_OPTION_EVENTS_OUTBOUND ] ) {
-		wp_enqueue_script( "gtm4wp-outbound-click-tracker", $gtp4wp_plugin_url . "js/gtm4wp-outbound-click-tracker.js", array( "jquery" ), GTM4WP_VERSION, false );
+    $in_footer = apply_filters( 'gtm4wp_' . GTM4WP_OPTION_EVENTS_OUTBOUND, false);
+		wp_enqueue_script( "gtm4wp-outbound-click-tracker", $gtp4wp_plugin_url . "js/gtm4wp-outbound-click-tracker.js", array( "jquery" ), GTM4WP_VERSION, $in_footer );
 	}
 
 	if ( $gtm4wp_options[ GTM4WP_OPTION_EVENTS_DOWNLOADS ] ) {
-		wp_enqueue_script( "gtm4wp-download-tracker", $gtp4wp_plugin_url . "js/gtm4wp-download-tracker.js", array( "jquery" ), GTM4WP_VERSION, false );
+    $in_footer = apply_filters( 'gtm4wp_' . GTM4WP_OPTION_EVENTS_DOWNLOADS, false);
+		wp_enqueue_script( "gtm4wp-download-tracker", $gtp4wp_plugin_url . "js/gtm4wp-download-tracker.js", array( "jquery" ), GTM4WP_VERSION, $in_footer );
 	}
 
 	if ( $gtm4wp_options[ GTM4WP_OPTION_EVENTS_EMAILCLICKS ] ) {
-		wp_enqueue_script( "gtm4wp-email-link-tracker", $gtp4wp_plugin_url . "js/gtm4wp-email-link-tracker.js", array( "jquery" ), GTM4WP_VERSION, false );
+    $in_footer = apply_filters( 'gtm4wp_' . GTM4WP_OPTION_EVENTS_EMAILCLICKS, false);
+		wp_enqueue_script( "gtm4wp-email-link-tracker", $gtp4wp_plugin_url . "js/gtm4wp-email-link-tracker.js", array( "jquery" ), GTM4WP_VERSION, $in_footer );
 	}
 
 	if ( $gtm4wp_options[ GTM4WP_OPTION_INTEGRATE_WPCF7 ] ) {
-		wp_enqueue_script( "gtm4wp-contact-form-7-tracker", $gtp4wp_plugin_url . "js/gtm4wp-contact-form-7-tracker.js", array( "jquery" ), GTM4WP_VERSION, false );
+    $in_footer = apply_filters( 'gtm4wp_' . GTM4WP_OPTION_INTEGRATE_WPCF7, false);
+		wp_enqueue_script( "gtm4wp-contact-form-7-tracker", $gtp4wp_plugin_url . "js/gtm4wp-contact-form-7-tracker.js", array( "jquery" ), GTM4WP_VERSION, $in_footer );
 	}
 
 	if ( $gtm4wp_options[ GTM4WP_OPTION_EVENTS_FORMMOVE ] ) {
-		wp_enqueue_script( "gtm4wp-form-move-tracker", $gtp4wp_plugin_url . "js/gtm4wp-form-move-tracker.js", array( "jquery" ), GTM4WP_VERSION, false );
+    $in_footer = apply_filters( 'gtm4wp_' . GTM4WP_OPTION_EVENTS_FORMMOVE, false);
+		wp_enqueue_script( "gtm4wp-form-move-tracker", $gtp4wp_plugin_url . "js/gtm4wp-form-move-tracker.js", array( "jquery" ), GTM4WP_VERSION, $in_footer );
 	}
 
 	if ( $gtm4wp_options[ GTM4WP_OPTION_EVENTS_SOCIAL ] ) {
-		wp_enqueue_script( "gtm4wp-social-actions", $gtp4wp_plugin_url . "js/gtm4wp-social-tracker.js", array( "jquery" ), GTM4WP_VERSION, false );
+    $in_footer = apply_filters( 'gtm4wp_' . GTM4WP_OPTION_EVENTS_SOCIAL, false);
+		wp_enqueue_script( "gtm4wp-social-actions", $gtp4wp_plugin_url . "js/gtm4wp-social-tracker.js", array( "jquery" ), GTM4WP_VERSION, $in_footer );
 	}
 
 	if ( $gtm4wp_options[ GTM4WP_OPTION_EVENTS_YOUTUBE ] ) {
@@ -462,7 +513,8 @@ function gtm4wp_enqueue_scripts() {
 	}
 
 	if ( $gtm4wp_options[ GTM4WP_OPTION_SCROLLER_ENABLED ] ) {
-		wp_enqueue_script( "gtm4wp-scroll-tracking", $gtp4wp_plugin_url . "js/analytics-talk-content-tracking.js", array( "jquery" ), GTM4WP_VERSION, false );
+    $in_footer = apply_filters( 'gtm4wp_' . GTM4WP_OPTION_SCROLLER_ENABLED, false);
+		wp_enqueue_script( "gtm4wp-scroll-tracking", $gtp4wp_plugin_url . "js/analytics-talk-content-tracking.js", array( "jquery" ), GTM4WP_VERSION, $in_footer );
 	}
 }
 
@@ -584,7 +636,7 @@ add_action( "body_open", "gtm4wp_wp_body_open" );
 
 // compatibility with existing themes that natively support code injection after opening body tag
 add_action( "genesis_before", "gtm4wp_wp_body_open" );
-if ( ( $GLOBALS[ "gtm4wp_options" ][ GTM4WP_OPTION_INTEGRATE_WCTRACKCLASSICEC ] || $GLOBALS[ "gtm4wp_options" ][ GTM4WP_OPTION_INTEGRATE_WCTRACKENHANCEDEC ] ) 
+if ( isset( $GLOBALS[ "gtm4wp_options" ] ) && ( $GLOBALS[ "gtm4wp_options" ][ GTM4WP_OPTION_INTEGRATE_WCTRACKCLASSICEC ] || $GLOBALS[ "gtm4wp_options" ][ GTM4WP_OPTION_INTEGRATE_WCTRACKENHANCEDEC ] )
 	&& isset ( $GLOBALS["woocommerce"] ) ) {
 	require_once( dirname( __FILE__ ) . "/../integration/woocommerce.php" );
 }

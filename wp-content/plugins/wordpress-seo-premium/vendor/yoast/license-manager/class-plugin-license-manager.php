@@ -86,5 +86,5 @@ if ( class_exists( 'Yoast_License_Manager' ) && ! class_exists( "Yoast_Plugin_Li
 	        }
         }
 	}
-}
 
+}

@@ -248,56 +248,58 @@ function sq_submitSettings() {
     });
 
     jQuery.post(
-            sqQuery.ajaxurl,
-            {
-                action: 'sq_settingsseo_update',
+        sqQuery.ajaxurl,
+        {
+            action: 'sq_settingsseo_update',
 // --
-                sq_use: jQuery('#sq_settings').find('input[name=sq_use]:checked').val(),
-                sq_auto_title: jQuery('#sq_settings').find('input[name=sq_auto_title]:checked').val(),
-                sq_auto_description: jQuery('#sq_settings').find('input[name=sq_auto_description]:checked').val(),
-                sq_auto_canonical: jQuery('#sq_settings').find('input[name=sq_auto_canonical]:checked').val(),
-                sq_auto_meta: jQuery('#sq_settings').find('input[name=sq_auto_meta]:checked').val(),
-                sq_auto_favicon: jQuery('#sq_settings').find('input[name=sq_auto_favicon]:checked').val(),
-                sq_auto_facebook: jQuery('#sq_settings').find('input[name=sq_auto_facebook]:checked').val(),
-                sq_auto_twitter: jQuery('#sq_settings').find('input[name=sq_auto_twitter]:checked').val(),
-                sq_auto_twittersize: jQuery('#sq_settings').find('input[name=sq_auto_twittersize]:checked').val(),
-                sq_og_locale: jQuery('#sq_settings').find('select[name=sq_og_locale] option:selected').val(),
+            sq_use: jQuery('#sq_settings').find('input[name=sq_use]:checked').val(),
+            sq_auto_title: jQuery('#sq_settings').find('input[name=sq_auto_title]:checked').val(),
+            sq_auto_description: jQuery('#sq_settings').find('input[name=sq_auto_description]:checked').val(),
+            sq_auto_canonical: jQuery('#sq_settings').find('input[name=sq_auto_canonical]:checked').val(),
+            sq_auto_meta: jQuery('#sq_settings').find('input[name=sq_auto_meta]:checked').val(),
+            sq_auto_favicon: jQuery('#sq_settings').find('input[name=sq_auto_favicon]:checked').val(),
+            sq_auto_facebook: jQuery('#sq_settings').find('input[name=sq_auto_facebook]:checked').val(),
+            sq_auto_twitter: jQuery('#sq_settings').find('input[name=sq_auto_twitter]:checked').val(),
+            sq_auto_twittersize: jQuery('#sq_settings').find('input[name=sq_auto_twittersize]:checked').val(),
+            sq_og_locale: jQuery('#sq_settings').find('select[name=sq_og_locale] option:selected').val(),
 //--
-                sq_twitter_account: jQuery('#sq_settings').find('input[name=sq_twitter_account]').val(),
-                sq_facebook_account: jQuery('#sq_settings').find('input[name=sq_facebook_account]').val(),
-                sq_google_plus: jQuery('#sq_settings').find('input[name=sq_google_plus]').val(),
-                sq_linkedin_account: jQuery('#sq_settings').find('input[name=sq_linkedin_account]').val(),
+            sq_twitter_account: jQuery('#sq_settings').find('input[name=sq_twitter_account]').val(),
+            sq_facebook_account: jQuery('#sq_settings').find('input[name=sq_facebook_account]').val(),
+            sq_google_plus: jQuery('#sq_settings').find('input[name=sq_google_plus]').val(),
+            sq_linkedin_account: jQuery('#sq_settings').find('input[name=sq_linkedin_account]').val(),
 //--
-                sq_auto_sitemap: jQuery('#sq_settings').find('input[name=sq_auto_sitemap]:checked').val(),
-                sq_auto_feed: jQuery('#sq_settings').find('input[name=sq_auto_feed]:checked').val(),
-                sq_sitemap: sq_sitemap,
-                sq_sitemap_show: sq_sitemap_show,
-                sq_sitemap_frequency: jQuery('#sq_settings').find('select[name=sq_sitemap_frequency] option:selected').val(),
-                sq_sitemap_ping: jQuery('#sq_settings').find('input[name=sq_sitemap_ping]:checked').val(),
+            sq_auto_sitemap: jQuery('#sq_settings').find('input[name=sq_auto_sitemap]:checked').val(),
+            sq_auto_feed: jQuery('#sq_settings').find('input[name=sq_auto_feed]:checked').val(),
+            sq_sitemap: sq_sitemap,
+            sq_sitemap_show: sq_sitemap_show,
+            sq_sitemap_frequency: jQuery('#sq_settings').find('select[name=sq_sitemap_frequency] option:selected').val(),
+            sq_sitemap_ping: jQuery('#sq_settings').find('input[name=sq_sitemap_ping]:checked').val(),
 // --
-                sq_auto_jsonld: jQuery('#sq_settings').find('input[name=sq_auto_jsonld]:checked').val(),
-                sq_jsonld_type: jQuery('#sq_settings').find('select[name=sq_jsonld_type] option:selected').val(),
-                sq_jsonld_name: jQuery('#sq_settings').find('input[name=sq_jsonld_name]').val(),
-                sq_jsonld_jobTitle: jQuery('#sq_settings').find('input[name=sq_jsonld_jobTitle]').val(),
-                sq_jsonld_logo: jQuery('#sq_settings').find('input[name=sq_jsonld_logo]').val(),
-                sq_jsonld_telephone: jQuery('#sq_settings').find('input[name=sq_jsonld_telephone]').val(),
-                sq_jsonld_contactType: jQuery('#sq_settings').find('select[name=sq_jsonld_contactType] option:selected').val(),
-                sq_jsonld_description: jQuery('#sq_settings').find('textarea[name=sq_jsonld_description]').val(),
+            sq_auto_jsonld: jQuery('#sq_settings').find('input[name=sq_auto_jsonld]:checked').val(),
+            sq_jsonld_type: jQuery('#sq_settings').find('select[name=sq_jsonld_type] option:selected').val(),
+            sq_jsonld_name: jQuery('#sq_settings').find('input[name=sq_jsonld_name]').val(),
+            sq_jsonld_jobTitle: jQuery('#sq_settings').find('input[name=sq_jsonld_jobTitle]').val(),
+            sq_jsonld_logo: jQuery('#sq_settings').find('input[name=sq_jsonld_logo]').val(),
+            sq_jsonld_telephone: jQuery('#sq_settings').find('input[name=sq_jsonld_telephone]').val(),
+            sq_jsonld_contactType: jQuery('#sq_settings').find('select[name=sq_jsonld_contactType] option:selected').val(),
+            sq_jsonld_description: jQuery('#sq_settings').find('textarea[name=sq_jsonld_description]').val(),
 //--
-                sq_auto_seo: jQuery('#sq_settings').find('input[name=sq_auto_seo]:checked').val(),
-                sq_fp_title: jQuery('#sq_settings').find('input[name=sq_fp_title]').val(),
-                sq_fp_description: jQuery('#sq_settings').find('textarea[name=sq_fp_description]').val(),
-                sq_fp_keywords: jQuery('#sq_settings').find('input[name=sq_fp_keywords]').val(),
+            sq_auto_seo: jQuery('#sq_settings').find('input[name=sq_auto_seo]:checked').val(),
+            sq_fp_title: jQuery('#sq_settings').find('input[name=sq_fp_title]').val(),
+            sq_fp_description: jQuery('#sq_settings').find('textarea[name=sq_fp_description]').val(),
+            sq_fp_keywords: jQuery('#sq_settings').find('input[name=sq_fp_keywords]').val(),
 // --
-                ignore_warn: jQuery('#sq_settings').find('input[name=ignore_warn]:checked').val(),
+            ignore_warn: jQuery('#sq_settings').find('input[name=ignore_warn]:checked').val(),
 // --
-                sq_google_analytics: jQuery('#sq_settings').find('input[name=sq_google_analytics]').val(),
-                sq_facebook_insights: jQuery('#sq_settings').find('input[name=sq_facebook_insights]').val(),
-                sq_pinterest: jQuery('#sq_settings').find('input[name=sq_pinterest]').val(),
-                // --
+            sq_google_analytics: jQuery('#sq_settings').find('input[name=sq_google_analytics]').val(),
+            sq_facebook_insights: jQuery('#sq_settings').find('input[name=sq_facebook_insights]').val(),
+            sq_facebook_analytics: jQuery('#sq_settings').find('input[name=sq_facebook_analytics]').val(),
 
-                nonce: sqQuery.nonce
-            }
+            sq_pinterest: jQuery('#sq_settings').find('input[name=sq_pinterest]').val(),
+            // --
+
+            nonce: sqQuery.nonce
+        }
     ).done(function () {
         showSaved(2000);
     }, 'json');

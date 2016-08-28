@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Metacafe Video SEO Details
  *
  * Full remote response (XML) format [2014/7/22] - see below class.
@@ -21,8 +22,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  * @todo - maybe use decoding via simplexml ? should work and would make the code simpler
  * Or maybe even better: change this to use embedly. The metacafe proper API often doesn't return
  * any results when it should do, while embedly *will* give results.
- *
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Metacafe' ) ) {
 
 	/**
@@ -103,7 +103,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Metacafe' ) ) {
 				}
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

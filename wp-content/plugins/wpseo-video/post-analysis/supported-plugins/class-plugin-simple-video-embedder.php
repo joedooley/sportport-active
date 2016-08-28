@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,13 +13,14 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the Simple Video Embedder plugin
  *
- * @see http://wordpress.org/plugins/simple-video-embedder/
+ * @see      http://wordpress.org/plugins/simple-video-embedder/
  *
  * @internal Last update: August 2014 based upon v 2.2
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Simple_Video_Embedder' ) ) {
 
 	/**
@@ -35,11 +36,13 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Simple_Video_Embedder' ) ) {
 			if ( function_exists( 'p75GetVideo' ) ) {
 				$this->shortcodes[] = 'simple_video';
 
-				$this->meta_keys[] = 'videoembed'; // legacy
-				$this->meta_keys[] = '_videoembed_manual'; // legacy
+				// Legacy.
+				$this->meta_keys[] = 'videoembed';
+				// Legacy.
+				$this->meta_keys[] = '_videoembed_manual';
 				$this->meta_keys[] = '_videoembed';
 
-				/* Handler name => VideoSEO service name */
+				// Handler name => VideoSEO service name.
 				$this->video_autoembeds = array(
 					'p75_jw_player' => 'jwplayer',
 				);
@@ -50,10 +53,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Simple_Video_Embedder' ) ) {
 		/**
 		 * Analyse a video shortcode from the plugin for usable video information
 		 *
-		 * @param  string  $full_shortcode  Full shortcode as found in the post content
-		 * @param  string  $sc              Shortcode found
-		 * @param  array   $atts            Shortcode attributes - already decoded if needed
-		 * @param  string  $content         The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array   An array with the usable information found or else an empty array
 		 */
@@ -67,7 +70,8 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Simple_Video_Embedder' ) ) {
 			if ( isset( $atts['url'] ) && ( is_string( $atts['url'] ) && $atts['url'] !== '' ) ) {
 				$vid['url'] = $atts['url'];
 			}
-			elseif ( ! empty( $atts['id'] ) ) { // this is a post id to get the video from another post
+			elseif ( ! empty( $atts['id'] ) ) {
+				// This is a post id to get the video from another post.
 				$post_id = $atts['id'];
 				$url     = get_post_meta( $post_id, '_videoembed', true );
 				if ( is_string( $url ) && $url !== '' ) {
@@ -105,9 +109,9 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Simple_Video_Embedder' ) ) {
 		/**
 		 * Analyse a specific post meta field for usable video information
 		 *
-		 * @param  string  $meta_value  The value to analyse
-		 * @param  string  $meta_key    The associated meta key
-		 * @param  int     $post_id     The id of the post this meta value applies to
+		 * @param  string $meta_value The value to analyse.
+		 * @param  string $meta_key   The associated meta key.
+		 * @param  int    $post_id    The id of the post this meta value applies to.
 		 *
 		 * @return array   An array with the usable information found or else an empty array
 		 */
@@ -141,7 +145,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Simple_Video_Embedder' ) ) {
 		/**
 		 * Check an option of the plugin to see whether jwplayer will be used
 		 *
-		 * @param  array $vid  Video array so far
+		 * @param  array $vid Video array so far.
 		 *
 		 * @return array
 		 */
@@ -163,8 +167,8 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Simple_Video_Embedder' ) ) {
 		/**
 		 * Set video dimensions (width/height) based on post meta or option settings if available.
 		 *
-		 * @param  array $vid      Video array so far
-		 * @param  int   $post_id  The id of the post being analysed
+		 * @param  array $vid     Video array so far.
+		 * @param  int   $post_id The id of the post being analysed.
 		 *
 		 * @return array
 		 */
@@ -185,7 +189,8 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Simple_Video_Embedder' ) ) {
 				}
 
 				if ( empty( $vid['width'] ) ) {
-					$vid['width'] = 400;  // Their default
+					// Their default.
+					$vid['width'] = 400;
 				}
 			}
 
@@ -206,13 +211,13 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Simple_Video_Embedder' ) ) {
 				}
 
 				if ( empty( $vid['height'] ) ) {
-					$vid['height'] = 300;  // Their default
+					// Their default.
+					$vid['height'] = 300;
 				}
 			}
 
 			return $vid;
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

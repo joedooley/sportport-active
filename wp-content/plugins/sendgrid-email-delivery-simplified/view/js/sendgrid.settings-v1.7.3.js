@@ -54,6 +54,7 @@ jQuery(document).ready(function($) {
     } else if ( $("#mc_api_key_defined_in_env").length == 0 ) {
       $('#mc_apikey').prop( 'disabled', false );
     }
+    $("#sendgrid_form_mc").submit();
   });
 
   if ( $('select#select_contact_list option').length == 0 ) {
@@ -110,4 +111,42 @@ jQuery(document).ready(function($) {
     }
   }
 
+  // save form on unfocus mc_apikey
+  if ( typeof old_mc_api_key == 'undefined' ) {
+    old_mc_api_key = $("#mc_apikey").val();
+  }
+  $("#mc_apikey").focusout(function() {
+    var new_mc_api_key = $("#mc_apikey").val();
+    if ( old_mc_api_key != new_mc_api_key ) {
+      $("#sendgrid_form_mc").submit();
+    }
+  });
+
+  // save form on unfocus general apikey
+  if ( typeof old_general_api_key == 'undefined' ) {
+    old_general_api_key = $("#sendgrid_general_apikey").val();
+  }
+  $("#sendgrid_general_apikey").focusout(function() {
+    var new_general_api_key = $("#sendgrid_general_apikey").val();
+    if ( old_general_api_key != new_general_api_key ) {
+      $("#sendgrid_general_settings_form").submit();
+    }
+  });
+  
+
+  $('#select_unsubscribe_group').select2({
+    minimumResultsForSearch: 20
+  });
+
+  $('#content_type').select2({
+    minimumResultsForSearch: Infinity
+  });
+
+  $('#auth_method').select2({
+    minimumResultsForSearch: Infinity
+  });
+
+  $('#send_method').select2({
+    minimumResultsForSearch: Infinity
+  });
 });

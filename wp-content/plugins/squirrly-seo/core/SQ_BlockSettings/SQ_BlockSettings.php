@@ -23,13 +23,15 @@ class SQ_BlockSettings extends SQ_BlockController {
     public function action() {
         parent::action();
 
-        if (!current_user_can('manage_options')){
-            return;
-        }
+
 
         switch (SQ_Tools::getValue('action')) {
 
             case 'sq_settings_update':
+                if (!current_user_can('manage_options')){
+                    return;
+                }
+
                 if (SQ_Tools::getIsset('sq_post_types')) {
                     SQ_Tools::$options['sq_post_types'] = array();
                     foreach (SQ_Tools::getValue('sq_post_types') as $key) {

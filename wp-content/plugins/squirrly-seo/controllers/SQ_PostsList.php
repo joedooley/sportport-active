@@ -124,7 +124,7 @@ class SQ_PostsList extends SQ_FrontController
                     array_push($this->posts, $post_id);
             }
 
-            echo '<div class="' . $this->column_id . '_row ' . ((!$cached) ? 'sq_minloading' : '') . '" ref="' . $post_id . '">' . (($cached) ? $_COOKIE[$this->column_id . $post_id] : '') . '</div>';
+            echo '<div class="' . $this->column_id . '_row" ref="' . $post_id . '">' . (($cached) ? $_COOKIE[$this->column_id . $post_id] : 'loading ...') . '</div>';
 
             if ($frontend = SQ_ObjController::getModel('SQ_Frontend')) {
                 $title = $frontend->getAdvancedMeta($post_id, 'title');
@@ -298,20 +298,21 @@ class SQ_PostsList extends SQ_FrontController
                 }
 
                 $response = json_decode(SQ_Action::apiCall('sq/user-analytics/detail', $args, 30));
-                if (SQ_Tools::getValue('sq_debug') === 'on') {
-                    exit();
-                }
+
                 if (!is_object($response)) {
                     exit(json_encode(array('error' => $response)));
                 } else {
-
+                    //SQ_Tools::dump($response);
                     $analytics = SQ_ObjController::getBlock('SQ_BlockAnalytics');
                     $analytics->flush = false;
                     $analytics->post_id = $this->model->post_id;
                     $analytics->audit = $this->model->getAnalytics($response, $this->model->post_id);
+
                     $response = $analytics->init();
-
-
+                    SQ_Tools::dump($response);
+                    if (SQ_Tools::getValue('sq_debug') === 'on') {
+                        exit();
+                    }
                     exit(json_encode($response));
                 }
                 break;

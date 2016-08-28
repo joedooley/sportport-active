@@ -1,6 +1,6 @@
 <?php
 /**
- * Pointers class.
+ * Review class.
  *
  * @since 1.1.4.5
  *
@@ -324,13 +324,9 @@ class OMAPI_Review {
 			exit;
 		}
 
-		// All good, make it pretty for the request
-		$request_body = http_build_query( $data_array, '', '&' );
-
 		// Build the headers of the request.
 		$headers = array(
 			'Content-Type'   => 'application/x-www-form-urlencoded',
-			'Content-Length' => strlen( $request_body ),
 			'Cache-Control'  => 'no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0',
 			'Pragma'		 => 'no-cache',
 			'Expires'		 => 0,
@@ -341,7 +337,7 @@ class OMAPI_Review {
 		// Setup data to be sent to the API.
 		$data = array(
 			'headers'   => $headers,
-			'body'      => $request_body,
+			'body'      => $data_array,
 			'timeout'   => 3000,
 			'sslverify' => false
 		);

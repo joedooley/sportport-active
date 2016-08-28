@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Collegehumor Video SEO Details
  *
  * JSON response format [2014/7/22]:
@@ -32,7 +33,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  * 	  "thumbnail_width":"175",
  * 	  "thumbnail_height":"98"
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Collegehumor' ) ) {
 
 	/**
@@ -71,7 +72,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Collegehumor' ) ) {
 				$this->vid['player_loc'] = 'http://0.static.collegehumor.cvcdn.com/moogaloop/moogaloop.1.0.31.swf?clip_id=' . urlencode( $this->vid['id'] ) . '&amp;fullscreen=1';
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

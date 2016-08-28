@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,14 +13,16 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Vidyard Video SEO Details
  *
  * Currently retrieves a full html page as the remote response
+ *
  * @todo consider changing retrieval method to the API, though an API key is needed and not all info is in one place.
  * @see http://api.vidyard.com/docs/dashboard/1.0/api_players/show.html
- * Note: additional header must be send: Header: “Content-Type” | Value: “application/json”
- *******************************************************************/
+ * Note: additional header must be send: Header: ï¿½Content-Typeï¿½ | Value: ï¿½application/jsonï¿½
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Vidyard' ) ) {
 
 	/**
@@ -32,11 +34,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vidyard' ) ) {
 		 * @var	string	Regular expression to retrieve a video id from a known video url
 		 */
 		protected $id_regex = '`[/\.]vidyard\.com/(?:[a-z_]+/)*([a-z0-9_-]+)(?:\.js|\.html|\?|$)`i';
-
-		/**
-		 * @var	string	Sprintf template to create a url from an id
-		 */
-		//protected $url_template = '';
 
 		/**
 		 * @var	array	Information on the remote url to use for retrieving the video details
@@ -107,7 +104,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vidyard' ) ) {
 				$thumbnail_data = json_decode( $thumbnail_data, true );
 
 				if ( ( is_array( $thumbnail_data ) && $thumbnail_data !== array() ) ) {
-					$thumbnail_data = reset( $thumbnail_data ); // get the first element
+					// Get the first element.
+					$thumbnail_data = reset( $thumbnail_data );
 					if ( isset( $thumbnail_data['url'] ) && is_string( $thumbnail_data['url'] ) && $thumbnail_data['url'] !== '' ) {
 						$image = $this->make_image_local( $thumbnail_data['url'] );
 						if ( is_string( $image ) && $image !== '' ) {
@@ -123,18 +121,18 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vidyard' ) ) {
 		 * Get decoded vidyard chapter data
 		 */
 		private function get_chapter_data() {
-			// must use preg match because the data is in inline javascript
+			// Must use preg match because the data is in inline javascript.
 			if ( ! empty( $this->decoded_response ) && preg_match( '`vidyard_chapter_data = (\[\s*{[^\}]*\}\s*\]);`', $this->decoded_response, $match ) ) {
-				// replace single quotes with double quotes so it can be json decoded
+				// Replace single quotes with double quotes so it can be json decoded.
 				$json = str_replace( '\'', '"', trim( $match[1] ) );
 				$json = json_decode( $json, true );
 
 				if ( is_array( $json ) && $json !== array() ) {
-					$this->chapter_data = reset( $json ); // get the first element
+					// Get the first element.
+					$this->chapter_data = reset( $json );
 				}
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

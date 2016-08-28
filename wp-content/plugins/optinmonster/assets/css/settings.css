@@ -51,6 +51,10 @@ p.intro-description {
   font-size: 16px;
 }
 
+.omapi-page h2 {
+	padding-right: 0 !important;
+}
+
 .omapi-page h2 span {
 	font-size: 13px;
 	color: #666;

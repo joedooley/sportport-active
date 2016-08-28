@@ -405,7 +405,7 @@ class WPSEO_Sitemaps {
 			header( $this->http_protocol . ' 200 OK', true, 200 );
 			// Prevent the search engines from indexing the XML Sitemap.
 			header( 'X-Robots-Tag: noindex, follow', true );
-			header( 'Content-Type: text/xml' );
+			header( 'Content-Type: text/xml; charset=' . esc_attr( $this->renderer->get_output_charset() ) );
 		}
 
 		echo $this->renderer->get_output( $this->sitemap, $this->transient );
@@ -453,7 +453,11 @@ class WPSEO_Sitemaps {
 
 		$dates = array_intersect_key( $post_type_dates, array_flip( $post_types ) );
 
-		return max( $dates );
+		if ( count( $dates ) > 0 ) {
+			return max( $dates );
+		}
+
+		return false;
 	}
 
 	/**

@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Embedly Video SEO Details
  *
  * Embedly can also often retrieve details about videos hosted elsewhere if passed a url, see
@@ -40,7 +41,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "type": "video",
  *    "thumbnail_height": 360
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Embedly' ) ) {
 
 	/**
@@ -51,17 +52,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Embedly' ) ) {
 	class WPSEO_Video_Details_Embedly extends WPSEO_Video_Details_Oembed {
 
 		/**
-		 * @var	string	Regular expression to retrieve a video id from a known video url
-		 */
-		//protected $id_regex = '';
-
-		/**
-		 * @var	string	Sprintf template to create a url from an id
-		 */
-		//protected $url_template = '';
-
-		/**
-		 * @var	array	Information on the remote url to use for retrieving the video details
+		 * @var    array    Information on the remote url to use for retrieving the video details
 		 * Alternative url: http://api.embed.ly/v1/api/oembed
 		 */
 		protected $remote_url = array(
@@ -90,14 +81,14 @@ if ( ! class_exists( 'WPSEO_Video_Details_Embedly' ) ) {
 		 * Retrieve the Embedly API key if there is any and prevent unnecessary API calls if there
 		 * isn't one and Embedly has started to cut off the ip address
 		 *
-		 * @param array  $vid     The video array with all the data.
-		 * @param array  $old_vid The video array with all the data of the previous "fetch", if available.
+		 * @param array $vid     The video array with all the data.
+		 * @param array $old_vid The video array with all the data of the previous "fetch", if available.
 		 *
 		 * @return \WPSEO_Video_Details_Embedly
 		 */
 		public function __construct( $vid, $old_vid = array() ) {
 			if ( empty( $this->api_key ) ) {
-				// Grab Embedly api key if it's set
+				// Grab Embedly api key if it's set.
 				$options = get_option( 'wpseo_video' );
 				if ( $options['embedly_api_key'] !== '' ) {
 					$this->api_key = $options['embedly_api_key'];
@@ -107,12 +98,12 @@ if ( ! class_exists( 'WPSEO_Video_Details_Embedly' ) ) {
 				$this->remote_url['pattern'] .= '&key=' . $this->api_key;
 			}
 
-			// Prevent further API calls if the user has been cut off by Embedly
+			// Prevent further API calls if the user has been cut off by Embedly.
 			if ( self::$functional === true ) {
 				parent::__construct( $vid, $old_vid );
 			}
 			else {
-				// @todo [JRF -> Yoast] Why not use (merge with) oldvid data here if available ?
+				// @todo [JRF -> Yoast] Why not use (merge with) oldvid data here if available?
 				$this->vid = $vid;
 			}
 		}
@@ -125,7 +116,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Embedly' ) ) {
 		protected function get_remote_video_info() {
 			$response = parent::get_remote_video_info();
 			if ( ! isset( $this->remote_response ) && wp_remote_retrieve_response_code( $response ) == 403 ) {
-				// User has been cut off, prevent further calls from this class instance and other instances
+				// User has been cut off, prevent further calls from this class instance and other instances.
 				self::$functional = false;
 			}
 		}
@@ -149,14 +140,14 @@ if ( ! class_exists( 'WPSEO_Video_Details_Embedly' ) ) {
 		 */
 		protected function set_type() {
 			if ( ! empty( $this->decoded_response->provider_name ) ) {
-				$provider          = explode( '.', $this->decoded_response->provider_name ); // when needed, change service.com to service
+				// When needed, change service.com to service.
+				$provider          = explode( '.', $this->decoded_response->provider_name );
 				$this->vid['type'] = strtolower( $provider[0] );
 			}
 			else {
 				parent::set_type();
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

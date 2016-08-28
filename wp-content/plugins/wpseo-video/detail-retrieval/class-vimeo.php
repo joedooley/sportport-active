@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Vimeo Video SEO Details
  *
  * @see https://developer.vimeo.com/
@@ -44,18 +45,13 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "tags":"motox, frans verhoeven, enduro, offroad, off-road, ktm, yamaha",
  *    "embed_privacy":"approved"
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Vimeo' ) ) {
 
 	/**
 	 * Class WPSEO_Video_Details_Vimeo
 	 */
 	class WPSEO_Video_Details_Vimeo extends WPSEO_Video_Details {
-
-		/**
-		 * @var	string	Regular expression to retrieve a video id from a known video url
-		 */
-		//protected $id_regex = '';
 
 		/**
 		 * @var	string	Sprintf template to create a url from an id
@@ -66,7 +62,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vimeo' ) ) {
 		 * @var	array	Information on the remote url to use for retrieving the video details
 		 */
 		protected $remote_url = array(
-			//'pattern'       => 'http://vimeo.com/api/oembed.json?url=%s',
 			'pattern'       => 'http://vimeo.com/api/v2/video/%s.json',
 			'replace_key'   => 'id',
 			'response_type' => 'json',
@@ -97,7 +92,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vimeo' ) ) {
 		 */
 		protected function decode_as_json() {
 			$response = json_decode( $this->remote_response );
-			if ( is_array( $response ) && ! empty ( $response[0] ) && is_object( $response[0] ) ) {
+			if ( is_array( $response ) && ! empty( $response[0] ) && is_object( $response[0] ) ) {
 				$this->decoded_response = $response[0];
 			}
 		}
@@ -168,7 +163,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vimeo' ) ) {
 				$this->vid['view_count'] = $this->decoded_response->stats_number_of_plays;
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

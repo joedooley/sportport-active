@@ -5,15 +5,15 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit();
 }
 
-
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the YouTube Embed Plus plugin
  *
  * @todo We may want to remove their og tags from the main class:
@@ -22,7 +22,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  * @see http://wordpress.org/plugins/youtube-embed-plus/
  *
  * @internal Last update: August 2014 based upon v 8.7
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_Embed_Plus' ) ) {
 
 	/**
@@ -44,12 +44,12 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_Embed_Plus' ) ) {
 		/**
 		 * Analyse a video shortcode from the plugin for usable video information
 		 *
-		 * @param  string  $full_shortcode Full shortcode as found in the post content
-		 * @param  string  $sc             Shortcode found
-		 * @param  array   $atts           Shortcode attributes - already decoded if needed
-		 * @param  string  $content        The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
-		 * @return array   An array with the usable information found or else an empty array
+		 * @return array   An array with the usable information found or else an empty array.
 		 */
 		public function get_info_from_shortcode( $full_shortcode, $sc, $atts = array(), $content = '' ) {
 			$vid = array();
@@ -61,7 +61,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_Embed_Plus' ) ) {
 				unset( $list[0] );
 
 				if ( $list !== array() ) {
-					// Retrieve width/height
+					// Retrieve width/height.
 					foreach ( $list as $key => $value ) {
 						$value = explode( '=', $value );
 						if ( in_array( $value[0], array( 'width', 'height', 'w', 'h' ), true ) ) {
@@ -74,8 +74,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_Embed_Plus' ) ) {
 
 					$vid = $this->maybe_get_dimensions( $vid, $atts, true );
 
-					/* Any attributes left over are partly real url parts, partly plugin settings, let's
-					 * just put them back on... */
+					/*
+					 * Any attributes left over are partly real url parts, partly plugin settings, let's
+					 * just put them back on...
+					 */
 					if ( $list !== array() ) {
 						$vid['url'] = $vid['url'] . '&' . implode( '&', $list );
 					}
@@ -84,7 +86,5 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_Embed_Plus' ) ) {
 
 			return $vid;
 		}
-
 	} /* End of class */
-
 } /* End of class-exists wrapper */

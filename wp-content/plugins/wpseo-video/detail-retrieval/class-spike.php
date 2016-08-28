@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Spike (formally iFilm) Video SEO Details
  *
  * Spike does not offer oembed info nor an API, but Embedly can deal real well with spike video links.
@@ -35,7 +36,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "type": "video",
  *    "thumbnail_height": 347
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Spike' ) ) {
 
 	/**
@@ -63,7 +64,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Spike' ) ) {
 				}
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

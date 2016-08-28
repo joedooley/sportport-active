@@ -655,9 +655,10 @@
                     </div>
                 </fieldset>
                 <fieldset id="sq_tracking" >
-                    <legend style="height: 310px    ;">
+                    <legend class="sq_legend_medium" style="height: 310px    ;">
                         <span class="sq_legend_title"><?php _e('Tracking Tools', _SQ_PLUGIN_NAME_); ?></span>
                         <span><?php echo sprintf(__('%sHow to Get the Most Out of Google Analytics%s', _SQ_PLUGIN_NAME_), '<a href="http://mashable.com/2012/01/04/google-analytics-guide/" target="_blank">', '</a>'); ?></span>
+                        <span><?php echo sprintf(__('%sWhat is Facebook Pixel?%s', _SQ_PLUGIN_NAME_), '<a href="https://www.facebook.com/business/help/952192354843755" target="_blank">', '</a>'); ?></span>
                         <span><?php echo sprintf(__('%sA Beginner’s Guide to Facebook Insights%s', _SQ_PLUGIN_NAME_), '<a href="http://mashable.com/2010/09/03/facebook-insights-guide/" target="_blank">', '</a>'); ?></span>
                         <span><?php echo sprintf(__('%sRich Pins Validator%s', _SQ_PLUGIN_NAME_), '<a href="https://developers.pinterest.com/tools/url-debugger/" target="_blank">', '</a>'); ?></span>
 
@@ -671,6 +672,10 @@
                         <p class="withborder withcode" >
                             <span class="sq_icon sq_icon_facebookinsights"></span>
                             <?php echo sprintf(__('Facebook Admin ID (for %sInsights%s ):', _SQ_PLUGIN_NAME_), '<a href="http://www.facebook.com/insights/" target="_blank">', '</a>'); ?><br><strong> <input type="text" name="sq_facebook_insights" value="<?php echo ((SQ_Tools::$options['sq_facebook_insights'] <> '') ? SQ_Tools::$options['sq_facebook_insights'] : '') ?>" size="15" placeholder="<?php echo __('Facebook ID or https://www.facebook.com/YourProfileName', _SQ_PLUGIN_NAME_) ?>" /> (e.g. &lt;meta property="fb:admins" content="XXXXXXXXXXXXXXXXXX" /&gt;)</strong>
+                        </p>
+                        <p class="withborder withcode">
+                            <span class="sq_icon sq_icon_facebookpixel"></span>
+                            <?php echo sprintf(__('Facebook  %sPixel ID%s:', _SQ_PLUGIN_NAME_), '<a href="https://www.facebook.com/ads/manager/pixel/facebook_pixel/" target="_blank">', '</a>'); ?><br><strong><input type="text" name="sq_facebook_analytics" value="<?php echo ((SQ_Tools::$options['sq_facebook_analytics'] <> '') ? SQ_Tools::$options['sq_facebook_analytics'] : '') ?>" size="15" /> (e.g. 1234567890)</strong>
                         </p>
                         <p class="withborder withcode" >
                             <span class="sq_icon sq_icon_pinterest"></span>

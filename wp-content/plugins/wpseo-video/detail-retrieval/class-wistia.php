@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Wistia Video SEO Details
  *
  * @see http://wistia.com/doc/data-api for the API (but needs a API key, while oembed actually already gives us what we need)
@@ -33,7 +34,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  * 	  "thumbnail_height":540,
  * 	  "duration":23.268
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Wistia' ) ) {
 
 	/**
@@ -42,14 +43,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_Wistia' ) ) {
 	class WPSEO_Video_Details_Wistia extends WPSEO_Video_Details {
 
 		/**
-		 * @var	string	Regular expression to retrieve a video id from a known video url
-		 */
-		//protected $id_regex = '[/\.](?:wistia\.com|wi\.st)/(?:medias|embed)/(.*)(?:$|[/#\?])';
-
-		/**
 		 * @var	string	Sprintf template to create a url from an id
 		 */
-		//protected $url_template = 'http://home.wistia.com/medias/%s';
 		protected $url_template = 'http://fast.wistia.net/medias/%s?embedType=iframe';
 
 		/**
@@ -77,8 +72,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_Wistia' ) ) {
 		 *
 		 * Adjust the video url before passing off to the parent constructor
 		 *
-		 * @param array  $vid     The video array with all the data.
-		 * @param array  $old_vid The video array with all the data of the previous "fetch", if available.
+		 * @param array $vid     The video array with all the data.
+		 * @param array $old_vid The video array with all the data of the previous "fetch", if available.
 		 *
 		 * @return \WPSEO_Video_Details_Wistia
 		 */
@@ -113,17 +108,18 @@ if ( ! class_exists( 'WPSEO_Video_Details_Wistia' ) ) {
 		 */
 		protected function get_remote_video_info() {
 			if ( is_string( $this->vid['url'] ) && $this->vid['url'] !== '' ) {
-				// Temporarily change the url
+				// Temporarily change the url.
 				$real_url         = $this->vid['url'];
 				if ( strpos( $this->vid['url'], 'embedType=' ) !== false ) {
-					$this->vid['url'] = str_replace( array( 'embedType=api', 'embedType=iframe', 'embedType=popover', 'embedType=seo' ), 'embedType=seo', $this->vid['url'] ); // avoid adding embedType twice
+					// Avoid adding embedType twice.
+					$this->vid['url'] = str_replace( array( 'embedType=api', 'embedType=iframe', 'embedType=popover', 'embedType=seo' ), 'embedType=seo', $this->vid['url'] );
 				}
 				else {
 					$this->vid['url'] = add_query_arg( 'embedType', 'seo', $this->vid['url'] );
 				}
 
 				parent::get_remote_video_info();
-				// Rest the url
+				// Rest the url.
 				$this->vid['url'] = $real_url;
 			}
 		}
@@ -255,7 +251,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Wistia' ) ) {
 		protected function set_width() {
 			$this->set_width_from_json_object();
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

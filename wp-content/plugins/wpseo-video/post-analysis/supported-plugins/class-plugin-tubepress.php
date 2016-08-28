@@ -5,28 +5,27 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit();
 }
 
-
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the TubePress plugin
  *
- * @see http://wordpress.org/extend/plugins/tubepress/
+ * @see      http://wordpress.org/extend/plugins/tubepress/
  *
  * @internal Last update: July 2014 based upon v 3.1.6
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Tubepress' ) ) {
 
 	/**
 	 * Class WPSEO_Video_Plugin_Tubepress
 	 */
 	class WPSEO_Video_Plugin_Tubepress extends WPSEO_Video_Supported_Plugin {
-
 
 		/**
 		 * Conditionally add plugin features to analyse for video content
@@ -42,14 +41,14 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Tubepress' ) ) {
 		 * Analyse a video shortcode from the plugin for usable video information
 		 *
 		 * @todo Figure out how to deal with the plain [tubepress] shortcode which apparently works as well
-		 * @see https://github.com/Yoast/wpseo-video/issues/75
+		 * @see  https://github.com/Yoast/wpseo-video/issues/75
 		 *
-		 * @param  string  $full_shortcode Full shortcode as found in the post content
-		 * @param  string  $sc             Shortcode found
-		 * @param  array   $atts           Shortcode attributes - already decoded if needed
-		 * @param  string  $content        The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
-		 * @return array   An array with the usable information found or else an empty array
+		 * @return array   An array with the usable information found or else an empty array.
 		 */
 		public function get_info_from_shortcode( $full_shortcode, $sc, $atts = array(), $content = '' ) {
 			$vid = array();
@@ -78,7 +77,6 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Tubepress' ) ) {
 
 			return $vid;
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

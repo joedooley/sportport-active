@@ -9,6 +9,8 @@
 class Yoast_HelpScout_Beacon {
 
 	const YST_SEO_SUPPORT_IDENTIFY = 'yst_seo_support_identify';
+	const BEACON_TYPE_NO_SEARCH = 'no_search';
+	const BEACON_TYPE_SEARCH = 'search';
 
 	/**
 	 * @var string The current opened page without the prefix.
@@ -25,15 +27,20 @@ class Yoast_HelpScout_Beacon {
 	 */
 	protected $settings;
 
+	/** @var string The type of beacon (BEACON_TYPE_NO_SEARCH | BEACON_TYPE_SEARCH) */
+	protected $type;
+
 	/**
 	 * Setting the hook to load the beacon
 	 *
 	 * @param string                           $current_page The current opened page without the prefix.
-	 * @param Yoast_HelpScout_Beacon_Setting[] $settings  Suggestions for the admin pages.
+	 * @param Yoast_HelpScout_Beacon_Setting[] $settings     Suggestions for the admin pages.
+	 * @param string                           $type         The type of beacon to create. (BEACON_TYPE_NO_SEARCH | BEACON_TYPE_SEARCH)
 	 */
-	public function __construct( $current_page, array $settings ) {
+	public function __construct( $current_page, array $settings, $type = self::BEACON_TYPE_SEARCH ) {
 		$this->current_page = $current_page;
 		$this->settings     = $settings;
+		$this->type         = $type;
 	}
 
 	/**
@@ -54,6 +61,7 @@ class Yoast_HelpScout_Beacon {
 	 * Outputs a small piece of javascript for the beacon
 	 */
 	public function output_beacon_js() {
+		/** @noinspection PhpUnusedLocalVariableInspection */
 		$data = wp_json_encode( $this->localize_beacon() );
 
 		echo '<script type="text/javascript">';
@@ -68,15 +76,10 @@ class Yoast_HelpScout_Beacon {
 	 */
 	private function localize_beacon() {
 		return array(
-			'config' => array(
-				'instructions' => $this->get_instructions(),
-				'icon'         => 'question',
-				'color'        => '#A4286A',
-				'poweredBy'    => false,
-				'translation'  => $this->get_translations(),
-			),
+			'config'   => $this->get_config( $this->current_page ),
 			'identify' => $this->get_identify(),
 			'suggest'  => $this->get_suggest( $this->current_page ),
+			'type'     => $this->get_type(),
 		);
 	}
 
@@ -191,5 +194,40 @@ class Yoast_HelpScout_Beacon {
 		}
 
 		return $products;
+	}
+
+	/**
+	 * Returns the type of the beacon.
+	 *
+	 * @return string
+	 */
+	private function get_type() {
+		return $this->type;
+	}
+
+	/**
+	 * Returns the configuration for a certain page
+	 *
+	 * @param string $page The admin page the user is on.
+	 *
+	 * @return array
+	 */
+	private function get_config( $page ) {
+		// Defaults.
+		$config = array(
+			'instructions' => $this->get_instructions(),
+			'icon'         => 'question',
+			'color'        => '#A4286A',
+			'poweredBy'    => false,
+			'translation'  => $this->get_translations(),
+		);
+
+		foreach ( $this->settings as $setting ) {
+			if ( method_exists( $setting, 'get_config' ) ) {
+				$config = array_merge( $config, $setting->get_config( $page ) );
+			}
+		}
+
+		return $config;
 	}
 }

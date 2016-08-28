@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Dailymotion Video SEO Details
  *
  * @see http://www.dailymotion.com/doc/api/obj-video.html
@@ -25,7 +26,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "thumbnail_large_url":"http:\/\/s2.dmcdn.net\/EI2-J\/x240-mFs.jpg",
  *    "views_total":6
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Dailymotion' ) ) {
 
 	/**
@@ -37,11 +38,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Dailymotion' ) ) {
 		 * @var	string	Regular expression to retrieve a video id from a known video url
 		 */
 		protected $id_regex = '`[/\.](?:dai\.ly|dailymotion\.com/(?:embed/)?video)/([^_\?]+)`i';
-
-		/**
-		 * @var	string	Sprintf template to create a url from an id
-		 */
-		//protected $url_template = '';
 
 		/**
 		 * @var	array	Information on the remote url to use for retrieving the video details
@@ -102,7 +98,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Dailymotion' ) ) {
 				$this->vid['view_count'] = $this->decoded_response->views_total;
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

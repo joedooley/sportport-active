@@ -5,21 +5,21 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit();
 }
 
-
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the VideoSEO (==this==) plugin
  *
- * @see https://yoast.com/wordpress/plugins/video-seo/
+ * @see      https://yoast.com/wordpress/plugins/video-seo/
  *
  * @internal Last update: August 2014 based upon v 1.8/2.0
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Yoast_Videoseo' ) ) {
 
 	/**
@@ -32,22 +32,22 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Yoast_Videoseo' ) ) {
 		 * Conditionally add plugin features to analyse for video content
 		 */
 		public function __construct() {
-			// No need to check that the plugin is really loaded as it's this plugin
+			// No need to check that the plugin is really loaded as it's this plugin.
 			$options   = get_option( 'wpseo_video' );
 			$meta_keys = array();
 			if ( ! empty( $options['custom_fields'] ) && is_string( $options['custom_fields'] ) ) {
 				$meta_keys = (array) explode( ',', $options['custom_fields'] );
 				$meta_keys = array_map( 'trim', $meta_keys );
-				$meta_keys = array_filter( $meta_keys ); // remove any potential empty values
+				$meta_keys = array_filter( $meta_keys );
 			}
 			if ( is_array( $meta_keys ) && $meta_keys !== array() ) {
 				$this->meta_keys = $meta_keys;
 			}
 
-			/* Full Oembed url as specified in plugin => VideoSEO service name */
+			// Full Oembed url as specified in plugin => VideoSEO service name.
 			$this->video_oembeds = array(
-				'http://fast.wistia.com/oembed'                  => 'wistia',
-				'http://www.screenr.com/api/oembed.{format}'     => 'screenr',
+				'http://fast.wistia.com/oembed'              => 'wistia',
+				'http://www.screenr.com/api/oembed.{format}' => 'screenr',
 			);
 
 			if ( version_compare( $GLOBALS['wp_version'], '3.9.99', '<' ) ) {
@@ -70,11 +70,11 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Yoast_Videoseo' ) ) {
 		/**
 		 * Analyse a specific post meta field for usable video information
 		 *
-		 * @param  string  $meta_value  The value to analyse
-		 * @param  string  $meta_key    The associated meta key
-		 * @param  int     $post_id     The id of the post this meta value applies to
+		 * @param  string $meta_value The value to analyse.
+		 * @param  string $meta_key   The associated meta key.
+		 * @param  int    $post_id    The id of the post this meta value applies to.
 		 *
-		 * @return array   An array with the usable information found or else an empty array
+		 * @return array   An array with the usable information found or else an empty array.
 		 */
 		public function get_info_from_post_meta( $meta_value, $meta_key, $post_id ) {
 			$vid = array();
@@ -84,13 +84,13 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Yoast_Videoseo' ) ) {
 				$vid['url']         = $meta_value;
 				$vid['maybe_local'] = true;
 				$vid['type']        = 'custom_field';
-			} else {
+			}
+			else {
 				$vid['__add_to_content'] = $meta_value;
 			}
 
 			return $vid;
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

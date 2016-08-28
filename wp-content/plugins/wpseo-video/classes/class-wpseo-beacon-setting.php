@@ -48,4 +48,15 @@ class WPSEO_Video_Beacon_Setting implements Yoast_HelpScout_Beacon_Setting {
 
 		return array();
 	}
+
+	/**
+	 * Returns a list of config values for a a certain admin page.
+	 *
+	 * @param string $page The current admin page we are on.
+	 *
+	 * @return array A list with configuration for the beacon
+	 */
+	public function get_config( $page ) {
+		return array();
+	}
 }

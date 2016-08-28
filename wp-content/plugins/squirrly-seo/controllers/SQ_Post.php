@@ -209,9 +209,15 @@ class SQ_Post extends SQ_FrontController {
             $process = json_decode(get_transient('sq_seopost'), true);
         }
         $process[] = $args;
+
         //save for later send to api
         set_transient('sq_seopost', json_encode($process));
-        wp_schedule_single_event(time(), 'sq_processApi');
+
+        if (get_transient('sq_seopost') !== false) {
+            wp_schedule_single_event(time(), 'sq_processApi');
+        } else {
+            SQ_Action::apiCall('sq/seo/post', $args, 1);
+        }
 
         //Save the keyword for this post
         if ($json = $this->model->getKeyword($post_id)) {
@@ -337,7 +343,9 @@ class SQ_Post extends SQ_FrontController {
         if (get_transient('sq_seopost') !== false) {
             $process = json_decode(get_transient('sq_seopost'), true);
             foreach ($process as $key => $call) {
+
                 $response = json_decode(SQ_Action::apiCall('sq/seo/post', $call, 60));
+
                 if (isset($response->saved) && $response->saved == true) {
                     unset($process[$key]);
                 }

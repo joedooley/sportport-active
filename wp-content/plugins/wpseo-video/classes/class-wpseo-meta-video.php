@@ -5,17 +5,17 @@
  * @version    1.6.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit();
 }
 
-
-/*******************************************************************
+/**
+ *****************************************************************
  * Meta value addition for Video SEO
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 
 	/**
@@ -67,23 +67,24 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 				'video'    => array(
 						'videositemap-disable'             => array(
 								'type'          => 'checkbox',
-								'title'         => '', // translation added later
+								'title'         => '', // Translation added later.
 								'default_value' => 'off',
-								'expl'          => '', // translation added later
+								'expl'          => '', // Translation added later.
 						),
 						'videositemap-thumbnail'           => array(
 								'type'          => 'upload',
-								'title'         => '', // translation added later
+								'title'         => '', // Translation added later.
 								'default_value' => '',
 								'description'   => '',
-								'placeholder'   => '', // translation added later
+								'placeholder'   => '', // Translation added later.
 						),
 						'videositemap-duration'            => array(
 								'type'          => 'number',
-								'title'         => '', // translation added later
+								'title'         => '', // Translation added later.
 								'default_value' => '0',
-								'description'   => '', // translation added later
+								'description'   => '', // Translation added later.
 						),
+
 						/*
 						 * @internal Not used directly anywhere except for storage and retrieval of the meta box
 						 *           form values. The real use is in the video_meta key which retrieves the value
@@ -93,10 +94,11 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 						 */
 						'videositemap-tags'                => array(
 								'type'          => 'text',
-								'title'         => '', // translation added later
+								'title'         => '', // Translation added later.
 								'default_value' => '',
-								'description'   => '', // translation added later
+								'description'   => '', // Translation added later.
 						),
+
 						/*
 						 * @internal Not used directly anywhere except for storage and retrieval of the meta box
 						 *           form values. The real use is in the video_meta key which retrieves the value
@@ -106,27 +108,27 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 						 */
 						'videositemap-category'            => array(
 								'type'          => 'text',
-								'title'         => '', // translation added later
+								'title'         => '', // Translation added later.
 								'default_value' => '',
-								'description'   => '', // translation added later
+								'description'   => '', // Translation added later.
 						),
 						'videositemap-rating'              => array(
 								'type'          => 'number',
-								'title'         => '', // translation added later
+								'title'         => '', // Translation added later.
 								'default_value' => 0,
-								'description'   => '', // translation added later
+								'description'   => '', // Translation added later.
 						),
 						// @todo check definition and improve description as title and description seem to contradict at the moment
 						'videositemap-not-family-friendly' => array(
 								'type'          => 'checkbox',
-								'title'         => '', // translation added later
+								'title'         => '', // Translation added later.
 								'default_value' => 'off',
-								'description'   => '', // translation added later
+								'description'   => '', // Translation added later.
 						),
 				),
 
 
-			/* Fields we should validate & save, but not show on any form */
+				/* Fields we should validate & save, but not show on any form */
 				'non_form' => array(
 						'video_meta' => array(
 								'type'          => null,
@@ -135,34 +137,6 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 						),
 				),
 		);
-
-
-		// @todo Deal with non-prefixed meta key: wpseo_video_id ??
-
-
-		/*public static $video_meta_format = array(
-			'thumbnail_loc'	=> '',
-			'player_loc' => '',
-			'content_loc' => '',
-			'permalink' => '',
-			'rating' => '', // string number_format 0-5
-			'family_friendly' => '', // 'yes'/'no'
-			'author' => '',  // post author's user ID (numeric string)
-			'type' => '', // string vimeo/dailymotion etc
-			'id' => '',
-			'duration' => '',
-			'width' => '',
-			'height' => '',
-			'post_id' => '',
-			'title' => '',
-			'publication_date' => '',
-			'description' => '',
-			'category' => '',
-			'tag' => '',
-			'' => '',
-			'' => '',
-			'' => '',
-		);*/
 
 
 		/**
@@ -180,8 +154,6 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 			add_filter( 'wpseo_sanitize_post_meta_' . WPSEO_Meta::$meta_prefix . 'videositemap-rating', array( __CLASS__, 'sanitize_rating' ), 10, 3 );
 			add_filter( 'wpseo_sanitize_post_meta_' . WPSEO_Meta::$meta_prefix . 'videositemap-thumbnail', array( __CLASS__, 'sanitize_thumbnail_upload' ), 10, 3 );
 			add_filter( 'wpseo_sanitize_post_meta_' . WPSEO_Meta::$meta_prefix . 'video_meta', array( __CLASS__, 'sanitize_video_meta' ), 10, 2 );
-
-			// add_action( 'wpseo_meta_clean_up', array( __CLASS__, 'clean_up_empty_video_meta' )  );
 		}
 
 
@@ -190,7 +162,7 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 		 *
 		 * @static
 		 *
-		 * @param  array $fields Fields already in place (possibly from other add-on plugins)
+		 * @param  array $fields Fields already in place (possibly from other add-on plugins).
 		 *
 		 * @return array
 		 */
@@ -203,8 +175,8 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 		 *
 		 * @static
 		 *
-		 * @param  string $field_defs Field definitions for the requested tab
-		 * @param  string $post_type  Post type of the current post
+		 * @param  string $field_defs Field definitions for the requested tab.
+		 * @param  string $post_type  Post type of the current post.
 		 *
 		 * @return array              Array containing the meta box field definitions
 		 */
@@ -220,7 +192,8 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 
 			if ( ( ! isset( $post->ID ) || '' === WPSEO_Meta::get_value( 'videositemap-thumbnail', $post->ID ) ) && ( isset( $video['thumbnail_loc'] ) && $video['thumbnail_loc'] !== '' ) ) {
 				$field_defs['videositemap-thumbnail']['description'] = sprintf( $field_defs['videositemap-thumbnail']['description'], '<a target="_blank" href="' . esc_url( $video['thumbnail_loc'] ) . '">', '</a>' );
-			} else {
+			}
+			else {
 				$field_defs['videositemap-thumbnail']['description'] = '';
 			}
 
@@ -236,14 +209,14 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 		 *
 		 * @static
 		 *
-		 * @param  mixed  $clean      Potentially pre-cleaned version of the new meta value
-		 * @param  mixed  $meta_value The new value
-		 * @param  string $field_def  The field definition for the current meta field
+		 * @param  mixed  $clean      Potentially pre-cleaned version of the new meta value.
+		 * @param  mixed  $meta_value The new value.
+		 * @param  string $field_def  The field definition for the current meta field.
 		 *
 		 * @return string             Cleaned value
 		 */
 		public static function sanitize_thumbnail_upload( $clean, $meta_value, $field_def ) {
-			// Validate as url
+			// Validate as url.
 			$clean = $field_def['default_value'];
 
 			$url = WPSEO_Video_Wrappers::yoast_wpseo_video_sanitize_url( $meta_value );
@@ -260,9 +233,9 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 		 *
 		 * @static
 		 *
-		 * @param  mixed  $clean      Potentially pre-cleaned version of the new meta value
-		 * @param  mixed  $meta_value The new value
-		 * @param  string $field_def  The field definition for the current meta field
+		 * @param  mixed  $clean      Potentially pre-cleaned version of the new meta value.
+		 * @param  mixed  $meta_value The new value.
+		 * @param  string $field_def  The field definition for the current meta field.
 		 *
 		 * @return string             Cleaned value
 		 */
@@ -286,9 +259,9 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 		 *
 		 * @static
 		 *
-		 * @param  mixed  $clean      Potentially pre-cleaned version of the new meta value
-		 * @param  mixed  $meta_value The new value
-		 * @param  string $field_def  The field definition for the current meta field
+		 * @param  mixed  $clean      Potentially pre-cleaned version of the new meta value.
+		 * @param  mixed  $meta_value The new value.
+		 * @param  string $field_def  The field definition for the current meta field.
 		 *
 		 * @return string             Cleaned value
 		 */
@@ -307,8 +280,8 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 		 *
 		 * @static
 		 *
-		 * @param  mixed $clean      Potentially pre-cleaned version of the new meta value
-		 * @param  mixed $meta_value The new value
+		 * @param  mixed $clean      Potentially pre-cleaned version of the new meta value.
+		 * @param  mixed $meta_value The new value.
 		 *
 		 * @return string            Cleaned value
 		 */
@@ -319,31 +292,6 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 
 			return $clean;
 		}
-
-		/*public static function sanitize_video_meta( $clean, $dirty ) {
-			$clean = self::$video_meta_format;
-
-			foreach ( $clean as $key => $value ) {
-				switch ( $key ) {
-					case 'a':
-						if ( isset( $dirty[ $key ] ) &&.... ) {
-							$clean[ $key ] = $dirty[ $key ];
-						}
-						break;
-
-					case 'a':
-						break;
-
-					case 'a':
-						break;
-
-					case 'a':
-						break;
-
-				}
-			}
-			return $clean;
-		}*/
 
 
 		/**
@@ -381,7 +329,6 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 			}
 			unset( $query, $video_metas, $known_durations, $video );
 		}
-
 	} /* End of class WPSEO_Meta_Video */
 
 } /* End of class-exists wrapper */

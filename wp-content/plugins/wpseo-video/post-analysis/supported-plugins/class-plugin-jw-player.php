@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,13 +13,14 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the JW Player plugin
  *
  * @see http://wordpress.org/extend/plugins/jw-player-plugin-for-wordpress/
  *
  * @internal Last update: July 2014 based upon v 2.1.5
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_JW_Player' ) ) {
 
 	/**
@@ -41,10 +42,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_JW_Player' ) ) {
 		/**
 		 * Analyse a video shortcode from the plugin for usable video information
 		 *
-		 * @param  string  $full_shortcode Full shortcode as found in the post content
-		 * @param  string  $sc             Shortcode found
-		 * @param  array   $atts           Shortcode attributes - already decoded if needed
-		 * @param  string  $content        The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array   An array with the usable information found or else an empty array
 		 */
@@ -90,13 +91,12 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_JW_Player' ) ) {
 			if ( $vid !== array() ) {
 				$vid['type']        = 'jwplayer';
 				// @todo - should this be added ? or should we believe the jwplayer plugin info to be good enough (though incomplete) ?
-				//$vid['url']         = $vid['content_loc'];
-				//$vid['maybe_local'] = true;
+				// $vid['url']         = $vid['content_loc'];
+				// $vid['maybe_local'] = true;
 				$vid                = $this->maybe_get_dimensions( $vid, $atts );
 			}
 			return $vid;
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

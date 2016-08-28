@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,13 +13,14 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the YouTuber plugin
  *
- * @see http://wordpress.org/extend/plugins/youtuber/
+ * @see      http://wordpress.org/extend/plugins/youtuber/
  *
  * @internal Last update: July 2014 based upon v 1.8.2
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Youtuber' ) ) {
 
 	/**
@@ -46,10 +47,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Youtuber' ) ) {
 		/**
 		 * Analyse a video shortcode from the plugin for usable video information
 		 *
-		 * @param  string  $full_shortcode  Full shortcode as found in the post content
-		 * @param  string  $sc              Shortcode found
-		 * @param  array   $atts            Shortcode attributes - already decoded if needed
-		 * @param  string  $content         The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array   An array with the usable information found or else an empty array
 		 */
@@ -71,10 +72,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Youtuber' ) ) {
 		/**
 		 * Analyse the youtuber shortcode for usable video information
 		 *
-		 * @param  string  $full_shortcode Full shortcode as found in the post content
-		 * @param  string  $sc             Shortcode found
-		 * @param  array   $atts           Shortcode attributes - already decoded if needed
-		 * @param  string  $content        The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array   An array with the usable information found or else an empty array
 		 */
@@ -101,9 +102,9 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Youtuber' ) ) {
 		/**
 		 * Test a whether a received value could be one of the valid type of video id or set it as url
 		 *
-		 * @param  array  $vid      Video array so far
-		 * @param  string $service  Video service to test the id against their pattern
-		 * @param  string $value    The value to test
+		 * @param  array  $vid     Video array so far.
+		 * @param  string $service Video service to test the id against their pattern.
+		 * @param  string $value   The value to test.
 		 *
 		 * @return array
 		 */
@@ -111,14 +112,12 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Youtuber' ) ) {
 			$method = 'is_' . $service . '_id';
 			if ( method_exists( $this, $method ) && $this->$method( $value ) === true ) {
 				$vid['id'] = $value;
-			} else {
-				// @todo - should this be tested to see if this could really be a youtube url ?
-				// if so, what to do with other types of video urls ?
+			}
+			else {
 				$vid['url'] = $value;
 			}
+
 			return $vid;
 		}
-
-	} /* End of class */
-
-} /* End of class-exists wrapper */
+	}
+}

@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Vine Video SEO Details
  *
  * Vine does not seem to offer oembed info nor an API, but Embedly can deal real well with vine video links.
@@ -44,7 +45,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "type": "video",
  *    "thumbnail_height": 480
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Vine' ) ) {
 
 	/**
@@ -86,7 +87,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vine' ) ) {
 				$this->vid['player_loc'] = 'https://vine.co/v/' . rawurlencode( $this->vid['id'] ) . '/embed/simple';
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

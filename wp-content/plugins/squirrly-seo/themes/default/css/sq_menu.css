@@ -526,6 +526,10 @@
 #sq_settings_body fieldset .sq_icon_facebookinsights {
     background-position: -59px -100px;
 }
+#sq_settings_body fieldset .sq_icon_facebookpixel {
+    background-position: -370px -100px;
+}
+
 #sq_settings_body fieldset .sq_icon_bingwt {
     background-position: -165px -100px;
 }

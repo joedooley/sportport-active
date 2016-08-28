@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Cincopa Video SEO Details
  *
  * @todo - maybe change over to using the json interface ?
@@ -68,7 +69,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *       "description":""
  *   }
  * )
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Cincopa' ) ) {
 
 	/**
@@ -80,11 +81,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Cincopa' ) ) {
 		 * @var	string	Regular expression to retrieve a video id from a known video url
 		 */
 		protected $id_regex = '`cp_load_widget\(\'([^\']+)\',[^\)]*\);`i';
-
-		/**
-		 * @var	string	Sprintf template to create a url from an id
-		 */
-		//protected $url_template = '';
 
 		/**
 		 * @var	array	Information on the remote url to use for retrieving the video details
@@ -136,7 +132,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Cincopa' ) ) {
 				}
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

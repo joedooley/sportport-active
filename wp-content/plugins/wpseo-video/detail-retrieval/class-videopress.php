@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * VideoPress Video SEO Details
  *
  * JSON response format from this class' own call [2014/8/16]:
@@ -61,23 +62,13 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *        "format":"std"
  *    }
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Videopress' ) ) {
 
 	/**
 	 * Class WPSEO_Video_Details_Videopress
 	 */
 	class WPSEO_Video_Details_Videopress extends WPSEO_Video_Details {
-
-		/**
-		 * @var	string	Regular expression to retrieve a video id from a known video url
-		 */
-		//protected $id_regex = '';
-
-		/**
-		 * @var	string	Sprintf template to create a url from an id
-		 */
-		//protected $url_template = '';
 
 		/**
 		 * @var	array	Information on the remote url to use for retrieving the video details
@@ -98,13 +89,12 @@ if ( ! class_exists( 'WPSEO_Video_Details_Videopress' ) ) {
 		 * @return \WPSEO_Video_Details_Videopress
 		 */
 		public function __construct( $vid, $old_vid = array() ) {
-			// Pre-adjust the remote url
+			// Pre-adjust the remote url.
 			$host                        = parse_url( home_url(), PHP_URL_HOST );
 			$this->remote_url['pattern'] = $this->remote_url['pattern'] . $host;
 
 			parent::__construct( $vid, $old_vid );
 		}
-
 
 		/**
 		 * Check if the response is for a valid video
@@ -172,7 +162,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Videopress' ) ) {
 		protected function set_width() {
 			$this->set_width_from_json_object();
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

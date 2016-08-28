@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the Premise plugin
  *
  * @see ....
@@ -25,7 +26,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *
  * @internal Last update: Never
  * //@internal Last update: August 2014 based upon v x.x
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Premise' ) ) {
 
 	/**
@@ -39,11 +40,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Premise' ) ) {
 		 */
 		public function __construct() {
 			// @todo - figure out what to test against to confirm that the plugin is loaded
-			//if ( function_exists( 'WP_ayvpp_init' ) ) {
+			// if ( function_exists( 'WP_ayvpp_init' ) ) {
 				$this->meta_keys[] = '_premise_settings';
-			//}
+			// }
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

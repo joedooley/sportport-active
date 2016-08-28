@@ -89,7 +89,6 @@
             <controller>SQ_Post</controller>
         </controllers>
         <actions>
-            <action>sq_search_img</action>
             <action>sq_search_blog</action>
             <action>sq_type_click</action>
         </actions>

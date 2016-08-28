@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,13 +13,14 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the Automatic YouTube Video Post plugin
  *
  * @see http://wordpress.org/plugins/automatic-youtube-video-posts/
  *
  * @internal Last update: August 2014 based upon v 3.2
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Automatic_Youtube_Video_Post' ) ) {
 
 	/**
@@ -41,9 +42,9 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Automatic_Youtube_Video_Post' ) ) {
 		/**
 		 * Analyse a specific post meta field for usable video information
 		 *
-		 * @param  string  $meta_value  The value to analyse
-		 * @param  string  $meta_key    The associated meta key
-		 * @param  int     $post_id     The id of the post this meta value applies to
+		 * @param  string $meta_value  The value to analyse.
+		 * @param  string $meta_key    The associated meta key.
+		 * @param  int    $post_id     The id of the post this meta value applies to.
 		 *
 		 * @return array   An array with the usable information found or else an empty array
 		 */
@@ -54,10 +55,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Automatic_Youtube_Video_Post' ) ) {
 				$vid['type'] = 'youtube';
 				$vid['id']   = $meta_value;
 
-				// From automatic-youtube-video-posts/core/video.php
+				// From automatic-youtube-video-posts/core/video.php.
 				$vid['thumbnail_loc'] = 'http://img.youtube.com/vi/' . $meta_value . '/0.jpg';
 
-				// Fall-back default from automatic-youtube-video-posts/conf.php
+				// Fall-back default from automatic-youtube-video-posts/conf.php.
 				$tern_options = get_option( 'tern_wp_youtube' );
 				if ( $tern_options !== false && ! empty( $tern_options['dims'][0] ) ) {
 					$vid['width'] = $tern_options['dims'][0];
@@ -82,7 +83,6 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Automatic_Youtube_Video_Post' ) ) {
 
 			return $vid;
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

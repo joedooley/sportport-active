@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Local_File Video SEO Details
  *
  * I.e. try and retrieve details from a locally saved file or attachment
@@ -50,7 +51,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *         [compression_ratio (string)] => float : 0.067953125
  *     )
  * )
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 
 	/**
@@ -113,7 +114,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 		/**
 		 * Determine whether an absolute or relative url is a local file and possibly a video file.
 		 *
-		 * @param  array $vid  Currently available video info
+		 * @param  array $vid  Currently available video info.
 		 *
 		 * @return bool
 		 */
@@ -150,7 +151,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 		 *
 		 * @todo This one could do with some refactoring, but at least got it working ;-)
 		 *
-		 * @param  string $url The url to test
+		 * @param  string $url The url to test.
 		 *
 		 * @return bool
 		 */
@@ -161,7 +162,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 			static $search;
 			static $extensions;
 
-			// Set statics
+			// Set statics.
 			if ( ! isset( $uploads ) ) {
 				$uploads = wp_upload_dir();
 			}
@@ -194,7 +195,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 
 				$is_local = false;
 
-				// Make it protocol relative so we don't have to worry about that
+				// Make it protocol relative so we don't have to worry about that.
 				$url = preg_replace( '`^http[s]?:`', '', $url );
 				$url = rtrim( $url, '\/' );
 
@@ -220,8 +221,10 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 							}
 						}
 						elseif ( $ext === false ) {
-							/* @internal At some point in the future we may want to switch this over to the
-							   attachment_url_to_postid( $url ) function which is introduced in WP 4.0 */
+							/*
+							 * @internal At some point in the future we may want to switch this over to the
+							 * attachment_url_to_postid( $url ) function which is introduced in WP 4.0
+							 */
 							$path_parts = explode( '/', trim( $parsed_url['path'], '\/' ) );
 							$last_bit   = array_pop( $path_parts );
 							$query_arg  = array(
@@ -232,12 +235,11 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 							$query      = new WP_Query( $query_arg );
 
 							if ( $query->post_count === 1 ) {
-								// ok, this is an id we can work with
 								$this->attachment_id = $query->post->ID;
 								$is_local            = true;
 							}
 							else {
-								// last ditch effort - can we find the file if we add an extension ?
+								// Last ditch effort - can we find the file if we add an extension?
 								$base_url = preg_replace( '`^http[s]?:`', '', $uploads['baseurl'] );
 								if ( strpos( $url, $base_url ) === 0 ) {
 									$file_path = str_replace( $base_url, $uploads['basedir'], $url );
@@ -274,44 +276,36 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 				}
 				return $is_local;
 			}
-
-			/**
-			 * Relative path - try and see if we can find the absolute url
-			 */
 			else {
+				/**
+				 * Relative path - try and see if we can find the absolute url
+				 */
 				if ( $this->is_attachment_or_local_file( site_url( $url ) ) === true ) {
 					return true;
 				}
 				elseif ( is_multisite() && $this->is_attachment_or_local_file( network_site_url( $url ) ) === true ) {
 					return true;
 				}
-				// wp-content/uploads/...
 				elseif ( $this->is_attachment_or_local_file( $uploads['baseurl'] . '/' . ltrim( $url, '\/' ) ) === true ) {
 					return true;
 				}
-				// wp-content/uploads/yyyy/mm/...
 				elseif ( $this->is_attachment_or_local_file( $uploads['url'] . '/' . ltrim( $url, '\/' ) ) === true ) {
 					return true;
 				}
-				// wp-content/...
 				elseif ( $this->is_attachment_or_local_file( content_url( $url ) ) === true ) {
 					return true;
 				}
-				// wp-content/themes/[current child theme]/...
 				elseif ( $this->is_attachment_or_local_file( get_stylesheet_directory_uri() . '/' . ltrim( $url, '\/' ) ) === true ) {
 					return true;
 				}
-				// wp-content/themes/[current parent theme]/...
 				elseif ( $this->is_attachment_or_local_file( get_template_directory_uri() . '/' . ltrim( $url, '\/' ) ) === true ) {
 					return true;
 				}
-				// wp-content/plugins/... - some plugins may upload files to their own directories, so try there too
 				elseif ( $this->is_attachment_or_local_file( plugins_url( $url ) ) === true ) {
 					return true;
 				}
-				else {
-					return false;
-				}
+
+				return false;
 			}
 		}
 
@@ -391,7 +385,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 		 * Set video details to their new values
 		 */
 		protected function put_video_details() {
-			// Only save the determined details to the vid array if we're sure it's a video
+			// Only save the determined details to the vid array if we're sure it's a video.
 			$this->set_file_path();
 			$this->set_file_url();
 			$this->set_attachment_id();
@@ -433,7 +427,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 				$this->vid['duration'] = $this->decoded_response['length'];
 			}
 			elseif ( ! empty( $this->decoded_response['length_formatted'] ) && $this->decoded_response['length_formatted'] > 0 ) {
-				// The presumption is made that no videos longer than 24 hours will be posted ;-)
+				// The presumption is made that no videos longer than 24 hours will be posted.
 				$duration = 0;
 				$time     = explode( ':', $this->decoded_response['length_formatted'] );
 				if ( count( $time ) === 2 ) {
@@ -495,9 +489,9 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 		 * Set the thumbnail location - try and find a local image file for the video
 		 */
 		protected function set_thumbnail_loc() {
-			if ( ! empty( $this->file_path ) && ! empty ( $this->file_url ) ) {
+			if ( ! empty( $this->file_path ) && ! empty( $this->file_url ) ) {
 
-				// @todo transform from path to url
+				// @todo transform from path to url.
 				$img_file = preg_replace( '`\.(' . WPSEO_Video_Sitemap::$video_ext_pattern . ')$`', '', $this->file_path );
 				$img_url  = preg_replace( '`\.(' . WPSEO_Video_Sitemap::$video_ext_pattern . ')$`', '', $this->file_url );
 
@@ -533,7 +527,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 				$this->vid['width'] = $this->decoded_response['width'];
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

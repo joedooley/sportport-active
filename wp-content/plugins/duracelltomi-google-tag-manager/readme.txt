@@ -1,10 +1,10 @@
 === DuracellTomi's Google Tag Manager for WordPress ===
 Contributors: duracelltomi
 Donate link: https://duracelltomi.com/
-Tags: google tag manager, tag manager, gtm, google, adwords, google adwords, adwords remarketing, remarketing, google analytics, analytics
+Tags: google tag manager, tag manager, gtm, google, adwords, google adwords, adwords remarketing, remarketing, google analytics, analytics, facebook ads, facebook remarketing, facebook pixel
 Requires at least: 3.4.0
-Tested up to: 4.5.2
-Stable tag: 1.3.2
+Tested up to: 4.6
+Stable tag: 1.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -27,7 +27,8 @@ very easily since you can fire them using rules that include
 * post/page dates
 * post/page category names
 * post/page tag names
-* post/page author names
+* post/page author ID and names
+* post/page ID
 * post types
 * post count on the current page + in the current category/tag/taxonomy
 * logged in status
@@ -80,6 +81,8 @@ Weather data is queried from Open Weather Map. Depending on your websites traffi
 
 http://openweathermap.org/price
 
+It is also required to obtain a free API key from OpenWeatherMap on the page above.
+
 To determine to current location of your visitor, this plugin uses geoplugin.net.
 Depending on your websites traffic, additional fees may be applied:
 
@@ -108,8 +111,7 @@ The plugin can track user interaction with your embeded media:
 It fires dataLayer events when a media player was being loaded on the page, when the media is being played, paused or stopped.
 It can fire dataLayer events when the user reaches 10, 20, 30, ..., 90, 100% of the media duration.
 
-Note: the plugin can only track media that was being embeded using the internal oEmbed feature of WordPress.
-No 3rd party embedding plugin is currently supported.
+Tracking should work with embedded media using the oEmbed feauture of WordPress and it should also work with other plugins or even with copy/pasted codes.
 
 = Scroll tracking =
 
@@ -170,10 +172,10 @@ More integration to come!
 
 == Frequently Asked Questions ==
 
-= How can I implement enhanced e-commerce in Google Tag Manager =
+= How can I ... =
 
-I created a step-by-step guide for this:
-http://duracelltomi.com/google-tag-manager-for-wordpress/how-to-articles/setup-enhanced-ecommerce-tracking
+I created some step by step guides so that you can create the proper settings in Google Tag Manager:
+http://duracelltomi.com/google-tag-manager-for-wordpress/how-to-articles/
 
 = PayPal / 3rd party payment gateway transactions in WooCommerce are not being tracked in Google Analyics =
 
@@ -196,16 +198,6 @@ individual tags and variables on the blacklist tabs.
 
 Please remember that tags are useless without variables so only blacklist variables if you are certain that you do not use them
 with any tags in your container.
-
-= How can I track add-to-cart events in WooCommerce =
-
-To track add-to-cart events using classic transactions you have to catch the dataLayer event gtm4wp.addProductToCart
-
-There are 3 additional dataLayer variables that can be accessed during the event using classic ecommerce tracking:
-
-* productName: the name of the product where the cart button has been pressed
-* productSKU: the SKU you entered in your product settings
-* productID: the ID of the WordPress post that holds your product data
 
 = How can I track scroll events in Google Tag Manager? =
 
@@ -280,6 +272,24 @@ If you or your social plugin inserts the Facebook buttons using IFRAMEs (like So
 6. Scroll tracking
 
 == Changelog ==
+
+= 1.4 =
+
+* Fixed: WP CLI error message
+* Fixed: wrong dynamic remarketing tagging on cart and checkout pages
+* Updated: WhichBrowser library to 2.0.22
+* Updated: slightly changed container code snippet to prevent W3 Total Cache to alter the code which breaks proper code execution
+* Updated: replaced file_get_contents() usage in weather tracking to wp_remote_get() so that it is more compatible with several WP instances
+* Updated: YouTube/Video/Soundcloud tracking now tracks videos not embedded using oEmbed (like videos in a widget area)
+* Updated: new Vimeo Player API implemented which should solve several issues
+* Changed: adapted W3C HTML5 media player event names which changes some events (needs updating your existing GTM setup):
+  * Soundcloud: finish => ended, seek => seeked
+  * YouTube: playing => play, paused => pause, playback-rate-change => ratechange
+  * Vimeo: seek => seeked
+* Added: new placement option - 'off'. This will only generate the data layer but you will need to add the proper GTM container code snippet by hand
+* Added: new data layer variable: authorID
+* Added: new data layer variable: siteID to be able to track based on blog ID in a multisite environment
+* Added: new data layer variable: siteName to be able to track in a multisite environment
 
 = 1.3.2 =
 
@@ -444,6 +454,10 @@ Please report all bugs found in my plugin using the [contact form on my website]
 * First beta release
 
 == Upgrade Notice ==
+
+= 1.4 =
+
+Several additions and fixes, breaking changes on media player tracking, please read changelog before upgrade
 
 = 1.3.2 =
 

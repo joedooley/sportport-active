@@ -1,8 +1,8 @@
 Video SEO
 =========
-Requires at least: 4.0<br/>
-Tested up to: 4.4<br/>
-Stable tag: 3.0<br/>
+Requires at least: 4.3<br/>
+Tested up to: 4.5<br/>
+Stable tag: 3.4<br/>
 Depends: wordpress-seo
 
 Video SEO adds Video SEO capabilities to WordPress SEO.
@@ -26,11 +26,30 @@ Installation
 Frequently Asked Questions
 --------------------------
 
-You can find the FAQ [online here](http://kb.yoast.com/category/8-video-seo).
+You can find the [Video SEO FAQ](https://kb.yoast.com/kb/category/video-seo/) in our knowledge base.
 
 Changelog
 =========
 
+### 3.4: July 19th, 2016
+
+* Changes
+	* Updated translations.
+
+### 3.3: June 14th, 2016
+
+* Enhancements
+	* Adds the Yoast i18n module to the Yoast SEO Video settings page, which informs users the plugin isn't available in their language and what they can do about it.
+
+* Bugfixes
+    * Fixes a bug where the support beacon for Yoast SEO Video was added to all Yoast SEO settings pages.
+    * Fixes a bug where updates were not working reliably when multiple paid Yoast plugins were active.
+
+### 3.2: April 20th, 2016
+
+* Fixes a bug where the video sitemap cache wasn't cleared on activation. 
+* Fixes a bug where video specific checks that were added to the content analysis would no longer work in combination with Yoast SEO 3.2 and higher.
+* Fixes a bug where clicking the 'Update now' button on the plugin page didn't update correctly.
 
 ### 3.1: March 1st, 2016
 

@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Brightcove Video SEO Details
  *
  * JSON response format [2014/7/22]:
@@ -43,23 +44,13 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *        "videoDuration":20000
  *    }
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Brightcove' ) ) {
 
 	/**
 	 * Class WPSEO_Video_Details_Brightcove
 	 */
 	class WPSEO_Video_Details_Brightcove extends WPSEO_Video_Details {
-
-		/**
-		 * @var	string	Regular expression to retrieve a video id from a known video url
-		 */
-		//protected $id_regex = '';
-
-		/**
-		 * @var	string	Sprintf template to create a url from an id
-		 */
-		//protected $url_template = '';
 
 		/**
 		 * @var	array	Information on the remote url to use for retrieving the video details
@@ -81,19 +72,19 @@ if ( ! class_exists( 'WPSEO_Video_Details_Brightcove' ) ) {
 		 *
 		 * Retrieve the Brightcove token and only pass of to the parent constructor if we find one
 		 *
-		 * @param array  $vid     The video array with all the data.
-		 * @param array  $old_vid The video array with all the data of the previous "fetch", if available.
+		 * @param array $vid     The video array with all the data.
+		 * @param array $old_vid The video array with all the data of the previous "fetch", if available.
 		 *
 		 * @return \WPSEO_Video_Details_Brightcove
 		 */
 		public function __construct( $vid, $old_vid = array() ) {
-			// grab Brightcove api key from wp_options
+			// Grab Brightcove api key from wp_options.
 			$this->bc_token = get_option( 'bc_api_key' );
 
 			if ( ! empty( $this->bc_token ) ) {
 				$this->remote_url['pattern'] .= '&token=' . $this->bc_token;
 
-				// Set the class properties before the parent constructor so they're available to maybe_use_old...()
+				// Set the class properties before the parent constructor so they're available to maybe_use_old.
 				$vid       = (array) $vid;
 				$this->vid = array_merge( $this->vid, array_filter( $vid ) );
 
@@ -101,7 +92,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Brightcove' ) ) {
 					$this->old_vid = $old_vid;
 				}
 
-				// bail out as early as possible to avoid extra API call
+				// Bail out as early as possible to avoid extra API call.
 				$this->maybe_use_old_video_data();
 				parent::__construct( $this->vid, $this->old_vid );
 			}
@@ -115,7 +106,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Brightcove' ) ) {
 		/**
 		 * Retrieve the video id based on a known video url via an external API call.
 		 *
-		 * @param  int  $match_nr [Not used in this implementation]
+		 * @param  int $match_nr [Not used in this implementation].
 		 *
 		 * @return void
 		 */
@@ -135,7 +126,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Brightcove' ) ) {
 						$this->vid['player_id'] = $query_vars['playerID'];
 					}
 
-					// Player id is given which means this is a playlist so grab the first video from the playlist
+					// Player id is given which means this is a playlist so grab the first video from the playlist.
 					if ( isset( $this->vid['player_id'] ) && $this->vid['player_id'] ) {
 						$this->determine_video_id_from_playlist();
 					}
@@ -158,10 +149,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Brightcove' ) ) {
 			if ( is_string( $response ) && $response !== 'null' ) {
 				$decoded_response = json_decode( $response );
 
-				if ( WP_DEBUG || ( defined( 'WPSEO_DEBUG' ) && WPSEO_DEBUG ) ) {
-					echo '<pre>' . print_r( $decoded_response, true ) . '</pre>';
-				}
-
 				if ( is_object( $decoded_response ) && ! isset( $decoded_response->error ) ) {
 					if ( isset( $decoded_response->items[0]->videoIds[0] ) && ( is_string( $decoded_response->items[0]->videoIds[0] ) && $decoded_response->items[0]->videoIds[0] !== '' ) ) {
 						$this->vid['id'] = $decoded_response->items[0]->videoIds[0];
@@ -183,7 +170,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Brightcove' ) ) {
 		 * @return bool  Whether or not valid old data was found (and used)
 		 */
 		protected function maybe_use_old_video_data( $match_on = 'url' ) {
-			if ( ( isset( $this->old_vid['id'] ) && isset( $this->vid['id'] ) ) && $this->old_vid['id'] == $this->vid['id'] ) {
+			if ( ( isset( $this->old_vid['id'] ) && isset( $this->vid['id'] ) ) && $this->old_vid['id'] === $this->vid['id'] ) {
 				$match_on = 'id';
 			}
 			return parent::maybe_use_old_video_data( $match_on );
@@ -237,8 +224,10 @@ if ( ! class_exists( 'WPSEO_Video_Details_Brightcove' ) ) {
 		 * Set the player location
 		 */
 		protected function set_player_loc() {
-			// @todo - find out what the player_loc should be - this method is set by (nearly)
-			// every other video class, so why not in this one ?
+			/*
+			 * @todo - find out what the player_loc should be - this method is set by (nearly)
+			 * every other video class, so why not in this one ?
+			 */
 			return;
 		}
 
@@ -280,7 +269,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Brightcove' ) ) {
 				$this->vid['width'] = $this->decoded_response->videoFullLength->frameWidth;
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

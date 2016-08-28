@@ -2,7 +2,7 @@
 Contributors: calinvingan, florinmuresan, nagy.sorel
 Tags: seo,seo plugin,apps,wordpress seo,seo optimization,seo content,plugin,content seo,search engine optimization,xml,sitemap,keyword,keyword research,post,posts,page,multisite,squirrly,wordpress,tag,image,images,photos,flickr,statistics,stats,google,content,title,description,favicon,mobile,canonical,author,google plus,analytics,admin,seo correction,seo title,seo meta,meta,google,twitter,news,blog,e-commerce,ecommerce,woocommerce,feed,feeds,marketing,buddypress,social,social media,url,automatic,iphone
 Requires at least: 3.5    
-Tested up to: 4.5 
+Tested up to: 4.6
 Stable tag: trunk  
 Donate link: https://www.squirrly.co/wordpress-seo-by-squirrly      
    
@@ -137,6 +137,23 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
 
 == Changelog ==
+= 6.2.0 =
+* Added Facebook Pixel Tracking Code in Squirrly > SEO > Tracking
+* Added more Copyright Free images in Squirrly SEO Live Assistant from:
+* Pixabay.com
+* Unsplash.com
+* Pexels.com
+*
+* Fixed loading the Seo Live Assistant when a page is not optimized for a keyword
+* Fixed the connection issues between the plugin and API when a post is saved
+* Fixed the Squirrly Snippet when connected as Editor or Author4
+
+
+= 6.1.6 =
+    * Added custom title and description for the Posts Page in Settings > Reading > Posts page
+* Fixed the JsonLD phone + prefix
+* Fixed typos
+
 = 6.1.5 =
 * July 2016 Security updates.
 * Fixed vulnerabilities between users who have rights in you site

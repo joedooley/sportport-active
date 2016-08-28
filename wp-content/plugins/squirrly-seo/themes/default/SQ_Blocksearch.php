@@ -37,7 +37,6 @@
                 <li id="sq_type_img" title="<?php _e('Images', _SQ_PLUGIN_NAME_) ?>"></li>
                 <li id="sq_type_twitter" title="<?php _e('Twitter', _SQ_PLUGIN_NAME_) ?>"></li>
                 <li id="sq_type_wiki" title="<?php _e('Wiki', _SQ_PLUGIN_NAME_) ?>"></li>
-                <li id="sq_type_news" title="<?php _e('News', _SQ_PLUGIN_NAME_) ?>"></li>
                 <li id="sq_type_blog" title="<?php _e('Blogs', _SQ_PLUGIN_NAME_) ?>"></li>
                 <li id="sq_type_local" title="<?php _e('My articles', _SQ_PLUGIN_NAME_) ?>"></li>
             </ul>
