@@ -39,12 +39,12 @@ class SQ_Loading extends SQ_BlockController {
                     ' . (($keyword <> '') ? 'var sq_keyword_from_post = "' . $keyword . '";' : '') . '
                     if (typeof sq_script === "undefined"){
                         var sq_script = document.createElement(\'script\');
-                        sq_script.src = "' . _SQ_STATIC_API_URL_ . SQ_URI . '/js/squirrly.js?ver=' . SQ_VERSION_ID . '";
+                        sq_script.src = "' . _SQ_STATIC_API_URL_ . SQ_URI . '/js/squirrly.js?ver=' . SQ_VERSION_ID . '2";
                         var site_head = document.getElementsByTagName ("head")[0] || document.documentElement;
                         site_head.insertBefore(sq_script, site_head.firstChild);
                     }
                     jQuery(document).ready(function() {
-                        jQuery("#sq_preloading").addClass("sq_loading").html("");
+                        jQuery("#sq_preloading").html("");
                     });
                   </script>';
         }

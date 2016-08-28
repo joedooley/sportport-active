@@ -6,7 +6,7 @@
     <?php
         if (get_transient('google_blocked') !== false) {
             echo '<div id="sq_posts_subtitle" style="font-size: 14px;color: red;padding: 0px;margin: 0 0 15px 0;text-align: center;line-height: 15px;">';
-            if (function_exists('curl_init') && !ini_get('safe_mode') && !ini_get('open_basedir')) {
+            if (function_exists('curl_init') && !ini_get('open_basedir')) {
                 echo sprintf(__('The IP %s is calling the rank too often and google stopped the calls for %s mins. Lower the Rank check rate in Squirrly > Settings > Rank Option. %sMore details%s', _SQ_PLUGIN_NAME_), @gethostbyname(gethostname()), (((get_transient('google_blocked')- time() + 3600) > 0) ?  date('i',(get_transient('google_blocked')- time() + 3600)) : 'an hour'),'<a href="http://howto.squirrly.co/wordpress-seo/could-not-receive-data-from-google-err-blocked-ip/" target="_blank" >','</a>');
             } else {
                 if (!function_exists('curl_init')) {

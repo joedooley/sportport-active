@@ -16,16 +16,6 @@ class SQ_Blocksearch extends SQ_BlockController {
                 SQ_Tools::saveOptions('sq_img_licence', SQ_Tools::getValue('licence'));
                 exit();
                 break;
-            case 'sq_search_img':
-
-                $get = array('q' => SQ_Tools::getValue('q'),
-                    'lang' => SQ_Tools::getValue('lang'),
-                    'start' => SQ_Tools::getValue('start'),
-                    'page' => SQ_Tools::getValue('page'),
-                    'nrb' => SQ_Tools::getValue('nrb')
-                );
-                echo $this->model->searchImage($get);
-                break;
             case 'sq_search_blog':
                 if (SQ_Tools::getValue('exclude') && SQ_Tools::getValue('exclude') <> 'undefined')
                     $exclude = array((int) SQ_Tools::getValue('exclude'));

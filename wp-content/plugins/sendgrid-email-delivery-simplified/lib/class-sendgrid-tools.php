@@ -6,7 +6,6 @@ class Sendgrid_Tools
   const CHECK_CREDENTIALS_CACHE_KEY = "sendgrid_credentials_check";
   const CHECK_API_KEY_CACHE_KEY = "sendgrid_api_key_check";
   const VALID_CREDENTIALS_STATUS = "valid";
-  const INVALID_CREDENTIALS_STATUS = "invalid";
 
   // used static variable because php 5.3 doesn't support array as constant
   public static $allowed_ports = array( Sendgrid_SMTP::TLS, Sendgrid_SMTP::TLS_ALTERNATIVE, Sendgrid_SMTP::SSL );
@@ -23,43 +22,45 @@ class Sendgrid_Tools
    */
   public static function check_username_password( $username, $password, $clear_cache = false )
   {
-    if ( !$username or !$password ) {
+    if ( ! $username or ! $password ) {
       return false;
     }
 
-    if ( $clear_cache ) {
-      wp_cache_delete( self::CHECK_CREDENTIALS_CACHE_KEY, self::CACHE_GROUP );
+    if ( $clear_cache and is_multisite() ) {
+      set_site_transient( self::CHECK_CREDENTIALS_CACHE_KEY, null );
+    } elseif ( $clear_cache ) {
+      set_transient( self::CHECK_CREDENTIALS_CACHE_KEY, null );
     }
 
-    $valid_username_password = wp_cache_get( self::CHECK_CREDENTIALS_CACHE_KEY, self::CACHE_GROUP );
+    $valid_username_password = get_transient( self::CHECK_CREDENTIALS_CACHE_KEY );
+    if ( is_multisite() ) {
+      $valid_username_password = get_site_transient( self::CHECK_CREDENTIALS_CACHE_KEY );
+    }
+
     if ( self::VALID_CREDENTIALS_STATUS == $valid_username_password ) {
       return true;
-    } elseif ( self::INVALID_CREDENTIALS_STATUS == $valid_username_password ) {
-      return false;
     }
 
     $url = 'https://api.sendgrid.com/api/profile.get.json?';
-    $url .= "api_user=" . urlencode($username) . "&api_key=" . urlencode($password);
+    $url .= "api_user=" . urlencode( $username ) . "&api_key=" . urlencode( $password );
 
     $response = wp_remote_get( $url, array( 'decompress' => false ) );
     
-    if ( ! is_array( $response ) or ! isset( $response['body'] ) )
-    {
-      wp_cache_set( self::CHECK_CREDENTIALS_CACHE_KEY, self::INVALID_CREDENTIALS_STATUS, self::CACHE_GROUP, 60 );
-
+    if ( ! is_array( $response ) or ! isset( $response['body'] ) ) {
       return false;
     }
 
     $response = json_decode( $response['body'], true );
 
-    if ( isset( $response['error'] ) )
-    {
-      wp_cache_set( self::CHECK_CREDENTIALS_CACHE_KEY, self::INVALID_CREDENTIALS_STATUS, self::CACHE_GROUP, 60 );
-
+    if ( isset( $response['error'] ) ) {
       return false;
     }
 
-    wp_cache_set( self::CHECK_CREDENTIALS_CACHE_KEY, self::VALID_CREDENTIALS_STATUS, self::CACHE_GROUP, 1800 );
+    if ( is_multisite() ) {
+      set_site_transient( self::CHECK_CREDENTIALS_CACHE_KEY, self::VALID_CREDENTIALS_STATUS, 2 * 60 * 60 );
+    } else {
+      set_transient( self::CHECK_CREDENTIALS_CACHE_KEY, self::VALID_CREDENTIALS_STATUS, 2 * 60 * 60 );
+    }
 
     return true;
   }
@@ -88,8 +89,6 @@ class Sendgrid_Tools
     $response = wp_remote_get( $url, $args );
 
     if ( ! is_array( $response ) or ! isset( $response['body'] ) ) {
-      wp_cache_set( self::CHECK_API_KEY_CACHE_KEY, self::INVALID_CREDENTIALS_STATUS, self::CACHE_GROUP, 60 );
-
       return false;
     }
 
@@ -99,14 +98,14 @@ class Sendgrid_Tools
       return false;
     }
 
-    if( ! isset( $response['scopes'] ) ) {
+    if ( ! isset( $response['scopes'] ) ) {
       return false;
     }
 
-    foreach( $scopes as $scope ) {
-        if( !in_array( $scope, $response['scopes'] ) ) {
-          return false;
-        }
+    foreach ( $scopes as $scope ) {
+      if ( ! in_array( $scope, $response['scopes'] ) ) {
+        return false;
+      }
     }
 
     return true;
@@ -125,24 +124,37 @@ class Sendgrid_Tools
       return false;
     }
 
-    if ( $clear_cache ) {
-      wp_cache_delete( self::CHECK_API_KEY_CACHE_KEY, self::CACHE_GROUP );
+    if ( $clear_cache and is_multisite() ) {
+      set_site_transient( self::CHECK_API_KEY_CACHE_KEY, null );
+    } elseif ( $clear_cache ) {
+      set_transient( self::CHECK_API_KEY_CACHE_KEY, null );
     }
 
-    $valid_apikey = wp_cache_get( self::CHECK_API_KEY_CACHE_KEY, self::CACHE_GROUP );
+    $valid_apikey = get_transient( self::CHECK_API_KEY_CACHE_KEY );
+    if ( is_multisite() ) {
+      $valid_apikey = get_site_transient( self::CHECK_API_KEY_CACHE_KEY );
+    }
+
     if ( self::VALID_CREDENTIALS_STATUS == $valid_apikey ) {
       return true;
-    } elseif ( self::INVALID_CREDENTIALS_STATUS == $valid_apikey ) {
+    }
+
+    // check unsubscribe group permission
+    if ( Sendgrid_Tools::check_api_key_scopes( $apikey, array( "asm.groups.read" ) ) ) {
+      update_option( 'sendgrid_asm_permission', 'true' );
+    } else {
+      update_option( 'sendgrid_asm_permission', 'false' ); 
+    }
+
+    if ( ! Sendgrid_Tools::check_api_key_scopes( $apikey, array( "mail.send" ) ) ) {
       return false;
     }
 
-    if( ! Sendgrid_Tools::check_api_key_scopes( $apikey, array( "mail.send" ) ) ) {
-      wp_cache_set( self::CHECK_API_KEY_CACHE_KEY, self::INVALID_CREDENTIALS_STATUS, self::CACHE_GROUP, 60 );
-
-      return false;
+    if ( is_multisite() ) {
+      set_site_transient( self::CHECK_API_KEY_CACHE_KEY, self::VALID_CREDENTIALS_STATUS, 2 * 60 * 60 );
+    } else {
+      set_transient( self::CHECK_API_KEY_CACHE_KEY, self::VALID_CREDENTIALS_STATUS, 2 * 60 * 60 );
     }
-
-    wp_cache_set( self::CHECK_API_KEY_CACHE_KEY, self::VALID_CREDENTIALS_STATUS, self::CACHE_GROUP, 1800 );
 
     return true;
   }
@@ -419,6 +431,20 @@ class Sendgrid_Tools
   }
 
   /**
+   * Return the value for the signup email contents (plain text) from the database or global variable
+   *
+   * @return  mixed   signup email contents - plain text, false if the value is not found
+   */
+  public static function get_mc_signup_email_content_text()
+  {
+    if ( defined( 'SENDGRID_MC_SIGNUP_EMAIL_CONTENT_TEXT' ) ) {
+      return SENDGRID_MC_SIGNUP_EMAIL_CONTENT_TEXT;
+    } else {
+      return get_option( 'sendgrid_mc_signup_email_content_text' );
+    }
+  }
+
+  /**
    * Return the value for the signup confirmation page from the database or global variable
    *
    * @return  mixed   signup confirmation page, false if the value is not found
@@ -568,6 +594,18 @@ class Sendgrid_Tools
   public static function set_mc_signup_email_content( $email_content )
   {
     return update_option( 'sendgrid_mc_signup_email_content', $email_content );
+  }
+
+  /**
+   * Sets the signup email contents (plain text) in the database
+   *
+   * @param   type  string  $email_content
+   *
+   * @return  bool
+   */
+  public static function set_mc_signup_email_content_text( $email_content )
+  {
+    return update_option( 'sendgrid_mc_signup_email_content_text', $email_content );
   }
 
   /**
@@ -770,8 +808,76 @@ class Sendgrid_Tools
     if ( defined( 'SENDGRID_CONTENT_TYPE' ) ) {
       return SENDGRID_CONTENT_TYPE;
     } else {
-      return get_option('sendgrid_content_type');
+      return get_option( 'sendgrid_content_type' );
     }
+  }
+
+  /**
+   * Sets the unsubscribe group in the database
+   *
+   * @param   type  string  $unsubscribe_group
+   *
+   * @return  bool
+   */
+  public static function set_unsubscribe_group( $unsubscribe_group )
+  {
+    return update_option( 'sendgrid_unsubscribe_group', $unsubscribe_group );
+  }
+
+  /**
+   * Return unsubscribe group from the database or global variable
+   *
+   * @return  mixed  unsubscribe group string, false if the value is not found
+   */
+  public static function get_unsubscribe_group()
+  {
+    if ( defined( 'SENDGRID_UNSUBSCRIBE_GROUP' ) ) {
+      return SENDGRID_UNSUBSCRIBE_GROUP;
+    } else {
+      return get_option( 'sendgrid_unsubscribe_group' );
+    }
+  }
+
+  /**
+   * Get asm_permission value from db
+   *
+   * @return  mixed  asm_permission value
+   */
+  public static function get_asm_permission()
+  {
+    return get_option( 'sendgrid_asm_permission' );
+  }
+
+  /**
+   * Returns the unsubscribe groups from SendGrid
+   *
+   * @return  mixed   an array of groups if the request is successful, false otherwise.
+   */
+  public static function get_all_unsubscribe_groups()
+  {
+    $url = 'v3/asm/groups';
+
+    $parameters['auth_method']    = Sendgrid_Tools::get_auth_method();
+    $parameters['api_username']   = Sendgrid_Tools::get_username();
+    $parameters['api_password']   = Sendgrid_Tools::get_password();
+    $parameters['apikey']         = Sendgrid_Tools::get_api_key();
+
+    if ( ( 'apikey' == $parameters['auth_method'] ) and ( 'true' != self::get_asm_permission() ) ) {
+      return false;  
+    }
+
+    $response = Sendgrid_Tools::do_request( $url, $parameters );
+
+    if ( ! $response ) {
+      return false;
+    }
+
+    $response = json_decode( $response, true );
+    if ( isset( $response['error'] ) or ( isset( $response['errors'] ) and isset( $response['errors'][0]['message'] ) ) ) {
+      return false;
+    }
+
+    return $response;
   }
 
   /**
@@ -843,7 +949,11 @@ class Sendgrid_Tools
    */
   public static function is_valid_email( $email )
   {
-    return filter_var( $email, FILTER_VALIDATE_EMAIL );
+    if ( filter_var( $email, FILTER_VALIDATE_EMAIL ) and ( SendGrid_ThirdParty::is_email( $email ) ) ) {
+      return true;
+    }
+
+    return false;
   }
 
   /**
@@ -970,6 +1080,10 @@ function unregister_sendgrid_widgets() {
  * @return void
  */
 function sg_subscription_widget_admin_notice() {
+  if( ! current_user_can('manage_options') ) {
+    return;
+  }
+
   echo '<div class="notice notice-success">';
   echo '<p>';
   echo _e( 'Check out the new SendGrid Subscription Widget! See the SendGrid Plugin settings page in order to configure it.' );

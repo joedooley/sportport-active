@@ -128,12 +128,11 @@ class OMAPI_Api {
 		    $body['omapi-data'] = maybe_serialize( $this->additional_data );
 	    }
 
-        $body = http_build_query( $body, '', '&' );
+        $string = http_build_query( $body, '', '&' );
 
         // Build the headers of the request.
         $headers = array(
             'Content-Type'   => 'application/x-www-form-urlencoded',
-            'Content-Length' => strlen( $body ),
             'Cache-Control'  => 'no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0',
             'Pragma'		 => 'no-cache',
             'Expires'		 => 0,
@@ -150,10 +149,10 @@ class OMAPI_Api {
         );
 
         // Perform the query and retrieve the response.
-        $response      = 'GET' == $this->method ? wp_remote_get( esc_url_raw( $this->url ) . '?' . $body, $data ) : wp_remote_post( esc_url_raw( $this->url ), $data );
+        $response      = 'GET' == $this->method ? wp_remote_get( esc_url_raw( $this->url ) . '?' . $string, $data ) : wp_remote_post( esc_url_raw( $this->url ), $data );
         $response_code = wp_remote_retrieve_response_code( $response );
         $response_body = json_decode( wp_remote_retrieve_body( $response ) );
-        // return new WP_Error( 'debug', '<pre>' . var_export( $response, true ) . '</pre>' );
+        //return new WP_Error( 'debug', '<pre>' . var_export( $response, true ) . '</pre>' );
 
         // Bail out early if there are any errors.
         if ( is_wp_error( $response_body ) ) {

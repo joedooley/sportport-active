@@ -40,10 +40,10 @@ class Model_SQ_PostsList {
             foreach ($this->audit->content as $key => $audit) {
                 $group[$key]['name'] = $key;
                 if (!empty($audit)) {
+
                     $group[$key]['total'] = 0;
                     $group[$key]['complete'] = 0;
                     $group[$key]['processed'] = 0;
-
                     foreach ($audit as $task) {
                         @$group[$key]['total'] = number_format_i18n($task->total);
                         @$group[$key]['complete'] += ($task->complete) ? 1 : 0;
@@ -76,6 +76,7 @@ class Model_SQ_PostsList {
                     //if the post its just indexed with the url then is not so good
                     if ($key == 'rank' && (int) $group[$key]['total'] == 0) {
                         $color = 'sq_audit_task_completed_yellow';
+                        $group[$key]['total'] = 'N/A';
                     }
 
                     if ($key == 'rank') {
@@ -95,6 +96,7 @@ class Model_SQ_PostsList {
                     }
                     @$group[$key]['tooltip'] = $total_tooltip;
                     @$group[$key]['color'] = $color;
+
                 }
             }
             $this->audit->groups = json_decode(json_encode($group));

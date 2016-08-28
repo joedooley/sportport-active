@@ -33,29 +33,30 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
     public function action() {
         parent::action();
 
-        if (!current_user_can('manage_options')){
-            return;
-        }
 
         switch (SQ_Tools::getValue('action')) {
 
             case 'sq_settingsseo_update':
+                if (!current_user_can('manage_options')) {
+                    return;
+                }
+
                 if (!SQ_Tools::getIsset('sq_use')) {
                     return;
                 }
 
-                SQ_Tools::saveOptions('sq_use', (int) SQ_Tools::getValue('sq_use'));
-                SQ_Tools::saveOptions('sq_auto_title', (int) SQ_Tools::getValue('sq_auto_title'));
-                SQ_Tools::saveOptions('sq_auto_description', (int) SQ_Tools::getValue('sq_auto_description'));
-                SQ_Tools::saveOptions('sq_auto_canonical', (int) SQ_Tools::getValue('sq_auto_canonical'));
+                SQ_Tools::saveOptions('sq_use', (int)SQ_Tools::getValue('sq_use'));
+                SQ_Tools::saveOptions('sq_auto_title', (int)SQ_Tools::getValue('sq_auto_title'));
+                SQ_Tools::saveOptions('sq_auto_description', (int)SQ_Tools::getValue('sq_auto_description'));
+                SQ_Tools::saveOptions('sq_auto_canonical', (int)SQ_Tools::getValue('sq_auto_canonical'));
 
-                SQ_Tools::saveOptions('sq_auto_meta', (int) SQ_Tools::getValue('sq_auto_meta'));
-                SQ_Tools::saveOptions('sq_auto_favicon', (int) SQ_Tools::getValue('sq_auto_favicon'));
+                SQ_Tools::saveOptions('sq_auto_meta', (int)SQ_Tools::getValue('sq_auto_meta'));
+                SQ_Tools::saveOptions('sq_auto_favicon', (int)SQ_Tools::getValue('sq_auto_favicon'));
 
                 ///////////////////////////////////////////
                 /////////////////////////////SOCIAL OPTION
-                SQ_Tools::saveOptions('sq_auto_facebook', (int) SQ_Tools::getValue('sq_auto_facebook'));
-                SQ_Tools::saveOptions('sq_auto_twitter', (int) SQ_Tools::getValue('sq_auto_twitter'));
+                SQ_Tools::saveOptions('sq_auto_facebook', (int)SQ_Tools::getValue('sq_auto_facebook'));
+                SQ_Tools::saveOptions('sq_auto_twitter', (int)SQ_Tools::getValue('sq_auto_twitter'));
                 SQ_Tools::saveOptions('sq_auto_twittersize', SQ_Tools::getValue('sq_auto_twittersize'));
                 SQ_Tools::saveOptions('sq_og_locale', SQ_Tools::getValue('sq_og_locale'));
 
@@ -92,10 +93,10 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
 
                 ///////////////////////////////////////////
                 /////////////////////////////SITEMAP OPTION
-                SQ_Tools::saveOptions('sq_auto_sitemap', (int) SQ_Tools::getValue('sq_auto_sitemap'));
-                SQ_Tools::saveOptions('sq_auto_feed', (int) SQ_Tools::getValue('sq_auto_feed'));
+                SQ_Tools::saveOptions('sq_auto_sitemap', (int)SQ_Tools::getValue('sq_auto_sitemap'));
+                SQ_Tools::saveOptions('sq_auto_feed', (int)SQ_Tools::getValue('sq_auto_feed'));
                 SQ_Tools::saveOptions('sq_sitemap_frequency', SQ_Tools::getValue('sq_sitemap_frequency'));
-                SQ_Tools::saveOptions('sq_sitemap_ping', (int) SQ_Tools::getValue('sq_sitemap_ping'));
+                SQ_Tools::saveOptions('sq_sitemap_ping', (int)SQ_Tools::getValue('sq_sitemap_ping'));
 
                 foreach (SQ_Tools::$options['sq_sitemap'] as $key => $value) {
                     if ($key == 'sitemap') {
@@ -129,17 +130,23 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
 
                 SQ_Tools::saveOptions('sq_google_analytics', $this->model->checkGoogleAnalyticsCode(SQ_Tools::getValue('sq_google_analytics', '', true)));
                 SQ_Tools::saveOptions('sq_facebook_insights', $this->model->checkFavebookInsightsCode(SQ_Tools::getValue('sq_facebook_insights', '', true)));
+                SQ_Tools::saveOptions('sq_facebook_analytics', SQ_Tools::getValue('sq_facebook_analytics', ''));
                 SQ_Tools::saveOptions('sq_pinterest', $this->model->checkPinterestCode(SQ_Tools::getValue('sq_pinterest', '', true)));
 
                 ///////////////////////////////////////////JSONLD
 
-                SQ_Tools::saveOptions('sq_auto_jsonld', (int) SQ_Tools::getValue('sq_auto_jsonld'));
+                SQ_Tools::saveOptions('sq_auto_jsonld', (int)SQ_Tools::getValue('sq_auto_jsonld'));
                 if (SQ_Tools::getIsset('sq_jsonld_type') && isset(SQ_Tools::$options['sq_jsonld'][SQ_Tools::getValue('sq_jsonld_type')])) {
 
                     foreach (SQ_Tools::$options['sq_jsonld'][SQ_Tools::getValue('sq_jsonld_type')] as $key => $value) {
                         if (isset(SQ_Tools::$options['sq_jsonld'][SQ_Tools::getValue('sq_jsonld_type')][$key])) {
                             SQ_Tools::$options['sq_jsonld'][SQ_Tools::getValue('sq_jsonld_type')][$key] = SQ_Tools::getValue('sq_jsonld_' . $key);
                         }
+                    }
+                    if (isset(SQ_Tools::$options['sq_jsonld'][SQ_Tools::getValue('sq_jsonld_type')]['telephone']) &&
+                        SQ_Tools::$options['sq_jsonld'][SQ_Tools::getValue('sq_jsonld_type')]['telephone'] <> ''
+                    ) {
+                        SQ_Tools::$options['sq_jsonld'][SQ_Tools::getValue('sq_jsonld_type')]['telephone'] = '+' . SQ_Tools::$options['sq_jsonld'][SQ_Tools::getValue('sq_jsonld_type')]['telephone'];
                     }
                 }
                 SQ_Tools::saveOptions('sq_jsonld_type', SQ_Tools::getValue('sq_jsonld_type'));
@@ -171,6 +178,10 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
                 SQ_Tools::emptyCache();
                 break;
             case 'sq_checkissues':
+                if (!current_user_can('manage_options')) {
+                    return;
+                }
+
                 SQ_Tools::saveOptions('sq_checkedissues', 1);
                 SQ_Action::apiCall('sq/user/settings', array('settings' => json_encode(SQ_Tools::getBriefOptions())), 10);
 
@@ -179,21 +190,37 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
 
                 break;
             case 'sq_fixautoseo':
+                if (!current_user_can('manage_options')) {
+                    return;
+                }
+
                 SQ_Tools::saveOptions('sq_use', 1);
                 SQ_Action::apiCall('sq/user/settings', array('settings' => json_encode(SQ_Tools::getBriefOptions())), 10);
 
                 break;
             case 'sq_fixprivate':
+                if (!current_user_can('manage_options')) {
+                    return;
+                }
+
                 update_option('blog_public', 1);
                 SQ_Action::apiCall('sq/user/settings', array('settings' => json_encode(SQ_Tools::getBriefOptions())), 10);
 
                 break;
             case 'sq_fixcomments':
+                if (!current_user_can('manage_options')) {
+                    return;
+                }
+
                 update_option('comments_notify', 1);
                 SQ_Action::apiCall('sq/user/settings', array('settings' => json_encode(SQ_Tools::getBriefOptions())), 10);
 
                 break;
             case 'sq_fixpermalink':
+                if (!current_user_can('manage_options')) {
+                    return;
+                }
+
                 $GLOBALS['wp_rewrite'] = new WP_Rewrite();
                 global $wp_rewrite;
                 $permalink_structure = ((get_option('permalink_structure') <> '') ? get_option('permalink_structure') : '/') . "%postname%/";
@@ -203,31 +230,55 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
                 flush_rewrite_rules();
                 break;
             case 'sq_fix_ogduplicate':
+                if (!current_user_can('manage_options')) {
+                    return;
+                }
+
                 SQ_Tools::saveOptions('sq_auto_facebook', 0);
                 SQ_Action::apiCall('sq/user/settings', array('settings' => json_encode(SQ_Tools::getBriefOptions())), 10);
 
                 break;
             case 'sq_fix_tcduplicate':
+                if (!current_user_can('manage_options')) {
+                    return;
+                }
+
                 SQ_Tools::saveOptions('sq_auto_twitter', 0);
                 SQ_Action::apiCall('sq/user/settings', array('settings' => json_encode(SQ_Tools::getBriefOptions())), 10);
 
                 break;
             case 'sq_fix_titleduplicate':
+                if (!current_user_can('manage_options')) {
+                    return;
+                }
+
                 SQ_Tools::saveOptions('sq_auto_title', 0);
                 SQ_Tools::saveOptions('sq_auto_seo', 1);
                 SQ_Action::apiCall('sq/user/settings', array('settings' => json_encode(SQ_Tools::getBriefOptions())), 10);
 
                 break;
             case 'sq_fix_descduplicate':
+                if (!current_user_can('manage_options')) {
+                    return;
+                }
+
                 SQ_Tools::saveOptions('sq_auto_description', 0);
                 SQ_Tools::saveOptions('sq_auto_seo', 1);
                 SQ_Action::apiCall('sq/user/settings', array('settings' => json_encode(SQ_Tools::getBriefOptions())), 10);
 
                 break;
             case 'sq_active_help' :
+                if (!current_user_can('manage_options')) {
+                    return;
+                }
+
                 SQ_Tools::saveOptions('active_help', SQ_Tools::getValue('active_help'));
                 break;
             case 'sq_warnings_off':
+                if (!current_user_can('manage_options')) {
+                    return;
+                }
+
                 SQ_Tools::saveOptions('ignore_warn', 1);
                 break;
             case 'sq_get_snippet':
@@ -243,6 +294,10 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
                 echo json_encode($snippet);
                 exit();
             case 'sq_backup':
+                if (!current_user_can('manage_options')) {
+                    return;
+                }
+
                 SQ_Tools::setHeader('text');
                 header("Content-Disposition: attachment; filename=squirrly.txt");
 
@@ -254,6 +309,10 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
                 exit();
                 break;
             case 'sq_restore':
+                if (!current_user_can('manage_options')) {
+                    return;
+                }
+
                 if (!empty($_FILES['sq_options']) && $_FILES['sq_options']['tmp_name'] <> '') {
                     $options = file_get_contents($_FILES['sq_options']['tmp_name']);
                     try {
@@ -295,7 +354,7 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
                 $rules['favicon\.icon$'] = 'index.php?sq_get=favicon';
                 $rules['touch-icon\.png$'] = 'index.php?sq_get=touchicon';
                 foreach ($this->model->appleSizes as $size) {
-                    $size = (int) $size;
+                    $size = (int)$size;
                     $rules['touch-icon' . $size . '\.png$'] = 'index.php?sq_get=touchicon&sq_size=' . $size;
                 }
             }
