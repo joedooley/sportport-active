@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Animoto Video SEO Details
  *
  * @todo Add support for video214.com domain which is also used by Animoto
@@ -39,7 +40,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "cache_age":{},
  *    "icon_width":54
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Animoto' ) ) {
 
 	/**
@@ -74,13 +75,13 @@ if ( ! class_exists( 'WPSEO_Video_Details_Animoto' ) ) {
 		 *
 		 * Adjust the video url before passing off to the parent constructor
 		 *
-		 * @param array  $vid     The video array with all the data.
-		 * @param array  $old_vid The video array with all the data of the previous "fetch", if available.
+		 * @param array $vid     The video array with all the data.
+		 * @param array $old_vid The video array with all the data of the previous "fetch", if available.
 		 *
 		 * @return \WPSEO_Video_Details_Animoto
 		 */
 		public function __construct( $vid, $old_vid = array() ) {
-			if ( ! empty ( $vid['url'] ) ) {
+			if ( ! empty( $vid['url'] ) ) {
 				if ( preg_match( '`http://static\.animoto\.com/swf/.*?&f=([^&]+)`', $vid['url'], $match ) ) {
 					$vid['url'] = sprintf( $this->url_template, rawurlencode( $match[1] ) );
 				}
@@ -97,7 +98,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Animoto' ) ) {
 				$this->vid['player_loc'] = $this->decoded_response->video_url;
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

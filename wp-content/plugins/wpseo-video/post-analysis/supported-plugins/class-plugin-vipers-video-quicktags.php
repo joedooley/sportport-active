@@ -5,21 +5,21 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit();
 }
 
-
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the Viper's Video Quicktags plugin
  *
- * @see http://wordpress.org/extend/plugins/vipers-video-quicktags/
+ * @see      http://wordpress.org/extend/plugins/vipers-video-quicktags/
  *
  * @internal Last update: July 2014 based upon v 6.5.2
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Vipers_Video_Quicktags' ) ) {
 
 	/**
@@ -28,36 +28,34 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Vipers_Video_Quicktags' ) ) {
 	class WPSEO_Video_Plugin_Vipers_Video_Quicktags extends WPSEO_Video_Supported_Plugin {
 
 		/**
-		 * @var array $shortcodes_to_add  Shortcodes added by this plugin
+		 * @var array $shortcodes_to_add Shortcodes added by this plugin
 		 */
 		private $shortcodes_to_add = array(
 			'youtube',
 			'googlevideo',
-			'gvideo', // Not the preferred format
+			'gvideo',
 			'dailymotion',
 			'vimeo',
 			'veoh',
 			'viddler',
 			'metacafe',
 			'blip.tv',
-			'bliptv', // Not the preferred format
-			'flickr video', // WordPress.com
-			'flickrvideo', // Normal format
+			'bliptv',
+			'flickr video',
+			'flickrvideo',
 			'ifilm',
 			'spike',
 			'myspace',
-			// @internal As stage6 is dead, *we* don't need to handle it
-			//'stage6', // Stage6 = dead, but we still need to handle it
 			'flv',
 			'quicktime',
 			'flash',
 			'videofile',
-			'video', // Legacy
-			'avi', // Legacy
-			'mpeg', // Legacy
-			'wmv', // Legacy
+			// Legacy.
+			'video',
+			'avi',
+			'mpeg',
+			'wmv',
 		);
-
 
 		/**
 		 * Conditionally add plugin features to analyse for video content
@@ -66,12 +64,12 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Vipers_Video_Quicktags' ) ) {
 			if ( class_exists( 'VipersVideoQuicktags' ) ) {
 				$this->shortcodes = $this->shortcodes_to_add;
 
-				// Anarchy Media Plugin / Kimili Flash Embed support but only if those plugins aren't enabled
+				// Anarchy Media Plugin / Kimili Flash Embed support but only if those plugins aren't enabled.
 				if ( ! class_exists( 'KimiliFlashEmbed' ) && ! function_exists( 'kml_flashembed' ) && ! isset( $shortcode_tags['kml_flashembed'] ) ) {
 					$this->shortcodes[] = 'kml_flashembed';
 				}
 
-				// VideoPress support but only if the official plugin isn't installed
+				// VideoPress support but only if the official plugin isn't installed.
 				if ( ! function_exists( 'videopress_shortcode' ) && ! isset( $shortcode_tags['wpvideo'] ) ) {
 					$this->shortcodes[] = 'wpvideo';
 				}
@@ -82,12 +80,12 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Vipers_Video_Quicktags' ) ) {
 		/**
 		 * Analyse a video shortcode from the plugin for usable video information
 		 *
-		 * @param  string  $full_shortcode Full shortcode as found in the post content
-		 * @param  string  $sc             Shortcode found
-		 * @param  array   $atts           Shortcode attributes - already decoded if needed
-		 * @param  string  $content        The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
-		 * @return array   An array with the usable information found or else an empty array
+		 * @return array   An array with the usable information found or else an empty array.
 		 */
 		public function get_info_from_shortcode( $full_shortcode, $sc, $atts = array(), $content = '' ) {
 			$vid = array();
@@ -108,8 +106,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Vipers_Video_Quicktags' ) ) {
 					break;
 
 				case 'viddler':
-					// Deal with wp.com format
-					// [viddler id=fad7437b&w=437&h=370][/viddler]
+					// Deal with wp.com format: [viddler id=fad7437b&w=437&h=370][/viddler].
 					if ( preg_match( '`id=["\']?([^&"\'\]\s]+)`i', $full_shortcode, $match ) ) {
 						$vid['id'] = $match[1];
 						if ( preg_match( '`(?:&|&#038;|&amp;)w=([0-9]+)`', $full_shortcode, $hmatch ) ) {
@@ -124,7 +121,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Vipers_Video_Quicktags' ) ) {
 
 				default:
 					if ( is_string( $content ) && $content !== '' ) {
-						// Is it a url or an id ?
+						// Is it a url or an id.
 						if ( strpos( $content, 'http' ) === 0 || strpos( $content, '//' ) === 0 ) {
 							$vid['url'] = $content;
 						}
@@ -152,13 +149,13 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Vipers_Video_Quicktags' ) ) {
 					$vid['maybe_local'] = true;
 				}
 
-				// Allow other plugins to modify the attributes (for example based on conditionals)
+				// Allow other plugins to modify the attributes (for example based on conditionals).
 				$atts = apply_filters( 'vvq_shortcodeatts', $atts, $sc, $atts );
 
-				// Width/height for video services without detail retrieval
+				// Width/height for video services without detail retrieval.
 				$vid = $this->maybe_get_dimensions( $vid, $atts, true );
 
-				// Quicktime thumbnail image
+				// Quicktime thumbnail image.
 				if ( $sc === 'quicktime' && ( isset( $atts['useplaceholder'] ) && $atts['useplaceholder'] == 1 ) ) {
 					$vid['thumbnail_loc'] = str_replace( '.mov', '.jpg', $content );
 				}
@@ -169,7 +166,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Vipers_Video_Quicktags' ) ) {
 
 
 		/**
-		 * Determine the video type to set based on the shortcode found
+		 * Determine the video type to set based on the Shortcode found.
 		 *
 		 * @todo: figure out what the service type should be for the below shortcodes
 		 *  'myspace'
@@ -182,12 +179,12 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Vipers_Video_Quicktags' ) ) {
 		 *  'wmv'
 		 *  'kml_flashembed'
 		 *
-		 * @param  string $sc  Shortcode
+		 * @param  string $sc Shortcode.
 		 *
 		 * @return string      Video type
 		 */
 		protected function determine_type_from_shortcode( $sc ) {
-			// Deal with non-standard service names
+			// Deal with non-standard service names.
 			switch ( $sc ) {
 				case 'gvideo':
 					$type = 'googlevideo';
@@ -218,7 +215,6 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Vipers_Video_Quicktags' ) ) {
 
 			return $type;
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

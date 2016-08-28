@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,13 +13,14 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Muzu.tv Video SEO Details
  *
  * @see http://www.muzu.tv/api/
  *
  * Full remote response (XML) format [2014/7/22] - see below class.
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Muzutv' ) ) {
 
 	/**
@@ -31,11 +32,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Muzutv' ) ) {
 		 * @var	string	Regular expression to retrieve a video id from a known video url
 		 */
 		protected $id_regex = '`[/\.]muzu\.tv/(?:[^/]*/)*([0-9]+)(?:$|[/#\?])`';
-
-		/**
-		 * @var	string	Sprintf template to create a url from an id
-		 */
-		//protected $url_template = '';
 
 		/**
 		 * @var	array	Information on the remote url to use for retrieving the video details
@@ -119,7 +115,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Muzutv' ) ) {
 				$this->vid['width'] = (string) $this->decoded_response->content->attributes()->width;
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */
@@ -129,62 +124,62 @@ if ( ! class_exists( 'WPSEO_Video_Details_Muzutv' ) ) {
  *
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:muzu="http://www.muzu.tv/schemas/muzu/1.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:av="http://www.searchvideo.com/schemas/av/1.0">
-  <channel>
-    <title>Sean Paul, Beenie Man - Greatest Gallis</title>
-    <link>http://www.muzu.tv/sean-paul-beenie-man/greatest-gallis-music-video/1847016/</link>
-    <description></description>
-    <image>
-      <url>http://static.muzu.tv/media/images/001/847/016/001/1847016-thb3.jpg</url>
-      <title>Sean Paul, Beenie Man - Greatest Gallis</title>
-      <link>http://www.muzu.tv/sean-paul-beenie-man/greatest-gallis-music-video/1847016/</link>
-    </image>
-    <language>en-gb</language>
-    <item>
-      <title>
-        <![CDATA[Greatest Gallis]]>
-      </title>
-      <link>http://www.muzu.tv/sean-paul-beenie-man/greatest-gallis-music-video/1847016/</link>
-      <guid isPermaLink="false">MUZU:1847016</guid>
-      <pubDate>Tue, 23 Apr 2013 00:00:00 0000</pubDate>
-      <media:title>
-        <![CDATA[Sean Paul, Beenie Man - Greatest Gallis]]>
-      </media:title>
-      <media:description>
-        <![CDATA[Watch the official Greatest Gallis video by Sean Paul, Beenie Man in HD on WWW.MUZU.TV and check out the latest new music releases and playlists for free.]]>
-      </media:description>
-      <media:keywords>
-        <![CDATA[dancehall,sean paul  beenie man,greatest gallis]]>
-      </media:keywords>
-      <media:copyright>
-        <![CDATA[]]>
-      </media:copyright>
-      <media:content duration="191" medium="video" url="http://player.muzu.tv/player/getPlayer/i/291254/vidId=1847016&amp;la=n" type="application/x-shockwave-flash" bitrate="750" height="360" width="640"/>
-      <media:thumbnail url="http://static.muzu.tv/media/images/001/847/016/001/1847016-thb5.jpg" height="90" width="160"/>
-      <media:thumbnail url="http://static.muzu.tv/media/images/001/847/016/001/1847016-thb3.jpg" height="120" width="160"/>
-      <media:thumbnail url="http://static.muzu.tv/media/images/001/847/016/001/1847016-thb6.jpg" height="162" width="288"/>
-      <media:thumbnail url="http://static.muzu.tv/media/images/001/847/016/001/1847016-thb1.jpg" height="63" width="112"/>
-      <media:thumbnail url="http://static.muzu.tv/media/images/001/847/016/001/1847016-thb2.jpg" height="360" width="640"/>
-      <media:player url="http://www.muzu.tv/sean-paul-beenie-man/greatest-gallis-music-video/1847016/"/>
-      <media:credit role="artist">
-        <![CDATA[Sean Paul, Beenie Man]]>
-      </media:credit>
-      <media:credit role="distribution company">
-        <![CDATA[Gutty Bling Records / Claims Records]]>
-      </media:credit>
-      <media:category scheme="http://search.yahoo.com/mrss/category_schema">
-        <![CDATA[music/Sean Paul, Beenie Man/Greatest Gallis]]>
-      </media:category>
-      <muzu:video>
-        <muzu:info hdVersion="1" videotype="1" artistid="70139" sourceid="291254" uploaded="17-Apr-2013" mbid="" advisory="false" id="1847016" views="13727" isrc="USQY51364239" ownerid="52429" genre="Dancehall" upc="" sdVersion="1" keywords=""/>
-        <muzu:versions v240p="true" ss="true" audioonly="false" v1080p="false" hls="false" v360p="true" v480p="true" v720p="true" mobileallowed="true"/>
-        <muzu:channel vanity="sean-paul-beenie-man" name="Sean Paul, Beenie Man" url="http://www.muzu.tv/sean-paul-beenie-man/" labelvanity="ingroovesrecords"/>
-      </muzu:video>
-      <media:rating scheme="urn:simple">nonadult</media:rating>
-      <media:restriction relationship="allow" type="country">DE DK US ES GB FR FI AT AR AU PT BR CA BE SE CH CO MX NL NZ NO IE IT</media:restriction>
-      <av:videoPlayerEmbedTag>
-        <![CDATA[<iframe frameborder="0" width="640" height="366" src="//player.muzu.tv/player/getPlayer/i/291254/?vidId=1847016&la=n" allowfullscreen></iframe>]]>
-      </av:videoPlayerEmbedTag>
-    </item>
-  </channel>
+	<channel>
+	<title>Sean Paul, Beenie Man - Greatest Gallis</title>
+	<link>http://www.muzu.tv/sean-paul-beenie-man/greatest-gallis-music-video/1847016/</link>
+	<description></description>
+	<image>
+	  <url>http://static.muzu.tv/media/images/001/847/016/001/1847016-thb3.jpg</url>
+	  <title>Sean Paul, Beenie Man - Greatest Gallis</title>
+	  <link>http://www.muzu.tv/sean-paul-beenie-man/greatest-gallis-music-video/1847016/</link>
+	</image>
+	<language>en-gb</language>
+	<item>
+	  <title>
+		<![CDATA[Greatest Gallis]]>
+	  </title>
+	  <link>http://www.muzu.tv/sean-paul-beenie-man/greatest-gallis-music-video/1847016/</link>
+	  <guid isPermaLink="false">MUZU:1847016</guid>
+	  <pubDate>Tue, 23 Apr 2013 00:00:00 0000</pubDate>
+	  <media:title>
+		<![CDATA[Sean Paul, Beenie Man - Greatest Gallis]]>
+	  </media:title>
+	  <media:description>
+		<![CDATA[Watch the official Greatest Gallis video by Sean Paul, Beenie Man in HD on WWW.MUZU.TV and check out the latest new music releases and playlists for free.]]>
+	  </media:description>
+	  <media:keywords>
+		<![CDATA[dancehall,sean paul  beenie man,greatest gallis]]>
+	  </media:keywords>
+	  <media:copyright>
+		<![CDATA[]]>
+	  </media:copyright>
+	  <media:content duration="191" medium="video" url="http://player.muzu.tv/player/getPlayer/i/291254/vidId=1847016&amp;la=n" type="application/x-shockwave-flash" bitrate="750" height="360" width="640"/>
+	  <media:thumbnail url="http://static.muzu.tv/media/images/001/847/016/001/1847016-thb5.jpg" height="90" width="160"/>
+	  <media:thumbnail url="http://static.muzu.tv/media/images/001/847/016/001/1847016-thb3.jpg" height="120" width="160"/>
+	  <media:thumbnail url="http://static.muzu.tv/media/images/001/847/016/001/1847016-thb6.jpg" height="162" width="288"/>
+	  <media:thumbnail url="http://static.muzu.tv/media/images/001/847/016/001/1847016-thb1.jpg" height="63" width="112"/>
+	  <media:thumbnail url="http://static.muzu.tv/media/images/001/847/016/001/1847016-thb2.jpg" height="360" width="640"/>
+	  <media:player url="http://www.muzu.tv/sean-paul-beenie-man/greatest-gallis-music-video/1847016/"/>
+	  <media:credit role="artist">
+		<![CDATA[Sean Paul, Beenie Man]]>
+	  </media:credit>
+	  <media:credit role="distribution company">
+		<![CDATA[Gutty Bling Records / Claims Records]]>
+	  </media:credit>
+	  <media:category scheme="http://search.yahoo.com/mrss/category_schema">
+		<![CDATA[music/Sean Paul, Beenie Man/Greatest Gallis]]>
+	  </media:category>
+	  <muzu:video>
+		<muzu:info hdVersion="1" videotype="1" artistid="70139" sourceid="291254" uploaded="17-Apr-2013" mbid="" advisory="false" id="1847016" views="13727" isrc="USQY51364239" ownerid="52429" genre="Dancehall" upc="" sdVersion="1" keywords=""/>
+		<muzu:versions v240p="true" ss="true" audioonly="false" v1080p="false" hls="false" v360p="true" v480p="true" v720p="true" mobileallowed="true"/>
+		<muzu:channel vanity="sean-paul-beenie-man" name="Sean Paul, Beenie Man" url="http://www.muzu.tv/sean-paul-beenie-man/" labelvanity="ingroovesrecords"/>
+	  </muzu:video>
+	  <media:rating scheme="urn:simple">nonadult</media:rating>
+	  <media:restriction relationship="allow" type="country">DE DK US ES GB FR FI AT AR AU PT BR CA BE SE CH CO MX NL NZ NO IE IT</media:restriction>
+	  <av:videoPlayerEmbedTag>
+		<![CDATA[<iframe frameborder="0" width="640" height="366" src="//player.muzu.tv/player/getPlayer/i/291254/?vidId=1847016&la=n" allowfullscreen></iframe>]]>
+	  </av:videoPlayerEmbedTag>
+	</item>
+	</channel>
 </rss>
  */

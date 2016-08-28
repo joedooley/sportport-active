@@ -97,7 +97,7 @@ class WPSEO_Social_Previews {
 	 * Register the required assets.
 	 */
 	private function register_assets() {
-		wp_register_script( 'yoast-social-preview', plugin_dir_url( WPSEO_PREMIUM_FILE ) . '/assets/js/yoast-premium-social-preview' . WPSEO_CSSJS_SUFFIX . '.js', array(
+		wp_register_script( 'yoast-social-preview', plugin_dir_url( WPSEO_PREMIUM_FILE ) . '/assets/js/yoast-premium-social-preview-340' . WPSEO_CSSJS_SUFFIX . '.js', array(
 			'jquery',
 			'jquery-ui-core',
 		), WPSEO_VERSION );
@@ -106,8 +106,8 @@ class WPSEO_Social_Previews {
 
 		$deps = array( WPSEO_Admin_Asset_Manager::PREFIX . 'metabox-css' );
 
-		wp_register_style( 'yoast-social-preview-css', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/dist/social_preview/yoast-social-preview.min.css', $deps, WPSEO_VERSION );
-		wp_register_style( 'yoast-premium-social-preview', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/css/premium-social-preview.min.css', $deps, WPSEO_VERSION );
+		wp_register_style( 'yoast-social-preview-css', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/dist/social_preview/yoast-social-preview-' . '340' . '.min.css', $deps, WPSEO_VERSION );
+		wp_register_style( 'yoast-premium-social-preview', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/css/premium-social-preview-' . '340' . '.min.css', $deps, WPSEO_VERSION );
 	}
 
 	/**
@@ -125,20 +125,13 @@ class WPSEO_Social_Previews {
 		$social = WPSEO_Social_Admin::$meta_fields['social'];
 
 		return array(
-			'website'              => $this->get_website(),
-			'uploadImage'          => __( 'Upload image', 'wordpress-seo-premium' ),
-			'useOtherImage'      => __( 'Use other image', 'wordpress-seo-premium' ),
-			'removeImageButton'    => __( 'Remove image', 'wordpress-seo-premium' ),
-			'facebookDefaultImage' => $options['og_default_image'],
-			'i18n'                 => array(
-				'help'       => array(
-					'facebookTitle'       => $social['opengraph-title']['description'],
-					'facebookDescription' => $social['opengraph-description']['description'],
-					'facebookImage'       => $social['opengraph-image']['description'],
-					'twitterTitle'        => $social['twitter-title']['description'],
-					'twitterDescription'  => $social['twitter-description']['description'],
-					'twitterImage'        => $social['twitter-image']['description'],
-				),
+			'website'               => $this->get_website(),
+			'uploadImage'           => __( 'Upload image', 'wordpress-seo-premium' ),
+			'useOtherImage'         => __( 'Use other image', 'wordpress-seo-premium' ),
+			'removeImageButton'     => __( 'Remove image', 'wordpress-seo-premium' ),
+			'facebookDefaultImage'  => $options['og_default_image'],
+			'i18n' => array(
+				'help' => $this->get_help_translations( $social ),
 				'helpButton' => array(
 					'facebookTitle'       => __( 'Show information about Facebook title', 'wordpress-seo-premium' ),
 					'facebookDescription' => __( 'Show information about Facebook description', 'wordpress-seo-premium' ),
@@ -149,7 +142,34 @@ class WPSEO_Social_Previews {
 				),
 				'library' => $this->get_translations(),
 			),
+			'facebookNonce' => wp_create_nonce( 'get_facebook_name' ),
 		);
+	}
+
+	/**
+	 * Gets the help translations.
+	 *
+	 * @param array $social_field The social fields that are available.
+	 *
+	 * @return array Translations to be used in the social previews.
+	 */
+	private function get_help_translations( $social_field ) {
+		// Default everything to empty strings.
+		$localized = array();
+
+		if ( isset( $social_field['opengraph-title'] ) ) {
+			$localized['facebookTitle']       = $social_field['opengraph-title']['description'];
+			$localized['facebookDescription'] = $social_field['opengraph-description']['description'];
+			$localized['facebookImage']       = $social_field['opengraph-image']['description'];
+		}
+
+		if ( isset( $social_field['twitter-title'] ) ) {
+			$localized['twitterTitle']       = $social_field['twitter-title']['description'];
+			$localized['twitterDescription'] = $social_field['twitter-description']['description'];
+			$localized['twitterImage']       = $social_field['twitter-image']['description'];
+		}
+
+		return $localized;
 	}
 
 	/**

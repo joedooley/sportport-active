@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,32 +13,21 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Easy Video Suite (EVS) Video SEO Details
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Evs' ) ) {
 
 	/**
-	 * @todo Add other evs metadata: player_loc, content_loc, duration, width, height
+	 * @todo Add other evs metadata: player_loc, content_loc, duration, width, height.
 	 */
 	class WPSEO_Video_Details_Evs extends WPSEO_Video_Details {
-
-		/**
-		 * @var	string	Regular expression to retrieve a video id from a known video url
-		 */
-		//protected $id_regex = '';
-
-		/**
-		 * @var	string	Sprintf template to create a url from an id
-		 */
-		//protected $url_template = '';
 
 		/**
 		 * @var	array	Information on the remote url to use for retrieving the video details
 		 */
 		protected $remote_url = array(
-			//'pattern'       => '',
-			//'replace_key'   => '',
 			'response_type' => 'json',
 		);
 
@@ -53,8 +42,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_Evs' ) ) {
 		 *
 		 * Retrieve the EVS location and only pass of to the parent constructor if we find one
 		 *
-		 * @param array  $vid     The video array with all the data.
-		 * @param array  $old_vid The video array with all the data of the previous "fetch", if available.
+		 * @param array $vid     The video array with all the data.
+		 * @param array $old_vid The video array with all the data of the previous "fetch", if available.
 		 *
 		 * @return \WPSEO_Video_Details_Evs
 		 */
@@ -65,16 +54,18 @@ if ( ! class_exists( 'WPSEO_Video_Details_Evs' ) ) {
 				parent::__construct( $vid, $old_vid );
 			}
 			else {
-				// @todo [JRF -> Yoast] Why not use (merge with) oldvid data here if available ? The api key might be removed, but old data might still be better than none.
+				/*
+				 * @todo [JRF -> Yoast] Why not use (merge with) oldvid data here if available?
+				 * The api key might be removed, but old data might still be better than none.
+				 */
 				$this->vid = $vid;
 			}
 		}
 
-
 		/**
 		 * Set the video id to a known video url.
 		 *
-		 * @param  int  $match_nr [Not used in this implementation]
+		 * @param  int $match_nr [Not used in this implementation].
 		 *
 		 * @return void
 		 */
@@ -92,7 +83,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Evs' ) ) {
 		 */
 		protected function get_remote_video_info() {
 			if ( ! empty( $this->vid['id'] ) ) {
-				// Retrieve evs thumbnail info
+				// Retrieve evs thumbnail info.
 				$api      = $this->evs_location . '/api.php';
 				$response = wp_remote_post(
 					$api,
@@ -142,14 +133,13 @@ if ( ! class_exists( 'WPSEO_Video_Details_Evs' ) ) {
 		 * Set the thumbnail location
 		 */
 		protected function set_thumbnail_loc() {
-			if ( ( isset( $this->decoded_response->success ) && $this->decoded_response->success == true ) && ! empty( $this->decoded_response->thumbnail ) ) {
+			if ( ( isset( $this->decoded_response->success ) && $this->decoded_response->success === true ) && ! empty( $this->decoded_response->thumbnail ) ) {
 				$image = $this->make_image_local( $this->decoded_response->thumbnail );
 				if ( is_string( $image ) && $image !== '' ) {
 					$this->vid['thumbnail_loc'] = $image;
 				}
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

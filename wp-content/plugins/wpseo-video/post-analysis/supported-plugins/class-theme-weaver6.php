@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,13 +13,14 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the Weaver theme (not plugin)
  *
  * @see http://wordpress.org/extend/themes/weaver
  *
  * @internal Last update: August 2014 based upon old code as plugin/theme not available
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Weaver' ) ) {
 
 	/**
@@ -36,20 +37,20 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Weaver' ) ) {
 		 */
 		public function __construct() {
 			// @todo - figure out what to test against to confirm that the plugin/theme is loaded
-			//if ( class_exists( ???? ) ) {
+			// if ( class_exists( ???? ) ) {
 				$this->shortcodes[] = 'weaver_vimeo';
 				$this->shortcodes[] = 'weaver_youtube';
-			//}
+			// }
 		}
 
 
 		/**
 		 * Analyse a video shortcode from the plugin for usable video information
 		 *
-		 * @param  string  $full_shortcode Full shortcode as found in the post content
-		 * @param  string  $sc             Shortcode found
-		 * @param  array   $atts           Shortcode attributes - already decoded if needed
-		 * @param  string  $content        The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array   An array with the usable information found or else an empty array
 		 */
@@ -75,7 +76,6 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Weaver' ) ) {
 
 			return $vid;
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

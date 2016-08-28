@@ -5,22 +5,22 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit();
 }
 
-
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the Jetpack plugin
  *
- * @see http://wordpress.org/plugins/jetpack/
- * @see http://jetpack.me/support/shortcode-embeds/
+ * @see      http://wordpress.org/plugins/jetpack/
+ * @see      http://jetpack.me/support/shortcode-embeds/
  *
  * @internal Last update: July 2014 based upon v 3.0.2
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 
 	/**
@@ -29,7 +29,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 	class WPSEO_Video_Plugin_Jetpack extends WPSEO_Video_Plugin_Videopress {
 
 		/**
-		 * @var array $shortcodes_to_add  Shortcodes added by this plugin
+		 * @var array $shortcodes_to_add Shortcodes added by this plugin
 		 */
 		private $shortcodes_to_add = array(
 			'blip.tv',
@@ -43,7 +43,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 		);
 
 		/**
-		 * @var string $videopress_class  Name of the Videopress class within this plugin
+		 * @var string $videopress_class Name of the Videopress class within this plugin
 		 *                                Used as this class extends the Videopress class and the class names
 		 *                                differ between the plugins, though the implementation doesn't.
 		 */
@@ -55,16 +55,16 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 		 */
 		public function __construct() {
 			if ( defined( 'JETPACK__VERSION' ) ) {
-				// Only load if shortcode module is activated
+				// Only load if shortcode module is activated.
 				if ( function_exists( 'shortcode_new_to_old_params' ) ) {
 					foreach ( $this->shortcodes_to_add as $sc ) {
-						// Respect JP filter even though they themselves don't half the time
+						// Respect JP filter even though they themselves don't half the time.
 						if ( apply_filters( 'jetpack_bail_on_shortcode', false, $sc ) !== true ) {
 							$this->shortcodes[] = $sc;
 						}
 					}
 
-					/* Handler name => VideoSEO service name */
+					// Handler name => VideoSEO service name.
 					$this->video_autoembeds = array(
 						'flickr'                        => 'flickr',
 						'jetpack_vine'                  => 'vine',
@@ -75,9 +75,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 					}
 				}
 
-				parent::__construct(); // Conditionally add VideoPress shortcodes
+				// Conditionally add VideoPress shortcodes.
+				parent::__construct();
 
-				/* Full Oembed url as specified in plugin => VideoSEO service name */
+				// Full Oembed url as specified in plugin => VideoSEO service name.
 				$this->video_oembeds['https://cloudup.com/oembed'] = 'cloudup';
 			}
 		}
@@ -88,23 +89,24 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 		 *
 		 * Consistency is overrated... every JetPack shortcode has different parameters... *sigh*
 		 *
-		 * @param  string  $full_shortcode Full shortcode as found in the post content
-		 * @param  string  $sc             Shortcode found
-		 * @param  array   $atts           Shortcode attributes - already decoded if needed
-		 * @param  string  $content        The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array   An array with the usable information found or else an empty array
 		 */
 		public function get_info_from_shortcode( $full_shortcode, $sc, $atts = array(), $content = '' ) {
 			$vid = array();
 
-			// Let's avoid some code duplication, parameters are the same as for VideoPress plugin (also by Automattic)
+			// Let's avoid some code duplication, parameters are the same as for VideoPress plugin (also by Automattic).
 			if ( $sc === 'videopress' || $sc === 'wpvideo' ) {
 				$sc  = 'videopress';
 				$vid = parent::get_info_from_shortcode( $full_shortcode, $sc, $atts, $content );
 			}
 			else {
-				if ( $sc === 'blip.tv' ) { // no dots allowed in method names, so rename
+				// No dots allowed in method names, so rename.
+				if ( $sc === 'blip.tv' ) {
 					$sc = 'blip';
 				}
 
@@ -126,10 +128,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 		 * Interpret the JetPack Blip shortcode
 		 * Note: does not support width/height
 		 *
-		 * @param  string  $full_shortcode  Full shortcode as found in the post content
-		 * @param  string  $sc              Shortcode found
-		 * @param  array   $atts            Shortcode attributes - already decoded if needed
-		 * @param  string  $content         The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array
 		 */
@@ -142,10 +144,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 		 * Interpret the JetPack dailymotion shortcode
 		 * Note: does not support width/height
 		 *
-		 * @param  string  $full_shortcode  Full shortcode as found in the post content
-		 * @param  string  $sc              Shortcode found
-		 * @param  array   $atts            Shortcode attributes - already decoded if needed
-		 * @param  string  $content         The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array
 		 */
@@ -160,7 +162,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 			}
 
 			if ( isset( $id ) ) {
-				// Deal with attribute collition: [dailymotion id=x8oma9&title=2&user=3&video=4]
+				// Deal with attribute collition: [dailymotion id=x8oma9&title=2&user=3&video=4].
 				$id        = explode( '&', $id );
 				$vid['id'] = $id[0];
 				unset( $id );
@@ -173,10 +175,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 		/**
 		 * Interpret the JetPack flickr shortcode
 		 *
-		 * @param  string  $full_shortcode  Full shortcode as found in the post content
-		 * @param  string  $sc              Shortcode found
-		 * @param  array   $atts            Shortcode attributes - already decoded if needed
-		 * @param  string  $content         The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array
 		 */
@@ -195,8 +197,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 			if ( $vid !== array() ) {
 				$vid = $this->maybe_get_dimensions( $vid, $atts, true );
 
-				/* If no width/height set via shortcode, use the shortcode defaults
-					as found in jetpack/modules/shortcodes/flickr.php */
+				/*
+				 * If no width/height set via shortcode, use the shortcode defaults
+				 * as found in jetpack/modules/shortcodes/flickr.php
+				 */
 				if ( ! isset( $vid['width'] ) ) {
 					$vid['width'] = 400;
 				}
@@ -204,6 +208,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 					$vid['height'] = 300;
 				}
 			}
+
 			return $vid;
 		}
 
@@ -212,10 +217,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 		 * Interpret the JetPack googlevideo shortcode
 		 * Note: does not support width/height
 		 *
-		 * @param  string  $full_shortcode  Full shortcode as found in the post content
-		 * @param  string  $sc              Shortcode found
-		 * @param  array   $atts            Shortcode attributes - already decoded if needed
-		 * @param  string  $content         The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array
 		 */
@@ -225,6 +230,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 			if ( $content !== '' ) {
 				$vid['url'] = $content;
 			}
+
 			return $vid;
 		}
 
@@ -232,10 +238,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 		/**
 		 * Interpret the JetPack ted shortcode
 		 *
-		 * @param  string  $full_shortcode  Full shortcode as found in the post content
-		 * @param  string  $sc              Shortcode found
-		 * @param  array   $atts            Shortcode attributes - already decoded if needed
-		 * @param  string  $content         The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array
 		 */
@@ -263,10 +269,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 		/**
 		 * Interpret the JetPack vimeo shortcode
 		 *
-		 * @param  string  $full_shortcode  Full shortcode as found in the post content
-		 * @param  string  $sc              Shortcode found
-		 * @param  array   $atts            Shortcode attributes - already decoded if needed
-		 * @param  string  $content         The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array
 		 */
@@ -312,8 +318,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 
 				$vid = $this->maybe_get_dimensions( $vid, $atts, true );
 
-				/* If no width/height set via shortcode, use the shortcode defaults
-					as found in jetpack/modules/shortcodes/vimeo.php */
+				/*
+				 * If no width/height set via shortcode, use the shortcode defaults
+				 * as found in jetpack/modules/shortcodes/vimeo.php
+				 */
 				if ( ! isset( $vid['width'] ) ) {
 					$vid['width'] = 400;
 				}
@@ -329,10 +337,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 		/**
 		 * Interpret the JetPack vine shortcode
 		 *
-		 * @param  string  $full_shortcode  Full shortcode as found in the post content
-		 * @param  string  $sc              Shortcode found
-		 * @param  array   $atts            Shortcode attributes - already decoded if needed
-		 * @param  string  $content         The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array
 		 */
@@ -351,10 +359,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 		/**
 		 * Interpret the JetPack youtube shortcode
 		 *
-		 * @param  string  $full_shortcode Full shortcode as found in the post content
-		 * @param  string  $sc             Shortcode found
-		 * @param  array   $atts           Shortcode attributes - already decoded if needed
-		 * @param  string  $content        The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array   An array with the usable information found or else an empty array
 		 */
@@ -367,7 +375,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 				unset( $list[0] );
 
 				if ( $list !== array() ) {
-					// Retrieve width/height
+					// Retrieve width/height.
 					foreach ( $list as $key => $value ) {
 						$value = explode( '=', $value );
 						if ( in_array( $value[0], array( 'w', 'h' ), true ) ) {
@@ -380,7 +388,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 
 					$vid = $this->maybe_get_dimensions( $vid, $atts, true );
 
-					// Any attributes left over are really url parts... let's put them back on... pfff
+					// Any attributes left over are really url parts.. let's put them back on.
 					if ( $list !== array() ) {
 						$vid['url'] = $vid['url'] . '&' . implode( '&', $list );
 					}
@@ -389,7 +397,6 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 
 			return $vid;
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

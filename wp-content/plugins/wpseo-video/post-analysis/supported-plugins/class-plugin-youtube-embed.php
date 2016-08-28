@@ -5,28 +5,27 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit();
 }
 
-
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the YouTube Embed plugin
  *
  * @see http://wordpress.org/extend/plugins/youtube-embed/
  *
  * @internal Last update: July 2014 based upon v 3.2.1
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_Embed' ) ) {
 
 	/**
 	 * Class WPSEO_Video_Plugin_Youtube_Embed
 	 */
 	class WPSEO_Video_Plugin_Youtube_Embed extends WPSEO_Video_Supported_Plugin {
-
 
 		/**
 		 * Conditionally add plugin features to analyse for video content
@@ -35,8 +34,8 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_Embed' ) ) {
 			if ( defined( 'youtube_embed_version' ) ) {
 				$this->shortcodes = array(
 					'youtube',
-					'youtube_playlist', // old, deprecated, but ought to still be recognized
-					'youtube_video', // default for 'youtube_embed_shortcode' option[1]
+					'youtube_playlist',
+					'youtube_video',
 				);
 
 				$xtra_shortcodes = get_option( 'youtube_embed_shortcode' );
@@ -49,46 +48,47 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_Embed' ) ) {
 				}
 				unset( $xtra_shortcodes, $sc );
 
-				// @todo - check in which version which protocol was added and adjust for that ?
+				// @todo - check in which version which protocol was added and adjust for that.
 				$this->alt_protocols = array(
 					'httpv://',
 					'httpvh://',
-					//'httpvp://', = playlist, not (yet) supported
 					'httpa://',
 					'youtube::',
 				);
 
-
-
-				// @todo figure out what to do (if anything) about the 'bracket' and 'alt' syntax
-				// @see info from the plugin below
-				// [http://www.youtube.com/watch?v=Z_sCoHGIpU0]
-				// get_option( 'youtube_embed_general' ); //'bracket' == '1', 'alt' == '1'
+				/*
+				 * @todo figure out what to do (if anything) about the 'bracket' and 'alt' syntax
+				 * @see info from the plugin below
+				 * [http://www.youtube.com/watch?v=Z_sCoHGIpU0]
+				 *
+				 * get_option( 'youtube_embed_general' ); //'bracket' == '1', 'alt' == '1'
+				 */
 			}
 		}
-
 
 		/**
 		 * Analyse a video shortcode from the plugin for usable video information
 		 *
-		 * @param  string  $full_shortcode Full shortcode as found in the post content
-		 * @param  string  $sc             Shortcode found
-		 * @param  array   $atts           Shortcode attributes - already decoded if needed
-		 * @param  string  $content        The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
-		 * @return array   An array with the usable information found or else an empty array
+		 * @return array   An array with the usable information found or else an empty array.
 		 */
 		public function get_info_from_shortcode( $full_shortcode, $sc, $atts = array(), $content = '' ) {
 			$vid = array();
 
 			if ( isset( $content ) ) {
-				// ignore audio = yes
-				// ignore list -> value doesn't matter (=playlist)
-				// ignore if has search (=playlist)
-				// ignore if has user (=playlist)
+				/*
+				 * ignore audio = yes
+				 * ignore list -> value doesn't matter (=playlist)
+				 * ignore if has search (=playlist)
+				 * ignore if has user (=playlist)
+				 */
 				if ( ( ! isset( $atts['list'] ) && ( ! isset( $atts['search'] ) && ! isset( $atts['user'] ) ) ) && ( ! isset( $atts['audio'] ) || $atts['audio'] != 'yes' ) ) {
 
-					// Is it a url or an id ?
+					// Is it a url or an id.
 					if ( strpos( $content, 'http' ) === 0 || strpos( $content, '//' ) === 0 ) {
 						$vid['url'] = $content;
 					}
@@ -105,7 +105,6 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_Embed' ) ) {
 
 			return $vid;
 		}
-
 
 		/*
 		Alternative Shortcodes
@@ -140,7 +139,5 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_Embed' ) ) {
 
 		Deploying these will impact performance, so they should only be used if absolutely necessary.
 		*/
-
-	} /* End of class */
-
-} /* End of class-exists wrapper */
+	}
+}

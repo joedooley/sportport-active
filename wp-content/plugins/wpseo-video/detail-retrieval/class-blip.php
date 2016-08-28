@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Blip.tv Video SEO Details
  *
  * @todo: consider changing retrieval to json ?
@@ -34,7 +35,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "type":"video",
  *    "title":"Nostalgia Critic: Sailor Moon"
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Blip' ) ) {
 
 	/**
@@ -46,21 +47,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Blip' ) ) {
 	 * methods, for one the embedLookup is usable, for the other the id...
 	 */
 	class WPSEO_Video_Details_Blip extends WPSEO_Video_Details_Oembed {
-
-		/**
-		 * @var	string	Regular expression to retrieve a video id from a known video url
-		 */
-		//protected $id_regex = '`-(\d+)$`';
-
-		/**
-		 * @var	string	Sprintf template to create a url from an id
-		 */
-		//protected $url_template = '';
-
-		/**
-		 * @var	array	Information on the remote url to use for retrieving the video details
-		 */
-		//protected $remote_url = array();
 
 		/**
 		 * @var array   Different remote information retrieval sets to be used depending on the information available
@@ -88,8 +74,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_Blip' ) ) {
 		 * Instantiate the class and determine which remote retrieval method we can use before
 		 * passing of to the parent constructor.
 		 *
-		 * @param array  $vid     The video array with all the data.
-		 * @param array  $old_vid The video array with all the data of the previous "fetch", if available.
+		 * @param array $vid     The video array with all the data.
+		 * @param array $old_vid The video array with all the data of the previous "fetch", if available.
 		 *
 		 * @return \WPSEO_Video_Details_Blip
 		 */
@@ -126,7 +112,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Blip' ) ) {
 					break;
 
 				case 'rss':
-					// no way from the base rss info to determine whether it is video, but most info should not match anyway if it isn't
+					// No way from the base rss info to determine whether it is video, but most info should not match anyway if it isn't.
 					if ( ! empty( $this->decoded_response ) ) {
 						$valid = true;
 					}
@@ -179,7 +165,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Blip' ) ) {
 		protected function set_embedlookup() {
 			switch ( $this->retrieve_method ) {
 				case 'oembed':
-					// Do this for oembed too as the embedlookup is used for the player loc
+					// Do this for oembed too as the embedlookup is used for the player loc.
 					if ( empty( $this->vid['embedlookup'] ) && ! empty( $this->decoded_response->html ) ) {
 						$this->decoded_response->html = stripslashes( $this->decoded_response->html );
 						if ( preg_match( '`src="http://blip\.tv/play/([A-Za-z0-9-]{5,})(?:"|[&%\./])`i', $this->decoded_response->html, $match ) ) {
@@ -221,7 +207,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Blip' ) ) {
 		protected function set_player_loc() {
 			switch ( $this->retrieve_method ) {
 				case 'oembed':
-					if ( ! empty ( $this->vid['embedlookup'] ) ) {
+					if ( ! empty( $this->vid['embedlookup'] ) ) {
 						// @todo [JRF => Yoast] Review if this could be the correct player loc
 						$this->vid['player_loc'] = 'http://a.blip.tv/api.swf#' . urlencode( $this->vid['embedlookup'] );
 					}
@@ -283,7 +269,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Blip' ) ) {
 					break;
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

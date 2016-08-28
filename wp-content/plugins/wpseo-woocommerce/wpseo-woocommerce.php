@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: Yoast WooCommerce SEO
- * Version:     3.0
+ * Plugin Name: Yoast SEO: WooCommerce
+ * Version:     3.4
  * Plugin URI:  https://yoast.com/wordpress/plugins/yoast-woocommerce-seo/
  * Description: This extension to WooCommerce and WordPress SEO by Yoast makes sure there's perfect communication between the two plugins.
  * Author:      Team Yoast
@@ -10,7 +10,7 @@
  * Text Domain: yoast-woo-seo
  * Domain Path: /languages/
  *
- * Copyright 2014 Yoast BV (email: supportyoast.com)
+ * Copyright 2016 Yoast BV (email: supportyoast.com)
  */
 
 if ( ! function_exists( 'add_filter' ) ) {
@@ -18,12 +18,17 @@ if ( ! function_exists( 'add_filter' ) ) {
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit();
 }
+
+if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload_52.php' ) ) {
+	require dirname( __FILE__ ) . '/vendor/autoload_52.php';
+}
+
 class Yoast_WooCommerce_SEO {
 
 	/**
 	 * @const string Version of the plugin.
 	 */
-	const VERSION = '3.0';
+	const VERSION = '3.4';
 
 	/**
 	 * @var object $option_instance Instance of the WooCommerce_SEO option management class
@@ -59,10 +64,12 @@ class Yoast_WooCommerce_SEO {
 	 *
 	 * @since 1.0
 	 */
-	function __construct() {
+	public function __construct() {
+		if ( $this->is_woocommerce_page( filter_input( INPUT_GET, 'page' ) ) ) {
+			$this->register_i18n_promo_class();
+		}
 
 		// Initialize the options
-		require_once( plugin_dir_path( __FILE__ ) . 'class-wpseo-option-woo.php' );
 		$this->option_instance = WPSEO_Option_Woo::get_instance();
 		$this->short_name      = $this->option_instance->option_name;
 		$this->options         = get_option( $this->short_name );
@@ -83,8 +90,10 @@ class Yoast_WooCommerce_SEO {
 			// Admin page
 			add_action( 'admin_menu', array( $this, 'register_settings_page' ), 20 );
 			add_action( 'admin_print_styles', array( $this, 'config_page_styles' ) );
-			add_action( 'wpseo_licenses_forms', array( $this->license_manager, 'show_license_form' ) );
 
+			if ( $this->license_manager ) {
+				add_action( 'wpseo_licenses_forms', array( $this->license_manager, 'show_license_form' ) );
+			}
 
 			// Products tab columns
 			if ( $this->options['hide_columns'] === true ) {
@@ -103,14 +112,10 @@ class Yoast_WooCommerce_SEO {
 				add_filter( 'wpseo_metadesc', array( $this, 'metadesc' ) );
 
 				// OpenGraph
+				add_filter( 'language_attributes', array( $this, 'og_product_namespace' ), 11 );
 				add_filter( 'wpseo_opengraph_type', array( $this, 'return_type_product' ) );
 				add_filter( 'wpseo_opengraph_desc', array( $this, 'og_desc_enhancement' ) );
 				add_action( 'wpseo_opengraph', array( $this, 'og_enhancement' ), 50 );
-
-				// Twitter
-				add_filter( 'wpseo_twitter_card_type', array( $this, 'return_type_product' ) );
-				add_filter( 'wpseo_twitter_domain', array( $this, 'filter_twitter_domain' ) );
-				add_action( 'wpseo_twitter', array( $this, 'twitter_enhancement' ) );
 
 				add_filter( 'wpseo_sitemap_exclude_post_type', array( $this, 'xml_sitemap_post_types' ), 10, 2 );
 				add_filter( 'wpseo_sitemap_post_type_archive_link', array( $this, 'xml_sitemap_taxonomies' ), 10, 2 );
@@ -128,6 +133,11 @@ class Yoast_WooCommerce_SEO {
 			}
 		}
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+
+		// Only initialize beacon when the License Manager is present.
+		if ( $this->license_manager ) {
+			add_action( 'admin_init', array( $this, 'init_beacon' ) );
+		}
 	}
 
 
@@ -186,22 +196,21 @@ class Yoast_WooCommerce_SEO {
 	 * Loads the License Manager class
 	 * Takes care of remote license (de)activation and plugin updates.
 	 *
-	 * @return Yoast_Plugin_License_Manager
+	 * @return Yoast_Plugin_License_Manager|null
 	 */
 	private function load_license_manager() {
 
 		// we only need this on admin pages
 		// we don't need this in AJAX requests
 		if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-			return;
+			return null;
 		}
 
-		require_once( dirname( __FILE__ ) . '/class-product-wpseo-woocommerce.php' );
+		if ( ! class_exists( 'Yoast_Plugin_License_Manager' ) ) {
+			return null;
+		}
 
-		$license_manager = new Yoast_Plugin_License_Manager(
-			new Yoast_Product_WPSEO_WooCommerce()
-		);
-
+		$license_manager = new Yoast_Plugin_License_Manager( new Yoast_Product_WPSEO_WooCommerce() );
 		$license_manager->setup_hooks();
 
 		return $license_manager;
@@ -235,7 +244,7 @@ class Yoast_WooCommerce_SEO {
 					'title' => get_the_title( $attachment_id ),
 					'alt'   => get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ),
 				);
-				$images[] = $image;
+				$images[]  = $image;
 
 				unset( $image, $image_src );
 			}
@@ -294,48 +303,16 @@ class Yoast_WooCommerce_SEO {
 	 *
 	 * @since 1.0
 	 */
-	function admin_panel() {
-
+	public function admin_panel() {
 		WPSEO_WooCommerce_Wrappers::admin_header( true, $this->option_instance->group_name, $this->short_name, false );
 
 		// @todo [JRF => whomever] change the form fields so they use the methods as defined in WPSEO_Admin_Pages
 
 		$taxonomies = get_object_taxonomies( 'product', 'objects' );
 
-		echo '<h2>' . __( 'Twitter Product Cards', 'yoast-woo-seo' ) . '</h2>';
-		echo '<p>' . __( 'Twitter allows you to display two pieces of data in the Twitter card, pick which two are shown:', 'yoast-woo-seo' ) . '</p>';
-
-		$i = 1;
-		while ( $i < 3 ) {
-			echo '
-			<label class="select" for="datatype' . $i . '">' . sprintf( __( 'Data %d', 'yoast-woo-seo' ), $i ) . ':</label>
-			<select class="select" id="datatype' . $i . '" name="' . esc_attr( $this->short_name . '[data' . $i . '_type]' ) . '">' . "\n";
-			foreach ( $this->option_instance->valid_data_types as $data_type => $translation ) {
-				$sel = selected( $data_type, $this->options[ 'data' . $i . '_type' ], false );
-				echo '<option value="' . esc_attr( $data_type ) . '"' . $sel . '>' . esc_html( $translation ) . "</option>\n";
-			}
-			unset( $sel, $data_type, $translation );
-
-			if ( is_array( $taxonomies ) && $taxonomies !== array() ) {
-				foreach ( $taxonomies as $tax ) {
-					$sel = selected( strtolower( $tax->name ), $this->options[ 'data' . $i . '_type' ], false );
-					echo '<option value="' . esc_attr( strtolower( $tax->name ) ) . '"' . $sel . '>' . esc_html( $tax->labels->name ) . "</option>\n";
-				}
-				unset( $tax, $sel );
-			}
-
-
-			echo '</select>';
-			if ( $i === 1 ) {
-				echo '<br class="clear"/>';
-			}
-			$i ++;
-		}
-
-		echo '<br class="clear"/>
-		<h2>' . __( 'Schema & OpenGraph additions', 'yoast-woo-seo' ) . '</h2>
+		echo '<h2>' . __( 'Schema & OpenGraph additions', 'yoast-woo-seo' ) . '</h2>
 		<p>' . __( 'If you have product attributes for the following types, select them here, the plugin will make sure they\'re used for the appropriate Schema.org and OpenGraph markup.', 'yoast-woo-seo' ) . '</p>
-		<label class="select" for="schema_brand">' . sprintf( __( 'Brand', 'yoast-woo-seo' ), $i ) . ':</label>
+		<label class="select" for="schema_brand">' . __( 'Brand', 'yoast-woo-seo' ) . ':</label>
 		<select class="select" id="schema_brand" name="' . esc_attr( $this->short_name . '[schema_brand]' ) . '">
 			<option value="">-</option>' . "\n";
 		if ( is_array( $taxonomies ) && $taxonomies !== array() ) {
@@ -349,7 +326,7 @@ class Yoast_WooCommerce_SEO {
 		</select>
 		<br class="clear"/>
 
-		<label class="select" for="schema_manufacturer">' . sprintf( __( 'Manufacturer', 'yoast-woo-seo' ), $i ) . ':</label>
+		<label class="select" for="schema_manufacturer">' . __( 'Manufacturer', 'yoast-woo-seo' ) . ':</label>
 		<select class="select" id="schema_manufacturer" name="' . esc_attr( $this->short_name . '[schema_manufacturer]' ) . '">
 			<option value="">-</option>' . "\n";
 		if ( is_array( $taxonomies ) && $taxonomies !== array() ) {
@@ -365,22 +342,36 @@ class Yoast_WooCommerce_SEO {
 
 		$wpseo_options = WPSEO_Options::get_all();
 		if ( $wpseo_options['breadcrumbs-enable'] === true ) {
-			echo '
-		<h2>' . __( 'Breadcrumbs', 'yoast-woo-seo' ) . '</h2>
-		<p>' . sprintf( __( 'Both WooCommerce and WordPress SEO by Yoast have breadcrumbs functionality. The WP SEO breadcrumbs have a slightly higher chance of being picked up by search engines and you can configure them a bit more, on the %1$sInternal Links settings page%2$s. To enable them, check the box below and the WooCommerce breadcrumbs will be replaced.', 'yoast-woo-seo' ), '<a href="' . esc_url( admin_url( 'admin.php?page=wpseo_internal-links' ) ) . '">', '</a>' ) . "</p>\n";
+			echo '<h2>' . __( 'Breadcrumbs', 'yoast-woo-seo' ) . '</h2>';
+			echo '<p>',
+				sprintf(
+					/* translators: %1$s resolves to interal links options page, %2$s resolves to closing link tag, %3$s resolves to Yoast SEO */
+					__( 'Both WooCommerce and %3$s have breadcrumbs functionality. The %3$s breadcrumbs have a slightly higher chance of being picked up by search engines and you can configure them a bit more, on the %1$sInternal Links settings page%2$s. To enable them, check the box below and the WooCommerce breadcrumbs will be replaced.', 'yoast-woo-seo' ),
+					'<a href="' . esc_url( admin_url( 'admin.php?page=wpseo_internal-links' ) ) . '">',
+					'</a>',
+					'Yoast SEO'
+				), "</p>\n";
 			$this->checkbox( 'breadcrumbs', __( 'Replace WooCommerce Breadcrumbs', 'yoast-woo-seo' ) );
 		}
 
-		echo '
-		<br class="clear"/>
-		<h2>' . __( 'Admin', 'yoast-woo-seo' ) . '</h2>
-		<p>' . __( 'Both WooCommerce and WordPress SEO by Yoast add columns to the product page, to remove all but the SEO score column from Yoast on that page, check this box.', 'yoast-woo-seo' ) . "</p>\n";
-		$this->checkbox( 'hide_columns', __( 'Remove WordPress SEO columns', 'yoast-woo-seo' ) );
+		echo '<br class="clear"/>';
+		echo '<h2>' . __( 'Admin', 'yoast-woo-seo' ) . '</h2>';
+		echo '<p>',
+			sprintf(
+				/* translators: %1$s resolves to Yoast SEO */
+				__( 'Both WooCommerce and %1$s add columns to the product page, to remove all but the SEO score column from %1$s on that page, check this box.', 'yoast-woo-seo' ),
+				'Yoast SEO'
+			), "</p>\n";
+		$this->checkbox( 'hide_columns', __( 'Remove Yoast SEO columns', 'yoast-woo-seo' ) );
 
-		echo '
-		<br class="clear"/>
-		<p>' . __( 'Both WooCommerce and WordPress SEO by Yoast add metaboxes to the edit product page, if you want WooCommerce to be above WordPress SEO, check the box.', 'yoast-woo-seo' ) . "</p>\n";
-		$this->checkbox( 'metabox_woo_top', __( 'Move WooCommerce Up', 'yoast-woo-seo' ) );
+		echo '<br class="clear"/>';
+		echo '<p>',
+			sprintf(
+				/* translators: %1$s resolves to Yoast SEO */
+				__( 'Both WooCommerce and %1$s add metaboxes to the edit product page, if you want WooCommerce to be above %1$s, check the box.', 'yoast-woo-seo' ),
+				'Yoast SEO'
+			), "</p>\n";
+		$this->checkbox( 'metabox_woo_top', __( 'Move WooCommerce up', 'yoast-woo-seo' ) );
 
 		echo '<br class="clear"/>';
 
@@ -412,14 +403,14 @@ class Yoast_WooCommerce_SEO {
 	function footer_js() {
 		?>
 		<script type="text/javascript">
-			jQuery(document).ready(function ($) {
+			jQuery( document ).ready( function( $ ) {
 				// Show WooCommerce box before WP SEO metabox
-				if ($('#woocommerce-product-data').length > 0 && $('#wpseo_meta').length > 0) {
-					$('#woocommerce-product-data').insertBefore($('#wpseo_meta'));
+				if ( $( '#woocommerce-product-data' ).length > 0 && $( '#wpseo_meta' ).length > 0 ) {
+					$( '#woocommerce-product-data' ).insertBefore( $( '#wpseo_meta' ) );
 				}
-			});
+			} );
 		</script>
-	<?php
+		<?php
 	}
 
 	/**
@@ -487,14 +478,31 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
+	 * Filter for the namespace, adding the OpenGraph namespace.
+	 *
+	 * @link https://developers.facebook.com/docs/reference/opengraph/object-type/product/
+	 *
+	 * @param string $input The input namespace string.
+	 *
+	 * @return string
+	 */
+	public function og_product_namespace( $input ) {
+		if ( is_singular( 'product' ) ) {
+			$input = preg_replace( '/prefix="([^"]+)"/', 'prefix="$1 product: http://ogp.me/ns/product#"', $input );
+		}
+
+		return $input;
+	}
+
+	/**
 	 * Adds the other product images to the OpenGraph output
 	 *
 	 * @since 1.0
 	 */
-	function og_enhancement() {
+	public function og_enhancement() {
 		global $wpseo_og;
 
-		if ( is_product_category() || ! function_exists( 'is_product_category' ) ) {
+		if ( ! function_exists( 'is_product_category' ) || is_product_category() ) {
 			global $wp_query;
 			$cat          = $wp_query->get_queried_object();
 			$thumbnail_id = get_woocommerce_term_meta( $cat->term_id, 'thumbnail_id', true );
@@ -536,12 +544,12 @@ class Yoast_WooCommerce_SEO {
 		 * @api bool unsigned Defaults to true.
 		 */
 		if ( apply_filters( 'wpseo_woocommerce_og_price', true ) ) {
-			echo '<meta property="og:price:amount" content="' . esc_attr( $product->get_price() ) . "\"/>\n";
-			echo '<meta property="og:price:currency" content="' . esc_attr( get_woocommerce_currency() ) . "\"/>\n";
+			echo '<meta property="product:price:amount" content="' . esc_attr( $product->get_price() ) . "\"/>\n";
+			echo '<meta property="product:price:currency" content="' . esc_attr( get_woocommerce_currency() ) . "\"/>\n";
 		}
 
 		if ( $product->is_in_stock() ) {
-			echo '<meta property="og:price:availability" content="instock"/>' . "\n";
+			echo '<meta property="product:availability" content="instock"/>' . "\n";
 		}
 	}
 
@@ -567,6 +575,23 @@ class Yoast_WooCommerce_SEO {
 		}
 
 		return $desc;
+	}
+
+	/**
+	 * Return 'product' when current page is, well... a product.
+	 *
+	 * @since 1.0
+	 *
+	 * @param string $type Passed on without changing if not a product.
+	 *
+	 * @return string
+	 */
+	public function return_type_product( $type ) {
+		if ( is_singular( 'product' ) ) {
+			return 'product';
+		}
+
+		return $type;
 	}
 
 	/**
@@ -602,83 +627,6 @@ class Yoast_WooCommerce_SEO {
 		return $metadesc;
 	}
 
-
-	/**
-	 * Keep old behaviour of getting the twitter domain in a different way than in WPSEO, but prevent duplicate
-	 * twitter:domain meta tags
-	 *
-	 * @param    string $domain
-	 *
-	 * @return  string
-	 */
-	function filter_twitter_domain( $domain ) {
-		return get_bloginfo( 'site_name' );
-	}
-
-
-	/**
-	 * Output the extra data for the Twitter Card
-	 *
-	 * @since 1.0
-	 */
-	function twitter_enhancement() {
-		if ( ! is_singular( 'product' ) || ! function_exists( 'get_product' ) ) {
-			return;
-		}
-
-		$product = get_product( get_the_ID() );
-
-		$product_atts = array();
-
-		$i = 1;
-		while ( $i < 3 ) {
-			switch ( $this->options[ 'data' . $i . '_type' ] ) {
-				case 'stock':
-					$product_atts[ 'label' . $i ] = __( 'In stock', 'yoast-woo-seo' );
-					$product_atts[ 'data' . $i ]  = ( $product->is_in_stock() ) ? __( 'Yes', 'yoast-woo-seo' ) : __( 'No', 'yoast-woo-seo' );
-					break;
-
-				case 'category':
-					$product_atts[ 'label' . $i ] = __( 'Category', 'yoast-woo-seo' );
-					$product_atts[ 'data' . $i ]  = strip_tags( get_the_term_list( get_the_ID(), 'product_cat', '', ', ' ) );
-					break;
-
-				case 'price':
-					$product_atts[ 'label' . $i ] = __( 'Price', 'yoast-woo-seo' );
-					$product_atts[ 'data' . $i ]  = strip_tags( wc_price( $product->get_price() ) );
-					break;
-
-				default:
-					$tax                          = get_taxonomy( $this->options[ 'data' . $i . '_type' ] );
-					$product_atts[ 'label' . $i ] = $tax->labels->name;
-					$product_atts[ 'data' . $i ]  = strip_tags( get_the_term_list( get_the_ID(), $tax->name, '', ', ' ) );
-					break;
-			}
-			$i ++;
-		}
-
-		foreach ( $product_atts as $label => $value ) {
-			echo '<meta name="' . esc_attr( 'twitter:' . $label ) . '" content="' . esc_attr( $value ) . '"/>' . "\n";
-		}
-	}
-
-	/**
-	 * Return 'product' when current page is, well... a product.
-	 *
-	 * @since 1.0
-	 *
-	 * @param string $type Passed on without changing if not a product.
-	 *
-	 * @return string
-	 */
-	function return_type_product( $type ) {
-		if ( is_singular( 'product' ) ) {
-			return 'product';
-		}
-
-		return $type;
-	}
-
 	/**
 	 * Filter the output of attributes and add schema.org attributes where possible
 	 *
@@ -712,13 +660,91 @@ class Yoast_WooCommerce_SEO {
 	 */
 	function xml_post_type_archive_link( $link, $post_type ) {
 
-		if ( $post_type === 'product' ) {
-			return false;
-		} else {
+		if ( 'product' !== $post_type ) {
 			return $link;
+		}
+
+		if ( function_exists( 'wc_get_page_id' ) ) {
+			$shop_page_id = wc_get_page_id( 'shop' );
+			$home_page_id = (int) get_option( 'page_on_front' );
+			if ( $home_page_id === $shop_page_id ) {
+				return false;
+			}
+		}
+
+		return $link;
+	}
+
+	public function init_beacon() {
+		$query_var = ( $page = filter_input( INPUT_GET, 'page' ) ) ? $page : '';
+
+		// Only add the helpscout beacon on Yoast SEO pages.
+		if ( $query_var === 'wpseo_woo' ) {
+			$beacon = yoast_get_helpscout_beacon( $query_var );
+			$beacon->add_setting( new WPSEO_WooCommerce_Beacon_Setting() );
+			$beacon->register_hooks();
 		}
 	}
 
+	/**
+	 * Checks if the current page is a woocommerce seo plugin page.
+	 *
+	 * @param string $page
+	 *
+	 * @return bool
+	 */
+	protected function is_woocommerce_page( $page ) {
+		$woo_pages = array( 'wpseo_woo' );
+
+		return in_array( $page, $woo_pages );
+	}
+
+	/**
+	 * Enqueues the pluginscripts.
+	 */
+	public function enqueue_scripts() {
+		// Only do this on product pages.
+		if ( 'product' !== get_post_type() ) {
+			return;
+		}
+
+		wp_enqueue_script( 'wp-seo-woo', plugins_url( 'js/yoastseo-woo-plugin-' . '311' . WPSEO_CSSJS_SUFFIX . '.js', __FILE__ ), array(), WPSEO_VERSION, true );
+
+		wp_localize_script( 'wp-seo-woo', 'wpseoWooL10n', $this->localize_woo_script() );
+	}
+
+	/**
+	 * Register the promotion class for our GlotPress instance.
+	 *
+	 * @link https://github.com/Yoast/i18n-module
+	 */
+	protected function register_i18n_promo_class() {
+		new yoast_i18n(
+			array(
+				'textdomain'     => 'yoast-woo-seo',
+				'project_slug'   => 'woocommerce-seo',
+				'plugin_name'    => 'Yoast WooCommerce SEO',
+				'hook'           => 'wpseo_admin_promo_footer',
+				'glotpress_url'  => 'http://translate.yoast.com/gp/',
+				'glotpress_name' => 'Yoast Translate',
+				'glotpress_logo' => 'http://translate.yoast.com/gp-templates/images/Yoast_Translate.svg',
+				'register_url'   => 'http://translate.yoast.com/gp/projects#utm_source=plugin&utm_medium=promo-box&utm_campaign=wpseo-woo-i18n-promo',
+			)
+		);
+	}
+
+	/**
+	 * Localizes scripts for the wooplugin.
+	 * @return array
+	 */
+	private function localize_woo_script() {
+		return array(
+			'woo_desc_none'  => __( 'You should write a short description for this product.', 'yoast-woo-seo' ),
+			'woo_desc_short' => __( 'The short description for this product is too short.', 'yoast-woo-seo' ),
+			'woo_desc_good'  => __( 'Your short description has a good length.', 'yoast-woo-seo' ),
+			'woo_desc_long'  => __( 'The short description for this product is too long.', 'yoast-woo-seo' ),
+		);
+	}
 
 	/********************** DEPRECATED METHODS **********************/
 
@@ -742,30 +768,29 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
-	 * Enqueues the pluginscripts.
+	 * Keep old behaviour of getting the twitter domain in a different way than in WPSEO, but prevent duplicate
+	 * twitter:domain meta tags
+	 *
+	 * @deprecated 3.1
+	 *
+	 * @param string $domain
+	 *
+	 * @return  string
 	 */
-	public function enqueue_scripts() {
-		// Only do this on product pages.
-		if ( 'product' !== get_post_type( ) ) {
-			return;
-		}
+	public function filter_twitter_domain( $domain ) {
+		_deprecated_function( __CLASS__ . '::' . __METHOD__, 'WooCommerce SEO 3.1', null );
 
-		wp_enqueue_script( 'wp-seo-woo', plugins_url( 'js/yoastseo-woo-plugin' . WPSEO_CSSJS_SUFFIX . '.js', __FILE__ ), array(), WPSEO_VERSION, true );
-
-		wp_localize_script( 'wp-seo-woo', 'wpseoWooL10n', $this->localize_woo_script() );
+		return '';
 	}
 
 	/**
-	 * Localizes scripts for the wooplugin.
-	 * @return array
+	 * Output the extra data for the Twitter Card
+	 *
+	 * @deprecated 3.1
+	 * @since      1.0
 	 */
-	private function localize_woo_script() {
-		return array(
-			'woo_desc_none'    => __( 'You should write a short description for this product.', 'yoast-woo-seo' ),
-			'woo_desc_short'   => __( 'The short description for this product is too short.', 'yoast-woo-seo' ),
-			'woo_desc_good'    => __( 'Your short description has a good length.', 'yoast-woo-seo' ),
-			'woo_desc_long'    => __( 'The short description for this product is too long.', 'yoast-woo-seo' ),
-		);
+	public function twitter_enhancement() {
+		_deprecated_function( __CLASS__ . '::' . __METHOD__, 'WooCommerce SEO 3.1', null );
 	}
 }
 
@@ -776,7 +801,14 @@ class Yoast_WooCommerce_SEO {
  * @since 1.0.1
  */
 function yoast_wpseo_woocommerce_missing_error() {
-	echo '<div class="error"><p>' . sprintf( __( 'Please %sinstall &amp; activate WordPress SEO by Yoast%s and then enable its XML sitemap functionality to allow the WooCommerce SEO module to work.', 'yoast-woo-seo' ), '<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=wordpress+seo&plugin-search-input=Search+Plugins' ) ) . '">', '</a>' ) . '</p></div>';
+	echo '<div class="error"><p>',
+		sprintf(
+			/* translators: %1$s resolves to the plugin search for Yoast SEO, %2$s resolves to the closing tag, %3$s resolves to Yoast SEO */
+			__( 'Please %1$sinstall &amp; activate %3$s%2$s and then enable its XML sitemap functionality to allow the WooCommerce SEO module to work.', 'yoast-woo-seo' ),
+			'<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=yoast+seo&plugin-search-input=Search+Plugins' ) ) . '">',
+			'</a>',
+			'Yoast SEO'
+		), '</p></div>';
 }
 
 /**
@@ -794,7 +826,12 @@ function yoast_wpseo_woocommerce_wordpress_upgrade_error() {
  * @since 1.0.1
  */
 function yoast_wpseo_woocommerce_upgrade_error() {
-	echo '<div class="error"><p>' . __( 'Please upgrade the WordPress SEO plugin to the latest version to allow the WooCommerce SEO module to work.', 'yoast-woo-seo' ) . '</p></div>';
+	echo '<div class="error"><p>',
+		sprintf(
+			/* translators: %1$s resolves to Yoast SEO */
+			__( 'Please upgrade the %1$s plugin to the latest version to allow the WooCommerce SEO module to work.', 'yoast-woo-seo' ),
+			'Yoast SEO'
+		), '</p></div>';
 }
 
 
@@ -822,8 +859,39 @@ function initialize_yoast_woocommerce_seo() {
 	}
 }
 
-if ( ! defined( 'WP_INSTALLING' ) || WP_INSTALLING === false ) {
+if ( ! function_exists( 'wp_installing' ) ) {
+	/**
+	 * We need to define wp_installing in WordPress versions older than 4.4
+	 *
+	 * @return bool
+	 */
+	function wp_installing() {
+		return defined( 'WP_INSTALLING' );
+	}
+}
+
+/**
+ * Instantiate the plugin license manager for the current plugin and activate it's license.
+ */
+function yoast_woocommerce_seo_activate_license() {
+	if ( ! class_exists( 'Yoast_Plugin_License_Manager' ) ) {
+		return;
+	}
+
+	// Activate license.
+	$license_manager = new Yoast_Plugin_License_Manager( new Yoast_Product_WPSEO_WooCommerce() );
+	$license_manager->activate_license();
+}
+
+if ( ! wp_installing() ) {
 	add_action( 'plugins_loaded', 'initialize_yoast_woocommerce_seo', 20 );
+
+	/*
+	 * When the plugin is deactivated and activated again, the license have to be activated. This is mostly the case
+	 * during a update of the plugin. To solve this, we hook into the activation process by calling a method that will
+	 * activate the license.
+	 */
+	register_activation_hook( __FILE__, 'yoast_woocommerce_seo_activate_license' );
 }
 
 class WPSEO_WooCommerce_Wrappers {
@@ -858,7 +926,6 @@ class WPSEO_WooCommerce_Wrappers {
 	 * @return mixed
 	 */
 	public static function admin_footer( $submit = true, $show_sidebar = true ) {
-
 		if ( method_exists( 'Yoast_Form', 'admin_footer' ) ) {
 			Yoast_Form::get_instance()->admin_footer( $submit, $show_sidebar );
 
@@ -892,7 +959,7 @@ class WPSEO_WooCommerce_Wrappers {
 	 * @return bool
 	 */
 	public static function validate_bool( $bool_to_validate ) {
-		if ( class_exists( 'WPSEO_Utils' ) &&  method_exists( 'WPSEO_Utils', 'validate_bool' ) ) {
+		if ( class_exists( 'WPSEO_Utils' ) && method_exists( 'WPSEO_Utils', 'validate_bool' ) ) {
 			return WPSEO_Utils::validate_bool( $bool_to_validate );
 		}
 

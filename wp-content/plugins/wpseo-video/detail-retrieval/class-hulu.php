@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Hulu Video SEO Details
  *
  * @internal Hulu apparently has a hidden API, but this may disappear at any time.
@@ -43,7 +44,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "author_name":"Comedy Central",
  *    "provider_name":"Hulu"
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Hulu' ) ) {
 
 	/**
@@ -97,7 +98,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Hulu' ) ) {
 				$this->vid['player_loc'] = $this->decoded_response->embed_url;
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Screenr Video SEO Details
  *
  * JSON response format [2014/7/22]:
@@ -31,7 +32,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  * 	  "html":"<iframe src=\"https://www.screenr.com/embed/3jns\" width=\"650\" height=\"396\" frameborder=\"0\"></iframe>",
  * 	  "thumbnail_url":"https://az21792.vo.msecnd.net/images/e9938535-f19e-4a7a-bcea-6dcf0bf33d70_thumb.jpg"
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Screenr' ) ) {
 
 	/**
@@ -67,7 +68,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Screenr' ) ) {
 				$this->vid['player_loc'] = 'http://www.screenr.com/embed/' . rawurlencode( $this->vid['id'] );
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

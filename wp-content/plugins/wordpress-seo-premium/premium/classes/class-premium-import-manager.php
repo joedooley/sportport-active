@@ -13,7 +13,7 @@ class WPSEO_Premium_Import_Manager {
 	 */
 	public function __construct() {
 		// Allow option of importing from other 'other' plugins.
-		add_filter( 'wpseo_import_other_plugins', array( $this, 'filter_add_premium_import_options' ) );
+		add_action( 'wpseo_import_other_plugins', array( $this, 'add_premium_import_options' ) );
 
 		// Handle premium imports.
 		add_action( 'wpseo_handle_import', array( $this, 'do_premium_imports' ) );
@@ -106,6 +106,7 @@ class WPSEO_Premium_Import_Manager {
 
 			// Loop and add redirect to Yoast SEO Premium.
 			if ( count( $items ) > 0 ) {
+
 				foreach ( $items as $item ) {
 					$format = WPSEO_Redirect::FORMAT_PLAIN;
 					if ( 1 === (int) $item->regex ) {
@@ -238,15 +239,9 @@ class WPSEO_Premium_Import_Manager {
 
 	/**
 	 * Add premium import options to import list
-	 *
-	 * @param string $content The content where the checkbox is added to.
-	 *
-	 * @return string
 	 */
-	public function filter_add_premium_import_options( $content ) {
-		$content .= Yoast_Form::get_instance()->checkbox( 'import_redirection', __( 'Import from Redirection?', 'wordpress-seo-premium' ) );
-
-		return $content;
+	public function add_premium_import_options() {
+		Yoast_Form::get_instance()->checkbox( 'import_redirection', __( 'Import from Redirection?', 'wordpress-seo-premium' ) );
 	}
 
 	/**
@@ -282,7 +277,7 @@ class WPSEO_Premium_Import_Manager {
 		echo wp_nonce_field( 'wpseo-import', '_wpnonce', true, false );
 
 		echo '<textarea name="htaccess" rows="4" cols="50" style="width:70%; height: 200px;">' . $textarea_value . '</textarea><br/>' . PHP_EOL;
-		echo '<input type="submit" class="button-primary" name="import" value="' . __( 'Import .htaccess', 'wordpress-seo-premium' ) . '"/>' . PHP_EOL;
+		echo '<input type="submit" class="button button-primary" name="import" value="' . __( 'Import .htaccess', 'wordpress-seo-premium' ) . '"/>' . PHP_EOL;
 		echo '</form>' . PHP_EOL;
 		echo '</div>' . PHP_EOL;
 	}

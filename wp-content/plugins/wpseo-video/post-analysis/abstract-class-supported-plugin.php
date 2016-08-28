@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,10 +13,12 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Analyse post content for videos
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
+
 	/**
 	 * @package    WordPress\Plugins\Video-seo
 	 * @subpackage Internals
@@ -41,13 +43,6 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		 * @internal   Should be set from the class constructor!
 		 */
 		protected $post_types = array();
-
-		/**
-		 * @var array  Array of (additional) video post formats
-		 *
-		 * @internal   Should be set from the class constructor!
-		 */
-		//protected $post_formats = array();
 
 		/**
 		 * @var array  Array of meta_keys which contain video information
@@ -93,7 +88,7 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		/**
 		 * Retrieve a property
 		 *
-		 * @param array $property The property
+		 * @param array $property The property.
 		 *
 		 * @return array|bool  The property array or false
 		 */
@@ -125,18 +120,6 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		public function get_post_types() {
 			return $this->maybe_get_property( $this->post_types );
 		}
-
-
-		/**
-		 * Retrieve the video post formats added by a plugin
-		 *
-		 * @return array|bool  Array with post formats or false if the plugin does not add post formats
-		 */
-		/*
-		public function get_post_formats() {
-			return $this->maybe_get_property( $this->post_formats );
-		}
-		*/
 
 
 		/**
@@ -179,24 +162,6 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		}
 
 
-		/*
-		public function get_xpath_queries() {
-			return $this->maybe_get_property( $this->xpath_queries );
-		}
-		*/
-
-
-		// Only needed if the plugin adds shortcodes
-		//abstract public function get_info_from_shortcode();
-
-
-		// Only needed if the plugin adds post_types
-		//abstract public function get_info_for_post_type();
-
-		// Only needed if the plugin adds post_format
-		//abstract public function get_info_for_post_format();
-
-
 		/**
 		 * Deal with non-named width/height attributes
 		 *
@@ -204,8 +169,8 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		 * [collegehumor 1727961 200 100]
 		 * [tube]http://www.youtube.com/watch?v=AFVlJAi3Cso, 500, 290[/tube]
 		 *
-		 * @param array $list  A pre-explode array of the attribute/content value
-		 * @param array $atts  The current attributes
+		 * @param array $list  A pre-explode array of the attribute/content value.
+		 * @param array $atts  The current attributes.
 		 *
 		 * @return array
 		 */
@@ -235,10 +200,10 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		/**
 		 * Distill video dimensions from shortcodes attributes
 		 *
-		 * @param  array $vid             Current video info array
-		 * @param  array $atts            The shortcode attributes
+		 * @param  array $vid             Current video info array.
+		 * @param  array $atts            The shortcode attributes.
 		 * @param  bool  $try_alternative Whether to try and find only the 'normal' "width" and "height" attributes
-		 *                                or also to try and find the alternative "w" and "h" attributes
+		 *                                or also to try and find the alternative "w" and "h" attributes.
 		 *
 		 * @return array  Potentially adjusted video info array
 		 */
@@ -266,7 +231,7 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		/**
 		 * Determine if a given id could be a youtube video id
 		 *
-		 * @param  string $id ID string to evaluate
+		 * @param  string $id ID string to evaluate.
 		 *
 		 * @return bool
 		 */
@@ -278,7 +243,7 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		/**
 		 * Determine if a given id could be a google video id
 		 *
-		 * @param  string $id ID string to evaluate
+		 * @param  string $id ID string to evaluate.
 		 *
 		 * @return bool
 		 */
@@ -290,7 +255,7 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		/**
 		 * Determine if a given id could be a vimeo video id
 		 *
-		 * @param  string $id ID string to evaluate
+		 * @param  string $id ID string to evaluate.
 		 *
 		 * @return bool
 		 */
@@ -305,7 +270,7 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		 * Allow both real (numeric) ids as well as short ids
 		 * Keep this regex in line with the one in the flickr service class
 		 *
-		 * @param  string $id ID string to evaluate
+		 * @param  string $id ID string to evaluate.
 		 *
 		 * @return bool
 		 */
@@ -317,7 +282,7 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		/**
 		 * Determine if a given id is numeric
 		 *
-		 * @param  string $id ID string to evaluate
+		 * @param  string $id ID string to evaluate.
 		 *
 		 * @return bool
 		 */
@@ -336,9 +301,9 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		 * http://blip.tv/day9tv/day-9-daily-101-kawaii-rice-tvp-style-3516963
 		 * http://blip.tv/play/hdljgdbVBwI
 		 *
-		 * @param  array  $vid            The current video info array
-		 * @param  string $check_this     Primary value to check
-		 * @param  string $full_shortcode The full shortcode found
+		 * @param  array  $vid            The current video info array.
+		 * @param  string $check_this     Primary value to check.
+		 * @param  string $full_shortcode The full Shortcode found.
 		 *
 		 * @return array  Potentially adjusted video info array
 		 */
@@ -359,7 +324,6 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 			}
 			return $vid;
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

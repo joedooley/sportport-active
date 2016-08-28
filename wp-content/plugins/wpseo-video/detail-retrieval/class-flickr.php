@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,13 +13,14 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Flickr Video SEO Details
  *
  * JSON response format [2014/7/22] - see below class.
  *
  * @todo - maybe add width/height methods ?
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Flickr' ) ) {
 
 	/**
@@ -39,11 +40,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Flickr' ) ) {
 		protected $short_id_regex = '`[/\.]flic\.kr/p/([a-z0-9_-]+)(?:$|[/#\?])`i';
 
 		/**
-		 * @var	string	Sprintf template to create a url from an id
-		 */
-		//protected $url_template = '';
-
-		/**
 		 * @var	array	Information on the remote url to use for retrieving the video details
 		 *              API call will work with with both full numeric ids as well as short ids
 		 */
@@ -57,18 +53,18 @@ if ( ! class_exists( 'WPSEO_Video_Details_Flickr' ) ) {
 		/**
 		 * Deal with potentially wrong ids from short url format and instantiate the class
 		 *
-		 * @param array  $vid     The video array with all the data.
-		 * @param array  $old_vid The video array with all the data of the previous "fetch", if available.
+		 * @param array $vid     The video array with all the data.
+		 * @param array $old_vid The video array with all the data of the previous "fetch", if available.
 		 *
 		 * @return \WPSEO_Video_Details_Flickr
 		 */
 		public function __construct( $vid, $old_vid = array() ) {
-			// Check for wrongly set short id as id
+			// Check for wrongly set short id as id.
 			if ( ! empty( $vid['id'] ) && ! preg_match( '`^[0-9]+$`', $vid['id'] ) ) {
 				$vid['short_id'] = $vid['id'];
 				unset( $vid['id'] );
 			}
-			// Make sure we use the short id if it's available and there's no id
+			// Make sure we use the short id if it's available and there's no id.
 			if ( empty( $vid['id'] ) && ! empty( $vid['short_id'] ) ) {
 				$this->remote_url['replace_key'] = 'short_id';
 			}
@@ -187,7 +183,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Flickr' ) ) {
 				$this->vid['width'] = $this->decoded_response->photo->video->width;
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,11 +13,12 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * OEmbed Video SEO Details
  *
  * @see http://oembed.com/
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Oembed' ) ) {
 
 	/**
@@ -26,11 +27,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Oembed' ) ) {
 	 * Base class for all services where detail retrieval is done via the oembed
 	 */
 	abstract class WPSEO_Video_Details_Oembed extends WPSEO_Video_Details {
-
-		/**
-		 * @var	string	Regular expression to retrieve a video id from a known video url
-		 */
-		//protected $id_regex = '';
 
 		/**
 		 * @var	array	Information on the remote url to use for retrieving the video details
@@ -90,16 +86,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Oembed' ) ) {
 
 
 		/**
-		 * Set the player location
-		 *
-		 * This **must** be implemented in the child classes !!!
-		 *
-		 * @internal commented out as it's already an abstract method in the parent class
-		 */
-		//abstract protected function set_player_loc(); {
-
-
-		/**
 		 * Set the thumbnail location
 		 */
 		protected function set_thumbnail_loc() {
@@ -113,7 +99,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Oembed' ) ) {
 		protected function set_width() {
 			$this->set_width_from_json_object();
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

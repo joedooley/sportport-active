@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Snotr Video SEO Details
  *
  * Snotr does not offer oembed info nor an API, but Embedly can deal real well with Snotr video links.
@@ -34,7 +35,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "type": "video",
  *    "thumbnail_height": 135
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Snotr' ) ) {
 
 	/**
@@ -72,7 +73,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Snotr' ) ) {
 				$this->vid['player_loc'] = 'http://cdn.videos.snotr.com/' . rawurlencode( $this->vid['id'] ) . '-large.jpg';
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

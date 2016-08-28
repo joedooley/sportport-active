@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Revision3 Video SEO Details
  *
  * @internal [JRF] We can get much better information (duration, thumbnail, content_loc from the author RSS feeds,
@@ -43,24 +44,13 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "cache_age":900,
  *    "html":"<iframe src=\"http://embed.revision3.com/player/embed?videoId=37621&external=true&width=555&height=337\" width=\"555\" height=\"337\" frameborder=\"0\" allowFullScreen mozAllowFullscreen webkitAllowFullScreen oallowfullscreen msallowfullscreen></iframe>"
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Revision3' ) ) {
 
 	/**
 	 * Class WPSEO_Video_Details_Revision3
 	 */
 	class WPSEO_Video_Details_Revision3 extends WPSEO_Video_Details_Oembed {
-
-		/**
-		 * @var	string	Regular expression to retrieve a video id from a known video url
-		 */
-		//protected $id_regex = '``i';
-
-		/**
-		 * @var	string	Sprintf template to create a url from an id
-		 * @internal Set to embed as it gives better retrieval results compared to video!
-		 */
-		//protected $url_template = '';
 
 		/**
 		 * @var	array	Information on the remote url to use for retrieving the video details
@@ -89,7 +79,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Revision3' ) ) {
 				$this->vid['player_loc'] = 'http://embed.revision3.com/player/embed?videoId=' . urlencode( $this->vid['id'] ) . '&external=true';
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

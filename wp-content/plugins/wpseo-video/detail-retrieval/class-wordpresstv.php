@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * WordPress.tv Video SEO Details
  *
  * JSON response format from this class' own call in the determine_id... method [2014/8/16]:
@@ -25,7 +26,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "height":224,
  *    "html":"<embed src=\"\/\/v.wordpress.com\/zHKcIQfo\" type=\"application\/x-shockwave-flash\" width=\"400\" height=\"224\" allowscriptaccess=\"always\" allowfullscreen=\"true\" wmode=\"transparent\"><\/embed>"
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Wordpresstv' ) ) {
 
 	/**
@@ -56,7 +57,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Wordpresstv' ) ) {
 			'replace_key'   => '',
 			'response_type' => '',
 		);
-		*/
+		 */
 
 
 		/**
@@ -68,7 +69,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Wordpresstv' ) ) {
 			if ( ( is_string( $this->vid['url'] ) && $this->vid['url'] !== '' ) && $this->id_regex !== '' ) {
 
 				$replace_key = $this->vid['url'];
-				// Fix protocol-less urls in parameters as the remote get call most ofter will not work with them
+				// Fix protocol-less urls in parameters as the remote get call most ofter will not work with them.
 				if ( strpos( $this->vid['url'], '//' ) === 0 ) {
 					$replace_key = 'http:' . $this->vid['url'];
 				}
@@ -104,7 +105,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Wordpresstv' ) ) {
 		protected function maybe_use_old_video_data( $match_on = 'url' ) {
 			return parent::maybe_use_old_video_data( $match_on );
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,13 +13,14 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the Flowplayer HTML5 plugin
  *
- * @see http://wordpress.org/plugins/flowplayer5/
+ * @see      http://wordpress.org/plugins/flowplayer5/
  *
  * @internal Last update: July 2014 based upon v 1.8.1
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Flowplayer5' ) ) {
 
 	/**
@@ -42,10 +43,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Flowplayer5' ) ) {
 		/**
 		 * Analyse a video shortcode from the plugin for usable video information
 		 *
-		 * @param  string  $full_shortcode Full shortcode as found in the post content
-		 * @param  string  $sc             Shortcode found
-		 * @param  array   $atts           Shortcode attributes - already decoded if needed
-		 * @param  string  $content        The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array   An array with the usable information found or else an empty array
 		 */
@@ -58,8 +59,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Flowplayer5' ) ) {
 				$vid = $this->get_info_for_post_type( (int) $atts['id'], 'flowplayer5', null, true );
 			}
 			else {
-				// Old flowplayer shortcode format
-
+				// Old flowplayer shortcode format.
 				if ( isset( $atts['webm'] ) && ( is_string( $atts['webm'] ) && $atts['webm'] !== '' ) ) {
 					$vid['url'] = $atts['webm'];
 				}
@@ -92,7 +92,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Flowplayer5' ) ) {
 		 *
 		 * @param int    $post_id   The post id of the video post.
 		 * @param string $post_type The post type of the video post.
-		 * @param object $post      The post object
+		 * @param object $post      The post object.
 		 * @param bool   $shortcode Whether the info is called up as a post or as a shortcode in another post.
 		 *                          Defaults to false (= post, not shortcode).
 		 *
@@ -105,7 +105,8 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Flowplayer5' ) ) {
 			$fp5_webm_video = get_post_meta( $post_id, 'fp5-webm-video', true );
 			if ( $fp5_webm_video !== '' ) {
 				$url = $fp5_webm_video;
-			} else {
+			}
+			else {
 				$fp5_mp4_video = get_post_meta( $post_id, 'fp5-mp4-video', true );
 				if ( $fp5_mp4_video !== '' ) {
 					$url = $fp5_mp4_video;
@@ -128,8 +129,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Flowplayer5' ) ) {
 					$vid['post_id'] = $post_id;
 				}
 
-				/* @internal [JRF] I can't find the duration meta field being added anywhere in the plugin,
-					but this came from the code *they* provided.... */
+				/*
+				 * @internal [JRF] I can't find the duration meta field being added anywhere in the plugin,
+				 * but this came from the code *they* provided..
+				 */
 				$duration = get_post_meta( $post_id, 'fp5-duration', true );
 				if ( $duration !== '' && $duration > 0 ) {
 					$vid['duration'] = $duration;
@@ -144,6 +147,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Flowplayer5' ) ) {
 				if ( $width !== '' ) {
 					$vid['width'] = $width;
 				}
+
 				$height = get_post_meta( $post_id, 'fp5-height', true );
 				if ( $height !== '' ) {
 					$vid['height'] = $height;
@@ -152,7 +156,6 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Flowplayer5' ) ) {
 
 			return $vid;
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

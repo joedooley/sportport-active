@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,15 +13,15 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Screencast.com Video SEO Details
  *
  * @todo: no api or connection from getting video details from the url so we extract the
  * details from the embed code itself
  * Embedly actually provides usable info, so we may want to consider implementing this using
  * Embedly as Screencast does not seem to support oembed nor have their own API.
- *
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Screencast' ) ) {
 
 	/**
@@ -35,19 +35,9 @@ if ( ! class_exists( 'WPSEO_Video_Details_Screencast' ) ) {
 		protected $id_regex = '`[/\.]screencast\.com/(.*)$`i';
 
 		/**
-		 * @var	string	Sprintf template to create a url from an id
-		 */
-		//protected $url_template = '';
-
-		/**
 		 * @var	array	Information on the remote url to use for retrieving the video details
 		 */
-		protected $remote_url = array(
-			//'pattern'       => '',
-			//'replace_key'   => '',
-			//'response_type' => '',
-		);
-
+		protected $remote_url = array();
 
 		/**
 		 * Retrieve the video id from a known video url based on a regex match.
@@ -64,7 +54,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Screencast' ) ) {
 			}
 		}
 
-
 		/**
 		 * Retrieve information on a video via a remote API call.
 		 *
@@ -75,7 +64,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Screencast' ) ) {
 		protected function get_remote_video_info() {
 			if ( is_array( $this->vid['url'] ) && isset( $this->vid['url']['embed'] ) ) {
 				$this->remote_response = $this->vid['url']['embed'];
-				// $response = $this->remote_get( 'http://screencast.com/t/eUvutAvEibx9' );
 			}
 		}
 
@@ -88,7 +76,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Screencast' ) ) {
 		 * @return void
 		 */
 		protected function decode_remote_video_info() {
-			if ( ! empty( $this->remote_response ) && ( extension_loaded( 'dom' ) && class_exists( 'DOMXPath'  ) ) ) {
+			if ( ! empty( $this->remote_response ) && ( extension_loaded( 'dom' ) && class_exists( 'DOMXPath' ) ) ) {
 				$dom = new DOMDocument();
 				@$dom->loadHTML( $this->remote_response );
 				$xpath = new DOMXPath( $dom );
@@ -160,7 +148,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Screencast' ) ) {
 				$this->vid['width'] = $this->decoded_response['containerwidth'];
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,10 +13,11 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Add support for the Advanced Responsive Video Embedder plugin
  *
- * @see http://wordpress.org/plugins/advanced-responsive-video-embedder/
+ * @see      http://wordpress.org/plugins/advanced-responsive-video-embedder/
  *
  * @internal Last update: July 2014 based upon v 4.9.0
  *
@@ -59,7 +60,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *       'youtube'                => 'youtube',
  *       'youtubelist'            => 'youtubelist', //* Deprecated and should not be recognized
  *   ),
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Advanced_Responsive_Video_Embedder' ) ) {
 
 	/**
@@ -74,11 +75,11 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Advanced_Responsive_Video_Embedder' ) )
 		public function __construct() {
 			if ( class_exists( 'Advanced_Responsive_Video_Embedder' ) && method_exists( 'Advanced_Responsive_Video_Embedder', 'get_instance' ) ) {
 
-				// Retrieve the enabled shortcodes the ARVE way
+				// Retrieve the enabled shortcodes the ARVE way.
 				$arve    = Advanced_Responsive_Video_Embedder::get_instance();
 				$options = $arve->get_options();
 
-				// We don't support playlists
+				// We don't support playlists.
 				unset( $options['shortcodes']['dailymotionlist'], $options['shortcodes']['youtubelist'] );
 
 				foreach ( $options['shortcodes'] as $provider => $shortcode ) {
@@ -87,11 +88,11 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Advanced_Responsive_Video_Embedder' ) )
 
 
 				$arve_embed_list = $arve->get_regex_list();
-				// We don't support playlists
+				// We don't support playlists.
 				unset( $arve_embed_list['dailymotionlist'] );
 
 				foreach ( $arve_embed_list as $provider => $regex ) {
-					// Fix two service names
+					// Fix two service names.
 					$service = $provider;
 					if ( $service === 'youtu_be' ) {
 						$service = 'youtube';
@@ -100,8 +101,10 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Advanced_Responsive_Video_Embedder' ) )
 						$service = 'dailymotion';
 					}
 
-					/* Add the embed keys
-					   Handler name => VideoSEO service name */
+					/*
+					 * Add the embed keys
+					 * Handler name => VideoSEO service name
+					 */
 					$this->video_autoembeds[ 'arve_' . $provider ] = $service;
 				}
 			}
@@ -111,17 +114,17 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Advanced_Responsive_Video_Embedder' ) )
 		/**
 		 * Analyse a video shortcode from the plugin for usable video information
 		 *
-		 * @param  string  $full_shortcode Full shortcode as found in the post content
-		 * @param  string  $sc             Shortcode found
-		 * @param  array   $atts           Shortcode attributes - already decoded if needed
-		 * @param  string  $content        The shortcode content, i.e. the bit between [sc]content[/sc]
+		 * @param  string $full_shortcode Full shortcode as found in the post content.
+		 * @param  string $sc             Shortcode found.
+		 * @param  array  $atts           Shortcode attributes - already decoded if needed.
+		 * @param  string $content        The shortcode content, i.e. the bit between [sc]content[/sc].
 		 *
 		 * @return array   An array with the usable information found or else an empty array
 		 */
 		public function get_info_from_shortcode( $full_shortcode, $sc, $atts = array(), $content = '' ) {
 			$vid = array();
 
-			// Deal with blip weirdness
+			// Deal with blip weirdness.
 			if ( ( $sc === 'blip' || $sc === 'bliptv' ) && ! empty( $atts['id'] ) ) {
 				$vid = $this->what_the_blip( $vid, $atts['id'], $full_shortcode );
 			}
@@ -133,14 +136,15 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Advanced_Responsive_Video_Embedder' ) )
 			}
 
 			if ( $vid !== array() ) {
-				// Only add type if we succesfully found an id/url
+				// Only add type if we succesfully found an id/url.
 				switch ( $sc ) {
 					case 'bliptv':
 						$vid['type'] = 'blip';
 						break;
 
 					case 'iframe':
-						$vid['type']        = 'iframe'; // @todo what should this be??? - url iframe embed
+						// @todo what should this be? - url iframe embed?
+						$vid['type']        = 'iframe';
 						$vid['maybe_local'] = true;
 						break;
 
@@ -152,7 +156,6 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Advanced_Responsive_Video_Embedder' ) )
 
 			return $vid;
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

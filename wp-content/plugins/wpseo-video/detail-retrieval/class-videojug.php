@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Videojug Video SEO Details
  *
  * @internal The video id has no relation to the 'normal' urls. Normal urls can be used to retrieve oembed
@@ -37,7 +38,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "author_name":"DFS: Keyword: Broad: All Comp:",
  *    "id":"a5885506-146c-0304-32e4-ff0008d05cb5"
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Videojug' ) ) {
 
 	/**
@@ -48,7 +49,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Videojug' ) ) {
 		/**
 		 * @var	string	Regular expression to retrieve a video id from a known video url
 		 */
-		//protected $name!! NOT id_regex = '`videojug\.com/(?:film/|interview/|series/[^\?]+\?episode=)([a-z0-9-]+)(?:$|/)`i';
 		protected $id_regex = '`[/\.]videojug\.com/embed/([a-z0-9-]+)(?:$|[/#\?])`i';
 
 		/**
@@ -65,7 +65,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Videojug' ) ) {
 			'response_type' => 'json',
 		);
 
-
 		/**
 		 * (Re-)Set the video id
 		 */
@@ -75,7 +74,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Videojug' ) ) {
 			}
 		}
 
-
 		/**
 		 * Set the player location
 		 */
@@ -84,7 +82,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Videojug' ) ) {
 				$this->vid['player_loc'] = 'http://www.videojug.com/embed/' . rawurlencode( $this->vid['id'] );
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

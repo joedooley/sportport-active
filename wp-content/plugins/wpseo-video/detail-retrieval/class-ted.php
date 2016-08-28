@@ -5,7 +5,7 @@
  * @version    1.8.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * TED Talks Video SEO Details
  *
  * Full API is in limited beta and at this moment (2014-07-22), the page to apply for an API-key is 404-ing.
@@ -38,7 +39,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "thumbnail_width":"480",
  *    "thumbnail_height":"360"
  * }
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Ted' ) ) {
 
 	/**
@@ -47,27 +48,27 @@ if ( ! class_exists( 'WPSEO_Video_Details_Ted' ) ) {
 	class WPSEO_Video_Details_Ted extends WPSEO_Video_Details_Oembed {
 
 		/**
-		 * @var	string	Regular expression to retrieve a video id from a known video url
+		 * @var    string    Regular expression to retrieve a video id from a known video url
 		 */
 		protected $id_regex = '`[/\.]ted\.com/talks/([a-z0-9_-]+)(?:$|\.html|[/#\?])`i';
 
 		/**
-		 * @var	string	Regular expression to retrieve a numeric video id from a known video short url
+		 * @var    string    Regular expression to retrieve a numeric video id from a known video short url
 		 */
 		protected $short_id_regex = '`[/\.]ted\.com/talks/view/id/(.+?)(?:$|/)`i';
 
 		/**
-		 * @var	string	Sprintf template to create a url from an id
+		 * @var    string    Sprintf template to create a url from an id
 		 */
 		protected $url_template = 'http://www.ted.com/talks/%s.html';
 
 		/**
-		 * @var	string	Sprintf template to create a url from an id
+		 * @var    string    Sprintf template to create a url from an id
 		 */
 		protected $short_id_url_template = 'http://www.ted.com/talks/view/id/%s';
 
 		/**
-		 * @var	array	Information on the remote url to use for retrieving the video details
+		 * @var    array    Information on the remote url to use for retrieving the video details
 		 */
 		protected $remote_url = array(
 			'pattern'       => 'http://www.ted.com/talks/oembed.json?url=%s',
@@ -79,13 +80,13 @@ if ( ! class_exists( 'WPSEO_Video_Details_Ted' ) ) {
 		/**
 		 * Deal with potentially wrong ids from short id url format and instantiate the class
 		 *
-		 * @param array  $vid     The video array with all the data.
-		 * @param array  $old_vid The video array with all the data of the previous "fetch", if available.
+		 * @param array $vid     The video array with all the data.
+		 * @param array $old_vid The video array with all the data of the previous "fetch", if available.
 		 *
 		 * @return \WPSEO_Video_Details_Ted
 		 */
 		public function __construct( $vid, $old_vid = array() ) {
-			// Check for wrongly set short id as id
+			// Check for wrongly set short id as id.
 			if ( ! empty( $vid['id'] ) && preg_match( '`^[0-9]+$`', $vid['id'] ) ) {
 				$vid['short_id'] = $vid['id'];
 				unset( $vid['id'] );
@@ -100,7 +101,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Ted' ) ) {
 		 * @uses WPSEO_Video_Details_Ted::$id_regex
 		 * @uses WPSEO_Video_Details_Ted::$short_id_regex
 		 *
-		 * @param  int $match_nr  The captured parenthesized sub-pattern to use from matches. Defaults to 1.
+		 * @param  int $match_nr The captured parenthesized sub-pattern to use from matches. Defaults to 1.
 		 *
 		 * @return void
 		 */
@@ -115,14 +116,14 @@ if ( ! class_exists( 'WPSEO_Video_Details_Ted' ) ) {
 		 * @uses WPSEO_Video_Details_Ted::$id_regex
 		 * @uses WPSEO_Video_Details_Ted::$short_id_regex
 		 *
-		 * @param  string $url       The video url
-		 * @param  int    $match_nr  The captured parenthesized sub-pattern to use from matches. Defaults to 1.
+		 * @param  string $url      The video url.
+		 * @param  int    $match_nr The captured parenthesized sub-pattern to use from matches. Defaults to 1.
 		 *
 		 * @return void
 		 */
 		private function determine_id_from_url( $url, $match_nr = 1 ) {
 			if ( is_string( $url ) && $url !== '' ) {
-				// Check for short id form first as the normal regex would match on the 'view' bit
+				// Check for short id form first as the normal regex would match on the 'view' bit.
 				if ( preg_match( $this->short_id_regex, $url, $match ) ) {
 					$this->vid['short_id'] = $match[ $match_nr ];
 				}
@@ -181,7 +182,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Ted' ) ) {
 				$this->vid['player_loc'] = 'http://embed.ted.com/talks/' . rawurlencode( $this->vid['id'] ) . '.html';
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

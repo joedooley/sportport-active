@@ -5,17 +5,17 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit();
 }
 
-
-/*******************************************************************
+/**
+ *****************************************************************
  * Vippy Video SEO Details
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Vippy' ) ) {
 
 	/**
@@ -29,31 +29,10 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vippy' ) ) {
 	class WPSEO_Video_Details_Vippy extends WPSEO_Video_Details {
 
 		/**
-		 * @var	string	Regular expression to retrieve a video id from a known video url
-		 */
-		//protected $id_regex = '';
-
-		/**
-		 * @var	string	Sprintf template to create a url from an id
-		 */
-		//protected $url_template = '';
-
-		/**
-		 * @var	array	Information on the remote url to use for retrieving the video details
-		 * /
-		protected $remote_url = array(
-			'pattern'       => '',
-			'replace_key'   => '',
-			'response_type' => '',
-		);
-		*/
-
-
-		/**
 		 * Instantiate the class
 		 *
-		 * @param array  $vid     The video array with all the data.
-		 * @param array  $old_vid The video array with all the data of the previous "fetch", if available.
+		 * @param array $vid     The video array with all the data.
+		 * @param array $old_vid The video array with all the data of the previous "fetch", if available.
 		 *
 		 * @return \WPSEO_Video_Details_Vippy
 		 */
@@ -66,7 +45,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vippy' ) ) {
 				parent::__construct( $vid, $old_vid );
 			}
 		}
-
 
 		/**
 		 * Retrieve information on a video via a remote API call using the Vippy plugin for making the call
@@ -81,16 +59,14 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vippy' ) ) {
 			}
 		}
 
-
 		/**
 		 * Set the content location
 		 */
 		protected function set_content_loc() {
 			if ( isset( $this->decoded_response->open_graph_url ) && ! empty( $this->decoded_response->highQuality ) ) {
-				$this->vid['content_loc'] = $this->decoded_response->highQuality; //MP4
+				$this->vid['content_loc'] = $this->decoded_response->highQuality;
 			}
 		}
-
 
 		/**
 		 * Set the video duration
@@ -99,15 +75,15 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vippy' ) ) {
 			$this->set_duration_from_json_object();
 		}
 
-
 		/**
 		 * Set the player location
 		 */
 		protected function set_player_loc() {
-			// @todo - find out what the player_loc should be - this method is set by (nearly)
-			// every other video class, so why not in this one ?
+			/*
+			 * @todo - find out what the player_loc should be - this method is set by (nearly)
+			 * every other video class, so why not in this one?
+			 */
 		}
-
 
 		/**
 		 * Set the thumbnail location
@@ -121,7 +97,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vippy' ) ) {
 			}
 		}
 
-
 		/**
 		 * Set the video view count
 		 */
@@ -130,7 +105,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vippy' ) ) {
 				$this->vid['view_count'] = $this->decoded_response->views;
 			}
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

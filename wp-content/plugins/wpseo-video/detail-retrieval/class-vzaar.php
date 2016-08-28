@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,7 +13,8 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Vzaar Video SEO Details
  *
  * @todo Maybe add view_count based upon play_count ?
@@ -44,8 +45,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *    "thumbnail_height":"90",
  *    "provider_name":"vzaar"
  * }
- *
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details_Vzaar' ) ) {
 
 	/**
@@ -59,11 +59,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vzaar' ) ) {
 		 * @var	string	Regular expression to retrieve a video id from a known video url
 		 */
 		protected $id_regex = '`[/\.](?:vzaar\.com|vzaar\.tv#CUSTOM_URL#)/(?:videos/)?([0-9]+)(?:[/\.](?:player|flashplayer|video|download|mobile))?$`i';
-
-		/**
-		 * @var	string	Sprintf template to create a url from an id
-		 */
-		//protected $url_template = '';
 
 		/**
 		 * @var	array  Information on the remote url to use for retrieving the video details
@@ -113,8 +108,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vzaar' ) ) {
 		 *
 		 * Overwrite the vzaar base domain if needed before passing off to the parent constructor
 		 *
-		 * @param array  $vid     The video array with all the data.
-		 * @param array  $old_vid The video array with all the data of the previous "fetch", if available.
+		 * @param array $vid     The video array with all the data.
+		 * @param array $old_vid The video array with all the data of the previous "fetch", if available.
 		 *
 		 * @return \WPSEO_Video_Details_Vzaar
 		 */
@@ -243,7 +238,6 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vzaar' ) ) {
 		protected function set_width() {
 			$this->set_width_from_json_object();
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */

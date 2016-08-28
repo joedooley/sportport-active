@@ -2,6 +2,8 @@
 var scoreToRating = require( "yoastseo/js/interpreters/scoreToRating" );
 var indicatorsFactory = require( "yoastseo/js/config/presenter" );
 var Paper = require( "yoastseo/js/values/paper" );
+var isContentAnalysisActive = require( "../../../../js/src/analysis/isContentAnalysisActive" );
+var isKeywordAnalysisActive = require( "../../../../js/src/analysis/isKeywordAnalysisActive" );
 var _isUndefined = require( "lodash/isUndefined" );
 
 var indicators;
@@ -13,11 +15,18 @@ window.YoastSEO = ( 'undefined' === typeof window.YoastSEO ) ? {} : window.Yoast
 	var maxKeywords = 5;
 	var keywordTabTemplate;
 
+	var tabManager;
+
 	var YoastMultiKeyword = function() {};
 
 	YoastMultiKeyword.prototype.initDOM = function() {
-		window.YoastSEO.multiKeyword = true;
+		if ( ! isKeywordAnalysisActive() ) {
+			return;
+		}
 
+		tabManager = window.YoastSEO.wp._tabManager;
+
+		window.YoastSEO.multiKeyword = true;
 		keywordTabTemplate = wp.template( 'keyword_tab' );
 
 		indicators = indicatorsFactory( YoastSEO.app.i18n );
@@ -111,9 +120,18 @@ window.YoastSEO = ( 'undefined' === typeof window.YoastSEO ) ? {} : window.Yoast
 	 */
 	YoastMultiKeyword.prototype.bindKeywordTab = function() {
 		$( '.wpseo-metabox-tabs' ).on( 'click', '.wpseo_keyword_tab > .wpseo_tablink', function() {
+			var $this = $( this );
+
 			// Convert to string to prevent errors if the keyword is "null".
-			var keyword = $( this ).data( 'keyword' ) + '';
+			var keyword = $this.data( 'keyword' ) + '';
 			$( '#yoast_wpseo_focuskw_text_input' ).val( keyword ).focus();
+
+			tabManager.showKeywordAnalysis();
+
+			// Because deactive removes all 'active' classes from all tabs we need to re-add the active class ourselves.
+			tabManager.getContentTab().deactivate();
+			$this.closest( '.wpseo_keyword_tab' ).addClass( 'active' );
+
 			YoastSEO.app.refresh();
 		} );
 	};
@@ -149,7 +167,7 @@ window.YoastSEO = ( 'undefined' === typeof window.YoastSEO ) ? {} : window.Yoast
 			focusKeyword = $( ev.currentTarget ).val();
 			currentTabLink = $( 'li.active > .wpseo_tablink' );
 			currentTabLink.data( 'keyword', focusKeyword );
-			currentTabLink.find( 'span.wpseo_keyword' ).text( focusKeyword || '...' );
+			currentTabLink.find( 'span.wpseo_keyword' ).text( focusKeyword || wpseoPostScraperL10n.enterFocusKeyword );
 		}.bind( this ) );
 	};
 
@@ -184,12 +202,9 @@ window.YoastSEO = ( 'undefined' === typeof window.YoastSEO ) ? {} : window.Yoast
 			for( var i in keywords ) {
 				var keyword = keywords[i].keyword;
 				var score = keywords[i].score;
-				this.addKeywordTab( keyword, score );
+				this.addKeywordTab( keyword, score, i == 0 );
 			}
 		}
-
-		// On page load the first tab is always active.
-		$( '.wpseo_keyword_tab' ).first().addClass( 'active' );
 	};
 
 	/**
@@ -200,25 +215,27 @@ window.YoastSEO = ( 'undefined' === typeof window.YoastSEO ) ? {} : window.Yoast
 	 * @param {boolean} focus Whether this tab should be currently focused.
 	 */
 	YoastMultiKeyword.prototype.addKeywordTab = function( keyword, score, focus ) {
-		var placeholder, html, templateArgs;
+		var label, html, templateArgs;
 
 		// Insert a new keyword tab.
 		keyword = keyword || '';
-		placeholder = keyword.length > 0 ? keyword : '...';
+		label = keyword.length > 0 ? keyword : wpseoPostScraperL10n.enterFocusKeyword;
 
 		templateArgs = {
 			keyword: keyword,
-			placeholder: placeholder,
-			score: score
+			label: label,
+			score: score,
+			isKeywordTab: true,
+			classes: 'wpseo_tab wpseo_keyword_tab',
+			hideable: true
 		};
 
-		// If this is the first keyword we add we want to add the "Content:" prefix
 		if ( 0 === $( '.wpseo_keyword_tab' ).length ) {
-			templateArgs.prefix = wpseoPostScraperL10n.contentTab;
-			templateArgs.hideRemove = true;
+			templateArgs.hideable = false;
 		}
 
 		html = keywordTabTemplate( templateArgs );
+
 		$( '.wpseo-tab-add-keyword' ).before( html );
 
 		this.updateUI();
@@ -322,24 +339,29 @@ window.YoastSEO = ( 'undefined' === typeof window.YoastSEO ) ? {} : window.Yoast
 	 * @returns {string} The HTML for the keyword tab.
 	 */
 	YoastMultiKeyword.prototype.renderKeywordTab = function( keyword, score, tabElement, active ) {
-		var html, templateArgs, placeholder;
+		var html, templateArgs, label;
 
 		tabElement = $( tabElement );
 
-		placeholder = keyword.length > 0 ? keyword : '...';
+		label = keyword.length > 0 ? keyword : wpseoPostScraperL10n.enterFocusKeyword;
 
 		var indicators = this.getIndicator( score, keyword );
 
 		templateArgs = {
 			keyword: keyword,
-			placeholder: placeholder,
-			score: indicators.className
+			label: label,
+			score: indicators.className,
+			isKeywordTab: true,
+			classes: 'wpseo_tab wpseo_keyword_tab',
+			hideable: true
 		};
 
-		// The first tab isn't deletable
-		if ( 0 === tabElement.index() ) {
-			templateArgs.hideRemove = true;
-			templateArgs.prefix = wpseoPostScraperL10n.contentTab;
+		// If there is no content tab the first keyword tab has a different index.
+		var firstKeywordTabIndex = isContentAnalysisActive() ? 1 : 0;
+
+		// The first keyword tab isn't deletable, this first keyword tab is the second tab because of the content tab.
+		if ( firstKeywordTabIndex === tabElement.index() ) {
+			templateArgs.hideable = false;
 		}
 
 		if ( true === active ) {
@@ -347,11 +369,6 @@ window.YoastSEO = ( 'undefined' === typeof window.YoastSEO ) ? {} : window.Yoast
 		}
 
 		html = keywordTabTemplate( templateArgs );
-
-		// Add an extra class if the tab should be active.
-		if ( true === active ) {
-			html = html.replace( 'class="wpseo_keyword_tab', 'class="wpseo_keyword_tab active' );
-		}
 
 		tabElement.replaceWith( html );
 	};
@@ -365,7 +382,7 @@ window.YoastSEO = ( 'undefined' === typeof window.YoastSEO ) ? {} : window.Yoast
 	 */
 	YoastMultiKeyword.prototype.analyzeKeyword = function( keyword ) {
 		var paper;
-		var assessor = YoastSEO.app.assessor;
+		var assessor = YoastSEO.app.seoAssessor;
 		var currentPaper;
 
 		currentPaper = YoastSEO.app.paper;

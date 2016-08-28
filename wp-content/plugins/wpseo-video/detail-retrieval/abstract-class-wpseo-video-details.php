@@ -5,7 +5,7 @@
  * @version    1.7.0
  */
 
-// Avoid direct calls to this file
+// Avoid direct calls to this file.
 if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -13,9 +13,10 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 }
 
 
-/*******************************************************************
+/**
+ *****************************************************************
  * Video SEO Details
- *******************************************************************/
+ */
 if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 
 	/**
@@ -79,10 +80,11 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 		 * @var	array	Information on the remote url to use for retrieving the video details
 		 */
 		protected $remote_url = array(
-			'pattern'       => '', // remote url pattern with one (!) %s placeholder
-			'replace_key'   => '', // key in the $vid array with which to replace the placeholder in the url
+			'pattern'       => '', // Remote url pattern with one (!) %s placeholder.
+			'replace_key'   => '', // Key in the $vid array with which to replace the placeholder in the url.
 
-			/* expected response type for use in decoding the response
+			/*
+			 * expected response type for use in decoding the response
 			   - should be one of the following: 'json', 'serial' or 'simplexml'
 			   - if you need another type of decoding, implement your own version of
 			     decode_remote_video_info() in the concrete class
@@ -103,14 +105,14 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 		 * @var array   The details retrieved for this video
 		 */
 		protected $vid = array(
-			// Should/will always be set after retrieving the details
+			// Should/will always be set after retrieving the details.
 			'id'               => null,
 			'url'              => '',
 			'type'             => '',
-			'player_loc'       => '', // full url
+			'player_loc'       => '',
 			'thumbnail_loc'    => '',
 
-			// Might be set after retrieving the details
+			// Might be set after retrieving the details.
 			'content_loc'      => '',
 			'duration'         => 0,
 			'view_count'       => 0,
@@ -153,8 +155,8 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 		/**
 		 * Instantiate the class, main routine.
 		 *
-		 * @param array  $vid     The video array with all the data.
-		 * @param array  $old_vid The video array with all the data of the previous "fetch", if available.
+		 * @param array $vid     The video array with all the data.
+		 * @param array $old_vid The video array with all the data of the previous "fetch", if available.
 		 *
 		 * @return \WPSEO_Video_Details
 		 */
@@ -188,7 +190,7 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 
 				/**
 				 * @todo - if it's not a video - should we reset the $vid array ? or maybe add a key
-				 * 'video' => false, so we can avoid checking the item again ?
+				 * 'video' => false, so we can avoid checking the item again?
 				 */
 			}
 		}
@@ -263,27 +265,15 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 		 * @return bool             Whether or not valid old data was found (and used)
 		 */
 		protected function maybe_use_old_video_data( $match_on = 'id' ) {
-			/* OLD:
-			$this->old_vid['title']            = $this->vid['title'];
-			$this->old_vid['description']      = $this->vid['description'];
-			$this->old_vid['publication_date'] = $this->vid['publication_date'];
-			if ( isset( $this->vid['category'] ) ) {
-				$this->old_vid['category'] = $this->vid['category'];
-			}
-			if ( isset( $this->vid['tag'] ) ) {
-				$this->old_vid['tag'] = $this->vid['tag'];
-			}
-			*/
-			if ( ( is_array( $this->old_vid ) && $this->old_vid !== array() ) && ( ( isset( $this->old_vid[ $match_on ] ) && isset( $this->vid[ $match_on ] ) ) && $this->vid[ $match_on ] == $this->old_vid[ $match_on ] ) ) {
+			if ( ( is_array( $this->old_vid ) && $this->old_vid !== array() ) && ( ( isset( $this->old_vid[ $match_on ] ) && isset( $this->vid[ $match_on ] ) ) && $this->vid[ $match_on ] === $this->old_vid[ $match_on ] ) ) {
 
-				// Filter out any empty values so as to not overwrite a real value with an empty
+				// Filter out any empty values so as to not overwrite a real value with an empty.
 				$this->vid = array_merge( array_filter( $this->old_vid ), array_filter( $this->vid ) );
 
 				return true;
 			}
-			else {
-				return false;
-			}
+
+			return false;
 		}
 
 
@@ -299,19 +289,21 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 				( ( is_string( $this->vid[ $this->remote_url['replace_key'] ] ) || is_int( $this->vid[ $this->remote_url['replace_key'] ] ) ) && ! empty( $this->vid[ $this->remote_url['replace_key'] ] ) ) ) {
 
 				$replace_key = $this->vid[ $this->remote_url['replace_key'] ];
-				// Fix protocol-less urls in parameters as the remote get call most ofter will not work with them
+				// Fix protocol-less urls in parameters as the remote get call most ofter will not work with them.
 				if ( $this->remote_url['replace_key'] === 'url' && strpos( $this->vid['url'], '//' ) === 0 ) {
 					$replace_key = 'http:' . $this->vid['url'];
 				}
 
-				$url = sprintf( $this->remote_url['pattern'], $replace_key, $this->api_key);
+				$url = sprintf( $this->remote_url['pattern'], $replace_key, $this->api_key );
 				$url = $this->url_encode( $url );
 
 				$response = $this->remote_get( $url );
 				if ( is_string( $response ) && $response !== '' && $response !== 'null' ) {
 					$this->remote_response = $response;
 				}
-				return $response; // only needed for child classes to catch the response and handle it differently
+
+				// Only needed for child classes to catch the response and handle it differently.
+				return $response;
 			}
 		}
 
@@ -327,7 +319,7 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 		 * @return array|boolean $body Returns the body of the post when successful, false when unsuccessful
 		 */
 		protected function remote_get( $url, $headers = array() ) {
-			// Fix protocol-less urls as the remote get call will not work with them (mainly needed for wistia frame source)
+			// Fix protocol-less urls as the remote get call will not work with them (mainly needed for wistia frame source).
 			if ( strpos( $url, '//' ) === 0 ) {
 				$url = 'http:' . $url;
 			}
@@ -343,11 +335,11 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 				)
 			);
 
-			if ( ! is_wp_error( $response ) && $response['response']['code'] == 200 && isset( $response['body'] ) ) {
+			if ( ! is_wp_error( $response ) && $response['response']['code'] === 200 && isset( $response['body'] ) ) {
 				return $response['body'];
-			} else {
-				return false;
 			}
+
+			return false;
 		}
 
 
@@ -435,7 +427,7 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 		 * @return void
 		 */
 		protected function put_video_details() {
-			// @internal: keep set_id() first, if it does need changing, it needs to be done before anything else
+			// @internal: keep set_id() first, if it does need changing, it needs to be done before anything else.
 			if ( method_exists( $this, 'set_id' ) ) {
 				$this->set_id();
 			}
@@ -458,15 +450,13 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 				$this->set_height();
 			}
 
-			/* Only override the thumbnail if it hasn't been set already.
+			/*
+			Only override the thumbnail if it hasn't been set already.
 				This is in contrast to all the other methods, where the info retrieved from the remote
-				service is leading. For the thumbnail, the user preference is leading. */
+				service is leading. For the thumbnail, the user preference is leading.
+			*/
 			if ( empty( $this->vid['thumbnail_loc'] ) ) {
 				$this->set_thumbnail_loc();
-			}
-			else {
-				// @todo should we do a file_exists() ?
-				// @todo or maybe even check if the file is local and if not use make_image_local() on it
 			}
 		}
 
@@ -496,17 +486,6 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 				$this->vid['type'] = strtolower( $type );
 			}
 		}
-
-
-		/*
-		abstract protected function set_content_loc();
-		abstract protected function set_duration();
-		abstract protected function set_height();
-		abstract protected function set_id();
-		abstract protected function set_view_count();
-		abstract protected function set_width();
-		*/
-
 
 
 		/* ********* HELPER METHODS ******** */
@@ -581,7 +560,7 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 
 			$vid = $this->vid;
 
-			// Remove query parameters from the URL
+			// Remove query parameters from the URL.
 			$url = strtok( $url, '?' );
 
 			if ( isset( $vid['post_id'] ) ) {
@@ -602,16 +581,18 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 					if ( $img ) {
 						if ( strpos( $img[0], 'http' ) !== 0 ) {
 							return get_site_url( null, $img[0] );
-						} else {
-							return $img[0];
 						}
+
+						return $img[0];
 					}
 				}
 			}
 
-			// Disable wp smush.it to speed up the process
-			// @todo - should this filter maybe be added back at the end ? If so we need to test whether it existed and
-			// only add it back if it did
+			/*
+			 * Disable wp smush.it to speed up the process.
+			 * @todo - should this filter maybe be added back at the end ? If so we need to test whether it existed and
+			 * only add it back if it did.
+			 */
 			remove_filter( 'wp_generate_attachment_metadata', 'wp_smushit_resize_from_meta_data' );
 
 			$tmp = download_url( $url );
@@ -619,7 +600,8 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 			if ( is_wp_error( $tmp ) ) {
 				@unlink( $tmp );
 				return false;
-			} else {
+			}
+			else {
 
 				if ( preg_match( '`[^\?]+\.(' . WPSEO_Video_Sitemap::$image_ext_pattern . ')$`i', $url, $matches ) ) {
 					$ext = $matches[1];
@@ -627,7 +609,8 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 
 				if ( ( ! isset( $vid['title'] ) || empty( $vid['title'] ) ) && isset( $vid['post_id'] ) ) {
 					$vid['title'] = get_the_title( $vid['post_id'] );
-				} else {
+				}
+				else {
 					$vid['title'] = strtolower( $vid['id'] );
 				}
 				$title = sanitize_title( strtolower( $vid['title'] ) );
@@ -652,16 +635,18 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 					$img = wp_get_attachment_image_src( $ret, 'full' );
 
 					if ( $img ) {
-						// Try and prevent relative paths to images
+						// Try and prevent relative paths to images.
 						if ( strpos( $img[0], 'http' ) !== 0 ) {
 							$img = get_site_url( null, $img[0] );
-						} else {
+						}
+						else {
 							$img = $img[0];
 						}
 
 						return $img;
 					}
-				} else {
+				}
+				else {
 					$file = wp_handle_sideload( $file_array, array( 'test_form' => false ) );
 
 					if ( ! isset( $file['error'] ) ) {
@@ -684,7 +669,7 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 		 * 07-Jan-2005 07:01
 		 * http://nl2.php.net/manual/nl/function.rawurlencode.php
 		 *
-		 * @param string $url (Part of) url to be encoded
+		 * @param string $url (Part of) url to be encoded.
 		 *
 		 * @return string     Correctly encoded url
 		 */
@@ -737,7 +722,7 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 							break;
 					}
 				}
-				// legacy patch for servers that need a literal /~username
+				// Legacy patch for servers that need a literal /~username.
 				$path = str_replace( '/%7E', '/~', $path );
 			}
 
@@ -760,7 +745,6 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 
 			return implode( '', array( $scheme, $user, $pass, $host, $port, $path, $query, $fragment ) );
 		}
-
 	} /* End of class */
 
 } /* End of class-exists wrapper */
