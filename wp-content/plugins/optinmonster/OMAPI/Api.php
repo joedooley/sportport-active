@@ -16,7 +16,7 @@ class OMAPI_Api {
      *
      * @var string
      */
-	public $base = 'api.optinmonster.com/v1/';
+	public $base = 'app.optinmonster.com/v1/';
 
 	/**
      * Current API route.

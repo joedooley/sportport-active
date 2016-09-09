@@ -151,6 +151,23 @@ OptinMonster is the <a href="http://optinmonster.com" rel="friend" title="OptinM
 
 == Changelog ==
 
+= 1.1.5 =
+* Campaigns will now load on the archive pages of individual taxonomies (if selected) by default.
+* Clarified language regarding how the "load exclusively on" and "never load optin on" settings work.
+* Removed after post optins from RSS feeds.
+* Removed the test mode setting in favor of using the "show only to logged-in users" setting for testing campaign output.
+* When going live, campaigns will load globally by default unless other advanced output settings are specified.
+* Automatically adding an after post optin after a post is now checked on by default for new after post campaigns.
+* Added a new "Support" tab with a helpful video, links to documentation and ability to send support details when submitting a ticket.
+* Migration tab is now only shown if the old plugin exists on the site.
+* Added helpful tooltips in various areas of the admin.
+* Moved all advanced output rules into a toggle field to make working with output settings easier.
+* Fixed the clear local cookies function (it actually works now!).
+* Removed the confusing Delete button - campaigns should be deleted from the app.
+* Added an inline shortcode "copy to clipboard" button for after post campaigns.
+* Improved shortcode processing - it is now automated (no longer need to enter in a setting) and supports non self-closing shortcodes!
+* Improved individual campaign action links by always making them visible.
+
 = 1.1.4.7 =
 * Updated compatibility for WordPress 4.6.
 

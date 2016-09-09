@@ -192,7 +192,7 @@ class OMAPI_Welcome {
 	 */
 	public function styles() {
 
-		wp_register_style( $this->base->plugin_slug . '-settings', plugins_url( '/assets/css/settings.css', $this->base->file ), array(), $this->base->version );
+		wp_register_style( $this->base->plugin_slug . '-settings', plugins_url( '/assets/css/settings.css', OMAPI_FILE ), array(), $this->base->version );
 		wp_enqueue_style( $this->base->plugin_slug . '-settings' );
 
 

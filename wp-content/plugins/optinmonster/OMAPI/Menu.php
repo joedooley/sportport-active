@@ -117,7 +117,7 @@ class OMAPI_Menu {
     public function icon() {
 
 	    ?>
-	    <style type="text/css">@font-face{font-family: 'archie';src:url('<?php echo plugins_url( '/assets/fonts/archie.eot?velzrt', $this->base->file ); ?>');src:url('<?php echo plugins_url( '/assets/fonts/archie.eot?#iefixvelzrt', $this->base->file ); ?>') format('embedded-opentype'),url('<?php echo plugins_url( '/assets/fonts/archie.woff?velzrt', $this->base->file ); ?>') format('woff'),url('<?php echo plugins_url( '/assets/fonts/archie.ttf?velzrt', $this->base->file ); ?>') format('truetype'),url('<?php echo plugins_url( '/assets/fonts/archie.svg?velzrt#archie', $this->base->file ); ?>') format('svg');font-weight: normal;font-style: normal;}#toplevel_page_optin-monster-api-settings .dashicons-before,#toplevel_page_optin-monster-api-settings .dashicons-before:before {font-family: 'archie';speak: none;font-style: normal;font-weight: normal;font-variant: normal;text-transform: none;line-height: 1;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}#toplevel_page_optin-monster-api-settings .dashicons-before:before {content: "\e600";font-size: 38px;margin-top: -9px;margin-left: -8px;}</style>
+	    <style type="text/css">@font-face{font-family: 'archie';src:url('<?php echo plugins_url( '/assets/fonts/archie.eot?velzrt', OMAPI_FILE ); ?>');src:url('<?php echo plugins_url( '/assets/fonts/archie.eot?#iefixvelzrt', OMAPI_FILE ); ?>') format('embedded-opentype'),url('<?php echo plugins_url( '/assets/fonts/archie.woff?velzrt', OMAPI_FILE ); ?>') format('woff'),url('<?php echo plugins_url( '/assets/fonts/archie.ttf?velzrt', OMAPI_FILE ); ?>') format('truetype'),url('<?php echo plugins_url( '/assets/fonts/archie.svg?velzrt#archie', OMAPI_FILE ); ?>') format('svg');font-weight: normal;font-style: normal;}#toplevel_page_optin-monster-api-settings .dashicons-before,#toplevel_page_optin-monster-api-settings .dashicons-before:before {font-family: 'archie';speak: none;font-style: normal;font-weight: normal;font-variant: normal;text-transform: none;line-height: 1;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}#toplevel_page_optin-monster-api-settings .dashicons-before:before {content: "\e600";font-size: 38px;margin-top: -9px;margin-left: -8px;}</style>
 	    <?php
 
     }
@@ -142,9 +142,9 @@ class OMAPI_Menu {
      */
     public function styles() {
 
-		wp_register_style( $this->base->plugin_slug . '-select2', plugins_url( '/assets/css/select2.min.css', $this->base->file ), array(), $this->base->version );
+		wp_register_style( $this->base->plugin_slug . '-select2', plugins_url( '/assets/css/select2.min.css', OMAPI_FILE ), array(), $this->base->version );
 	    wp_enqueue_style( $this->base->plugin_slug . '-select2' );
-	    wp_register_style( $this->base->plugin_slug . '-settings', plugins_url( '/assets/css/settings.css', $this->base->file ), array(), $this->base->version );
+	    wp_register_style( $this->base->plugin_slug . '-settings', plugins_url( '/assets/css/settings.css', OMAPI_FILE ), array(), $this->base->version );
 	    wp_enqueue_style( $this->base->plugin_slug . '-settings' );
 
         // Run a hook to load in custom styles.
@@ -159,10 +159,16 @@ class OMAPI_Menu {
      */
     public function scripts() {
 
-		wp_register_script( $this->base->plugin_slug . '-select2', plugins_url( '/assets/js/select2.min.js', $this->base->file ), array( 'jquery' ), $this->base->version, true );
+		wp_register_script( $this->base->plugin_slug . '-select2', plugins_url( '/assets/js/select2.min.js', OMAPI_FILE ), array( 'jquery' ), $this->base->version, true );
 	    wp_enqueue_script( $this->base->plugin_slug . '-select2' );
-	    wp_register_script( $this->base->plugin_slug . '-settings', plugins_url( '/assets/js/settings.js', $this->base->file ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', $this->base->plugin_slug . '-select2' ), $this->base->version, true );
+	    wp_register_script( $this->base->plugin_slug . '-settings', plugins_url( '/assets/js/settings.js', OMAPI_FILE ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', $this->base->plugin_slug . '-select2' ), $this->base->version, true );
 	    wp_enqueue_script( $this->base->plugin_slug . '-settings' );
+	    wp_register_script( $this->base->plugin_slug . '-clipboard', plugins_url( '/assets/js/clipboard.min.js', OMAPI_FILE ), array( $this->base->plugin_slug . '-settings' ), $this->base->version, true );
+	    wp_enqueue_script( $this->base->plugin_slug . '-clipboard' );
+	    wp_register_script( $this->base->plugin_slug . '-tooltip', plugins_url( '/assets/js/tooltip.min.js', OMAPI_FILE ), array( $this->base->plugin_slug . '-settings' ), $this->base->version, true );
+	    wp_enqueue_script( $this->base->plugin_slug . '-tooltip' );
+	    wp_register_script( $this->base->plugin_slug . '-jspdf', plugins_url( '/assets/js/jspdf.min.js', OMAPI_FILE ), array( $this->base->plugin_slug . '-settings' ), $this->base->version, true );
+	    wp_enqueue_script( $this->base->plugin_slug . '-jspdf' );
 	    wp_localize_script(
 		    $this->base->plugin_slug . '-settings',
 		    'omapi',
@@ -170,7 +176,8 @@ class OMAPI_Menu {
 			   	'ajax'	      => admin_url( 'admin-ajax.php' ),
 			   	'nonce'       => wp_create_nonce( 'omapi-query-nonce' ),
 			    'confirm'     => __( 'Are you sure you want to reset these settings?', 'optin-monster-api' ),
-			    'date_format' => 'F j, Y'
+			    'date_format' => 'F j, Y',
+			    'supportData' => $this->get_support_data(),
 			)
 	    );
 
@@ -178,6 +185,106 @@ class OMAPI_Menu {
         do_action( 'optin_monster_api_admin_scripts', $this->view );
 
     }
+
+	/**
+	 * Combine Support data together to pass into localization
+	 *
+	 * @since 1.1.5
+	 * @return array
+	 */
+	public function get_support_data() {
+		$server_data = '';
+		$optin_data = '';
+
+		if ( isset($_GET['optin_monster_api_view']) && $_GET['optin_monster_api_view'] == 'support') {
+			$optin_data = $this->get_optin_data();
+			$server_data = $this->get_server_data();
+		}
+		$data = array(
+			'server' => $server_data,
+			'optins' => $optin_data
+		);
+
+		return $data;
+	}
+
+	/**
+	 * Build Current Optin data array to localize
+	 *
+	 * @since 1.1.5
+	 *
+	 * @return array
+	 */
+	private function get_optin_data() {
+
+		$optins = $this->base->get_optins();
+		$optin_data = array();
+
+		if ( $optins ) {
+			foreach ( $optins as $optin ) {
+				$optin = get_post( $optin->ID );
+				$slug = $optin->post_name;
+
+				$optin_data[ $slug ] = array(
+					'Optin Type'                       => get_post_meta( $optin->ID, '_omapi_type', true ),
+					'Associated IDs'                   => get_post_meta( $optin->ID, '_omapi_ids', true ),
+					'Current Status'                   => get_post_meta( $optin->ID, '_omapi_enabled', true ),
+					'Automatic Output Status'          => get_post_meta( $optin->ID, '_omapi_automatic', true ),
+					'User Settings'                    => get_post_meta( $optin->ID, '_omapi_users', true ),
+					'Pages to Never show on'           => get_post_meta( $optin->ID, '_omapi_never', true ),
+					'Pages to Only show on'            => get_post_meta( $optin->ID, '_omapi_only', true ),
+					'Categories'                       => get_post_meta( $optin->ID, '_omapi_categories', true ),
+					'Taxonomies'                       => get_post_meta( $optin->ID, '_omapi_taxonomies', true ),
+					'Template types to Show on'        => get_post_meta( $optin->ID, '_omapi_show', true ),
+					'Shortcodes Synced and Recognized' => get_post_meta( $optin->ID, '_omapi_shortecode', true ),
+				);
+			}
+		}
+		return $optin_data;
+	}
+
+	/**
+	 * Build array of server information to localize
+	 *
+	 * @since 1.1.5
+	 *
+	 * @return array
+	 */
+	private function get_server_data() {
+
+		$theme_data = wp_get_theme();
+		$theme      = $theme_data->Name . ' ' . $theme_data->Version;
+
+		$plugins        = get_plugins();
+		$active_plugins = get_option( 'active_plugins', array() );
+		$used_plugins   = "\n";
+		$api_ping       = wp_remote_request( 'http://api.optinmonster.com/v1/ping' );
+		foreach ( $plugins as $plugin_path => $plugin ) {
+			if ( ! in_array( $plugin_path, $active_plugins ) ) {
+				continue;
+			}
+			$used_plugins .= $plugin['Name'] . ': ' . $plugin['Version'] . "\n";
+		}
+
+
+		$array = array(
+			'Server Info'        => esc_html( $_SERVER['SERVER_SOFTWARE'] ),
+			'PHP Version'        => function_exists( 'phpversion' ) ? esc_html( phpversion() ) : 'Unable to check.',
+			'Error Log Location' => function_exists( 'ini_get' ) ? ini_get( 'error_log' ) : 'Unable to locate.',
+			'Default Timezone'   => date_default_timezone_get(),
+			'WordPress Home URL' => get_home_url(),
+			'WordPress Site URL' => get_site_url(),
+			'WordPress Version'  => get_bloginfo( 'version' ),
+			'Multisite'          => is_multisite() ? 'Multisite Enabled' : 'Not Multisite',
+			'Language'           => get_locale(),
+			'API Ping Response'  => wp_remote_retrieve_response_code( $api_ping ),
+			'Active Theme'       => $theme,
+			'Active Plugins'     => $used_plugins,
+
+		);
+
+		return $array;
+	}
 
     /**
      * Customizes the footer text on the OptinMonster settings page.
@@ -205,7 +312,7 @@ class OMAPI_Menu {
 
         ?>
         <div class="wrap omapi-page">
-	        <h2><?php echo esc_html( get_admin_page_title() ); ?> <span><?php printf( __( 'v%s', 'optin-monster-api' ), $this->base->version ); ?></span> <a href="https://app.optinmonster.com/account/create" class="button button-primary button-large omapi-new-optin" title="<?php esc_attr_e( 'Create New Optin', 'optin-monster-api' ); ?>" target="_blank"><?php _e( 'Create New Optin', 'optin-monster-api' ); ?></a></h2>
+	        <h2><?php echo esc_html( get_admin_page_title() ); ?> <span><?php printf( __( 'v%s', 'optin-monster-api' ), $this->base->version ); ?></span> <a href="https://app.optinmonster.com/account/create/" class="button button-primary button-large omapi-new-optin" title="<?php esc_attr_e( 'Create New Optin', 'optin-monster-api' ); ?>" target="_blank"><?php _e( 'Create New Optin', 'optin-monster-api' ); ?></a></h2>
 	        <div class="omapi-ui">
 		        <div class="omapi-tabs">
 			        <ul class="omapi-panels">
@@ -245,6 +352,7 @@ class OMAPI_Menu {
 		$panels 	 = array();
 		$creds  	 = $this->base->get_api_credentials();
 	    $can_migrate = $this->base->can_migrate();
+	    $is_legacy_active = $this->base->is_legacy_active();
 
 		// Set panels requiring credentials.
 		if ( $creds ) {
@@ -255,12 +363,13 @@ class OMAPI_Menu {
 		$panels['api'] 	= __( 'API Credentials', 'optin-monster-api' );
 
 		// Set the settings panel.
-		if ( $creds ) {
-			$panels['settings'] = __( 'Settings', 'optin-monster-api' );
-		}
+		//$panels['settings'] = __( 'Settings', 'optin-monster-api' );
 
-		// Set the migration panel.
-	    if ( $creds && $can_migrate ) {
+	    // Set the Support panel
+	    $panels['support'] = __( 'Support', 'optin-monster-api' );
+
+	    // Set the migration panel.
+	    if ( $creds && $can_migrate && $is_legacy_active ) {
 		    $panels['migrate'] = __( 'Migration', 'optin-monster-api' );
 	    }
 
@@ -283,6 +392,7 @@ class OMAPI_Menu {
 	    $ret      = '';
 	    $optin_id = isset( $_GET['optin_monster_api_id'] ) ? absint( $_GET['optin_monster_api_id'] ) : 0;
 	    $value 	  = 'optins' == $id ? get_post_meta( $optin_id, '_omapi_' . $setting, true ) : $this->base->get_option( $id, $setting );
+	    $optin = get_post( $optin_id);
 
 	    // Load the type of setting UI based on the option.
 	    switch ( $id ) {
@@ -300,11 +410,38 @@ class OMAPI_Menu {
 
 			case 'settings' :
 		    	switch ( $setting ) {
-			    	case 'cookies' :
-				    	$ret = $this->get_checkbox_field( $setting, $value, $id, __( 'Clear local cookies on optin update?', 'optin-monster-api' ), __( 'If checked, local cookies will be cleared for all optins after optin settings are adjusted and saved.', 'optin-monster-api' ) );
+				    case 'cookies' :
+					    $ret = $this->get_checkbox_field( $setting, $value, $id, __( 'Clear local cookies on optin update?', 'optin-monster-api' ), __( 'If checked, local cookies will be cleared for all optins after optin settings are adjusted and saved.', 'optin-monster-api' ) );
 				    break 2;
 				}
 			break;
+
+		    case 'support' :
+			    switch ( $setting ) {
+				    case 'video' :
+					    $ret = '<div class="omapi-half-column"><div class="omapi-video-container"><iframe width="640" height="360" src="https://www.youtube.com/embed/QweP8BHMNRw?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div></div>';
+					    break 2;
+
+				    case 'links' :
+					    $ret = $this->get_support_links( $setting, 'Helpful Links' );
+					    break 2;
+
+				    case 'server-report';
+					    $ret = $this->get_plugin_report($setting, 'Server / Plugin Report');
+					    break 2;
+			    }
+			    break;
+
+		    case 'toggle' :
+				switch ( $setting ) {
+					case 'advanced-start' :
+						$ret = $this->get_toggle_start( $setting, __( 'Advanced Settings', 'optin-monster-api'), __('More specific settings available for campaign visibility.', 'optin-monster-api') );
+					break 2;
+					case 'advanced-end' :
+						$ret = $this->get_toggle_end();
+					break 2;
+				}
+		    break;
 
 		    case 'optins' :
 		    	switch ( $setting ) {
@@ -312,26 +449,35 @@ class OMAPI_Menu {
 				    	$ret = $this->get_checkbox_field( $setting, $value, $id, __( 'Enable optin on site?', 'optin-monster-api' ), __( 'The optin will not be displayed on this site unless this setting is checked.', 'optin-monster-api' ) );
 				    break 2;
 
-				    case 'global' :
-				    	$ret = $this->get_checkbox_field( $setting, $value, $id, __( 'Load optin globally?', 'optin-monster-api' ), __( 'If checked, the optin code will be loaded on all pages of your site.', 'optin-monster-api' ) );
-				    break 2;
-
 				    case 'automatic' :
-				    	$ret = $this->get_checkbox_field( $setting, $value, $id, __( 'Automatically add after post?', 'optin-monster-api' ), sprintf( __( 'Automatically adds the optin after each post. You can turn this off and add it manually to your posts by <a href="%s" target="_blank">clicking here and viewing the tutorial.</a>', 'optin-monster-api' ), 'http://optinmonster.com/docs/manually-add-after-post-optin/' ) );
+				    	$ret = $this->get_checkbox_field( $setting, $value, $id, __( 'Automatically add after post?', 'optin-monster-api' ), sprintf( __( 'Automatically adds the optin after each post. You can turn this off and add it manually to your posts by <a href="%s" target="_blank">clicking here and viewing the tutorial.</a>', 'optin-monster-api' ), 'https://optinmonster.com/docs/manually-add-after-post-optin/' ), array('omapi-after-post-auto-select') );
+				    break 2;
+				    case 'automatic_shortcode' :
+						$full_shortcode ='[optin-monster-shortcode id="'. $optin->post_name .'"]';
+					    $ret = $this->get_text_field(
+						    $setting,
+						    $full_shortcode,
+						    $id,
+						    __( 'Shortcode for this optin', 'optin-monster-api' ),
+						    sprintf( __( 'Use the shortcode to manually add this optin to inline to a post or page. <a href="%s" title="Click here to learn more about how this work" target="_blank">Click here to learn more about how this works.</a>', 'optin-monster-api' ), 'https://optinmonster.com/docs/how-to-manually-add-an-after-post-or-inline-optin/' ),
+						    false,
+						    array(),
+						    true
+					    );
 				    break 2;
 
 				    case 'users' :
-				    	$ret = $this->get_dropdown_field( $setting, $value, $id, $this->get_user_output(), __( 'Who should see this optin?', 'optin-monster-api' ), sprintf( __( 'Determines who should be able to view this optin. Want to hide for newsletter subscribers? <a href="%s" target="_blank">Click here to learn how.</a>', 'optin-monster-api' ), 'http://optinmonster.com/docs/how-to-hide-optinmonster-from-existing-newsletter-subscribers/' ) );
+				    	$ret = $this->get_dropdown_field( $setting, $value, $id, $this->get_user_output(), __( 'Who should see this optin?', 'optin-monster-api' ), sprintf( __( 'Determines who should be able to view this optin. Want to hide for newsletter subscribers? <a href="%s" target="_blank">Click here to learn how.</a>', 'optin-monster-api' ), 'https://optinmonster.com/docs/how-to-hide-optinmonster-from-existing-newsletter-subscribers/' ) );
 				    break 2;
 
 				    case 'never' :
 				    	$val = is_array( $value ) ? implode( ',', $value ) : $value;
-				    	$ret = $this->get_custom_field( $setting, '<input type="hidden" value="' . $val . '" id="omapi-field-' . $setting . '" class="omapi-select-ajax" name="omapi[' . $id . '][' . $setting . ']" data-placeholder="' . esc_attr__( 'Type to search and select post(s)...', 'optin-monster-api' ) . '">', __( 'Never load optin on:', 'optin-monster-api' ), __( 'Never loads the optin on the selected posts and/or pages.', 'optin-monster-api' ) );
+				    	$ret = $this->get_custom_field( $setting, '<input type="hidden" value="' . $val . '" id="omapi-field-' . $setting . '" class="omapi-select-ajax" name="omapi[' . $id . '][' . $setting . ']" data-placeholder="' . esc_attr__( 'Type to search and select post(s)...', 'optin-monster-api' ) . '">', __( 'Never load optin on:', 'optin-monster-api' ), __( 'Never loads the optin on the selected posts and/or pages. Does not disable automatic Global output.', 'optin-monster-api' ) );
 				    break 2;
 
 				    case 'only' :
 				    	$val = is_array( $value ) ? implode( ',', $value ) : $value;
-				    	$ret = $this->get_custom_field( $setting, '<input type="hidden" value="' . $val . '" id="omapi-field-' . $setting . '" class="omapi-select-ajax" name="omapi[' . $id . '][' . $setting . ']" data-placeholder="' . esc_attr__( 'Type to search and select post(s)...', 'optin-monster-api' ) . '">', __( 'Load optin exclusively on:', 'optin-monster-api' ), __( 'Loads the optin only on the selected posts and/or pages.', 'optin-monster-api' ) );
+				    	$ret = $this->get_custom_field( $setting, '<input type="hidden" value="' . $val . '" id="omapi-field-' . $setting . '" class="omapi-select-ajax" name="omapi[' . $id . '][' . $setting . ']" data-placeholder="' . esc_attr__( 'Type to search and select post(s)...', 'optin-monster-api' ) . '">', __( 'Load optin specifically on:', 'optin-monster-api' ), __( 'Loads the optin on the selected posts and/or pages.', 'optin-monster-api' ) );
 				    break 2;
 
 				    case 'categories' :
@@ -353,7 +499,7 @@ class OMAPI_Menu {
 					    	if ( $tag_terms ) {
 						    	$display = (array) $value;
 						        $display = isset( $display['post_tag'] ) ? implode( ',', $display['post_tag'] ) : '';
-						        $html    = $this->get_custom_field( $setting, '<input type="hidden" value="' . $display . '" id="omapi-field-' . $setting . '" class="omapi-select-ajax" name="tax_input[post_tag][]" data-placeholder="' . esc_attr__( 'Type to search and select post tag(s)...', 'optin-monster-api' ) . '">', __( 'Load optin on post tags:', 'optin-monster-api' ), __( 'Loads the optin only on the selected post tags.', 'optin-monster-api' ) );
+						        $html    = $this->get_custom_field( $setting, '<input type="hidden" value="' . $display . '" id="omapi-field-' . $setting . '" class="omapi-select-ajax" name="tax_input[post_tag][]" data-placeholder="' . esc_attr__( 'Type to search and select post tag(s)...', 'optin-monster-api' ) . '">', __( 'Load optin on post tags:', 'optin-monster-api' ), __( 'Loads the optin on the selected post tags.', 'optin-monster-api' ) );
 					    	}
 				    	}
 
@@ -401,14 +547,6 @@ class OMAPI_Menu {
 				        $ret = $this->get_custom_field( 'show', $this->get_show_fields( $value ), __( 'Load optin on post types and archives:', 'optin-monster-api' ) );
 				    break;
 
-				    case 'shortcode' :
-				    	$ret = $this->get_checkbox_field( $setting, $value, $id, __( 'Parse content for shortcodes?', 'optin-monster-api' ), __( 'Optins support shortcodes. If you have added shortcodes to this optin campaign, check this option so they can be executed.', 'optin-monster-api' ) );
-				    break 2;
-
-				    case 'shortcode_output' :
-				    	$ret = $this->get_text_field( $setting, $value, $id, __( 'List shortcodes in optin:', 'optin-monster-api' ), sprintf( __( 'In order to be executed properly, please list any shortcodes here that also appear in your optin in a comma-separated list. <a href="%s" title="Click here to learn more about how this work" target="_blank">Click here to learn more about how this works.</a>', 'optin-monster-api' ), 'https://optinmonster.com/docs/how-to-use-wordpress-shortcodes-with-optinmonster/' ), __( 'e.g. [gforms id=&quot;1&quot;], [gforms id=&quot;2&quot;]', 'optin-monster-api' ) );
-				    break 2;
-
 				    case 'mailpoet' :
 				    	$ret = $this->get_checkbox_field( $setting, $value, $id, __( 'Save lead to MailPoet?', 'optin-monster-api' ), __( 'If checked, successful optin leads will be saved to MailPoet.', 'optin-monster-api' ) );
 				    break 2;
@@ -417,6 +555,13 @@ class OMAPI_Menu {
 				    	$ret = $this->get_dropdown_field( $setting, $value, $id, $this->get_mailpoet_lists(), __( 'Add lead to this MailPoet list:', 'optin-monster-api' ), __( 'All successful leads for the optin will be added to this particular MailPoet list.', 'optin-monster-api' ) );
 				    break 2;
 		    	}
+		    break;
+		    case 'note' :
+		        switch ( $setting ) {
+			        case 'sidebar_widget_notice' :
+			            $ret = $this->get_optin_type_note( $setting, __('Use Widgets to set Sidebar output', 'optin-monster-api'), __('You can set this campaign to show in your sidebars using the OptinMonster widget within your sidebars.', 'optin-monster-api'), 'widgets.php', __('Go to Widgets', 'optin-monster-api') );
+			        break 2;
+		        }
 		    break;
 	    }
 
@@ -499,7 +644,7 @@ class OMAPI_Menu {
         $this->tabindex++;
 
         $output  = '<label for="omapi-field-show-index" class="omapi-custom-label">';
-        $output .= '<input type="checkbox" id="omapi-field-show-index" name="omapi[optins][show][]" value="index"' . checked( in_array( 'index', (array) $value ), 1, false ) . ' /> ' . __( 'Front Page, Archive and Search Pages', 'optin-monster-api' ) . '</label><br />';
+        $output .= '<input type="checkbox" id="omapi-field-show-index" name="omapi[optins][show][]" value="index"' . checked( in_array( 'index', (array) $value ), 1, false ) . ' /> ' . __( 'Front Page and Search Pages', 'optin-monster-api' ) . '</label><br />';
         $post_types = get_post_types( array( 'public' => true ) );
         foreach ( (array) $post_types as $show ) {
             $pt_object = get_post_type_object( $show );
@@ -527,17 +672,24 @@ class OMAPI_Menu {
      * @param string $desc    The description for the input field.
      * @param string $place   Placeholder text for the field.
      * @param array $classes  Array of classes to add to the field.
+     * @param boolean $copy   Turn on clipboard copy button and make field readonly
      * @return string $html   HTML representation of the data.
      */
-	public function get_text_field( $setting, $value, $id, $label, $desc = false, $place = false, $classes = array() ) {
+	public function get_text_field( $setting, $value, $id, $label, $desc = false, $place = false, $classes = array(), $copy = false ) {
 
 		// Increment the global tabindex counter.
 		$this->tabindex++;
 
+		// Check for copy set
+		$readonly_output = $copy ? 'readonly' : '';
+
 		// Build the HTML.
 		$field  = '<div class="omapi-field-box omapi-text-field omapi-field-box-' . $setting . ' omapi-clear">';
 				$field .= '<p class="omapi-field-wrap"><label for="omapi-field-' . $setting . '">' . $label . '</label><br />';
-				$field .= '<input type="text" id="omapi-field-' . $setting . '" class="' . implode( ' ', (array) $classes ) . '" name="omapi[' . $id . '][' . $setting . ']" tabindex="' . $this->tabindex . '" value="' . $value . '"' . ( $place ? ' placeholder="' . $place . '"' : '' ) . ' />';
+				$field .= '<input type="text" id="omapi-field-' . $setting . '" class="' . implode( ' ', (array) $classes ) . '" name="omapi[' . $id . '][' . $setting . ']" tabindex="' . $this->tabindex . '" value="' . esc_attr( $value ) . '"' . ( $place ? ' placeholder="' . $place . '"' : '' ) . $readonly_output .' />';
+				if ( $copy ) {
+					$field .= '<span class="omapi-copy-button button"  data-clipboard-target="#omapi-field-' . $setting . '">Copy to clipboard</span>';
+				}
 				if ( $desc ) {
 					$field .= '<br /><span class="omapi-field-desc">' . $desc . '</span>';
 				}
@@ -548,6 +700,7 @@ class OMAPI_Menu {
 		return apply_filters( 'optin_monster_api_text_field', $field, $setting, $value, $id, $label );
 
 	}
+
 
     /**
      * Retrieves the UI output for a password input field setting.
@@ -740,4 +893,103 @@ class OMAPI_Menu {
 
     }
 
+	/**
+	 * Starts the toggle wrapper for a toggle section.
+	 *
+	 * @since 1.1.5
+	 *
+	 * @param $label
+	 * @param $desc
+	 *
+	 * @return mixed|void
+	 */
+	public function get_toggle_start( $setting, $label, $desc ) {
+		$field = '<div class="omapi-ui-toggle-controller">';
+			$field .= '<p class="omapi-field-wrap"><label for="omapi-field-' . $setting . '">' . $label . '</label></p>';
+			if ( $desc ) {
+				$field .= '<span class="omapi-field-desc">' . $desc . '</span>';
+			}
+		$field .= '</div>';
+		$field .= '<div class="omapi-ui-toggle-content">';
+
+		return apply_filters( 'optin_monster_api_toggle_start_field', $field, $label, $desc  );
+	}
+
+	/**
+	 * Closes toggle wrapper.
+	 *
+	 * @since 1.1.5
+	 * @return string HTML end for toggle start
+	 */
+	public function get_toggle_end(){
+
+		$field = '</div>';
+
+		return apply_filters( 'optin_monster_api_toggle_end_field', $field );
+	}
+
+	/**
+	 *  Helper note output with title, text, and admin linked button.
+	 *
+	 * @since 1.1.5
+	 *
+	 * @param $setting
+	 * @param $title
+	 * @param $text
+	 * @param $admin_page
+	 * @param $button
+	 *
+	 * @return mixed|void
+	 */
+	public function get_optin_type_note( $setting, $title, $text, $admin_page, $button ) {
+
+		$field = '<div class="omapi-field-box  omapi-inline-notice omapi-field-box-' . $setting . ' omapi-clear">';
+		if ($title ) {
+			$field .= '<p class="omapi-notice-title">' . $title . '</p>';
+		}
+		if ($text) {
+			$field .= '<p class="omapi-field-desc">' . $text . '</p>';
+		}
+		if ( $admin_page && $button ) {
+			// Increment the global tabindex counter.
+			$this->tabindex++;
+			$field .= '<a href="' . esc_url_raw( admin_url( $admin_page ) ) . '" class="button button-small" title="' . $button . '" target="_blank">' . $button . '</a>';
+		}
+		$field .= '</div>';
+
+		return apply_filters('optin_monster_api_inline_note_display', $field, $title, $text, $admin_page, $button );
+	}
+
+	/**
+	 * Support Link output
+	 *
+	 * @param $setting
+	 *
+	 * @return mixed|void HTML of the list filtered as needed
+	 */
+	public function get_support_links( $setting, $title ) {
+
+		$field ='';
+
+		$field .= '<div class="omapi-support-links ' . $setting . '"><h3>' . $title . '</h3><ul>';
+		$field .= '<li><a target="_blank" href="' . esc_url( 'http://optinmonster.com/docs/' ) . '">'. __('Documentation','optin-monster-api') . '</a></li>';
+		$field .= '<li><a target="_blank" href="' . esc_url( 'https://wordpress.org/plugins/optinmonster/changelog/' ) . '">'. __('Changelog','optin-monster-api') . '</a></li>';
+		$field .= '<li><a target="_blank" href="' . esc_url( 'https://app.optinmonster.com/account/support/' ) . '">'. __('Create a Support Ticket','optin-monster-api') . '</a></li>';
+		$field .= '</ul></div>';
+
+		return apply_filters( 'optin_monster_api_support_links', $field, $setting);
+	}
+
+	public function get_plugin_report( $setting, $title ) {
+
+		$field ='';
+
+		$field .= '<div class="omapi-support-data ' . $setting . '"><h3>' . $title . '</h3>';
+		$link = 'https://app.optinmonster.com/account/support/';
+		$field .= '<p>' . sprintf( wp_kses( __( 'Download the report and attach to your <a href="%s">support ticket</a> to help speed up the process.', 'my-text-domain' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( $link ) ) . '</p>';
+		$field .= '<a href="' . esc_url_raw( '#' ) . '" id="js--omapi-support-pdf" class="button button-primary button-large omapi-support-data-button" title="Download a PDF Report for Support" target="_blank">Download PDF Report</a>';
+		$field .= '</div>';
+
+		return apply_filters( 'optin_monster_api_support_data', $field, $setting, $title );
+	}
 }

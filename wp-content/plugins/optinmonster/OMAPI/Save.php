@@ -170,7 +170,7 @@ class OMAPI_Save {
 		    	$optin_id 		      = absint( $_GET['optin_monster_api_id'] );
 		    	$fields				  = array();
 		    	$fields['enabled']    = isset( $data['enabled'] ) ? 1 : 0;
-		    	$fields['global']     = isset( $data['global'] ) ? 1 : 0;
+
 		    	$fields['automatic']  = isset( $data['automatic'] ) ? 1 : 0;
 		    	$fields['users']      = isset( $data['users'] ) ? esc_attr( $data['users'] ) : 'all';
 		    	$fields['never']      = isset( $data['never'] ) ? explode( ',', $data['never'] ) : array();
@@ -178,8 +178,13 @@ class OMAPI_Save {
 		    	$fields['categories'] = isset( $data['categories'] ) ? $data['categories'] : array();
 		    	$fields['taxonomies'] = isset( $data['taxonomies'] ) ? $data['taxonomies'] : array();
 		    	$fields['show']		  = isset( $data['show'] ) ? $data['show'] : array();
-		    	$fields['shortcode']  = isset( $data['shortcode'] ) ? 1 : 0;
-		    	$fields['shortcode_output']  = isset( $data['shortcode_output'] ) ? trim( strip_tags( htmlentities( $data['shortcode_output'], ENT_COMPAT ) ) ) : '';
+
+				// Convert old test mode data and remove.
+			    $test_mode = get_post_meta( $optin_id, '_omapi_test', true );
+			    if ( isset( $test_mode ) && $test_mode ) {
+				    $fields['users'] = 'in';
+				    delete_post_meta( $optin_id, '_omapi_test' );
+			    }
 
 			    if ( class_exists( 'WYSIJA' ) ) {
 			    	$fields['mailpoet'] 	 = isset( $data['mailpoet'] ) ? 1 : 0;
@@ -206,8 +211,7 @@ class OMAPI_Save {
 				update_option( 'optin_monster_api', $option );
 		    break;
 	    }
-
-	    // If selected, clear out all local cookies.
+		// If selected, clear out all local cookies.
 	    if ( $this->base->get_option( 'settings', 'cookies' ) ) {
 		    $this->base->actions->cookies();
 	    }
@@ -249,6 +253,15 @@ class OMAPI_Save {
 					wp_update_post( $data );
 					update_post_meta( $optin->ID, '_omapi_type', $optins->{$optin->post_name}->type );
 					update_post_meta( $optin->ID, '_omapi_ids', $optins->{$optin->post_name}->ids );
+				    if ( ! empty( $optins->{$optin->post_name}->shortcodes ) ) {
+					    $raw_shortcodes = $optins->{$optin->post_name}->shortcodes;
+					    $shortcode_array = is_array( $optins->{$optin->post_name}->shortcodes ) ? implode( '|||', array_map( 'htmlentities', $raw_shortcodes ) ) : (array) htmlentities( $raw_shortcodes );
+					    update_post_meta( $optin->ID, '_omapi_shortcode_output', $shortcode_array );
+					    update_post_meta( $optin->ID, '_omapi_shortcode', true );
+				    } else {
+					    delete_post_meta( $optin->ID, '_omapi_shortcode_output' );
+					    delete_post_meta( $optin->ID, '_omapi_shortcode' );
+				    }
 					unset( $optins->{$optin->post_name} );
 			    } else {
 				    // Delete the local optin. It does not exist remotely.
@@ -269,8 +282,20 @@ class OMAPI_Save {
 					$data['post_status']  = 'publish';
 					$data['post_type']	  = 'omapi';
 					$post_id = wp_insert_post( $data );
+				    if ( 'post' == $optin->type ) {
+					    update_post_meta( $post_id, '_omapi_automatic', 1 );
+				    }
 					update_post_meta( $post_id, '_omapi_type', $optin->type );
 					update_post_meta( $post_id, '_omapi_ids', $optin->ids );
+				    if ( ! empty( $optin->shortcodes ) ) {
+					    $raw_shortcodes  = $optin->shortcodes;
+					    $shortcode_array = is_array( $optin->shortcodes ) ? implode( '|||', array_map( 'htmlentities', $raw_shortcodes ) ) : (array) htmlentities( $raw_shortcodes );
+					    update_post_meta( $post_id, '_omapi_shortcode_output', $shortcode_array );
+					    update_post_meta( $post_id, '_omapi_shortcode', true );
+				    } else {
+					    delete_post_meta( $post_id, '_omapi_shortcode_output' );
+					    delete_post_meta( $post_id, '_omapi_shortcode' );
+				    }
 				}
 		    }
 	    } else {
@@ -286,6 +311,15 @@ class OMAPI_Save {
 					wp_update_post( $data );
 					update_post_meta( $local->ID, '_omapi_type', $optin->type );
 					update_post_meta( $local->ID, '_omapi_ids', $optin->ids );
+					if ( ! empty( $optin->shortcodes ) ) {
+						$raw_shortcodes = $optin->shortcodes;
+						$shortcode_array = is_array( $optin->shortcodes ) ? implode( '|||', array_map( 'htmlentities', $raw_shortcodes ) ) : (array) htmlentities( $raw_shortcodes );
+						update_post_meta( $local->ID, '_omapi_shortcode_output', $shortcode_array );
+						update_post_meta( $local->ID, '_omapi_shortcode', true );
+					} else {
+						delete_post_meta( $local->ID, '_omapi_shortcode_output' );
+						delete_post_meta( $local->ID, '_omapi_shortcode' );
+					}
 				} else {
 					$data['post_name']    = $slug;
 					$data['post_title']   = $optin->title;
@@ -294,8 +328,20 @@ class OMAPI_Save {
 					$data['post_status']  = 'publish';
 					$data['post_type']	  = 'omapi';
 					$post_id = wp_insert_post( $data );
+					if ( 'post' == $optin->type ) {
+					    update_post_meta( $post_id, '_omapi_automatic', 1 );
+				    }
 					update_post_meta( $post_id, '_omapi_type', $optin->type );
 					update_post_meta( $post_id, '_omapi_ids', $optin->ids );
+					if ( ! empty( $optin->shortcodes ) ) {
+						$raw_shortcodes = $optin->shortcodes;
+						$shortcode_array = is_array( $optin->shortcodes ) ? implode( '|||', array_map( 'htmlentities', $raw_shortcodes ) ) : (array) htmlentities( $raw_shortcodes );
+						delete_post_meta( $post_id, '_omapi_shortcode_output', $shortcode_array );
+						delete_post_meta( $post_id, '_omapi_shortcode', true );
+					} else {
+						delete_post_meta( $post_id, '_omapi_shortcode_output' );
+						delete_post_meta( $post_id, '_omapi_shortcode' );
+					}
 				}
 			}
 	    }

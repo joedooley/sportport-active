@@ -61,6 +61,7 @@ class OMAPI_Content {
         add_action( 'optin_monster_api_content_api', array( $this, 'api' ), 10, 2 );
         add_action( 'optin_monster_api_content_optins', array( $this, 'optins' ), 10, 2 );
         add_action( 'optin_monster_api_content_settings', array( $this, 'settings' ), 10, 2 );
+	    add_action( 'optin_monster_api_content_support', array( $this, 'support' ), 10, 2 );
 	    add_action( 'optin_monster_api_content_migrate', array( $this, 'migrate' ), 10, 2 );
 
     }
@@ -89,6 +90,11 @@ class OMAPI_Content {
      */
     public function form_start( $id, $panel ) {
 
+	    if ( $this->view == 'support' ) :
+	    ?>
+		    <h3><?php echo esc_html( $panel ); ?></h3>
+	    <?php
+	    else:
 	    ?>
 	    <form id="omapi-form-<?php echo sanitize_html_class( $id ); ?>" class="omapi-form" method="post" action="<?php echo esc_attr( stripslashes( $_SERVER['REQUEST_URI'] ) ); ?>">
 		    <?php wp_nonce_field( 'omapi_nonce_' . $id, 'omapi_nonce_' . $id ); ?>
@@ -106,6 +112,7 @@ class OMAPI_Content {
 			    <?php endif; ?>
 			</h3>
 	    <?php
+	    endif;
 
 		// Action to load success/reset messages.
 		do_action( 'optin_monster_api_messages_' . $id );
@@ -120,7 +127,7 @@ class OMAPI_Content {
     public function form_end() {
 
 		// Load different form buttons based on if credentials have been supplied or not.
-		if ( ! $this->base->get_api_credentials() ) :
+		if ( ! $this->base->get_api_credentials() && 'support' !== $this->view ) :
 		?>
 	    	<p class="submit">
 		    	<input class="button button-primary" type="submit" name="omapi_submit" value="<?php esc_attr_e( 'Connect to OptinMonster', 'optin-monster-api' ); ?>" tabindex="749" />
@@ -148,6 +155,10 @@ class OMAPI_Content {
 			?>
 	    </form>
 	    <?php
+		elseif ( 'support' == $this->view ) :
+
+			//you get nothing
+
 		else :
 	    ?>
 	    	<p class="submit">
@@ -212,17 +223,18 @@ class OMAPI_Content {
         if ( $optins ) :
         ?>
         <?php foreach ( $optins as $optin ) : $class = 0 == $i ? ' omapi-optin-first' : '';
-	        $status = (bool) get_post_meta( $optin->ID, '_omapi_enabled', true ) ? '<span class="omapi-green">' . __( 'Live', 'optin-monster-api' ) . '</span>' : '<span class="omapi-red">' . __( 'Disabled', 'optin-monster-api' ) . '</span>';
-	        $test = (bool) get_post_meta( $optin->ID, '_omapi_test', true );
-	        $test_class = $test ? ' omapi-test-mode' : '';
+	        if ( (bool) get_post_meta( $optin->ID, '_omapi_enabled', true ) ) {
+		        $status = '<span class="omapi-green">' . __( 'Live', 'optin-monster-api' ) . '</span>';
+		        $status_tooltip = __('This optin is embedded on your site based on your output settings and will load subject to the display rules configured in the optin builder.', 'optin-monster-api');
+	        } else {
+		        $status = '<span class="omapi-red">' . __( 'Disabled', 'optin-monster-api' ) . '</span>';
+		        $status_tooltip = __('This optin is not embedded by the plugin anywhere on this site.', 'optin-monster-api');
+	        }
 	    ?>
-        <p class="omapi-optin<?php echo $class . $test_class; ?>">
+        <p class="omapi-optin<?php echo $class; ?>">
 	        <a href="<?php echo esc_url_raw( add_query_arg( array( 'optin_monster_api_view' => $this->view, 'optin_monster_api_action' => 'edit', 'optin_monster_api_id' => $optin->ID ), admin_url( 'admin.php?page=optin-monster-api-settings' ) ) ); ?>" title="<?php printf( esc_attr__( 'Manage output settings for %s', 'optin-monster-api' ), $optin->post_title ); ?>"><?php echo $optin->post_title; ?></a>
-	        <?php if ( $test ) : ?>
-	        <span class="omapi-test"><?php _e( 'Test Mode', 'optin-monster-api' ); ?></span>
-	        <?php endif; ?>
-	        <span class="omapi-status"><?php echo $status; ?></span><br>
-	        <span class="omapi-slug"><?php echo $optin->post_name; ?></span>
+	        <span class="omapi-status omapi-has-tooltip" data-toggle="tooltip" data-placement="bottom" title="<?php echo $status_tooltip; ?>"><?php echo $status; ?></span><br>
+	        <span class="omapi-slug omapi-has-tooltip" data-toggle="tooltip" data-placement="bottom" title="<?php _e('The unique slug of this optin. Used for shortcodes and embed scripts.', 'optin-monster-api'); ?>"><?php echo $optin->post_name; ?></span>
 	        <span class="omapi-links"><?php echo $this->get_optin_links( $optin->ID ); ?></span>
         </p>
         <?php $i++; endforeach; ?>
@@ -234,7 +246,7 @@ class OMAPI_Content {
     }
 
     /**
-     * Loads the content output for the Settings panel.
+     * Loads the content output for the Support panel.
      *
      * @since 1.0.0
      *
@@ -243,9 +255,17 @@ class OMAPI_Content {
      */
     public function settings( $panel, $object ) {
 
-        echo $object->get_setting_ui( 'settings', 'cookies' );
+	    echo $object->get_setting_ui( 'settings', 'cookies' );
 
     }
+
+	public function support( $panel, $object ) {
+
+		echo $object->get_setting_ui( 'support', 'video' );
+		echo $object->get_setting_ui( 'support', 'links' );
+		echo $object->get_setting_ui( 'support', 'server-report' );
+
+	}
 
     /**
      * Shows the editing interface for optins.
@@ -264,16 +284,13 @@ class OMAPI_Content {
 			if ( 'sidebar' !== $type ) {
 				if ( 'post' == $type ) {
 					echo $object->get_setting_ui( 'optins', 'automatic' );
+					echo $object->get_setting_ui( 'optins', 'automatic_shortcode');
 				} else {
 					echo $object->get_setting_ui( 'optins', 'global' );
 				}
 				echo $object->get_setting_ui( 'optins', 'users' );
-				echo $object->get_setting_ui( 'optins', 'never' );
-				echo $object->get_setting_ui( 'optins', 'only' );
-				echo $object->get_setting_ui( 'optins', 'categories' );
-				echo $object->get_setting_ui( 'optins', 'taxonomies' );
-				echo $object->get_setting_ui( 'optins', 'show' );
 			}
+
 	        echo $object->get_setting_ui( 'optins', 'shortcode' );
 	        echo $object->get_setting_ui( 'optins', 'shortcode_output' );
 
@@ -282,6 +299,22 @@ class OMAPI_Content {
 				echo $object->get_setting_ui( 'optins', 'mailpoet' );
 				echo $object->get_setting_ui( 'optins', 'mailpoet_list' );
 			}
+
+	        if ( 'sidebar' !== $type ) {
+		        // Advanced Settings
+		        echo $object->get_setting_ui( 'toggle', 'advanced-start' );
+		        echo $object->get_setting_ui( 'optins', 'never' );
+		        echo $object->get_setting_ui( 'optins', 'only' );
+		        echo $object->get_setting_ui( 'optins', 'categories' );
+		        echo $object->get_setting_ui( 'optins', 'taxonomies' );
+		        echo $object->get_setting_ui( 'optins', 'show' );
+		        echo $object->get_setting_ui( 'toggle', 'advanced-end' );
+	        }
+
+	        if ('sidebar' == $type ) {
+		        echo $object->get_setting_ui('note', 'sidebar_widget_notice');
+	        }
+
         } else {
         	?>
 	        <p><strong><?php _e( 'No optin could be retrieved for the ID specified.', 'optin-monster-api' ); ?></strong></p>
@@ -300,11 +333,8 @@ class OMAPI_Content {
      */
     public function get_optin_links( $optin_id ) {
 
-		$test   	 = get_post_meta( $optin_id, '_omapi_test', true );
 		$ids		 = get_post_meta( $optin_id, '_omapi_ids', true );
 		$edit_id	 = absint( $ids[0] );
-		$test_link   = $test ? __( 'Disable Test Mode', 'optin-monster-api' ) : __( 'Enable Test Mode', 'optin-monster-api' );
-		$test_desc   = $test ? esc_attr__( 'Disable test mode for this optin', 'optin-monster-api' ) : esc_attr__( 'Enable test mode for this optin', 'optin-monster-api' );
 		$status 	 = (bool) get_post_meta( $optin_id, '_omapi_enabled', true );
 		$status_link = $status ? __( 'Disable', 'optin-monster-api' ) : __( 'Go Live', 'optin-monster-api' );
 		$status_desc = $status ? esc_attr__( 'Disable this optin', 'optin-monster-api' ) : esc_attr__( 'Go live with this optin', 'optin-monster-api' );
@@ -312,8 +342,6 @@ class OMAPI_Content {
 		$links['editd']  = '<a href="' . esc_url_raw( add_query_arg( array( 'om_optin_id' => $edit_id ), 'https://app.optinmonster.com/account/edit/' ) ) . '" title="' . esc_attr__( 'Edit this optin on the OptinMonster App', 'optin-monster-api' ) . '" target="_blank">Edit Design</a>';
 		$links['edito']  = '<a href="' . esc_url_raw( add_query_arg( array( 'optin_monster_api_view' => $this->view, 'optin_monster_api_action' => 'edit', 'optin_monster_api_id' => $optin_id ), admin_url( 'admin.php?page=optin-monster-api-settings' ) ) ) . '" title="' . esc_attr__( 'Edit the output settings for this optin', 'optin-monster-api' ) . '">Edit Output Settings</a>';
 		$links['status'] = '<a href="' . wp_nonce_url( esc_url_raw( add_query_arg( array( 'optin_monster_api_view' => $this->view, 'optin_monster_api_action' => 'status', 'optin_monster_api_id' => $optin_id ), admin_url( 'admin.php?page=optin-monster-api-settings' ) ) ), 'omapi-action' ) . '" title="' . $status_desc . '">' . $status_link . '</a>';
-		$links['test'] = '<a href="' . wp_nonce_url( esc_url_raw( add_query_arg( array( 'optin_monster_api_view' => $this->view, 'optin_monster_api_action' => 'test', 'optin_monster_api_id' => $optin_id ), admin_url( 'admin.php?page=optin-monster-api-settings' ) ) ), 'omapi-action' ) . '" title="' . $test_desc . '">' . $test_link . '</a>';
-        $links['delete'] = '<a class="omapi-red" href="' . wp_nonce_url( esc_url_raw( add_query_arg( array( 'optin_monster_api_view' => $this->view, 'optin_monster_api_action' => 'delete', 'optin_monster_api_id' => $optin_id ), admin_url( 'admin.php?page=optin-monster-api-settings' ) ) ), 'omapi-action' ) . '" title="' . esc_attr__( 'Delete this optin locally', 'optin-monster-api' ) . '">Delete</a>';
 
         $links = apply_filters( 'optin_monster_api_action_links', $links, $optin_id );
         return implode( ' | ', (array) $links );

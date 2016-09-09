@@ -93,55 +93,51 @@ class OMAPI_Actions {
 			return;
 		}
 
+		// Prepare variable of args for admin notice.
+		$args = array();
+		$args['optin_monster_api_action_done'] = $action;
+		$args['optin_monster_api_view'] = 'optins';
+
 		switch ( $action ) {
 			case 'status' :
 				if ( $this->status() ) {
-					$this->notices['updated'] = sprintf( __( 'The optin status was updated successfully. You can configure more specific loading requirements by <a href="%s" title="Click here to edit the output settings for the updated optin.">editing the output settings</a> for the optin.', 'optin-monster-api' ), esc_url_raw( add_query_arg( array( 'page' => 'optin-monster-api-settings', 'optin_monster_api_view' => 'optins', 'optin_monster_api_action' => 'edit', 'optin_monster_api_id' => $this->optin_id ), admin_url( 'admin.php' ) ) ) );
+					$args['optin_monster_api_action_type'] = 'updated';
+					$args['optin_monster_api_action_id']   = $this->optin_id;
 				} else {
-					$this->notices['error'] = __( 'There was an error updating the optin status. Please try again.', 'optin-monster-api' );
-				}
-			break;
-
-			case 'test' :
-				if ( $this->test() ) {
-					$this->notices['updated'] = __( 'You have updated test mode for the optin successfully.', 'optin-monster-api' );
-				} else {
-					$this->notices['error'] = __( 'There was an error updating test mode for the optin. Please try again.', 'optin-monster-api' );
-				}
-			break;
-
-			case 'delete' :
-				if ( $this->delete() ) {
-					$this->notices['updated'] = __( 'The local optin was deleted successfully.', 'optin-monster-api' );
-				} else {
-					$this->notices['error'] = __( 'There was an error deleting the local optin. Please try again.', 'optin-monster-api' );
+					$args['optin_monster_api_action_type'] = 'error';
 				}
 			break;
 
 			case 'cookies' :
 				if ( $this->cookies() ) {
-					$this->notices['updated'] = __( 'The local cookies have been cleared successfully.', 'optin-monster-api' );
+					$args['optin_monster_api_action_type'] = 'updated';
 				} else {
-					$this->notices['error'] = __( 'There was an error clearing the local cookies. Please try again.', 'optin-monster-api' );
+					$args['optin_monster_api_action_type'] = 'error';
 				}
 			break;
 
 			case 'migrate' :
 				if ( $this->migrate() ) {
-					$this->notices['updated'] = __( 'Your data has been migrated.', 'optin-monster-api' );
+					$args['optin_monster_api_action_type'] = 'updated';
 				} else {
-					$this->notices['error'] = __( 'Something happened while migrating your data. Please try again.', 'optin-monster-api' );
+					$args['optin_monster_api_action_type'] = 'error';
 				}
-				break;
+				$args['optin_monster_api_view'] = 'migrate';
+			break;
 
 			case 'migrate-reset' :
 				if ( $this->migrate_reset() ) {
-					$this->notices['updated'] = __( 'Migration data has been reset.', 'optin-monster-api' );
+					$args['optin_monster_api_action_type'] = 'updated';
 				} else {
-					$this->notices['error'] = __( 'Something happened while resetting your data. Please try again.', 'optin-monster-api' );
+					$args['optin_monster_api_action_type'] = 'error';
 				}
-				break;
+				$args['optin_monster_api_view'] = 'migrate';
+			break;
 		}
+
+		// Now redirect to prevent reloads from undoing actions.
+		$redirect = esc_url_raw( add_query_arg( $args, admin_url( 'admin.php?page=optin-monster-api-settings' ) ) );
+		die( wp_redirect( $redirect ) );
 
     }
 
@@ -187,17 +183,6 @@ class OMAPI_Actions {
     }
 
     /**
-     * Removes a local optin.
-     *
-     * @since 1.0.0
-     */
-    public function delete() {
-
-	    return wp_delete_post( $this->optin_id, true );
-
-    }
-
-    /**
      * Clears the local cookies.
      *
      * @since 1.0.0
@@ -207,15 +192,23 @@ class OMAPI_Actions {
 	    $optins = $this->base->get_optins();
 	    foreach ( (array) $optins as $optin ) {
 		    if ( $optin ) {
+			    // Array of ids so all splits are included
 			    $ids = get_post_meta( $optin->ID, '_omapi_ids', true );
 			    foreach ( (array) $ids as $id ) {
 				    setcookie( 'om-' . $id, '', -1, COOKIEPATH, COOKIE_DOMAIN, false );
+				    setcookie( 'om-success-' . $id, '', -1, COOKIEPATH, COOKIE_DOMAIN, false );
+				    setcookie( 'om-second-' . $id, '', -1, COOKIEPATH, COOKIE_DOMAIN, false );
+				    setcookie( 'om-' . $id . '-closed', '', -1, COOKIEPATH, COOKIE_DOMAIN, false );
 			    }
 			}
 	    }
 
-	    // Also clear out global cookie.
+	    // Clear out global cookie.
 	    setcookie( 'om-global-cookie', '', -1, COOKIEPATH, COOKIE_DOMAIN, false );
+	    // Clear out interaction cookie.
+	    setcookie( 'om-interaction-cookie', '', -1, COOKIEPATH, COOKIE_DOMAIN, false );
+	    // Clear out generic success cookie.
+	    setcookie( 'om-success-cookie', '', -1, COOKIEPATH, COOKIE_DOMAIN, false );
 
 	    return true;
 
@@ -255,12 +248,57 @@ class OMAPI_Actions {
 
 	}
 
+	/**
+	 * Retrieves a notice message for an admin action.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $action  The admin action to target.
+	 * @param string $type    The type of notice to retrieve.
+	 * @return string $notice The admin notice.
+	 */
+	public function get_notice( $action, $type = 'updated' ) {
+		$notice = '';
+
+		switch ( $action ) {
+			case 'status' :
+				$notice = 'updated' == $type ? sprintf( __( 'The optin status was updated successfully. You can configure more specific loading requirements by <a href="%s" title="Click here to edit the output settings for the updated optin.">editing the output settings</a> for the optin.', 'optin-monster-api' ), esc_url_raw( add_query_arg( array( 'page' => 'optin-monster-api-settings', 'optin_monster_api_view' => 'optins', 'optin_monster_api_action' => 'edit', 'optin_monster_api_id' => $this->optin_id ), admin_url( 'admin.php' ) ) ) ) : __( 'There was an error updating the optin status. Please try again.', 'optin-monster-api' );
+			break;
+			case 'cookies' :
+				$notice = 'updated' == $type ? __( 'The local cookies have been cleared successfully.', 'optin-monster-api' ) : __( 'There was an error clearing the local cookies. Please try again.', 'optin-monster-api' );
+			break;
+
+			case 'migrate' :
+				$notice = 'updated' == $type ? __( 'Your data has been migrated.', 'optin-monster-api' ) : __( 'Something happened while migrating your data. Please try again.', 'optin-monster-api' );
+			break;
+
+			case 'migrate-reset' :
+				$notice = 'updated' == $type ? __( 'Migration data has been reset.', 'optin-monster-api' ) : __( 'Something happened while resetting your data. Please try again.', 'optin-monster-api' );
+			break;
+		}
+
+		return $notice;
+	}
+
     /**
      * Outputs any action notices.
      *
      * @since 1.0.0
      */
     public function notices() {
+
+	    // Check to see if any notices should be output based on query args.
+	    $action = isset( $_GET['optin_monster_api_action_done'] ) ? strip_tags( stripslashes( $_GET['optin_monster_api_action_done' ] ) ) : false;
+	    $type   = isset( $_GET['optin_monster_api_action_type'] ) ? strip_tags( stripslashes( $_GET['optin_monster_api_action_type' ] ) ) : false;
+
+	    // Maybe set the optin ID if it is available.
+	    if ( isset( $_GET['optin_monster_api_action_id'] ) ) {
+		    $this->optin_id = absint( $_GET['optin_monster_api_action_id'] );
+	    }
+
+	    if ( $action && $type ) {
+		    $this->notices[ $type ] = $this->get_notice( $action, $type );
+	    }
 
 	    foreach ( $this->notices as $id => $message ) {
 		    echo '<div class="' . $id . '"><p>' . $message . '</p></div>';
