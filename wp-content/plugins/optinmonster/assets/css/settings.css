@@ -2,8 +2,8 @@
    Settings Styles
    ========================================================================== */
 
-.omapi-page div.updated,
-.omapi-page div.error {
+.omapi-screen div.updated,
+.omapi-screen div.error {
     margin-top: 15px;
 }
 
@@ -37,31 +37,288 @@
 .omapi-green {
     color: green !important;
 }
-/* Welcome Panel Styles */
-.omapi-page .logo h2  {
-    display: block;
-    text-indent: -9999px;
-    overflow: hidden;
-    background: url(images/logo-color-large@2x.png) no-repeat;
-    background-size: contain;
-    height: 64px;
-    width: 430px;
+/* Remove default WP padding */
+.omapi-screen #wpcontent {
+    padding-left: 0;
 }
-p.intro-description {
-    font-size: 16px;
-}
-
-.omapi-page h2 {
+.omapi-screen h2 {
     padding-right: 0 !important;
 }
 
-.omapi-page h2 span {
+.omapi-screen h2 span {
     font-size: 13px;
     color: #666;
 }
 
-.omapi-page h2 .omapi-new-optin {
+/* Static Banner */
+.omapi-screen .omapi-static-banner {
+    background: #0d82df;
+    height: 50px;
+    line-height: 1;
+}
+.omapi-static-banner .logo-wrapper {
+    padding: 12px 0;
+    line-height: 1;
+    display: inline-block;
+}
+.omapi-static-banner .omapi-svg-logo {
+    height: 24px;
+    width: 159px;
+}
+.logo-wrapper span.omapi-logo-version {
+    color: #fff;
+    vertical-align: middle;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    display: inline-block;
+}
+.omapi-screen .static-menu {
     float: right;
+}
+.omapi-screen .static-menu ul {
+    margin: 0;
+}
+.omapi-screen .static-menu ul li {
+    display: inline-block;
+    padding: 18px 0;
+    margin: 0;
+    font-size: 14px;
+}
+.omapi-screen .static-menu ul li:last-of-type {
+    padding-right: 0;
+}
+.omapi-screen .static-menu ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: .04em;
+    padding: 5px 10px;
+}
+/* Cleaner screen even when updates needed */
+.omapi-screen .update-nag{
+    display: none;
+}
+/* Only shown on main plugin view */
+.omapi-screen .static-menu ul li.omapi-menu-button {
+    padding: 0 !important;
+    margin-top: -3px !important;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+.omapi-screen #omapi-create-new-optin-button {
+    padding: 0 10px;
+    background: #83c11f;
+    box-shadow: none;
+    border: 0;
+}
+.omapi-screen #omapi-create-new-optin-button:hover {
+    color: #f5f5f5;
+}
+.omapi-screen .static-menu ul li a:hover {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.omapi-screen .omapi-static-banner .inner-container {
+    padding: 0 1.2rem;
+    max-width: 100%;
+}
+
+/* Welcome Page*/
+body.omapi-welcome {
+    background: #f3f6f8;
+}
+.omapi-welcome-content a.button.button-hero {
+    line-height: 50px;
+    height: 50px;
+}
+.omapi-welcome-content a.button.button-hero.button-omapi-green {
+    background: #83c11f;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    font-weight: 400;
+    border-color: #659519;
+    box-shadow: none;
+}
+.omapi-welcome .inner-container {
+    max-width: 45rem;
+    margin: 0 auto;
+    padding: 0;
+}
+.omapi-welcome .logo-wrapper span.omapi-logo-version {
+    display: none;
+}
+.omapi-welcome-content h1 {
+    font-weight: 400;
+    color: #23282d;
+    text-align: center;
+    margin: 44px 0;
+    margin-bottom: 30px;
+}
+.omapi-welcome-content .omapi-sub-title {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+.omapi-welcome-content h2 {
+    color: #23282d;
+}
+.omapi-welcome-content p {
+    font-size: 16px;
+    font-weight: 300;
+    color: #444;
+    margin: 10px 0;
+}
+.omapi-welcome-content .divider {
+    height: 1px;
+    background: #dee4e9;
+    box-shadow: 0px 0px 1px #e8edf0;
+    width: 320px;
+    margin: 0 auto;
+}
+.omapi-welcome-content .welcome-connect .actions {
+    margin: 40px 0;
+    margin-bottom: 8px;
+}
+
+.omapi-welcome-content .omapi-well span.or {
+    padding: 1em;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+}
+.omapi-welcome-content .welcome-data-vid {
+    background-image: url(images/omapi-graph.png);
+    background-size: contain;
+    background-position-y: bottom;
+    min-height: 338px;
+    background-repeat: no-repeat;
+    position: relative;
+}
+.omapi-welcome-content .welcome-data-vid.active {
+    background-image: none;
+}
+.omapi-welcome-content .welcome-data-vid .actions {
+    margin-top: 45px;
+    z-index: 200;
+    position: relative;
+}
+.omapi-welcome-content .welcome-data-vid.active .actions {
+    display: none;
+}
+.omapi-welcome-content .omapi-welcome-video-holder {
+    height: 1px;
+    margin: 0 auto;
+    width: 100%;
+}
+.omapi-welcome-content .welcome-data-vid.active .omapi-welcome-video-holder {
+    height: auto;
+}
+
+
+.omapi-welcome-content .omapi-feature-box {
+    margin: 50px 0;
+}
+.omapi-welcome-content .omapi-feature-image,
+.omapi-welcome-content .omapi-feature-text {
+    width: 47%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.omapi-welcome-content .omapi-feature-image img {
+    max-width: 100%;
+    height: auto;
+}
+.omapi-welcome-content .omapi-feature-text p {
+    font-size: 14px;
+}
+.omapi-welcome-content .omapi-feature-text {
+    margin-left: 5%;
+}
+.omapi-welcome-content .omapi-feature-box:nth-of-type(even) .omapi-feature-image {
+
+}
+.omapi-welcome-content .omapi-feature-box:nth-of-type(even) .omapi-feature-text {
+    margin-right: 5%;
+    margin-left: 0;
+}
+
+.omapi-welcome-content .omapi-well img {
+    max-width: 100%;
+}
+
+.omapi-welcome-content .omapi-single-cta {
+    margin: 5rem;
+    text-align: center;
+}
+
+.omapi-welcome-content .welcome-featuredin img {
+    margin: 40px 0;
+    width: 475px;
+}
+
+.omapi-welcome-content .welcome-featuredin h2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.omapi-welcome-content .omapi-reviews {
+    display: flex;
+    flex-direction: row;
+}
+.omapi-welcome-content .omapi-reviews p {
+    font-size: 14px;
+}
+.omapi-welcome-content .omapi-talking-head {
+    height: 60px;
+    width: 60px;
+    margin: 0 auto;
+}
+.omapi-welcome-content .omapi-reviews span.reviewer-name {
+    margin-top: 15px;
+    display: block;
+    font-weight: 500;
+}
+
+.omapi-welcome-content .omapi-reviews span.reviewer-title {
+    font-weight: 300;
+}
+
+.omapi-welcome-content .omapi-mini-well {
+    margin-right: 15px;
+    flex: 1;
+}
+.omapi-welcome-content .omapi-mini-well:last-of-type {
+    margin-right: 0;
+}
+
+/* Keep WordPress Page Styling */
+.omapi-page {
+    padding-left: 20px;
+    margin-left: 0;
+}
+
+/* Build out UI */
+.omapi-screen .inner-container {
+    max-width: 45rem;
+    margin: 0 auto;
+    padding: 0;
+}
+.omapi-well {
+    padding: 2.1rem;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #e9eff3;
+    margin-bottom: 15px;
+}
+.omapi-well img {
+    max-width: 100%;
+    height: auto;
+}
+.omapi-mini-well {
+    padding: 1rem;
 }
 
 .omapi-ui {
@@ -130,6 +387,16 @@ p.intro-description {
 
 .omapi-panels li.omapi-panel-active a {
     color: #222;
+}
+
+.omapi-panels li.omapi-panel-button-item {
+    padding: 20px 10px;
+    background: #f1f1f1;
+}
+
+.omapi-panels li.omapi-panel-button-item  #omapi-create-new-optin-button {
+    width: 100%;
+    text-align: center;
 }
 
 .omapi-tabs-content {
@@ -270,7 +537,7 @@ p.intro-description {
 }
 
 .omapi-optin .omapi-links a:hover {
-	color: #23282d;
+    color: #23282d;
 }
 
 /* Inline Note */
@@ -297,7 +564,6 @@ p.intro-description {
 
 
 /* Toggler */
-
 .omapi-ui-toggle-controller {
     margin-right: 8px;
     cursor: pointer;
@@ -357,7 +623,7 @@ p.intro-description {
     display: inline-block;
 }
 .omapi-support-links li {
-	font-size: 15px;
+    font-size: 15px;
 }
 .omapi-support-data {
     width: 60%;
@@ -380,7 +646,6 @@ p.intro-description {
         float: right;
     }
 }
-
 
 .omapi-copy-button.button {
     margin-left: 10px;

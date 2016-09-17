@@ -137,6 +137,10 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
 
 == Changelog ==
+= 6.2.1 =
+* Compatible with WP 4.6.1
+* Fixed Page Optimization for Latest Post Page
+
 = 6.2.0 =
 * Added Facebook Pixel Tracking Code in Squirrly > SEO > Tracking
 * Added more Copyright Free images in Squirrly SEO Live Assistant from:
@@ -150,7 +154,7 @@ Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO require
 
 
 = 6.1.6 =
-    * Added custom title and description for the Posts Page in Settings > Reading > Posts page
+* Added custom title and description for the Posts Page in Settings > Reading > Posts page
 * Fixed the JsonLD phone + prefix
 * Fixed typos
 

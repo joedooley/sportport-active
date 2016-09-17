@@ -351,7 +351,7 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 		 * Enqueues the pluginscripts.
 		 */
 		public function enqueue_scripts() {
-			wp_enqueue_script( 'wp-seo-video-seo', plugins_url( 'js/yoast-videoseo-plugin' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_VIDEO_FILE ), array(), WPSEO_VERSION, true );
+			wp_enqueue_script( 'wp-seo-video-seo', plugins_url( 'js/yoast-videoseo-plugin-330' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_VIDEO_FILE ), array(), WPSEO_VERSION, true );
 
 			wp_localize_script( 'wp-seo-video-seo', 'wpseoVideoL10n', $this->localize_video_script() );
 		}

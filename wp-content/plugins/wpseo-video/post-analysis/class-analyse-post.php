@@ -72,6 +72,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 			'Media_Element_Player'               => 'media-element-html5-video-and-audio-player/mediaelement-js-wp.php',
 			'Youtube_Embed'                      => 'youtube-embed/youtube-embed.php',
 			'Videopress'                         => 'video/video.php',
+			'Featured_Video_Plus'                => 'featured-video-plus/featured-video-plus.php',
 			'Embedplus_For_Wordpress'            => 'embedplus-for-wordpress/embedplus.php',
 			'FV_Wordpress_Flowplayer'            => 'fv-wordpress-flowplayer/flowplayer.php',
 			'WP_Youtube_Lyte'                    => 'wp-youtube-lyte/wp-youtube-lyte.php',

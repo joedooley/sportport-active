@@ -1,0 +1,13 @@
+{
+    "require": {
+    },
+    "require-dev": {
+        "stevegrunwell/wp-enforcer": "@dev"
+    },
+    "post-install-cmd": [
+        "wp-enforcer"
+    ],
+    "post-update-cmd": [
+        "wp-enforcer"
+    ]
+}

@@ -198,6 +198,8 @@ return array(
     'Yoast_Dashboard_Widget' => $baseDir . '/admin/class-yoast-dashboard-widget.php',
     'Yoast_Dismissable_Notice_Ajax' => $baseDir . '/admin/ajax/class-yoast-dismissable-notice.php',
     'Yoast_Form' => $baseDir . '/admin/class-yoast-form.php',
+    'Yoast_Form_Element' => $baseDir . '/admin/views/interface-yoast-form-element.php',
+    'Yoast_Form_Fieldset' => $baseDir . '/admin/views/class-yoast-form-fieldset.php',
     'Yoast_HelpScout_Beacon' => $vendorDir . '/yoast/wp-helpscout/src/class-helpscout-beacon.php',
     'Yoast_HelpScout_Beacon_Identifier' => $vendorDir . '/yoast/wp-helpscout/src/class-helpscout-beacon-identifier.php',
     'Yoast_HelpScout_Beacon_Setting' => $vendorDir . '/yoast/wp-helpscout/src/interface-helpscout-beacon-setting.php',

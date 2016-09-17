@@ -1,0 +1,20 @@
+.woocommerce_gpf_default_label, .woocommerce_gpf_prepopulate_label {
+    font-size: 90%;
+    color: #666;
+}
+
+.woocommerce_gpf_feed_type_icon {
+    padding-right: 4px;
+}
+
+.woocommerce_gpf_settings table.form-table tr {
+	border-bottom: 1px solid #ddd;
+}
+
+.woocommerce_gpf_settings table.form-table td {
+	vertical-align: top;
+}
+
+.woocommerce_gpf_settings table.form-table tr p {
+	margin-top: 1em;
+}

@@ -1701,7 +1701,7 @@ class WPSEO_Video_Sitemap {
 					$n             = ( $count > $this->max_entries ) ? (int) ceil( $count / $this->max_entries ) : '';
 					$video_lastest = str_replace( 'sitemap.xml', 'sitemap' . $n . '.xml', $this->sitemap_url() );
 
-					echo '<p>' . esc_html__( 'Please find your video sitemap here:', 'yoast-video-seo' ) . ' <a class="button" target="_blank" href="' . esc_url( $video_lastest ) . '">' . esc_html__( 'Video Sitemap', 'yoast-video-seo' ) . '</a></p>';
+					echo '<p>' . esc_html__( 'Please find your video sitemap here:', 'yoast-video-seo' ) . ' <a target="_blank" href="' . esc_url( $video_lastest ) . '">' . esc_html__( 'XML Video Sitemap', 'yoast-video-seo' ) . '</a></p>';
 				}
 				else {
 					echo '<p>' . esc_html__( 'Select at least one post type to enable the video sitemap', 'yoast-video-seo' ) . '</p>';
@@ -1711,27 +1711,27 @@ class WPSEO_Video_Sitemap {
 
 				echo WPSEO_Video_Wrappers::checkbox( 'cloak_sitemap', esc_html__( 'Hide the sitemap from normal visitors?', 'yoast-video-seo' ) );
 				echo WPSEO_Video_Wrappers::checkbox( 'disable_rss', esc_html__( 'Disable Media RSS Enhancement', 'yoast-video-seo' ) );
+				echo '<br class="clear"/>';
 
 				echo WPSEO_Video_Wrappers::textinput( 'custom_fields', esc_html__( 'Custom fields', 'yoast-video-seo' ) );
-				echo '<p class="clear description">' . esc_html__( 'Custom fields the plugin should check for video content (comma separated)', 'yoast-video-seo' ) . '</p>';
+				echo '<p class="clear description desc label">' . esc_html__( 'Custom fields the plugin should check for video content (comma separated)', 'yoast-video-seo' ) . '</p>';
 				echo WPSEO_Video_Wrappers::textinput( 'embedly_api_key', esc_html__( '(Optional) Embedly API Key', 'yoast-video-seo' ) );
-				echo '<p class="clear description">' . sprintf( esc_html__( 'The video SEO plugin provides where possible enriched information about your videos. A lot of %1$svideo services%2$s are supported by default. For those services which aren\'t supported, we can try to retrieve enriched video information using %3$sEmbedly%2$s. If you want to use this option, you\'ll need to sign up for a (free) %3$sEmbedly%2$s account and provide the API key you receive.', 'yoast-video-seo' ), '<a href="http://kb.yoast.com/article/95-supported-video-hosting-platforms-for-video-seo-plugin">', '</a>', '<a href="http://embed.ly/">' ) . '</p>';
-				echo '<br class="clear"/>';
+				echo '<p class="clear description desc label">' . sprintf( esc_html__( 'The video SEO plugin provides where possible enriched information about your videos. A lot of %1$svideo services%2$s are supported by default. For those services which aren\'t supported, we can try to retrieve enriched video information using %3$sEmbedly%2$s. If you want to use this option, you\'ll need to sign up for a (free) %3$sEmbedly%2$s account and provide the API key you receive.', 'yoast-video-seo' ), '<a href="http://kb.yoast.com/article/95-supported-video-hosting-platforms-for-video-seo-plugin">', '</a>', '<a href="http://embed.ly/">' ) . '</p>';
 
 
 				echo '<h2>' . esc_html__( 'Embed Settings', 'yoast-video-seo' ) . '</h2>';
 
 				echo WPSEO_Video_Wrappers::checkbox( 'facebook_embed', esc_html__( 'Allow videos to be played directly on Facebook.', 'yoast-video-seo' ) );
 				echo WPSEO_Video_Wrappers::checkbox( 'fitvids', sprintf( esc_html__( 'Try to make videos responsive using %sFitVids.js%s?', 'yoast-video-seo' ), '<a href="http://fitvidsjs.com/">', '</a>' ) );
+				echo '<br class="clear"/>';
 
 				echo WPSEO_Video_Wrappers::textinput( 'content_width', esc_html__( 'Content width', 'yoast-video-seo' ) );
-				echo '<p class="clear description">' . esc_html__( 'This defaults to your themes content width, but if it\'s empty, setting a value here will make sure videos are embedded in the right width.', 'yoast-video-seo' ) . '</p>';
+				echo '<p class="clear description desc label">' . esc_html__( 'This defaults to your themes content width, but if it\'s empty, setting a value here will make sure videos are embedded in the right width.', 'yoast-video-seo' ) . '</p>';
 
 				echo WPSEO_Video_Wrappers::textinput( 'vzaar_domain', esc_html__( 'Vzaar domain', 'yoast-video-seo' ) );
-				echo '<p class="clear description">' . esc_html__( 'If you use Vzaar, set this to the domain name you use for your Vzaar videos, no http: or slashes needed.', 'yoast-video-seo' ) . '</p>';
+				echo '<p class="clear description desc label">' . esc_html__( 'If you use Vzaar, set this to the domain name you use for your Vzaar videos, no http: or slashes needed.', 'yoast-video-seo' ) . '</p>';
 				echo WPSEO_Video_Wrappers::textinput( 'wistia_domain', esc_html__( 'Wistia domain', 'yoast-video-seo' ) );
-				echo '<p class="clear description">' . esc_html__( 'If you use Wistia in combination with a custom domain, set this to the domain name you use for your Wistia videos, no http: or slashes needed.', 'yoast-video-seo' ) . '</p>';
-				echo '<br class="clear"/>';
+				echo '<p class="clear description desc label">' . esc_html__( 'If you use Wistia in combination with a custom domain, set this to the domain name you use for your Wistia videos, no http: or slashes needed.', 'yoast-video-seo' ) . '</p>';
 
 
 				echo '<h2>' . esc_html__( 'Post Types to include in XML Video Sitemap', 'yoast-video-seo' ) . '</h2>';
@@ -1746,7 +1746,7 @@ class WPSEO_Video_Sitemap {
 						}
 						echo '<input class="checkbox double" id="' . esc_attr( 'include' . $posttype->name ) . '" type="checkbox" '
 						     . 'name="wpseo_video[videositemap_posttypes][' . esc_attr( $posttype->name ) . ']" ' . $sel . 'value="' . esc_attr( $posttype->name ) . '"/> '
-						     . '<label for="' . esc_attr( 'include' . $posttype->name ) . '">' . esc_html( $posttype->labels->name ) . '</label><br class="clear">';
+						     . '<label class="checkbox" for="' . esc_attr( 'include' . $posttype->name ) . '">' . esc_html( $posttype->labels->name ) . '</label><br class="clear">';
 					}
 				}
 				unset( $post_types );
@@ -1764,7 +1764,7 @@ class WPSEO_Video_Sitemap {
 						}
 						echo '<input class="checkbox double" id="' . esc_attr( 'include' . $tax->name ) . '" type="checkbox" '
 						     . 'name="wpseo_video[videositemap_taxonomies][' . esc_attr( $tax->name ) . ']" ' . $sel . 'value="' . esc_attr( $tax->name ) . '"/> '
-						     . '<label for="' . esc_attr( 'include' . $tax->name ) . '">' . esc_html( $tax->labels->name ) . '</label><br class="clear">';
+						     . '<label class="checkbox" for="' . esc_attr( 'include' . $tax->name ) . '">' . esc_html( $tax->labels->name ) . '</label><br class="clear">';
 					}
 				}
 				unset( $taxonomies );
@@ -1782,13 +1782,13 @@ class WPSEO_Video_Sitemap {
 
 			<p style="max-width: 600px;"><?php esc_html_e( 'This process goes through all the post types specified by you, as well as the terms of each taxonomy, to check for videos in the content. If the plugin finds a video, it updates the meta data for that piece of content, so it can add that meta data and content to the XML Video Sitemap.', 'yoast-video-seo' ); ?></p>
 
-			<p style="max-width: 600px;"><?php esc_html_e( 'By default the plugin only checks content that hasn\'t been checked yet. However, if you check \'Force Re-Index\', it will re-check all content. This is particularly interesting if you want to check for a video embed code that wasn\'t supported before, of if you want to update thumbnail images en masse.', 'yoast-video-seo' ); ?></p>
+			<p style="max-width: 600px;"><?php esc_html_e( 'By default the plugin only checks content that hasn\'t been checked yet. However, if you check \'Force Re-Index\', it will re-check all content. This is particularly interesting if you want to check for a video embed code that wasn\'t supported before, or if you want to update thumbnail images en masse.', 'yoast-video-seo' ); ?></p>
 
 			<form method="post" action="">
-				<p class="submit">
+
 				<input class="checkbox double" type="checkbox" name="force" id="force">
-				<label for="force"><?php esc_html_e( 'Force reindex of already indexed videos.', 'yoast-video-seo' ); ?></label><br />
-				<br />
+				<label class="checkbox" for="force"><?php esc_html_e( 'Force reindex of already indexed videos.', 'yoast-video-seo' ); ?></label><br />
+				<p class="submit">
 				<input type="submit" class="button" name="reindex"
 				       value="<?php esc_html_e( 'Re-Index Videos', 'yoast-video-seo' ); ?>" />
 				</p>

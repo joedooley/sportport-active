@@ -52,6 +52,7 @@ return array(
     'WPSEO_Video_Plugin_Cincopa_Media' => $baseDir . '/post-analysis/supported-plugins/class-plugin-cincopa-media.php',
     'WPSEO_Video_Plugin_Embedplus_For_Wordpress' => $baseDir . '/post-analysis/supported-plugins/class-plugin-embedplus-for-wordpress.php',
     'WPSEO_Video_Plugin_FV_Wordpress_Flowplayer' => $baseDir . '/post-analysis/supported-plugins/class-plugin-fv-wordpress-flowplayer.php',
+    'WPSEO_Video_Plugin_Featured_Video_Plus' => $baseDir . '/post-analysis/supported-plugins/class-plugin-featured-video-plus.php',
     'WPSEO_Video_Plugin_Flowplayer5' => $baseDir . '/post-analysis/supported-plugins/class-plugin-flowplayer5.php',
     'WPSEO_Video_Plugin_Iframe_Embed_For_Youtube' => $baseDir . '/post-analysis/supported-plugins/class-plugin-iframe-embed-for-youtube.php',
     'WPSEO_Video_Plugin_JW_Player' => $baseDir . '/post-analysis/supported-plugins/class-plugin-jw-player.php',

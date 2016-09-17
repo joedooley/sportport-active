@@ -143,6 +143,8 @@ class OMAPI_Review {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'styles' ) );
 		add_filter( 'admin_footer_text', array( $this, 'footer' ) );
+		add_action( 'in_admin_header', array( $this->base->menu, 'output_plugin_screen_banner') );
+
 
 	}
 
@@ -198,17 +200,22 @@ class OMAPI_Review {
 		$review_status          = isset ( $review_meta['status'] ) ? $review_meta['status'] : 'unfinished';
 
 		?>
-		<div class="wrap omapi-page">
-		<h2><?php echo esc_html( get_admin_page_title() ); ?> <span><?php printf( __( 'v%s', 'optin-monster-api' ), $this->base->version ); ?></span></h2>
-		<div class="omapi-ui">
 
-			<div id="welcome-panel" class="welcome-panel">
+		<div class="wrap omapi-page">
+		<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
+		<div class="review-container">
+
+			<div id="review-panel" >
+				<div class="omapi-well omapi-mini-well">
 				<?php if ($review_status == 'finished') : ?>
+
 					<p><?php _e('Thank you for sending us your review. Please consider leaving us a review on WordPress.org as well. We do really appreciate your time.', 'optin-monster-api'); ?></p>
 				<?php else: ?>
 					<p><?php _e('Thank you for taking a minute to send us a review.', 'optin-monster-api'); ?></p>
+
 				<?php endif; ?>
-				<div class="omapi-ui">
+				</div>
+				<div class="omapi-review-form">
 						<form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>">
 							<input type="hidden" name="action" value="omapi_send_review">
 							<?php wp_nonce_field('omapi-submit-review','omapi-review-nonce') ?>
@@ -388,6 +395,17 @@ class OMAPI_Review {
 
 		// Check if our pointer is not among dismissed ones and that the user should see this
 		if( !in_array( 'omapi_review_pointer', $dismissed_pointers ) && current_user_can('activate_plugins')  ) {
+			$time = get_user_meta( get_current_user_id(), '_om_pointer_time', true );
+			if ( ! $time ) {
+				update_user_meta( get_current_user_id(), '_om_pointer_time', strtotime( '+1 week' ) );
+				return;
+			} else {
+				// Don't enqueue if it hasn't been a week.
+				if ( $time > time() ) {
+					return;
+				}
+			}
+
 			$enqueue_pointer_script_style = true;
 
 			// Add footer scripts using callback function

@@ -74,6 +74,14 @@ class OMAPI_Validate {
      */
     public function maybe_validate() {
 
+	    // Check to see if welcome options have been set. If not, let's delay this check for a day.
+	    // Also set a transient so that we know the plugin has been activated.
+	    $options = $this->base->get_option();
+		if ( ! isset( $options['welcome']['status'] ) || 'welcomed' !== $options['welcome']['status'] ) {
+			set_transient( '_omapi_validate', true, DAY_IN_SECONDS );
+			return;
+		}
+
 	    // Check if the transient has expired.
 	    if ( false !== ( $transient = get_transient( '_omapi_validate' ) ) ) {
 		    return;
@@ -142,11 +150,12 @@ class OMAPI_Validate {
      */
     public function notices() {
 
+		global $pagenow;
 	    $option = $this->base->get_option();
 	    if ( isset( $option['is_invalid'] ) && $option['is_invalid'] ) {
 		    if ( ! ( isset($_GET['page'] ) && $_GET['page'] == 'optin-monster-api-settings') && ! ( isset($_GET['page'] ) && $_GET['page'] == 'optin-monster-api-welcome') ){
 			    echo '<div class="error"><p>' . __( 'There was an error verifying your OptinMonster API credentials. They are either missing or they are no longer valid.', 'optin-monster-api' ) . '</p>';
-			    echo '<p><a href="' . esc_url_raw( admin_url( 'admin.php?page=optin-monster-api-settings' ) ) . '" class="button button-primary button-large omapi-new-optin" title="View API Settings" >View API Settings</a></p></div>';
+			    echo '<p><a href="' . esc_url_raw( admin_url( 'admin.php?page=optin-monster-api-settings' ) ) . '" class="button button-primary button-large omapi-new-optin" title="View API Settings">View API Settings</a></p></div>';
 		    }
 	    } elseif ( isset( $option['is_disabled'] ) && $option['is_disabled'] ) {
 		    echo '<div class="error"><p>' . __( 'The subscription to this OptinMonster account has been disabled, likely due to a refund or other administrator action. Please contact OptinMonster support to resolve this issue.', 'optin-monster-api' ) . '</p>';
@@ -154,8 +163,70 @@ class OMAPI_Validate {
 	    } elseif ( isset( $option['is_expired'] ) && $option['is_expired'] ) {
 		    echo '<div class="error"><p>' . __( 'The subscription to this OptinMonster account has expired. Please renew your subscription to use the OptinMonster API.', 'optin-monster-api' ) . '</p>';
 		    echo '<p><a href="https://app.optinmonster.com/account/billing/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpdashboard" class="button button-primary button-large omapi-new-optin" title="Renew Subscription" target="_blank">Renew Subscription</a></p></div>';
+	    } else {
+		    // If user has dismissed before no point going through page checks
+		    if ( $this->should_user_see_connect_nag() ) {
+			    if ( ! ( isset($_GET['page'] ) && $_GET['page'] == 'optin-monster-api-settings') && ! ( isset($_GET['page'] ) && $_GET['page'] == 'optin-monster-api-welcome') && ! ( 'index.php' == $pagenow ) && ! $this->base->get_api_credentials() ){
+				    echo '<div id="omapi-please-connect-notice" class="updated notice is-dismissible"><h3 style="padding:2px;font-weight:normal;margin:.5em 0 0;">' . __( 'Get More Email Subscribers with OptinMonster', 'optin-monster-api' ) . '</h3><p>' . __( 'Please connect to or create an OptinMonster account to start using OptinMonster. This will enable you to start turning website visitors into subscribers & customers.', 'optin-monster-api' ) . '</p>';
+				    echo '<p><a href="' . esc_url_raw( $this->base->menu->get_dashboard_link() ) . '" class="button button-primary button-large omapi-new-optin" title="Connect OptinMonster">Connect OptinMonster</a></p></div>';
+			    }
+		    }
+
 	    }
 
     }
+
+	/**
+	 * Script to hide the please connect nag
+	 */
+	public function hide_connect_notice_script() {
+		?>
+		<script type="text/javascript">
+			jQuery(document).on('click', '#omapi-please-connect-notice .notice-dismiss', function( event ) {
+				event.preventDefault();
+
+				//Set the pointer to be closed for this user
+				jQuery.post( ajaxurl, {
+					pointer: 'omapi_please_connect_notice',
+					action: 'dismiss-wp-pointer'
+				});
+				jQuery('#omapi-please-connect-notice').fadeTo(100, 0, function() {
+					jQuery( this ).slideUp(100, function() {
+						jQuery( this ).remove()
+					})
+				});
+			});
+		</script>
+		<?php
+	}
+
+	/**
+	 * Check user meta and see if they have previously dismissed the please connect nag
+	 *
+	 * @return bool default false and true only if the 'omapi_please_connect_notice' is not in the wp dismissed pointers usermeta
+	 */
+	public function should_user_see_connect_nag() {
+
+		// Assume user has dissmissed
+		$show_the_nag = false;
+
+		// Get array list of dismissed pointers for current user and convert it to array
+		$dismissed_pointers = explode( ',', get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
+
+		// Check if our pointer is not among dismissed ones and that the user should see this
+		if( ! in_array( 'omapi_please_connect_notice', $dismissed_pointers ) && current_user_can('activate_plugins') ) {
+			$show_the_nag = true;
+			// Add footer script to save when user dismisses
+			add_action( 'admin_print_footer_scripts', array( $this, 'hide_connect_notice_script' ) );
+		}
+
+		if ( $show_the_nag ) {
+			return true;
+		}
+
+		return false;
+
+	}
+
 
 }
