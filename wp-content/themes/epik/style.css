@@ -2920,6 +2920,11 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 .archive .entry-header {
   margin: 1em 0 0.5em; }
 
+/** ## Giveaway Template
+--------------------------- */
+body {
+  background: white; }
+
 /*! ## Layout
 --------------------------- */
 .before-header {
