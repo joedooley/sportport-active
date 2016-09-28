@@ -73,7 +73,7 @@ class WordPressAPI implements IntegrationAPIInterface
     /**
      * We wrap the return value with an array to be consistent between
      * other plugins.
-     * 
+     *
      * @param null $userId
      *
      * @return mixed
@@ -133,29 +133,16 @@ class WordPressAPI implements IntegrationAPIInterface
     /**
      * @return mixed
      */
-    public function getValidCloudflareDomain($response, $domainName)
+    public function checkIfValidCloudflareSubdomain($response, $domainName)
     {
-        foreach ($response['result'] as $zone) {
-            if (Utils::isSubdomainOf($domainName, $zone['name'])) {
-                return $zone['name'];
+        if (isset($response['result'])) {
+            foreach ($response['result'] as $zone) {
+                if (Utils::isSubdomainOf($domainName, $zone['name'])) {
+                    return $zone['name'];
+                }
             }
         }
 
         return false;
-    }
-
-    public function clearDataStore()
-    {
-        $pluginKeys = \CF\API\Plugin::getPluginSettingsKeys();
-
-        // Delete Plugin Setting Options
-        foreach ($pluginKeys as $optionName) {
-            $this->dataStore->clear($optionName);
-        }
-
-        // Delete DataStore Options
-        $this->dataStore->clear(DataStore::API_KEY);
-        $this->dataStore->clear(DataStore::EMAIL);
-        $this->dataStore->clear(DataStore::CACHED_DOMAIN_NAME);
     }
 }

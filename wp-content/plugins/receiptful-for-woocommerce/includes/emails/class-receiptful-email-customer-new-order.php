@@ -331,7 +331,7 @@ if ( ! class_exists( 'Receiptful_Email_Customer_New_Order' ) ) {
 
 			// Discount
 			if ( $order->get_total_discount() > 0 ) {
-				$subtotals[] = array( 'description' => __( 'Discount', 'woocommerce' ), 'amount' => '-' . number_format( (float) $order->get_total_discount(), 2, '.', '' ) );
+				$subtotals[] = array( 'description' => __( 'Discount', 'woocommerce' ), 'amount' => '-' . number_format( (float) $order->get_total_discount( false ), 2, '.', '' ) );
 			}
 
 			// Shipping

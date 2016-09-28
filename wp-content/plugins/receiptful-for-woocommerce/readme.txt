@@ -2,8 +2,8 @@
 Contributors: receiptful
 Tags: receiptful, receiptful woocommerce, receipt, receipts, invoice, email, order confirmation, order mail, ecommerce mail
 Requires at least: 3.7.0
-Tested up to: 4.5.1
-Stable tag: 1.3.0
+Tested up to: 4.6.1
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,14 @@ Yes, Receiptful works with any theme - whether free, commercial or custom. You d
 
 
 == Changelog ==
+
+= 1.3.1 - 21/09/2016 =
+
+* [Add] - Support for 'product' attribute in [rf_recommendations product='123'] shortcode
+* [Improvement] - Remove the DELETE abandoned cart requests, now handled through Receiptful
+* [Improvement] - Sanitize product image URL so special URLs are handled better
+* [Improvement] - Include discount tax in the total discount amount
+* [Fix] - Warning in WP 4.6+ when recovering abandoned cart
 
 = 1.3.0 - 10/06/2016 =
 

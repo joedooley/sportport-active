@@ -1649,12 +1649,14 @@ src='https://www.facebook.com/tr?id=%s&ev=PageView&noscript=1'
     private function isHomePage() {
         global $wp_query;
 
+        if (isset($wp_query->queried_object_id)) {
+            $this->post = get_post($wp_query->queried_object_id);
+
+        }
+
         //Check if blog posts page
         if (is_home() && $wp_query->is_posts_page){
-            if (isset($wp_query->queried_object_id)) {
-                $this->post = get_post($wp_query->queried_object_id);
-                return false;
-            }
+            return false;
         }
 
         return (is_home() || (isset($wp_query->query) && empty($wp_query->query) && !is_preview()));

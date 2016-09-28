@@ -49,6 +49,7 @@ class Receiptful_Recommendations {
 			'price_format'			=> null,
 			'number_of_products'	=> null,
 			'styles'				=> null,
+			'product'				=> null,
 		) );
 
 		if ( 'false' == $args['show_title'] || '0' == $args['show_title'] ) :
@@ -100,7 +101,7 @@ class Receiptful_Recommendations {
 	 *
 	 * @since 1.1.6
 	 *
-	 * @param	array	$args	Recommendation arguments.
+	 * @param	array	$atts	Recommendation arguments.
 	 * @return	string			HTML for displaying recommendations.
 	 */
 	public function recommendation_shortcode( $atts = array() ) {
@@ -115,6 +116,7 @@ class Receiptful_Recommendations {
 			'price_format'			=> null,
 			'number_of_products'	=> null,
 			'styles'				=> null,
+			'product'				=> null,
 		), $atts );
 
 		return $this->get_recommendations( $args );

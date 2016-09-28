@@ -38,9 +38,6 @@ class Receiptful_Abandoned_Cart {
 			add_action( 'template_redirect', array( $this, 'recover_cart' ), 20 );
 		}
 
-		// Delete abandoned cart
-		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'delete_abandoned_cart' ) );
-
 	}
 
 
@@ -204,26 +201,6 @@ class Receiptful_Abandoned_Cart {
 			die;
 		}
 
-
-	}
-
-
-	/**
-	 * Delete abandoned cart.
-	 *
-	 * Update Receiptful to let it know the cart is no longer abandoned.
-	 *
-	 * @since 1.2.1
-	 *
-	 * @param int $order_id ID of the order being created.
-	 */
-	public function delete_abandoned_cart( $order_id ) {
-
-		$token = get_post_meta( $order_id, '_receiptful_token', true );
-
-		if ( ! empty( $token ) ) {
-			Receiptful()->api->delete_abandoned_cart( $token );
-		}
 
 	}
 

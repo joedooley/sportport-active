@@ -247,7 +247,7 @@ class Receiptful_Products {
 				if ( wp_get_attachment_url( $image_id ) ) {
 					$images[] = array(
 						'position' 	=> count( $images ),
-						'url'		=> wp_get_attachment_url( $image_id ),
+						'url'		=> esc_url_raw( wp_get_attachment_url( $image_id ) ),
 					);
 				}
 

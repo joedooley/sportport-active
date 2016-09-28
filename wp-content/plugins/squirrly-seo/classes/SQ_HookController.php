@@ -25,7 +25,7 @@ class SQ_HookController {
 
     /**
      * Calls the specified action in WP
-     * @param oject $instance The parent class instance
+     * @param object $instance The parent class instance
      *
      * @return void
      */
@@ -56,7 +56,7 @@ class SQ_HookController {
 
     /**
      * Calls the specified action in WP
-     * @param oject $instance The parent class instance
+     * @param object $instance The parent class instance
      *
      * @return void
      */

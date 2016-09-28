@@ -878,15 +878,10 @@ class SQ_Tools extends SQ_FrontController {
         if ($url == '' || !function_exists('preg_match')) {
             return;
         }
-        global $wp_query;
 
         $postid = 0;
         $snippet = array();
         $frontend = SQ_ObjController::getModel('SQ_Frontend');
-
-        if (isset($wp_query->queried_object_id)) {
-            $postid = $wp_query->queried_object_id;
-        }
 
         if ($postid == 0) {
             $postid = url_to_postid($url);

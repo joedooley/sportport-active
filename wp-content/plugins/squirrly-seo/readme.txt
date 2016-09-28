@@ -6,10 +6,10 @@ Tested up to: 4.6
 Stable tag: trunk  
 Donate link: https://www.squirrly.co/wordpress-seo-by-squirrly      
    
-SEO Plugin By Squirrly is for the NON-SEO experts. Get Excellent Seo with Better Content, Ranking and Analytics. For Both Humans and Search Bots.  
+SEO Plugin By Squirrly is for the NON-SEO experts. Get Excellent SEO with Better Content, Ranking and Analytics. For Both Humans and Search Bots.
        
 == Description ==    
-Squirrly SEO helps you write content that is SEO friendly and ALSO Human friendly. You'll get to improve your rankings, while providing your readers with great content. See Your SEO Stats, get a weekly SEO Audit and find the best keywords.
+SEO By Squirrly helps you write content that is SEO friendly and ALSO Human friendly. You'll get to improve your rankings, while providing your readers with great content. See Your SEO Stats, get a weekly SEO Audit and find the best keywords.
  
 It works well with Wordpress sites that already have <strong>Yoast</strong> or <strong>All In One SEO</strong>. You can opt-in to keep those settings, so no need to start over again :-)
 
@@ -137,9 +137,10 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
 
 == Changelog ==
-= 6.2.1 =
+= 6.2.2 =
 * Compatible with WP 4.6.1
-* Fixed Page Optimization for Latest Post Page
+* Fixed SEO Page Optimization for Post Feed Page and Home Page
+* Update SEO features
 
 = 6.2.0 =
 * Added Facebook Pixel Tracking Code in Squirrly > SEO > Tracking
@@ -227,10 +228,6 @@ Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO require
 * Fixed the compatibility issue in Performance Analytics
 * Added twitter summary for large images
 
-
-= 5.2.8 =
-* Compatible with WP 4.4
-
 = 5.2.7 =
 * Added Squirrly SEO Canonical Link in Post Edit page
 * Added Norway country in Google Rank Option
@@ -282,14 +279,6 @@ Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO require
 * Add the optimization progress bar in the post/page list
 * Fixed the restore the settings from backup validator
 
-= 5.1.4 =
-* Fixed the Google Rank check cron
-
-= 5.1.3 =
-* Fixed the Open Graph META for Locale en_CA
-* Fixed the sitemap_pages.xml for loading slow when looking over videos
-* Fixed the favicon.ico rewrite for non multisite wordpress
-
 = 5.1.2 =
 * Added new features in Open Graph for the Posts/Pages
 * Added the SEO Settings Backup and Restore
@@ -299,30 +288,12 @@ Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO require
 * Fixed the wp_is_writable for older wp versions
 * Fixed the Open Graph not to include non embed videos in meta
 * Fixed the Sitemap Ping option to remain switched on when is selected
-
-= 5.1.1 =
-* Corrected the css for the top yellow bar
-* Get the keyword from database for the saved article
-* Fixed the feed style issue
 * Added the custom size image for Open Graph in Squirrly SEO Snippet
-* Increased the plugin loading speed in front-end
-* Fixed the post optimization history issue
-* Fixed the encryption for the password and fixed the bad login issue
-* Compatible with WP 4.2.2
 
 = 5.0.3 =
 * Prevent canonical, prev, next meta duplicate inserted by other SEO plugins
 * Fixed snippet custom title and description to change when other SEO plugins are installed
 * Fixed javascript issue in login page
-
-= 5.0.2 =
-* Made it download the remote images while in text editor
-* Detects remote images when the URL doesn't contain http
-* Fixed favicon disappear on plugin updates
-
-= 5.0.1 =
-* Fixed some issues for the PHP 5.1-5.2
-* Compatible with WP 4.2.1
 
 = 5.0.0 =
 * Changed Squirrly SEO look
@@ -345,116 +316,10 @@ Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO require
 * Fixed the custom fields variable in post editor
 * Fixed the site icon and added the site icon for multisites
 * Fixed Sitemap for default permalink option
-
-= 3.4.4 =
-* Updated the Twitter Card information
-* Compatible with WP 4.1.1
 * Fixed the SEO Analytics and the Rank updates
 * Fixed the SEO for First Page  if the Home Page is not a static page
 * Fixed the SEO for the First Page when it starts with woocommerce shop
 
-= 3.4.3 =
-* Add the option to prevent downloading the remote images in the blog media library for the new posts
-* Add support for custom admin user roles
-
-= 3.4.2 =
-* Fixed some queries for a better speed in backend
-* Fixed Open Graph for Home Page
-* Fixed empty description for the Woocommerce shop page
-
-= 3.3.9 =
-* Fixed SEO snippet preview compatibility with the WP 4.0
-
-= 3.3.8 =
-* Fixed SEO issues for some themes in frontend
-* Fixed the audit to load faster
-* Added the google hreflang meta for language identification
-* Added strict search for google in SEO Settings
-
-= 3.3.7 =
-* Fixed the keywords SEO settings for the first page optimization
-* Fixed the image resize on drag-drop from inspiration box
-* Fixed the highlight in Seo Live Assistant not to disappear when you click on keyword
-* Fixed the SEO check lag for meta duplicates in backend
-
-= 3.3.5 =
-* Added Tag to Meta Keyword option in Settings
-* Fixed some bugs related to SEO Audit
-* Fixed the og:image issue for featured post images in WP4
-
-= 3.3.4 =
-* Compatible with WP 4.0
-* Fixed various issues
-* Update the Google Analytics tracking code to work with cache plugins
-* Fixed the sitemap update date issue
-* Fixed the Home Page Seo settings to work with the front-page snippet
-* Compatible with Wp Fastest Cache plugin, WP Super Cache
-
-= 3.3.3 =
-* Added the new Google Analytics tracking code
-* Update the Seo Live Assistant
-
-= 3.3.2 =
-* Compatible with WP 3.9.2
-* Added google.cz for google ranking in Performance Analytics
-
-= 3.3.1 =
-* Fixed post snippet issues when the home-page description is switch off
-
-* Updated the Squirrly Seo plugin icon
-
-= 3.3.0 =
-* Added the google localization country in search ranking
-* Fixed on-boarding video link
-* Fixed seo title issue for home-page
-
-= 3.2.7 =
-* Fixed small issue for background ranking grabber
-* Fixed google country select in Seo Settings
-* Fixed css and js load for some WordPress themes
-
-= 3.2.5 =
-* Fixed default country and langage in rank check
-* Fixed the Copyright Free search images
-
-= 3.2.3 =
-* Fixed onboarding process
-* Fixed Audit broken link
-* Fixed Rank check issues for some situations
-
-= 3.2.1 =
-* Improved SEO Stats for Google Rankings by Country
-* SEO Settings out-of-the-box, but also works awesome if you have the settings already done with All In One SEO or Yoast (Wordpress seo)
-
-= 3.1.9 =
-* Fixed css issues for some cases
-* Fixed the "See Analytics" loading issue
-
-= 3.1.8 =
-* Fixed serp cron with the google last changes
-* Changed the cron rate for serp search
-* Added force recheck for google rank in SEO Analytics
-
-= 3.1.4 =
-* Removed the traffic monitor (to increase the site speed and analytics)
-
-= 3.1.2 =
-* Compatible with WP 3.9
-* Fixed Squirrly SEO Live Assistant issue in WP 3.9
-* Fixed SEO Analytics in WP 3.9
-
-= 3.1.1 =
-* Added rel="prev" and rel="next" in header
-* Added SEO META Duplicates notification
-* Fixed the snippet for home page when the home is a specific page
-* Added more details in SEO Analytics
-*
-
-= 3.1.0 =
-* Added the Performance Analytics in Squirrly SEO Tab
-* Added Analytics filter for custom post types
-* Added Google SEO Rank Column in Squirrly SEO > Performance Analytics
-* Added Google Country Select in Squirrly SEO > Settings
 
 == Credits ==
 * Florin Muresan - CEO at Squirrly

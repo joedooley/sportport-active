@@ -203,25 +203,6 @@ class Receiptful_Api {
 
 
 	/**
-	 * Delete abandoned cart.
-	 *
-	 * Delete the abandoned cart so its no longer recognized as a abandoned cart.
-	 *
-	 * @since 1.2.0
-	 *
-	 * @param	string	$token	Abandoned cart token.
-	 * @return	mixed			False when API call is not valid. RAW API response otherwise.
-	 */
-	public function delete_abandoned_cart( $token ) {
-
-		$response = $this->api_delete( '/abandoned-carts/' . $token, array( 'blocking' => true ) );
-
-		return $response;
-
-	}
-
-
-	/**
 	 * Public user key.
 	 *
 	 * Get the current user key based on the API key used.
@@ -276,7 +257,7 @@ class Receiptful_Api {
 				'httpversion'	=> '1.0',
 				'blocking'		=> true,
 				'headers'		=> $headers,
-				'body'			=> json_encode( $args ),
+				'body'			=> $args,
 				'cookies'		=> array()
 			)
 		) );

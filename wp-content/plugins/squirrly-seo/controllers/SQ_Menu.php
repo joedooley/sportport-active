@@ -111,13 +111,17 @@ class SQ_Menu extends SQ_FrontController {
             array(SQ_ObjController::getBlock('SQ_BlockDashboard'), 'init')
         ));
         if (SQ_Tools::$options['sq_api'] <> '') {
-            $this->model->addSubmenu(array('sq_dashboard',
-                ucfirst(_SQ_NAME_) . __(' post list', _SQ_PLUGIN_NAME_),
-                __('Performance <br />Analytics', _SQ_PLUGIN_NAME_) . SQ_Tools::showNotices($analytics_alert, 'errors_count'),
-                'edit_posts',
-                'sq_posts',
-                array(SQ_ObjController::getBlock('SQ_BlockPostsAnalytics'), 'init')
-            ));
+
+            //IF SERP PLUGIN IS NOT INSTALLED
+            if (!class_exists('SRC_Classes_ObjController')){
+                $this->model->addSubmenu(array('sq_dashboard',
+                    ucfirst(_SQ_NAME_) . __(' post list', _SQ_PLUGIN_NAME_),
+                    __('Performance <br />Analytics', _SQ_PLUGIN_NAME_) . SQ_Tools::showNotices($analytics_alert, 'errors_count'),
+                    'edit_posts',
+                    'sq_posts',
+                    array(SQ_ObjController::getBlock('SQ_BlockPostsAnalytics'), 'init')
+                ));
+            }
 
 
 

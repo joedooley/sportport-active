@@ -6,7 +6,7 @@ define('_SQ_NAME_', 'squirrly');
 define('_SQ_PLUGIN_NAME_', 'squirrly-seo'); //THIS LINE WILL BE CHANGED WITH THE USER SETTINGS
 define('_THEME_NAME_', 'default'); //THIS LINE WILL BE CHANGED WITH THE USER SETTINGS
 
-define('_SQ_DASH_URL_', 'https://my.squirrly.co/');
+defined('_SQ_DASH_URL_') ||  define('_SQ_DASH_URL_', 'https://my.squirrly.co/');
 $scheme = (((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") || (defined('FORCE_SSL_ADMIN') && FORCE_SSL_ADMIN)) ? 'https:' : 'http:'); //CHECK IF SCURE
 
 defined('SQ_URI') || define('SQ_URI', (WP_VERSION_ID >= 3000) ? 'wp350' : 'wp2');
