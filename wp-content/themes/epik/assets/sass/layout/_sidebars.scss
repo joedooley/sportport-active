@@ -4,7 +4,7 @@
 .sidebar {
 	color: #666;
 	font-size: 13px;
-	margin-top: 4.75em;
+	margin-top: 2.25em;
 
 	@include media($xlarge-screen-up) {
 		margin-top: 0;
@@ -25,6 +25,25 @@
 	.search-form {
 		width: 100%;
 	}
+
+	.more-from-category {
+		@include padding(3px 0 6px);
+		border-bottom: 1px solid #ccc;
+		font: {
+			family: $raleway-semibold;
+			size: 12px;
+		}
+		text-align: right;
+
+		a {
+			color: $pink1;
+
+			&:hover {
+				color: $gray1;
+			}
+		}
+	}
+
 }
 
 .sidebar p:last-child,

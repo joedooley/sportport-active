@@ -1,16 +1,41 @@
 /*! ## Receiptful
 --------------------- */
 
-.sidebar-primary .rf-recommendations {
+.rf-recommendations {
 	overflow: hidden;
+
+	.rf-photo-container,
+	.rf-recommendation-product,
+	.rf-recommendation-container {
+		@include margin(0);
+	}
 
 	.rf-recommendation-col {
 		width: 100%;
 	}
 
-	img {
-		float: none;
-		height: auto;
-		margin: auto;
+	.rf-recommendation-header {
+		@include margin(0 null 2em);
 	}
+
+	.rf-photo {
+		height: auto;
+
+		img {
+			float: none;
+			height: auto;
+			margin: auto;
+			width: 100%;
+		}
+	}
+
+	.rf-title a {
+		color: $pink1;
+		font-weight: bold;
+
+		&:hover {
+			color: $pink3;
+		}
+	}
+
 }

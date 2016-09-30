@@ -11,17 +11,20 @@
 }
 
 .entry-content a {
-	color: #18d;
+	//color: #18d;
+	color: $pink1;
 	font-family: $raleway-semibold;
-	text-decoration: underline; }
+	text-decoration: underline;
 
-.entry-content a:hover {
-	color: #f93; }
+	&:hover {
+		color: $gray1;
+	}
+}
 
 .entry-content strong {
+	color: #567;
 	font-family: $raleway-bold;
 	font-weight: normal;
-	color: #567;
 	text-transform: uppercase; }
 
 .entry-content a strong { color: #18d; }

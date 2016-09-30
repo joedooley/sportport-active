@@ -2,8 +2,9 @@
 
 .before-header {
 	//background-color: #dce1e7;
-	background-color: $pink2;
-	color: $light-gray;
+	background-color: $pink4;
+	//color: $light-gray;
+	color: $pink1;
 	font-family: $open-sans-condensed-bold;
 	text-align: center;
 
@@ -38,23 +39,27 @@
 			display: inline-block;
 
 			a {
-				color: $light-gray;
+				//color: $light-gray;
+				color: $pink1;
 				font-family: $open-sans-condensed-bold;
 				font-size: 1.2rem;
 				text-transform: uppercase;
 
 				&:hover {
-					color: $orange-hover;
+					//color: $orange-hover;
+					color: $gray1;
 				}
 			}
 
 			&.current-menu-item > a {
-				color: $orange-hover;
+				//color: $orange-hover;
+				color: $gray1;
 			}
 		}
 
 		li + li:before {
-			color: $light-gray;
+			//color: $light-gray;
+			color: $pink1;
 			content: " | ";
 			@include padding(0);
 		}
@@ -69,13 +74,14 @@
 
 	.free-shipping-notification {
 		@include padding(0);
-		color: $light-gray;
+		//color: $light-gray;
+		color: $pink1;
 		font: {
 			family: $raleway-bold;
-			size: 1.2rem;
+			size: 1.5rem;
 		}
 		margin-bottom: 0;
-		margin-top: 10px;
+		margin-top: 12px;
 		text-transform: uppercase;
 
 
@@ -117,7 +123,8 @@
 			@include padding(6px);
 
 			@include placeholder {
-				font-size: 1.2rem;
+				color: $pink1;
+				font-size: 1.35rem;
 				padding-top: 3px;
 			}
 

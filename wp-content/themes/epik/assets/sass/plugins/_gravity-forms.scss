@@ -86,12 +86,14 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 
 		.gform_button {
 			@include padding(12px 35px);
-			background-color: $orange;
+			//background-color: $orange;
+			background-color: $navpink1;
+			border-color: $navpink1;
 			border-radius: 0;
 			color: #fff;
 
 			&:hover {
-				background-color: $orange-hover;
+				background-color: $gray1;
 			}
 
 			@include media($xlarge-screen-up) {
@@ -100,6 +102,12 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 				@include media($small-screen-up) {
 					max-width: none;
 				}
+			}
+
+			@include placeholder {
+				color: $pink1;
+				//font-size: 1.35rem;
+				//padding-top: 3px;
 			}
 
 		}
@@ -160,8 +168,12 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 		input {
 			@include padding(rem(12));
 			border-radius: 0;
-			width: 100%;
+			width: 95%;
 		}
+	}
+
+	#field_5_3 {
+		@include padding(0.5rem);
 	}
 
 	.gform_footer {
@@ -170,7 +182,12 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 
 		input {
 			@include padding(rem(16));
+			background-color: $pink1;
 			width: 100%;
+
+			&:hover {
+				background-color: $gray1;
+			}
 		}
 	}
 }
