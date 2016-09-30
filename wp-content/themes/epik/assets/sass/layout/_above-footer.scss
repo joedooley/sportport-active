@@ -3,7 +3,9 @@
 |* ------------------------------- */
 
 .above-footer-widgets {
-	background-color: #dce1e7;
+	@include padding(em(10) null null null);
+	//background-color: #dce1e7;
+	background-color: $pink1;
 }
 
 .above-footer-container {

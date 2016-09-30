@@ -1,7 +1,8 @@
 // Site Header
 
 .site-header {
-	background-color: #567;
+	//background-color: #567;
+	background-color: $pink1;
 	width: 100%;
 
 	@include media($xlarge-screen-up) {
