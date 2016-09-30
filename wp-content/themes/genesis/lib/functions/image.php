@@ -16,9 +16,9 @@
  *
  * @since 0.1.0
  *
- * @param integer $index Optional. Index of which image to return from a post. Default is 0.
- *
- * @return integer|boolean Returns image ID, or false if image with given index does not exist.
+ * @param int $index   Optional. Index of which image to return from a post. Default is 0.
+ * @param int $post_id Optional. Post ID. Default is `get_the_ID()`.
+ * @return int|bool Image ID, or `false` if image with given index does not exist.
  */
 function genesis_get_image_id( $index = 0, $post_id = null ) {
 
@@ -57,11 +57,8 @@ function genesis_get_image_id( $index = 0, $post_id = null ) {
  *
  * @since 0.1.0
  *
- * @uses genesis_get_image_id() Pull an attachment ID from a post, if one exists.
- *
  * @param array|string $args Optional. Image query arguments. Default is empty array.
- *
- * @return string|boolean Return image element HTML, URL of image, or false.
+ * @return string|bool Return image element HTML, URL of image, or `false`.
  */
 function genesis_get_image( $args = array() ) {
 
@@ -84,44 +81,40 @@ function genesis_get_image( $args = array() ) {
 
 	$args = wp_parse_args( $args, $defaults );
 
-	//* Allow child theme to short-circuit this function
+	// Allow child theme to short-circuit this function.
 	$pre = apply_filters( 'genesis_pre_get_image', false, $args, get_post() );
 	if ( false !== $pre )
 		return $pre;
 
-	//* If post thumbnail (native WP) exists, use its id
+	// If post thumbnail (native WP) exists, use its id.
 	if ( has_post_thumbnail( $args['post_id'] ) && ( 0 === $args['num'] ) ) {
 		$id = get_post_thumbnail_id( $args['post_id'] );
-	}
-	//* Else if the first (default) image attachment is the fallback, use its id
-	elseif ( 'first-attached' === $args['fallback'] ) {
+	} elseif ( 'first-attached' === $args['fallback'] ) {
+		// Else if the first (default) image attachment is the fallback, use its id.
 		$id = genesis_get_image_id( $args['num'], $args['post_id'] );
-	}
-	//* Else if fallback id is supplied, use it
-	elseif ( is_int( $args['fallback'] ) ) {
+	} elseif ( is_int( $args['fallback'] ) ) {
+		// Else if fallback id is supplied, use it.
 		$id = $args['fallback'];
 	}
 
-	//* If we have an id, get the html and url
+	// If we have an id, get the HTML and URL.
 	if ( isset( $id ) ) {
 		$html = wp_get_attachment_image( $id, $args['size'], false, $args['attr'] );
 		list( $url ) = wp_get_attachment_image_src( $id, $args['size'], false, $args['attr'] );
-	}
-	//* Else if fallback html and url exist, use them
-	elseif ( is_array( $args['fallback'] ) ) {
+	} elseif ( is_array( $args['fallback'] ) ) {
+		// Else if fallback HTML and URL exist, use them.
 		$id   = 0;
 		$html = $args['fallback']['html'];
 		$url  = $args['fallback']['url'];
-	}
-	//* Else, return false (no image)
-	else {
+	} else {
+		// No image.
 		return false;
 	}
 
-	//* Source path, relative to the root
+	// Source path, relative to the root.
 	$src = str_replace( home_url(), '', $url );
 
-	//* Determine output
+	// Determine output.
 	if ( 'html' === mb_strtolower( $args['format'] ) )
 		$output = $html;
 	elseif ( 'url' === mb_strtolower( $args['format'] ) )
@@ -129,10 +122,10 @@ function genesis_get_image( $args = array() ) {
 	else
 		$output = $src;
 
-	//* Return false if $url is blank
+	// Return false if $url is blank.
 	if ( empty( $url ) ) $output = false;
 
-	//* Return data, filtered
+	// Return data, filtered.
 	return apply_filters( 'genesis_get_image', $output, $args, $id, $html, $url, $src );
 }
 
@@ -148,11 +141,8 @@ function genesis_get_image( $args = array() ) {
  *
  * @since 0.1.0
  *
- * @uses genesis_get_image() Return an image pulled from the media gallery.
- *
  * @param array|string $args Optional. Image query arguments. Default is empty array.
- *
- * @return false Returns false if URL is empty.
+ * @return false Returns `false` if URL is empty.
  */
 function genesis_image( $args = array() ) {
 
@@ -174,7 +164,7 @@ function genesis_image( $args = array() ) {
  *
  * @global array $_wp_additional_image_sizes Additionally registered image sizes.
  *
- * @return array Two-dimensional, with width, height and crop sub-keys.
+ * @return array Two-dimensional, with `width`, `height` and `crop` sub-keys.
  */
 function genesis_get_additional_image_sizes() {
 
@@ -196,9 +186,7 @@ function genesis_get_additional_image_sizes() {
  *
  * @since 1.0.2
  *
- * @uses genesis_get_additional_image_sizes() Return registered image sizes.
- *
- * @return array Two-dimensional, with width, height and crop sub-keys.
+ * @return array Two-dimensional, with `width`, `height` and `crop` sub-keys.
  */
 function genesis_get_image_sizes() {
 
@@ -230,6 +218,13 @@ function genesis_get_image_sizes() {
 
 }
 
+/**
+ * Callback for Customizer featured image archive size.
+ *
+ * @since 2.1.0
+ *
+ * @return array List of image sizes.
+ */
 function genesis_get_image_sizes_for_customizer() {
 
 	$sizes = array();

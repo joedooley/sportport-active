@@ -11,5 +11,5 @@
  * @link    http://my.studiopress.com/themes/genesis/
  */
 
-//* Initialize Genesis
+// Initialize Genesis.
 genesis();

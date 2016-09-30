@@ -30,9 +30,6 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @uses GENESIS_CPT_ARCHIVE_SETTINGS_FIELD_PREFIX Settings field key prefix.
-	 * @uses \Genesis_Admin::create()                  Create admin menu and settings page.
-	 *
 	 * @param object $post_type The post type object. WP_Post_Type in WP 4.6+.
 	 */
 	public function __construct( $post_type ) {
@@ -49,14 +46,14 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 			)
 		);
 
-		//* Handle non-top-level CPT menu items
+		// Handle non-top-level CPT menu items.
 		if ( is_string( $this->post_type->show_in_menu ) ) {
 			$menu_ops['submenu']['parent_slug'] = $this->post_type->show_in_menu;
 			$menu_ops['submenu']['menu_title']  = apply_filters( 'genesis_cpt_archive_settings_label', $this->post_type->labels->name . ' ' . __( 'Archive', 'genesis' ) );
 			$menu_ops['submenu']['menu_position']  = $this->post_type->menu_position;
 		}
 
-		$page_ops = array(); //* use defaults
+		$page_ops = array(); // Use defaults.
 
 		$settings_field = GENESIS_CPT_ARCHIVE_SETTINGS_FIELD_PREFIX . $this->post_type->name;
 
@@ -87,8 +84,6 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @uses genesis_add_option_filter() Assign filter to array of settings.
-	 *
 	 * @see \Genesis_Settings_Sanitizer::add_filter()
 	 */
 	public function sanitizer_filters() {
@@ -105,7 +100,7 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 			)
 		);
 		genesis_add_option_filter(
-			'safe_html',
+			'unfiltered_or_safe_html',
 			$this->settings_field,
 			array(
 				'intro_text',
@@ -123,17 +118,17 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 	}
 
 	/**
- 	 * Register meta boxes on the CPT Archive pages.
- 	 *
- 	 * Some of the meta box additions are dependent on certain theme support or user capabilities.
- 	 *
- 	 * The 'genesis_cpt_archives_settings_metaboxes' action hook is called at the end of this function.
- 	 *
- 	 * @since 2.0.0
- 	 *
- 	 * @see \Genesis_Admin_CPT_Archives_Settings::archive_box() Callback for Archive box.
- 	 * @see \Genesis_Admin_CPT_Archives_Settings::seo_box()     Callback for SEO box.
- 	 * @see \Genesis_Admin_CPT_Archives_Settings::layout_box()  Callback for Layout box.
+	 * Register meta boxes on the CPT Archive pages.
+	 *
+	 * Some of the meta box additions are dependent on certain theme support or user capabilities.
+	 *
+	 * The 'genesis_cpt_archives_settings_metaboxes' action hook is called at the end of this function.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @see \Genesis_Admin_CPT_Archives_Settings::archive_box() Callback for Archive box.
+	 * @see \Genesis_Admin_CPT_Archives_Settings::seo_box()     Callback for SEO box.
+	 * @see \Genesis_Admin_CPT_Archives_Settings::layout_box()  Callback for Layout box.
 	 */
 	public function metaboxes() {
 
@@ -155,10 +150,6 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 	 * Callback for Archive Settings meta box.
 	 *
 	 * @since 2.0.0
-	 *
-	 * @uses \Genesis_Admin::get_field_id()    Construct full field id.
-	 * @uses \Genesis_Admin::get_field_name()  Construct full field name.
-	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
 	 *
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes.
 	 */
@@ -196,10 +187,6 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @uses \Genesis_Admin::get_field_id()    Construct full field id.
-	 * @uses \Genesis_Admin::get_field_name()  Construct full field name.
-	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
-	 *
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes.
 	 */
 	public function seo_box() {
@@ -231,7 +218,7 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 			</tr>
 
 			<tr valign="top">
-				<th scope="row"><?php _e( 'Robots Meta Tags:', 'genesis' ); ?></th>
+				<th scope="row"><?php _e( 'Robots Meta Tags', 'genesis' ); ?></th>
 				<td>
 					<p>
 						<label for="<?php $this->field_id( 'noindex' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'noindex' ); ?>" id="<?php $this->field_id( 'noindex' ); ?>" value="1" <?php checked( $this->get_field_value( 'noindex' ) ); ?> />
@@ -256,11 +243,6 @@ class Genesis_Admin_CPT_Archive_Settings extends Genesis_Admin_Boxes {
 	 * Callback for Layout Settings meta box.
 	 *
 	 * @since 2.0.0
-	 *
-	 * @uses \Genesis_Admin::get_field_id()    Construct full field id.
-	 * @uses \Genesis_Admin::get_field_name()  Construct full field name.
-	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
-	 * @uses genesis_layout_selector()         Display layout selector.
 	 *
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes.
 	 */

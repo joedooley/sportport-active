@@ -17,25 +17,25 @@ add_action( 'admin_bar_menu', 'genesis_cpt_archive_settings_link', 999 );
  *
  * @since 2.3.0
  *
- * @uses genesis_has_post_type_archive_support() Check if CPT supports archive settings
+ * @global WP_Admin_Bar $wp_admin_bar
  *
- * @global $wp_admin_bar
- *
- * @return void
+ * @param WP_Admin_Bar $wp_admin_bar WP_Admin_Bar instance.
+ * @return WP_Admin_Bar Return `$wp_admin_bar` early if in admin, not a CPT archive, not a valid post type,
+ *                      or a post type that does not have support for `genesis-cpt-archive-settings`.
  */
 function genesis_cpt_archive_settings_link( $wp_admin_bar ) {
 
-	// Bail if in admin, not a CPT archive, or post_type doesn't have support for genesis-cpt-archive-settings
+	// Bail if in admin, not a CPT archive, or post_type doesn't have support for genesis-cpt-archive-settings.
 	if ( is_admin() || ! is_post_type_archive() || ! genesis_has_post_type_archive_support() ) {
 		return $wp_admin_bar;
 	}
-	// Get the post type we're viewing
+	// Get the post type we're viewing.
 	$post_type = get_post_type();
-	// Bail if we didn't get a valid post type
+	// Bail if we didn't get a valid post type.
 	if ( ! $post_type ) {
 		return $wp_admin_bar;
 	}
-	// Add our toolbar link
+	// Add our toolbar link.
 	$args = array(
 		'id'    => 'cpt-archive-settings',
 		'title' => __('Edit Archive Settings', 'genesis'),
@@ -48,17 +48,15 @@ function genesis_cpt_archive_settings_link( $wp_admin_bar ) {
 
 add_action( 'wp_head', 'genesis_cpt_archive_settings_toolbar_styles' );
 /**
- * Add custom CSS to <head>
- * Adds the pencil icon to the cpt archive settings menu link
+ * Adds the pencil icon to the CPT archive settings menu link.
+ *
+ * Add custom CSS to `<head>`.
  *
  * @since  2.3.0
- *
- * @uses genesis_has_post_type_archive_support() Check if CPT supports archive settings
- *
- * @return void
  */
 function genesis_cpt_archive_settings_toolbar_styles() {
-	// Bail if in admin, user is not logged in, admin bar is not showing, not a post type archive page, or post type does not support genesis-cpt-archive-settings
+	// Bail if in admin, user is not logged in, admin bar is not showing, not a post type archive page,
+	// or post type does not support genesis-cpt-archive-settings.
 	if ( is_admin() || ! is_user_logged_in() || ! is_admin_bar_showing() || ! is_post_type_archive() || ! genesis_has_post_type_archive_support() ) {
 		return;
 	}

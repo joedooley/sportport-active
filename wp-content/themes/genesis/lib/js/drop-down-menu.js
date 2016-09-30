@@ -15,7 +15,10 @@
  * 	  opacity: 1;
  *  }
  *
-*/
+ * @package Genesis\JS
+ * @author  StudioPress
+ * @license GPL-2.0+
+ */
 
 var genesis_drop_down_menu = ( function( $ ) {
 	'use strict';
@@ -60,7 +63,7 @@ var genesis_drop_down_menu = ( function( $ ) {
 			.on( 'focus.genesis-hover blur.genesis-hover', menuItemToggleClass );
 	};
 
-	// Only expose the ready function to the world
+	// Only expose the ready function to the world.
 	return {
 		ready: ready
 	};

@@ -12,16 +12,27 @@
  */
 
 genesis_structural_wrap( 'site-inner', 'close' );
-echo '</div>'; //* end .site-inner or #inner
+genesis_markup( array(
+	'close'   => '</div>',
+	'context' => 'site-inner',
+) );
 
 do_action( 'genesis_before_footer' );
 do_action( 'genesis_footer' );
 do_action( 'genesis_after_footer' );
 
-echo '</div>'; //* end .site-container or #wrap
+genesis_markup( array(
+	'close'   => '</div>',
+	'context' => 'site-container',
+) );
 
 do_action( 'genesis_after' );
-wp_footer(); //* we need this for plugins
+wp_footer(); // We need this for plugins.
+
+genesis_markup( array(
+	'close'   => '</body>',
+	'context' => 'body',
+) );
+
 ?>
-</body>
 </html>

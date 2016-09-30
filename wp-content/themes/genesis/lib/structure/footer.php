@@ -23,9 +23,8 @@ add_action( 'genesis_before_footer', 'genesis_footer_widget_areas' );
  *
  * @since 1.6.0
  *
- * @uses genesis_structural_wrap() Optionally adds wrap with footer-widgets context.
- *
- * @return null Return early if number of widget areas could not be determined, or nothing is added to the first widget area.
+ * @return null Return early if number of widget areas could not be determined,
+ *              or nothing is added to the first widget area.
  */
 function genesis_footer_widget_areas() {
 
@@ -36,7 +35,7 @@ function genesis_footer_widget_areas() {
 
 	$footer_widgets = (int) $footer_widgets[0];
 
-	//* Check to see if first widget area has widgets. If not, do nothing. No need to check all footer widget areas.
+	// Check to see if first widget area has widgets. If not, do nothing. No need to check all footer widget areas.
 	if ( ! is_active_sidebar( 'footer-1' ) )
 		return;
 
@@ -46,7 +45,7 @@ function genesis_footer_widget_areas() {
 
 	while ( $counter <= $footer_widgets ) {
 
-		//* Darn you, WordPress! Gotta output buffer.
+		// Darn you, WordPress! Gotta output buffer.
 		ob_start();
 		dynamic_sidebar( 'footer-' . $counter );
 		$widgets = ob_get_clean();
@@ -61,20 +60,19 @@ function genesis_footer_widget_areas() {
 
 	if ( $inside ) {
 
+		$_inside = genesis_structural_wrap( 'footer-widgets', 'open', 0 );
+
+		$_inside .= $inside;
+
+		$_inside .= genesis_structural_wrap( 'footer-widgets', 'close', 0 );
+
 		$output .= genesis_markup( array(
-			'html5'   => '<div %s>' . genesis_sidebar_title( 'Footer' ),
-			'xhtml'   => '<div id="footer-widgets" class="footer-widgets">',
+			'open'    => '<div %s>' . genesis_sidebar_title( 'Footer' ),
+			'close'   => '</div>',
+			'content' => $_inside,
 			'context' => 'footer-widgets',
 			'echo'    => false,
 		) );
-
-		$output .= genesis_structural_wrap( 'footer-widgets', 'open', 0 );
-
-		$output .= $inside;
-
-		$output .= genesis_structural_wrap( 'footer-widgets', 'close', 0 );
-
-		$output .= '</div>';
 
 	}
 
@@ -89,15 +87,11 @@ add_action( 'genesis_footer', 'genesis_footer_markup_open', 5 );
  * Also optionally adds wrapping div opening tag.
  *
  * @since 1.2.0
- *
- * @uses genesis_structural_wrap() Maybe add opening .wrap div tag with footer context.
- * @uses genesis_markup()          Apply contextual markup.
  */
 function genesis_footer_markup_open() {
 
 	genesis_markup( array(
-		'html5'   => '<footer %s>',
-		'xhtml'   => '<div id="footer" class="footer">',
+		'open'    => '<footer %s>',
 		'context' => 'site-footer',
 	) );
 	genesis_structural_wrap( 'footer', 'open' );
@@ -111,16 +105,13 @@ add_action( 'genesis_footer', 'genesis_footer_markup_close', 15 );
  * Also optionally adds wrapping div closing tag.
  *
  * @since 1.2.0
- *
- * @uses genesis_structural_wrap() Maybe add closing .wrap div tag with footer context.
- * @uses genesis_markup()          Apply contextual markup.
  */
 function genesis_footer_markup_close() {
 
 	genesis_structural_wrap( 'footer', 'close' );
 	genesis_markup( array(
-		'html5'   => '</footer>',
-		'xhtml'   => '</div>',
+		'close'   => '</footer>',
+		'context' => 'site-footer',
 	) );
 
 }
@@ -137,17 +128,14 @@ add_action( 'genesis_footer', 'genesis_do_footer' );
  * For HTML5 themes, only the credits text is used (back-to-top link is dropped).
  *
  * @since 1.0.1
- *
- * @uses genesis_html5() Check for HTML5 support.
- *
  */
 function genesis_do_footer() {
 
-	//* Build the text strings. Includes shortcodes
+	// Build the text strings. Includes shortcodes.
 	$backtotop_text = '[footer_backtotop]';
 	$creds_text     = sprintf( '[footer_copyright before="%s "] &#x000B7; [footer_childtheme_link before="" after=" %s"] [footer_genesis_link url="http://www.studiopress.com/" before=""] &#x000B7; [footer_wordpress_link] &#x000B7; [footer_loginout]', __( 'Copyright', 'genesis' ), __( 'on', 'genesis' ) );
 
-	//* Filter the text strings
+	// Filter the text strings.
 	$backtotop_text = apply_filters( 'genesis_footer_backtotop_text', $backtotop_text );
 	$creds_text     = apply_filters( 'genesis_footer_creds_text', $creds_text );
 
@@ -156,7 +144,7 @@ function genesis_do_footer() {
 
 	$output = $backtotop . $creds;
 
-	//* Only use credits if HTML5
+	// Only use credits if HTML5.
 	if ( genesis_html5() )
 		$output = '<p>' . $creds_text . '</p>';
 
@@ -172,8 +160,6 @@ add_action( 'wp_footer', 'genesis_footer_scripts' );
  * Applies the `genesis_footer_scripts` filter to the value returns from the footer_scripts option.
  *
  * @since 1.1.0
- *
- * @uses genesis_option() Get theme setting value.
  */
 function genesis_footer_scripts() {
 
