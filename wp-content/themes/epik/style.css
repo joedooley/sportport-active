@@ -1059,9 +1059,6 @@ tr.cart_item {
                                   /* hide thumbnails in popup windows * /
 
 /*! CUSTOM BODY WOOCOMMERCE-PAGE START [x23] ---------------------------------------- */
-body.woocommerce-page {
-  background: #FFF; }
-
 body.woocommerce-page .content {
   font-size: 12px; }
 
@@ -3617,8 +3614,19 @@ div.gform_wrapper .gform_footer input[type="submit"] {
   @media screen and (max-width: 1023px) {
     #gform_wrapper_3 {
       max-width: 300px; } }
+  @media screen and (max-width: 480px) {
+    #gform_wrapper_3 {
+      margin: 0 auto;
+      padding: 0 1.1em;
+      max-width: 100%; } }
   #gform_wrapper_3 li {
     margin: 0; }
+    @media screen and (min-width: 641px) {
+      #gform_wrapper_3 li {
+        padding-right: 7px; } }
+    @media screen and (max-width: 480px) {
+      #gform_wrapper_3 li {
+        padding: 0; } }
   #gform_wrapper_3 label.gfield_label {
     font-size: 0.9em;
     font-weight: 700;
@@ -3650,7 +3658,8 @@ div.gform_wrapper .gform_footer input[type="submit"] {
         width: 100%;
         margin: 0; } }
     #gform_wrapper_3 .gform_footer .gform_button {
-      padding: 12px 35px;
+      margin-top: 2px;
+      padding: 11px 35px;
       background-color: #f88ca9;
       border-color: #f88ca9;
       border-radius: 0;
@@ -3710,7 +3719,10 @@ div.gform_wrapper .gform_footer input[type="submit"] {
     #gform_wrapper_5 li input, #gform_confirmation_wrapper_5 li input {
       padding: 0.75rem;
       border-radius: 0;
-      width: 95%; }
+      width: 94%; }
+      @media screen and (max-width: 1023px) {
+        #gform_wrapper_5 li input, #gform_confirmation_wrapper_5 li input {
+          width: 98%; } }
   #gform_wrapper_5 #field_5_3, #gform_confirmation_wrapper_5 #field_5_3 {
     padding: 0.5rem; }
   #gform_wrapper_5 .gform_footer, #gform_confirmation_wrapper_5 .gform_footer {

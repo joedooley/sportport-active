@@ -9,6 +9,7 @@
 // Neat Breakpoints
 $small-screen: 480px;
 $medium-screen: 600px;
+$gform-screen: 641px;
 $ipad-screen: 768px;
 $large-screen: 800px;
 $xlarge-screen: 1023px;
@@ -17,6 +18,7 @@ $xxxlarge-screen: 1200px;
 
 $small-screen-up: new-breakpoint(max-width $small-screen 4);
 $medium-screen-up: new-breakpoint(max-width $medium-screen 4);
+$gform-screen-up: new-breakpoint(min-width $gform-screen 4);
 $ipad-screen-up: new-breakpoint(max-width $ipad-screen 8);
 $large-screen-up: new-breakpoint(max-width $large-screen 8);
 $xlarge-screen-up: new-breakpoint(max-width $xlarge-screen 12);
