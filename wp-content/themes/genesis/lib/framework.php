@@ -24,31 +24,28 @@ function genesis() {
 	get_header();
 
 	do_action( 'genesis_before_content_sidebar_wrap' );
-
 	genesis_markup( array(
-		'open'   => '<div %s>',
+		'html5'   => '<div %s>',
+		'xhtml'   => '<div id="content-sidebar-wrap">',
 		'context' => 'content-sidebar-wrap',
 	) );
 
 		do_action( 'genesis_before_content' );
 		genesis_markup( array(
-			'open'   => '<main %s>',
+			'html5'   => '<main %s>',
+			'xhtml'   => '<div id="content" class="hfeed">',
 			'context' => 'content',
 		) );
 			do_action( 'genesis_before_loop' );
 			do_action( 'genesis_loop' );
 			do_action( 'genesis_after_loop' );
 		genesis_markup( array(
-			'close' => '</main>', // End .content.
-			'context' => 'content',
+			'html5' => '</main>', //* end .content
+			'xhtml' => '</div>', //* end #content
 		) );
 		do_action( 'genesis_after_content' );
 
-	genesis_markup( array(
-		'close'   => '</div>',
-		'context' => 'content-sidebar-wrap',
-	) );
-
+	echo '</div>'; //* end .content-sidebar-wrap or #content-sidebar-wrap
 	do_action( 'genesis_after_content_sidebar_wrap' );
 
 	get_footer();

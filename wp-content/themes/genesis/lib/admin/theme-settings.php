@@ -27,6 +27,13 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	 * Create an admin menu item and settings page.
 	 *
 	 * @since 1.8.0
+	 *
+	 * @uses GENESIS_ADMIN_IMAGES_URL     URL for admin images.
+	 * @uses GENESIS_SETTINGS_FIELD       Settings field key.
+	 * @uses PARENT_DB_VERSION            Genesis database version.
+	 * @uses PARENT_THEME_VERSION         Genesis Framework version.
+	 * @uses genesis_get_default_layout() Get default layout.
+	 * @uses \Genesis_Admin::create()     Create an admin menu item and settings page.
 	 */
 	function __construct() {
 
@@ -46,7 +53,7 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 					'icon_url'   => GENESIS_ADMIN_IMAGES_URL . '/genesis-menu.png',
 					'position'   => '58.996',
 				),
-				'first_submenu' => array( // Do not use without 'main_menu'.
+				'first_submenu' => array( //* Do not use without 'main_menu'
 					'page_title' => __( 'Theme Settings', 'genesis' ),
 					'menu_title' => __( 'Theme Settings', 'genesis' ),
 					'capability' => 'edit_theme_options',
@@ -121,13 +128,15 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	/**
 	 * Register each of the settings with a sanitization filter type.
 	 *
-	 * There is no filter for: image_size
-	 *
 	 * @since 1.7.0
+	 *
+	 * @uses genesis_add_option_filter() Assign filter to array of settings.
 	 *
 	 * @see \Genesis_Settings_Sanitizer::add_filter() Add sanitization filters to options.
 	 */
 	public function sanitizer_filters() {
+
+		// No filter: image_size
 
 		genesis_add_option_filter(
 			'one_zero',
@@ -379,7 +388,7 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 			'content' => $home_help,
 		) );
 
-		// Add help sidebar.
+		//* Add help sidebar
 		$screen->set_help_sidebar(
 			'<p><strong>' . __( 'For more information:', 'genesis' ) . '</strong></p>' .
 			'<p><a href="http://my.studiopress.com/help/" target="_blank">' . __( 'Get Support', 'genesis' ) . '</a></p>' .
@@ -390,27 +399,27 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	}
 
 	/**
-	 * Register meta boxes on the Theme Settings page.
-	 *
-	 * Some of the meta box additions are dependent on certain theme support or user capabilities.
-	 *
-	 * The 'genesis_theme_settings_metaboxes' action hook is called at the end of this function.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @see \Genesis_Admin_Settings::info_box()          Callback for Information box.
-	 * @see \Genesis_Admin_Settings::style_box()         Callback for Color Style box (if supported).
-	 * @see \Genesis_Admin_Settings::feeds_box()         Callback for Custom Feeds box.
-	 * @see \Genesis_Admin_Settings::layout_box()        Callback for Default Layout box.
-	 * @see \Genesis_Admin_Settings::header_box()        Callback for Header box (if no custom header support).
+ 	 * Register meta boxes on the Theme Settings page.
+ 	 *
+ 	 * Some of the meta box additions are dependent on certain theme support or user capabilities.
+ 	 *
+ 	 * The 'genesis_theme_settings_metaboxes' action hook is called at the end of this function.
+ 	 *
+ 	 * @since 1.0.0
+ 	 *
+ 	 * @see \Genesis_Admin_Settings::info_box()          Callback for Information box.
+ 	 * @see \Genesis_Admin_Settings::style_box()         Callback for Color Style box (if supported).
+ 	 * @see \Genesis_Admin_Settings::feeds_box()         Callback for Custom Feeds box.
+ 	 * @see \Genesis_Admin_Settings::layout_box()        Callback for Default Layout box.
+ 	 * @see \Genesis_Admin_Settings::header_box()        Callback for Header box (if no custom header support).
 	 * @see \Genesis_Admin_Settings::nav_box()           Callback for Navigation box.
-	 * @see \Genesis_Admin_Settings::breadcrumb_box()    Callback for Breadcrumbs box.
-	 * @see \Genesis_Admin_Settings::comments_box()      Callback for Comments and Trackbacks box.
-	 * @see \Genesis_Admin_Settings::post_archives_box() Callback for Content Archives box.
-	 * @see \Genesis_Admin_Settings::blogpage_box()      Callback for Blog Page box.
-	 * @see \Genesis_Admin_Settings::scripts_box()       Callback for Header and Footer Scripts box (if user has
-	 *                                                   unfiltered_html capability).
-	 */
+ 	 * @see \Genesis_Admin_Settings::breadcrumb_box()    Callback for Breadcrumbs box.
+ 	 * @see \Genesis_Admin_Settings::comments_box()      Callback for Comments and Trackbacks box.
+ 	 * @see \Genesis_Admin_Settings::post_archives_box() Callback for Content Archives box.
+ 	 * @see \Genesis_Admin_Settings::blogpage_box()      Callback for Blog Page box.
+ 	 * @see \Genesis_Admin_Settings::scripts_box()       Callback for Header and Footer Scripts box (if user has
+ 	 *                                                   unfiltered_html capability).
+ 	 */
 	function metaboxes() {
 
 		add_action( 'genesis_admin_before_metaboxes', array( $this, 'hidden_fields' ) );
@@ -456,6 +465,9 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	 *
 	 * @since 1.8.0
 	 *
+	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
+	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
+	 *
 	 * @param string $pagehook Page hook.
 	 *
 	 * @return null Return early if not on the right page.
@@ -478,6 +490,11 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	 *
 	 * @since 1.0.0
 	 *
+	 * @uses PARENT_THEME_RELEASE_DATE         Date of current release of Genesis Framework.
+	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
+	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
+	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
+	 *
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
 	 */
 	function info_box() {
@@ -492,7 +509,7 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 			</tr>
 
 			<tr valign="top">
-				<th scope="row"><?php _e( 'Released', 'genesis' ); ?></th>
+				<th scope="row"><?php _e( 'Released:', 'genesis' ); ?></th>
 				<td>
 					<?php echo PARENT_THEME_RELEASE_DATE; ?>
 					<p><span class="description"><?php sprintf( __( 'This can be helpful for diagnosing problems with your theme when seeking assistance in the <a href="%s" target="_blank">support forums</a>.', 'genesis' ), 'http://www.studiopress.com/support/' ); ?></span></p>
@@ -544,6 +561,10 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	 *
 	 * @since 1.8.0
 	 *
+	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
+	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
+	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
+	 *
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
 	 */
 	function style_box() {
@@ -586,6 +607,10 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	 *
 	 * @since 1.3.0
 	 *
+	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
+	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
+	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
+	 *
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
 	 */
 	function feeds_box() {
@@ -595,7 +620,7 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 		<tbody>
 
 			<tr valign="top">
-				<th scope="row"><label for="<?php $this->field_id( 'feed_uri' ); ?>"><?php _e( 'Enter your custom feed URL', 'genesis' ); ?></label></th>
+				<th scope="row"><label for="<?php $this->field_id( 'feed_uri' ); ?>"><?php _e( 'Enter your custom feed URL:', 'genesis' ); ?></label></th>
 				<td>
 					<p><input type="text" name="<?php $this->field_name( 'feed_uri' ); ?>" class="regular-text" id="<?php $this->field_id( 'feed_uri' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'feed_uri' ) ); ?>" /></p>
 					<p><label for="<?php $this->field_id( 'redirect_feed' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'redirect_feed' ); ?>" id="<?php $this->field_id( 'redirect_feed' ); ?>" value="1"<?php checked( $this->get_field_value( 'redirect_feed' ) ); ?> /><?php _e( 'Redirect Custom Feed?', 'genesis' ); ?></label></p>
@@ -603,7 +628,7 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 			</tr>
 
 			<tr valign="top">
-				<th scope="row"><label for="<?php $this->field_id( 'comments_feed_uri' ); ?>"><?php _e( 'Enter your custom comments feed URL', 'genesis' ); ?></label></th>
+				<th scope="row"><label for="<?php $this->field_id( 'comments_feed_uri' ); ?>"><?php _e( 'Enter your custom comments feed URL:', 'genesis' ); ?></label></th>
 				<td>
 					<p><input type="text" name="<?php $this->field_name( 'comments_feed_uri' ); ?>" class="regular-text" id="<?php $this->field_id( 'comments_feed_uri' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'comments_feed_uri' ) ); ?>" /></p>
 					<p><label for="<?php $this->field_id( 'redirect_comments_feed' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'redirect_comments_feed' ); ?>" id="<?php $this->field_id( 'redirect_comments_feed' ); ?>" value="1"<?php checked( $this->get_field_value( 'redirect_comments__feed' ) ); ?> /><?php _e( 'Redirect Custom Comments Feed?', 'genesis' ); ?></label></p>
@@ -630,6 +655,10 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	 * in 1.7.0.
 	 *
 	 * @since 1.7.0
+	 *
+	 * @uses genesis_layout_selector()         Outputs form elements for layout selector.
+	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
+	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
 	 *
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
 	 */
@@ -663,6 +692,9 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	 *
 	 * @since 1.7.0
 	 *
+	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
+	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
+	 *
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
 	 */
 	function header_box() {
@@ -672,7 +704,7 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 		<tbody>
 
 			<tr valign="top">
-				<th scope="row"><label for="<?php $this->field_name( 'blog_title' ); ?>"><?php _e( 'Use for site title/logo', 'genesis' ); ?></label></th>
+				<th scope="row"><label for="<?php $this->field_name( 'blog_title' ); ?>"><?php _e( 'Use for site title/logo:', 'genesis' ); ?></label></th>
 				<td>
 					<select name="<?php $this->field_name( 'blog_title' ); ?>" id="<?php $this->field_name( 'blog_title' ); ?>">
 						<option value="text"<?php selected( $this->get_field_value( 'blog_title' ), 'text' ); ?>><?php _e( 'Dynamic text', 'genesis' ); ?></option>
@@ -692,6 +724,11 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	 * Callback for Theme Settings Navigation Settings meta box.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @uses genesis_nav_menu_supported()      Determine if a child theme supports a particular Genesis nav menu.
+	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
+	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
+	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
 	 *
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
 	 */
@@ -755,6 +792,10 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	 *
 	 * @since 1.3.0
 	 *
+	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
+	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
+	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
+	 *
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
 	 */
 	function breadcrumb_box() {
@@ -764,10 +805,10 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 		<tbody>
 
 			<tr valign="top">
-				<th scope="row"><?php _e( 'Enable Breadcrumbs on', 'genesis' ); ?></th>
+				<th scope="row"><?php _e( 'Enable Breadcrumbs on:', 'genesis' ); ?></th>
 				<td>
 					<fieldset>
-					<legend class="screen-reader-text"><?php _e( 'Enable Breadcrumbs on', 'genesis' ); ?></legend>
+					<legend class="screen-reader-text"><?php _e( 'Enable Breadcrumbs on:', 'genesis' ); ?></legend>
 
 						<?php if ( 'page' === get_option( 'show_on_front' ) ) : ?>
 							<p><label for="<?php $this->field_id( 'breadcrumb_front_page' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'breadcrumb_front_page' ); ?>" id="<?php $this->field_id( 'breadcrumb_front_page' ); ?>" value="1"<?php checked( $this->get_field_value( 'breadcrumb_front_page' ) ); ?> />
@@ -809,6 +850,10 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	 * Callback for Theme Settings Comments meta box.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
+	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
+	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
 	 *
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
 	 */
@@ -860,6 +905,11 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	 * Callback for Theme Settings Post Archives meta box.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @uses genesis_get_images_sizes()        Retrieve list of registered image sizes.
+	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
+	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
+	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
 	 *
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
 	 */
@@ -949,6 +999,10 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	 *
 	 * @since 1.0.0
 	 *
+	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
+	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
+	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
+	 *
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
 	 */
 	function blogpage_box() {
@@ -961,7 +1015,7 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 			<tr valign="top">
 				<th scope="row"><?php _e( 'Display Category', 'genesis' ); ?></th>
 				<td>
-					<p><label for="<?php $this->field_id( 'blog_cat' ); ?>" class="screen-reader-text"><?php _e( 'Display which category', 'genesis' ); ?></label>
+					<p><label for="<?php $this->field_id( 'blog_cat' ); ?>" class="screen-reader-text"><?php _e( 'Display which category:', 'genesis' ); ?></label>
 					<?php wp_dropdown_categories( array( 'selected' => $this->get_field_value( 'blog_cat' ), 'name' => $this->get_field_name( 'blog_cat' ), 'orderby' => 'Name', 'hierarchical' => 1, 'show_option_all' => __( 'All Categories', 'genesis' ), 'hide_empty' => '0' ) ); ?></p>
 				</td>
 			</tr>
@@ -994,6 +1048,10 @@ class Genesis_Admin_Settings extends Genesis_Admin_Boxes {
 	 * Callback for Theme Settings Header / Footer Scripts meta box.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
+	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
+	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
 	 *
 	 * @see \Genesis_Admin_Settings::metaboxes() Register meta boxes on the Theme Settings page.
 	 */

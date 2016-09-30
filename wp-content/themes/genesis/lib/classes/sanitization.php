@@ -67,10 +67,10 @@ class Genesis_Settings_Sanitizer {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param string       $filter    Sanitization filter type.
-	 * @param string       $option    Option key.
-	 * @param array|string $suboption Optional. Suboption key.
-	 * @return bool True when complete.
+	 * @param string $filter Sanitization filter type
+	 * @param string $option Option key
+	 * @param array|string $suboption Optional. Suboption key
+	 * @return boolean Returns true when complete
 	 */
 	function add_filter( $filter, $option, $suboption = null ) {
 
@@ -95,10 +95,11 @@ class Genesis_Settings_Sanitizer {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param string $filter    Sanitization filter type.
-	 * @param string $new_value New value.
-	 * @param string $old_value Previous value.
-	 * @return mixed Filtered value, or submitted value if value is unfiltered.
+	 * @param string $filter Sanitization filter type
+	 * @param string $new_value New value
+	 * @param string $old_value Previous value
+	 * @return mixed Returns filtered value, or submitted value if value is
+	 * unfiltered.
 	 */
 	function do_filter( $filter, $new_value, $old_value ) {
 
@@ -119,8 +120,8 @@ class Genesis_Settings_Sanitizer {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @return array Keys of sanitization types, and values of the
-	 *               filter function name as a callback.
+	 * @return array Array with keys of sanitization types, and values of the
+	 * filter function name as a callback
 	 */
 	function get_available_filters() {
 
@@ -130,7 +131,6 @@ class Genesis_Settings_Sanitizer {
 			'absint'                   => array( $this, 'absint'                   ),
 			'safe_html'                => array( $this, 'safe_html'                ),
 			'requires_unfiltered_html' => array( $this, 'requires_unfiltered_html' ),
-			'unfiltered_or_safe_html'  => array( $this, 'unfiltered_or_safe_html'  ),
 			'url'                      => array( $this, 'url'                      ),
 			'email_address'            => array( $this, 'email_address'            ),
 		);
@@ -152,21 +152,20 @@ class Genesis_Settings_Sanitizer {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param mixed  $new_value New value.
-	 * @param string $option    Name of the option.
-	 *
-	 * @return mixed Filtered, or unfiltered value.
+	 * @param mixed $new_value New value
+	 * @param string $option Name of the option
+	 * @return mixed Filtered, or unfiltered value
 	 */
 	function sanitize( $new_value, $option ) {
 
 		if ( !isset( $this->options[$option] ) ) {
-			// We are not filtering this option at all.
+			//* We are not filtering this option at all
 			return $new_value;
 		} elseif ( is_string( $this->options[$option] ) ) {
-			// Single option value.
+			//* Single option value
 			return $this->do_filter( $this->options[$option], $new_value, get_option( $option ) );
 		} elseif ( is_array( $this->options[$option] ) ) {
-			// Array of suboption values to loop through.
+			//* Array of suboption values to loop through
 			$old_value = get_option( $option );
 			foreach ( $this->options[$option] as $suboption => $filter ) {
 				$old_value[$suboption] = isset( $old_value[$suboption] ) ? $old_value[$suboption] : '';
@@ -175,11 +174,13 @@ class Genesis_Settings_Sanitizer {
 			}
 			return $new_value;
 		} else {
-			// Should never hit this.
+			//* Should never hit this, but:
 			return $new_value;
 		}
 
 	}
+
+	// Now, our filter methods
 
 	/**
 	 * Returns a 1 or 0, for all truthy / falsy values.
@@ -188,8 +189,8 @@ class Genesis_Settings_Sanitizer {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param mixed $new_value Should ideally be a 1 or 0 integer passed in.
-	 * @return int `1` or `0`.
+	 * @param mixed $new_value Should ideally be a 1 or 0 integer passed in
+	 * @return integer 1 or 0.
 	 */
 	function one_zero( $new_value ) {
 
@@ -203,7 +204,7 @@ class Genesis_Settings_Sanitizer {
 	 * @since 2.0.0
 	 *
 	 * @param mixed $new_value Should ideally be a positive integer.
-	 * @return int Positive integer.
+	 * @return integer Positive integer.
 	 */
 	function absint( $new_value ) {
 
@@ -216,7 +217,7 @@ class Genesis_Settings_Sanitizer {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param string $new_value String, possibly with HTML in it.
+	 * @param string $new_value String, possibly with HTML in it
 	 * @return string String without HTML in it.
 	 */
 	function no_html( $new_value ) {
@@ -230,8 +231,8 @@ class Genesis_Settings_Sanitizer {
 	 *
 	 * @since 1.9.0
 	 *
-	 * @param string $new_value String, a URL, possibly unsafe.
-	 * @return string String a safe URL.
+	 * @param string $new_value String, a URL, possibly unsafe
+	 * @return string String a safe URL
 	 */
 	function url( $new_value ) {
 
@@ -244,8 +245,8 @@ class Genesis_Settings_Sanitizer {
 	 *
 	 * @since 2.1.0
 	 *
-	 * @param string $new_value String, an email address, possibly unsafe.
-	 * @return string String a safe email address.
+	 * @param string $new_value String, an email address, possibly unsafe
+	 * @return string String a safe email address
 	 */
 	function email_address( $new_value ) {
 
@@ -258,8 +259,8 @@ class Genesis_Settings_Sanitizer {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param string $new_value String with potentially unsafe HTML in it.
-	 * @return string String with only safe HTML in it.
+	 * @param string $new_value String with potentially unsafe HTML in it
+	 * @return string String with only safe HTML in it
 	 */
 	function safe_html( $new_value ) {
 
@@ -273,10 +274,10 @@ class Genesis_Settings_Sanitizer {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param string $new_value New value.
-	 * @param string $old_value Previous value.
+	 * @param string $new_value New value
+	 * @param string $old_value Previous value
 	 * @return string New or previous value, depending if user has correct
-	 *                capability or not.
+	 * capability or not.
 	 */
 	function requires_unfiltered_html( $new_value, $old_value ) {
 
@@ -284,27 +285,6 @@ class Genesis_Settings_Sanitizer {
 			return $new_value;
 		else
 			return $old_value;
-
-	}
-
-	/**
-	 * Removes unsafe HTML tags when user does not have unfiltered_html
-	 * capability.
-	 *
-	 * @since 2.4.0
-	 *
-	 * @param string $new_value New value.
-	 * @param string $old_value Previous value.
-	 * @return string New or safe HTML value, depending if user has correct
-	 *                capability or not.
-	 */
-	function unfiltered_or_safe_html( $new_value, $old_value ) {
-
-		if ( current_user_can( 'unfiltered_html' ) ) {
-			return $new_value;
-		}
-
-		return wp_kses_post( $new_value );
 
 	}
 
@@ -322,10 +302,13 @@ class Genesis_Settings_Sanitizer {
  *
  * @since 1.7.0
  *
- * @param string       $filter    The filter to call (see Genesis_Settings_Sanitizer::$available_filters for options).
- * @param string       $option    The WordPress option name.
- * @param string|array $suboption Optional. The suboption or suboptions you want to filter.
- * @return true True when complete.
+ * @uses Genesis_Settings_Sanitizer::add_filter()
+ *
+ * @param string $filter The filter to call (see Genesis_Settings_Sanitizer::$available_filters for options)
+ * @param string $option The WordPress option name
+ * @param string|array $suboption Optional. The suboption or suboptions you want to filter
+ *
+ * @return true
  */
 function genesis_add_option_filter( $filter, $option, $suboption = null ) {
 

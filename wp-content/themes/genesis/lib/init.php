@@ -11,7 +11,7 @@
  * @link    http://my.studiopress.com/themes/genesis/
  */
 
-// Run the genesis_pre Hook.
+//* Run the genesis_pre Hook
 do_action( 'genesis_pre' );
 
 add_action( 'genesis_init', 'genesis_i18n' );
@@ -19,6 +19,9 @@ add_action( 'genesis_init', 'genesis_i18n' );
  * Load the Genesis textdomain for internationalization.
  *
  * @since 1.9.0
+ *
+ * @uses load_theme_textdomain()
+ *
  */
 function genesis_i18n() {
 
@@ -49,7 +52,7 @@ function genesis_theme_support() {
 	add_theme_support( 'genesis-auto-updates' );
 	add_theme_support( 'genesis-breadcrumbs' );
 
-	// Maybe add support for Genesis menus.
+	//* Maybe add support for Genesis menus
 	if ( ! current_theme_supports( 'genesis-menus' ) ) {
 
 		$menus = array(
@@ -70,7 +73,7 @@ function genesis_theme_support() {
 
 	}
 
-	// Maybe add support for structural wraps.
+	//* Maybe add support for structural wraps
 	if ( ! current_theme_supports( 'genesis-structural-wraps' ) ) {
 
 		$structural_wraps = array( 'header', 'menu-primary', 'menu-secondary', 'footer-widgets', 'footer' );
@@ -80,7 +83,7 @@ function genesis_theme_support() {
 		 *
 		 * @since 2.3.0
 		 *
-		 * @param array $structural_wraps The array of supported structural wraps.
+		 * @param array $structural_wraps The array of supported menus.
 		 */
 		$structural_wraps = apply_filters( 'genesis_theme_support_structural_wraps', $structural_wraps );
 
@@ -88,7 +91,7 @@ function genesis_theme_support() {
 
 	}
 
-	// Turn on HTML5 and responsive viewport if Genesis is active.
+	//* Turn on HTML5 and responsive viewport if Genesis is active
 	if ( ! is_child_theme() ) {
 		add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption'  ) );
 		add_theme_support( 'genesis-responsive-viewport' );
@@ -134,7 +137,7 @@ function genesis_post_type_support_post_meta() {
 		}
 	}
 
-	// For backward compatibility.
+	//* For backward compatibility
 	if ( current_theme_supports( 'genesis-after-entry-widget-area' ) ) {
 		add_post_type_support( 'post', 'genesis-after-entry-widget-area' );
 	}
@@ -149,14 +152,15 @@ add_action( 'genesis_init', 'genesis_constants' );
  */
 function genesis_constants() {
 
-	// Define Theme Info Constants.
+	//* Define Theme Info Constants
 	define( 'PARENT_THEME_NAME', 'Genesis' );
-	define( 'PARENT_THEME_VERSION', '2.4.0' );
-	define( 'PARENT_THEME_BRANCH', '2.4' );
-	define( 'PARENT_DB_VERSION', '2401' );
-	define( 'PARENT_THEME_RELEASE_DATE', date_i18n( 'F j, Y', '1475020800' ) );
+	define( 'PARENT_THEME_VERSION', '2.3.1' );
+	define( 'PARENT_THEME_BRANCH', '2.3' );
+	define( 'PARENT_DB_VERSION', '2302' );
+	define( 'PARENT_THEME_RELEASE_DATE', date_i18n( 'F j, Y', '1470096000' ) );
+#	define( 'PARENT_THEME_RELEASE_DATE', 'TBD' );
 
-	// Define Directory Location Constants.
+	//* Define Directory Location Constants
 	define( 'PARENT_DIR', get_template_directory() );
 	define( 'CHILD_DIR', get_stylesheet_directory() );
 	define( 'GENESIS_IMAGES_DIR', PARENT_DIR . '/images' );
@@ -172,7 +176,7 @@ function genesis_constants() {
 	define( 'GENESIS_TOOLS_DIR', GENESIS_LIB_DIR . '/tools' );
 	define( 'GENESIS_WIDGETS_DIR', GENESIS_LIB_DIR . '/widgets' );
 
-	// Define URL Location Constants.
+	//* Define URL Location Constants
 	define( 'PARENT_URL', get_template_directory_uri() );
 	define( 'CHILD_URL', get_stylesheet_directory_uri() );
 	define( 'GENESIS_IMAGES_URL', PARENT_URL . '/images' );
@@ -187,7 +191,7 @@ function genesis_constants() {
 	define( 'GENESIS_STRUCTURE_URL', GENESIS_LIB_URL . '/structure' );
 	define( 'GENESIS_WIDGETS_URL', GENESIS_LIB_URL . '/widgets' );
 
-	// Define Settings Field Constants (for DB storage).
+	//* Define Settings Field Constants (for DB storage)
 	define( 'GENESIS_SETTINGS_FIELD', apply_filters( 'genesis_settings_field', 'genesis-settings' ) );
 	define( 'GENESIS_SEO_SETTINGS_FIELD', apply_filters( 'genesis_seo_settings_field', 'genesis-seo-settings' ) );
 	define( 'GENESIS_CPT_ARCHIVE_SETTINGS_FIELD_PREFIX', apply_filters( 'genesis_cpt_archive_settings_field_prefix', 'genesis-cpt-archive-settings-' ) );
@@ -212,22 +216,22 @@ add_action( 'genesis_init', 'genesis_load_framework' );
  */
 function genesis_load_framework() {
 
-	// Run the genesis_pre_framework Hook.
+	//* Run the genesis_pre_framework Hook
 	do_action( 'genesis_pre_framework' );
 
-	// Short circuit, if necessary.
+	//* Short circuit, if necessary
 	if ( defined( 'GENESIS_LOAD_FRAMEWORK' ) && false === GENESIS_LOAD_FRAMEWORK )
 		return;
 
-	// Load Framework.
+	//* Load Framework
 	require_once( GENESIS_LIB_DIR . '/framework.php' );
 
-	// Load Classes.
+	//* Load Classes
 	require_once( GENESIS_CLASSES_DIR . '/admin.php' );
 	require_if_theme_supports( 'genesis-breadcrumbs', GENESIS_CLASSES_DIR . '/breadcrumb.php' );
 	require_once( GENESIS_CLASSES_DIR . '/sanitization.php' );
 
-	// Load Functions.
+	//* Load Functions
 	require_once( GENESIS_FUNCTIONS_DIR . '/upgrade.php' );
 	require_once( GENESIS_FUNCTIONS_DIR . '/compat.php' );
 	require_once( GENESIS_FUNCTIONS_DIR . '/general.php' );
@@ -242,15 +246,14 @@ function genesis_load_framework() {
 	require_once( GENESIS_FUNCTIONS_DIR . '/widgetize.php' );
 	require_once( GENESIS_FUNCTIONS_DIR . '/feed.php' );
 	require_once( GENESIS_FUNCTIONS_DIR . '/toolbar.php' );
-	require_once( GENESIS_FUNCTIONS_DIR . '/head.php' );
 	if ( apply_filters( 'genesis_load_deprecated', true ) )
 		require_once( GENESIS_FUNCTIONS_DIR . '/deprecated.php' );
 
-	// Load Shortcodes.
+	//* Load Shortcodes
 	require_once( GENESIS_SHORTCODES_DIR . '/post.php' );
 	require_once( GENESIS_SHORTCODES_DIR . '/footer.php' );
 
-	// Load Structure.
+	//* Load Structure
 	require_once( GENESIS_STRUCTURE_DIR . '/header.php' );
 	require_once( GENESIS_STRUCTURE_DIR . '/footer.php' );
 	require_once( GENESIS_STRUCTURE_DIR . '/menu.php' );
@@ -262,7 +265,7 @@ function genesis_load_framework() {
 	require_once( GENESIS_STRUCTURE_DIR . '/archive.php' );
 	require_once( GENESIS_STRUCTURE_DIR . '/search.php' );
 
-	// Load Admin.
+	//* Load Admin
 	if ( is_admin() ) :
 	require_once( GENESIS_ADMIN_DIR . '/menu.php' );
 	require_once( GENESIS_ADMIN_DIR . '/theme-settings.php' );
@@ -277,16 +280,16 @@ function genesis_load_framework() {
 	require_once( GENESIS_ADMIN_DIR . '/term-meta.php' );
 	require_once( GENESIS_ADMIN_DIR . '/user-meta.php' );
 
-	// Load Javascript.
+	//* Load Javascript
 	require_once( GENESIS_JS_DIR . '/load-scripts.php' );
 
-	// Load CSS.
+	//* Load CSS
 	require_once( GENESIS_CSS_DIR . '/load-styles.php' );
 
-	// Load Widgets.
+	//* Load Widgets
 	require_once( GENESIS_WIDGETS_DIR . '/widgets.php' );
 
-	// Load CLI command.
+	//* Load CLI command
 	if ( defined( 'WP_CLI' ) && WP_CLI ) {
     	include GENESIS_CLASSES_DIR . '/cli.php';
 	}
@@ -296,8 +299,8 @@ function genesis_load_framework() {
 
 }
 
-// Run the genesis_init hook.
+//* Run the genesis_init hook
 do_action( 'genesis_init' );
 
-// Run the genesis_setup hook.
+//* Run the genesis_setup hook
 do_action( 'genesis_setup' );

@@ -22,7 +22,9 @@ add_filter( 'get_search_form', 'genesis_search_form' );
  *
  * @since 0.2.0
  *
- * @return string HTML markup for search form.
+ * @uses genesis_html5() Check for HTML5 support.
+ *
+ * @return string HTML markup.
  */
 function genesis_search_form() {
 	$search_text = get_search_query() ? apply_filters( 'the_search_query', get_search_query() ) : apply_filters( 'genesis_search_text', __( 'Search this website', 'genesis' ) . ' &#x02026;' );
@@ -32,7 +34,7 @@ function genesis_search_form() {
 	$onfocus = "if ('" . esc_js( $search_text ) . "' === this.value) {this.value = '';}";
 	$onblur  = "if ('' === this.value) {this.value = '" . esc_js( $search_text ) . "';}";
 
-	// Empty label, by default. Filterable.
+	//* Empty label, by default. Filterable.
 	$label = apply_filters( 'genesis_search_form_label', '' );
 
 	$value_or_placeholder = ( get_search_query() == '' ) ? 'placeholder' : 'value';

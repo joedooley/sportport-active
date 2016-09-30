@@ -11,9 +11,10 @@
  * @link    http://my.studiopress.com/themes/genesis/
  */
 
-// Output secondary sidebar structure.
+//* Output secondary sidebar structure
 genesis_markup( array(
-	'open'    => '<aside %s>' . genesis_sidebar_title( 'sidebar-alt' ),
+	'html5'   => '<aside %s>' . genesis_sidebar_title( 'sidebar-alt' ),
+	'xhtml'   => '<div id="sidebar-alt" class="sidebar widget-area">',
 	'context' => 'sidebar-secondary',
 ) );
 
@@ -21,8 +22,7 @@ do_action( 'genesis_before_sidebar_alt_widget_area' );
 do_action( 'genesis_sidebar_alt' );
 do_action( 'genesis_after_sidebar_alt_widget_area' );
 
-// End .sidebar-secondary.
 genesis_markup( array(
-	'close'   => '</aside>',
-	'context' => 'sidebar-secondary',
+	'html5' => '</aside>', //* end .sidebar-secondary
+	'xhtml' => '</div>', //* end #sidebar-alt
 ) );

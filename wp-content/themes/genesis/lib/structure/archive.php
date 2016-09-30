@@ -27,7 +27,7 @@ add_action( 'genesis_before_loop', 'genesis_do_taxonomy_title_description', 15 )
  *
  * @global WP_Query $wp_query Query object.
  *
- * @return null Return early if not the correct archive page, or no term is found.
+ * @return null Return early if not the correct archive page, not page one, or no term meta is set.
  */
 function genesis_do_taxonomy_title_description() {
 
@@ -72,7 +72,7 @@ add_action( 'genesis_before_loop', 'genesis_do_author_title_description', 15 );
  *
  * @since 1.4.0
  *
- * @return null Return early if not author archive.
+ * @return null Return early if not author archive or not page one.
  */
 function genesis_do_author_title_description() {
 
@@ -103,9 +103,11 @@ add_action( 'genesis_before_loop', 'genesis_do_author_box_archive', 15 );
  *
  * @since 1.4.0
  *
+ * @uses genesis_author_box() Echo the author box and its contents.
+ *
  * @see genesis_do_author_title_and_description Author title and description.
  *
- * @return null Return early if not author archive or not page one.
+ * @return Return early if not author archive or not page one.
  */
 function genesis_do_author_box_archive() {
 
@@ -130,8 +132,10 @@ add_action( 'genesis_before_loop', 'genesis_do_cpt_archive_title_description' );
  *
  * @since 2.0.0
  *
- * @return null Return early if not on post type archive or post type does not
- *              have `genesis-cpt-archives-settings` support
+ * @uses genesis_has_post_type_archive_support() Check if a post type should potentially support an archive setting page.
+ * @uses genesis_get_cpt_option()                Get list of custom post types which need an archive settings page.
+ *
+ * @return null Return early if not on relevant post type archive.
  */
 function genesis_do_cpt_archive_title_description() {
 
@@ -163,7 +167,10 @@ add_action( 'genesis_before_loop', 'genesis_do_date_archive_title' );
  *
  * @since 2.2.0
  *
- * @return null Return early if not on date archive.
+ * @uses genesis_has_post_type_archive_support() Check if a post type should potentially support an archive setting page.
+ * @uses genesis_get_cpt_option()                Get list of custom post types which need an archive settings page.
+ *
+ * @return null Return early if not on relevant post type archive.
  */
 function genesis_do_date_archive_title() {
 
@@ -193,8 +200,10 @@ add_action( 'genesis_before_loop', 'genesis_do_blog_template_heading' );
  *
  * @since 2.2.0
  *
- * @return null Return early if not on blog template archive, or `headings` is not
- *              enabled for Genesis accessibility.
+ * @uses genesis_a11y() Check if a post type should potentially support an archive setting page.
+ * @uses genesis_do_post_title() Get list of custom post types which need an archive settings page.
+ *
+ * @return null Return early if not on relevant blog template archive.
  */
 function genesis_do_blog_template_heading() {
 
@@ -216,8 +225,10 @@ add_action( 'genesis_before_loop', 'genesis_do_posts_page_heading' );
  *
  * @since 2.2.1
  *
- * @return null Return early if `headings` is not enabled for Genesis accessibility, there is no
- *              page for posts assigned, this is not the home (posts) page, or this is not the page found at `/`.
+ * @uses genesis_a11y() Check if a post type should potentially support an archive setting page.
+ * @uses genesis_do_post_title() Get list of custom post types which need an archive settings page.
+ *
+ * @return null Return early if not on relevant posts page.
  */
 function genesis_do_posts_page_heading() {
 

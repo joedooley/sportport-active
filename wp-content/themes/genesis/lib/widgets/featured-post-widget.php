@@ -37,7 +37,7 @@ class Genesis_Featured_Post extends WP_Widget {
 		$this->defaults = array(
 			'title'                   => '',
 			'posts_cat'               => '',
-			'posts_num'               => '',
+			'posts_num'               => 1,
 			'posts_offset'            => 0,
 			'orderby'                 => '',
 			'order'                   => '',
@@ -83,22 +83,21 @@ class Genesis_Featured_Post extends WP_Widget {
 	 *
 	 * @global WP_Query $wp_query               Query object.
 	 * @global array    $_genesis_displayed_ids Array of displayed post IDs.
-	 * @global int      $more
+	 * @global $integer $more
 	 *
-	 * @param array $args     Display arguments including `before_title`, `after_title`,
-	 *                        `before_widget`, and `after_widget`.
-	 * @param array $instance The settings for the particular instance of the widget.
+	 * @param array $args Display arguments including before_title, after_title, before_widget, and after_widget.
+	 * @param array $instance The settings for the particular instance of the widget
 	 */
 	function widget( $args, $instance ) {
 
 		global $wp_query, $_genesis_displayed_ids;
 
-		// Merge with defaults.
+		//* Merge with defaults
 		$instance = wp_parse_args( (array) $instance, $this->defaults );
 
 		echo $args['before_widget'];
 
-		// Set up the author bio.
+		//* Set up the author bio
 		if ( ! empty( $instance['title'] ) )
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base ) . $args['after_title'];
 
@@ -112,7 +111,7 @@ class Genesis_Featured_Post extends WP_Widget {
 			'ignore_sticky_posts' => $instance['exclude_sticky'],
 		);
 
-		// Exclude displayed IDs from this loop?
+		//* Exclude displayed IDs from this loop?
 		if ( $instance['exclude_displayed'] )
 			$query_args['post__not_in'] = (array) $_genesis_displayed_ids;
 
@@ -123,7 +122,8 @@ class Genesis_Featured_Post extends WP_Widget {
 			$_genesis_displayed_ids[] = get_the_ID();
 
 			genesis_markup( array(
-				'open'    => '<article %s>',
+				'html5'   => '<article %s>',
+				'xhtml'   => sprintf( '<div class="%s">', implode( ' ', get_post_class() ) ),
 				'context' => 'entry',
 			) );
 
@@ -136,7 +136,7 @@ class Genesis_Featured_Post extends WP_Widget {
 
 			if ( $instance['show_image'] && $image ) {
 				$role = empty( $instance['show_title'] ) ? '' : 'aria-hidden="true"';
-				printf( '<a href="%s" class="%s" %s>%s</a>', get_permalink(), esc_attr( $instance['image_alignment'] ), $role, wp_make_content_images_responsive( $image ) );
+				printf( '<a href="%s" class="%s" %s>%s</a>', get_permalink(), esc_attr( $instance['image_alignment'] ), $role, $image );
 			}
 
 			if ( ! empty( $instance['show_gravatar'] ) ) {
@@ -145,9 +145,8 @@ class Genesis_Featured_Post extends WP_Widget {
 				echo '</span>';
 			}
 
-			if ( $instance['show_title'] || $instance['show_byline'] ) {
-
-				$header = '';
+			if ( $instance['show_title'] )
+				echo genesis_html5() ? '<header class="entry-header">' : '';
 
 				if ( ! empty( $instance['show_title'] ) ) {
 
@@ -211,44 +210,28 @@ class Genesis_Featured_Post extends WP_Widget {
 					$title = apply_filters( 'genesis_featured_post_title', $title, $instance, $args );
 					$heading = genesis_a11y( 'headings' ) ? 'h4' : 'h2';
 
-					$header .= genesis_markup( array(
-						'open'    => "<{$heading} class=\"entry-title\">",
-						'close'   => "</{$heading}>",
-						'context' => 'widget-entry-title',
-						'content' => sprintf( '<a href="%s">%s</a>', get_permalink(), $title ),
-						'echo'    => false
-					) );
+					if ( genesis_html5() )
+						printf( '<%s class="entry-title"><a href="%s">%s</a></%s>', $heading, get_permalink(), $title, $heading );
+					else
+						printf( '<%s><a href="%s">%s</a></%s>', $heading, get_permalink(), $title, $heading );
 
 				}
 
-				if ( ! empty( $instance['show_byline'] ) && ! empty( $instance['post_info'] ) ) {
-					$header .= genesis_markup( array(
-						'open'    => '<p class="entry-meta">',
-						'close'   => '</p>',
-						'context' => 'widget-entry-meta',
-						'content' => do_shortcode( $instance['post_info'] ),
-						'echo'    => false
-					) );
-				}
+				if ( ! empty( $instance['show_byline'] ) && ! empty( $instance['post_info'] ) )
+					printf( genesis_html5() ? '<p class="entry-meta">%s</p>' : '<p class="byline post-info">%s</p>', do_shortcode( $instance['post_info'] ) );
 
-				genesis_markup( array(
-					'open'    => '<header class="entry-header">',
-					'close'   => '</header>',
-					'context' => 'entry-header',
-					'content' => $header,
-				) );
-
-			}
+			if ( $instance['show_title'] )
+				echo genesis_html5() ? '</header>' : '';
 
 			if ( ! empty( $instance['show_content'] ) ) {
 
-				$entry = '';
+				echo genesis_html5() ? '<div class="entry-content">' : '';
 
 				if ( 'excerpt' == $instance['show_content'] ) {
-					$entry .= apply_filters( 'the_excerpt', get_the_excerpt() );
+					the_excerpt();
 				}
 				elseif ( 'content-limit' == $instance['show_content'] ) {
-					$entry .= apply_filters( 'the_content', get_the_content_limit( (int) $instance['content_limit'], genesis_a11y_more_link( esc_html( $instance['more_text'] ) ) ) );
+					the_content_limit( (int) $instance['content_limit'], genesis_a11y_more_link( esc_html( $instance['more_text'] ) ) );
 				}
 				else {
 
@@ -257,36 +240,30 @@ class Genesis_Featured_Post extends WP_Widget {
 					$orig_more = $more;
 					$more = 0;
 
-					$entry .= apply_filters( 'the_content', get_the_content( genesis_a11y_more_link( esc_html( $instance['more_text'] ) ) ) );
+					the_content( genesis_a11y_more_link( esc_html( $instance['more_text'] ) ) );
 
 					$more = $orig_more;
 
 				}
 
-				genesis_markup( array(
-					'open'    => '<div class="entry-content">',
-					'close'   => '</div>',
-					'context' => 'widget-entry-content',
-					'content' => $entry,
-				) );
+				echo genesis_html5() ? '</div>' : '';
 
 			}
 
 			genesis_markup( array(
-				'close'   => '</article>',
-				'context' => 'entry',
+				'html5' => '</article>',
+				'xhtml' => '</div>',
 			) );
 
 		endwhile; endif;
 
-		// Restore original query.
+		//* Restore original query
 		wp_reset_query();
 
-		// The EXTRA Posts (list).
+		//* The EXTRA Posts (list)
 		if ( ! empty( $instance['extra_num'] ) ) {
-			if ( ! empty( $instance['extra_title'] ) ) {
-				echo $args['before_title'] . '<span class="more-posts-title">' . esc_html( $instance['extra_title'] ) . '</span>' . $args['after_title'];
-			}
+			if ( ! empty( $instance['extra_title'] ) )
+				echo $args['before_title'] . esc_html( $instance['extra_title'] ) . $args['after_title'];
 
 			$offset = intval( $instance['posts_num'] ) + intval( $instance['posts_offset'] );
 
@@ -308,10 +285,10 @@ class Genesis_Featured_Post extends WP_Widget {
 				}
 
 				if ( mb_strlen( $listitems ) > 0 )
-					printf( '<ul class="more-posts">%s</ul>', $listitems );
+					printf( '<ul>%s</ul>', $listitems );
 			}
 
-			// Restore original query.
+			//* Restore original query
 			wp_reset_query();
 		}
 
@@ -336,14 +313,12 @@ class Genesis_Featured_Post extends WP_Widget {
 	 *
 	 * @since 0.1.8
 	 *
-	 * @param array $new_instance New settings for this instance as input by the user via `form()`.
-	 * @param array $old_instance Old settings for this instance.
-	 * @return array Settings to save or bool false to cancel saving.
+	 * @param array $new_instance New settings for this instance as input by the user via form()
+	 * @param array $old_instance Old settings for this instance
+	 * @return array Settings to save or bool false to cancel saving
 	 */
 	function update( $new_instance, $old_instance ) {
 
-		$post_num = intval( $new_instance['posts_num'] );
-		$new_instance['posts_num'] = $post_num > 0 && $post_num < 100 ? $post_num : 1;
 		$new_instance['title']     = strip_tags( $new_instance['title'] );
 		$new_instance['more_text'] = strip_tags( $new_instance['more_text'] );
 		$new_instance['post_info'] = wp_kses_post( $new_instance['post_info'] );
@@ -356,12 +331,11 @@ class Genesis_Featured_Post extends WP_Widget {
 	 *
 	 * @since 0.1.8
 	 *
-	 * @param array $instance Current settings.
-	 * @return void
+	 * @param array $instance Current settings
 	 */
 	function form( $instance ) {
 
-		// Merge with defaults.
+		//* Merge with defaults
 		$instance = wp_parse_args( (array) $instance, $this->defaults );
 
 		?>
@@ -391,7 +365,7 @@ class Genesis_Featured_Post extends WP_Widget {
 
 				<p>
 					<label for="<?php echo esc_attr( $this->get_field_id( 'posts_num' ) ); ?>"><?php _e( 'Number of Posts to Show', 'genesis' ); ?>:</label>
-					<input type="text" id="<?php echo esc_attr( $this->get_field_id( 'posts_num' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'posts_num' ) ); ?>" value="<?php echo esc_attr( $instance['posts_num'] ); ?>" size="2" placeholder="1" />
+					<input type="text" id="<?php echo esc_attr( $this->get_field_id( 'posts_num' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'posts_num' ) ); ?>" value="<?php echo esc_attr( $instance['posts_num'] ); ?>" size="2" />
 				</p>
 
 				<p>

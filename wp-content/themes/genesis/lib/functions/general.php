@@ -36,7 +36,8 @@ function genesis_enable_author_box( $args = array() ) {
  *
  * @param string $page       Menu slug.
  * @param array  $query_args Optional. Associative array of query string arguments (key => value). Default is an empty array.
- * @return null Return early if first argument, `$page`, is falsy.
+ *
+ * @return null Return early if first argument is falsy.
  */
 function genesis_admin_redirect( $page, array $query_args = array() ) {
 
@@ -61,9 +62,6 @@ add_action( 'template_redirect', 'genesis_custom_field_redirect', 20 );
 /**
  * Redirect singular page to an alternate URL.
  *
- * @since 2.0.0
- *
- * @return null Return early if not a singular entry.
  */
 function genesis_custom_field_redirect() {
 
@@ -90,8 +88,9 @@ function genesis_custom_field_redirect() {
  * @param string $arg     The theme feature argument.
  * @param string $default Optional. Fallback if value is blank or doesn't exist.
  *                        Default is empty string.
+ *
  * @return mixed Return value if associative array, true if indexed array, or
- *               `$default` if theme does not support `$feature` or `$arg` does not exist.
+ *               $default if theme doesn't support $feature or $arg doesn't exist.
  */
 function genesis_get_theme_support_arg( $feature, $arg, $default = '' ) {
 
@@ -124,11 +123,12 @@ function genesis_get_theme_support_arg( $feature, $arg, $default = '' ) {
  * @since 1.6.0
  *
  * @param array $plugins Array of array for constants, classes and / or functions to check for plugin existence.
- * @return bool True if plugin exists or false if plugin constant, class or function not detected.
+ *
+ * @return boolean True if plugin exists or false if plugin constant, class or function not detected.
  */
 function genesis_detect_plugin( array $plugins ) {
 
-	// Check for classes.
+	//* Check for classes
 	if ( isset( $plugins['classes'] ) ) {
 		foreach ( $plugins['classes'] as $name ) {
 			if ( class_exists( $name ) )
@@ -136,7 +136,7 @@ function genesis_detect_plugin( array $plugins ) {
 		}
 	}
 
-	// Check for functions.
+	//* Check for functions
 	if ( isset( $plugins['functions'] ) ) {
 		foreach ( $plugins['functions'] as $name ) {
 			if ( function_exists( $name ) )
@@ -144,7 +144,7 @@ function genesis_detect_plugin( array $plugins ) {
 		}
 	}
 
-	// Check for constants.
+	//* Check for constants
 	if ( isset( $plugins['constants'] ) ) {
 		foreach ( $plugins['constants'] as $name ) {
 			if ( defined( $name ) )
@@ -152,7 +152,7 @@ function genesis_detect_plugin( array $plugins ) {
 		}
 	}
 
-	// No class, function or constant found to exist.
+	//* No class, function or constant found to exist
 	return false;
 
 }
@@ -168,7 +168,8 @@ function genesis_detect_plugin( array $plugins ) {
  * @global string $page_hook Page hook for current page.
  *
  * @param string $pagehook Page hook string to check.
- * @return bool Return `true` if the global `$page_hook` matches given `$pagehook`, `false` otherwise.
+ *
+ * @return boolean Return true if the global $page_hook matches given $pagehook. False otherwise.
  */
 function genesis_is_menu_page( $pagehook = '' ) {
 
@@ -177,7 +178,7 @@ function genesis_is_menu_page( $pagehook = '' ) {
 	if ( isset( $page_hook ) && $page_hook === $pagehook )
 		return true;
 
-	// May be too early for $page_hook.
+	//* May be too early for $page_hook
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === $pagehook )
 		return true;
 
@@ -190,9 +191,9 @@ function genesis_is_menu_page( $pagehook = '' ) {
  *
  * @since 2.0.0
  *
- * @global WP_Customize_Manager $wp_customize Customizer instance.
+ * @global $wp_customize Customizer.
  *
- * @return bool Return true if viewing page via Customizer, false otherwise.
+ * @return boolean Return true if viewing page via Customizer, false otherwise.
  */
 function genesis_is_customizer() {
 
@@ -205,7 +206,7 @@ function genesis_is_customizer() {
 /**
  * Determine if the Blog template is being used.
  *
- * `is_page_template()` is not available within the loop or any loop that
+ * is_page_template() is not available within the loop or any loop that
  * modifies $wp_query because it changes all the conditionals therein.
  * Since the conditionals change, is_page() no longer returns true, thus
  * is_page_template() will always return false.
@@ -230,7 +231,8 @@ function genesis_is_blog_template() {
  * @since 2.0.0
  *
  * @param string $post_type_name Post type name.
- * @return string Post type name of global `$post`.
+ *
+ * @return string
  */
 function genesis_get_global_post_type_name( $post_type_name = '' ) {
 
@@ -267,7 +269,7 @@ function genesis_get_global_post_type_name( $post_type_name = '' ) {
  *
  * @since 2.0.0
  *
- * @return array A list of post type names or objects.
+ * @return array
  */
 function genesis_get_cpt_archive_types() {
 
@@ -297,6 +299,8 @@ function genesis_get_cpt_archive_types() {
  *
  * @since 2.0.0
  *
+ * @uses genesis_get_cpt_archive_types() Get list of custom post type objects which need an archive settings page.
+ *
  * @return array Custom post type names.
  */
 function genesis_get_cpt_archive_types_names() {
@@ -314,8 +318,12 @@ function genesis_get_cpt_archive_types_names() {
  *
  * @since 2.0.0
  *
+ * @uses genesis_get_global_post_type_name()   Get the `post_type` from the global `$post` if supplied value is empty.
+ * @uses genesis_get_cpt_archive_types_names() Get list of custom post type names which need an archive settings page.
+ *
  * @param string $post_type_name Post type name.
- * @return bool `true` if custom post type name has `genesis-cpt-archives-settings` support, `false` otherwise.
+ *
+ * @return bool True if custom post type name has support, false otherwise.
  */
 function genesis_has_post_type_archive_support( $post_type_name = '' ) {
 
@@ -331,7 +339,7 @@ function genesis_has_post_type_archive_support( $post_type_name = '' ) {
  *
  * @since 2.0.0
  *
- * @return bool `true` if current theme supports `html5`, `false` otherwise.
+ * @return bool True if current theme supports html5, false otherwise.
  */
 function genesis_html5() {
 
@@ -350,11 +358,12 @@ function genesis_html5() {
  * @since 2.2.0
  *
  * @param string $arg Optional. Specific accessibility feature to check for support. Default is screen-reader-text.
- * @return bool `true` if current theme supports `genesis-accessibility`, or a specific feature of it, `false` otherwise.
+ *
+ * @return bool True if current theme supports genesis-accessibility, or an specific feature of it, false otherwise.
  */
 function genesis_a11y( $arg = 'screen-reader-text' ) {
 
-	// No a11y if not html5.
+	//* No a11y if not html5
 	if ( ! genesis_html5() ) {
 		return false;
 	}
@@ -385,57 +394,34 @@ function genesis_a11y( $arg = 'screen-reader-text' ) {
 }
 
 /**
- * Display a HTML sitemap.
- *
- * Used in `page_archive.php` and `404.php`.
- *
- * @see genesis_get_sitemap()
- *
- * @since 2.2.0
- *
- * @param string $heading Optional. Heading element. Default is `h2`.
- */
-function genesis_sitemap( $heading = 'h2' ) {
-
-	echo wp_kses_post( genesis_get_sitemap( $heading ) );
-
-}
-
-/**
- * Get markup for a HTML sitemap.
- *
- * Can be filtered with `genesis_sitemap_output`.
- *
- * If the number of published posts is 0, then Categories, Authors,
- * Monthly and Recent Posts headings will not be shown.
+ * Add a sitemap
+ * Used in page_archive.php and 404.php, can be filtered
  *
  * $heading:  genesis_a11y( 'headings' ) ? 'h2' : 'h4' );
  *
- * @since 2.4.0
+ * @since 2.2.0
  *
- * @param string $heading Optional. Heading element. Default is `h2`.
+ * @param string $heading
  *
- * @return string $heading Sitemap content.
+ * @return string $heading Sitemap content
+ *
  */
-function genesis_get_sitemap( $heading = 'h2' ) {
+function genesis_sitemap( $heading = 'h2' ) {
 
-	$sitemap  = sprintf( '<%2$s>%1$s</%2$s>', __( 'Pages:', 'genesis' ), $heading );
-	$sitemap .= sprintf( '<ul>%s</ul>', wp_list_pages( 'title_li=&echo=0' ) );
+	$sitemap  =  sprintf( '<%2$s>%1$s</%2$s>', __( 'Pages:', 'genesis' ), $heading );
+	$sitemap .=  sprintf( '<ul>%s</ul>', wp_list_pages( 'title_li=&echo=0' ) );
 
-	$post_counts = wp_count_posts();
-	if ( $post_counts->publish > 0 ) {
-		$sitemap .= sprintf( '<%2$s>%1$s</%2$s>', __( 'Categories:', 'genesis' ), $heading );
-		$sitemap .= sprintf( '<ul>%s</ul>', wp_list_categories( 'sort_column=name&title_li=&echo=0' ) );
+	$sitemap .=  sprintf( '<%2$s>%1$s</%2$s>', __( 'Categories:', 'genesis' ) , $heading );
+	$sitemap .=  sprintf( '<ul>%s</ul>', wp_list_categories( 'sort_column=name&title_li=&echo=0' ) );
 
-		$sitemap .= sprintf( '<%2$s>%1$s</%2$s>', __( 'Authors:', 'genesis' ), $heading );
-		$sitemap .= sprintf( '<ul>%s</ul>', wp_list_authors( 'exclude_admin=0&optioncount=1&echo=0' ) );
+	$sitemap .=  sprintf( '<%2$s>%1$s</%2$s>', __( 'Authors:', 'genesis' ) , $heading );
+	$sitemap .=  sprintf( '<ul>%s</ul>', wp_list_authors( 'exclude_admin=0&optioncount=1&echo=0' ) );
 
-		$sitemap .= sprintf( '<%2$s>%1$s</%2$s>', __( 'Monthly:', 'genesis' ), $heading );
-		$sitemap .= sprintf( '<ul>%s</ul>', wp_get_archives( 'type=monthly&echo=0' ) );
+	$sitemap .=  sprintf( '<%2$s>%1$s</%2$s>', __( 'Monthly:', 'genesis' ) , $heading );
+	$sitemap .=  sprintf( '<ul>%s</ul>', wp_get_archives( 'type=monthly&echo=0' ) );
 
-		$sitemap .= sprintf( '<%2$s>%1$s</%2$s>', __( 'Recent Posts:', 'genesis' ), $heading );
-		$sitemap .= sprintf( '<ul>%s</ul>', wp_get_archives( 'type=postbypost&limit=100&echo=0' ) );
-	}
+	$sitemap .=  sprintf( '<%2$s>%1$s</%2$s>', __( 'Recent Posts:', 'genesis' ) , $heading );
+	$sitemap .=  sprintf( '<ul>%s</ul>', wp_get_archives( 'type=postbypost&limit=100&echo=0' ) );
 
 	/**
 	 * Filter the sitemap.
@@ -446,7 +432,9 @@ function genesis_get_sitemap( $heading = 'h2' ) {
 	 *     Default sitemap.
 	 * }
 	 */
-	return apply_filters( 'genesis_sitemap_output', $sitemap );
+	$sitemap = apply_filters( 'genesis_sitemap_output', $sitemap );
+
+	echo $sitemap;
 
 }
 
@@ -457,7 +445,8 @@ function genesis_get_sitemap( $heading = 'h2' ) {
  *
  * @param string $plugin_slug Plugin slug.
  * @param string $text        Plugin name.
- * @return string HTML markup for links.
+ *
+ * @return string              HTML markup for links.
  */
 function genesis_plugin_install_link( $plugin_slug = '', $text = '' ) {
 
@@ -475,7 +464,7 @@ function genesis_plugin_install_link( $plugin_slug = '', $text = '' ) {
 /**
  * Check if the root page of the site is being viewed.
  *
- * `is_front_page()` returns false for the root page of a website when
+ * is_front_page() returns false for the root page of a website when
  * - the WordPress "Front page displays" setting is set to "A static page"
  * - "Front page" is left undefined
  * - "Posts page" is assigned to an existing page
@@ -485,7 +474,7 @@ function genesis_plugin_install_link( $plugin_slug = '', $text = '' ) {
  *
  * @since 2.2.0
  *
- * @return bool `true` if this is the root page of the site, `false` otherwise.
+ * @return bool True if this is the root page of the site, false othewise.
  */
 function genesis_is_root_page() {
 
@@ -502,7 +491,7 @@ function genesis_is_root_page() {
  *
  * @since 2.2.0
  *
- * @return null|string The canonical URL if one exists, `null` otherwise.
+ * @return string The canonical URL, if one exists.
  */
 function genesis_canonical_url() {
 
@@ -585,216 +574,195 @@ function genesis_contributors() {
 		array(
 			'name'     => 'Jared Atchison',
 			'url'      => 'https://twitter.com/jaredatch',
-			'gravatar' => 'https://0.gravatar.com/avatar/e341eca9e1a85dcae7127044301b4363?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/e341eca9e1a85dcae7127044301b4363?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Jen Baumann',
 			'url'      => 'https://twitter.com/dreamwhisper',
-			'gravatar' => 'https://0.gravatar.com/avatar/eb9c6d91d77db908473131160e71ef6f?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/eb9c6d91d77db908473131160e71ef6f?s=120',
 		),
 		/**/
-		/*
+		//*
 		array(
 			'name'     => 'Brian Bourn',
 			'url'      => 'https://twitter.com/brianbourn',
-			'gravatar' => 'https://0.gravatar.com/avatar/fd5093291ce465911f8a2d5aa2045de6?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/fd5093291ce465911f8a2d5aa2045de6?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Chris Cochran',
 			'url'      => 'https://twitter.com/tweetsfromchris',
-			'gravatar' => 'https://0.gravatar.com/avatar/aa0bea067ea6bfb854387d73f595aa1c?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/aa0bea067ea6bfb854387d73f595aa1c?s=120',
 		),
 		/**/
 		//*
 		array(
 			'name'     => 'Nick Cernis',
 			'url'      => 'https://twitter.com/NickCernis',
-			'gravatar' => 'https://0.gravatar.com/avatar/459313f5f8b00775ef71be0e5191ff62?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/459313f5f8b00775ef71be0e5191ff62?s=120',
 		),
 		/**/
-		/*
+		//*
 		array(
 			'name'     => 'Calvin Koepke',
 			'url'      => 'https://twitter.com/cjkoepke',
-			'gravatar' => 'https://0.gravatar.com/avatar/c4e7524abdec288e00e23dc1d15f91d7?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/c4e7524abdec288e00e23dc1d15f91d7?s=120',
 		),
 		/**/
 		//*
 		array(
 			'name'     => 'Robin Cornett',
 			'url'      => 'https://twitter.com/robincornett',
-			'gravatar' => 'https://0.gravatar.com/avatar/92f90103972341af5dcf421661209729?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/92f90103972341af5dcf421661209729?s=120',
 		),
 		/**/
-		/*
+		//*
 		array(
 			'name'     => 'Nick Croft',
 			'url'      => 'https://twitter.com/nick_thegeek',
-			'gravatar' => 'https://0.gravatar.com/avatar/3241d4eab93215b5487e162b87569e42?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/3241d4eab93215b5487e162b87569e42?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'David Decker',
 			'url'      => 'https://twitter.com/deckerweb',
-			'gravatar' => 'https://0.gravatar.com/avatar/28d02f8d09fc32fccc0282efdc23a4e5?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/28d02f8d09fc32fccc0282efdc23a4e5?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Remkus de Vries',
 			'url'      => 'https://twitter.com/DeFries',
-			'gravatar' => 'https://0.gravatar.com/avatar/e15799da17422f3fa7a6157339501e2c?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/e15799da17422f3fa7a6157339501e2c?s=120',
 		),
 		/**/
 		//*
 		array(
-			'name'     => 'Nick Diego',
-			'url'      => 'https://twitter.com/nickmdiego',
-			'gravatar' => 'https://0.gravatar.com/avatar/c3afde87f4857c9c1e41ae8d72fa04f5?s=120',
-		),
-		/**/
-		/*
-		array(
 			'name'     => 'Carrie Dils',
 			'url'      => 'https://twitter.com/cdils',
-			'gravatar' => 'https://0.gravatar.com/avatar/312a558dc3619f40b429d60b6fde9ee1?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/312a558dc3619f40b429d60b6fde9ee1?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Josh Eaton',
 			'url'      => 'https://twitter.com/jjeaton',
-			'gravatar' => 'https://0.gravatar.com/avatar/d32c3546dfa39bda008b07a91826df1d?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/d32c3546dfa39bda008b07a91826df1d?s=120',
 		),
 		/**/
-		/*
+		//*
 		array(
 			'name'     => 'Bill Erickson',
 			'url'      => 'https://twitter.com/billerickson',
-			'gravatar' => 'https://0.gravatar.com/avatar/ae510affa31e5b946623bda4ff969b67?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/ae510affa31e5b946623bda4ff969b67?s=120',
 		),
 		/**/
 		//*
 		array(
 			'name'     => 'Sal Ferrarello',
 			'url'      => 'https://twitter.com/salcode',
-			'gravatar' => 'https://0.gravatar.com/avatar/f7bea39ff77df472cc4e3c29e40d3e46?s=120'
+			'gravatar' => '//0.gravatar.com/avatar/f7bea39ff77df472cc4e3c29e40d3e46?s=120'
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Thomas Griffin',
 			'url'      => 'https://twitter.com/jthomasgriffin',
-			'gravatar' => 'https://0.gravatar.com/avatar/fe4225114bfd1f8993c6d20d32227537?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/fe4225114bfd1f8993c6d20d32227537?s=120',
 		),
 		/**/
-		/*
+		//*
 		array(
 			'name'     => 'Mike Hemberger',
 			'url'      => 'https://twitter.com/jivedig',
-			'gravatar' => 'https://0.gravatar.com/avatar/371c8693fa81eb43dadc28eaaba367f8?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/371c8693fa81eb43dadc28eaaba367f8?s=120',
 		),
 		/*
 		array(
 			'name'     => 'Mark Jaquith',
 			'url'      => 'https://twitter.com/markjaquith',
-			'gravatar' => 'https://0.gravatar.com/avatar/682b7a49f9ed567186c4d1f707fe4523?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/682b7a49f9ed567186c4d1f707fe4523?s=120',
 		),
 		/**/
 		//*
 		array(
 			'name'     => 'Gary Jones',
 			'url'      => 'https://twitter.com/garyj',
-			'gravatar' => 'https://0.gravatar.com/avatar/e70d4086e89c2e1e081870865be68485?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/e70d4086e89c2e1e081870865be68485?s=120',
 		),
 		/**/
 		//*
 		array(
-			'name'     => 'Sridhar Katakam',
-			'url'      => 'https://twitter.com/srikat',
-			'gravatar' => 'https://0.gravatar.com/avatar/0e1ab0231a04ca6c9cccd3579d5d2c0f?s=120',
-		),
-		/**/
-		/*
-		array(
 			'name'     => 'Brandon Kraft',
 			'url'      => 'https://twitter.com/kraft',
-			'gravatar' => 'https://0.gravatar.com/avatar/fa4976cfd706b9be00f6494df9aa99d9?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/fa4976cfd706b9be00f6494df9aa99d9?s=120',
 		),
 		/**/
-		/*
+		//*
 		array(
 			'name'     => 'Lauren Mancke',
 			'url'      => 'https://twitter.com/laurenmancke',
-			'gravatar' => 'https://0.gravatar.com/avatar/f7478b09179c624a91ba6c45422fbf4e?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/f7478b09179c624a91ba6c45422fbf4e?s=120',
 		),
 		/**/
-		/*
+		//*
 		array(
 			'name'     => 'Carlo Manf',
 			'url'      => 'https://twitter.com/manfcarlo',
-			'gravatar' => 'https://0.gravatar.com/avatar/495aa472007b999d2489201fdb17aa35?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/495aa472007b999d2489201fdb17aa35?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Andrew Norcross',
 			'url'      => 'https://twitter.com/norcross',
-			'gravatar' => 'https://0.gravatar.com/avatar/26ab8f9b2c86b10e7968b882403b3bf8?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/26ab8f9b2c86b10e7968b882403b3bf8?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Travis Northcutt',
 			'url'      => 'https://twitter.com/tnorthcutt',
-			'gravatar' => 'https://0.gravatar.com/avatar/a3b6222854e90883765f5f30375718bf?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/a3b6222854e90883765f5f30375718bf?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Jeremy Pry',
 			'url'      => 'https://twitter.com/JPry',
-			'gravatar' => 'https://0.gravatar.com/avatar/84552f74b71a1a3e6aae380aa9ab3bd3?s=120',
-		),
-		/**/
-		//*
-		array(
-			'name'     => 'Ron Rennick',
-			'url'      => 'https://twitter.com/sillygrampy',
-			'gravatar' => 'https://0.gravatar.com/avatar/7b8ff059b9a4504dfbaebd4dd190466e?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/84552f74b71a1a3e6aae380aa9ab3bd3?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Greg Rickaby',
 			'url'      => 'https://twitter.com/GregRickaby',
-			'gravatar' => 'https://0.gravatar.com/avatar/28af3e39c0a1fe4c31367c7e9a8bcac3?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/28af3e39c0a1fe4c31367c7e9a8bcac3?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Rian Rietveld',
 			'url'      => 'https://twitter.com/RianRietveld',
-			'gravatar' => 'https://0.gravatar.com/avatar/54b6a8a47f9d6f1a93f33be5909c59a5?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/54b6a8a47f9d6f1a93f33be5909c59a5?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Travis Smith',
 			'url'      => 'https://twitter.com/wp_smith',
-			'gravatar' => 'https://0.gravatar.com/avatar/7e673cdf99e6d7448f3cbaf1424c999c?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/7e673cdf99e6d7448f3cbaf1424c999c?s=120',
 		),
 		/**/
 		/*
 		array(
 			'name'     => 'Rafal Tomal',
 			'url'      => 'https://twitter.com/rafaltomal',
-			'gravatar' => 'https://0.gravatar.com/avatar/c9f7b936cd19bd5aba8831ddea21f05d?s=120',
+			'gravatar' => '//0.gravatar.com/avatar/c9f7b936cd19bd5aba8831ddea21f05d?s=120',
 		),
 		/**/
 	);
