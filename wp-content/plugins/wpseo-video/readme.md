@@ -2,7 +2,7 @@ Video SEO
 =========
 Requires at least: 4.3<br/>
 Tested up to: 4.6<br/>
-Stable tag: 3.5<br/>
+Stable tag: 3.6<br/>
 Depends: wordpress-seo
 
 Video SEO adds Video SEO capabilities to WordPress SEO.
@@ -30,6 +30,11 @@ You can find the [Video SEO FAQ](https://kb.yoast.com/kb/category/video-seo/) in
 
 Changelog
 =========
+
+### 3.6: September 27th, 2016
+
+* Changes
+    * Updated translations.
 
 ### 3.5: September 7th, 2016 
 

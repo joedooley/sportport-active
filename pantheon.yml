@@ -7,4 +7,3 @@ workflows:
         description: Cloudflare Cache
         script: private/scripts/cloudflare_cache.php
 
-        
