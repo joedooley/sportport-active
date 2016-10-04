@@ -1,12 +1,30 @@
 /*! ## Blog Archive
 --------------------------------- */
 
-.archive .entry-header {
-	@include margin(1em 0 0.5em);
-}
-
 .archive-description,
 .taxonomy-archive-description,
 .taxonomy-description {
 	@include margin(2em null null);
 }
+
+.archive {
+
+	.entry-header {
+		@include margin(1em 0 0.5em);
+	}
+
+	.woocommerce ul.products li.product .button {
+		background-color: $navpink1;
+		border-radius: 0;
+		color: $white;
+
+		&:hover {
+			background-color: $gray1;
+		}
+	}
+
+}
+
+
+
+

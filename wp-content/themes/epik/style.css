@@ -2900,13 +2900,19 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 
 /*! ## Blog Archive
 --------------------------------- */
-.archive .entry-header {
-  margin: 1em 0 0.5em; }
-
 .archive-description,
 .taxonomy-archive-description,
 .taxonomy-description {
   margin-top: 2em; }
+
+.archive .entry-header {
+  margin: 1em 0 0.5em; }
+.archive .woocommerce ul.products li.product .button {
+  background-color: #f88ca9;
+  border-radius: 0;
+  color: white; }
+  .archive .woocommerce ul.products li.product .button:hover {
+    background-color: #d1cece; }
 
 /** ## Giveaway Template
 --------------------------- */
