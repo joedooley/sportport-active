@@ -2660,7 +2660,8 @@ li.comment ul li {
     border-radius: 0;
     color: white;
     font-size: 16px;
-    margin-left: 10px; }
+    margin-left: 10px;
+    text-transform: capitalize; }
     .archive.woocommerce ul.products li.product .button:hover, .archive.woocommerce-page ul.products li.product .button:hover {
       background-color: #d1cece; }
 
