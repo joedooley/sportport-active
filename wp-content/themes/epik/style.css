@@ -2647,7 +2647,21 @@ li.comment ul li {
 .archive.woocommerce ul.products li.product, .archive.woocommerce-page ul.products li.product {
   padding-bottom: 1em;
   background-color: #ebebeb; }
+  .archive.woocommerce ul.products li.product h3, .archive.woocommerce-page ul.products li.product h3 {
+    background-color: #ebebeb;
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+    height: 0;
+    line-height: 1;
+    text-transform: lowercase; }
+  .archive.woocommerce ul.products li.product .price, .archive.woocommerce-page ul.products li.product .price {
+    padding-top: 20px;
+    display: inline-block;
+    float: right; }
   .archive.woocommerce ul.products li.product .button, .archive.woocommerce-page ul.products li.product .button {
+    padding: 6px;
+    margin-left: 10px;
     background-color: #f88ca9;
     border-radius: 0;
     color: white; }

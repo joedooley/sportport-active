@@ -12,7 +12,25 @@
 		@include padding(null null 1em);
 		background-color: #ebebeb;
 
+		h3 {
+			background-color: #ebebeb;
+			color: #000;
+			font-size: 18px;
+			font-weight: bold;
+			height: 0;
+			line-height: 1;
+			text-transform: lowercase;
+		}
+
+		.price {
+			@include padding(20px null null);
+			display: inline-block;
+			float: right;
+		}
+
 		.button {
+			@include padding(6px);
+			@include margin(null null null 10px);
 			background-color: $navpink1;
 			border-radius: 0;
 			color: $white;

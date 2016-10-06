@@ -80,12 +80,23 @@ function spa_woo_remove_product_tabs( $tabs ) {
 
 }
 
-
-//Full Width Pages on WooCommerce
-function themeprefix_cpt_layout() {
-	if ( is_page( array( 'cart', 'checkout' ) ) || is_shop() || 'product' == get_post_type() ) {
+add_filter( 'genesis_site_layout', 'spa_wc_force_full_width' );
+/**
+ * Force full width layout on WooCommerce pages
+ * @return string
+ */
+function spa_wc_force_full_width() {
+	if ( is_page( array( 'cart', 'checkout' ) ) || is_shop() || 'product' === get_post_type() ) {
 		return 'full-width-content';
 	}
 }
 
-add_filter( 'genesis_site_layout', 'themeprefix_cpt_layout' );
+/**
+ * Move product price to just before add to cart button.
+ */
+add_action( 'get_header', function () {
+	if ( is_shop() || is_product_category() || is_product_tag() ) {
+		remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
+		add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_price', 6 );
+	}
+} );
