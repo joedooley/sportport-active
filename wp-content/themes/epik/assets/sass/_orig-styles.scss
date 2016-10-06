@@ -406,13 +406,6 @@ img.small-fabrics-icon {
 	margin: 1px 10px 4px 0; }
 
 
-
-
-/*! ADD SHADOWS TO PRODUCTS on CATEGORY and SHOP PAGES [x34] ---------------------------------------- */
-
-.woocommerce ul.products li.product a img {
-	box-shadow: 0px 9px 20px -12px rgba(0,0,0,1); }
-
 /*! WOO PRODUCT-CATEGORY CUSTOM [x33] ---------------------------------------- */
 
 body.tax-product_cat .breadcrumb { display: none; }
@@ -509,7 +502,6 @@ table.product-features-grid td {
 .woocommerce ul.products li.product .price {
 	color: #000 !important;
 	font-size: 16px;
-	margin-top: 5px;
 	text-align: right;
 	margin-right: 8px; }
 
