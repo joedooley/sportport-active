@@ -11,9 +11,10 @@
  * @link    http://my.studiopress.com/themes/genesis/
  */
 
-// Output primary sidebar structure.
+//* Output primary sidebar structure
 genesis_markup( array(
-	'open'    => '<aside %s>' . genesis_sidebar_title( 'sidebar' ),
+	'html5'   => '<aside %s>' . genesis_sidebar_title( 'sidebar' ),
+	'xhtml'   => '<div id="sidebar" class="sidebar widget-area">',
 	'context' => 'sidebar-primary',
 ) );
 
@@ -21,8 +22,7 @@ do_action( 'genesis_before_sidebar_widget_area' );
 do_action( 'genesis_sidebar' );
 do_action( 'genesis_after_sidebar_widget_area' );
 
-// End .sidebar-primary.
 genesis_markup( array(
-	'close'   => '</aside>',
-	'context' => 'sidebar-primary',
+	'html5' => '</aside>', //* end .sidebar-primary
+	'xhtml' => '</div>', //* end #sidebar
 ) );

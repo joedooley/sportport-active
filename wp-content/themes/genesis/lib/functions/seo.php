@@ -26,6 +26,8 @@
  * @see genesis_add_inpost_seo_save()
  * @see genesis_add_taxonomy_seo_options()
  * @see genesis_user_seo_fields()
+ *
+ * @uses GENESIS_SEO_SETTINGS_FIELD
  */
 function genesis_disable_seo() {
 
@@ -62,7 +64,9 @@ function genesis_disable_seo() {
  *
  * @since 1.8.0
  *
- * @return bool `true` if Genesis SEO is disabled, `false` otherwise.
+ * @uses GENESIS_SEO_DISABLED
+ *
+ * @return bool True if Genesis SEO is disabled, false otherwise.
  */
 function genesis_seo_disabled() {
 
@@ -83,13 +87,16 @@ add_action( 'after_setup_theme', 'genesis_seo_compatibility_check' );
  * @since 1.2.0
  *
  * @see genesis_default_title()
+ *
+ * @uses genesis_detect_seo_plugins() Detect certain SEO plugins.
+ * @uses genesis_disable_seo()        Disable all aspects of Genesis SEO features.
  */
 function genesis_seo_compatibility_check() {
 
 	if ( genesis_detect_seo_plugins() )
 		genesis_disable_seo();
 
-	// Disable Genesis <title> generation if SEO Title Tag is active.
+	//* Disable Genesis <title> generation if SEO Title Tag is active
 	if ( function_exists( 'seo_title_tag' ) ) {
 		remove_filter( 'wp_title', 'genesis_default_title', 10, 3 );
 		remove_action( 'genesis_title', 'wp_title' );
@@ -106,8 +113,11 @@ add_action( 'admin_init', 'genesis_disable_scribe_nag' );
  *
  * @since 1.4.0
  *
- * @return null Return early if not on the SEO Settings page, or `dismiss-scribe` querystring argument
- *              not present and set to `'true'`.
+ * @uses genesis_is_menu_page()   Check that we're targeting a specific Genesis admin page.
+ * @uses genesis_admin_redirect() Redirect to SEO Settings page after dismissing.
+ *
+ * @return null Return early if not on the SEO Settings page, or dismiss-scribe querystring argument not present and set
+ *              to true.
  */
 function genesis_disable_scribe_nag() {
 
@@ -131,7 +141,9 @@ function genesis_disable_scribe_nag() {
  *
  * @since 1.6.0
  *
- * @return bool `true` if plugin exists, or `false` if plugin constant, class or function not detected.
+ * @uses genesis_detect_plugin() Detect active plugin by constant, class or function existence.
+ *
+ * @return boolean True if plugin exists or false if plugin constant, class or function not detected.
  */
 function genesis_detect_seo_plugins() {
 
@@ -139,7 +151,7 @@ function genesis_detect_seo_plugins() {
 		// Use this filter to adjust plugin tests.
 		apply_filters(
 			'genesis_detect_seo_plugins',
-			// Add to this array to add new plugin checks.
+			//* Add to this array to add new plugin checks.
 			array(
 
 				// Classes to detect.
