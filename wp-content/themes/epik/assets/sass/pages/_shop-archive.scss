@@ -1,0 +1,28 @@
+/* ## WC Shop Archive
+------------------------- */
+
+.archive {
+
+	.entry-header {
+		@include margin(1em 0 0.5em);
+	}
+
+	.woocommerce ul.products li.product,
+	.woocommerce-page ul.products li.product {
+		@include padding(null null 1em);
+		background-color: #ebebeb;
+
+		.button {
+			background-color: $navpink1;
+			border-radius: 0;
+			color: $white;
+
+			&:hover {
+				background-color: $gray1;
+			}
+		}
+
+	}
+
+}
+

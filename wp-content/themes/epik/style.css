@@ -2646,6 +2646,23 @@ li.comment ul li {
   -o-transform: translateY(-65px);
   transform: translateY(-65px); }
 
+/* ## WC Shop Archive
+------------------------- */
+.archive .entry-header {
+  margin: 1em 0 0.5em; }
+.archive .woocommerce ul.products li.product,
+.archive .woocommerce-page ul.products li.product {
+  padding-bottom: 1em;
+  background-color: #ebebeb; }
+  .archive .woocommerce ul.products li.product .button,
+  .archive .woocommerce-page ul.products li.product .button {
+    background-color: #f88ca9;
+    border-radius: 0;
+    color: white; }
+    .archive .woocommerce ul.products li.product .button:hover,
+    .archive .woocommerce-page ul.products li.product .button:hover {
+      background-color: #d1cece; }
+
 /*! ## FAQ Page Template
 ------------------------ */
 .faq #accordion {
@@ -2898,21 +2915,12 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 .single-product .above-footer-widgets {
   position: relative; }
 
-/*! ## Blog Archive
+/*! ## Category/Tax Archive
 --------------------------------- */
 .archive-description,
 .taxonomy-archive-description,
 .taxonomy-description {
   margin-top: 2em; }
-
-.archive .entry-header {
-  margin: 1em 0 0.5em; }
-.archive .woocommerce ul.products li.product .button {
-  background-color: #f88ca9;
-  border-radius: 0;
-  color: white; }
-  .archive .woocommerce ul.products li.product .button:hover {
-    background-color: #d1cece; }
 
 /** ## Giveaway Template
 --------------------------- */
