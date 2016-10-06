@@ -3746,28 +3746,8 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 
 /*! ## Receiptful
 --------------------- */
-.rf-recommendations {
-  overflow: hidden; }
-  .rf-recommendations .rf-photo-container,
-  .rf-recommendations .rf-recommendation-product,
-  .rf-recommendations .rf-recommendation-container {
-    margin: 0; }
-  .rf-recommendations .rf-recommendation-col {
-    width: 100%; }
-  .rf-recommendations .rf-recommendation-header {
-    margin-top: 0;
-    margin-bottom: 2em; }
-  .rf-recommendations .rf-photo {
-    height: auto; }
-    .rf-recommendations .rf-photo img {
-      float: none;
-      height: auto;
-      margin: auto;
-      width: 100%; }
-  .rf-recommendations .rf-title a {
-    color: #f34673;
-    font-weight: bold; }
-    .rf-recommendations .rf-title a:hover {
-      color: #ff99cc; }
+/* Styles were added to Receiptful Recommendations Widget
+   in the receiptful dashboard due to errors in Firefox
+   that caused receeiptful widgets to lose custom styling. */
 
 /*# sourceMappingURL=style.css.map */
