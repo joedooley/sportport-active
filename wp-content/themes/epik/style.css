@@ -59,7 +59,7 @@ html {
 .entry-content .sp-button a,
 button, input[type="button"], input[type="reset"], input[type="submit"] {
   appearance: none;
-  background-color: #fdab59;
+  background-color: #f88ca9;
   color: #fff;
   cursor: pointer;
   display: inline-block;
@@ -82,7 +82,7 @@ button, input[type="button"], input[type="reset"], input[type="submit"] {
   .entry-content .sp-button a:focus,
   button:hover,
   button:focus, input[type="button"]:hover, input[type="button"]:focus, input[type="reset"]:hover, input[type="reset"]:focus, input[type="submit"]:hover, input[type="submit"]:focus {
-    background-color: #ff9933;
+    background-color: #d1cece;
     color: #fff;
     transition: all 0.3s ease; }
   .button:disabled,
@@ -95,7 +95,7 @@ button, input[type="button"], input[type="reset"], input[type="submit"] {
     .entry-content .sp-button:disabled:hover,
     .entry-content .sp-button a:disabled:hover,
     button:disabled:hover, input[type="button"]:disabled:hover, input[type="reset"]:disabled:hover, input[type="submit"]:disabled:hover {
-      background-color: #cc7a29; }
+      background-color: #a7a5a5; }
 
 .double-button {
   background-color: transparent;
@@ -571,16 +571,16 @@ body.new-product-a .entry-title:before {
   margin: 0 12px 0 0 !important; }
 
 .security-box {
-  background: #fffdd5;
-  padding: 20px 20px 20px 20px;
-  border: 1px solid #AB1;
+  padding: 20px;
+  background-color: #ebebeb;
+  border: 1px solid #ebebeb;
   margin: 24px 0; }
 
 .security-head {
   font-size: 16px;
   font-family: ralewaysemibold, sans-serif;
   margin: 0 0 0 0;
-  color: #AB1; }
+  color: #27a; }
 
 /*! .review-only ---------------------------------------- */
 body.review-only {
@@ -988,7 +988,7 @@ body.postid-479 .product_meta {
 
 /*! WOOCOMMERCE-CART and CHECKOUT CUSTOM [x37] ---------------------------------------- */
 tr.shipping {
-  background: #FFFDD5; }
+  background-color: #ebebeb; }
 
 .woocommerce-cart table.cart td,
 .woocommerce-cart table.cart th {
@@ -998,7 +998,7 @@ tr.shipping {
 .woocommerce-cart table.cart th a {
   font-family: ralewaysemibold, sans-serif;
   font-weight: normal;
-  color: #1AC; }
+  color: #27a; }
 
 body.woocommerce-cart .breadcrumb,
 body.woocommerce-checkout .breadcrumb {
@@ -1025,15 +1025,9 @@ body.woocommerce-checkout h3 {
   font-family: ralewaysemibold, sans-serif;
   font-weight: normal; }
 
-body.woocommerce-cart .entry-title {
-  color: #F93; }
-
 body.woocommerce-cart .cart_totals h2,
 body.woocommerce-checkout h3 {
-  color: #1AC; }
-
-.woocommerce td.product-name dl.variation dt {
-  color: #F93; }
+  color: #27a; }
 
 .woocommerce-cart .cart-collaterals .cart_totals tr td,
 .woocommerce-cart .cart-collaterals .cart_totals tr th {
@@ -1048,7 +1042,7 @@ body.woocommerce-checkout h3 {
   font-weight: normal; }
 
 tr.cart_item {
-  background: #EEE; }
+  background-color: #ebebeb; }
 
 .woocommerce-cart table.cart td.actions .coupon .input-text {
   width: 120px; }
@@ -2650,17 +2644,14 @@ li.comment ul li {
 ------------------------- */
 .archive .entry-header {
   margin: 1em 0 0.5em; }
-.archive .woocommerce ul.products li.product,
-.archive .woocommerce-page ul.products li.product {
+.archive.woocommerce ul.products li.product, .archive.woocommerce-page ul.products li.product {
   padding-bottom: 1em;
   background-color: #ebebeb; }
-  .archive .woocommerce ul.products li.product .button,
-  .archive .woocommerce-page ul.products li.product .button {
+  .archive.woocommerce ul.products li.product .button, .archive.woocommerce-page ul.products li.product .button {
     background-color: #f88ca9;
     border-radius: 0;
     color: white; }
-    .archive .woocommerce ul.products li.product .button:hover,
-    .archive .woocommerce-page ul.products li.product .button:hover {
+    .archive.woocommerce ul.products li.product .button:hover, .archive.woocommerce-page ul.products li.product .button:hover {
       background-color: #d1cece; }
 
 /*! ## FAQ Page Template
@@ -2853,13 +2844,15 @@ body.single-product.woocommerce div.product form.cart .reset_variations {
   clear: both;
   display: block !important; }
 body.single-product div.product form.cart button.button {
-  background-color: #fdab59;
+  background-color: #f88ca9;
   font-size: 1.25em;
   padding: 14px 3.75em; }
   @media screen and (max-width: 600px) {
     body.single-product div.product form.cart button.button {
       padding-left: 3em;
       padding-right: 3em; } }
+  body.single-product div.product form.cart button.button:hover {
+    background-color: #d1cece; }
 body.single-product #accordion {
   border-top: 1px solid #cacaca; }
 body.single-product.woocommerce ul.products li.product, body.single-product.woocommerce-page ul.products li.product {
@@ -3491,6 +3484,7 @@ a[rel="modal:close"] {
 
 body.woocommerce #payment #place_order,
 body.woocommerce-page #payment #place_order {
+  background-color: #f88ca9 !important;
   float: left;
   min-width: 300px;
   padding: 15px 0; }
@@ -3499,6 +3493,9 @@ body.woocommerce-page #payment #place_order {
     body.woocommerce-page #payment #place_order {
       width: 100%;
       min-width: 0; } }
+  body.woocommerce #payment #place_order:hover,
+  body.woocommerce-page #payment #place_order:hover {
+    background-color: #d1cece; }
 
 body.woocommerce-checkout #payment .payment_method_authorize_net_aim {
   list-style: none; }
@@ -3525,9 +3522,16 @@ body.woocommerce-page #payment .form-row select {
   background: #fdab59; }
 
 body.woocommerce div.woocommerce-message a.button {
-  background-color: #fdab59;
+  background-color: #f88ca9 !important;
   border-radius: 0;
   color: #fff !important; }
+  body.woocommerce div.woocommerce-message a.button:hover {
+    background-color: #d1cece !important; }
+
+body.woocommerce-cart .wc-proceed-to-checkout a.checkout-button {
+  background-color: #f88ca9 !important; }
+  body.woocommerce-cart .wc-proceed-to-checkout a.checkout-button:hover {
+    background-color: #d1cece !important; }
 
 .quantity > input[type=number] {
   display: inline-block;
@@ -3571,11 +3575,11 @@ input[type=number] {
 /*! ## WooCommerce Sizing Chart
 ------------------------------- */
 a#chart-button {
-  background-color: #fdab59;
+  background-color: #f88ca9;
   border-radius: 0;
   font-size: 1.5em; }
   a#chart-button:hover {
-    background-color: #ff9933; }
+    background-color: #d1cece; }
 
 /* --------------------------------- *\
        # Simple Social Icons #

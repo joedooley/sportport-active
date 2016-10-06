@@ -27,16 +27,16 @@ body.new-product-a .entry-title:before {
 	margin: 0 12px 0 0 !important; }
 
 .security-box {
-	background: #fffdd5;
-	padding: 20px 20px 20px 20px;
-	border: 1px solid #AB1;
+	@include padding(20px);
+	background-color: $gray2;
+	border: 1px solid $gray2;
 	margin: 24px 0; }
 
 .security-head {
 	font-size: 16px;
 	font-family: $raleway-semibold;
 	margin: 0 0 0 0;
-	color: #AB1; }
+	color: #27a; }
 
 /*! .review-only ---------------------------------------- */
 
@@ -430,7 +430,7 @@ body.postid-479 .product_meta {
 
 /*! WOOCOMMERCE-CART and CHECKOUT CUSTOM [x37] ---------------------------------------- */
 
-tr.shipping { background: #FFFDD5; }
+tr.shipping { background-color: $gray2; }
 
 .woocommerce-cart table.cart td,
 .woocommerce-cart table.cart th { font-weight: normal; }
@@ -438,7 +438,7 @@ tr.shipping { background: #FFFDD5; }
 .woocommerce-cart table.cart th a {
 	font-family: $raleway-semibold;
 	font-weight: normal;
-	color: #1AC; }
+	color: #27a; }
 body.woocommerce-cart .breadcrumb,
 body.woocommerce-checkout .breadcrumb { display: none; }
 body.woocommerce-cart .sidebar,
@@ -455,10 +455,10 @@ body.woocommerce-cart .cart_totals h2,
 body.woocommerce-checkout h3 {
 	font-family: $raleway-semibold;
 	font-weight: normal; }
-body.woocommerce-cart .entry-title { color: #F93; }
+//body.woocommerce-cart .entry-title { color: #F93; }
 body.woocommerce-cart .cart_totals h2,
-body.woocommerce-checkout h3 { color: #1AC; }
-.woocommerce td.product-name dl.variation dt { color: #F93; }
+body.woocommerce-checkout h3 { color: #27a; }
+//.woocommerce td.product-name dl.variation dt { color: #F93; }
 .woocommerce-cart .cart-collaterals .cart_totals tr td,
 .woocommerce-cart .cart-collaterals .cart_totals tr th {
 	padding-left: 8px;
@@ -468,7 +468,7 @@ body.woocommerce-checkout h3 { color: #1AC; }
 .woocommerce table.shop_table tbody th,
 .woocommerce table.shop_table tfoot td,
 .woocommerce table.shop_table tfoot th { font-weight: normal; }
-tr.cart_item { background: #EEE; }
+tr.cart_item { background-color: $gray2; }
 .woocommerce-cart table.cart td.actions .coupon .input-text { width: 120px; }
 .pp_gallery ul { display: none; } /* hide thumbnails in popup windows * /
 

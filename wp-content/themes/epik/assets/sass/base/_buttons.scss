@@ -3,7 +3,8 @@
 .entry-content .sp-button a,
 #{$all-buttons} {
 	appearance: none;
-	background-color: $orange;
+	//background-color: $orange;
+	background-color: $navpink1;
 	color: #fff;
 	cursor: pointer;
 	display: inline-block;
@@ -24,7 +25,8 @@
 
 	&:hover,
 	&:focus {
-		background-color: $orange-hover;
+		//background-color: $orange-hover;
+		background-color: $gray1;
 		color: #fff;
 		transition: all 0.3s ease;
 	}
@@ -34,7 +36,8 @@
 		opacity: 0.5;
 
 		&:hover {
-			background-color: shade($orange-hover, 20%);
+			//background-color: shade($orange-hover, 20%);
+			background-color: shade($gray1, 20%);
 		}
 	}
 }

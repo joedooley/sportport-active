@@ -7,8 +7,8 @@
 		@include margin(1em 0 0.5em);
 	}
 
-	.woocommerce ul.products li.product,
-	.woocommerce-page ul.products li.product {
+	&.woocommerce ul.products li.product,
+	&.woocommerce-page ul.products li.product {
 		@include padding(null null 1em);
 		background-color: #ebebeb;
 

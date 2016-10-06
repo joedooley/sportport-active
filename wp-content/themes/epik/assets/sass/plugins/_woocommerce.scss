@@ -13,6 +13,7 @@
 
 body.woocommerce #payment #place_order,
 body.woocommerce-page #payment #place_order {
+	background-color: $navpink1 !important;
 	float: left;
 	min-width: 300px;
 	padding: 15px 0;
@@ -20,6 +21,10 @@ body.woocommerce-page #payment #place_order {
 	@include media($large-screen-up) {
 		width: 100%;
 		min-width: 0;
+	}
+
+	&:hover {
+		background-color: $gray1;
 	}
 }
 
@@ -64,10 +69,24 @@ body.woocommerce-page #payment .form-row select {
 // View Cart Button/Message
 // Pops up after adding to Cart
 body.woocommerce div.woocommerce-message a.button {
-	background-color: $orange;
+	//background-color: $orange;
+	background-color: $navpink1  !important;
 	border-radius: 0;
 	color: #fff !important;
+
+	&:hover {
+		background-color: $gray1 !important;
+	}
 }
+
+body.woocommerce-cart .wc-proceed-to-checkout a.checkout-button {
+	background-color: $navpink1 !important;
+
+	&:hover {
+		background-color: $gray1 !important;
+	}
+}
+
 
 // Style Increment/Decrement on Cart and Product Pages
 .quantity {
