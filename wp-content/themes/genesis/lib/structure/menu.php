@@ -11,7 +11,7 @@
  * @link    http://my.studiopress.com/themes/genesis/
  */
 
-add_filter( 'nav_menu_link_attributes', 'genesis_nav_menu_link_attributes', 10, 3 );
+add_filter( 'nav_menu_link_attributes', 'genesis_nav_menu_link_attributes' );
 /**
  * Pass nav menu link attributes through attribute parser.
  *
@@ -19,20 +19,17 @@ add_filter( 'nav_menu_link_attributes', 'genesis_nav_menu_link_attributes', 10, 
  *
  * @since 2.2.0
  *
- * @param array $atts {
- *		The HTML attributes applied to the menu item's <a>, empty strings are ignored.
+ * @param array  $atts {
+ *		The HTML attributes applied to the menu item's link element, empty strings are ignored.
  *
  *		@type string $title Title attribute.
  *		@type string $target Target attribute.
  *		@type string $rel The rel attribute.
  *		@type string $href The href attribute.
  * }
- * @param object $item The current menu item.
- * @param array $args An array of wp_nav_menu() arguments.
- *
  * @return array Maybe modified menu attributes array.
  */
-function genesis_nav_menu_link_attributes( $atts, $item, $args ) {
+function genesis_nav_menu_link_attributes( $atts ) {
 
 	if ( genesis_html5() ) {
 		$atts = genesis_parse_attr( 'nav-link', $atts );
@@ -50,7 +47,7 @@ add_action( 'after_setup_theme', 'genesis_register_nav_menus' );
  *
  * @since 1.8.0
  *
- * @return null Returns early if no Genesis menus are supported.
+ * @return null Return early if `genesis-menus` are not supported.
  */
 function genesis_register_nav_menus() {
 
@@ -69,17 +66,13 @@ add_action( 'genesis_after_header', 'genesis_do_nav' );
 /**
  * Echo the "Primary Navigation" menu.
  *
- * Applies the `genesis_primary_nav` and legacy `genesis_do_nav` filters.
+ * Applies the `genesis_do_nav` filter.
  *
  * @since 1.0.0
- *
- * @uses genesis_nav_menu() Display a navigation menu.
- * @uses genesis_nav_menu_supported() Checks for support of specific nav menu.
- * @uses genesis_a11y() Checks for acessibility support to add a heading to the main navigation.
  */
 function genesis_do_nav() {
 
-	//* Do nothing if menu not supported
+	// Do nothing if menu not supported.
 	if ( ! genesis_nav_menu_supported( 'primary' ) || ! has_nav_menu( 'primary' ) )
 		return;
 
@@ -103,16 +96,13 @@ add_action( 'genesis_after_header', 'genesis_do_subnav' );
 /**
  * Echo the "Secondary Navigation" menu.
  *
- * Applies the `genesis_secondary_nav` and legacy `genesis_do_subnav` filters.
+ * Applies the `genesis_do_subnav` filter.
  *
  * @since 1.0.0
- *
- * @uses genesis_nav_menu() Display a navigation menu.
- * @uses genesis_nav_menu_supported() Checks for support of specific nav menu.
  */
 function genesis_do_subnav() {
 
-	//* Do nothing if menu not supported
+	// Do nothing if menu not supported.
 	if ( ! genesis_nav_menu_supported( 'secondary' ) )
 		return;
 
@@ -134,17 +124,14 @@ add_filter( 'wp_nav_menu_items', 'genesis_nav_right', 10, 2 );
  *
  * @since 1.0.0
  *
- * @uses genesis_get_option()            Get navigation extras settings.
- * @uses genesis_first_version_compare() Detect fresh install.
- *
  * @param string   $menu HTML string of list items.
  * @param stdClass $args Menu arguments.
- *
- * @return string Amended HTML string of list items.
+ * @return string HTML string of list items with optional nav extras.
+ *                Return early unmodified if first Genesis version is higher than 2.0.2.
  */
 function genesis_nav_right( $menu, stdClass $args ) {
 
-	//* Only allow if using 2.0.2 or lower
+	// Only allow if using 2.0.2 or lower.
 	if ( genesis_first_version_compare( '2.0.2', '>' ) ) {
 		return $menu;
 	}
@@ -159,7 +146,7 @@ function genesis_nav_right( $menu, stdClass $args ) {
 			$menu .= '<li class="right rss">' . $rss . '</li>';
 			break;
 		case 'search':
-			// I hate output buffering, but I have no choice
+			// I hate output buffering, but I have no choice.
 			ob_start();
 			get_search_form();
 			$search = ob_get_clean();

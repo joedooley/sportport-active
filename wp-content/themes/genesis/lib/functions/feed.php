@@ -19,11 +19,8 @@ add_filter( 'feed_link', 'genesis_feed_links_filter', 10, 2 );
  *
  * @since 1.3.0
  *
- * @uses genesis_get_option() Get theme setting value.
- *
  * @param string $output From the get_feed_link() WordPress function.
  * @param string $feed   Optional. Defaults to default feed. Feed type (rss2, rss, sdf, atom).
- *
  * @return string Amended feed URL.
  */
 function genesis_feed_links_filter( $output, $feed ) {
@@ -51,16 +48,15 @@ add_action( 'template_redirect', 'genesis_feed_redirect' );
  *
  * @since 1.3.0
  *
- * @uses genesis_get_option() Get theme setting value.
- *
- * @return null Return early on failure. Exits on success.
+ * @return null Return early if is feed user agent is set and matches Feedblitz,
+ *              Feedburner or Feedvalidator. Redirects and exits on success.
  */
 function genesis_feed_redirect() {
 
 	if ( ! is_feed() || ( isset( $_SERVER['HTTP_USER_AGENT'] ) && preg_match( '/feed(blitz|burner|validator)/i', $_SERVER['HTTP_USER_AGENT'] ) ) )
 		return;
 
-	//* Don't redirect if viewing archive, search, or post comments feed
+	// Don't redirect if viewing archive, search, or post comments feed.
 	if ( is_archive() || is_search() || is_singular() )
 		return;
 

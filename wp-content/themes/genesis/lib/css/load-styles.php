@@ -33,10 +33,6 @@ function genesis_load_stylesheet() {
  * Properly enqueue the main style sheet.
  *
  * @since 1.9.0
- *
- * @uses CHILD_THEME_NAME
- * @uses CHILD_THEME_VERSION
- * @uses PARENT_THEME_VERSION
  */
 function genesis_enqueue_main_stylesheet() {
 
@@ -52,9 +48,6 @@ add_action( 'admin_print_styles', 'genesis_load_admin_styles' );
  * Enqueue Genesis admin styles.
  *
  * @since 0.2.3
- *
- * @uses GENESIS_CSS_URL
- * @uses PARENT_THEME_VERSION
  */
 function genesis_load_admin_styles() {
 

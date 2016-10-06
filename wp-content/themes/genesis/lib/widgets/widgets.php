@@ -11,7 +11,7 @@
  * @link    http://my.studiopress.com/themes/genesis/
  */
 
-//* Include widget class files
+// Include widget class files.
 require_once( GENESIS_WIDGETS_DIR . '/user-profile-widget.php' );
 require_once( GENESIS_WIDGETS_DIR . '/featured-post-widget.php' );
 require_once( GENESIS_WIDGETS_DIR . '/featured-page-widget.php' );
@@ -50,7 +50,7 @@ add_action( 'load-themes.php', 'genesis_remove_default_widgets_from_header_right
  */
 function genesis_remove_default_widgets_from_header_right() {
 
-	//* Some tomfoolery for a faux activation hook
+	// Some tomfoolery for a faux activation hook.
 	if ( ! isset( $_REQUEST['activated'] ) || 'true' !== $_REQUEST['activated'] )
 		return;
 

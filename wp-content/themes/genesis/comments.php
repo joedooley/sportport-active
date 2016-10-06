@@ -19,7 +19,7 @@ if ( post_password_required() ) {
 	return;
 }
 
-//* Output semantically correct header if accessibility is supported
+// Output semantically correct header if accessibility is supported.
 if ( genesis_a11y( 'headings' ) ) {
 	printf( '<h2 class="screen-reader-text">%s</h2>', __( 'Reader Interactions', 'genesis' ) );
 }

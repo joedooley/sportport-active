@@ -82,17 +82,22 @@ abstract class Genesis_Admin {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param string $page_id ID of the admin menu and settings page
-	 * @param array $menu_ops Optional. Config options for admin menu(s). Default is empty array
-	 * @param array $page_ops Optional. Config options for settings page. Default is empty array
-	 * @param string $settings_field Optional. Name of the settings field. Default is an empty string
-	 * @param array $default_settings Optional. Field name => values for default settings. Default is empty array
-	 * @return null Return early if page ID is not set
+	 * @param string $page_id          ID of the admin menu and settings page.
+	 * @param array  $menu_ops         Optional. Config options for admin menu(s). Default is empty array.
+	 * @param array  $page_ops         Optional. Config options for settings page. Default is empty array.
+	 * @param string $settings_field   Optional. Name of the settings field. Default is an empty string.
+	 * @param array  $default_settings Optional. Field name => values for default settings. Default is empty array.
+	 *
+	 * @return null Return early if page ID is not set.
 	 */
 	public function create( $page_id = '', array $menu_ops = array(), array $page_ops = array(), $settings_field = '', array $default_settings = array() ) {
 
-		//* Set the properties
-		$this->page_id          = $this->page_id          ? $this->page_id          : $page_id;
+		$this->page_id = $this->page_id ? $this->page_id : $page_id;
+
+		if ( ! $this->page_id ) {
+			return;
+		}
+
 		$this->menu_ops         = $this->menu_ops         ? $this->menu_ops         : (array) $menu_ops;
 		$this->page_ops         = $this->page_ops         ? $this->page_ops         : (array) $page_ops;
 		$this->settings_field   = $this->settings_field   ? $this->settings_field   : $settings_field;
@@ -109,33 +114,30 @@ abstract class Genesis_Admin {
 			)
 		);
 
-		//* Do nothing if page_id not set
-		if ( ! $this->page_id )
-			return;
 
-		//* Check to make sure there we are only creating one menu per subclass
+		// Check to make sure there we are only creating one menu per subclass.
 		if ( isset( $this->menu_ops['submenu'] ) && ( isset( $this->menu_ops['main_menu'] ) || isset( $this->menu_ops['first_submenu'] ) ) )
 			wp_die( sprintf( __( 'You cannot use %s to create two menus in the same subclass. Please use separate subclasses for each menu.', 'genesis' ), 'Genesis_Admin' ) );
 
-		//* Create the menu(s). Conditional logic happens within the separate methods
+		// Create the menu(s). Conditional logic happens within the separate methods.
 		add_action( 'admin_menu', array( $this, 'maybe_add_main_menu' ), 5 );
 		add_action( 'admin_menu', array( $this, 'maybe_add_first_submenu' ), 5 );
 		add_action( 'admin_menu', array( $this, 'maybe_add_submenu' ) );
 
-		//* Set up settings and notices
+		// Set up settings and notices.
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_notices', array( $this, 'notices' ) );
 
-		//* Load the page content (metaboxes or custom form)
+		// Load the page content (metaboxes or custom form).
 		add_action( 'admin_init', array( $this, 'settings_init' ) );
 
-		//* Load help tab
+		// Load help tab.
 		add_action( 'admin_init', array( $this, 'load_help' ) );
 
-		//* Load contextual assets (registered admin page)
+		// Load contextual assets (registered admin page).
 		add_action( 'admin_init', array( $this, 'load_assets' ) );
 
-		//* Add a sanitizer/validator
+		// Add a sanitizer/validator.
 		add_filter( 'pre_update_option_' . $this->settings_field, array( $this, 'save' ), 10, 2 );
 
 	}
@@ -147,7 +149,7 @@ abstract class Genesis_Admin {
 	 */
 	public function maybe_add_main_menu() {
 
-		//* Maybe add a menu separator
+		// Maybe add a menu separator.
 		if ( isset( $this->menu_ops['main_menu']['sep'] ) ) {
 			$sep = wp_parse_args(
 				$this->menu_ops['main_menu']['sep'],
@@ -161,7 +163,7 @@ abstract class Genesis_Admin {
 				$GLOBALS['menu'][$sep['sep_position']] = array( '', $sep['sep_capability'], 'separator', '', 'genesis-separator wp-menu-separator' );
 		}
 
-		//* Maybe add main menu
+		// Maybe add main menu.
 		if ( isset( $this->menu_ops['main_menu'] ) && is_array( $this->menu_ops['main_menu'] ) ) {
 			$menu = wp_parse_args(
 				$this->menu_ops['main_menu'],
@@ -194,7 +196,7 @@ abstract class Genesis_Admin {
 	 */
 	public function maybe_add_first_submenu() {
 
-		//* Maybe add first submenu
+		// Maybe add first submenu.
 		if ( isset( $this->menu_ops['first_submenu'] ) && is_array( $this->menu_ops['first_submenu'] ) ) {
 			$menu = wp_parse_args(
 				$this->menu_ops['first_submenu'],
@@ -217,7 +219,7 @@ abstract class Genesis_Admin {
 	 */
 	public function maybe_add_submenu() {
 
-		//* Maybe add submenu
+		// Maybe add submenu.
 		if ( isset( $this->menu_ops['submenu'] ) && is_array( $this->menu_ops['submenu'] ) ) {
 			$menu = wp_parse_args(
 				$this->menu_ops['submenu'],
@@ -239,11 +241,11 @@ abstract class Genesis_Admin {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @return null Return early if not on the correct admin page.
+	 * @return null Return early if admin page doesn't store settings, or user is not on the correct admin page.
 	 */
 	public function register_settings() {
 
-		//* If this page doesn't store settings, no need to register them
+		// If this page doesn't store settings, no need to register them.
 		if ( ! $this->settings_field )
 			return;
 
@@ -291,9 +293,9 @@ abstract class Genesis_Admin {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param string $newvalue
-	 * @param string $oldvalue
-	 * @return string
+	 * @param string $newvalue New value to save.
+	 * @param string $oldvalue Old value.
+	 * @return string Value to save.
 	 */
 	public function save( $newvalue, $oldvalue ) {
 
@@ -331,12 +333,12 @@ abstract class Genesis_Admin {
 	 */
 	public function load_assets() {
 
-		//* Hook scripts method
+		// Hook scripts method.
 		if ( method_exists( $this, 'scripts' ) ) {
 			add_action( "load-{$this->pagehook}", array( $this, 'scripts' ) );
 		}
 
-		//* Hook styles method
+		// Hook styles method.
 		if ( method_exists( $this, 'styles' ) ) {
 			add_action( "load-{$this->pagehook}", array( $this, 'styles' ) );
 		}
@@ -365,8 +367,8 @@ abstract class Genesis_Admin {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param string $name Field name base
-	 * @return string Full field name
+	 * @param string $name Field name base.
+	 * @return string Full field name.
 	 */
 	protected function get_field_name( $name ) {
 
@@ -379,10 +381,7 @@ abstract class Genesis_Admin {
 	 *
 	 * @since 2.1.0
 	 *
-	 * @uses Genesis_Admin:get_field_name() Construct name attributes for use in form fields.
-	 *
-	 * @param string $name Field name base
-	 * @return string Full field name
+	 * @param string $name Field name base.
 	 */
 	protected function field_name( $name ) {
 
@@ -395,8 +394,8 @@ abstract class Genesis_Admin {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param string $id Field id base
-	 * @return string Full field id
+	 * @param string $id Field id base.
+	 * @return string Full field id.
 	 */
 	protected function get_field_id( $id ) {
 
@@ -409,10 +408,7 @@ abstract class Genesis_Admin {
 	 *
 	 * @since 2.1.0
 	 *
-	 * @uses Genesis_Admin::get_field_id() Constructs id attributes for use in form fields.
-	 *
-	 * @param string $id Field id base
-	 * @return string Full field id
+	 * @param string $id Field id base.
 	 */
 	protected function field_id( $id ) {
 
@@ -426,8 +422,8 @@ abstract class Genesis_Admin {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param string $key Field key
-	 * @return string Field value
+	 * @param string $key Field key.
+	 * @return string Field value.
 	 */
 	protected function get_field_value( $key ) {
 
@@ -438,12 +434,9 @@ abstract class Genesis_Admin {
 	/**
 	 * Echo a setting value from this form's settings field for use in form fields.
 	 *
-	 * @uses Genesis_Admin::get_field_value() Constructs value attributes for use in form fields.
-	 *
 	 * @since 2.1.0
 	 *
-	 * @param string $key Field key
-	 * @return string Field value
+	 * @param string $key Field key.
 	 */
 	protected function field_value( $key ) {
 
@@ -488,21 +481,20 @@ abstract class Genesis_Admin_Form extends Genesis_Admin {
 
 		?>
 		<div class="wrap genesis-form">
-		<form method="post" action="options.php">
-
-			<?php settings_fields( $this->settings_field ); ?>
-
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+			<form method="post" action="options.php">
 
-			<?php do_action( "{$this->pagehook}_settings_page_form", $this->pagehook ); ?>
+				<?php settings_fields( $this->settings_field ); ?>
 
-			<div class="bottom-buttons">
-				<?php
-				submit_button( $this->page_ops['save_button_text'], 'primary', 'submit', false );
-				submit_button( $this->page_ops['reset_button_text'], 'secondary genesis-js-confirm-reset', $this->get_field_name( 'reset' ), false );
-				?>
-			</div>
-		</form>
+				<?php do_action( "{$this->pagehook}_settings_page_form", $this->pagehook ); ?>
+
+				<div class="bottom-buttons">
+					<?php
+					submit_button( $this->page_ops['save_button_text'], 'primary', 'submit', false );
+					submit_button( $this->page_ops['reset_button_text'], 'secondary genesis-js-confirm-reset', $this->get_field_name( 'reset' ), false );
+					?>
+				</div>
+			</form>
 		</div>
 		<?php
 
@@ -566,23 +558,23 @@ abstract class Genesis_Admin_Boxes extends Genesis_Admin {
 
 		?>
 		<div class="wrap genesis-metaboxes">
-		<form method="post" action="options.php">
-
-			<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
-			<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
-			<?php settings_fields( $this->settings_field ); ?>
-
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+			<form method="post" action="options.php">
 
-			<?php do_action( "{$this->pagehook}_settings_page_boxes", $this->pagehook ); ?>
+				<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
+				<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
+				<?php settings_fields( $this->settings_field ); ?>
 
-			<div class="bottom-buttons">
-				<?php
-				submit_button( $this->page_ops['save_button_text'], 'primary', 'submit', false );
-				submit_button( $this->page_ops['reset_button_text'], 'secondary genesis-js-confirm-reset', $this->get_field_name( 'reset' ), false );
-				?>
-			</div>
-		</form>
+
+				<?php do_action( "{$this->pagehook}_settings_page_boxes", $this->pagehook ); ?>
+
+				<div class="bottom-buttons">
+					<?php
+					submit_button( $this->page_ops['save_button_text'], 'primary', 'submit', false );
+					submit_button( $this->page_ops['reset_button_text'], 'secondary genesis-js-confirm-reset', $this->get_field_name( 'reset' ), false );
+					?>
+				</div>
+			</form>
 		</div>
 		<script type="text/javascript">
 			//<![CDATA[

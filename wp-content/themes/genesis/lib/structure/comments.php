@@ -20,9 +20,7 @@ add_action( 'genesis_after_entry', 'genesis_get_comments_template' );
  *
  * @since 1.1.0
  *
- * @uses genesis_get_option() Get theme setting value.
- *
- * @return null Return early if post type does not support comments.
+ * @return null Return early if post type does not support `comments`.
  */
 function genesis_get_comments_template() {
 
@@ -50,25 +48,22 @@ add_action( 'genesis_comments', 'genesis_do_comments' );
  *
  * @since 1.1.2
  *
- * @uses genesis_get_option() Get theme setting value.
- *
  * @global WP_Query $wp_query Query object.
  *
- * @return null Return early if on a page with Genesis pages comments off, or on a post with Genesis posts comments off.
+ * @return null Return early if on a page with Genesis page comments off, or on a post with Genesis post comments off.
  */
 function genesis_do_comments() {
 
 	global $wp_query;
 
-	//* Bail if comments are off for this post type
+	// Bail if comments are off for this post type.
 	if ( ( is_page() && ! genesis_get_option( 'comments_pages' ) ) || ( is_single() && ! genesis_get_option( 'comments_posts' ) ) )
 		return;
 
 	if ( have_comments() && ! empty( $wp_query->comments_by_type['comment'] ) ) {
 
 		genesis_markup( array(
-			'html5'   => '<div %s>',
-			'xhtml'   => '<div id="comments">',
+			'open'   => '<div %s>',
 			'context' => 'entry-comments',
 		) );
 
@@ -77,29 +72,31 @@ function genesis_do_comments() {
 			do_action( 'genesis_list_comments' );
 		echo '</ol>';
 
-		//* Comment Navigation
+		// Comment Navigation.
 		$prev_link = get_previous_comments_link( apply_filters( 'genesis_prev_comments_link_text', '' ) );
 		$next_link = get_next_comments_link( apply_filters( 'genesis_next_comments_link_text', '' ) );
 
 		if ( $prev_link || $next_link ) {
 
+			$pagination = sprintf( '<div class="pagination-previous alignleft">%s</div>', $prev_link );
+			$pagination .= sprintf( '<div class="pagination-next alignright">%s</div>', $next_link );
+
 			genesis_markup( array(
-				'html5'   => '<div %s>',
-				'xhtml'   => '<div class="navigation">',
+				'open'    => '<div %s>',
+				'close'   => '</div>',
+				'content' => $pagination,
 				'context' => 'comments-pagination',
 			) );
-			
-			printf( '<div class="pagination-previous alignleft">%s</div>', $prev_link );
-			printf( '<div class="pagination-next alignright">%s</div>', $next_link );
-			
-			echo '</div>';
 
 		}
 
-		echo '</div>';
+		genesis_markup( array(
+			'close'   => '</div>',
+			'context' => 'entry-comments',
+		) );
 
 	}
-	//* No comments so far
+	// No comments so far.
 	elseif ( 'open' === get_post()->comment_status && $no_comments_text = apply_filters( 'genesis_no_comments_text', '' ) ) {
 		if ( genesis_html5() )
 			echo sprintf( '<div %s>', genesis_attr( 'entry-comments' ) ) . $no_comments_text . '</div>';
@@ -125,26 +122,24 @@ add_action( 'genesis_pings', 'genesis_do_pings' );
  *
  * @since 1.1.2
  *
- * @uses genesis_get_option() Get theme setting value.
- *
  * @global WP_Query $wp_query Query object.
  *
- * @return null Return early if on a page with Genesis pages trackbacks off, or on a post with Genesis posts trackbacks off.
+ * @return null Return early if on a page with Genesis page trackbacks off, or on a
+ *              post with Genesis post trackbacks off.
  */
 function genesis_do_pings() {
 
 	global $wp_query;
 
-	//* Bail if trackbacks are off for this post type
+	// Bail if trackbacks are off for this post type.
 	if ( ( is_page() && ! genesis_get_option( 'trackbacks_pages' ) ) || ( is_single() && ! genesis_get_option( 'trackbacks_posts' ) ) )
 		return;
 
-	//* If have pings
+	// If have pings.
 	if ( have_comments() && !empty( $wp_query->comments_by_type['pings'] ) ) {
 
 		genesis_markup( array(
-			'html5'   => '<div %s>',
-			'xhtml'   => '<div id="pings">',
+			'open'    => '<div %s>',
 			'context' => 'entry-pings',
 		) );
 
@@ -153,7 +148,10 @@ function genesis_do_pings() {
 			do_action( 'genesis_list_pings' );
 		echo '</ol>';
 
-		echo '</div>';
+		genesis_markup( array(
+			'close'   => '</div>',
+			'context' => 'entry-pings',
+		) );
 
 	} else {
 
@@ -173,15 +171,13 @@ add_action( 'genesis_list_comments', 'genesis_default_list_comments' );
  *
  * @see genesis_html5_comment_callback() HTML5 callback.
  * @see genesis_comment_callback()       XHTML callback.
- *
- * @uses genesis_html5() Check for HTML5 support.
  */
 function genesis_default_list_comments() {
 
 	$defaults = array(
 		'type'        => 'comment',
 		'avatar_size' => 48,
-		'format'      => 'html5', //* Not necessary, but a good example
+		'format'      => 'html5', // Not necessary, but a good example.
 		'callback'    => genesis_html5() ? 'genesis_html5_comment_callback' : 'genesis_comment_callback',
 	);
 
@@ -220,7 +216,7 @@ function genesis_default_list_pings() {
  *
  * @param stdClass $comment Comment object.
  * @param array    $args    Comment args.
- * @param integer  $depth   Depth of current comment.
+ * @param int      $depth   Depth of current comment.
  */
 function genesis_comment_callback( $comment, array $args, $depth ) {
 
@@ -256,8 +252,7 @@ function genesis_comment_callback( $comment, array $args, $depth ) {
 
 		<?php do_action( 'genesis_after_comment' );
 
-	//* No ending </li> tag because of comment threading
-
+		// No ending </li> tag because of comment threading.
 }
 
 /**
@@ -271,7 +266,7 @@ function genesis_comment_callback( $comment, array $args, $depth ) {
  *
  * @param stdClass $comment Comment object.
  * @param array    $args    Comment args.
- * @param integer  $depth   Depth of current comment.
+ * @param int      $depth   Depth of current comment.
  */
 function genesis_html5_comment_callback( $comment, array $args, $depth ) {
 
@@ -300,7 +295,7 @@ function genesis_html5_comment_callback( $comment, array $args, $depth ) {
 				 * Allows developer to filter the "comment author says" text so it can say something different, or nothing at all.
 				 *
 				 * @since unknown
-				 * 
+				 *
 				 * @param string $text Comment author says text.
 				 */
 				$comment_author_says_text = apply_filters( 'comment_author_says_text', __( 'says', 'genesis' ) );
@@ -319,8 +314,8 @@ function genesis_html5_comment_callback( $comment, array $args, $depth ) {
 			 *
 			 * @since 2.2.0
 			 *
-			 * @param boolean $comment_date Whether to print the comment date
-			 * @param string  $post_type    The current post type
+			 * @param bool   $comment_date Whether to print the comment date.
+			 * @param string $post_type    The current post type.
 			 */
 			$comment_date = apply_filters( 'genesis_show_comment_date', true, get_post_type() );
 
@@ -345,7 +340,7 @@ function genesis_html5_comment_callback( $comment, array $args, $depth ) {
 				 * Allows developer to filter the "comment awaiting moderation" text so it can say something different, or nothing at all.
 				 *
 				 * @since unknown
-				 * 
+				 *
 				 * @param string $text Comment awaiting moderation text.
 				 */
 				$comment_awaiting_moderation_text = apply_filters( 'genesis_comment_awaiting_moderation', __( 'Your comment is awaiting moderation.', 'genesis' ) );
@@ -368,8 +363,7 @@ function genesis_html5_comment_callback( $comment, array $args, $depth ) {
 
 	</article>
 	<?php
-	//* No ending </li> tag because of comment threading
-
+	// No ending </li> tag because of comment threading.
 }
 
 add_action( 'genesis_comment_form', 'genesis_do_comment_form' );
@@ -385,7 +379,7 @@ add_action( 'genesis_comment_form', 'genesis_do_comment_form' );
  */
 function genesis_do_comment_form() {
 
-	//* Bail if comments are closed for this post type
+	// Bail if comments are closed for this post type.
 	if ( ( is_page() && ! genesis_get_option( 'comments_pages' ) ) || ( is_single() && ! genesis_get_option( 'comments_posts' ) ) )
 		return;
 
@@ -403,17 +397,14 @@ add_filter( 'comment_form_defaults', 'genesis_comment_form_args' );
  *
  * @since 1.8.0
  *
- * @uses genesis_html5() Check for HTML5 support.
- *
  * @global string $user_identity Display name of the user.
  *
- * @param array $defaults Comment form defaults.
- *
- * @return array Filterable array.
+ * @param array $defaults Comment form default arguments.
+ * @return array Filtered comment form default arguments.
  */
 function genesis_comment_form_args( array $defaults ) {
 
-	//* Use WordPress default HTML5 comment form if themes supports HTML5
+	// Use WordPress default HTML5 comment form if themes supports HTML5.
 	if ( genesis_html5() )
 		return $defaults;
 
@@ -456,10 +447,10 @@ function genesis_comment_form_args( array $defaults ) {
 		),
 	);
 
-	//* Merge $args with $defaults
+	// Merge $args with $defaults.
 	$args = wp_parse_args( $args, $defaults );
 
-	//* Return filterable array of $args, along with other optional variables
+	// Return filterable array of $args, along with other optional variables.
 	return apply_filters( 'genesis_comment_form_args', $args, $user_identity, get_the_ID(), $commenter, $req, $aria_req );
 
 }
@@ -467,8 +458,12 @@ function genesis_comment_form_args( array $defaults ) {
 add_filter( 'get_comments_link', 'genesis_comments_link_filter', 10, 2 );
 /**
  * Filter the comments link. If post has comments, link to #comments div. If no, link to #respond div.
- * 
+ *
  * @since 2.0.1
+ *
+ * @param string      $link    Post comments permalink with '#comments' appended.
+ * @param int|WP_Post $post_id Post ID or WP_Post object.
+ * @return string URL to comments if they exist, otherwise URL to the comment form.
  */
 function genesis_comments_link_filter( $link, $post_id ) {
 

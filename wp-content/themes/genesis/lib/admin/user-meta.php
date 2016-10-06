@@ -20,6 +20,7 @@ add_filter( 'user_contactmethods', 'genesis_user_contactmethods' );
  * @since 1.9.0
  *
  * @param array $contactmethods Array of contact methods.
+ * @return array Contact methods.
  */
 function genesis_user_contactmethods( array $contactmethods ) {
 
@@ -43,8 +44,7 @@ add_action( 'edit_user_profile', 'genesis_user_options_fields' );
  * @since 1.4.0
  *
  * @param \WP_User $user User object.
- *
- * @return false Return false if current user can not edit users.
+ * @return false Return `false` early if current user can not edit users.
  */
 function genesis_user_options_fields( $user ) {
 
@@ -94,8 +94,7 @@ add_action( 'edit_user_profile', 'genesis_user_archive_fields' );
  * @since 1.6.0
  *
  * @param \WP_User $user User object.
- *
- * @return false Return false if current user can not edit users.
+ * @return false Return `false` early if current user can not edit users.
  */
 function genesis_user_archive_fields( $user ) {
 
@@ -159,8 +158,7 @@ add_action( 'edit_user_profile', 'genesis_user_seo_fields' );
  * @since 1.4.0
  *
  * @param \WP_User $user User object.
- *
- * @return false Return false if current user can not edit users.
+ * @return false Return `false` early if current user can not edit users.
  */
 function genesis_user_seo_fields( $user ) {
 
@@ -220,11 +218,10 @@ add_action( 'edit_user_profile', 'genesis_user_layout_fields' );
  *
  * @since 1.4.0
  *
- * @uses genesis_layout_selector() Layout selector.
- *
  * @param \WP_User $user User object.
  *
- * @return false Return false if current user can not edit users.
+ * @return null|false Return `null` if current theme does not support `genesis-archive-layouts` or Genesis
+ *                    does not have multiple layouts. Return `false` if current user can not edit users.
  */
 function genesis_user_layout_fields( $user ) {
 
@@ -272,9 +269,8 @@ add_action( 'edit_user_profile_update', 'genesis_user_meta_save' );
  *
  * @since 1.4.0
  *
- * @param integer $user_id User ID
- *
- * @return null Returns null if current user can not edit users, or no meta fields submitted.
+ * @param int $user_id User ID.
+ * @return null Return early if current user can not edit users, or no meta fields submitted.
  */
 function genesis_user_meta_save( $user_id ) {
 
@@ -335,36 +331,36 @@ add_filter( 'get_the_author_genesis_import_export_menu', 'genesis_user_meta_defa
  *
  * @global bool|object authordata User object if successful, false if not.
  *
- * @param string|boolean $value   The submitted value.
- * @param integer        $user_id User ID.
- *
- * @return string|integer Submitted value, or 1.
+ * @param string|bool $value   The submitted value.
+ * @param int         $user_id User ID.
+ * @return mixed|int Submitted value, user field value, or `1`.
  */
 function genesis_user_meta_default_on( $value, $user_id ) {
 
-	//* Get the name of the field by removing the prefix from the active filter
+	// If a real value exists, simply return it.
+	if ( $value ) {
+		return $value;
+	}
+
+	// Get the name of the field by removing the prefix from the active filter.
 	$field = str_replace( 'get_the_author_', '', current_filter() );
 
-	//* If a real value exists, simply return it
-	if ( $value )
-		return $value;
-
-	//* Setup user data
+	// Setup user data.
 	if ( ! $user_id )
 		global $authordata;
 	else
 		$authordata = get_userdata( $user_id );
 
-	//* Just in case
+	// Just in case.
 	$user_field = "user_$field";
 	if ( isset( $authordata->$user_field ) )
 		return $authordata->user_field;
 
-	//* If an empty or false value exists, return it
+	// If an empty or false value exists, return it.
 	if ( isset( $authordata->$field ) )
 		return $value;
 
-	//* If all that fails, default to true
+	// If all that fails, default to true.
 	return 1;
 
 }
@@ -375,13 +371,9 @@ add_filter( 'get_the_author_genesis_author_box_single', 'genesis_author_box_sing
  *
  * @since 1.4.0
  *
- * @uses genesis_get_option()           Get Genesis setting.
- * @uses genesis_user_meta_default_on() Get enforced conditional.
- *
- * @param string  $value   Submitted value.
- * @param integer $user_id User ID.
- *
- * @return string Result.
+ * @param string $value   Submitted value.
+ * @param int    $user_id User ID.
+ * @return mixed Existing user meta value, or `1`.
  */
 function genesis_author_box_single_default_on( $value, $user_id ) {
 

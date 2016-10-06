@@ -11,18 +11,21 @@
  * @link    http://my.studiopress.com/themes/genesis/
  */
 
-//* Remove default loop
+// Remove default loop.
 remove_action( 'genesis_loop', 'genesis_do_loop' );
 
 add_action( 'genesis_loop', 'genesis_404' );
 /**
- * This function outputs a 404 "Not Found" error message
+ * This function outputs a 404 "Not Found" error message.
  *
  * @since 1.6
  */
 function genesis_404() {
 
-	echo genesis_html5() ? '<article class="entry">' : '<div class="post hentry">';
+	genesis_markup( array(
+		'open' => '<article class="entry">',
+		'context' => 'entry-404',
+	) );
 
 		printf( '<h1 class="entry-title">%s</h1>', apply_filters( 'genesis_404_entry_title', __( 'Not found, error 404', 'genesis' ) ) );
 		echo '<div class="entry-content">';
@@ -50,9 +53,12 @@ function genesis_404() {
 				genesis_sitemap( 'h4' );
 			}
 
-			echo '</div>';
+		echo '</div>';
 
-		echo genesis_html5() ? '</article>' : '</div>';
+	genesis_markup( array(
+		'close' => '</article>',
+		'context' => 'entry-404',
+	) );
 
 }
 

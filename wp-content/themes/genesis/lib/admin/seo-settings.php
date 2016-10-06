@@ -27,9 +27,6 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 	 * Create an admin menu item and settings page.
 	 *
 	 * @since 1.8.0
-	 *
-	 * @uses GENESIS_SEO_SETTINGS_FIELD Settings field key.
-	 * @uses \Genesis_Admin::create()   Create an admin menu item and settings page.
 	 */
 	function __construct() {
 
@@ -102,15 +99,13 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 	/**
 	 * Register each of the settings with a sanitization filter type.
 	 *
-	 * @since 1.7.0
+	 * There is no filter for: doctitle_seplocation, home_h1_on
 	 *
-	 * @uses genesis_add_option_filter() Assign filter to array of settings.
+	 * @since 1.7.0
 	 *
 	 * @see \Genesis_Settings_Sanitizer::add_filter() Add sanitization filters to options.
 	 */
 	public function sanitizer_filters() {
-
-		// No filter: doctitle_seplocation, home_h1_on
 
 		genesis_add_option_filter(
 			'one_zero',
@@ -233,7 +228,7 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 			'content'	=> $robots_help,
 		) );
 
-		//* Add help sidebar
+		// Add help sidebar.
 		$screen->set_help_sidebar(
 			'<p><strong>' . __( 'For more information:', 'genesis' ) . '</strong></p>' .
 			'<p><a href="http://my.studiopress.com/help/" target="_blank">' . __( 'Get Support', 'genesis' ) . '<span class="screen-reader-text">. ' .  __( 'Link opens in a new window.', 'genesis' ) . '</span></a></p>' .
@@ -244,15 +239,15 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 	}
 
 	/**
- 	 * Register meta boxes on the SEO Settings page.
- 	 *
- 	 * @since 1.0.0
- 	 *
- 	 * @see \Genesis_Admin_SEO_Settings::sitewide_box()      Callback for sitewide box.
- 	 * @see \Genesis_Admin_SEO_Settings::homepage_box()      Callback for home page box.
- 	 * @see \Genesis_Admin_SEO_Settings::document_head_box() Callback for document head box.
- 	 * @see \Genesis_Admin_SEO_Settings::robots_meta_box()   Callback for robots meta box.
- 	 */
+	 * Register meta boxes on the SEO Settings page.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @see \Genesis_Admin_SEO_Settings::sitewide_box()      Callback for sitewide box.
+	 * @see \Genesis_Admin_SEO_Settings::homepage_box()      Callback for home page box.
+	 * @see \Genesis_Admin_SEO_Settings::document_head_box() Callback for document head box.
+	 * @see \Genesis_Admin_SEO_Settings::robots_meta_box()   Callback for robots meta box.
+	 */
 	function metaboxes() {
 
 		add_meta_box( 'genesis-seo-settings-sitewide', __( 'Sitewide Settings', 'genesis' ), array( $this, 'sitewide_box' ), $this->pagehook, 'main' );
@@ -266,10 +261,6 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 	 * Callback for SEO Settings Sitewide meta box.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
-	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
-	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
 	 *
 	 * @see \Genesis_Admin_SEO_Settings::metaboxes() Register meta boxes on the SEO Settings page.
 	 */
@@ -301,7 +292,7 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 					</p>
 
 					<p>
-						<label for="<?php $this->field_id( 'doctitle_sep' ); ?>"><?php _e( 'Document Title Separator:', 'genesis' ); ?></label>
+						<label for="<?php $this->field_id( 'doctitle_sep' ); ?>"><?php _e( 'Document Title Separator', 'genesis' ); ?></label>
 						<input type="text" name="<?php $this->field_name( 'doctitle_sep' ); ?>" class="small-text" id="<?php echo esc_attr( $this->get_field_id( 'doctitle_sep' ) ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'doctitle_sep' ) ); ?>" /><br />
 						<span class="description"><?php _e( 'If the title consists of two parts (original title and optional addition), then the separator will go in between them.', 'genesis' ); ?></span>
 					</p>
@@ -332,11 +323,6 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
-	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
-	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
-	 * @uses genesis_html5() Check for HTML5 support.
-	 *
 	 * @see \Genesis_Admin_SEO_Settings::metaboxes() Register meta boxes on the SEO Settings page.
 	 */
 	function homepage_box() {
@@ -366,7 +352,7 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 			</tr>
 
 			<tr valign="top">
-				<th scope="row"><label for="<?php $this->field_id( 'home_doctitle' ); ?>"><?php _e( 'Document Title:', 'genesis' ); ?></label></th>
+				<th scope="row"><label for="<?php $this->field_id( 'home_doctitle' ); ?>"><?php _e( 'Document Title', 'genesis' ); ?></label></th>
 				<td>
 					<p>
 						<input type="text" name="<?php $this->field_name( 'home_doctitle' ); ?>" class="large-text" id="<?php $this->field_id( 'home_doctitle' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'home_doctitle' ) ); ?>" /><br />
@@ -381,7 +367,7 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 			</tr>
 
 			<tr valign="top">
-				<th scope="row"><label for="<?php $this->field_id( 'home_description' ); ?>"><?php _e( 'Meta Description:', 'genesis' ); ?></label></th>
+				<th scope="row"><label for="<?php $this->field_id( 'home_description' ); ?>"><?php _e( 'Meta Description', 'genesis' ); ?></label></th>
 				<td>
 					<p>
 						<textarea name="<?php $this->field_name( 'home_description' ); ?>" class="large-text" id="<?php $this->field_id( 'home_description' ); ?>" rows="3" cols="70"><?php echo esc_textarea( $this->get_field_value( 'home_description' ) ); ?></textarea><br />
@@ -391,7 +377,7 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 			</tr>
 
 			<tr valign="top">
-				<th scope="row"><label for="<?php $this->field_id( 'home_keywords' ); ?>"><?php _e( 'Meta Keywords:', 'genesis' ); ?></label></th>
+				<th scope="row"><label for="<?php $this->field_id( 'home_keywords' ); ?>"><?php _e( 'Meta Keywords', 'genesis' ); ?></label></th>
 				<td>
 					<p>
 						<input type="text" name="<?php $this->field_name( 'home_keywords' ); ?>" class="large-text" id="<?php $this->field_id( 'home_keywords' ); ?>" value="<?php echo esc_attr( $this->get_field_value( 'home_keywords' ) ); ?>" /><br />
@@ -401,7 +387,7 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 			</tr>
 
 			<tr valign="top">
-				<th scope="row"><?php _e( 'Robots Meta Tags:', 'genesis' ); ?></th>
+				<th scope="row"><?php _e( 'Robots Meta Tags', 'genesis' ); ?></th>
 				<td>
 					<p>
 						<label for="<?php $this->field_id( 'home_noindex' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'home_noindex' ); ?>" id="<?php $this->field_id( 'home_noindex' ); ?>" value="1" <?php checked( $this->get_field_value( 'home_noindex' ) ); ?> />
@@ -427,10 +413,6 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 	 * Callback for SEO Settings Document Head meta box.
 	 *
 	 * @since 1.3.0
-	 *
-	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
-	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
-	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
 	 *
 	 * @see \Genesis_Admin_SEO_Settings::metaboxes() Register meta boxes on the SEO Settings page.
 	 */
@@ -490,10 +472,6 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 	 * box, added in 1.0.0.
 	 *
 	 * @since 1.3.0
-	 *
-	 * @uses \Genesis_Admin::get_field_id()    Construct field ID.
-	 * @uses \Genesis_Admin::get_field_name()  Construct field name.
-	 * @uses \Genesis_Admin::get_field_value() Retrieve value of key under $this->settings_field.
 	 *
 	 * @see \Genesis_Admin_SEO_Settings::metaboxes() Register meta boxes on the SEO Settings page.
 	 */
@@ -571,7 +549,7 @@ class Genesis_Admin_SEO_Settings extends Genesis_Admin_Boxes {
 				<td>
 					<p>
 						<label for="<?php $this->field_id( 'noodp' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'noodp' ); ?>" id="<?php $this->field_id( 'noodp' ); ?>" value="1" <?php checked( $this->get_field_value( 'noodp' ) ); ?> />
-						<?php printf( __( 'Apply %s to your site?', 'genesis' ), genesis_code( 'nooodp' ) ) ?></label>
+						<?php printf( __( 'Apply %s to your site?', 'genesis' ), genesis_code( 'noodp' ) ) ?></label>
 						<br />
 						<label for="<?php $this->field_id( 'noydir' ); ?>"><input type="checkbox" name="<?php $this->field_name( 'noydir' ); ?>" id="<?php $this->field_id( 'noydir' ); ?>" value="1" <?php checked( $this->get_field_value( 'noydir' ) ); ?> />
 						<?php printf( __( 'Apply %s to your site?', 'genesis' ), genesis_code( 'noydir' ) ) ?></label>

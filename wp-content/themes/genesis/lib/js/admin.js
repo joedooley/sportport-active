@@ -5,15 +5,10 @@
  * the Closure Compiler version strips that away. This is fine, as the compiler may
  * well be doing things that are not use strict compatible.
  *
- * @author   StudioPress
+ * @package Genesis\JS
+ * @author  StudioPress
+ * @license GPL-2.0+
  */
-
-// ==ClosureCompiler==
-// @compilation_level ADVANCED_OPTIMIZATIONS
-// @output_file_name admin.min.js
-// @externs_url http://closure-compiler.googlecode.com/svn/trunk/contrib/externs/jquery-1.8.js
-// ==/ClosureCompiler==
-// http://closure-compiler.appspot.com/home
 
 /* global genesis, genesisL10n, genesis_toggles, confirm */
 
@@ -38,11 +33,11 @@ window[ 'genesis' ] = {
 	categoryChecklistToggleInit: function() {
 		'use strict';
 
-		// Insert toggle button into DOM wherever there is a category checklist
+		// Insert toggle button into DOM wherever there is a category checklist.
 		jQuery( '<p><span id="genesis-category-checklist-toggle" class="button">' + genesisL10n.categoryChecklistToggle + '</span></p>' )
 			.insertBefore( 'ul.categorychecklist' );
 
-		// Bind the behaviour to click
+		// Bind the behaviour to click.
 		jQuery( document ).on( 'click.genesis.genesis_category_checklist_toggle', '#genesis-category-checklist-toggle', genesis.categoryChecklistToggle );
 	},
 
@@ -61,15 +56,15 @@ window[ 'genesis' ] = {
 	categoryChecklistToggle: function( event ) {
 		'use strict';
 
-		// Cache the selectors
+		// Cache the selectors.
 		var $this = jQuery( event.target ),
 			checkboxes = $this.parent().next().find( ':checkbox' );
 
-		// If the button has already been clicked once, clear the checkboxes and remove the flag
+		// If the button has already been clicked once, clear the checkboxes and remove the flag.
 		if ( $this.data( 'clicked' ) ) {
 			checkboxes.removeAttr( 'checked' );
 			$this.data( 'clicked', false );
-		} else { // Mark the checkboxes and add a flag
+		} else { // Mark the checkboxes and add a flag.
 			checkboxes.attr( 'checked', 'checked' );
 			$this.data( 'clicked', true );
 		}
@@ -91,10 +86,10 @@ window[ 'genesis' ] = {
 
 		jQuery.each( genesis_toggles, function( k, v ) {
 
-			// Prepare data
+			// Prepare data.
 			var data = { selector: v[ 0 ], showSelector: v[ 1 ], checkValue: v[ 2 ] };
 
-			// Setup toggle binding
+			// Setup toggle binding.
 			jQuery( 'div.genesis-metaboxes' )
 				.on( 'change.genesis.genesis_toggle', v[ 0 ], data, genesis.toggleSettings );
 
@@ -127,7 +122,7 @@ window[ 'genesis' ] = {
 	toggleSettings: function( event ) {
 		'use strict';
 
-		// Cache selectors
+		// Cache selectors.
 		var $selector = jQuery( event.data.selector ),
 		    $showSelector = jQuery( event.data.showSelector ),
 		    checkValue = event.data.checkValue;
@@ -182,13 +177,13 @@ window[ 'genesis' ] = {
 	layoutHighlighter: function( event ) {
 		'use strict';
 
-		// Cache class name
+		// Cache class name.
 		var selectedClass = 'selected';
 
-		// Remove class from all labels
+		// Remove class from all labels.
 		jQuery('input[name="' + jQuery(event.target).attr('name') + '"]').parent('label').removeClass(selectedClass);
 
-		// Add class to selected layout
+		// Add class to selected layout.
 		jQuery(event.currentTarget).addClass(selectedClass);
 
 	},
@@ -291,25 +286,25 @@ window[ 'genesis' ] = {
 	ready: function() {
 		'use strict';
 
-		// Initialise category checklist toggle button
+		// Initialise category checklist toggle button.
 		genesis.categoryChecklistToggleInit();
 
-		// Initialise settings that can toggle the display of other settings
+		// Initialise settings that can toggle the display of other settings.
 		genesis.toggleSettingsInit();
 
 		// Initialise form field changing flag.
 		genesis.attachUnsavedChangesListener();
 
-		// Bind character counters
+		// Bind character counters.
 		jQuery( '#genesis_title, #genesis_description' ).on( 'keyup.genesis.genesis_character_count', genesis.updateCharacterCount );
 
-		// Bind layout highlighter behaviour
+		// Bind layout highlighter behaviour.
 		jQuery('.genesis-layout-selector').on('change.genesis.genesis_layout_selector', 'label', genesis.layoutHighlighter);
 
-		// Bind upgrade confirmation
+		// Bind upgrade confirmation.
 		jQuery( '.genesis-js-confirm-upgrade' ).on( 'click.genesis.genesis_confirm_upgrade', genesis.confirmUpgrade );
 
-		// Bind reset confirmation
+		// Bind reset confirmation.
 		jQuery( '.genesis-js-confirm-reset' ).on( 'click.genesis.genesis_confirm_reset', genesis.confirmReset );
 
 	}
