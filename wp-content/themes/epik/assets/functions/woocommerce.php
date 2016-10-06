@@ -100,3 +100,21 @@ add_action( 'get_header', function () {
 		add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_price', 6 );
 	}
 } );
+
+
+/**
+ * Enqueue single page script equal-height.js
+ * on product archive pages.
+ */
+add_action( 'wp_enqueue_scripts', function () {
+	if ( is_shop() || is_product_category() || is_product_tag() || is_front_page() ) {
+
+		wp_enqueue_script(
+			'equal-heights-js',
+			get_stylesheet_directory_uri() . '/assets/js/custom/single/equal-height.js',
+			array( 'jquery' ),
+			CHILD_THEME_VERSION,
+			true
+		);
+	}
+} );
