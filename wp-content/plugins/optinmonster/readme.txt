@@ -151,6 +151,9 @@ OptinMonster is the <a href="http://optinmonster.com" rel="friend" title="OptinM
 
 == Changelog ==
 
+= 1.1.5.6 =
+* Fixed bug that caused people to have to define two constants to set the OptinMonster license key in config files.
+
 = 1.1.5.5 =
 * Fixed bug that redirected people already using the plugin to the Welcome screen on update.
 

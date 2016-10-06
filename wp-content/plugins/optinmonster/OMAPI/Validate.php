@@ -154,8 +154,10 @@ class OMAPI_Validate {
 	    $option = $this->base->get_option();
 	    if ( isset( $option['is_invalid'] ) && $option['is_invalid'] ) {
 		    if ( ! ( isset($_GET['page'] ) && $_GET['page'] == 'optin-monster-api-settings') && ! ( isset($_GET['page'] ) && $_GET['page'] == 'optin-monster-api-welcome') ){
-			    echo '<div class="error"><p>' . __( 'There was an error verifying your OptinMonster API credentials. They are either missing or they are no longer valid.', 'optin-monster-api' ) . '</p>';
-			    echo '<p><a href="' . esc_url_raw( admin_url( 'admin.php?page=optin-monster-api-settings' ) ) . '" class="button button-primary button-large omapi-new-optin" title="View API Settings">View API Settings</a></p></div>';
+			    if ( ! $this->base->menu->has_trial_link() ) {
+				    echo '<div class="error"><p>' . __( 'There was an error verifying your OptinMonster API credentials. They are either missing or they are no longer valid.', 'optin-monster-api' ) . '</p>';
+				    echo '<p><a href="' . esc_url_raw( admin_url( 'admin.php?page=optin-monster-api-settings' ) ) . '" class="button button-primary button-large omapi-new-optin" title="View API Settings">View API Settings</a></p></div>';
+				}
 		    }
 	    } elseif ( isset( $option['is_disabled'] ) && $option['is_disabled'] ) {
 		    echo '<div class="error"><p>' . __( 'The subscription to this OptinMonster account has been disabled, likely due to a refund or other administrator action. Please contact OptinMonster support to resolve this issue.', 'optin-monster-api' ) . '</p>';

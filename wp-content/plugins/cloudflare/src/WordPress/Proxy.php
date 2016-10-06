@@ -53,8 +53,6 @@ class Proxy
     {
         header('Content-Type: application/json');
 
-        $this->cacheDomainName();
-
         $request = $this->createRequest();
 
         $response = null;
@@ -74,40 +72,12 @@ class Proxy
         wp_die(json_encode($response));
     }
 
-    public function cacheDomainName()
-    {
-        // Check if domain name needs to cached
-        $wpDomain = $this->wordpressAPI->getOriginalDomain();
-        $cachedDomainList = $this->wordpressAPI->getDomainList();
-        $cachedDomain = $cachedDomainList[0];
-
-        if (Utils::getRegistrableDomain($wpDomain) !== $cachedDomain) {
-            // Since we may not be logged in yet we need to check the credentials being set
-            if ($this->wordpressClientAPI->isCrendetialsSet()) {
-                // If it's not a subdomain cache the current domain
-                $domainName = $wpDomain;
-
-                // Get cloudflare zones to find if the current domain is a subdomain
-                // of any cloudflare zones registered
-                $response = $this->wordpressClientAPI->getZones();
-                $validDomainName = $this->wordpressAPI->checkIfValidCloudflareSubdomain($response, $wpDomain);
-
-                // Check if it's a subdomain, if it is cache the zone instead of the
-                // subdomain
-                if ($this->wordpressClientAPI->responseOK($response) && $validDomainName) {
-                    $domainName = Utils::getRegistrableDomain($wpDomain);
-                }
-
-                $this->wordpressAPI->setDomainNameCache($domainName);
-            }
-        }
-    }
-
     public function createRequest()
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $parameters = $_GET;
-        $body = json_decode(file_get_contents('php://input'), true);
+        $jsonInput = $this->getJSONBody();
+        $body = json_decode($jsonInput, true);
         $path = null;
 
         if (strtoupper($method === 'GET')) {
@@ -125,6 +95,14 @@ class Proxy
         unset($body['proxyURL']);
 
         return new API\Request($method, $path, $parameters, $body);
+    }
+
+    /**
+     * @return json
+     */
+    public function getJSONBody()
+    {
+        return file_get_contents('php://input');
     }
 
     /**

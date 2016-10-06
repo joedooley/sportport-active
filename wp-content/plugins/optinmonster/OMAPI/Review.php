@@ -390,6 +390,11 @@ class OMAPI_Review {
 			return;
 		}
 
+		// If no API credentials have been entered, hide the notice.
+		if ( ! $this->base->get_api_credentials() ) {
+			return;
+		}
+
 		// Get array list of dismissed pointers for current user and convert it to array
 		$dismissed_pointers = explode( ',', get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
 
