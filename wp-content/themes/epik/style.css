@@ -301,14 +301,14 @@ body > div {
   font-size: 2rem; }
 
 body {
-  background: white;
+  background-color: #feecf1;
   color: #333;
   font-family: ralewayregular, sans-serif;
   font-size: 2rem;
+  -webkit-font-smoothing: antialiased;
   font-weight: 100;
   letter-spacing: 0.025em;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased; }
+  line-height: 1.6; }
 
 h1,
 h2,
@@ -1070,9 +1070,6 @@ body.woocommerce-page .page-title {
   color: #000;
   font-size: 32px;
   margin: 0 0 15px 0; }
-
-body.woocommerce-page .page-title:before {
-  content: "SportPort "; }
 
 table.product-features-grid {
   font-size: 13px;
@@ -2928,11 +2925,6 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 .taxonomy-archive-description,
 .taxonomy-description {
   margin-top: 2em; }
-
-/** ## Giveaway Template
---------------------------- */
-body {
-  background: white; }
 
 /*! ## Layout
 --------------------------- */
