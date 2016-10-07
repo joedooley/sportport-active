@@ -118,17 +118,17 @@ add_action( 'get_header', function () {
  *
  * @return string
  */
-add_filter( 'woocommerce_product_title', function( $product, $truncated_title ) {
-	global $product;
-	$product_title = $product->product_title();
-
-	if ( $product_title ) {
-		$truncated_title = substr( $product_title, 0, - 1 )
-	}
-
-	return $truncated_title;
-
-});
+//add_filter( 'woocommerce_product_title', function( $product, $truncated_title ) {
+//	global $product;
+//	$product_title = $product->product_title();
+//
+//	if ( $product_title ) {
+//		$truncated_title = substr( $product_title, 0, - 1 )
+//	}
+//
+//	return $truncated_title;
+//
+//});
 
 /**
  * Enqueue single page script equal-height.js
