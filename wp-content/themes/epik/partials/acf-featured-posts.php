@@ -17,7 +17,8 @@ $add_heading = get_sub_field( 'add_section_heading' );
 ?>
 
 
-<section class = "row  <?php the_sub_field( 'css_class' ); ?>">
+<section class="row  <?php the_sub_field( 'css_class' ); ?>">
+	<div class="wrap">
 
 	<?php
 
@@ -33,7 +34,7 @@ $add_heading = get_sub_field( 'add_section_heading' );
 				<article class = "featured-posts">
 					<a href = "<?php echo the_permalink( $p->ID, 'featured-posts' ); ?>">
 						<?php echo get_the_post_thumbnail( $p->ID, 'featured-posts' ); ?>
-						<h2 class = "image-overlay  featured-post--overlay"><?php the_field( 'featured_image_overlay', $p ); ?></h2></a>
+						<h2 class = "featured-posts-overlay"><?php the_field( 'featured_image_overlay', $p ); ?></h2></a>
 				</article>
 
 			<?php endforeach; ?>
@@ -41,6 +42,7 @@ $add_heading = get_sub_field( 'add_section_heading' );
 
 	<?php } ?>
 
+	</div>
 </section>
 
 

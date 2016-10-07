@@ -14,8 +14,8 @@
 $add_heading     = get_sub_field( 'add_section_heading' );
 $content_section = get_sub_field( 'content_section' ); ?>
 
-<section class = "row  <?php the_sub_field( 'css_class' ); ?>">
-	<div class = "wrap">
+<section class="row  <?php the_sub_field( 'css_class' ); ?>">
+	<div class="wrap">
 
 		<?php
 

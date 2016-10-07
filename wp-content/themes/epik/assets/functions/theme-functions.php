@@ -125,7 +125,7 @@ function spa_acf_flexible_content() {
 
 		if ( get_row_layout() === 'hero' ) {
 
-			get_template_part( 'partials/acf', 'hero' );
+			get_template_part( 'partials/acf', 'primary-hero' );
 
 		} elseif ( get_row_layout() === 'four_featured_posts' ) {
 
