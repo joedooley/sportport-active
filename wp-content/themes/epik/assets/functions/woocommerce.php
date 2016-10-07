@@ -9,9 +9,6 @@
  * @license    GPL-2.0+
  */
 
-//* Remove WooCommerce Order By Dropdown
-remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
-
 
 add_action( 'template_redirect', 'remove_sidebar_shop' );
 /**
@@ -27,6 +24,16 @@ function remove_sidebar_shop() {
 	}
 
 }
+
+
+/**
+ * Remove WooCommerce orderby dropdown.
+ */
+add_action( 'get_header', function() {
+	if ( is_woocommerce() ) {
+		remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+	}
+} );
 
 
 
@@ -95,7 +102,7 @@ function spa_wc_force_full_width() {
  * Move product price to just before add to cart button.
  */
 add_action( 'get_header', function () {
-	if ( is_shop() || is_product_category() || is_product_tag() ) {
+	if ( is_front_page() || is_shop() || is_product_category() || is_product_tag() ) {
 		remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
 		add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_price', 6 );
 	}
@@ -103,18 +110,39 @@ add_action( 'get_header', function () {
 
 
 /**
+ * Truncate product title to two lines on everything but
+ * is_product() pages
+ *
+ * @param $product
+ * @param $truncated_title
+ *
+ * @return string
+ */
+add_filter( 'woocommerce_product_title', function( $product, $truncated_title ) {
+	global $product;
+	$product_title = $product->product_title();
+
+	if ( $product_title ) {
+		$truncated_title = substr( $product_title, 0, - 1 )
+	}
+
+	return $truncated_title;
+
+});
+
+/**
  * Enqueue single page script equal-height.js
  * on product archive pages.
  */
-add_action( 'wp_enqueue_scripts', function () {
-	if ( is_shop() || is_product_category() || is_product_tag() || is_front_page() ) {
-
-		wp_enqueue_script(
-			'equal-heights-js',
-			get_stylesheet_directory_uri() . '/assets/js/custom/single/equal-height.js',
-			array( 'jquery' ),
-			CHILD_THEME_VERSION,
-			true
-		);
-	}
-}, 5 );
+//add_action( 'wp_enqueue_scripts', function () {
+//	if ( is_shop() || is_product_category() || is_product_tag() || is_front_page() ) {
+//
+//		wp_enqueue_script(
+//			'equal-heights-js',
+//			get_stylesheet_directory_uri() . '/assets/js/custom/single/equal-height.js',
+//			array( 'jquery' ),
+//			CHILD_THEME_VERSION,
+//			true
+//		);
+//	}
+//}, 5 );

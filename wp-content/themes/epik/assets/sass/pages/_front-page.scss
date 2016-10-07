@@ -254,6 +254,8 @@
 		background-color: $gray2;
 		border: 1px solid $gray2;
 		float: left;
+		margin-bottom: 10px;
+		min-height: 335px;
 		position: relative;
 		width: 22.05%;
 
@@ -274,13 +276,14 @@
 			color: #000;
 			font-size: 18px;
 			font-weight: bold;
-			height: 0;
+			height: auto;
 			line-height: 1;
+			min-height: 35px;
 			text-transform: lowercase;
 		}
 
 		.price {
-			@include padding(0 5px null null);
+			@include padding(9px 5px null null);
 			display: inline-block;
 			float: right;
 		}
@@ -290,14 +293,23 @@
 			@include padding(6px);
 			background-color: $navpink1;
 			border-radius: 0;
+			bottom: 20px;
 			color: $white;
 			font-size: 16px;
 			margin-left: 10px;
+			position: absolute;
 			text-transform: capitalize;
 
 			&:hover {
 				background-color: $gray1;
 			}
 		}
+
+		a.added_to_cart.wc-forward {
+			bottom: 0;
+			display: block;
+			position: absolute;
+		}
+
 	}
 }
