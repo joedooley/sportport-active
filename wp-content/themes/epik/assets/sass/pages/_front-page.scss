@@ -245,3 +245,59 @@
 	@include transform(translateY(-65px));
 }
 
+// Featured Products
+.home .featured-products {
+
+	ul.products li.product {
+		@include padding(0.25em);
+		@include margin(0 1.4% 2.992em);
+		background-color: $gray2;
+		border: 1px solid $gray2;
+		float: left;
+		position: relative;
+		width: 22.05%;
+
+		@include media($ipad-screen-up) {
+			@include margin(0 0 2.992em);
+			width: 48%;
+		}
+
+		@include media($small-screen-up) {
+			@include margin(0 auto);
+			width: 100%;
+		}
+
+		h3 {
+			@include margin(0);
+			@include padding(0);
+			background-color: $gray2;
+			color: #000;
+			font-size: 18px;
+			font-weight: bold;
+			height: 0;
+			line-height: 1;
+			text-transform: lowercase;
+		}
+
+		.price {
+			@include padding(0 5px null null);
+			display: inline-block;
+			float: right;
+		}
+
+		.button {
+			@include margin(0);
+			@include padding(6px);
+			background-color: $navpink1;
+			border-radius: 0;
+			color: $white;
+			font-size: 16px;
+			margin-left: 10px;
+			text-transform: capitalize;
+
+			&:hover {
+				background-color: $gray1;
+			}
+		}
+	}
+}

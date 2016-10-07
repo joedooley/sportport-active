@@ -2632,6 +2632,49 @@ li.comment ul li {
   -o-transform: translateY(-65px);
   transform: translateY(-65px); }
 
+.home .featured-products ul.products li.product {
+  padding: 0.25em;
+  margin: 0 1.4% 2.992em;
+  background-color: #ebebeb;
+  border: 1px solid #ebebeb;
+  float: left;
+  position: relative;
+  width: 22.05%; }
+  @media screen and (max-width: 768px) {
+    .home .featured-products ul.products li.product {
+      margin: 0 0 2.992em;
+      width: 48%; } }
+  @media screen and (max-width: 480px) {
+    .home .featured-products ul.products li.product {
+      margin: 0 auto;
+      width: 100%; } }
+  .home .featured-products ul.products li.product h3 {
+    margin: 0;
+    padding: 0;
+    background-color: #ebebeb;
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+    height: 0;
+    line-height: 1;
+    text-transform: lowercase; }
+  .home .featured-products ul.products li.product .price {
+    padding-top: 0;
+    padding-right: 5px;
+    display: inline-block;
+    float: right; }
+  .home .featured-products ul.products li.product .button {
+    margin: 0;
+    padding: 6px;
+    background-color: #f88ca9;
+    border-radius: 0;
+    color: white;
+    font-size: 16px;
+    margin-left: 10px;
+    text-transform: capitalize; }
+    .home .featured-products ul.products li.product .button:hover {
+      background-color: #d1cece; }
+
 /* ## WC Shop Archive
 ------------------------- */
 .archive .entry-header {

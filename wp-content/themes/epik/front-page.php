@@ -13,7 +13,7 @@ function spa_display_fc() {
 	while ( have_rows( 'flexible_content' ) ) : the_row();
 
 		// "Hero" Layout
-		if ( get_row_layout() == 'hero' ) {
+		if ( get_row_layout() === 'hero' ) {
 
 
 			//global $hero_image;
@@ -32,24 +32,22 @@ function spa_display_fc() {
 
 			</section>
 
-		<?php } elseif ( get_row_layout() == 'two_columns' ) {
+		<?php } elseif ( get_row_layout() === 'two_columns' ) {
 
 			$left_image = get_sub_field( 'left_image' );
 			$right_image = get_sub_field( 'right_image' );
 
-			wp_localize_script(
-				'backstretch-set',
-				'BackStretchImg',
-				[
-					'hero'          => $hero_image['url'],
-					'featuredLeft'  => $left_image['url'],
-					'featuredRight' => $right_image['url'],
-				]
-			);
-
-
-
-			?>
+			if ( ! empty( $hero_image || $left_image || $right_image ) ) {
+				wp_localize_script(
+					'backstretch-set',
+					'BackStretchImg',
+					[
+						'hero'          => $hero_image['url'],
+						'featuredLeft'  => $left_image['url'],
+						'featuredRight' => $right_image['url'],
+					]
+				);
+			} ?>
 
 			<section class="row  <?php the_sub_field( 'css_class' ); ?>">
 
@@ -62,7 +60,7 @@ function spa_display_fc() {
 
 			</section>
 
-		<?php } elseif ( get_row_layout() == 'four_featured_posts' ) {
+		<?php } elseif ( get_row_layout() === 'four_featured_posts' ) {
 
 			$posts = get_sub_field( 'featured_posts' ); ?>
 
@@ -89,7 +87,7 @@ function spa_display_fc() {
 
 			</section>
 
-		<?php } elseif ( get_row_layout() == 'four_columns' ) { ?>
+		<?php } elseif ( get_row_layout() === 'four_columns' ) { ?>
 
 			<section class="row  <?php the_sub_field( 'css_class' ); ?>">
 
@@ -103,9 +101,24 @@ function spa_display_fc() {
 					</div>
 			</section>
 
-		<?php }
+		<?php } elseif ( get_row_layout() === 'full_row' ) {
+
+			$add_heading = get_sub_field( 'add_section_heading' ); ?>
+
+		<section class = "row  <?php the_sub_field( 'css_class' ); ?>">
+
+			<?php if ( $add_heading ) { ?>
+				<?php the_sub_field( 'section_heading' ); ?>
+			<?php } ?>
+
+			<?php the_sub_field( 'content_section' ); ?>
+
+		</section>
+
+	<?php }
 
 	endwhile;
+
 }
 
 add_action( 'get_header', 'spa_fc_check' );
