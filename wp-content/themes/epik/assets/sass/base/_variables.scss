@@ -1,4 +1,12 @@
-// Typography
+// Lato
+$lato: latoregular, sans-serif;
+$lato-light: latolight, sans-serif;
+$lato-thin: latohairline, sans-serif;
+$lato-bold: latobold, sans-serif;
+$lato-italic: latoitalic, sans-serif;
+
+
+// Raleway
 $raleway: ralewayregular, sans-serif;
 $raleway-black: ralewayblack, sans-serif;
 $raleway-light: ralewaylight, sans-serif;
@@ -7,32 +15,31 @@ $raleway-semibold: ralewaysemibold, sans-serif;
 $raleway-bold: ralewayextrabold, sans-serif;
 
 
-
-$lato: latoregular, sans-serif;
-$lato-light: latolight, sans-serif;
-$lato-thin: latohairline, sans-serif;
-$lato-bold: latobold, sans-serif;
-$lato-italic: latoitalic, sans-serif;
-
-
-
+// Open Sans Condensed Bold
 $open-sans-condensed-bold: open_sans_condensedbold, sans-serif;
 
+
+// Yanone
 $yanone: yanone_kaffeesatzregular, sans-serif;
 
 
+// Base Body and Heading Font Family
 $base-font-family: $lato;
 $heading-font-family: $raleway-medium;
+
 
 // Font Sizes
 $base-font-size: 16px;
 
+
 //Font Weights
 $bold: bold;
+
 
 // Line height
 $base-line-height: 1.3;
 $heading-line-height: 1.2;
+
 
 // Other Sizes
 $base-border-radius: 3px;

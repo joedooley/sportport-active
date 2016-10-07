@@ -37,6 +37,7 @@
 	.row {
 		margin: 0 auto;
 		max-width: 1200px;
+		overflow: hidden;
 
 		@include media($xxxlarge-screen-up) {
 			max-width: none;
@@ -59,27 +60,22 @@
 			font-weight: $bold;
 		}
 	}
-	
+
 
 	// ACF Field - Full Row - Primary Hero
 	.primary-hero {
+		@include padding(300px 0);
 		//border-bottom: 2px solid $orange;
 		border-bottom: 2px solid $pink1;
 		color: #fff;
-		padding: 220px 120px;
 		text-align: center;
 
 		@include media($ipad-screen-up) {
-			padding: 80px 30px;
+			@include padding(80px 30px);
 		}
 
-		.hero--overlay {
-			font-family: $lato-bold;
-			font-size: 3.7em;
-
-			@include media($ipad-screen-up) {
-				font-size: 3.3em;
-			}
+		.cta-container {
+			transform: translateY(125px);
 		}
 
 	}
@@ -155,40 +151,70 @@
 		}
 	}
 
+
+	// ACF Field - Full Row - Mini Quote section
+	.mini-quote-section {
+		@include padding(75px 150px);
+		background-color: $pink1;
+		max-width: 100%;
+		text-align: center;
+
+		blockquote {
+			color: $white;
+			font-family: $open-sans-condensed-bold;
+			font-family: $raleway-black;
+			font-family: $yanone;
+			
+			font-size: 2em;
+			font-weight: bold;
+			text-transform: uppercase;
+
+			p {
+				display: none;
+			}
+		}
+	}
+
+
 	// ACF Field - Secondary Hero
 	.secondary-hero {
+		@include padding(300px 0);
+		color: $white;
+		text-align: center;
 
 		.secondary-hero-overlay {
 			background-color: #1c0740;
 			border: 1px solid #1c0740;
 			float: right;
 			max-width: 350px;
+			transform: translateY(-100px);
+		}
 
-			.collection-wrap {
-				@include padding(0 2.5em);
-			}
+		.collection-wrap {
+			@include padding(0 2.5em);
+		}
 
-			.collection-wrap-heading {
-				margin-top: 2em;
-			}
+		.collection-wrap-heading {
+			margin-top: 2em;
+		}
 
-			footer {
-				margin-bottom: 2em;
+		footer {
+			margin-bottom: 2em;
+		}
 
-				.button {
-					@include padding(1.5em 3em);
-					background-color: transparent;
-					border: 2px solid $white;
+		.button {
+			@include padding(1.5em 3em);
+			background-color: transparent;
+			border: 2px solid $white;
 
-					&:hover {
-						background-color: $navpink1;
-						border: 2px solid $navpink1;
-					}
-				}
+			&:hover {
+				background-color: $navpink1;
+				border: 2px solid $navpink1;
 			}
 		}
 
 	}
+
 
 	// ACF Field - Full Row - Four Featured Posts
 	.article-container {

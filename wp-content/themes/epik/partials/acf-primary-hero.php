@@ -36,19 +36,23 @@ wp_localize_script(
 
 		if ( get_sub_field( 'display_cta_button' ) ) { ?>
 
-			<a href="<?php the_sub_field( 'hero_cta_button_url_1' ) ?>"
-			   class="button double-button"
-			   target="blank"><?php echo the_sub_field( 'hero_cta_button_text_1' ); ?></a>
+			<div class="cta-container">
 
-			<?php
-
-			if ( $add_two_buttons ) { ?>
-
-				<a href="<?php the_sub_field( 'hero_cta_button_url_2' ) ?>"
+				<a href="<?php the_sub_field( 'hero_cta_button_url_1' ) ?>"
 				   class="button double-button"
-				   target="blank"><?php echo the_sub_field( 'hero_cta_button_text_2' ); ?></a>
+				   target="blank"><?php echo the_sub_field( 'hero_cta_button_text_1' ); ?></a>
 
-			<?php } ?>
+				<?php
+
+				if ( $add_two_buttons ) { ?>
+
+					<a href="<?php the_sub_field( 'hero_cta_button_url_2' ) ?>"
+					   class="button double-button"
+					   target="blank"><?php echo the_sub_field( 'hero_cta_button_text_2' ); ?></a>
+
+				<?php } ?>
+
+			</div>
 
 		<?php } ?>
 
