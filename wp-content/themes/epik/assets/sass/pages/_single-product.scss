@@ -2,6 +2,7 @@
 ------------------------------------------------- */
 
 body.single-product {
+	background-color: $white;
 
 	.site-inner,
 	.site-inner .wrap {
@@ -215,6 +216,16 @@ body.single-product {
 		display: none;
 	}
 
+	// Product Meta section
+	.product_meta {
+		margin-bottom: 1em;
+	}
+
+	// Product Upsells section
+	.upsells {
+		margin-top: 5em;
+	}
+	
 }
 
 

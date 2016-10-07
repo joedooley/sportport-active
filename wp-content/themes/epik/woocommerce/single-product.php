@@ -177,9 +177,17 @@ function gencwooc_single_product_loop() {
 
 				<?php echo acf_accordion(); ?>
 
-				<?php wc_get_template_part( 'product', 'sociallinks' ); ?>
+				<?php
 
-			<?php do_action( 'woocommerce_after_single_product_summary' ); ?>
+				/**
+				 * Removing due to redundancy in the above-footer widget.
+				 * May have to add back.
+				 */
+				// wc_get_template_part( 'product', 'sociallinks' );
+
+				?>
+
+				<?php do_action( 'woocommerce_after_single_product_summary' ); ?>
 
 				</div>
 			</div>
