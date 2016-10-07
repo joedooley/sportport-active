@@ -2,13 +2,11 @@
 
 	'use strict';
 
+	var PrimaryBSHero = PrimaryBackstretchHero;
+	var SecondaryBSHero = SecondaryBackstretchHero;
 
-	var BackStretchImage = BackStretchImg;
-
-	$('.hero').backstretch(BackStretchImage.hero);
-	$('.featured-image-left').backstretch(BackStretchImage.featuredLeft);
-	$('.featured-image-right').backstretch(BackStretchImage.featuredRight);
-
+	$('.primary-hero').backstretch(PrimaryBSHero.primary_hero);
+	$('.secondary-hero').backstretch(SecondaryBSHero.secondary_hero);
 
 
 })(document, jQuery);

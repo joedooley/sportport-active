@@ -67,12 +67,6 @@
 
 }
 
-
-
-.featured-four-columns .section--title {
-	padding-top: 330px;
-}
-
 .featured-images {
 	@include span-columns(12);
 
@@ -245,7 +239,8 @@
 	@include transform(translateY(-65px));
 }
 
-// Featured Products
+
+// ACF Field - Full Row - Featured Products
 .home .featured-products {
 
 	ul.products li.product {
@@ -312,4 +307,29 @@
 		}
 
 	}
+}
+
+
+// ACF Field - Secondary Hero
+.home .secondary-hero {
+
+	.secondary-hero-overlay {
+		background-color: #1c0740;
+		border: 1px solid #1c0740;
+		float: right;
+		max-width: 350px;
+
+		.collection-wrap {
+			@include padding(0 2.5em);
+		}
+
+		.collection-wrap-heading {
+			margin-top: 2em;
+		}
+
+		footer {
+			margin-bottom: 2em;
+		}
+	}
+
 }

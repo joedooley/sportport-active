@@ -2454,9 +2454,6 @@ li.comment ul li {
       .hero .hero--overlay {
         font-size: 3.3em; } }
 
-.featured-four-columns .section--title {
-  padding-top: 330px; }
-
 .featured-images {
   float: left;
   display: block;
@@ -2683,6 +2680,18 @@ li.comment ul li {
     bottom: 0;
     display: block;
     position: absolute; }
+
+.home .secondary-hero .secondary-hero-overlay {
+  background-color: #1c0740;
+  border: 1px solid #1c0740;
+  float: right;
+  max-width: 350px; }
+  .home .secondary-hero .secondary-hero-overlay .collection-wrap {
+    padding: 0 2.5em; }
+  .home .secondary-hero .secondary-hero-overlay .collection-wrap-heading {
+    margin-top: 2em; }
+  .home .secondary-hero .secondary-hero-overlay footer {
+    margin-bottom: 2em; }
 
 /* ## WC Shop Archive
 ------------------------- */
