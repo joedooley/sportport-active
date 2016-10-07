@@ -2390,23 +2390,12 @@ li.comment ul li {
   font-size: 14px;
   padding: 24px; }
 
-/* ---------------------------------- *\
-	# Front Page | front-page.php
-\* ---------------------------------- */
+/* ## front-page.php
+--------------------------------- */
 @media screen and (max-width: 800px) {
-  .wrap {
+  .home .wrap {
     padding-left: 0;
     padding-right: 0; } }
-.row {
-  margin: 0 auto;
-  max-width: 1200px; }
-  @media screen and (max-width: 1200px) {
-    .row {
-      max-width: none; } }
-  @media screen and (max-width: 768px) {
-    .row {
-      padding: 0; } }
-
 .home .site-inner {
   background-color: #fff;
   margin-bottom: 0;
@@ -2430,72 +2419,38 @@ li.comment ul li {
           clear: both;
           content: "";
           display: table; } }
-
-.hero {
-  border-bottom: 2px solid #f34673;
-  color: #fff;
-  padding: 220px 120px;
-  text-align: center; }
+.home .row {
+  margin: 0 auto;
+  max-width: 1200px; }
+  @media screen and (max-width: 1200px) {
+    .home .row {
+      max-width: none; } }
   @media screen and (max-width: 768px) {
-    .hero {
-      padding: 80px 30px; } }
-  .hero .hero--overlay {
-    font-family: latobold, sans-serif;
-    font-size: 3.7em; }
-    @media screen and (max-width: 768px) {
-      .hero .hero--overlay {
-        font-size: 3.3em; } }
-
-.article-container {
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 100%; }
-  .article-container:last-child {
-    margin-right: 0; }
-  .article-container .featured-posts {
-    float: left;
-    display: block;
-    margin-right: 2.35765%;
-    width: 23.23176%; }
-    .article-container .featured-posts:last-child {
-      margin-right: 0; }
-    @media screen and (max-width: 768px) {
-      .article-container .featured-posts {
-        float: left;
-        display: block;
-        margin-right: 4.82916%;
-        width: 47.58542%;
-        margin-right: 2.41458%;
-        text-align: center; }
-        .article-container .featured-posts:last-child {
-          margin-right: 0; } }
-    @media screen and (max-width: 480px) {
-      .article-container .featured-posts {
-        float: left;
-        display: block;
-        margin-right: 2.35765%;
-        width: 100%; }
-        .article-container .featured-posts:last-child {
-          margin-right: 0; } }
-    .article-container .featured-posts .featured-post-overlay {
-      bottom: 85px;
-      font-size: 3em;
-      opacity: 0.8;
-      position: relative;
-      text-align: center;
-      z-index: 1; }
-
-.section--title {
+    .home .row {
+      padding: 0; } }
+.home .section--title {
   color: #f34673;
   font-family: latolight, sans-serif;
   margin-bottom: 0;
   padding: 1.5rem 0;
   text-align: center;
   text-transform: uppercase; }
-  .section--title .bold--heading {
+  .home .section--title .bold--heading {
     font-weight: bold; }
-
+.home .primary-hero {
+  border-bottom: 2px solid #f34673;
+  color: #fff;
+  padding: 220px 120px;
+  text-align: center; }
+  @media screen and (max-width: 768px) {
+    .home .primary-hero {
+      padding: 80px 30px; } }
+  .home .primary-hero .hero--overlay {
+    font-family: latobold, sans-serif;
+    font-size: 3.7em; }
+    @media screen and (max-width: 768px) {
+      .home .primary-hero .hero--overlay {
+        font-size: 3.3em; } }
 .home .featured-products ul.products li.product {
   padding: 0.25em;
   margin: 0 1.4% 2.992em;
@@ -2547,7 +2502,6 @@ li.comment ul li {
     bottom: 0;
     display: block;
     position: absolute; }
-
 .home .secondary-hero .secondary-hero-overlay {
   background-color: #1c0740;
   border: 1px solid #1c0740;
@@ -2566,6 +2520,45 @@ li.comment ul li {
       .home .secondary-hero .secondary-hero-overlay footer .button:hover {
         background-color: #f88ca9;
         border: 2px solid #f88ca9; }
+.home .article-container {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%; }
+  .home .article-container:last-child {
+    margin-right: 0; }
+  .home .article-container .featured-posts {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 23.23176%; }
+    .home .article-container .featured-posts:last-child {
+      margin-right: 0; }
+    @media screen and (max-width: 768px) {
+      .home .article-container .featured-posts {
+        float: left;
+        display: block;
+        margin-right: 4.82916%;
+        width: 47.58542%;
+        margin-right: 2.41458%;
+        text-align: center; }
+        .home .article-container .featured-posts:last-child {
+          margin-right: 0; } }
+    @media screen and (max-width: 480px) {
+      .home .article-container .featured-posts {
+        float: left;
+        display: block;
+        margin-right: 2.35765%;
+        width: 100%; }
+        .home .article-container .featured-posts:last-child {
+          margin-right: 0; } }
+    .home .article-container .featured-posts .featured-post-overlay {
+      bottom: 85px;
+      font-size: 3em;
+      opacity: 0.8;
+      position: relative;
+      text-align: center;
+      z-index: 1; }
 
 /* ## WC Shop Archive
 ------------------------- */

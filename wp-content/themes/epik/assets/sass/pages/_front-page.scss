@@ -1,217 +1,228 @@
-/* ---------------------------------- *\
-	# Front Page | front-page.php
-\* ---------------------------------- */
+/* ## front-page.php
+--------------------------------- */
 
-@include media($large-screen-up) {
-	.wrap {
-		padding-left: 0;
-		padding-right: 0;
+.home {
+
+	@include media($large-screen-up) {
+		.wrap {
+			padding-left: 0;
+			padding-right: 0;
+		}
 	}
-}
 
-.row {
-	margin: 0 auto;
-	max-width: 1200px;
-
-	@include media($xxxlarge-screen-up) {
+	.site-inner {
+		background-color: #fff;
+		margin-bottom: 0;
 		max-width: none;
+		padding-top: 0;
+		width: auto;
+
+		@include media($ipad-screen-up) {
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		.content {
+			background-color: $pink5;
+			max-width: none;
+
+			@include media($xxxlarge-screen-up) {
+				@include outer-container(1200px);
+				float: none;
+			}
+		}
 	}
 
-	@include media($ipad-screen-up) {
-		padding: 0;
-	}
-}
 
-.home .site-inner {
-	background-color: #fff;
-	margin-bottom: 0;
-	max-width: none;
-	padding-top: 0;
-	width: auto;
-
-	@include media($ipad-screen-up) {
-		padding-left: 0;
-		padding-right: 0;
-	}
-
-	.content {
-		background-color: $pink5;
-		max-width: none;
+	.row {
+		margin: 0 auto;
+		max-width: 1200px;
 
 		@include media($xxxlarge-screen-up) {
-			@include outer-container(1200px);
-			float: none;
+			max-width: none;
 		}
-	}
-}
-
-.hero {
-	//border-bottom: 2px solid $orange;
-	border-bottom: 2px solid $pink1;
-	color: #fff;
-	padding: 220px 120px;
-	text-align: center;
-
-	@include media($ipad-screen-up) {
-		padding: 80px 30px;
-	}
-
-	.hero--overlay {
-		font-family: $lato-bold;
-		font-size: 3.7em;
 
 		@include media($ipad-screen-up) {
-			font-size: 3.3em;
+			padding: 0;
 		}
 	}
 
-}
+	.section--title {
+		color: $pink1;
+		font-family: $lato-light;
+		margin-bottom: 0;
+		padding: 1.5rem 0;
+		text-align: center;
+		text-transform: uppercase;
 
-// ACF Field - Full Row - Four Featured Posts
-.article-container {
-	@include span-columns(12);
+		.bold--heading {
+			font-weight: $bold;
+		}
+	}
+	
 
-	.featured-posts {
-		@include span-columns(3 of 12);
+	// ACF Field - Full Row - Primary Hero
+	.primary-hero {
+		//border-bottom: 2px solid $orange;
+		border-bottom: 2px solid $pink1;
+		color: #fff;
+		padding: 220px 120px;
+		text-align: center;
 
 		@include media($ipad-screen-up) {
-			@include span-columns(3 of 6);
-			margin-right: 2.41458%;
-			text-align: center;
+			padding: 80px 30px;
 		}
 
-		@include media($small-screen-up) {
-			@include span-columns(12 of 12);
-		}
+		.hero--overlay {
+			font-family: $lato-bold;
+			font-size: 3.7em;
 
-		.featured-post-overlay {
-			bottom: 85px;
-			font-size: 3em;
-			opacity: 0.8;
-			position: relative;
-			text-align: center;
-			z-index: 1;
-		}
-		
-	}
-}
-
-
-.section--title {
-	color: $pink1;
-	font-family: $lato-light;
-	margin-bottom: 0;
-	padding: 1.5rem 0;
-	text-align: center;
-	text-transform: uppercase;
-
-	.bold--heading {
-		font-weight: $bold;
-	}
-}
-
-
-// ACF Field - Full Row - Featured Products
-.home .featured-products {
-
-	ul.products li.product {
-		@include padding(0.25em);
-		@include margin(0 1.4% 2.992em);
-		background-color: $gray2;
-		border: 1px solid $gray2;
-		float: left;
-		margin-bottom: 10px;
-		min-height: 335px;
-		position: relative;
-		width: 22.05%;
-
-		@include media($ipad-screen-up) {
-			@include margin(0 0 2.992em);
-			width: 48%;
-		}
-
-		@include media($small-screen-up) {
-			@include margin(0 auto);
-			width: 100%;
-		}
-
-		h3 {
-			@include margin(0);
-			@include padding(0);
-			background-color: $gray2;
-			color: #000;
-			font-size: 18px;
-			font-weight: bold;
-			height: auto;
-			line-height: 1;
-			min-height: 35px;
-			text-transform: lowercase;
-		}
-
-		.price {
-			@include padding(9px 5px null null);
-			display: inline-block;
-			float: right;
-		}
-
-		.button {
-			@include margin(0);
-			@include padding(6px);
-			background-color: $navpink1;
-			border-radius: 0;
-			bottom: 20px;
-			color: $white;
-			font-size: 16px;
-			margin-left: 10px;
-			position: absolute;
-			text-transform: capitalize;
-
-			&:hover {
-				background-color: $gray1;
+			@include media($ipad-screen-up) {
+				font-size: 3.3em;
 			}
 		}
 
-		a.added_to_cart.wc-forward {
-			bottom: 0;
-			display: block;
-			position: absolute;
-		}
-
 	}
-}
 
 
-// ACF Field - Secondary Hero
-.home .secondary-hero {
 
-	.secondary-hero-overlay {
-		background-color: #1c0740;
-		border: 1px solid #1c0740;
-		float: right;
-		max-width: 350px;
+	// ACF Field - Full Row - Featured Products
+	.featured-products {
 
-		.collection-wrap {
-			@include padding(0 2.5em);
-		}
+		ul.products li.product {
+			@include padding(0.25em);
+			@include margin(0 1.4% 2.992em);
+			background-color: $gray2;
+			border: 1px solid $gray2;
+			float: left;
+			margin-bottom: 10px;
+			min-height: 335px;
+			position: relative;
+			width: 22.05%;
 
-		.collection-wrap-heading {
-			margin-top: 2em;
-		}
+			@include media($ipad-screen-up) {
+				@include margin(0 0 2.992em);
+				width: 48%;
+			}
 
-		footer {
-			margin-bottom: 2em;
+			@include media($small-screen-up) {
+				@include margin(0 auto);
+				width: 100%;
+			}
+
+			h3 {
+				@include margin(0);
+				@include padding(0);
+				background-color: $gray2;
+				color: #000;
+				font-size: 18px;
+				font-weight: bold;
+				height: auto;
+				line-height: 1;
+				min-height: 35px;
+				text-transform: lowercase;
+			}
+
+			.price {
+				@include padding(9px 5px null null);
+				display: inline-block;
+				float: right;
+			}
 
 			.button {
-				@include padding(1.5em 3em);
-				background-color: transparent;
-				border: 2px solid $white;
+				@include margin(0);
+				@include padding(6px);
+				background-color: $navpink1;
+				border-radius: 0;
+				bottom: 20px;
+				color: $white;
+				font-size: 16px;
+				margin-left: 10px;
+				position: absolute;
+				text-transform: capitalize;
 
 				&:hover {
-					background-color: $navpink1;
-					border: 2px solid $navpink1;
+					background-color: $gray1;
+				}
+			}
+
+			a.added_to_cart.wc-forward {
+				bottom: 0;
+				display: block;
+				position: absolute;
+			}
+
+		}
+	}
+
+	// ACF Field - Secondary Hero
+	.secondary-hero {
+
+		.secondary-hero-overlay {
+			background-color: #1c0740;
+			border: 1px solid #1c0740;
+			float: right;
+			max-width: 350px;
+
+			.collection-wrap {
+				@include padding(0 2.5em);
+			}
+
+			.collection-wrap-heading {
+				margin-top: 2em;
+			}
+
+			footer {
+				margin-bottom: 2em;
+
+				.button {
+					@include padding(1.5em 3em);
+					background-color: transparent;
+					border: 2px solid $white;
+
+					&:hover {
+						background-color: $navpink1;
+						border: 2px solid $navpink1;
+					}
 				}
 			}
 		}
+
+	}
+
+	// ACF Field - Full Row - Four Featured Posts
+	.article-container {
+		@include span-columns(12);
+
+		.featured-posts {
+			@include span-columns(3 of 12);
+
+			@include media($ipad-screen-up) {
+				@include span-columns(3 of 6);
+				margin-right: 2.41458%;
+				text-align: center;
+			}
+
+			@include media($small-screen-up) {
+				@include span-columns(12 of 12);
+			}
+
+			.featured-post-overlay {
+				bottom: 85px;
+				font-size: 3em;
+				opacity: 0.8;
+				position: relative;
+				text-align: center;
+				z-index: 1;
+			}
+
+		}
 	}
 
 }
+
+
+
+
+
+
