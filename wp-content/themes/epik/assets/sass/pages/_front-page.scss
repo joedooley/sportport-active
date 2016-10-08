@@ -91,8 +91,7 @@
 			background-color: $gray2;
 			border: 1px solid $gray2;
 			float: left;
-			margin-bottom: 10px;
-			min-height: 335px;
+			min-height: 320px;
 			position: relative;
 			width: 22.05%;
 
@@ -108,63 +107,56 @@
 
 			h3 {
 				@include margin(0);
-				@include padding(0);
-				background-color: $gray2;
+   				@include padding(0);
 				color: #000;
-				font-size: 18px;
-				font-weight: bold;
-				height: auto;
+				display: inline-block;
+				font-size: 14px;
+				font-weight: $bold;
+				height: 0;
 				line-height: 1;
-				min-height: 35px;
-				text-transform: lowercase;
+				margin: 0;
+				padding: 0;
+				text-align: center;
+				text-transform: uppercase;
+				width: 100%;
 			}
 
 			.price {
-				@include padding(9px 5px null null);
+				@include padding(5px 5px null null);
 				display: inline-block;
 				float: right;
 			}
 
 			.button {
-				@include margin(0);
+				@include margin(null null null 10px);
 				@include padding(6px);
-				background-color: $navpink1;
+
+				background-color: $black1;
 				border-radius: 0;
-				bottom: 20px;
 				color: $white;
 				font-size: 16px;
-				margin-left: 10px;
-				position: absolute;
+				margin: 0 0 0 10px;
+				padding: 6px;
 				text-transform: capitalize;
 
 				&:hover {
-					background-color: $gray1;
+					background-color: $navpink2;
 				}
 			}
-
-			a.added_to_cart.wc-forward {
-				bottom: 0;
-				display: block;
-				position: absolute;
-			}
-
 		}
 	}
 
 
 	// ACF Field - Full Row - Mini Quote section
 	.mini-quote-section {
-		@include padding(75px 150px);
+		@include padding(30px 150px 10px);
 		background-color: $pink1;
 		max-width: 100%;
 		text-align: center;
 
 		blockquote {
 			color: $white;
-			font-family: $open-sans-condensed-bold;
 			font-family: $raleway-black;
-			font-family: $yanone;
-			
 			font-size: 2em;
 			font-weight: bold;
 			text-transform: uppercase;
@@ -217,35 +209,39 @@
 
 
 	// ACF Field - Full Row - Four Featured Posts
-	.article-container {
-		@include span-columns(12);
+	.featured-four-columns {
+		max-height: 280px;
 
-		.featured-posts {
-			@include span-columns(3 of 12);
+		.article-container {
+			@include span-columns(12);
 
-			@include media($ipad-screen-up) {
-				@include span-columns(3 of 6);
-				margin-right: 2.41458%;
-				text-align: center;
+			.featured-posts {
+				@include span-columns(3 of 12);
+
+				@include media($ipad-screen-up) {
+					@include span-columns(3 of 6);
+					margin-right: 2.41458%;
+					text-align: center;
+				}
+
+				@include media($small-screen-up) {
+					@include span-columns(12 of 12);
+				}
 			}
 
-			@include media($small-screen-up) {
-				@include span-columns(12 of 12);
-			}
-
-			.featured-post-overlay {
-				bottom: 85px;
+			h2 {
+				color: $navpink1;
 				font-size: 3em;
+				margin-bottom: 0;
 				opacity: 0.8;
-				position: relative;
 				text-align: center;
+				transform: translateY(-90px);
 				z-index: 1;
 			}
-
 		}
 	}
-
 }
+
 
 
 

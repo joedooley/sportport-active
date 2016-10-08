@@ -9,24 +9,29 @@
 
 	&.woocommerce ul.products li.product,
 	&.woocommerce-page ul.products li.product {
-		@include padding(0.25em);
+		@include padding(0.25em 0.25em 1.5em);
 		background-color: $gray2;
 
 		h3 {
 			@include padding(0);
 			background-color: $gray2;
 			color: #000;
+			display: inline-block;
 			font-size: 18px;
 			font-weight: bold;
 			height: 0;
 			line-height: 1;
+			text-align: center;
 			text-transform: lowercase;
+			width: 100%;
 		}
 
 		.price {
-			@include padding(0 5px null null);
+			@include margin(5px 8px null null);
+			color: #000;
 			display: inline-block;
 			float: right;
+			font-size: 14px;
 		}
 
 		.button {

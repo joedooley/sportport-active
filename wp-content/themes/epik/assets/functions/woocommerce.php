@@ -14,15 +14,24 @@ add_action( 'template_redirect', 'remove_sidebar_shop' );
 /**
  * Remove Sidebar from Shop and Single Product pages
  *
- * @return      void
- * @author      Joe Dooley
+ * @return  void
  */
 function remove_sidebar_shop() {
-
 	if ( is_product() || is_shop() ) {
 		remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar' );
 	}
+}
 
+
+add_filter( 'genesis_site_layout', 'spa_wc_force_full_width' );
+/**
+ * Force full width layout on WooCommerce pages
+ * @return string
+ */
+function spa_wc_force_full_width() {
+	if ( is_page( array( 'cart', 'checkout' ) ) || is_shop() || 'product' === get_post_type() ) {
+		return 'full-width-content';
+	}
 }
 
 
@@ -36,10 +45,18 @@ add_action( 'get_header', function() {
 } );
 
 
+/**
+ * Remove WooCommerce breadcrumbs, using Genesis crumbs instead.
+ */
+add_action( 'get_header', function () {
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+} );
+
+
 
 add_action( 'wp_enqueue_scripts', 'spa_conditionally_load_woc_js_css' );
 /**
- * Dequeue WooCommerce Scripts and Styles for pages that don't need them
+ * Dequeue WooCommerce Scripts and Styles for pages that don't need them.
  */
 function spa_conditionally_load_woc_js_css() {
 
@@ -65,10 +82,7 @@ function spa_conditionally_load_woc_js_css() {
 }
 
 
-// Remove WooCommerce breadcrumbs, using Genesis crumbs instead.
-add_action( 'get_header', function() {
-	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
-});
+
 
 add_filter( 'woocommerce_product_tabs', 'spa_woo_remove_product_tabs', 98 );
 /**
@@ -87,16 +101,6 @@ function spa_woo_remove_product_tabs( $tabs ) {
 
 }
 
-add_filter( 'genesis_site_layout', 'spa_wc_force_full_width' );
-/**
- * Force full width layout on WooCommerce pages
- * @return string
- */
-function spa_wc_force_full_width() {
-	if ( is_page( array( 'cart', 'checkout' ) ) || is_shop() || 'product' === get_post_type() ) {
-		return 'full-width-content';
-	}
-}
 
 /**
  * Move product price to just before add to cart button.
@@ -110,39 +114,23 @@ add_action( 'get_header', function () {
 
 
 /**
- * Truncate product title to two lines on everything but
- * is_product() pages
+ * Truncate product title to one line or 3 words
+ * on everything but is_product() pages.
  *
- * @param $product
- * @param $truncated_title
- *
- * @return string
+ * @param $title string
+ * @return $title string
  */
-//add_filter( 'woocommerce_product_title', function( $product, $truncated_title ) {
-//	global $product;
-//	$product_title = $product->product_title();
-//
-//	if ( $product_title ) {
-//		$truncated_title = substr( $product_title, 0, - 1 )
-//	}
-//
-//	return $truncated_title;
-//
-//});
+add_filter( 'the_title', function( $title ) {
+	return is_shop() || is_front_page() || is_product_taxonomy() ? wp_trim_words( $title, 3 ) : $title;
+} );
+
+
 
 /**
- * Enqueue single page script equal-height.js
- * on product archive pages.
+ * Change WC add to cart button text on all pages
+ * except single-product.php,
  */
-//add_action( 'wp_enqueue_scripts', function () {
-//	if ( is_shop() || is_product_category() || is_product_tag() || is_front_page() ) {
-//
-//		wp_enqueue_script(
-//			'equal-heights-js',
-//			get_stylesheet_directory_uri() . '/assets/js/custom/single/equal-height.js',
-//			array( 'jquery' ),
-//			CHILD_THEME_VERSION,
-//			true
-//		);
-//	}
-//}, 5 );
+add_filter( 'woocommerce_product_add_to_cart_text', function() {
+	return __( 'Shop Now', 'woocommerce' );
+} );
+

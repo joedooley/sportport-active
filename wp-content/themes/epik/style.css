@@ -1070,27 +1070,6 @@ table.product-features-grid td {
   width: 48%; }
 
 /*! ------------------------------ */
-.woocommerce ul.products li.product .price {
-  color: #000 !important;
-  font-size: 16px;
-  text-align: right;
-  margin-right: 8px; }
-
-.woocommerce ul.products li.product a img {
-  margin: 0; }
-
-.woocommerce ul.products li.product h3 {
-  background: #89A;
-  height: 6em;
-  padding: 8px 8px;
-  font-size: 12px;
-  font-weight: normal;
-  text-align: center;
-  display: inline-block;
-  width: 100%;
-  color: #FFF;
-  line-height: 1.5; }
-
 body.woocommerce-page .entry-content .entry-title {
   border-bottom: none;
   border-top: none;
@@ -2454,8 +2433,7 @@ li.comment ul li {
   background-color: #ebebeb;
   border: 1px solid #ebebeb;
   float: left;
-  margin-bottom: 10px;
-  min-height: 335px;
+  min-height: 320px;
   position: relative;
   width: 22.05%; }
   @media screen and (max-width: 768px) {
@@ -2469,46 +2447,42 @@ li.comment ul li {
   .home .featured-products ul.products li.product h3 {
     margin: 0;
     padding: 0;
-    background-color: #ebebeb;
     color: #000;
-    font-size: 18px;
+    display: inline-block;
+    font-size: 14px;
     font-weight: bold;
-    height: auto;
+    height: 0;
     line-height: 1;
-    min-height: 35px;
-    text-transform: lowercase; }
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%; }
   .home .featured-products ul.products li.product .price {
-    padding-top: 9px;
+    padding-top: 5px;
     padding-right: 5px;
     display: inline-block;
     float: right; }
   .home .featured-products ul.products li.product .button {
-    margin: 0;
+    margin-left: 10px;
     padding: 6px;
-    background-color: #f88ca9;
+    background-color: #333;
     border-radius: 0;
-    bottom: 20px;
     color: white;
     font-size: 16px;
-    margin-left: 10px;
-    position: absolute;
+    margin: 0 0 0 10px;
+    padding: 6px;
     text-transform: capitalize; }
     .home .featured-products ul.products li.product .button:hover {
-      background-color: #d1cece; }
-  .home .featured-products ul.products li.product a.added_to_cart.wc-forward {
-    bottom: 0;
-    display: block;
-    position: absolute; }
+      background-color: #f22c61; }
 .home .mini-quote-section {
-  padding: 75px 150px;
+  padding: 30px 150px 10px;
   background-color: #f34673;
   max-width: 100%;
   text-align: center; }
   .home .mini-quote-section blockquote {
     color: white;
-    font-family: open_sans_condensedbold, sans-serif;
     font-family: ralewayblack, sans-serif;
-    font-family: yanone_kaffeesatzregular, sans-serif;
     font-size: 2em;
     font-weight: bold;
     text-transform: uppercase; }
@@ -2537,44 +2511,47 @@ li.comment ul li {
     .home .secondary-hero .button:hover {
       background-color: #f88ca9;
       border: 2px solid #f88ca9; }
-.home .article-container {
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 100%; }
-  .home .article-container:last-child {
-    margin-right: 0; }
-  .home .article-container .featured-posts {
+.home .featured-four-columns {
+  max-height: 280px; }
+  .home .featured-four-columns .article-container {
     float: left;
     display: block;
     margin-right: 2.35765%;
-    width: 23.23176%; }
-    .home .article-container .featured-posts:last-child {
+    width: 100%; }
+    .home .featured-four-columns .article-container:last-child {
       margin-right: 0; }
-    @media screen and (max-width: 768px) {
-      .home .article-container .featured-posts {
-        float: left;
-        display: block;
-        margin-right: 4.82916%;
-        width: 47.58542%;
-        margin-right: 2.41458%;
-        text-align: center; }
-        .home .article-container .featured-posts:last-child {
-          margin-right: 0; } }
-    @media screen and (max-width: 480px) {
-      .home .article-container .featured-posts {
-        float: left;
-        display: block;
-        margin-right: 2.35765%;
-        width: 100%; }
-        .home .article-container .featured-posts:last-child {
-          margin-right: 0; } }
-    .home .article-container .featured-posts .featured-post-overlay {
-      bottom: 85px;
+    .home .featured-four-columns .article-container .featured-posts {
+      float: left;
+      display: block;
+      margin-right: 2.35765%;
+      width: 23.23176%; }
+      .home .featured-four-columns .article-container .featured-posts:last-child {
+        margin-right: 0; }
+      @media screen and (max-width: 768px) {
+        .home .featured-four-columns .article-container .featured-posts {
+          float: left;
+          display: block;
+          margin-right: 4.82916%;
+          width: 47.58542%;
+          margin-right: 2.41458%;
+          text-align: center; }
+          .home .featured-four-columns .article-container .featured-posts:last-child {
+            margin-right: 0; } }
+      @media screen and (max-width: 480px) {
+        .home .featured-four-columns .article-container .featured-posts {
+          float: left;
+          display: block;
+          margin-right: 2.35765%;
+          width: 100%; }
+          .home .featured-four-columns .article-container .featured-posts:last-child {
+            margin-right: 0; } }
+    .home .featured-four-columns .article-container h2 {
+      color: #f88ca9;
       font-size: 3em;
+      margin-bottom: 0;
       opacity: 0.8;
-      position: relative;
       text-align: center;
+      transform: translateY(-90px);
       z-index: 1; }
 
 /* ## WC Shop Archive
@@ -2582,22 +2559,27 @@ li.comment ul li {
 .archive .entry-header {
   margin: 1em 0 0.5em; }
 .archive.woocommerce ul.products li.product, .archive.woocommerce-page ul.products li.product {
-  padding: 0.25em;
+  padding: 0.25em 0.25em 1.5em;
   background-color: #ebebeb; }
   .archive.woocommerce ul.products li.product h3, .archive.woocommerce-page ul.products li.product h3 {
     padding: 0;
     background-color: #ebebeb;
     color: #000;
+    display: inline-block;
     font-size: 18px;
     font-weight: bold;
     height: 0;
     line-height: 1;
-    text-transform: lowercase; }
+    text-align: center;
+    text-transform: lowercase;
+    width: 100%; }
   .archive.woocommerce ul.products li.product .price, .archive.woocommerce-page ul.products li.product .price {
-    padding-top: 0;
-    padding-right: 5px;
+    margin-top: 5px;
+    margin-right: 8px;
+    color: #000;
     display: inline-block;
-    float: right; }
+    float: right;
+    font-size: 14px; }
   .archive.woocommerce ul.products li.product .button, .archive.woocommerce-page ul.products li.product .button {
     margin: 0;
     padding: 6px;
