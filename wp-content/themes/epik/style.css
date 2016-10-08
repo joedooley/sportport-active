@@ -2425,11 +2425,14 @@ li.comment ul li {
   @media screen and (max-width: 768px) {
     .home .primary-hero {
       padding: 190px 30px; } }
-  .home .primary-hero .cta-container {
-    transform: translateY(125px); }
-    @media screen and (max-width: 768px) {
-      .home .primary-hero .cta-container {
-        transform: translateY(175px); } }
+.home .cta-container {
+  transform: translateY(125px); }
+  @media screen and (max-width: 768px) {
+    .home .cta-container {
+      transform: translateY(175px); } }
+  @media screen and (max-width: 480px) {
+    .home .cta-container a:last-child {
+      display: none; } }
 .home .featured-products ul.products li.product {
   padding: 0.25em;
   margin: 0 1.4% 2.992em;
@@ -2445,7 +2448,7 @@ li.comment ul li {
       width: 48%; } }
   @media screen and (max-width: 480px) {
     .home .featured-products ul.products li.product {
-      margin: 0 auto;
+      margin: 1em auto 2em;
       width: 100%; } }
   .home .featured-products ul.products li.product h3 {
     margin: 0;
@@ -2479,10 +2482,13 @@ li.comment ul li {
     .home .featured-products ul.products li.product .button:hover {
       background-color: #f22c61; }
 .home .mini-quote-section {
-  padding: 30px 150px 10px;
+  padding: 30px 150px;
   background-color: #f34673;
   max-width: 100%;
   text-align: center; }
+  @media screen and (max-width: 1023px) {
+    .home .mini-quote-section {
+      padding: 0; } }
   .home .mini-quote-section blockquote {
     color: white;
     font-family: ralewayblack, sans-serif;
@@ -2815,7 +2821,7 @@ body.single-product {
       height: 0;
       line-height: 1;
       text-align: center;
-      text-transform: lowercase;
+      text-transform: uppercase;
       width: 100%; }
     body.single-product.woocommerce ul.products li.product .categories, body.single-product.woocommerce-page ul.products li.product .categories {
       display: none; }

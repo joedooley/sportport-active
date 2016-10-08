@@ -74,13 +74,21 @@
 			@include padding(190px 30px);
 		}
 
-		.cta-container {
-			transform: translateY(125px);
+	}
 
-			@include media($ipad-screen-up) {
-				transform: translateY(175px);
+	.cta-container {
+		transform: translateY(125px);
+
+		@include media($ipad-screen-up) {
+			transform: translateY(175px);
+		}
+
+		@include media($small-screen-up) {
+			a:last-child {
+				display: none;
 			}
 		}
+
 	}
 
 
@@ -104,7 +112,7 @@
 			}
 
 			@include media($small-screen-up) {
-				@include margin(0 auto);
+				@include margin(1em auto 2em);
 				width: 100%;
 			}
 
@@ -152,10 +160,14 @@
 
 	// ACF Field - Full Row - Mini Quote section
 	.mini-quote-section {
-		@include padding(30px 150px 10px);
+		@include padding(30px 150px 30px);
 		background-color: $pink1;
 		max-width: 100%;
 		text-align: center;
+
+		@include media($xlarge-screen-up) {
+			@include padding(0);
+		}
 
 		blockquote {
 			color: $white;
