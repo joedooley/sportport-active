@@ -45,8 +45,3 @@ require_once( CHILD_FUNCTIONS_DIR . '/theme-options-page.php' );
 
 
 
-
-
-
-
-

@@ -71,13 +71,16 @@
 		text-align: center;
 
 		@include media($ipad-screen-up) {
-			@include padding(80px 30px);
+			@include padding(190px 30px);
 		}
 
 		.cta-container {
 			transform: translateY(125px);
-		}
 
+			@include media($ipad-screen-up) {
+				transform: translateY(175px);
+			}
+		}
 	}
 
 

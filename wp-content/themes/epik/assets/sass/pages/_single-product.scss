@@ -203,18 +203,48 @@ body.single-product {
 		width: 44.10%;
 
 		@include media($ipad-screen-up) {
+			@include margin(0 auto 2em);
 			width: 100%;
+		}
+
+		h3 {
+			@include padding(0);
+			background-color: $gray2;
+			color: #000;
+			display: inline-block;
+			font-size: 18px;
+			font-weight: bold;
+			height: 0;
+			line-height: 1;
+			text-align: center;
+			text-transform: lowercase;
+			width: 100%;
+		}
+
+		.categories {
+			display: none;
+		}
+
+		.price {
+			@include margin(5px 8px null null);
+			color: #000;
+			display: inline-block;
+			float: right;
+			font-size: 14px;
+		}
+
+		.button {
+			@include margin(0);
+			@include padding(0);
+			background-color: $navpink2;
+			border-radius: 0;
+			color: #fff;
+			font-size: 16px;
+			margin-left: 10px;
+			text-transform: capitalize;
 		}
 	}
 
-	&.woocommerce .upsells ul.products li.product .price {
-		text-align: center;
-	}
-
-	.upsells ul.products li.product .button,
-	.upsells ul.products li.product .categories {
-		display: none;
-	}
 
 	// Product Meta section
 	.product_meta {

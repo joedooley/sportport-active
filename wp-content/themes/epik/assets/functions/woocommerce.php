@@ -2,7 +2,7 @@
 /**
  * This file contains all WooCommerce specific functions
  *
- * @package    YourMembership
+ * @package    SportPort Active
  * @author     Developing Designs - Joe Dooley
  * @link       https://www.developingdesigns.com
  * @copyright  Joe Dooley, Developing Designs
@@ -106,7 +106,7 @@ function spa_woo_remove_product_tabs( $tabs ) {
  * Move product price to just before add to cart button.
  */
 add_action( 'get_header', function () {
-	if ( is_front_page() || is_shop() || is_product_category() || is_product_tag() ) {
+	if ( is_front_page() || is_shop() || is_product_taxonomy()  || is_product() ) {
 		remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
 		add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_price', 6 );
 	}

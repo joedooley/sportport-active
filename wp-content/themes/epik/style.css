@@ -2424,9 +2424,12 @@ li.comment ul li {
   text-align: center; }
   @media screen and (max-width: 768px) {
     .home .primary-hero {
-      padding: 80px 30px; } }
+      padding: 190px 30px; } }
   .home .primary-hero .cta-container {
     transform: translateY(125px); }
+    @media screen and (max-width: 768px) {
+      .home .primary-hero .cta-container {
+        transform: translateY(175px); } }
 .home .featured-products ul.products li.product {
   padding: 0.25em;
   margin: 0 1.4% 2.992em;
@@ -2800,12 +2803,38 @@ body.single-product {
     width: 44.10%; }
     @media screen and (max-width: 768px) {
       body.single-product.woocommerce ul.products li.product, body.single-product.woocommerce-page ul.products li.product {
+        margin: 0 auto 2em;
         width: 100%; } }
-  body.single-product.woocommerce .upsells ul.products li.product .price {
-    text-align: center; }
-  body.single-product .upsells ul.products li.product .button,
-  body.single-product .upsells ul.products li.product .categories {
-    display: none; }
+    body.single-product.woocommerce ul.products li.product h3, body.single-product.woocommerce-page ul.products li.product h3 {
+      padding: 0;
+      background-color: #ebebeb;
+      color: #000;
+      display: inline-block;
+      font-size: 18px;
+      font-weight: bold;
+      height: 0;
+      line-height: 1;
+      text-align: center;
+      text-transform: lowercase;
+      width: 100%; }
+    body.single-product.woocommerce ul.products li.product .categories, body.single-product.woocommerce-page ul.products li.product .categories {
+      display: none; }
+    body.single-product.woocommerce ul.products li.product .price, body.single-product.woocommerce-page ul.products li.product .price {
+      margin-top: 5px;
+      margin-right: 8px;
+      color: #000;
+      display: inline-block;
+      float: right;
+      font-size: 14px; }
+    body.single-product.woocommerce ul.products li.product .button, body.single-product.woocommerce-page ul.products li.product .button {
+      margin: 0;
+      padding: 0;
+      background-color: #f22c61;
+      border-radius: 0;
+      color: #fff;
+      font-size: 16px;
+      margin-left: 10px;
+      text-transform: capitalize; }
   body.single-product .product_meta {
     margin-bottom: 1em; }
   body.single-product .upsells {

@@ -4,7 +4,7 @@
   "description": "Child theme for SportPort Active built on the Genesis framework",
   "repository": {
     "type": "git",
-    "url": "git@github.com:joedooley/sportport-active.git"
+    "url": "git+ssh://git@github.com/joedooley/sportport-active.git"
   },
   "author": "Joe Dooley",
   "license": "ISC",
@@ -70,5 +70,9 @@
     "presets": [
       "es2015"
     ]
+  },
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
