@@ -2433,24 +2433,22 @@ li.comment ul li {
   @media screen and (max-width: 480px) {
     .home .cta-container a:last-child {
       display: none; } }
-.home .featured-products ul.products li.product {
-  padding: 0.25em;
-  margin: 0 1.4% 2.992em;
-  background-color: #ebebeb;
-  border: 1px solid #ebebeb;
-  float: left;
-  min-height: 320px;
-  position: relative;
-  width: 22.05%; }
-  @media screen and (max-width: 768px) {
-    .home .featured-products ul.products li.product {
-      margin: 0 0 2.992em;
-      width: 48%; } }
-  @media screen and (max-width: 480px) {
-    .home .featured-products ul.products li.product {
-      margin: 1em auto 2em;
-      width: 100%; } }
-  .home .featured-products ul.products li.product h3 {
+.home .featured-products {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto; }
+  .home .featured-products::after {
+    clear: both;
+    content: "";
+    display: table; }
+  .home .featured-products ul.products li.product {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 23.23176%; }
+    .home .featured-products ul.products li.product:last-child {
+      margin-right: 0; }
+  .home .featured-products h3 {
     margin: 0;
     padding: 0;
     color: #000;
@@ -2464,12 +2462,12 @@ li.comment ul li {
     text-align: center;
     text-transform: uppercase;
     width: 100%; }
-  .home .featured-products ul.products li.product .price {
+  .home .featured-products .price {
     padding-top: 5px;
     padding-right: 5px;
     display: inline-block;
     float: right; }
-  .home .featured-products ul.products li.product .button {
+  .home .featured-products .button {
     margin-left: 10px;
     padding: 6px;
     background-color: #333;
@@ -2479,7 +2477,7 @@ li.comment ul li {
     margin: 0 0 0 10px;
     padding: 6px;
     text-transform: capitalize; }
-    .home .featured-products ul.products li.product .button:hover {
+    .home .featured-products .button:hover {
       background-color: #f22c61; }
 .home .mini-quote-section {
   padding: 30px 150px;
@@ -2489,14 +2487,15 @@ li.comment ul li {
   @media screen and (max-width: 1023px) {
     .home .mini-quote-section {
       padding: 0; } }
+  .home .mini-quote-section .mini-quote-wrapper {
+    margin-top: 2em; }
   .home .mini-quote-section blockquote {
     color: white;
-    font-family: ralewayblack, sans-serif;
+    font-family: latoregular, sans-serif;
     font-size: 2em;
-    font-weight: bold;
     text-transform: uppercase; }
-    .home .mini-quote-section blockquote p {
-      display: none; }
+  .home .mini-quote-section p {
+    display: none; }
 .home .secondary-hero {
   padding: 300px 0;
   color: white;

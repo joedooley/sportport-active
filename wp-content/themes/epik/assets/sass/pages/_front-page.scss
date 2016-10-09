@@ -95,67 +95,76 @@
 
 	// ACF Field - Full Row - Featured Products
 	.featured-products {
+		@include outer-container();
 
 		ul.products li.product {
-			@include padding(0.25em);
-			@include margin(0 1.4% 2.992em);
-			background-color: $gray2;
-			border: 1px solid $gray2;
-			float: left;
-			min-height: 320px;
-			position: relative;
-			width: 22.05%;
+			@include span-columns(3 of 12);
+
+			//@include padding(0.25em);
+			//@include margin(0 1.4% 2.992em);
+			//background-color: $gray2;
+			//border: 1px solid $gray2;
+			//float: left;
+			//min-height: 320px;
+			//position: relative;
+			//width: 22.05%;
+
+			@include media($xxxlarge-screen-up) {
+				//@include margin(0 0.7% 2.992em);
+				//min-height: 0;
+				//width: 100%;
+			}
 
 			@include media($ipad-screen-up) {
-				@include margin(0 0 2.992em);
-				width: 48%;
+				//@include margin(1em auto 2.992em);
+				//width: 48%;
 			}
 
 			@include media($small-screen-up) {
-				@include margin(1em auto 2em);
-				width: 100%;
+				//@include margin(2em auto);
+				//width: 100%;
 			}
+		}
 
-			h3 {
-				@include margin(0);
-   				@include padding(0);
-				color: #000;
-				display: inline-block;
-				font-size: 14px;
-				font-weight: $bold;
-				height: 0;
-				line-height: 1;
-				margin: 0;
-				padding: 0;
-				text-align: center;
-				text-transform: uppercase;
-				width: 100%;
-			}
+		h3 {
+			@include margin(0);
+			@include padding(0);
+			color: #000;
+			display: inline-block;
+			font-size: 14px;
+			font-weight: $bold;
+			height: 0;
+			line-height: 1;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+			text-transform: uppercase;
+			width: 100%;
+		}
 
-			.price {
-				@include padding(5px 5px null null);
-				display: inline-block;
-				float: right;
-			}
+		.price {
+			@include padding(5px 5px null null);
+			display: inline-block;
+			float: right;
+		}
 
-			.button {
-				@include margin(null null null 10px);
-				@include padding(6px);
+		.button {
+			@include margin(null null null 10px);
+			@include padding(6px);
+			background-color: $black1;
+			border-radius: 0;
+			color: $white;
+			font-size: 16px;
+			margin: 0 0 0 10px;
+			padding: 6px;
+			text-transform: capitalize;
 
-				background-color: $black1;
-				border-radius: 0;
-				color: $white;
-				font-size: 16px;
-				margin: 0 0 0 10px;
-				padding: 6px;
-				text-transform: capitalize;
-
-				&:hover {
-					background-color: $navpink2;
-				}
+			&:hover {
+				background-color: $navpink2;
 			}
 		}
 	}
+
 
 
 	// ACF Field - Full Row - Mini Quote section
@@ -169,16 +178,19 @@
 			@include padding(0);
 		}
 
+		.mini-quote-wrapper {
+			margin-top: 2em;
+		}
+
 		blockquote {
 			color: $white;
-			font-family: $raleway-black;
+			font-family: $lato;
 			font-size: 2em;
-			font-weight: bold;
 			text-transform: uppercase;
+		}
 
-			p {
-				display: none;
-			}
+		p {
+			display: none;
 		}
 	}
 
@@ -226,6 +238,10 @@
 	// ACF Field - Full Row - Four Featured Posts
 	.featured-four-columns {
 		max-height: 280px;
+
+		@include media($ipad-screen-up) {
+
+		}
 
 		.article-container {
 			@include span-columns(12);
