@@ -7,7 +7,6 @@
 }
 
 // Contact Us Page
-
 div.gform_wrapper input[type="email"],
 div.gform_wrapper input[type="text"],
 div.gform_wrapper textarea,
@@ -116,13 +115,12 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 
 				@include media($small-screen-up) {
 					max-width: none;
+					width: 100%;
 				}
 			}
 
 			@include placeholder {
 				color: $pink1;
-				//font-size: 1.35rem;
-				//padding-top: 3px;
 			}
 
 		}
@@ -132,7 +130,6 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 
 
 // Footer Widget Newsletter Signup
-
 #gform_widget-2 {
 	margin-bottom: 0;
 

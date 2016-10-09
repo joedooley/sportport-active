@@ -120,6 +120,8 @@
 			@include media($ipad-screen-up) {
 				@include span-columns(3 of 6);
 				margin-right: 2.41458%;
+				max-height: 400px;
+				padding-bottom: 2em;
 			}
 
 			@include media($small-screen-up) {
@@ -260,6 +262,10 @@
 	.featured-four-columns {
 		max-height: 280px;
 
+		@include media($xlarge-screen-up) {
+			@include padding(0 1em);
+		}
+
 		@include media($ipad-screen-up) {
 			max-height: 610px;
 		}
@@ -270,29 +276,35 @@
 
 		.article-container {
 			@include span-columns(12);
+		}
 
-			.featured-posts {
-				@include span-columns(3 of 12);
+		.featured-posts {
+			@include span-columns(3 of 12);
 
-				@include media($ipad-screen-up) {
-					@include span-columns(3 of 6);
-					margin-right: 2.41458%;
-					text-align: center;
-				}
-
-				@include media($small-screen-up) {
-					@include span-columns(12 of 12);
-				}
+			@include media($ipad-screen-up) {
+				@include span-columns(3 of 6);
+				margin-right: 2.41458%;
+				max-height: 240px;
+				text-align: center;
 			}
 
-			h2 {
+			@include media($small-screen-up) {
+				@include span-columns(12 of 12);
+				max-height: 260px;
+			}
+		}
+
+		a > h2 {
+			color: $white;
+			font-size: 3em;
+			margin-bottom: 0;
+			opacity: 0.8;
+			text-align: center;
+			transform: translateY(-90px);
+			z-index: 1;
+
+			&:hover {
 				color: $navpink1;
-				font-size: 3em;
-				margin-bottom: 0;
-				opacity: 0.8;
-				text-align: center;
-				transform: translateY(-90px);
-				z-index: 1;
 			}
 		}
 	}
