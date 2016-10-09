@@ -1286,13 +1286,6 @@ img.alignright,
 	color: #6BC;
 	text-decoration: none; }
 
-.widgettitle {
-	color: #333;
-	font-size: 18px;
-	letter-spacing: 1px;
-	margin-bottom: 16px;
-}
-
 
 .sidebar .widgettitle {
 	border: none;
@@ -1311,78 +1304,8 @@ img.alignright,
 	font-weight: normal;
 	line-height: 1.2; }
 
-/*!
-Widgets
----------------------------------------------------------------------------------------------------- */
 
 
-/*! Featured Page and Featured Post
---------------------------------------------- */
-
-.featured-content .entry {
-	margin-bottom: 20px;
-	padding: 0 0 20px; }
-
-.featured-content .entry-title {
-	border: none;
-	font-size: 18px;
-	line-height: 1.5;
-	margin: 10px 0; }
-
-.home .featured-content .entry-title,
-.home .featured-content .entry-title a {
-	font-size: 14px;
-	padding: 0;
-	color: #FFF; }
-
-.featured-content .entry-title a {
-	border: none; }
-
-
-
-
-/*! After Entry widget
---------------------------------------------- */
-
-.after-entry {
-	background: #222;
-	color: #aaa;
-	margin: 60px 0;
-	overflow: hidden;
-	text-align: center;
-}
-
-.after-entry .wrap {
-	padding: 40px;
-}
-
-.after-entry a {
-	color: #fff;
-}
-
-.after-entry .widget-title,
-.after-entry h4 {
-	color: #fff;
-	font-size: 30px;
-}
-
-.after-entry h1,
-.after-entry h2,
-.after-entry h3,
-.after-entry h4,
-.after-entry h5,
-.after-entry h6 {
-	color: #fff;
-	font-weight: 400;
-}
-
-.after-entry .enews-widget input {
-	width: 50%;
-}
-
-.after-entry .enews-widget input[type="submit"] {
-	width: auto;
-}
 
 /*! Pagination
 --------------------------------------------- */

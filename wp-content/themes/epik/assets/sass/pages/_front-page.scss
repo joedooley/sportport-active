@@ -13,6 +13,7 @@
 	.site-inner {
 		background-color: #fff;
 		margin-bottom: 0;
+		margin-top: 0;
 		max-width: none;
 		padding-top: 0;
 		width: auto;
@@ -44,7 +45,7 @@
 		}
 
 		@include media($ipad-screen-up) {
-			padding: 0;
+			@include padding(0);
 		}
 	}
 
@@ -56,9 +57,13 @@
 		text-align: center;
 		text-transform: uppercase;
 
-		.bold--heading {
-			font-weight: $bold;
+		@include media($ipad-screen-up) {
+			font-size: 1.3em;
 		}
+	}
+
+	.bold--heading {
+		font-weight: $bold;
 	}
 
 
@@ -97,36 +102,32 @@
 	.featured-products {
 		@include outer-container();
 
+		@include media($xlarge-screen-up) {
+			@include padding(0 1em);
+		}
+
 		ul.products li.product {
 			@include span-columns(3 of 12);
-
-			//@include padding(0.25em);
-			//@include margin(0 1.4% 2.992em);
-			//background-color: $gray2;
-			//border: 1px solid $gray2;
-			//float: left;
-			//min-height: 320px;
-			//position: relative;
-			//width: 22.05%;
-
-			@include media($xxxlarge-screen-up) {
-				//@include margin(0 0.7% 2.992em);
-				//min-height: 0;
-				//width: 100%;
+			@include padding(0.25em);
+			background-color: $gray2;
+			border: 1px solid $gray2;
+			min-height: 300px;
+			
+			@include media($xlarge-screen-up) {
+				max-height: 300px;
 			}
 
 			@include media($ipad-screen-up) {
-				//@include margin(1em auto 2.992em);
-				//width: 48%;
+				@include span-columns(3 of 6);
+				margin-right: 2.41458%;
 			}
 
 			@include media($small-screen-up) {
-				//@include margin(2em auto);
-				//width: 100%;
+				@include span-columns(12 of 12);
 			}
 		}
 
-		h3 {
+		ul.products li.product h3 {
 			@include margin(0);
 			@include padding(0);
 			color: #000;
@@ -169,7 +170,7 @@
 
 	// ACF Field - Full Row - Mini Quote section
 	.mini-quote-section {
-		@include padding(30px 150px 30px);
+		@include padding(30px 60px);
 		background-color: $pink1;
 		max-width: 100%;
 		text-align: center;
@@ -187,6 +188,22 @@
 			font-family: $lato;
 			font-size: 2em;
 			text-transform: uppercase;
+
+			@include media($xxxlarge-screen-up) {
+				font-size: 1.75em;
+			}
+
+			@include media($xlarge-screen-up) {
+				font-size: 1.4em;
+			}
+
+			@include media($ipad-screen-up) {
+				font-size: 1.3em;
+			}
+
+			@include media($small-screen-up) {
+				@include padding(0);
+			}
 		}
 
 		p {
@@ -202,11 +219,18 @@
 		text-align: center;
 
 		.secondary-hero-overlay {
+			@include padding(null null 2em);
 			background-color: #1c0740;
 			border: 1px solid #1c0740;
 			float: right;
 			max-width: 350px;
 			transform: translateY(-100px);
+
+			@include media($ipad-screen-up) {
+				@include margin(0 auto);
+				float: none;
+				transform: translateY(220px);
+			}
 		}
 
 		.collection-wrap {
@@ -215,10 +239,6 @@
 
 		.collection-wrap-heading {
 			margin-top: 2em;
-		}
-
-		footer {
-			margin-bottom: 2em;
 		}
 
 		.button {
@@ -240,7 +260,11 @@
 		max-height: 280px;
 
 		@include media($ipad-screen-up) {
+			max-height: 610px;
+		}
 
+		@include media($small-screen-up) {
+			max-height: none;
 		}
 
 		.article-container {

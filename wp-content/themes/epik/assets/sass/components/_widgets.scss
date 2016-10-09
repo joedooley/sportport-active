@@ -1,0 +1,45 @@
+/* ## Widgets
+------------------------- */
+
+/*! After Entry widget
+--------------------------------------------- */
+
+.after-entry {
+	background: #222;
+	color: #aaa;
+	margin: 60px 0;
+	overflow: hidden;
+	text-align: center;
+}
+
+.after-entry .wrap {
+	padding: 40px;
+}
+
+.after-entry a {
+	color: #fff;
+}
+
+.after-entry .widget-title,
+.after-entry h4 {
+	color: #fff;
+	font-size: 30px;
+}
+
+.after-entry h1,
+.after-entry h2,
+.after-entry h3,
+.after-entry h4,
+.after-entry h5,
+.after-entry h6 {
+	color: #fff;
+	font-weight: 400;
+}
+
+.after-entry .enews-widget input {
+	width: 50%;
+}
+
+.after-entry .enews-widget input[type="submit"] {
+	width: auto;
+}

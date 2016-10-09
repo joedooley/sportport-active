@@ -2,10 +2,10 @@
 ---------------------------------------------------------------------------------------------------- */
 
 .footer-widgets {
-	background-color: #3c4143;
 	@include padding(rem(20) 0);
+	background-color: $gray3;
 	clear: both;
-	color: #aaa;
+	color: $dark-gray;
 	font-size: 1.4rem;
 	line-height: 1;
 
@@ -29,6 +29,7 @@
 			size: 1.45rem;
 			weight: normal;
 		}
+		letter-spacing: 2px;
 		text-transform: uppercase;
 	}
 
@@ -40,42 +41,7 @@
 
 }
 
-
-/* Widget #3
------------------------- */
-
-.footer-widgets-3 {
-	.widget_text {
-		@include margin(0);
-	}
-	body.woocommerce-page .footer-widgets img { border: none; opacity: 0.4; }
-	.featured-content .entry-title {
-		@include padding(0);
-		text-align: center;
-
-		a {
-			color: #fff;
-			font-size: 1.2rem;
-		}
-	}
-
-	.entry {
-		background-color: rgba(255,255,255,0.5);
-		max-width: 341px;
-	}
-}
-
-/* Widget #4
------------------------- */
-
-.footer-widgets-4 {
-
-	&:first-child {
-		margin-bottom: rem(20);
-	}
-
-	address {
-		margin-top: 1em;
-	}
+.footer-logo {
+	margin-top: 0.5em;
 }
 

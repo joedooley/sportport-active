@@ -1,9 +1,5 @@
 /*! ## Site Structure and Layout
 ------------------------------------------- */
-
-/*! ## Site Containers
----------------------- */
-
 .site-inner,
 .wrap {
 	margin: 0 auto;
@@ -25,9 +21,8 @@
 }
 
 .site-inner {
+	@include margin(1em null 2em);
 	clear: both;
-	margin-bottom: 2em;
-	padding-top: 60px;
 
 	@include media($xlarge-screen-up) {
 		background: none;
@@ -66,8 +61,8 @@
 
 .content {
 	float: right;
-	width: 800px;
 	font-size: 15px;
+	width: 800px;
 
 	@include media($xxlarge-screen-up) {
 		width: 620px;
