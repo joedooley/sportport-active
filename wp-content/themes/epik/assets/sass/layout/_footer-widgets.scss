@@ -43,5 +43,10 @@
 
 .footer-logo {
 	margin-top: 0.5em;
+
+	@include media($small-screen-up) {
+		margin-top: 1.5em;
+	}
+
 }
 

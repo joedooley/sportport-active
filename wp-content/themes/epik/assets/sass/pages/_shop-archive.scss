@@ -12,6 +12,18 @@
 		@include padding(0.25em 0.25em 1.5em);
 		background-color: $gray2;
 
+		@include media($small-screen-up) {
+			width: 100%;
+		}
+		
+		&:last-child {
+			
+			@include media($small-screen-up) {
+				margin-bottom: 0;
+			}
+			
+		}
+
 		h3 {
 			@include padding(0);
 			background-color: $gray2;

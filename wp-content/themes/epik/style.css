@@ -2594,6 +2594,12 @@ li.comment ul li {
 .archive.woocommerce ul.products li.product, .archive.woocommerce-page ul.products li.product {
   padding: 0.25em 0.25em 1.5em;
   background-color: #ebebeb; }
+  @media screen and (max-width: 480px) {
+    .archive.woocommerce ul.products li.product, .archive.woocommerce-page ul.products li.product {
+      width: 100%; } }
+  @media screen and (max-width: 480px) {
+    .archive.woocommerce ul.products li.product:last-child, .archive.woocommerce-page ul.products li.product:last-child {
+      margin-bottom: 0; } }
   .archive.woocommerce ul.products li.product h3, .archive.woocommerce-page ul.products li.product h3 {
     padding: 0;
     background-color: #ebebeb;
@@ -3355,6 +3361,9 @@ body.woocommerce div.woocommerce-message div.wrap {
 
 .footer-logo {
   margin-top: 0.5em; }
+  @media screen and (max-width: 480px) {
+    .footer-logo {
+      margin-top: 1.5em; } }
 
 /* ## Site Footer
 ---------------------------- */
