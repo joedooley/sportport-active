@@ -3356,15 +3356,14 @@ body.woocommerce div.woocommerce-message div.wrap {
 .footer-logo {
   margin-top: 0.5em; }
 
-/* -------------------------------- *\
-        # Site Footer #
-\* -------------------------------- */
+/* ## Site Footer
+---------------------------- */
 .site-footer {
-  text-align: center;
+  padding: 0.625rem 0;
   background: #000;
   color: #909090;
-  font-size: 0.6875rem;
-  padding: 0.625rem 0; }
+  font-size: 1.5rem;
+  text-align: center; }
   .site-footer a {
     color: white; }
   .site-footer p {

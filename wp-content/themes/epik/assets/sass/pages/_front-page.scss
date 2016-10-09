@@ -112,7 +112,7 @@
 			background-color: $gray2;
 			border: 1px solid $gray2;
 			min-height: 300px;
-			
+
 			@include media($xlarge-screen-up) {
 				max-height: 300px;
 			}
