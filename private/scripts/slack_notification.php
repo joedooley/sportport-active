@@ -5,7 +5,7 @@ $pantheon_yellow = '#EFD01B';
 
 // Default values for parameters - Be sure to update the channel to an active channel in your Slack!
 $defaults = array(
-	'slack_channel'    => '#quicksilver',
+	'slack_channel'    => '#sportport-deployments',
 	'slack_username'   => 'Pantheon-Quicksilver',
 	'always_show_text' => false,
 );
