@@ -15,13 +15,13 @@
 		@include media($small-screen-up) {
 			width: 100%;
 		}
-		
+
 		&:last-child {
-			
+
 			@include media($small-screen-up) {
 				margin-bottom: 0;
 			}
-			
+
 		}
 
 		h3 {

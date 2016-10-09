@@ -2448,7 +2448,8 @@ li.comment ul li {
         float: left;
         display: block;
         margin-right: 2.35765%;
-        width: 100%; }
+        width: 100%;
+        max-height: none; }
         .home .featured-products ul.products li.product:last-child {
           margin-right: 0; } }
   .home .featured-products ul.products li.product h3 {
