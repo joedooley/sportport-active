@@ -2522,12 +2522,11 @@ li.comment ul li {
     border: 1px solid #1c0740;
     float: right;
     max-width: 350px;
-    transform: translateY(-100px); }
+    transform: translateY(-230px); }
     @media screen and (max-width: 768px) {
       .home .secondary-hero .secondary-hero-overlay {
         margin: 0 auto;
-        float: none;
-        transform: translateY(220px); } }
+        float: none; } }
   .home .secondary-hero .collection-wrap {
     padding: 0 2.5em; }
   .home .secondary-hero .collection-wrap-heading {

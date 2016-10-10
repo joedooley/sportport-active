@@ -223,12 +223,11 @@
 			border: 1px solid #1c0740;
 			float: right;
 			max-width: 350px;
-			transform: translateY(-100px);
+			transform: translateY(-230px);
 
 			@include media($ipad-screen-up) {
 				@include margin(0 auto);
 				float: none;
-				transform: translateY(220px);
 			}
 		}
 
