@@ -2512,8 +2512,6 @@ li.comment ul li {
     @media screen and (max-width: 480px) {
       .home .mini-quote-section blockquote {
         padding: 0; } }
-  .home .mini-quote-section p {
-    display: none; }
 .home .secondary-hero {
   padding: 300px 0;
   color: white;

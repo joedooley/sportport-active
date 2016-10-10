@@ -40,8 +40,3 @@ require_once( CHILD_FUNCTIONS_DIR . '/scripts-and-styles.php' );
 require_once( CHILD_FUNCTIONS_DIR . '/woocommerce.php' );
 require_once( CHILD_FUNCTIONS_DIR . '/layout.php' );
 require_once( CHILD_FUNCTIONS_DIR . '/theme-options-page.php' );
-
-
-
-
-
