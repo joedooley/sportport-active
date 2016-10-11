@@ -23,6 +23,8 @@ class Model_SQ_Frontend {
 
     /** @var array */
     private $thumb_images;
+    private $thumb_video;
+    private $custom_og_image = false;
 
     /** @var integer */
     private $min_title_length = 10;
@@ -191,7 +193,7 @@ class Model_SQ_Frontend {
 
                 if ((SQ_Tools::$options['sq_auto_description'] == 1 && $this->isHomePage()) || !$this->isHomePage()) {
                     //clear the existing description and keywords
-                    $buffer = @preg_replace('/<meta[^>]*(name|property)=["\'](description|keywords)["\'][^>]*content=["\'][^"\'>]*["\'][^>]*>[\n\r]*/si', '', $buffer, -1, $count);
+                    $buffer = @preg_replace('/<meta[^>]*(name|property)=["\'](description|keywords)["\'][^>]*content=["\'][^"\'>]*["\'][^>]*>[\n\r]*/si', '', $buffer, -1);
                 }
                 if (SQ_Tools::$options['sq_auto_facebook'] == 1) {
                     $buffer = @preg_replace('/<meta[^>]*(name|property)=["\'](og:|article:)[^"\'>]+["\'][^>]*content=["\'][^"\'>]+["\'][^>]*>[\n\r]*/si', '', $buffer, -1);
@@ -215,8 +217,8 @@ class Model_SQ_Frontend {
                 if ((SQ_Tools::$options['sq_auto_title'] == 1 && $this->isHomePage()) || !$this->isHomePage()) {
                     if (isset($this->title) && $this->title <> '') {
                         //replace the existing title
-                        $buffer = @preg_replace('/<title[^<>]*>([^<>]*)<\/title>/si', '', $buffer, 1);
-                        $buffer = @preg_replace('/(<head[^>]*>)/si', sprintf("$1\n<title>%s</title>", $this->title) . "\n", $buffer, 1);
+                        $buffer = @preg_replace('/<title[^<>]*>([^<>]*)<\/title>/si', '', $buffer, -1);
+                        $buffer = @preg_replace('/(<head[^>]*>)/si', sprintf("$1\n<title>%s</title>", $this->title) . "\n", $buffer, -1 );
                     }
                 } else {
                     $buffer = @preg_replace('/(<head[^>]*>)/si', sprintf("$1%s", $this->getHeader()) . "\n", $buffer, 1);
@@ -543,7 +545,7 @@ class Model_SQ_Frontend {
                     $this->title = $this->grabTitleFromPost();
                 }
                 if (is_paged()) {
-                    $this->title .= $sep . __('Page', _SQ_PLUGIN_NAME_) . " " . (int) get_query_var('paged');
+                    $this->title .= $sep . __('Page', _SQ_PLUGIN_NAME_) . " " . (int)get_query_var('paged');
                 }
             } elseif (is_author()) { //for author
                 if ($this->title == '') {
@@ -643,6 +645,20 @@ class Model_SQ_Frontend {
             $post = $this->post;
         }
 
+        if (SQ_Tools::$options['sq_auto_description'] == 1) { //
+            if (($this->isHomePage() && SQ_Tools::$options['sq_fp_ogimage'] <> '')) {
+                $images[] = array(
+                    'src' => esc_url(SQ_Tools::$options['sq_fp_ogimage']),
+                    'title' => $this->clearTitle($this->grabTitleFromPost($post->ID)),
+                    'description' => $this->clearDescription($this->grabDescriptionFromPost($post->ID)),
+                    'width' => null,
+                    'height' => null,
+                );
+
+                return $images;
+            }
+        }
+
         if ($post && isset($post->ID)) {
             if ($url = $this->getAdvancedMeta($post->ID, 'ogimage')) {
                 $images[] = array(
@@ -652,6 +668,8 @@ class Model_SQ_Frontend {
                     'width' => null,
                     'height' => null,
                 );
+                //don't add other images in OG to overwrite the custom image
+                $this->custom_og_image = true;
             }
             if ($all || empty($images)) {
                 if (has_post_thumbnail($post->ID)) {
@@ -707,15 +725,17 @@ class Model_SQ_Frontend {
         }
 
         if ($post && isset($post->ID)) {
-            if (isset($post->post_content)) {
-                preg_match('/(?:http(?:s)?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed)\/)([^\?&\"\'>\s]+)/si', $post->post_content, $match);
+            //if not
+            if (!$this->custom_og_image) {
+                if (isset($post->post_content)) {
+                    preg_match('/(?:http(?:s)?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed)\/)([^\?&\"\'>\s]+)/si', $post->post_content, $match);
 
-                if (isset($match[0])) {
-                    if (strpos($match[0], '//') !== false && strpos($match[0], 'http') === false) {
-                        $match[0] = 'http:' . $match[0];
+                    if (isset($match[0])) {
+                        if (strpos($match[0], '//') !== false && strpos($match[0], 'http') === false) {
+                            $match[0] = 'http:' . $match[0];
+                        }
+                        $videos[] = esc_url($match[0]);
                     }
-                    $videos[] = esc_url($match[0]);
-                }
 
 //                preg_match('/(?:http(?:s)?:\/\/)?(?:fast\.wistia\.net\/(?:embed)\/(?:iframe)\/)([^\?&\"\'>\s]+)/si', $post->post_content, $match);
 //
@@ -726,22 +746,23 @@ class Model_SQ_Frontend {
 //                    $videos[] = esc_url($match[0]);
 //                }
 
-                preg_match('/(?:http(?:s)?:\/\/)?(?:fwd4\.wistia\.com\/(?:medias)\/)([^\?&\"\'>\s]+)/si', $post->post_content, $match);
+                    preg_match('/(?:http(?:s)?:\/\/)?(?:fwd4\.wistia\.com\/(?:medias)\/)([^\?&\"\'>\s]+)/si', $post->post_content, $match);
 
-                if (isset($match[0])) {
-                    $videos[] = esc_url('http://fast.wistia.net/embed/iframe/' . $match[1]);
-                }
+                    if (isset($match[0])) {
+                        $videos[] = esc_url('http://fast.wistia.net/embed/iframe/' . $match[1]);
+                    }
 
-                preg_match('/class=["|\']([^"\']*wistia_async_([^\?&\"\'>\s]+)[^"\']*["|\'])/si', $post->post_content, $match);
+                    preg_match('/class=["|\']([^"\']*wistia_async_([^\?&\"\'>\s]+)[^"\']*["|\'])/si', $post->post_content, $match);
 
-                if (isset($match[0])) {
-                    $videos[] = esc_url('http://fast.wistia.net/embed/iframe/' . $match[2]);
-                }
+                    if (isset($match[0])) {
+                        $videos[] = esc_url('http://fast.wistia.net/embed/iframe/' . $match[2]);
+                    }
 
-                preg_match('/src=["|\']([^"\']*(.mpg|.mpeg|.mp4|.mov|.wmv|.asf|.avi|.ra|.ram|.rm|.flv)["|\'])/i', $post->post_content, $match);
+                    preg_match('/src=["|\']([^"\']*(.mpg|.mpeg|.mp4|.mov|.wmv|.asf|.avi|.ra|.ram|.rm|.flv)["|\'])/i', $post->post_content, $match);
 
-                if (isset($match[1])) {
-                    $videos[] = esc_url($match[1]);
+                    if (isset($match[1])) {
+                        $videos[] = esc_url($match[1]);
+                    }
                 }
             }
         }
@@ -1100,10 +1121,16 @@ class Model_SQ_Frontend {
         $sq_google_analytics = SQ_Tools::$options['sq_google_analytics'];
 
         if ($sq_google_analytics <> '') {
-            SQ_ObjController::getController('SQ_DisplayController', false)
-                ->loadMedia('https://www.google-analytics.com/analytics.js');
+            if (SQ_Tools::$options['sq_auto_amp']){
+                $str = '<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>' . "\n";
+                $str .= sprintf('<amp-analytics type="googleanalytics" id="analytics1"><script type="application/json">{"vars": {"account": "%s"},"triggers": {"trackPageview": {"on": "visible","request": "pageview"}}}</script></amp-analytics>', $sq_google_analytics) . "\n";
 
-            return sprintf("<script>
+                return $str;
+            }else {
+                SQ_ObjController::getController('SQ_DisplayController', false)
+                    ->loadMedia('https://www.google-analytics.com/analytics.js');
+
+                return sprintf("<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -1113,12 +1140,13 @@ class Model_SQ_Frontend {
   ga('send', 'pageview');
 
 </script>", $sq_google_analytics);
+            }
         }
 
         return false;
     }
 
-    private function getFacebookPixel(){
+    private function getFacebookPixel() {
 
         $sq_facebook_analytics = SQ_Tools::$options['sq_facebook_analytics'];
 
@@ -1134,11 +1162,12 @@ fbq('track', 'ViewContent');
 fbq('track', 'PageView');</script>
 <noscript><img height='1' width='1' style='display:none'
 src='https://www.facebook.com/tr?id=%s&ev=PageView&noscript=1'
-/></noscript>"."\n", $sq_facebook_analytics, $sq_facebook_analytics);
+/></noscript>" . "\n", $sq_facebook_analytics, $sq_facebook_analytics);
         }
 
         return false;
     }
+
     /**
      * Get the Facebook Insights code
      *
@@ -1655,7 +1684,7 @@ src='https://www.facebook.com/tr?id=%s&ev=PageView&noscript=1'
         }
 
         //Check if blog posts page
-        if (is_home() && $wp_query->is_posts_page){
+        if (is_home() && $wp_query->is_posts_page) {
             return false;
         }
 

@@ -523,4 +523,6 @@ body ul.sq_complete li span{
     font-style: italic;
     padding: 5px;
     width: 100%;
+    height: 30px;
+    line-height: 20px;
 }

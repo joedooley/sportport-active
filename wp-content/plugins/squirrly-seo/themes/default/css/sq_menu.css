@@ -326,8 +326,7 @@
     float: left;
     clear: both;
     width: 900px;
-
-    background: #fcfcfc;
+    background: #161a16;
     border: 1px solid #ddd;
     font-size: 1.1em;
     margin: 10px auto;
@@ -340,18 +339,22 @@
 }
 #sq_settings_body fieldset > div{
     float: left;
-    padding: 20px 0 0 0px;
-    width: 550px;
+    background-color: #fcfcfc;
+    padding: 20px 0 0 10px;
+    width: 560px;
+    min-height: 280px;
+}
+
+#sq_settings_affiliate_form fieldset > div{
+    min-height: 324px;
 }
 #sq_settings_body fieldset legend{
     float: left;
     width: 280px;
-    height: 365px;
-    background: #161a16 repeat-x top left;
     border: none;
     font-weight: normal;
     font-size: 14px;
-    margin: 0 10px 0 0;
+    margin: 0;
     padding: 25px;
     line-height: 20px;
     text-align: left;
@@ -433,6 +436,12 @@
     font-size: 12px;
     font-weight: normal;
     color: #777;
+}
+
+#sq_settings_body .sq_option_info{
+    font-style: italic;
+    color: #aaa;
+    font-size: 90%;
 }
 
 #sq_settings_body fieldset p{

@@ -8,7 +8,7 @@ if (jQuery('#sq_settings').length > 0) {
 
 
 function ctl_setThemeColors(background, button, text) {
-    jQuery('#sq_settings legend').css('background-color', background);
+    jQuery('#sq_settings fieldset').css('background-color', background);
     jQuery('#sq_settings input[type="submit"]').css('background-color', button);
     jQuery('#sq_settings input[type="submit"]').css('color', text);
     jQuery('#sq_settings legend > span').css('color', text);

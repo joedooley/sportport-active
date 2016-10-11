@@ -81,6 +81,7 @@ class SQ_Tools extends SQ_FrontController {
             'sq_auto_sitemap' => 0,
             'sq_auto_feed' => 0,
             'sq_auto_jsonld' => 0,
+            'sq_auto_amp' => 0,
             'sq_jsonld_type' => 'Organization',
             'sq_jsonld' => array(
                 'Organization' => array(
@@ -144,6 +145,7 @@ class SQ_Tools extends SQ_FrontController {
             'sq_fp_title' => '',
             'sq_fp_description' => '',
             'sq_fp_keywords' => '',
+            'sq_fp_ogimage' => '',
             // --
             'sq_google_wt' => '',
             'sq_google_analytics' => '',
@@ -733,6 +735,7 @@ class SQ_Tools extends SQ_FrontController {
         if (self::$options['sq_use'] == 1 && self::$options['sq_auto_title'] == 1) {
             if (self::$source_code <> '') {
                 preg_match_all("/<title[^>]*>(.*)?<\/title>/i", self::$source_code, $out);
+
                 if (!empty($out) && isset($out[0]) && is_array($out[0])) {
                     $total += sizeof($out[0]);
                 }

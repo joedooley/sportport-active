@@ -137,6 +137,12 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
 
 == Changelog ==
+= 6.2.3 =
+* Added Open Graph Image for First Page when the first page is a blog feed
+* Fixed small css issues in post editor
+* Fixed duplicate title removal
+* Added AMP Analytics from Google
+
 = 6.2.2 =
 * Compatible with WP 4.6.1
 * Fixed SEO Page Optimization for Post Feed Page and Home Page

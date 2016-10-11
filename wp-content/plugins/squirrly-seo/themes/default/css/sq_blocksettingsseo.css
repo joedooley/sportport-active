@@ -51,6 +51,7 @@
 #sq_settings #sq_option_facebook,
 #sq_settings #sq_option_twitter{
     position: relative;
+    display: table;
     clear: both;
 }
 
@@ -172,4 +173,28 @@
     background: transparent url('../img/settings/googlejsonld.png') no-repeat;
     z-index: 100;
 
+}
+#sq_settings div.sq_select_ogimage_preview{
+    position: relative;
+    display: table
+}
+#sq_settings div.sq_fp_ogimage img{
+    max-width: 470px;
+    max-height: 246px;
+    overflow: hidden;
+    text-align: center;
+}
+
+#sq_settings div.sq_fp_ogimage_close {
+    position: absolute;
+
+    right: -8px;
+    top: -8px;
+    border: 1px #ccc;
+    background: #ddd;
+    border-radius: 50%;
+    width: 20px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
 }

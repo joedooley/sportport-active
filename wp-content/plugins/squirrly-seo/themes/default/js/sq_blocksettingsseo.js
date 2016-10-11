@@ -231,6 +231,64 @@ function sq_blocksettingsseo() {
         // Finally, open the modal on click
         frame.open();
     });
+
+    jQuery('#sq_auto_facebook1').bind('click', function () {
+        jQuery('p.sq_select_ogimage').slideDown();
+        jQuery('div.sq_select_ogimage_preview').slideDown();
+
+    });
+    jQuery('#sq_auto_facebook0').bind('click', function () {
+        jQuery('p.sq_select_ogimage').slideUp();
+        jQuery('div.sq_select_ogimage_preview').slideUp();
+    });
+
+    jQuery('div.sq_fp_ogimage_close').bind('click', function (event) {
+        jQuery('input[name=sq_fp_ogimage]').val('');
+        jQuery('div.sq_fp_ogimage').html('');
+        jQuery('div.sq_fp_ogimage_close').hide();
+    });
+    //Upload image from library
+    jQuery('#sq_fp_imageselect').bind('click', function (event) {
+        var frame;
+
+        event.preventDefault();
+
+        // If the media frame already exists, reopen it.
+        if (frame) {
+            frame.open();
+            return;
+        }
+
+        // Create a new media frame
+        frame = wp.media({
+            title: 'Select or Upload Media Of Your Chosen Persuasion',
+            button: {
+                text: 'Use this media'
+            },
+            multiple: false  // Set to true to allow multiple files to be selected
+        });
+
+
+        // When an image is selected in the media frame...
+        frame.on('select', function () {
+
+            // Get media attachment details from the frame state
+            var attachment = frame.state().get('selection').first().toJSON();
+
+            // Send the attachment URL to our custom image input field.
+            jQuery('input[name=sq_fp_ogimage]').val(attachment.url);
+            if (attachment.url != '') {
+                jQuery('div.sq_fp_ogimage').html('<img src="' + attachment.url + '">');
+                jQuery('div.sq_fp_ogimage_close').show();
+            }else{
+                jQuery('div.sq_fp_ogimage').html('');
+                jQuery('div.sq_fp_ogimage_close').hide();
+            }
+        });
+
+        // Finally, open the modal on click
+        frame.open();
+    });
 }
 
 //Submit the settings
@@ -288,6 +346,7 @@ function sq_submitSettings() {
             sq_fp_title: jQuery('#sq_settings').find('input[name=sq_fp_title]').val(),
             sq_fp_description: jQuery('#sq_settings').find('textarea[name=sq_fp_description]').val(),
             sq_fp_keywords: jQuery('#sq_settings').find('input[name=sq_fp_keywords]').val(),
+            sq_fp_ogimage: jQuery('#sq_settings').find('input[name=sq_fp_ogimage]').val(),
 // --
             ignore_warn: jQuery('#sq_settings').find('input[name=ignore_warn]:checked').val(),
 // --
@@ -296,6 +355,7 @@ function sq_submitSettings() {
             sq_facebook_analytics: jQuery('#sq_settings').find('input[name=sq_facebook_analytics]').val(),
 
             sq_pinterest: jQuery('#sq_settings').find('input[name=sq_pinterest]').val(),
+            sq_auto_amp: jQuery('#sq_settings').find('input[name=sq_auto_amp]:checked').val(),
             // --
 
             nonce: sqQuery.nonce

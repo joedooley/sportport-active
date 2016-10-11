@@ -14,7 +14,7 @@
         <form id="sq_settings_form" name="settings" action="" method="post" enctype="multipart/form-data">
             <div id="sq_settings_body">
                 <fieldset>
-                    <legend class="sq_legend_medium">
+                    <legend>
                         <span class="sq_legend_title"><?php _e('Post/Page Edit', _SQ_PLUGIN_NAME_); ?></span>
                         <span><?php echo sprintf(__('%sThe right method in working with Squirrly, SEO plugin%s', _SQ_PLUGIN_NAME_), '<a href="http://www.squirrly.co/the-right-premises-in-working-with-squirrly-wordpress-seo-plugin" target="_blank">', '</a>'); ?></span>
                         <span><?php echo sprintf(__('%sGetting inspired with Squirrly WordPress SEO plugin%s', _SQ_PLUGIN_NAME_), '<a href="http://www.squirrly.co/getting-inspired-with-squirrly-wordpress-seo-plugin" target="_blank">', '</a>'); ?></span>
@@ -289,7 +289,7 @@
                 </fieldset>
 
                 <fieldset id="sq_measure_success">
-                    <legend style="height: 310px;">
+                    <legend>
                         <span class="sq_legend_title"><?php _e('Measure Your Success', _SQ_PLUGIN_NAME_); ?></span>
                         <span><?php echo sprintf(__('%sHow to set the Google Webmaster Tool%s', _SQ_PLUGIN_NAME_), '<a href="http://howto.squirrly.co/wordpress-seo/how-to-set-the-google-webmaster-tool/" target="_blank">', '</a>'); ?></span>
                         <span><?php echo sprintf(__('%sBest practices to help Google find, crawl, and index your site%s', _SQ_PLUGIN_NAME_), '<a href="https://support.google.com/webmasters/answer/35769?hl=en" target="_blank">', '</a>'); ?></span>

@@ -49,6 +49,7 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
                 SQ_Tools::saveOptions('sq_auto_title', (int)SQ_Tools::getValue('sq_auto_title'));
                 SQ_Tools::saveOptions('sq_auto_description', (int)SQ_Tools::getValue('sq_auto_description'));
                 SQ_Tools::saveOptions('sq_auto_canonical', (int)SQ_Tools::getValue('sq_auto_canonical'));
+                SQ_Tools::saveOptions('sq_auto_amp', (int)SQ_Tools::getValue('sq_auto_amp'));
 
                 SQ_Tools::saveOptions('sq_auto_meta', (int)SQ_Tools::getValue('sq_auto_meta'));
                 SQ_Tools::saveOptions('sq_auto_favicon', (int)SQ_Tools::getValue('sq_auto_favicon'));
@@ -80,7 +81,7 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
                         $meta[] = array('key' => '_sq_fp_keywords', 'value' => SQ_Tools::getValue('sq_fp_keywords'));
 
                     if (SQ_Tools::getIsset('sq_fp_ogimage'))
-                        $meta[] = array('key' => '_sq_fp_ogimage', 'value' => SQ_ObjController::getModel('SQ_Frontend')->getAdvancedMeta($pageId, 'ogimage'));
+                        $meta[] = array('key' => '_sq_fp_ogimage', 'value' => SQ_Tools::getValue('sq_fp_ogimage'));
 
                     if (!empty($meta))
                         SQ_ObjController::getModel('SQ_Post')->saveAdvMeta($pageId, $meta);
@@ -89,6 +90,7 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
                 SQ_Tools::saveOptions('sq_fp_title', SQ_Tools::getValue('sq_fp_title'));
                 SQ_Tools::saveOptions('sq_fp_description', SQ_Tools::getValue('sq_fp_description'));
                 SQ_Tools::saveOptions('sq_fp_keywords', SQ_Tools::getValue('sq_fp_keywords'));
+                SQ_Tools::saveOptions('sq_fp_ogimage', SQ_Tools::getValue('sq_fp_ogimage'));
 
 
                 ///////////////////////////////////////////
@@ -134,6 +136,7 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
                 SQ_Tools::saveOptions('sq_pinterest', $this->model->checkPinterestCode(SQ_Tools::getValue('sq_pinterest', '', true)));
 
                 ///////////////////////////////////////////JSONLD
+
 
                 SQ_Tools::saveOptions('sq_auto_jsonld', (int)SQ_Tools::getValue('sq_auto_jsonld'));
                 if (SQ_Tools::getIsset('sq_jsonld_type') && isset(SQ_Tools::$options['sq_jsonld'][SQ_Tools::getValue('sq_jsonld_type')])) {

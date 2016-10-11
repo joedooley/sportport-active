@@ -68,7 +68,7 @@
                 </fieldset>
                 <?php if (SQ_Tools::$options['sq_affiliate_link'] <> '') { ?>
                     <fieldset>
-                        <legend class="sq_legend_big" style="  min-height: 1200px">
+                        <legend>
                             <span class="sq_legend_title"><?php _e('Squirrly banners you can use', _SQ_PLUGIN_NAME_); ?></span>
                         </legend>
                         <div>
