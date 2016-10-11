@@ -22,15 +22,15 @@
 			padding-left: 0;
 			padding-right: 0;
 		}
+	}
 
-		.content {
-			background-color: $pink5;
-			max-width: none;
+	.content {
+		background-color: $pink5;
+		max-width: none;
 
-			@include media($xxxlarge-screen-up) {
-				@include outer-container(1200px);
-				float: none;
-			}
+		@include media($xxxlarge-screen-up) {
+			@include outer-container(1200px);
+			float: none;
 		}
 	}
 
@@ -219,8 +219,8 @@
 
 		.secondary-hero-overlay {
 			@include padding(null null 2em);
-			background-color: #1c0740;
-			border: 1px solid #1c0740;
+			background-color: $black1;
+			border: 1px solid $white;
 			float: right;
 			max-width: 350px;
 			transform: translateY(-230px);
