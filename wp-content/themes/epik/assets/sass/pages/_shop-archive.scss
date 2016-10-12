@@ -2,6 +2,7 @@
 ------------------------- */
 
 .archive {
+	background-color: $white;
 
 	.entry-header {
 		@include margin(1em 0 0.5em);
@@ -57,7 +58,7 @@
 			text-transform: capitalize;
 
 			&:hover {
-				background-color: $gray1;
+				background-color: $navpink2;
 			}
 		}
 

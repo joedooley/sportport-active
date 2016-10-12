@@ -2,10 +2,10 @@
 .entry-content .sp-button,
 .entry-content .sp-button a,
 #{$all-buttons} {
-	appearance: none;
+	-webkit-appearance: none;
 	//background-color: $orange;
 	background-color: $navpink1;
-	color: #fff;
+	color: $white;
 	cursor: pointer;
 	display: inline-block;
 	font: {
@@ -26,7 +26,7 @@
 	&:hover,
 	&:focus {
 		//background-color: $orange-hover;
-		background-color: $gray1;
+		background-color: $navpink2;
 		color: #fff;
 		transition: all 0.3s ease;
 	}
@@ -37,7 +37,7 @@
 
 		&:hover {
 			//background-color: shade($orange-hover, 20%);
-			background-color: shade($gray1, 20%);
+			background-color: shade($navpink2, 20%);
 		}
 	}
 }
@@ -51,8 +51,8 @@
 	&:hover {
 		//background-color: $orange;
 		//border-color: $orange;
-		background-color: $pink1;
-		border-color: $pink1;
+		background-color: $navpink2;
+		border-color: $navpink2;
 	}
 
 	@include media($small-screen-up) {
