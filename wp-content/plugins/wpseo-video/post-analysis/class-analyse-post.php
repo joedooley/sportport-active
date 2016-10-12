@@ -95,6 +95,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 			'Vzaar_Media_Management'             => 'vzaar-media-management/vzaar-media-management.php',
 			'Vzaar_Official'                     => 'vzaar-official-plugin/vzaarAPI.php',
 			'Vippy'                              => 'vippy/vippy-wp.php',
+		'Ustudio'                            => 'ustudio/plugin.php',
 		);
 
 		// Weaver theme 305,025 -> als path niet te achterhalen, dan misschien bij static setup altijd toevoegen.
@@ -968,6 +969,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 						case 'spike.com':
 						case 'ted.com':
 						case 'ted.org':
+						case 'ustudio.com':
 						case 'veoh.com':
 						case 'viddler.com':
 						case 'videojug.com':
@@ -1375,6 +1377,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 							case 'spike.com':
 							case 'ted.com':
 							case 'ted.org':
+							case 'ustudio.com':
 							case 'veoh.com':
 							case 'viddler.com':
 							case 'videojug.com':

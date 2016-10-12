@@ -56,7 +56,7 @@ body.single-product {
 
 	&.woocommerce div.product div.images {
 		background: #fff;
-		padding-top: 50px;
+		padding-top: 0;
 		text-align: center;
 		width: 50%;
 
@@ -287,7 +287,7 @@ body.woocommerce .quantity .qty {
 body.woocommerce div.product div.images div.thumbnails {
 	margin-left: 1em;
 	margin-right: 1em;
-	margin-top: 11em;
+	margin-top: 5em;
 
 	@include media($xlarge-screen-up) {
 		margin: 1em auto;

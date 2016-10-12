@@ -1,5 +1,5 @@
 /*! Footer Widgets
----------------------------------------------------------------------------------------------------- */
+-------------------------- */
 
 .footer-widgets {
 	@include padding(rem(20) 0);
@@ -8,6 +8,11 @@
 	color: $dark-gray;
 	font-size: 1.4rem;
 	line-height: 1;
+	position: relative;
+
+	@include media($small-screen-up) {
+		text-align: center;
+	}
 
 	a,
 	p {
