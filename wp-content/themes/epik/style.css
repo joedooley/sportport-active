@@ -3392,6 +3392,34 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 .taxonomy-description {
   margin-top: 2em; }
 
+/* ## Giveaway Blog Ran By The Ducks
+------------------------------------ */
+.giveaway-left {
+  margin-top: 80px; }
+  @media screen and (max-width: 1023px) {
+    .giveaway-left {
+      margin-top: 0; } }
+
+@media screen and (max-width: 1023px) {
+  .giveaway-left,
+  .giveaway-form {
+    width: 100%; } }
+
+@media screen and (max-width: 1023px) {
+  .giveaway-wrap h2,
+  .giveaway-form {
+    margin-bottom: 40px; } }
+
+@media screen and (max-width: 480px) {
+  .giveaway-image,
+  .giveaway-links {
+    margin-bottom: 40px;
+    width: 100%; } }
+
+@media screen and (max-width: 480px) {
+  .giveaway-image {
+    text-align: center; } }
+
 /**
  * ./assets/js/custom/vanilla-modal.js
  */

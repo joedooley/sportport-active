@@ -1,0 +1,37 @@
+/* ## Giveaway Blog Ran By The Ducks
+------------------------------------ */
+.giveaway-left {
+	margin-top: 80px;
+
+	@include media($xlarge-screen-up) {
+		margin-top: 0;
+	}
+}
+
+.giveaway-left,
+.giveaway-form {
+	@include media($xlarge-screen-up) {
+		width: 100%;
+	}
+}
+
+.giveaway-wrap h2,
+.giveaway-form {
+	@include media($xlarge-screen-up) {
+		margin-bottom: 40px;
+	}
+}
+
+.giveaway-image,
+.giveaway-links {
+	@include media($small-screen-up) {
+		margin-bottom: 40px;
+		width: 100%;
+	}
+}
+
+.giveaway-image {
+	@include media($small-screen-up) {
+		text-align: center;
+	}
+}
