@@ -1,10 +1,10 @@
 === WP Retina 2x ===
 Contributors: TigrouMeow
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H2S7S3G4XMJ6J
-Tags: retina, images, image, responsive, admin, attachment, media, files, iphone, ipad, high-dpi
+Tags: retina, images, image, responsive, lazysizes, lazy, attachment, media, files, iphone, ipad, high-dpi
 Requires at least: 3.5
-Tested up to: 4.5.3
-Stable tag: 4.5.5
+Tested up to: 4.6.1
+Stable tag: 4.5.7
 
 Make your website look beautiful and crisp on modern displays by creating and displaying retina images. WP 4.4+ is also supported and enhanced.
 
@@ -20,6 +20,8 @@ This plugin does two things: it creates the image files required by the High-DPI
 
 **Optimized**. The plugin is very fast and optimized. It doesn't create anything in the database. In most cases, it doesn't even require any configuration.
 
+**Pro**. When activated, the Pro version adds support for Retina for full-size, support for lazy-loading for your responsive images and various options.
+
 **CSS & Background Images**. The plugin can't add retina support to your CSS (that would be too dangerous), and therefore your CSS background images. If your themes or plugins are using them heavily, you can contact the developer and kindly ask to use WP Retina 2x API to add retina support to those background images (that is possible this way). A few gallery and slider plugins are using CSS background images.
 
 More information and tutorial available one http://apps.meow.fr/wp-retina-2x/.
@@ -31,6 +33,12 @@ More information and tutorial available one http://apps.meow.fr/wp-retina-2x/.
 3. Check if it works! - if it doesn't, read the FAQ, the tutorial, and check the forums.
 
 == Changelog ==
+
+= 4.5.7 =
+* Update: LazyLoad 2.0.3
+
+= 4.5.6 =
+* Fix: Don't display Retina information for a media that is not an image.
 
 = 4.5.5 =
 * Update: LazyLoad 2.0.0

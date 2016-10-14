@@ -30,9 +30,10 @@ define( 'CHILD_FUNCTIONS_DIR', CHILD_DIR . '/assets/functions' );
  */
 load_child_theme_textdomain( CHILD_THEME_TEXTDOMAIN, CHILD_DIR . '/languages' );
 
-//require_once( CHILD_FUNCTIONS_DIR . '/customize.php' );
-//include_once( CHILD_FUNCTIONS_DIR . '/output.php' );
 
+/**
+ * Include theme files.
+ */
 include_once( CHILD_FUNCTIONS_DIR . '/theme-functions.php' );
 require_once( CHILD_FUNCTIONS_DIR . '/widgets.php' );
 require_once( CHILD_FUNCTIONS_DIR . '/genesis.php' );

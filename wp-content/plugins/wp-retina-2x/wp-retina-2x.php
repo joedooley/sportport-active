@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WP Retina 2x
-Plugin URI: http://apps.meow.fr
+Plugin URI: http://meowapps.com
 Description: Make your website look beautiful and crisp on modern displays by creating + displaying retina images. WP 4.4 is also supported and enhanced.
-Version: 4.5.5
+Version: 4.5.7
 Author: Jordy Meow
-Author URI: http://apps.meow.fr
+Author URI: http://meowapps.com
 Text Domain: wp-retina-2x
 Domain Path: /languages
 
@@ -20,16 +20,16 @@ Originally developed for two of my websites:
 
 /**
  *
- * @author      Jordy Meow  <http://apps.meow.fr>
+ * @author      Jordy Meow  <http://meowapps.com>
  * @package     Wordpress
  * @subpackage	Administration
  *
  */
 
-$wr2x_version = '4.5.5';
+$wr2x_version = '4.5.7';
 $wr2x_retinajs = '2.0.0';
 $wr2x_picturefill = '3.0.2';
-$wr2x_lazysizes = '2.0.0';
+$wr2x_lazysizes = '2.0.3';
 $wr2x_retina_image = '1.7.2';
 $wr2x_extra_debug = false;
 
@@ -61,6 +61,9 @@ if ( !wr2x_getoption( "hide_retina_dashboard", "wr2x_advanced", false ) )
 
 if ( !wr2x_getoption( "hide_retina_column", "wr2x_advanced", false ) )
 	require( 'wr2x_media-library.php' );
+
+//if ( !wr2x_getoption( "hide_retina_column", "wr2x_advanced", false ) )
+	require( 'wr2x_retina_uploader.php' );
 
 require( 'wr2x_responsive.php' );
 
@@ -1031,13 +1034,13 @@ function wr2x_validate_pro( $subscr_id ) {
 	set_transient( 'wr2x_validated', false, 0 );
 	if ( empty( $subscr_id ) )
 		return false;
-	$response = wp_remote_post( 'http://apps.meow.fr/wp-json/meow/v1/auth', array(
+	$response = wp_remote_post( 'http://meowapps.com/wp-json/meow/v1/auth', array(
 		'body' => array( 'subscr_id' => $subscr_id, 'item' => 'retina', 'url' => get_site_url() )
 	) );
 	$body = is_array( $response ) ? $response['body'] : null;
 	$post = @json_decode( $body );
-	if ( !$post || $post->code ) {
-		$status = __( "There was an error while validating the serial.<br />Please contact <a target='_blank' href='http://apps.meow.fr/contact/'>Meow Apps</a> and mention the following log.<br /><br /><small>" . print_r( $response, true ) . "</small>" );
+	if ( !$post || ( $post && !empty( $post->code ) ) ) {
+		$status = __( "There was an error while validating the serial.<br />Please contact <a target='_blank' href='http://meowapps.com/contact/'>Meow Apps</a> and mention the following log.<br /><br /><small>" . print_r( $response, true ) . "</small>" );
 		update_option( 'wr2x_pro_status', $status );
 		return false;
 	}
