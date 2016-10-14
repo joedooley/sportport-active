@@ -10,12 +10,6 @@
  */
 
 /**
- * Bootstrap Genesis
- */
-require_once( get_template_directory() . '/lib/init.php' );
-
-
-/**
  * Define Child Theme Constants
  */
 define( 'CHILD_THEME_NAME', 'Epik Theme' );
@@ -31,13 +25,16 @@ define( 'CHILD_FUNCTIONS_DIR', CHILD_DIR . '/assets/functions' );
 load_child_theme_textdomain( CHILD_THEME_TEXTDOMAIN, CHILD_DIR . '/languages' );
 
 
+
+
 /**
- * Include theme files.
+ * Bootstrap Genesis and include theme files.
  */
-include_once( CHILD_FUNCTIONS_DIR . '/theme-functions.php' );
-require_once( CHILD_FUNCTIONS_DIR . '/widgets.php' );
-require_once( CHILD_FUNCTIONS_DIR . '/genesis.php' );
-require_once( CHILD_FUNCTIONS_DIR . '/scripts-and-styles.php' );
-require_once( CHILD_FUNCTIONS_DIR . '/woocommerce.php' );
-require_once( CHILD_FUNCTIONS_DIR . '/layout.php' );
-require_once( CHILD_FUNCTIONS_DIR . '/theme-options-page.php' );
+require_once get_template_directory() . '/lib/init.php';
+include_once __DIR__ . '/assets/functions/theme-functions.php';
+require_once __DIR__ . '/assets/functions/widgets.php';
+require_once __DIR__ . '/assets/functions/genesis.php';
+require_once __DIR__ . '/assets/functions/scripts-and-styles.php';
+require_once __DIR__ . '/assets/functions/woocommerce.php';
+require_once __DIR__ . '/assets/functions/layout.php';
+require_once __DIR__ . '/assets/functions/theme-options-page.php';
