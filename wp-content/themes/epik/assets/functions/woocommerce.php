@@ -17,7 +17,7 @@ add_action( 'template_redirect', 'remove_sidebar_shop' );
  * @return  void
  */
 function remove_sidebar_shop() {
-	if ( is_product() || is_shop() ) {
+	if ( is_product() ) {
 		remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar' );
 	}
 }
@@ -29,7 +29,7 @@ add_filter( 'genesis_site_layout', 'spa_wc_force_full_width' );
  * @return string
  */
 function spa_wc_force_full_width() {
-	if ( is_page( array( 'cart', 'checkout' ) ) || is_shop() || 'product' === get_post_type() ) {
+	if ( is_page( array( 'cart', 'checkout' ) ) || 'product' === get_post_type() ) {
 		return 'full-width-content';
 	}
 }

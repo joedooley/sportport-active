@@ -16,13 +16,12 @@ define( 'CHILD_THEME_NAME', 'Epik Theme' );
 define( 'CHILD_THEME_URL', 'https://www.sportportactive.com/' );
 define( 'CHILD_THEME_VERSION', '1.0.0' );
 define( 'CHILD_THEME_TEXTDOMAIN', 'epik' );
-define( 'CHILD_FUNCTIONS_DIR', CHILD_DIR . '/assets/functions' );
 
 
 /**
  * Load Internationalization File
  */
-load_child_theme_textdomain( CHILD_THEME_TEXTDOMAIN, CHILD_DIR . '/languages' );
+load_child_theme_textdomain( CHILD_THEME_TEXTDOMAIN, __DIR__s . '/languages' );
 
 
 
