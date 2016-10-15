@@ -21,7 +21,7 @@ define( 'CHILD_THEME_TEXTDOMAIN', 'epik' );
 /**
  * Load Internationalization File
  */
-load_child_theme_textdomain( CHILD_THEME_TEXTDOMAIN, __DIR__s . '/languages' );
+load_child_theme_textdomain( CHILD_THEME_TEXTDOMAIN, __DIR__ . '/languages' );
 
 
 
@@ -37,3 +37,4 @@ require_once __DIR__ . '/assets/functions/scripts-and-styles.php';
 require_once __DIR__ . '/assets/functions/woocommerce.php';
 require_once __DIR__ . '/assets/functions/layout.php';
 require_once __DIR__ . '/assets/functions/theme-options-page.php';
+
