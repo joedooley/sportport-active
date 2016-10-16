@@ -14,7 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Enqueue global theme scripts and styles. Includes
  * localization script for accessibility mobile navigation.
- *
  */
 function spa_scripts_styles() {
 
@@ -27,7 +26,7 @@ function spa_scripts_styles() {
 
 	wp_enqueue_style(
 		'ionicons',
-		'//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css',
+		'http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css',
 		array(),
 		'2.0.1'
 	);
@@ -42,10 +41,10 @@ function spa_scripts_styles() {
 	);
 
 
-	$output = array(
-		'mainMenu' => __( 'Menu', CHILD_THEME_TEXTDOMAIN ),
-		//'subMenu'  => __( 'Menu', CHILD_THEME_TEXTDOMAIN' ),
-	);
+	$output = [
+		'mainMenu' => __( 'Menu', 'EPIK' ),
+		//'subMenu'  => __( 'Menu', 'EPIK'' ),
+	];
 
 
 	wp_localize_script(
