@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'after_setup_theme', 'spa_add_theme_support' );
+add_action( 'after_setup_theme', 'spa_add_theme_support', 9 );
 /**
  * Add theme support features on after-theme-setup hook
  *
@@ -24,7 +24,6 @@ function spa_add_theme_support() {
 	add_theme_support( 'genesis-responsive-viewport' );
 	add_theme_support( 'custom-background' );
 	add_theme_support( 'genesis-connect-woocommerce' );
-	add_theme_support( 'woocommerce' );
 
 
 	add_theme_support( 'genesis-structural-wraps', array(

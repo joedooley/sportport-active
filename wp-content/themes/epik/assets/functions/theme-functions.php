@@ -93,6 +93,10 @@ add_filter( 'upload_mimes', 'spa_svg_mime_types' );
 /**
  * Allow SVG's in the WordPress uploader.
  * @author Joe Dooley
+ *
+ * @param $mimetypes
+ *
+ * @return mixed
  */
 function spa_svg_mime_types( $mimetypes ) {
 	$mimetypes['svg'] = 'image/svg+xml';
@@ -135,7 +139,7 @@ function spa_acf_flexible_content() {
 
 			get_template_part( 'partials/acf', 'full-row' );
 
-		} elseif ( get_row_layout( 'secondary_hero' ) ) {
+		} elseif ( get_row_layout() === 'secondary_hero' ) {
 
 			get_template_part( 'partials/acf', 'secondary-hero' );
 

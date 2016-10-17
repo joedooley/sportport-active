@@ -29,9 +29,9 @@ function remove_sidebar_shop() {
  * @uses spa_do_shop_sidebar()
  */
 add_action( 'get_header', function () {
-	if ( is_shop() || is_product_taxonomy() ) {
+	if ( is_shop() || is_product_taxonomy() || is_post_type_archive( 'product' ) ) {
 
-		remove_action( 'get_header', 'gencwooc_ss_handler', 12 );
+		//remove_action( 'get_header', 'gencwooc_ss_handler', 12 );
 		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
 
 		add_action( 'genesis_sidebar', 'spa_do_shop_sidebar' );
@@ -158,3 +158,24 @@ add_filter( 'woocommerce_product_add_to_cart_text', function() {
 	return __( 'Shop Now', 'woocommerce' );
 } );
 
+
+add_filter( 'genesis_attr_content', 'fwpis_custom_attributes_content' );
+/**
+ * Add the class needed for FacetWP to main element.
+ *
+ * Context: Posts page, all Archives and Search results page.
+ *
+ * @param $attributes
+ *
+ * @return mixed
+ */
+function fwpis_custom_attributes_content( $attributes ) {
+
+	if ( is_post_type_archive( 'product' ) ) {
+		echo 'die';
+		$attributes['class'] .= ' facetwp-template';
+	}
+
+	return $attributes;
+
+}
