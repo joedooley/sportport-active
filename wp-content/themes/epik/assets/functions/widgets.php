@@ -36,6 +36,13 @@ genesis_register_sidebar( array(
 ) );
 
 
+genesis_register_sidebar( array(
+	'id'          => 'shop-sidebar',
+	'name'        => __( 'Shop Sidebar', 'epik' ),
+	'description' => __( 'This widget will show up on the shop pages.', 'epik' ),
+) );
+
+
 
 add_action( 'genesis_before_footer', function() {
 

@@ -12,7 +12,7 @@
 
 add_action( 'template_redirect', 'remove_sidebar_shop' );
 /**
- * Remove Sidebar from Shop and Single Product pages
+ * Remove Sidebar from Single Product pages
  *
  * @return  void
  */
@@ -20,6 +20,30 @@ function remove_sidebar_shop() {
 	if ( is_product() ) {
 		remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar' );
 	}
+}
+
+
+/**
+ * Replace primary sidebar with shop-sidebar on WooCommerce archives.
+ *
+ * @uses spa_do_shop_sidebar()
+ */
+add_action( 'get_header', function () {
+	if ( is_shop() || is_product_taxonomy() ) {
+
+		remove_action( 'get_header', 'gencwooc_ss_handler', 12 );
+		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
+
+		add_action( 'genesis_sidebar', 'spa_do_shop_sidebar' );
+	}
+}, 12 );
+
+
+/**
+ * Output shop-sidebar.
+ */
+function spa_do_shop_sidebar() {
+	dynamic_sidebar( 'shop-sidebar' );
 }
 
 
