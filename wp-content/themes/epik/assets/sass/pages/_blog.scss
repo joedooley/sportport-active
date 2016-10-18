@@ -22,6 +22,7 @@
 	.teaser {
 		@include media($large-screen-up) {
 			width: 100%;
+			width: 100%;
 		}
 	}
 }
