@@ -34,4 +34,7 @@ define( 'CHILD_THEME_TEXTDOMAIN', 'epik' );
 /**
  * Load Internationalization File
  */
-load_child_theme_textdomain( 'CHILD_THEME_TEXTDOMAIN', apply_filters( 'child_theme_textdomain', get_stylesheet_directory() . '/languages', CHILD_THEME_TEXTDOMAIN ) );
+load_child_theme_textdomain( 'epik', apply_filters( 'child_theme_textdomain', get_stylesheet_directory() . '/languages', 'epik' ) );
+
+
+add_theme_support( 'genesis-connect-woocommerce' );

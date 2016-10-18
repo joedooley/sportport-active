@@ -24,12 +24,19 @@ function remove_sidebar_shop() {
 
 /**
  * Replace primary sidebar with shop-sidebar on WooCommerce archives.
+ * Remove Genesis breadcrumbs.
  *
  * @uses spa_do_shop_sidebar()
  */
 add_action( 'get_header', function () {
-	remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
-	add_action( 'genesis_sidebar', 'spa_do_shop_sidebar' );
+
+	if ( is_shop() || is_product_taxonomy() ) {
+		remove_action( 'genesis_before_loop', 'genesis_do_breadcrumbs' );
+
+		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
+		add_action( 'genesis_sidebar', 'spa_do_shop_sidebar' );
+	}
+
 } );
 
 
@@ -52,13 +59,24 @@ function spa_wc_force_full_width() {
 	}
 }
 
+add_filter( 'woocommerce_show_page_title', 'spa_remove_shop_title' );
+/**
+ * Removes the "shop" title on the main shop page
+ */
+function spa_remove_shop_title() {
+	if ( is_shop() || is_product_taxonomy() ) {
+		return false;
+	}
+}
+
 
 /**
- * Remove WooCommerce orderby dropdown.
+ * Remove WooCommerce orderby dropdown and showing all results.
  */
 add_action( 'get_header', function() {
 	if ( is_woocommerce() ) {
 		remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+		remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
 	}
 } );
 
@@ -139,7 +157,7 @@ add_action( 'get_header', function () {
  * @return $title string
  */
 add_filter( 'the_title', function( $title ) {
-	return is_shop() || is_front_page() || is_product_taxonomy() ? wp_trim_words( $title, 3 ) : $title;
+	return is_shop() || is_front_page() || is_product_taxonomy() ? wp_trim_words( $title, 2 ) : $title;
 } );
 
 
@@ -165,11 +183,13 @@ add_filter( 'genesis_attr_content', 'fwpis_custom_attributes_content' );
  */
 function fwpis_custom_attributes_content( $attributes ) {
 
-	if ( is_post_type_archive( 'product' ) ) {
-		echo 'die';
+	if ( is_shop() || is_product_taxonomy() ) {
 		$attributes['class'] .= ' facetwp-template';
 	}
 
 	return $attributes;
 
 }
+
+
+add_filter( 'loop_shop_per_page', create_function( '$cols', 'return 24;' ), 20 );

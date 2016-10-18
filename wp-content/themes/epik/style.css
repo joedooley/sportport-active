@@ -961,19 +961,6 @@ img.small-fabrics-icon {
   height: 52px;
   margin: 1px 10px 4px 0; }
 
-/*! WOO PRODUCT-CATEGORY CUSTOM [x33] ---------------------------------------- */
-body.tax-product_cat .breadcrumb {
-  display: none; }
-
-body.tax-product_cat .sidebar {
-  display: none; }
-
-body.tax-product_cat .content {
-  width: 100%; }
-
-.woocommerce table.shop_table td {
-  font-size: 15px; }
-
 /*! WOOCOMMERCE-CART and CHECKOUT CUSTOM [x37] ---------------------------------------- */
 tr.shipping {
   background-color: #ebebeb; }
@@ -3059,6 +3046,8 @@ body.woocommerce div.woocommerce-message div.wrap {
 ------------------------- */
 .archive {
   background-color: white; }
+  .archive .content {
+    margin-top: 4.6em; }
   .archive .entry-header {
     margin: 1em 0 0.5em; }
   .archive.woocommerce ul.products li.product, .archive.woocommerce-page ul.products li.product {
@@ -3100,6 +3089,29 @@ body.woocommerce div.woocommerce-message div.wrap {
       text-transform: capitalize; }
       .archive.woocommerce ul.products li.product .button:hover, .archive.woocommerce-page ul.products li.product .button:hover {
         background-color: #f22c61; }
+  .archive.woocommerce.sidebar-content ul.products li.product, .archive.woocommerce-page.sidebar-content ul.products li.product {
+    clear: right;
+    margin-right: 3.8%;
+    width: 29.25%; }
+    @media screen and (max-width: 800px) {
+      .archive.woocommerce.sidebar-content ul.products li.product, .archive.woocommerce-page.sidebar-content ul.products li.product {
+        clear: none;
+        margin-right: 2%;
+        width: 48%; } }
+    @media screen and (max-width: 480px) {
+      .archive.woocommerce.sidebar-content ul.products li.product, .archive.woocommerce-page.sidebar-content ul.products li.product {
+        margin-right: 0;
+        width: 100%; } }
+  .archive .sidebar .facetwp-btn {
+    display: none; }
+  .archive .sidebar .facetwp-facet .noUi-connect {
+    background-color: #f88ca9; }
+  .archive .sidebar .widget {
+    background-color: #ebebeb;
+    margin: 2em; }
+    @media screen and (max-width: 1023px) {
+      .archive .sidebar .widget {
+        margin: 0; } }
 
 /*! ## FAQ Page Template
 ------------------------ */

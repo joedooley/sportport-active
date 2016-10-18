@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'after_setup_theme', 'spa_add_theme_support', 9 );
+add_action( 'after_setup_theme', 'spa_add_theme_support' );
 /**
  * Add theme support features on after-theme-setup hook
  *
@@ -23,8 +23,6 @@ function spa_add_theme_support() {
 	add_theme_support( 'html5' );
 	add_theme_support( 'genesis-responsive-viewport' );
 	add_theme_support( 'custom-background' );
-	add_theme_support( 'genesis-connect-woocommerce' );
-
 
 	add_theme_support( 'genesis-structural-wraps', array(
 		'header',
@@ -34,6 +32,7 @@ function spa_add_theme_support() {
 		'footer-widgets',
 		'footer',
 	) );
+
 
 
 	add_action( 'wp_enqueue_scripts', 'spa_scripts_styles' );
