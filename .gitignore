@@ -72,3 +72,7 @@ Thumbs.db
 # SASS #
 ##########
 .sass-cache
+
+# Kalabox #
+###########
+wp-content/.unison.*
