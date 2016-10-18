@@ -3,8 +3,12 @@
 
 .blog {
 
-	.content .entry {
-		@include margin(2em null);
+	.content .teaser {
+		@include margin(2em 0.5%);
+
+		@include media($large-screen-up) {
+			width: 100%;
+		}
 	}
 
 	.entry {
@@ -18,11 +22,5 @@
 			background-color: $white;
 		}
 	}
-
-	.teaser {
-		@include media($large-screen-up) {
-			width: 100%;
-			width: 100%;
-		}
-	}
+	
 }

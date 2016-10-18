@@ -3115,19 +3115,17 @@ body.woocommerce div.woocommerce-message div.wrap {
 
 /* ## Blog
 --------------------- */
-.blog .content .entry {
-  margin-top: 2em;
-  margin-bottom: 2em; }
+.blog .content .teaser {
+  margin: 2em 0.5%; }
+  @media screen and (max-width: 800px) {
+    .blog .content .teaser {
+      width: 100%; } }
 .blog .entry {
   background-color: white; }
 .blog .sidebar {
   margin-top: 4.75em; }
   .blog .sidebar .widget {
     background-color: white; }
-@media screen and (max-width: 800px) {
-  .blog .teaser {
-    width: 100%;
-    width: 100%; } }
 
 /*! ## FAQ Page Template
 ------------------------ */
