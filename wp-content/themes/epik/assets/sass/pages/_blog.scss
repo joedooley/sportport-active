@@ -1,0 +1,27 @@
+/* ## Blog
+--------------------- */
+
+.blog {
+
+	.content .entry {
+		@include margin(2em null);
+	}
+
+	.entry {
+		background-color: $white;
+	}
+
+	.sidebar {
+		margin-top: 4.75em;
+
+		.widget {
+			background-color: $white;
+		}
+	}
+
+	.teaser {
+		@include media($large-screen-up) {
+			width: 100%;
+		}
+	}
+}
