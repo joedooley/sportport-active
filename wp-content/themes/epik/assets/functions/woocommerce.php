@@ -22,21 +22,15 @@ function remove_sidebar_shop() {
 	}
 }
 
-
 /**
  * Replace primary sidebar with shop-sidebar on WooCommerce archives.
  *
  * @uses spa_do_shop_sidebar()
  */
 add_action( 'get_header', function () {
-	if ( is_shop() || is_product_taxonomy() || is_post_type_archive( 'product' ) ) {
-
-		//remove_action( 'get_header', 'gencwooc_ss_handler', 12 );
-		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
-
-		add_action( 'genesis_sidebar', 'spa_do_shop_sidebar' );
-	}
-}, 12 );
+	remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
+	add_action( 'genesis_sidebar', 'spa_do_shop_sidebar' );
+} );
 
 
 /**
@@ -53,7 +47,7 @@ add_filter( 'genesis_site_layout', 'spa_wc_force_full_width' );
  * @return string
  */
 function spa_wc_force_full_width() {
-	if ( is_page( array( 'cart', 'checkout' ) ) || 'product' === get_post_type() ) {
+	if ( is_page( array( 'cart', 'checkout' ) ) || is_product() ) {
 		return 'full-width-content';
 	}
 }
