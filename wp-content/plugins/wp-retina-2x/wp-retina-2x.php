@@ -3,7 +3,7 @@
 Plugin Name: WP Retina 2x
 Plugin URI: http://meowapps.com
 Description: Make your website look beautiful and crisp on modern displays by creating + displaying retina images. WP 4.4 is also supported and enhanced.
-Version: 4.5.7
+Version: 4.6.0
 Author: Jordy Meow
 Author URI: http://meowapps.com
 Text Domain: wp-retina-2x
@@ -26,7 +26,7 @@ Originally developed for two of my websites:
  *
  */
 
-$wr2x_version = '4.5.7';
+$wr2x_version = '4.6.0';
 $wr2x_retinajs = '2.0.0';
 $wr2x_picturefill = '3.0.2';
 $wr2x_lazysizes = '2.0.3';
@@ -63,7 +63,7 @@ if ( !wr2x_getoption( "hide_retina_column", "wr2x_advanced", false ) )
 	require( 'wr2x_media-library.php' );
 
 //if ( !wr2x_getoption( "hide_retina_column", "wr2x_advanced", false ) )
-	require( 'wr2x_retina_uploader.php' );
+//require( 'wr2x_retina_uploader.php' );
 
 require( 'wr2x_responsive.php' );
 
@@ -436,7 +436,7 @@ function wr2x_format_title( $i, $size ) {
 // Information for the 'Media Sizes Retina-ized' Column in the Retina Dashboard
 function wpr2x_html_get_basic_retina_info( $attachmentId, $retina_info ) {
 	$sizes = wr2x_get_active_image_sizes();
-	$result = '<ul class="retina-info">';
+	$result = '<ul class="retina-info" postid="' . ( is_integer( $attachmentId ) ? $attachmentId : $attachmentId->ID ) . '">';
 	foreach ( $sizes as $i => $size ) {
 		$status = ( isset( $retina_info ) && isset( $retina_info[$i] ) ) ? $retina_info[$i] : null;
 		if ( is_array( $status ) )

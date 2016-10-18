@@ -130,8 +130,8 @@ class Receiptful_Front_End {
 
 		?><script type='text/javascript'>
 			document.addEventListener('DOMContentLoaded', function(event) {
-				if ( typeof Receiptful !== 'undefined' ) {
-					Receiptful.docCookies.removeItem('receiptful-token', '/');
+				if (typeof ReceiptfulCookies !== 'undefined') {
+					new ReceiptfulCookies().removeItem('receiptful-token', '/')
 				}
 			});
 		</script><?php

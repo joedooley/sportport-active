@@ -310,19 +310,6 @@ function wpr2x_wp_retina_2x() {
 	</table>
 	</div>
 
-	<div id="wr2x-modal-info-backdrop" style="display: none;">
-	</div>
-
-	<div id="wr2x-modal-info" style="display: none;" tabindex="1">
-		<div class="close">X</div>
-		<h2 style="margin-top: 0px;">Retina Details</h2>
-		<div class="loading">
-			<img src="<?php echo plugin_dir_url( __FILE__ ); ?>img/loading.gif" />
-		</div>
-		<div class="content">
-		</div>
-	</div>
-
 	<?php
 	jordy_meow_footer();
 }

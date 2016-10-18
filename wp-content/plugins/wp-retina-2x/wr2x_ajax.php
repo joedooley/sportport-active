@@ -307,7 +307,10 @@ function wr2x_admin_head() {
 				jQuery('#wr2x-modal-info .loading').css('display', 'block');
 				jQuery('#wr2x-modal-info').css('display', 'block');
 				jQuery('#wr2x-modal-info').focus();
-				wr2x_load_details(jQuery(evt.target).parents('.wr2x-file-row').attr('postid'));
+				var postid = jQuery(evt.target).parents('.retina-info').attr('postid');
+				if (!postid)
+					postid = jQuery(evt.target).parents('.wr2x-file-row').attr('postid');
+				wr2x_load_details(postid);
 			});
 
 			jQuery('#wr2x-modal-info .close, #wr2x-modal-info-backdrop').on('click', function (evt) {
