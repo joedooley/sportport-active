@@ -190,6 +190,9 @@
 		});
 	}
 
+
+
+
 	$(document).ready(function () {
 
 		digital.params = typeof DigitalL10n === 'undefined' ? '' : DigitalL10n;
@@ -197,7 +200,20 @@
 		if (typeof digital.params !== 'undefined') {
 			digital.init();
 		}
+
+		var npButton = document.getElementById('mobile-nav-primary');
+
+		function headerToggleMinHeight() {
+			var header = document.querySelector('.site-header');
+			header.classList.toggle('no-minh');
+		}
+
+		npButton.addEventListener('click', headerToggleMinHeight, false);
+
 	});
+
+
+
 })(document, jQuery);
 "use strict";
 "use strict";

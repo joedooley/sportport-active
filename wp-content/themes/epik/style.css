@@ -2424,7 +2424,10 @@ li.comment ul li {
   width: 100%; }
   @media screen and (max-width: 1023px) {
     .site-header {
-      max-height: none; } }
+      max-height: 77px; } }
+  @media screen and (max-width: 1023px) {
+    .site-header.no-minh {
+      max-height: unset; } }
   .site-header .title-area {
     float: left; }
     @media screen and (min-width: 1180px) {

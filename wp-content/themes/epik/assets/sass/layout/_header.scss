@@ -6,7 +6,13 @@
 	width: 100%;
 
 	@include media($xlarge-screen-up) {
-		max-height: none;
+		max-height: 77px;
+	}
+
+	&.no-minh {
+		@include media($xlarge-screen-up) {
+			max-height: unset;
+		}
 	}
 
 	.title-area {
