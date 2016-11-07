@@ -70,8 +70,8 @@ class Receiptful_Front_End {
 
 		?><script type='text/javascript'>
 			document.addEventListener('DOMContentLoaded', function(event) {
-				if ( typeof Receiptful !== 'undefined' ) {
-					Receiptful.init({
+				if ( typeof Conversio !== 'undefined' ) {
+					Conversio.init({
 						user: '<?php echo esc_js( $public_user_key ); ?>',
 						product: '<?php echo esc_js( $product_id ); ?>',
 						cart: '<?php echo esc_js( implode( ',', $product_ids ) ); ?>',
@@ -106,8 +106,8 @@ class Receiptful_Front_End {
 
 		?><script type='text/javascript'>
 			document.addEventListener('DOMContentLoaded', function(event) {
-				if ( typeof ReceiptfulSearch !== 'undefined' ) {
-					ReceiptfulSearch.init({
+				if ( typeof ConversioSearch !== 'undefined' ) {
+					ConversioSearch.init({
 						user: '<?php echo esc_js( $public_user_key ); ?>',
 						searchFieldSelector: '<?php echo esc_js( $search_field_selector ); ?>'
 					});
@@ -130,8 +130,8 @@ class Receiptful_Front_End {
 
 		?><script type='text/javascript'>
 			document.addEventListener('DOMContentLoaded', function(event) {
-				if (typeof ReceiptfulCookies !== 'undefined') {
-					new ReceiptfulCookies().removeItem('receiptful-token', '/')
+				if ( typeof ConversioCookies !== 'undefined' ) {
+					new ConversioCookies().removeItem('receiptful-token', '/');
 				}
 			});
 		</script><?php

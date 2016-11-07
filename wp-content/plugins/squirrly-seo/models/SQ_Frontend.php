@@ -173,13 +173,20 @@ class Model_SQ_Frontend {
         //get the post from shop if woocommerce is installed
         if (!isset($this->post)) {
             if (function_exists('is_shop') && is_shop()) {
-                $this->post = get_post(woocommerce_get_page_id('shop'));
+                $this->post = get_post(wc_get_page_id('shop'));
             } elseif (isset($post->ID)) {
                 $this->post = get_post($post->ID);
             }
         }
 
         if ($this->is_squirrly()) {
+
+            //update ... please monitor
+            if(is_single() || is_page() ){
+                if(!isset($this->post->ID)){
+                    return $buffer;
+                }
+            }
 
             preg_match("/<head[^>]*>/i", $buffer, $out);
             if (!empty($out)) {
@@ -627,6 +634,7 @@ class Model_SQ_Frontend {
     public function clearTitle($title) {
         if ($title <> '') {
             $title = SQ_Tools::i18n(trim(esc_html(ent2ncr(strip_tags($title)))));
+            $title = addcslashes($title, '$');
         }
         return $title;
     }
@@ -902,6 +910,7 @@ class Model_SQ_Frontend {
             }
 
             $description = SQ_Tools::i18n(trim(esc_html(ent2ncr(strip_tags($description)))));
+            $description = addcslashes($description, '$');
         }
 
         return $description;
@@ -1122,10 +1131,7 @@ class Model_SQ_Frontend {
 
         if ($sq_google_analytics <> '') {
             if (SQ_Tools::$options['sq_auto_amp']){
-                $str = '<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>' . "\n";
-                $str .= sprintf('<amp-analytics type="googleanalytics" id="analytics1"><script type="application/json">{"vars": {"account": "%s"},"triggers": {"trackPageview": {"on": "visible","request": "pageview"}}}</script></amp-analytics>', $sq_google_analytics) . "\n";
-
-                return $str;
+                return '<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>' . "\n";
             }else {
                 SQ_ObjController::getController('SQ_DisplayController', false)
                     ->loadMedia('https://www.google-analytics.com/analytics.js');
@@ -1146,12 +1152,26 @@ class Model_SQ_Frontend {
         return false;
     }
 
+    public function getGoogleAnalyticsAMPBody() {
+        $sq_google_analytics = SQ_Tools::$options['sq_google_analytics'];
+
+        if ($sq_google_analytics <> '') {
+            if (SQ_Tools::$options['sq_auto_amp']){
+                return sprintf('<amp-analytics type="googleanalytics" id="analytics1"><script type="application/json">{"vars": {"account": "%s"},"triggers": {"trackPageview": {"on": "visible","request": "pageview"}}}</script></amp-analytics>', $sq_google_analytics) . "\n";
+            }
+        }
+        return '';
+    }
+
     private function getFacebookPixel() {
 
         $sq_facebook_analytics = SQ_Tools::$options['sq_facebook_analytics'];
 
         if ($sq_facebook_analytics <> '') {
-            return sprintf("<script>
+            if (SQ_Tools::$options['sq_auto_amp']){
+                //not yet supported
+            }else {
+                return sprintf("<script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -1163,6 +1183,7 @@ fbq('track', 'PageView');</script>
 <noscript><img height='1' width='1' style='display:none'
 src='https://www.facebook.com/tr?id=%s&ev=PageView&noscript=1'
 /></noscript>" . "\n", $sq_facebook_analytics, $sq_facebook_analytics);
+            }
         }
 
         return false;

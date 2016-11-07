@@ -1,13 +1,13 @@
 ﻿=== SEO by SQUIRRLY™ ===
 Contributors: calinvingan, florinmuresan, nagy.sorel
-Tags: seo,seo plugin,apps,wordpress seo,seo optimization,seo content,plugin,content seo,search engine optimization,xml,sitemap,keyword,keyword research,post,posts,page,multisite,squirrly,wordpress,tag,image,images,photos,flickr,statistics,stats,google,content,title,description,favicon,mobile,canonical,author,google plus,analytics,admin,seo correction,seo title,seo meta,meta,google,twitter,news,blog,e-commerce,ecommerce,woocommerce,feed,feeds,marketing,buddypress,social,social media,url,automatic,iphone
+Tags: seo,seo plugin,apps,wordpress seo,seo optimization,seo content,plugin,content seo,search engine optimization,xml,sitemap,keyword,keyword research,post,posts,page,multisite,squirrly,wordpress,tag,image,images,photos,flickr,statistics,stats,google,content,title,description,favicon,mobile,canonical,author,google plus,analytics,admin,seo correction,seo title,seo meta,meta,google,twitter,news,blog,e-commerce,ecommerce,woocommerce,feed,feeds,marketing,buddypress,social,social media,url,automatic,iphone,administration,analytics,blogging,categories,comment,dashboard,free,google-analytics,linkedin,list,media,optimization,performance,pinterest,plugins,products,share,sharing,tags,tracking,traffic,tweet
 Requires at least: 3.5    
 Tested up to: 4.6
 Stable tag: trunk  
 Donate link: https://www.squirrly.co/wordpress-seo-by-squirrly      
    
 SEO Plugin By Squirrly is for the NON-SEO experts. Get Excellent SEO with Better Content, Ranking and Analytics. For Both Humans and Search Bots.
-       
+        
 == Description ==    
 SEO By Squirrly helps you write content that is SEO friendly and ALSO Human friendly. You'll get to improve your rankings, while providing your readers with great content. See Your SEO Stats, get a weekly SEO Audit and find the best keywords.
  
@@ -137,6 +137,10 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
 
 == Changelog ==
+= 6.2.4 =
+* Fixed bug for Google Analytics AMP version
+* Fixed both title and description when include price value
+
 = 6.2.3 =
 * Added Open Graph Image for First Page when the first page is a blog feed
 * Fixed small css issues in post editor

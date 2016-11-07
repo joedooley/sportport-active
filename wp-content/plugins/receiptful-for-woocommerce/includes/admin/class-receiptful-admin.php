@@ -17,28 +17,28 @@ class Receiptful_Admin {
 	 * URL for the store owner's Profile page in the Receiptful app.
 	 * @var string
 	 */
-	public $receiptful_profile_url = 'https://app.receiptful.com/profile';
+	public $receiptful_profile_url = 'https://app.conversio.com/profile';
 
 
 	/**
 	 * URL for the store owner's Template in the Receiptful app.
 	 * @var string
 	 */
-	public $receiptful_template_url = 'https://app.receiptful.com/template';
+	public $receiptful_template_url = 'https://app.conversio.com/template';
 
 
 	/**
 	 * URL for the store owner's Dashboard in the Receiptful app.
 	 * @var string
 	 */
-	public $receiptful_stats_url = 'https://app.receiptful.com/dashboard';
+	public $receiptful_stats_url = 'https://app.conversio.com/dashboard';
 
 
 	/**
 	 * URL for the store owner's Dashboard in the Receiptful app.
 	 * @var string
 	 */
-	public $receiptful_recommendations_url = 'https://app.receiptful.com/feedback/widgets';
+	public $receiptful_recommendations_url = 'https://app.conversio.com/feedback/widgets';
 
 
 	/**
@@ -99,7 +99,7 @@ class Receiptful_Admin {
 	 */
 	public function settings_tab( $tabs ) {
 
-		$tabs['receiptful'] = 'Receiptful';
+		$tabs['receiptful'] = 'Conversio';
 
 		return $tabs;
 
@@ -120,9 +120,9 @@ class Receiptful_Admin {
 		$settings = apply_filters( 'woocommerce_receiptful_settings', array(
 
 			array(
-				'title'		=> 'Receiptful',
+				'title'		=> 'Conversio',
 				'type'		=> 'title',
-				'desc'		=> sprintf( __( "To get started with Receiptful, please add your API key (<a href='%s' target='_blank'>which you can find here</a>) and save the settings.", 'receiptful-for-woocommerce' ), $this->receiptful_profile_url ),
+				'desc'		=> '<strong>Previously Receiptful</strong>. ' . sprintf( __( "To get started with Conversio, please add your API key (<a href='%s' target='_blank'>which you can find here</a>) and save the settings.", 'receiptful-for-woocommerce' ), $this->receiptful_profile_url ),
 			),
 			array(
 				'title'		=> __( 'API Key', 'receiptful-for-woocommerce' ),
@@ -151,7 +151,7 @@ class Receiptful_Admin {
 			),
 			array(
 				'title'   	=> __( 'Enable feedback widgets', 'receiptful-for-woocommerce' ),
-				'desc' 	  	=> sprintf( __( "Enable feedback widgets. Requires to have set this up in the <a href='%s' target='_blank'>Feedback section</a>.", 'receiptful-for-woocommerce' ), 'https://app.receiptful.com/feedback/widgets' ),
+				'desc' 	  	=> sprintf( __( "Enable feedback widgets. Requires to have set this up in the <a href='%s' target='_blank'>Feedback section</a>.", 'receiptful-for-woocommerce' ), 'https://app.conversio.com/feedback/widgets' ),
 				'id' 	  	=> 'receiptful_enable_feedback_widgets',
 				'default' 	=> 'no',
 				'type' 	  	=> 'checkbox',
@@ -166,8 +166,8 @@ class Receiptful_Admin {
 				'autoload'	=> false
 			),
 			array(
-				'title'   	=> __( 'Enable Receiptful search', 'receiptful-for-woocommerce' ),
-				'desc' 	  	=> __( "Enable the Receiptful search functionality.", 'receiptful-for-woocommerce' ),
+				'title'   	=> __( 'Enable Conversio search', 'receiptful-for-woocommerce' ),
+				'desc' 	  	=> __( "Enable the Conversio search functionality.", 'receiptful-for-woocommerce' ),
 				'id' 	  	=> 'receiptful_enable_search',
 				'default' 	=> 'no',
 				'type' 	  	=> 'checkbox',

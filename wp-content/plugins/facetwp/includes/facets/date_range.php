@@ -46,14 +46,17 @@ class FacetWP_Facet_Date_Range
         $start = empty( $values[0] ) ? false : $values[0];
         $end = empty( $values[1] ) ? false : $values[1];
 
-        $is_dual = ! empty( $facet['source_other'] ) && $start && $end;
-        $is_intersect = FWP()->helper->facet_setting_is( $facet, 'compare_type', 'intersect' );
+        $is_dual = ! empty( $facet['source_other'] );
+        $is_intersect = FWP()->helper->facet_is( $facet, 'compare_type', 'intersect' );
 
         /**
          * Intersect compare
          * @link http://stackoverflow.com/a/325964
          */
         if ( $is_dual && $is_intersect ) {
+            $start = ( false !== $start ) ? $start : '0000-00-00';
+            $end = ( false !== $end ) ? $end : '3000-12-31';
+
             $where .= " AND (LEFT(facet_value, 10) <= '$end')";
             $where .= " AND (LEFT(facet_display_value, 10) >= '$start')";
         }

@@ -51,13 +51,28 @@
     background-image: url(../images/checkbox-on.png);
 }
 
-.facetwp-checkbox.disabled {
+.facetwp-checkbox.disabled,
+.facetwp-radio.disabled {
     opacity: 0.4;
     cursor: default;
 }
 
 .facetwp-checkbox .facetwp-expand {
     float: right;
+}
+
+/* Radio */
+
+.facetwp-radio {
+    background: url(../images/radio.png) 0 50% no-repeat;
+    background-size: 14px 14px;
+    margin-bottom: 4px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.facetwp-radio.checked {
+    background-image: url(../images/radio-on.png);
 }
 
 /* Date range */

@@ -57,7 +57,7 @@ class FacetWP_Facet
             $facet = FWP()->helper->get_facet_by_name( $f['facet_name'] );
             if ( false !== $facet ) {
                 $facet['selected_values'] = FWP()->helper->sanitize( $f['selected_values'] );
-                $this->facets[] = $facet;
+                $this->facets[ $f['facet_name'] ] = $facet;
             }
         }
 
@@ -165,6 +165,9 @@ class FacetWP_Facet
         // Stick the pager args into the JSON response
         $output['settings']['pager'] = $pager_args;
 
+        // Set the num_choices array
+        $output['settings']['num_choices'] = array();
+
         // Display the pagination HTML
         if ( isset( $params['extras']['pager'] ) ) {
             $output['pager'] = $this->paginate( $pager_args );
@@ -193,16 +196,15 @@ class FacetWP_Facet
         $where_clause = empty( $post_ids ) ? '' : "AND post_id IN (" . implode( ',', $post_ids ) . ")";
 
         // Get facet data
-        foreach ( $this->facets as $the_facet ) {
+        foreach ( $this->facets as $facet_name => $the_facet ) {
             $facet_type = $the_facet['type'];
-            $facet_name = $the_facet['name'];
 
             if ( ! isset( $this->facet_types[ $facet_type ] ) ) {
                 continue;
             }
 
             // Get facet labels
-            $output['settings']['labels'][ $facet_name ] = $the_facet['label'];
+            $output['settings']['labels'][ $facet_name ] = facetwp_i18n( $the_facet['label'] );
 
             // Skip static facets
             if ( $static_facet == $facet_name ) {
@@ -227,6 +229,20 @@ class FacetWP_Facet
 
             // Filter the render args
             $args = apply_filters( 'facetwp_facet_render_args', $args );
+
+            // Return the number of available choices
+            if ( isset( $args['values'] ) ) {
+                $num_choices = 0;
+                $is_ghost = FWP()->helper->facet_is( $the_facet, 'ghosts', 'yes' );
+
+                foreach ( $args['values'] as $choice ) {
+                    if ( isset( $choice['counter'] ) && ( 0 < $choice['counter'] || $is_ghost ) ) {
+                        $num_choices++;
+                    }
+                }
+
+                $output['settings']['num_choices'][ $facet_name ] = $num_choices;
+            }
 
             // Generate the facet HTML
             $html = $this->facet_types[ $facet_type ]->render( $args );
@@ -316,7 +332,8 @@ class FacetWP_Facet
             FWP()->unfiltered_post_ids = $post_ids;
         }
 
-        foreach ( $this->facets as $the_facet ) {
+        foreach ( $this->facets as $facet_name => $the_facet ) {
+            $facet_type = $the_facet['type'];
 
             // Stop looping
             if ( empty( $post_ids ) ) {
@@ -329,9 +346,6 @@ class FacetWP_Facet
             if ( empty( $selected_values ) ) {
                 continue;
             }
-
-            // Get the facet details
-            $facet_type = $the_facet['type'];
 
             // Handle each facet
             if ( isset( $this->facet_types[ $facet_type ] ) && ! empty( $selected_values ) ) {
@@ -357,7 +371,7 @@ class FacetWP_Facet
             // Store post IDs per facet
             // Required for dropdowns and checkboxes in "or" mode
             if ( $store_ids ) {
-                FWP()->or_values[ $the_facet['name'] ] = $matches;
+                FWP()->or_values[ $facet_name ] = $matches;
             }
 
             // Preserve post ID order for search facets

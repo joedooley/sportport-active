@@ -264,9 +264,12 @@ class FacetWP_Indexer
                 $this->is_overridden = false;
 
                 // Get rows to insert
-                $insert_data = $this->get_row_data( $defaults );
+                $rows = $this->get_row_data( $defaults );
+                $rows = apply_filters( 'facetwp_indexer_row_data', $rows, array(
+                    'defaults' => $defaults, 'facet' => $facet
+                ) );
 
-                foreach ( $insert_data as $row ) {
+                foreach ( $rows as $row ) {
                     $this->index_row( $row );
                 }
             }

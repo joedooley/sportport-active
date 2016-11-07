@@ -26,7 +26,7 @@ class Receiptful_Api {
 	 * @since 1.0.0
 	 * @var $url
 	 */
-	public $url = 'https://app.receiptful.com/api/v1';
+	public $url = 'https://app.conversio.com/api/v1';
 
 
 	/**

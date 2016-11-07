@@ -21,8 +21,8 @@ class FacetWP_Facet_fSelect
         $where_clause = $params['where_clause'];
 
         // Preserve options when single-select or when behavior = "OR"
-        $is_single = FWP()->helper->facet_setting_is( $facet, 'multiple', 'no' );
-        $using_or = FWP()->helper->facet_setting_is( $facet, 'operator', 'or' );
+        $is_single = FWP()->helper->facet_is( $facet, 'multiple', 'no' );
+        $using_or = FWP()->helper->facet_is( $facet, 'operator', 'or' );
 
         if ( $is_single || $using_or ) {
 

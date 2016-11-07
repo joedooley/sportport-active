@@ -76,7 +76,7 @@ class FacetWP_Facet_Checkboxes
         $output = $wpdb->get_results( $sql, ARRAY_A );
 
         // Show "ghost" facet choices
-        if ( isset( $facet['ghosts'] ) && 'yes' == $facet['ghosts'] && ! empty( FWP()->unfiltered_post_ids ) ) {
+        if ( FWP()->helper->facet_is( $facet, 'ghosts', 'yes' ) && ! empty( FWP()->unfiltered_post_ids ) ) {
             $raw_post_ids = implode( ',', FWP()->unfiltered_post_ids );
 
             $sql = "
@@ -90,7 +90,7 @@ class FacetWP_Facet_Checkboxes
             $ghost_output = $wpdb->get_results( $sql, ARRAY_A );
 
             // Keep the facet placement intact
-            if ( isset( $facet['preserve_ghosts'] ) && 'yes' == $facet['preserve_ghosts'] ) {
+            if ( FWP()->helper->facet_is( $facet, 'preserve_ghosts', 'yes' ) ) {
                 $tmp = array();
                 foreach ( $ghost_output as $row ) {
                     $tmp[ $row['facet_value'] . ' ' ] = $row;

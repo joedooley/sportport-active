@@ -117,12 +117,11 @@ class WPMDBPro_CLI_Command extends WPMDBPro_Command {
 	 *
 	 * @param array $args
 	 * @param array $assoc_args
-	 * 
+	 *
 	 * @since 1.1
 	 */
 	public function push( $args, $assoc_args ) {
 		$assoc_args['action'] = 'push';
-
 		$profile = $this->_get_profile_data_from_args( $args, $assoc_args );
 		if ( is_wp_error( $profile ) ) {
 			WP_CLI::error( WPMDBPro_CLI::cleanup_message( $profile->get_error_message() ) );
@@ -279,6 +278,62 @@ class WPMDBPro_CLI_Command extends WPMDBPro_Command {
 	}
 
 	/**
+	 * Returns a list of profiles.
+	 *
+	 * @since 1.2.4
+	 */
+	public function profiles() {
+		$wpmdb_settings = get_site_option( 'wpmdb_settings' );
+
+		// Display error if no profiles are present
+		if ( ! isset( $wpmdb_settings['profiles'] ) || ! is_array( $wpmdb_settings['profiles'] ) || empty( $wpmdb_settings['profiles'] ) ) {
+			WP_CLI::error( __( 'There are no saved profiles for this site.', 'wp-migrate-db-pro-cli' ) );
+			return;
+		}
+
+		// Get profile information in CLI format
+		$cli_items = array();
+		foreach ( $wpmdb_settings['profiles'] as $key => $profile ) {
+			++ $key;
+
+			// Get remote and set empty if action is export/safefile
+			$connection_info = $profile['connection_info'];
+			$connection_info = explode( "\n", $connection_info );
+			$remote = '---';
+			if ( is_array( $connection_info ) && 2 === count( $connection_info ) ) {
+				$remote = esc_url_raw( $connection_info[0] );
+			}
+
+			// Allow actions to be translated for output
+			$action_strings = array(
+				'push'         => _x( 'push', 'Export data to remote database', 'wp-migrate-db-pro-cli' ),
+				'pull'         => _x( 'pull', 'Import data from remote database', 'wp-migrate-db-pro-cli' ),
+				'savefile'     => _x( 'export', 'Export file from local database', 'wp-migrate-db-pro-cli' ),
+				'find_replace' => _x( 'find & replace', 'Run a find & replace on local database', 'wp-migrate-db-pro-cli' ),
+			);
+
+			if ( isset( $action_strings[ $profile['action'] ] ) ) {
+				$profile['action'] = $action_strings[ $profile['action'] ];
+			} else {
+				$profile['action'] = '---';
+			}
+			$profile['action'] = strtoupper( $profile['action'] );
+
+			//Populate CLI items with saved profile information
+			$cli_items[] = array(
+				_x( 'ID', 'Profile list column heading', 'wp-migrate-db-pro-cli' )     => $key,
+				_x( 'NAME', 'Profile list column heading', 'wp-migrate-db-pro-cli' )   => $profile['name'],
+				_x( 'ACTION', 'Profile list column heading', 'wp-migrate-db-pro-cli' ) => $profile['action'],
+				_x( 'REMOTE', 'Profile list column heading', 'wp-migrate-db-pro-cli' ) => $remote,
+			);
+		}
+
+		// Set CLI column headers. Must match `cli_items` keys
+		$cli_keys = array_keys( reset( $cli_items ) );
+		WP_CLI\Utils\format_items( 'table', $cli_items, $cli_keys );
+	}
+
+	/**
 	 * Run a migration.
 	 *
 	 * ## OPTIONS
@@ -300,6 +355,44 @@ class WPMDBPro_CLI_Command extends WPMDBPro_Command {
 	public function profile( $args, $assoc_args ) {
 		// uses migrate method
 		$this->migrate( $args, $assoc_args );
+	}
+
+	/**
+	 * Update settings for migratedb.
+	 *
+	 * ## OPTIONS
+	 *
+	 * <action>
+	 * : Either get or update
+	 *
+	 * <setting_name>
+	 * : Name of setting to update or get.
+	 * Available settings: push | pull | connection-key | license
+	 *
+	 * [<value>]
+	 * : Value of new setting
+	 *
+	 * ## EXAMPLES
+	 *
+	 * wp migratedb setting update license xxx-xxx-xxx-xxxxx
+	 *
+	 * wp migratedb setting get license
+	 *
+	 * wp migratedb setting update pull on
+	 *
+	 * wp migratedb setting get pull
+	 *
+	 * @param array $args
+	 *
+	 * @return bool
+	 * @since    1.2.5
+	 */
+	public function setting( $args ) {
+		require_once dirname( __FILE__ ) . '/wpmdbpro-cli-settings.php';
+		$wpmdb_cli_settings = new WPMDBPro_CLI_Settings( __FILE__ );
+
+		// Handle settings logic in dedicated class
+		$wpmdb_cli_settings->handle_setting( $args );
 	}
 
 	// overrides _perform_cli_migration from WPMDB_Command
@@ -342,7 +435,7 @@ class WPMDBCLI_Deprecated extends WPMDBPro_CLI_Command {
 	 *
 	 * ## EXAMPLES
 	 *
-	 * 	wp wpmdb migrate 1
+	 *    wp wpmdb migrate 1
 	 *
 	 * @synopsis <profile>
 	 *
@@ -358,3 +451,4 @@ class WPMDBCLI_Deprecated extends WPMDBPro_CLI_Command {
 
 WP_CLI::add_command( 'wpmdb', 'WPMDBCLI_Deprecated' ); // deprecated older command
 WP_CLI::add_command( 'migratedb', 'WPMDBPro_CLI_Command' );
+

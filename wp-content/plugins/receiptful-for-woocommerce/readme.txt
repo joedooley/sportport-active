@@ -1,55 +1,74 @@
-=== Receiptful for WooCommerce ===
-Contributors: receiptful
-Tags: receiptful, receiptful woocommerce, receipt, receipts, invoice, email, order confirmation, order mail, ecommerce mail
+=== Conversio for WooCommerce ===
+Contributors: conversio
+Tags: conversio, conversio woocommerce, receipt, receipts, invoice, email, order confirmation, order mail, ecommerce mail, receiptful, receiptful woocommerce
 Requires at least: 3.7.0
 Tested up to: 4.6.1
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Receiptful replaces and supercharges the default WooCommerce receipts. Just activate, add your API key and be awesome.
+Conversio is the all-in-one marketing dashboard for your WooCommerce store.
 
 == Description ==
 
-= What you would experience =
+= Why use Conversio? =
 
-**Increased customer lifetime value**
-We're sending out some beautiful emails combined with a good upsell for your customer. Offering a deal to your existing customers will increase their average lifetime!
+Three quick reasons to start using Conversio today:
 
-**Increasing revenue**
-Because the customer loved **your** service, and gets a great deal for their next order, they will soon order again! Giving you extra revenue.
+1. It's Your All-in-One Marketing Dashboard.
+2. All Conversio tools are intelligent, integrated and automated. *Sell More. Do Less.*
+3. Start using our famous supercharged email receipts for free today.
 
-**Setup in less than 10 minutes**
-As described below, setup is easy and quick! 10 minutes for increased revenue? *Who wouldn't want that?!*
+Overview of all available tools:
 
-**Why FREE?**
-You can read about why we made Receiptful free here: [Taking a Moonshot](https://receiptful.com/blog/taking-a-moonshot/)
+**Receipts (included in the Free plan)**
+The unsung Ecommerce hero. Drive more revenue. Increase sales by 5% in just a couple of minutes for FREE.
 
-**Quick setup**
-Installing Receiptful is simple.
+**Abandoned Cart Emails**
+Don’t leave money on the table. Remind your customers of all the things they wanted, but didn’t end up buying. On average, 70% of your customers will abandon their carts. We can help you recover that $$.
+
+**Followup Emails (limited functionality included in the Free plan)**
+Followup for repeat revenue. Optimize your customer interactions and boost revenue by reminding your customers of how awesome you are.The probability of selling to an existing customer is 60% to 70% and we want to help you take advantage of that.
+
+**Newsletters**
+Create newsletters and create a lasting relationship. Easily design and send beautiful newsletters that your customers want to read. And don’t forget to include some Conversio Magic marketing components to increase sales too.
+
+**Product Reviews**
+Trust is built on product reviews. Activate this feature to increase your conversions and revenue. More than 60% of consumers say they research and read product reviews before buying.
+
+**Recommendations**
+Like our other revenue driving features? You’ll like this too...Use recommendations to inform your customers about other products in your store that they’d probably like to purchase.
+
+**Search**
+Make customer experiences a breeze and get more cash in your pocket. Help your customers find EXACTLY what they are looking for.
+
+**Feedback (included in the Free plan)**
+Help potential customers know exactly how great your store is, good feedback builds trust = additional revenue ($$).
+
+**Quick & Eeasy Setup**
+Installing Conversio is simple.
 
 1. Download & Activate this plugin
-2. Sign up for a free Receiptful account
+2. Sign up for a free Conversio account
 3. Paste your API key in your site
-4. Add your personal branding to the email & choose your Upsell
+4. Tweak your receipt design and start sending supercharged receipts
+5. Explore all of the other Premium tools
 
 Simple huh?!
 
 **Need help?**
 [Open a support ticket](https://wordpress.org/support/plugin/receiptful-for-woocommerce), We're here to make your life easier!
 
-**Please Note:** You require a Receiptful account ([sign up here for a 100% **FREE** account](http://receiptful.com))
-
-[youtube https://www.youtube.com/watch?v=ae3eG7CqUrA&modestbranding=1&controls=0&autohide=1&wmode=transparent&enablejsapi=1&html5=1&rel=0&vq=hd1080]
+**Please Note:** You require a Conversio account ([sign up here for a 100% **FREE** account](http://conversio.com))
 
 == Installation ==
 
 1. Go to the **Plugins > Add New page** in your WordPress admin.
-2. Search for "Receiptful" and install the "Receiptful for WooCommerce" plugin.
+2. Search for "Conversio" and install the "Conversio for WooCommerce" plugin.
 3. Click **Activate Plugin**.
-4. Go to **WooCommerce > Settings > Receiptful** and enter your Receiptful API key. (If you haven't signed up for Receiptful yet, now's the time!)
+4. Go to **WooCommerce > Settings > Conversio** and enter your Receiptful API key. (If you haven't signed up for Conversio yet, now's the time!)
 
-That's it! You can now customize your WooCommerce receipts and add upsells via your Receiptful dashboard.
+That's it! You can now manage everything about your Conversio setup right from your Conversio dashboard. :)
 
 == Frequently Asked Questions ==
 
@@ -57,21 +76,26 @@ That's it! You can now customize your WooCommerce receipts and add upsells via y
 
 Nope - we take care of everything for you. Just install the plugin, add your API key and you’ll be good to go!
 
-= Does Receiptful work with my theme(s)? =
+= Does Conversio work with my theme(s)? =
 
-Yes, Receiptful works with any theme - whether free, commercial or custom. You do however need WooCommerce activated for Receiptful to work.
+Yes, Conversio works with any theme - whether free, commercial or custom. You do however need WooCommerce activated for Conversio to work.
 
 == Screenshots ==
 
-1. Receipt comparison WooCommerce VS. Receiptful
-2. WordPress / WooCommerce Plugin Settings. Just add API key.
-3. Receiptful's dashboard and mission control center.
-4. Customizing your Receiptful template.
-5. Add & activating upsells to be included in your receipts.
-6. Example of customer profile overview with rich meta data.
+1. Use a simple drag-and-drop template builder to create your receipt.
+2. Use the set up wizard to easily create new Followup & Abandoned Cart emails.
+3. Create high performing email newsletters with upsell modules, using a simple drag-and-drop template editor.
+4. Use the Reviews module to collect product reviews directly inside your emails, then display them on your product pages using the Reviews widget.
+5. Enable our Recommendations widget to make intelligent & personalized product recommendations on your product pages.
 
 
 == Changelog ==
+
+= 1.3.3 - 01/11/2016 =
+
+* [Improvement] - Rename Receiptful to Conversio
+* [Add] - Product Reviews widget shortcode
+* [Add] - Email Newsletters widget shortcode
 
 = 1.3.2 - 18/10/2016 =
 

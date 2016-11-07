@@ -33,6 +33,17 @@ foreach ( $post_types as $type ) {
     $builder_post_types[ $type->name ] = $type->labels->name;
 }
 
+// Clone facet settings HTML
+$facet_clone = array();
+foreach ( $facet_types as $name => $class ) {
+    $facet_clone[ $name ] = __( 'This facet type has no additional settings.', 'fwp' );
+    if ( method_exists( $class, 'settings_html' ) ) {
+        ob_start();
+        $class->settings_html();
+        $facet_clone[ $name ] = ob_get_clean();
+    }
+}
+
 // Activation status
 $message = __( 'Not yet activated', 'fwp' );
 $activation = get_option( 'facetwp_activation' );
@@ -62,6 +73,9 @@ foreach ( $settings['templates'] as $template ) {
 // Data sources
 $sources = FWP()->helper->get_data_sources();
 
+// Settings
+$settings = FWP()->helper->settings;
+
 ?>
 
 <script src="<?php echo FACETWP_URL; ?>/assets/js/src/event-manager.js?ver=<?php echo FACETWP_VERSION; ?>"></script>
@@ -75,7 +89,8 @@ foreach ( $facet_types as $class ) {
 <script src="<?php echo FACETWP_URL; ?>/assets/js/admin.js?ver=<?php echo FACETWP_VERSION; ?>"></script>
 <script>
 FWP.i18n = <?php echo json_encode( $i18n ); ?>;
-
+FWP.settings = <?php echo json_encode( $settings ); ?>;
+FWP.clone = <?php echo json_encode( $facet_clone ); ?>;
 FWP.builder = {
     post_types: <?php echo json_encode( $builder_post_types ); ?>,
     taxonomies: <?php echo json_encode( $builder_taxonomies ); ?>
@@ -240,22 +255,6 @@ FWP.builder = {
     </div>
 
     <!-- Hidden: clone settings -->
-
-<?php
-$settings = array();
-foreach ( $facet_types as $name => $class ) {
-    $settings[ $name ] = __( 'This facet type has no additional settings.', 'fwp' );
-    if ( method_exists( $class, 'settings_html' ) ) {
-        ob_start();
-        $class->settings_html();
-        $settings[ $name ] = ob_get_clean();
-    }
-}
-?>
-
-<script>
-var FWP_Clone = <?php echo json_encode( $settings ); ?>
-</script>
 
     <div class="hidden clone-facet">
         <div class="facetwp-row">

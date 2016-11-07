@@ -78,7 +78,7 @@ class Receiptful_Feedback {
 	 *
 	 * @since 1.2.6
 	 *
-	 * @param	array	$args	Feedback arguments.
+	 * @param	array	$atts	Feedback arguments.
 	 * @return	string			HTML for displaying recommendations.
 	 */
 	public function feedback_shortcode( $atts = array() ) {

@@ -242,7 +242,7 @@ class WpMenuCart_Settings {
 	 */
 	public function wpmenucart_add_page() {
 		$wpmenucart_page = add_submenu_page(
-			'options-general.php',
+			'woocommerce',
 			__( 'Menu Cart', 'wpmenucart' ),
 			__( 'Menu Cart Setup', 'wpmenucart' ),
 			'manage_options',

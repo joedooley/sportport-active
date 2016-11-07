@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: 	Receiptful for WooCommerce
- * Plugin URI: 		https://receiptful.com
- * Description: 	Receiptful replaces and supercharges the default WooCommerce receipts. Just activate, add API key and be awesome.
+ * Plugin Name: 	Conversio for WooCommerce
+ * Plugin URI: 		https://conversio.com
+ * Description: 	Conversio is the all-in-one marketing dashboard for your WooCommerce store.
  * Author: 			Receiptful
- * Author URI: 		https://receiptful.com
- * Version: 		1.3.2
+ * Author URI: 		https://conversio.com
+ * Version: 		1.3.3
  * Text Domain: 	receiptful-for-woocommerce
  * Domain Path: 	/languages/
  *
@@ -35,7 +35,7 @@ class Receiptful_WooCommerce {
 	 * @since 1.0.1
 	 * @var string $version Plugin version number.
 	 */
-	public $version = '1.3.2';
+	public $version = '1.3.3';
 
 
 	/**
@@ -173,6 +173,18 @@ class Receiptful_WooCommerce {
 		require_once plugin_dir_path( __FILE__ ) . '/includes/class-receiptful-feedback.php';
 		$this->feedback = new Receiptful_Feedback();
 
+		/**
+		 * Generic widget functions
+		 */
+		require_once plugin_dir_path( __FILE__ ) . '/includes/class-receiptful-widget.php';
+		$this->widget = new Receiptful_Widget();
+
+		/**
+		 * Product review functions
+		 */
+		require_once plugin_dir_path( __FILE__ ) . '/includes/class-receiptful-reviews.php';
+		$this->reviews = new Receiptful_Reviews();
+
 		if ( 'yes' == get_option( 'receiptful_enable_abandoned_cart' ) ) {
 			/**
 			 * Recommendation functions
@@ -240,11 +252,7 @@ class Receiptful_WooCommerce {
 	public function enqueue_scripts() {
 
 		// Add tracking script
-		wp_enqueue_script( 'receiptful-tracking', 'https://media.receiptful.com/scripts/tracking.js', array(), $this->version, false );
-
-		if ( isset( $_GET['redeem'] ) ) :
-			wp_enqueue_script( 'receiptful-redeem', 'https://media.receiptful.com/scripts/refer/redeem.js', array(), $this->version, false );
-		endif;
+		wp_enqueue_script( 'receiptful-tracking', 'https://media.conversio.com/scripts/conversio.js', array(), $this->version, false );
 
 	}
 

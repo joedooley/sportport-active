@@ -42,6 +42,7 @@ class SQ_Frontend extends SQ_FrontController {
             if (SQ_Tools::$options['sq_url_fix'] == 1) {
                 add_action('the_content', array($this, 'fixFeedLinks'), 11);
             }
+
         }
     }
 
@@ -196,4 +197,7 @@ class SQ_Frontend extends SQ_FrontController {
         }
     }
 
+    public function hookFrontfooter(){
+        echo $this->model->getGoogleAnalyticsAMPBody();
+    }
 }

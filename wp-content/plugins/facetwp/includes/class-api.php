@@ -116,7 +116,7 @@ class FacetWP_API
                 $facet_data['choices'] = $choices;
             }
 
-            $facets[] = $facet_data;
+            $facets[ $facet_name ] = $facet_data;
         }
 
         $page = (int) $params['query_args']['paged'];

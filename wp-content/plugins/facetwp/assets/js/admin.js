@@ -8,15 +8,12 @@ var FWP = {
 
         var row_count = 0;
 
-        // Load
-        $.post(ajaxurl, {
-            action: 'facetwp_load'
-        }, function(response) {
-            $.each(response.facets, function(idx, obj) {
+        FWP.load_settings = function() {
+            $.each(FWP.settings.facets, function(idx, obj) {
                 var $row = $('.clone-facet .facetwp-row').clone();
                 $row.attr('data-id', row_count);
                 $row.attr('data-type', obj.type);
-                $row.find('.facet-fields').html(FWP_Clone[obj.type]);
+                $row.find('.facet-fields').html(FWP.clone[obj.type]);
                 $row.find('.facet-label').val(obj.label);
                 $row.find('.facet-name').text(obj.name);
                 $row.find('.facet-type').val(obj.type);
@@ -40,7 +37,7 @@ var FWP = {
                 row_count++;
             });
 
-            $.each(response.templates, function(idx, obj) {
+            $.each(FWP.settings.templates, function(idx, obj) {
                 var $row = $('.clone-template .facetwp-row').clone();
                 $row.attr('data-id', row_count);
                 $row.find('.template-label').val(obj.label);
@@ -63,7 +60,7 @@ var FWP = {
                 row_count++;
             });
 
-            $.each(response.settings, function(key, val) {
+            $.each(FWP.settings.settings, function(key, val) {
                 var $this = $('.facetwp-setting[data-name=' + key + ']');
                 $this.val(val);
             });
@@ -94,7 +91,7 @@ var FWP = {
             // Hide the preloader
             $('.facetwp-loading').hide();
             $('.facetwp-header-nav a:first').click();
-        }, 'json');
+        }
 
 
         FWP.build_card = function(params) {
@@ -102,7 +99,7 @@ var FWP = {
             output += '<div class="facetwp-card">';
             output += '<div class="card-delete"></div>';
             output += '<div class="card-label">' + params.label + '</div>';
-            if ('facet' == params.card) {
+            if ('facet' === params.card) {
                 output += '<div class="card-type">' + params.type + '</div>';
             }
             output += '<div class="card-shortcode">[facetwp ' + params.card + '="' + params.name + '"]</div>';
@@ -157,8 +154,8 @@ var FWP = {
             var $facet = $(this).closest('.facetwp-row');
             $facet.find('.facetwp-show').show();
 
-            if (val != $facet.attr('data-type')) {
-                $facet.find('.facet-fields').html(FWP_Clone[val]);
+            if (val !== $facet.attr('data-type')) {
+                $facet.find('.facet-fields').html(FWP.clone[val]);
                 $facet.attr('data-type', val);
             }
 
@@ -179,15 +176,11 @@ var FWP = {
             var facet_type = $facet.find('.facet-type').val();
             var display = (-1 < $(this).val().indexOf('tax/')) ? 'table-row' : 'none';
 
-            if ('checkboxes' == facet_type) {
+            if ('checkboxes' === facet_type || 'dropdown' === facet_type) {
                 $facet.find('.facet-parent-term').closest('tr').css({ 'display' : display });
                 $facet.find('.facet-hierarchical').closest('tr').css({ 'display' : display });
             }
-            else if ('dropdown' == facet_type) {
-                $facet.find('.facet-parent-term').closest('tr').css({ 'display' : display });
-                $facet.find('.facet-hierarchical').closest('tr').css({ 'display' : display });
-            }
-            else if ('fselect' == facet_type) {
+            else if ('fselect' === facet_type || 'radio' === facet_type) {
                 $facet.find('.facet-parent-term').closest('tr').css({ 'display' : display });
             }
         });
@@ -196,7 +189,7 @@ var FWP = {
         // Conditionals based on facet source_other
         $(document).on('change', '.facet-source-other', function() {
             var $facet = $(this).closest('.facetwp-row');
-            var display = ('' != $(this).val()) ? 'table-row' : 'none';
+            var display = ('' !== $(this).val()) ? 'table-row' : 'none';
             $facet.find('.facet-compare-type').closest('tr').css({ 'display' : display });
         });
 
@@ -205,8 +198,8 @@ var FWP = {
         $(document).on('click', '.facetwp-add', function() {
             var $parent = $(this).closest('.facetwp-region');
             var type = $parent.hasClass('facetwp-region-facets') ? 'facet' : 'template';
-            var label = ('facet' == type) ? 'New facet' : 'New template';
-            var name = ('facet' == type) ? 'new_facet' : 'new_template';
+            var label = ('facet' === type) ? 'New facet' : 'New template';
+            var name = ('facet' === type) ? 'new_facet' : 'new_template';
 
             var $row = $('.clone-' + type + ' .facetwp-row').clone();
             $row.attr('data-id', row_count);
@@ -240,7 +233,7 @@ var FWP = {
 
         // Edit item
         $(document).on('click', '.facetwp-card', function(e) {
-            if ('' != window.getSelection().toString()) {
+            if ('' !== window.getSelection().toString()) {
                 return;
             }
 
@@ -257,7 +250,7 @@ var FWP = {
             $el.show();
 
             // Trigger conditional settings
-            if ('facets' == type) {
+            if ('facets' === type) {
                 $el.find('.facet-type').trigger('change');
                 $el.find('.facet-source').fSelect();
             }
@@ -280,7 +273,7 @@ var FWP = {
         $(document).on('focus', '.facet-label, .template-label', function() {
             var type = $(this).hasClass('facet-label') ? 'facet' : 'template';
             var name_val = $(this).siblings('.' + type + '-name').text();
-            FWP.is_name_editable = ('' == name_val || ('new_' + type) == name_val);
+            FWP.is_name_editable = ('' === name_val || ('new_' + type) === name_val);
         });
 
 
@@ -459,7 +452,7 @@ var FWP = {
 
         // Tooltips
         $(document).on('mouseover', '.facetwp-tooltip', function() {
-            if ('undefined' == typeof $(this).data('powertip')) {
+            if ('undefined' === typeof $(this).data('powertip')) {
                 var content = $(this).find('.facetwp-tooltip-content').html();
                 $(this).data('powertip', content);
                 $(this).powerTip({
@@ -469,5 +462,9 @@ var FWP = {
                 $.powerTip.show(this);
             }
         });
+
+
+        // Initialize
+        FWP.load_settings();
     });
 })(jQuery);

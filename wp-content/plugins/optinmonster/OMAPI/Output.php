@@ -82,6 +82,11 @@ class OMAPI_Output {
 	    // Set our object.
 	    $this->set();
 
+	    // If no credentials have been provided, do nothing.
+	    if ( ! $this->base->get_api_credentials() ) {
+		    return;
+	    }
+
 		// Load actions and filters.
 		add_action( 'wp_enqueue_scripts', array( $this, 'api_script' ) );
         add_action( 'wp_footer', array( $this, 'localize' ), 9999 );
@@ -694,9 +699,12 @@ class OMAPI_Output {
      */
 	public function set_slug( $optin ) {
 
+		// Set the slug.
+		$this->slugs[] = str_replace( '-', '_', $optin->post_name );
+
+		// Maybe set shortcode.
 		$shortcode = get_post_meta( $optin->ID, '_omapi_shortcode', true );
 		if ( $shortcode ) {
-			$this->slugs[] 		= str_replace( '-', '_', $optin->post_name );
 			$this->shortcodes[] = get_post_meta( $optin->ID, '_omapi_shortcode_output', true );
 		}
 
@@ -751,6 +759,11 @@ class OMAPI_Output {
      * @since 1.0.0
      */
     public function localize() {
+
+	    // If no slugs have been set, do nothing.
+	    if ( empty( $this->slugs ) ) {
+		    return;
+	    }
 
 	    // If already localized, do nothing.
 	    if ( $this->localized ) {

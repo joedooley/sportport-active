@@ -3,10 +3,11 @@
 Plugin Name: WooCommerce Menu Cart
 Plugin URI: www.wpovernight.com/plugins
 Description: Extension for WooCommerce that places a cart icon with number of items and total cost in the menu bar. Activate the plugin, set your options and you're ready to go! Will automatically conform to your theme styles.
-Version: 2.5.7
+Version: 2.5.8
 Author: Jeremiah Prummer, Ewout Fernhout
 Author URI: www.wpovernight.com/
 License: GPL2
+Text Domain: wpmenucart
 */
 
 class WpMenuCart {	 
@@ -205,6 +206,19 @@ class WpMenuCart {
 	 * Load translations.
 	 */
 	public function languages() {
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'wpmenucart' );
+		$dir    = trailingslashit( WP_LANG_DIR );
+
+		/**
+		 * Frontend/global Locale. Looks in:
+		 *
+		 * 		- WP_LANG_DIR/wpmenucart/wpmenucart-LOCALE.mo
+		 * 	 	- WP_LANG_DIR/plugins/wpmenucart-LOCALE.mo
+		 * 	 	- wpmenucart/languages/wpmenucart-LOCALE.mo (which if not found falls back to:)
+		 * 	 	- WP_LANG_DIR/plugins/wpmenucart-LOCALE.mo
+		 */
+		load_textdomain( 'wpmenucart', $dir . 'wpmenucart/wpmenucart-' . $locale . '.mo' );
+		load_textdomain( 'wpmenucart', $dir . 'plugins/wpmenucart-' . $locale . '.mo' );
 		load_plugin_textdomain( 'wpmenucart', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
@@ -231,7 +245,7 @@ class WpMenuCart {
 			'wpmenucart',
 			plugins_url( '/javascript/wpmenucart.js' , __FILE__ ),
 			array( 'jquery' ),
-			'2.5.6',
+			'2.5.8',
 			true
 		);
 
@@ -305,6 +319,14 @@ class WpMenuCart {
 	 * @return menu items + Menu Cart item
 	 */
 	public function add_itemcart_to_menu( $items ) {
+		// WooCommerce specific: check if woocommerce cart object is actually loaded
+		if ( isset($this->options['shop_plugin']) && $this->options['shop_plugin'] == 'woocommerce' ) {
+			global $woocommerce;
+			if (empty($woocommerce) || !is_object($woocommerce) || !isset($woocommerce->cart) || !is_object($woocommerce->cart)) {
+				return $items; // nothing to load data from, return menu without cart item
+			}
+		}
+
 		$classes = 'wpmenucartli wpmenucart-display-'.$this->options['items_alignment'];
 		
 		if ($this->get_common_li_classes($items) != '')
@@ -378,6 +400,8 @@ class WpMenuCart {
 				$common_li_classes = array_intersect($li_class, $common_li_classes);
 			}
 			$common_li_classes_flat = implode(' ', $common_li_classes);
+		} else {
+			$common_li_classes_flat = '';
 		}
 		return $common_li_classes_flat;
 	}

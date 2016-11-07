@@ -697,8 +697,11 @@ var MigrationProgressStageView = Backbone.View.extend( {
 		}
 		this.$pauseBeforeFinalizeCheckbox.prop( 'checked', isChecked );
 
-		// only display on pushes and pulls
-		if ( 'push' === migrationIntent || 'pull' === migrationIntent ) {
+		// only display on certain migrations
+		if ( -1 !== $.inArray( migrationIntent, [ 'push', 'pull', 'find_replace' ] ) ) {
+			if ( 'find_replace' === migrationIntent ) {
+				$( '#pause-before-finalize-label' ).text( wpmdb_strings.pause_before_finalize_find_replace );
+			}
 			this.$pauseBeforeFinalizeElem.show();
 		} else {
 			this.$pauseBeforeFinalizeElem.hide();
@@ -882,6 +885,8 @@ module.exports = MigrationProgressStageView;
 	var previous_progress_title = '';
 	var previous_progress_text_primary = '';
 	var previous_progress_text_secondary = '';
+	var cancelling_text = '';
+	var paused_text = '';
 	var migration_cancelled = false;
 	var flag_skip_delay = false;
 	var delay_between_requests = 0;
@@ -1030,25 +1035,50 @@ module.exports = MigrationProgressStageView;
 		return domain;
 	}
 
-	function get_migration_status_label( url, intent, stage ) {
+	function update_domain_placeholder( label, url, stage ) {
 		var domain = get_domain_name( url );
-		var migrating_stage_label, completed_stage_label;
-		if ( 'pull' === intent ) {
-			migrating_stage_label = wpmdb_strings.pull_migration_label_migrating;
-			completed_stage_label = wpmdb_strings.pull_migration_label_completed;
-		} else {
-			migrating_stage_label = wpmdb_strings.push_migration_label_migrating;
-			completed_stage_label = wpmdb_strings.push_migration_label_completed;
+
+		if ( 'completed' === stage ) {
+			return label.replace( /\%s\s?/, '<span class=domain-label>' + domain + '</span>&nbsp;' );
 		}
 
-		migrating_stage_label = migrating_stage_label.replace( /\%s(\S*)\s?/, '<span class=domain-label>' + domain + '$1</span>&nbsp;' );
-		completed_stage_label = completed_stage_label.replace( /\%s\s?/, '<span class=domain-label>' + domain + '</span>&nbsp;' );
+		return label.replace( /\%s(\S*)\s?/, '<span class=domain-label>' + domain + '$1</span>&nbsp;' );
+	}
 
-		if ( 'migrating' === stage ) {
-			return migrating_stage_label;
-		} else {
-			return completed_stage_label;
+	function get_migration_status_label( url, intent, stage ) {
+		var migrating_stage_label = '';
+		var completed_stage_label = '';
+
+		switch ( intent ) {
+			case 'push':
+				migrating_stage_label = wpmdb_strings.push_migration_label_migrating;
+				completed_stage_label = wpmdb_strings.push_migration_label_completed;
+				break;
+			case 'pull':
+				migrating_stage_label = wpmdb_strings.pull_migration_label_migrating;
+				completed_stage_label = wpmdb_strings.pull_migration_label_completed;
+				break;
+			case 'find_replace':
+				migrating_stage_label = wpmdb_strings.find_replace_label_migrating;
+				completed_stage_label = wpmdb_strings.find_replace_label_completed;
+				break;
+			case 'savefile':
+				migrating_stage_label = wpmdb_strings.exporting_please_wait;
+				completed_stage_label = wpmdb_strings.exporting_complete;
+				break;
 		}
+
+		var label = migrating_stage_label;
+
+		if ( 'completed' === stage ) {
+			label = completed_stage_label;
+		}
+
+		if ( 'push' === intent || 'pull' === intent ) {
+			label = update_domain_placeholder( label, url, stage );
+		}
+
+		return label;
 	}
 
 	function remove_protocol( url ) {
@@ -1095,11 +1125,16 @@ module.exports = MigrationProgressStageView;
 		} else {
 			migration_paused = true;
 			doing_ajax = false;
+			paused_text = wpmdb_strings.migration_paused;
 			previous_progress_title = $( '.progress-title' ).html();
 			previous_progress_text_primary = $( '.progress-text', '.progress-wrapper-primary' ).html();
 			previous_progress_text_secondary = $( '.progress-text', '.progress-wrapper-secondary ' ).html();
 
-			wpmdb.current_migration.setState( wpmdb_strings.migration_paused, wpmdb_strings.completing_current_request, null );
+			if ( 'find_replace' === migration_intent ) {
+				paused_text = wpmdb_strings.find_replace_paused;
+			}
+
+			wpmdb.current_migration.setState( paused_text, wpmdb_strings.completing_current_request, null );
 			$( 'body' ).off( 'click', '.pause-resume' ); // Is re-bound at execute_next_step when migration is finally paused
 			$( 'body' ).off( 'click', '.cancel' ); // Is re-bound at execute_next_step when migration is finally paused
 		}
@@ -1415,6 +1450,7 @@ module.exports = MigrationProgressStageView;
 		last_replace_switch = wpmdb_migration_type();
 
 		function check_licence( licence ) {
+			var update_licence_content = ! doing_licence_registration_ajax;
 			checked_licence = true;
 			$.ajax( {
 				url: ajaxurl,
@@ -1462,14 +1498,21 @@ module.exports = MigrationProgressStageView;
 						addons_msg = data.addon_content;
 					}
 
-					$licence_content.stop().fadeOut( fade_duration, function() {
-						$( this )
-							.css( { visibility: 'hidden', display: 'block' } ).slideUp()
-							.empty()
-							.html( licence_msg )
-							.stop()
-							.fadeIn( fade_duration );
-					} );
+					if ( update_licence_content ) {
+						$licence_content.stop().fadeOut( fade_duration, function() {
+							if ( 'undefined' === typeof licence_msg ) {
+								$( this ).css( { visibility: 'hidden', display: 'block' } ).slideUp();
+								licence_msg = '';
+							}
+
+							$( this )
+								.empty()
+								.html( licence_msg )
+								.stop()
+								.fadeIn( fade_duration );
+						} );
+					}
+
 					$support_content.stop().fadeOut( fade_duration, function() {
 						$( this )
 							.empty()
@@ -1559,7 +1602,12 @@ module.exports = MigrationProgressStageView;
 		function establish_remote_connection_from_saved_profile() {
 			var action = wpmdb_migration_type();
 			var connection_info = $.trim( $( '.pull-push-connection-info' ).val() ).split( '\n' );
-			if ( 'undefined' === typeof wpmdb_default_profile || true === wpmdb_default_profile || 'savefile' === action || doing_ajax || ! wpmdb_data.is_pro ) {
+			if ( 'undefined' === typeof wpmdb_default_profile ||
+			     true === wpmdb_default_profile ||
+			     'savefile' === action ||
+			     'find_replace' === action ||
+			     doing_ajax ||
+			     ! wpmdb_data.is_pro ) {
 				return;
 			}
 
@@ -1772,7 +1820,6 @@ module.exports = MigrationProgressStageView;
 					$licence_status.html( wpmdb_strings.register_license_problem );
 				},
 				success: function( data ) {
-					doing_licence_registration_ajax = false;
 					$( '.register-licence-ajax-spinner' ).remove();
 
 					if ( 'undefined' !== typeof data.errors ) {
@@ -1811,6 +1858,8 @@ module.exports = MigrationProgressStageView;
 						enable_pro_licence( data, licence_key );
 						$( '.invalid-licence' ).hide();
 					}
+
+					doing_licence_registration_ajax = false;
 				}
 			} );
 
@@ -1818,6 +1867,8 @@ module.exports = MigrationProgressStageView;
 
 		// clears the debug log
 		$( '.clear-log' ).click( function() {
+			$( '.ajax-spinner, .ajax-success-msg' ).remove();
+			$( this ).after( ajax_spinner );
 			$( '.debug-log-textarea' ).val( '' );
 			$.ajax( {
 				url: ajaxurl,
@@ -1829,9 +1880,16 @@ module.exports = MigrationProgressStageView;
 					nonce: wpmdb_data.nonces.clear_log
 				},
 				error: function( jqXHR, textStatus, errorThrown ) {
+					$( '.ajax-spinner' ).remove();
 					alert( wpmdb_strings.clear_log_problem );
 				},
 				success: function( data ) {
+					$( '.ajax-spinner, .ajax-success-msg' ).remove();
+					refresh_debug_log();
+					$( '.clear-log' ).after( '<span class="ajax-success-msg">' + wpmdb_strings.clear_error_log + '</span>' );
+					$( '.ajax-success-msg' ).fadeOut( 2000, function() {
+						$( this ).remove();
+					} );
 				}
 			} );
 		} );
@@ -1925,6 +1983,16 @@ module.exports = MigrationProgressStageView;
 			var excluded_post_types = $( '#select-post-types' ).val();
 			var excluded_post_types_text = '';
 			var $exclude_post_types_warning = $( '.exclude-post-types-warning' );
+			var $exclude_post_types_migrate_msg = $exclude_post_types_warning.find( '.migrate-msg' );
+			var $exclude_post_types_find_replace_msg = $exclude_post_types_warning.find( '.find-replace-msg' );
+
+			if ( 'find_replace' === wpmdb_migration_type() ) {
+				$exclude_post_types_migrate_msg.hide();
+				$exclude_post_types_find_replace_msg.show();
+			} else {
+				$exclude_post_types_find_replace_msg.hide();
+				$exclude_post_types_migrate_msg.show();
+			}
 
 			if ( excluded_post_types ) {
 				excluded_post_types_text = '<code>' + excluded_post_types.join( '</code>, <code>' ) + '</code>';
@@ -2087,12 +2155,26 @@ module.exports = MigrationProgressStageView;
 			}
 
 			// set up migration stage
-			if ( 'push' === migration_intent || 'savefile' === migration_intent ) {
+			if ( -1 !== $.inArray( migration_intent, [ 'push', 'savefile', 'find_replace' ] ) ) {
 				data_type = 'local';
 			} else {
 				data_type = 'remote';
 			}
-			wpmdb.current_migration.model.addStage( 'migrate', get_tables_to_migrate( null, null ), data_type );
+
+			if ( 'find_replace' === migration_intent ) {
+				if ( 'backup' !== stage ) {
+					stage = 'find_replace';
+				}
+
+				wpmdb.current_migration.model.addStage( 'find_replace', get_tables_to_migrate( null, null ), data_type, {
+					strings: {
+						migrated: wpmdb_strings.searched,
+						stage_title: wpmdb_strings.migrate_button_find_replace
+					}
+				} );
+			} else {
+				wpmdb.current_migration.model.addStage( 'migrate', get_tables_to_migrate( null, null ), data_type );
+			}
 
 			// add any additional migration stages via hook
 			$.wpmdb.do_action( 'wpmdb_add_migration_stages', {
@@ -2107,18 +2189,12 @@ module.exports = MigrationProgressStageView;
 			remote_site = connection_info[ 0 ];
 			secret_key = connection_info[ 1 ];
 
-			var static_migration_label = '';
+			var static_migration_label = get_migration_status_label( remote_site, migration_intent, 'migrating' );
+			completed_msg = get_migration_status_label( remote_site, migration_intent, 'completed' );
 
-			completed_msg = wpmdb_strings.exporting_complete;
-
-			if ( 'savefile' === migration_intent ) {
-				static_migration_label = wpmdb_strings.exporting_please_wait;
-			} else {
-				static_migration_label = get_migration_status_label( remote_site, migration_intent, 'migrating' );
-				completed_msg = get_migration_status_label( remote_site, migration_intent, 'completed' );
-			}
-
-			if ( 'backup' === stage ) {
+			if ( 'find_replace' === stage ) {
+				tables_to_migrate = wpmdb.current_migration.model.getStageItems( 'find_replace', 'name' );
+			} else if ( 'backup' === stage ) {
 				tables_to_migrate = wpmdb.current_migration.model.getStageItems( 'backup', 'name' );
 			} else {
 				tables_to_migrate = wpmdb.current_migration.model.getStageItems( 'migrate', 'name' );
@@ -2147,7 +2223,7 @@ module.exports = MigrationProgressStageView;
 				local: wpmdb_data.site_details
 			};
 
-			if ( 'savefile' !== migration_intent ) {
+			if ( -1 === $.inArray( migration_intent, [ 'savefile', 'find_replace' ] ) ) {
 				request_data.temp_prefix = wpmdb.common.connection_data.temp_prefix;
 				request_data.site_details.remote = wpmdb.common.connection_data.site_details;
 			}
@@ -2200,9 +2276,14 @@ module.exports = MigrationProgressStageView;
 
 						if ( i >= tables_to_migrate.length ) {
 							if ( 'backup' === stage ) {
-								wpmdb.current_migration.model.setActiveStage( 'migrate' );
 
 								stage = 'migrate';
+								if ( 'find_replace' === migration_intent ) {
+									stage = 'find_replace';
+								}
+
+								wpmdb.current_migration.model.setActiveStage( stage );
+
 								i = 0;
 
 								// should get from model
@@ -2228,7 +2309,7 @@ module.exports = MigrationProgressStageView;
 						}
 
 						var gzip = 0;
-						if ( 'savefile' !== migration_intent && 1 === parseInt( wpmdb.common.connection_data.gzip ) ) {
+						if ( 'savefile' !== migration_intent && 'find_replace' !== migration_intent && 1 === parseInt( wpmdb.common.connection_data.gzip ) ) {
 							gzip = 1;
 						}
 
@@ -2244,7 +2325,7 @@ module.exports = MigrationProgressStageView;
 							nonce: wpmdb_data.nonces.migrate_table
 						};
 
-						if ( 'savefile' !== migration_intent ) {
+						if ( 'savefile' !== migration_intent &&  'find_replace' !== migration_intent ) {
 							request_data.bottleneck = wpmdb.common.connection_data.bottleneck;
 							request_data.prefix = wpmdb.common.connection_data.prefix;
 						}
@@ -2352,10 +2433,18 @@ module.exports = MigrationProgressStageView;
 						wpmdb.current_migration.setText();
 					}
 
+					completed_msg = completed_msg + '&nbsp;<div class="dashicons dashicons-yes"></div>';
+
 					if ( true === migration_cancelled ) {
-						wpmdb.current_migration.setState( completed_msg + '&nbsp;<div class="dashicons dashicons-yes"></div>', wpmdb_strings.migration_cancelled_success, 'cancelled' );
+						var cancel_success = wpmdb_strings.migration_cancelled_success;
+
+						if ( 'find_replace' === migration_intent ) {
+							cancel_success = wpmdb_strings.find_replace_cancelled_success;
+						}
+
+						wpmdb.current_migration.setState( completed_msg, cancel_success, 'cancelled' );
 					} else {
-						wpmdb.current_migration.setState( completed_msg + '&nbsp;<div class="dashicons dashicons-yes"></div>', '', 'complete' );
+						wpmdb.current_migration.setState( completed_msg, '', 'complete' );
 					}
 
 				} else {
@@ -2411,19 +2500,24 @@ module.exports = MigrationProgressStageView;
 
 				wpmdb.current_migration.setState( null, wpmdb_strings.finalizing_migration, 'finalizing' );
 
+				var request_data = {
+					action: 'wpmdb_finalize_migration',
+					migration_state_id: wpmdb.migration_state_id,
+					tables: tables_to_migrate.join( ',' ),
+					nonce: wpmdb_data.nonces.finalize_migration
+				};
+
+				if ( 'find_replace' !== migration_intent ) {
+					request_data.prefix = wpmdb.common.connection_data.prefix;
+				}
+
 				doing_ajax = true;
 				$.ajax( {
 					url: ajaxurl,
 					type: 'POST',
 					dataType: 'text',
 					cache: false,
-					data: {
-						action: 'wpmdb_finalize_migration',
-						migration_state_id: wpmdb.migration_state_id,
-						prefix: wpmdb.common.connection_data.prefix,
-						tables: tables_to_migrate.join( ',' ),
-						nonce: wpmdb_data.nonces.finalize_migration
-					},
+					data: request_data,
 					error: function( jqXHR, textStatus, errorThrown ) {
 						doing_ajax = false;
 						wpmdb.current_migration.setState( wpmdb_strings.migration_failed, wpmdb_strings.finalize_tables_problem, 'error' );
@@ -2672,6 +2766,7 @@ module.exports = MigrationProgressStageView;
 					$( '.connection-status' ).hide();
 					$( '.step-two' ).show();
 					$( '.table-prefix' ).html( wpmdb.common.connection_data.prefix );
+					$( '.backup-table-prefix' ).html( wpmdb_data.site_details.prefix );
 					$( '.uploads-dir' ).html( wpmdb_data.this_uploads_dir );
 					if ( false === profile_name_edited ) {
 						profile_name = get_domain_name( wpmdb.common.connection_data.url );
@@ -2719,6 +2814,7 @@ module.exports = MigrationProgressStageView;
 					$( '.connection-status' ).hide();
 					$( '.step-two' ).show();
 					$( '.table-prefix' ).html( wpmdb_data.this_prefix );
+					$( '.backup-table-prefix' ).html( wpmdb.common.connection_data.prefix );
 					$( '.uploads-dir' ).html( wpmdb.common.connection_data.uploads_dir );
 					if ( false === profile_name_edited ) {
 						profile_name = get_domain_name( wpmdb.common.connection_data.url );
@@ -2746,7 +2842,7 @@ module.exports = MigrationProgressStageView;
 					$( '.connection-status' ).show();
 					$( '.step-two' ).hide();
 				}
-			} else if ( 'savefile' === wpmdb_migration_type() ) {
+			} else if ( 'savefile' === wpmdb_migration_type() || 'find_replace' === wpmdb_migration_type() ) {
 				$( '.connection-status' ).hide();
 				$( '.step-two' ).show();
 				$( '.table-prefix' ).html( wpmdb_data.this_prefix );
@@ -2754,12 +2850,25 @@ module.exports = MigrationProgressStageView;
 				if ( false === profile_name_edited ) {
 					$( '.create-new-profile' ).val( '' );
 				}
-				$( '.backup-options' ).hide();
+
+				if ( 'find_replace' !== wpmdb_migration_type() ) {
+					$( '.backup-options' ).hide();
+				}
+
 				$( '.keep-active-plugins' ).hide();
 				if ( false === wpmdb_data.write_permission ) {
 					$( '.directory-permission-notice' ).show();
 					$( '.step-two' ).hide();
 				}
+
+				if ( 'find_replace' === wpmdb_migration_type()  ) {
+					if ( 'true' === wpmdb_data.is_multisite ) {
+						var $old_replace_col = $( '.old-replace-col' ).eq( 1 );
+						$old_replace_col.parent().removeClass( 'pin' ).find( '.replace-remove-row' ).show();
+						$old_replace_col.find( 'input' ).removeAttr( 'readonly' );
+					}
+				}
+
 			}
 
 			maybe_show_mixed_cased_table_name_warning();
@@ -2855,8 +2964,14 @@ module.exports = MigrationProgressStageView;
 
 			var position = icon.position();
 			if ( bubble.hasClass( 'bottom' ) ) {
+				var bubble_offset = 1;
+
+				if ( $( this ).is( ':first-child' ) ) {
+					bubble_offset = 3;
+				}
+
 				bubble.css( {
-					'left': ( position.left - bubble.width() / 2 ) + 'px',
+					'left': ( ( position.left - bubble.width() / 2 ) - bubble_offset ) + 'px',
 					'top': ( position.top + icon.height() + 9 ) + 'px'
 				} );
 			} else {
@@ -2865,7 +2980,6 @@ module.exports = MigrationProgressStageView;
 					'top': ( position.top + icon.height() / 2 - 18 ) + 'px'
 				} );
 			}
-
 			bubble.toggle();
 			e.stopPropagation();
 		} );
@@ -3057,6 +3171,28 @@ module.exports = MigrationProgressStageView;
 			} );
 		} );
 
+		// When read-only connection info is copied, convert it to one line
+		$( '#connection_info' ).on( 'copy', function( e ) {
+			var $this = $( this );
+
+			// Test for two lines
+			var lines = $this.val().split( '\n' );
+			if ( 2 === lines.length ) {
+
+				// Wrapping in a try in case there's no browser support
+				try {
+
+					// Combine the two lines into one
+					e.originalEvent.clipboardData.setData( 'text/plain', lines.join( ' ' ) );
+					e.preventDefault(); // Default behaviour is to copy any selected text
+				}
+				catch ( err ) {
+
+					// Do nothing. Allow normal copying
+				}
+			}
+		});
+
 		// regenerates the saved secret key
 		$( '.reset-api-key' ).click( function() {
 			var answer = confirm( wpmdb_strings.reset_api_key );
@@ -3090,6 +3226,55 @@ module.exports = MigrationProgressStageView;
 				}
 			} );
 
+		} );
+
+		// Copy the connection info to the clipboard
+		$( '.copy-api-key' ).click( function() {
+
+			var $el = $( this );
+
+			// Get connection_info input
+			var $connection_info = $( '#connection_info' );
+
+			// Get the connection info
+			var two_lines = $connection_info.val();
+
+			// Make it one line, if it's two
+			var one_line = two_lines.replace( '\n', ' ' );
+
+			// Replace two lines with one
+			$connection_info.val( one_line );
+
+			// Select the input val
+			$connection_info.select();
+
+			try {
+
+				// Copy connection_info
+				document.execCommand( 'copy' );
+
+				// Unselect connection_info input
+				$connection_info.blur();
+
+				// show confirmation
+				$el.css( 'color', 'transparent' );
+				var $confirmation = $( '.copy-api-key-confirmation' ).show();
+
+				// fadeout confirmation
+				setTimeout( function() {
+					$confirmation.fadeOut( 'fast' );
+					setTimeout( function() {
+						$el.css( 'color', '' );
+					}, 200 );
+
+				}, 1000 );
+			}
+			catch ( err ) {
+				alert( 'please press Ctrl/Cmd+C to copy' );
+			}
+
+			// Replace the input val with the two lines
+			$connection_info.val( two_lines );
 		} );
 
 		// show / hide table select box when specific settings change
@@ -3340,14 +3525,14 @@ module.exports = MigrationProgressStageView;
 		} );
 
 		// fired when the connection info box changes (e.g. gets pasted into)
-		function connection_box_changed( data ) {
+		function connection_box_changed() {
 			var $this = $( '.pull-push-connection-info' );
 
 			if ( ( doing_ajax || $( $this ).hasClass( 'temp-disabled' ) ) && false === wpmdb.force_reconnect ) {
 				return;
 			}
 			wpmdb.force_reconnect = false;
-			data = $( '.pull-push-connection-info' ).val();
+			var data = $( '.pull-push-connection-info' ).val();
 
 			var connection_info = $.trim( data ).split( '\n' );
 			var error = false;
@@ -3356,6 +3541,15 @@ module.exports = MigrationProgressStageView;
 			if ( '' === connection_info ) {
 				error = true;
 				error_message = wpmdb_strings.connection_info_missing;
+			}
+
+			// attempt to format the connection info from a single line
+			if ( 1 === connection_info.length && ! error ) {
+				var connection_words = $.trim( data ).split( ' ' );
+				if ( 2 === connection_words.length )
+				{
+					connection_info = connection_words;
+				}
 			}
 
 			if ( 2 !== connection_info.length && ! error ) {
@@ -3388,7 +3582,6 @@ module.exports = MigrationProgressStageView;
 				error = true;
 				error_message = wpmdb_strings.connection_info_local_key;
 			}
-
 			if ( error ) {
 				$( '.connection-status' ).html( error_message );
 				$( '.connection-status' ).addClass( 'notification-message error-notice migration-error' );
@@ -3396,6 +3589,13 @@ module.exports = MigrationProgressStageView;
 			}
 
 			var new_connection_info_contents = connection_info[ 0 ] + '\n' + connection_info[ 1 ];
+
+			// If connection info is a single line
+			if ( 1 === $.trim( data ).split( '\n' ).length ) {
+
+				// Repopulate the input with the info on two lines
+				$( '.pull-push-connection-info' ).val( new_connection_info_contents );
+			}
 
 			if ( false === wpmdb_data.openssl_available ) {
 				connection_info[ 0 ] = connection_info[ 0 ].replace( 'https://', 'http://' );
@@ -3451,7 +3651,6 @@ module.exports = MigrationProgressStageView;
 					$( '.ajax-spinner' ).remove();
 					doing_ajax = false;
 					enable_export_type_controls();
-					maybe_show_ssl_warning( connection_info[ 0 ], connection_info[ 1 ], data.scheme );
 
 					if ( 'undefined' !== typeof data.wpmdb_error && 1 === data.wpmdb_error ) {
 						$( '.connection-status' ).html( data.body );
@@ -3468,6 +3667,8 @@ module.exports = MigrationProgressStageView;
 
 						return;
 					}
+
+					maybe_show_ssl_warning( connection_info[ 0 ], connection_info[ 1 ], data.scheme );
 
 					var profile_name = get_domain_name( data.url );
 					$( '.create-new-profile' ).val( profile_name );
@@ -3521,15 +3722,18 @@ module.exports = MigrationProgressStageView;
 						}
 						$( '#old-url' ).val( remove_protocol( data.url ) );
 						$( '#old-path' ).val( data.path );
+
 						$.wpmdb.do_action( 'wpmdb_update_pull_table_select' );
 						$( '#select-post-types' ).remove();
 						$( '.exclude-post-types-warning' ).after( $pull_post_type_select );
 						exclude_post_types_warning();
 						$( '.table-prefix' ).html( data.prefix );
+						$( '.backup-table-prefix' ).html( wpmdb_data.site_details.prefix );
 						$( '.uploads-dir' ).html( wpmdb_data.this_uploads_dir );
 					} else {
 						$( '#new-url' ).val( remove_protocol( data.url ) );
 						$( '#new-path' ).val( data.path );
+
 						if ( 'true' === wpmdb_data.is_multisite ) {
 							$( '.replace-row.pin .old-replace-col input[type="text"]' ).val( remove_protocol( wpmdb_data.this_url ) );
 						}
@@ -3556,9 +3760,14 @@ module.exports = MigrationProgressStageView;
 
 		function cancel_migration( event ) {
 			migration_cancelled = true;
+			cancelling_text = wpmdb_strings.cancelling_migration;
 			$( '.migration-controls' ).css( { visibility: 'hidden' } );
 
-			wpmdb.current_migration.setState( wpmdb_strings.cancelling_migration, wpmdb_strings.completing_current_request, 'cancelling' );
+			if ( 'find_replace' === migration_intent ) {
+				cancelling_text = wpmdb_strings.cancelling_find_replace;
+			}
+
+			wpmdb.current_migration.setState( cancelling_text, wpmdb_strings.completing_current_request, 'cancelling' );
 
 			if ( true === migration_paused ) {
 				migration_paused = false;
@@ -3598,6 +3807,10 @@ module.exports = MigrationProgressStageView;
 				if ( true === is_auto_pause_before_finalize ) {
 					pause_text = wpmdb_strings.paused_before_finalize;
 					is_auto_pause_before_finalize = false;
+
+					if ( 'find_replace' === wpmdb_migration_type() ) {
+						pause_text = wpmdb_strings.find_replace_paused_before_finalize;
+					}
 				} else {
 					pause_text = wpmdb_strings.paused;
 				}
@@ -3668,7 +3881,13 @@ module.exports = MigrationProgressStageView;
 							wpmdb.functions.migration_complete_events();
 							return;
 						}
+
 						completed_msg = wpmdb_strings.migration_cancelled;
+
+						if ( 'find_replace' === migration_intent ) {
+							completed_msg = wpmdb_strings.find_replace_cancelled;
+						}
+
 						wpmdb.functions.migration_complete_events();
 						wpmdb.current_migration.setStatus( 'cancelled' );
 					}
@@ -3782,6 +4001,7 @@ module.exports = MigrationProgressStageView;
 		$.wpmdb.add_filter( 'wpmdb_get_table_prefix', get_table_prefix );
 		$.wpmdb.add_filter( 'wpmdb_get_tables_to_migrate', get_tables_to_migrate );
 		$.wpmdb.add_action( 'wpmdb_lock_replace_url', lock_replace_url );
+		$.wpmdb.add_action( 'move_connection_info_box', exclude_post_types_warning );
 
 		$.wpmdb.add_filter( 'wpmdb_before_migration_complete_hooks', function( hooks ) {
 			pause_before_finalize = $( 'input[name=pause_before_finalize]:checked' ).length ? true : false;

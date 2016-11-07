@@ -92,7 +92,7 @@ class FacetWP_Facet_Autocomplete
     function ajax_load() {
         global $wpdb;
 
-        $query = esc_sql( $_POST['query'] );
+        $query = esc_sql( $wpdb->esc_like( $_POST['query'] ) );
         $facet_name = esc_sql( $_POST['facet_name'] );
 
         $sql = "

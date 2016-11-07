@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FacetWP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-05 11:12-0400\n"
-"PO-Revision-Date: 2016-08-05 11:12-0400\n"
+"POT-Creation-Date: 2016-10-05 20:28-0400\n"
+"PO-Revision-Date: 2016-10-05 20:29-0400\n"
 "Last-Translator: Matt Gibbs <hello@facetwp.com>\n"
 "Language-Team: Matt Gibbs <hello@facetwp.com>\n"
 "Language: pt_BR\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
 "__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
 "_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
@@ -22,101 +22,101 @@ msgstr ""
 "X-Loco-Target-Locale: pt_BR\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: includes/class-ajax.php:204
+#: includes/class-ajax.php:191
 msgid "Settings saved"
 msgstr "Configurações salvas"
 
-#: includes/class-ajax.php:207
+#: includes/class-ajax.php:194
 msgid "Error: invalid JSON"
 msgstr "Erro: JSON invalido"
 
-#: includes/class-ajax.php:347
+#: includes/class-ajax.php:334
 msgid "Nothing to import"
 msgstr "Nada para emportar"
 
-#: includes/class-ajax.php:383
+#: includes/class-ajax.php:370
 msgid "Imported"
 msgstr "Emportado"
 
-#: includes/class-ajax.php:386
+#: includes/class-ajax.php:373
 msgid "Skipped"
 msgstr "Pulado"
 
-#: includes/class-ajax.php:417
+#: includes/class-ajax.php:404
 msgid "Error"
 msgstr "Erro"
 
-#: includes/class-facet.php:435 includes/class-facet.php:552
+#: includes/class-facet.php:448 includes/class-facet.php:565
 msgid "of"
 msgstr "de"
 
-#: includes/class-facet.php:469 includes/facets/checkboxes.php:315
+#: includes/class-facet.php:482 includes/facets/checkboxes.php:315
 #: includes/facets/dropdown.php:201 includes/facets/fselect.php:273
-#: includes/facets/hierarchy.php:192
+#: includes/facets/hierarchy.php:192 includes/facets/radio.php:216
 msgid "Sort by"
 msgstr "Ordenar poe"
 
-#: includes/class-facet.php:473
+#: includes/class-facet.php:486
 msgid "Title (A-Z)"
 msgstr "Título (A-Z)"
 
-#: includes/class-facet.php:480
+#: includes/class-facet.php:493
 msgid "Title (Z-A)"
 msgstr "Título (Z-A)"
 
-#: includes/class-facet.php:487
+#: includes/class-facet.php:500
 msgid "Date (Newest)"
 msgstr "Data (mais novos)"
 
-#: includes/class-facet.php:494
+#: includes/class-facet.php:507
 msgid "Date (Oldest)"
 msgstr "Data (mais antigos)"
 
-#: includes/class-facet.php:551
+#: includes/class-facet.php:564
 msgid "Page"
 msgstr "Página"
 
-#: includes/class-facet.php:602
+#: includes/class-facet.php:615
 msgid "Per page"
 msgstr "Por página"
 
-#: includes/class-helper.php:387
+#: includes/class-helper.php:389
 msgid "Posts"
 msgstr "Posts"
 
-#: includes/class-helper.php:389
+#: includes/class-helper.php:391
 msgid "Post Type"
 msgstr "Tipo de Post"
 
-#: includes/class-helper.php:390
+#: includes/class-helper.php:392
 msgid "Post Date"
 msgstr "Data do Post"
 
-#: includes/class-helper.php:391
+#: includes/class-helper.php:393
 msgid "Post Modified"
 msgstr "Post Modificado"
 
-#: includes/class-helper.php:392
+#: includes/class-helper.php:394
 msgid "Post Title"
 msgstr "Título do Post"
 
-#: includes/class-helper.php:393
+#: includes/class-helper.php:395
 msgid "Post Author"
 msgstr "Autor do Post"
 
-#: includes/class-helper.php:397
+#: includes/class-helper.php:399
 msgid "Taxonomies"
 msgstr "Taxonomias"
 
-#: includes/class-helper.php:401
+#: includes/class-helper.php:403
 msgid "Custom Fields"
 msgstr "Campos Personalizados"
 
-#: includes/class-init.php:119 templates/page-settings.php:93
+#: includes/class-init.php:119 templates/page-settings.php:108
 msgid "Settings"
 msgstr "Configurações"
 
-#: includes/class-updater.php:100
+#: includes/class-updater.php:109
 msgid "Please activate or renew your license for automatic updates."
 msgstr "Por favor ativar ou renovar sua licença para atualizações automáticas."
 
@@ -153,22 +153,25 @@ msgid "See less"
 msgstr "Veja menos"
 
 #: includes/facets/checkboxes.php:300 includes/facets/dropdown.php:186
-#: includes/facets/fselect.php:258
+#: includes/facets/fselect.php:258 includes/facets/radio.php:201
 msgid "Parent term"
 msgstr "Termos pai"
 
 #: includes/facets/checkboxes.php:318 includes/facets/dropdown.php:204
 #: includes/facets/fselect.php:276 includes/facets/hierarchy.php:195
+#: includes/facets/radio.php:219
 msgid "Highest Count"
 msgstr "Maior Contagem"
 
 #: includes/facets/checkboxes.php:319 includes/facets/dropdown.php:205
 #: includes/facets/fselect.php:277 includes/facets/hierarchy.php:196
+#: includes/facets/radio.php:220
 msgid "Display Value"
 msgstr "Mostrar Valor"
 
 #: includes/facets/checkboxes.php:320 includes/facets/dropdown.php:206
 #: includes/facets/fselect.php:278 includes/facets/hierarchy.php:197
+#: includes/facets/radio.php:221
 msgid "Raw Value"
 msgstr "Valor Puro"
 
@@ -198,39 +201,43 @@ msgstr "Essa é uma taxonomia hierárquica?"
 
 #: includes/facets/checkboxes.php:349 includes/facets/checkboxes.php:364
 #: includes/facets/checkboxes.php:379 includes/facets/dropdown.php:220
-#: includes/facets/fselect.php:245 includes/integrations/acf/acf.php:197
+#: includes/facets/fselect.php:245 includes/facets/radio.php:235
+#: includes/facets/radio.php:250 includes/integrations/acf/acf.php:197
 msgid "No"
 msgstr "Não"
 
 #: includes/facets/checkboxes.php:350 includes/facets/checkboxes.php:365
 #: includes/facets/checkboxes.php:380 includes/facets/dropdown.php:221
-#: includes/facets/fselect.php:246 includes/integrations/acf/acf.php:197
+#: includes/facets/fselect.php:246 includes/facets/radio.php:236
+#: includes/facets/radio.php:251 includes/integrations/acf/acf.php:197
 msgid "Yes"
 msgstr "Sim"
 
-#: includes/facets/checkboxes.php:356
+#: includes/facets/checkboxes.php:356 includes/facets/radio.php:227
 msgid "Show ghosts"
 msgstr "Mostrar fantasmas"
 
-#: includes/facets/checkboxes.php:359
+#: includes/facets/checkboxes.php:359 includes/facets/radio.php:230
 msgid "Show choices that would return zero results?"
 msgstr "Mostrar opções que resultariam em resultados nulos"
 
-#: includes/facets/checkboxes.php:371
+#: includes/facets/checkboxes.php:371 includes/facets/radio.php:242
 msgid "Preserve ghost order"
 msgstr "Preservar a ordem fantasma"
 
-#: includes/facets/checkboxes.php:374
+#: includes/facets/checkboxes.php:374 includes/facets/radio.php:245
 msgid "Keep ghost choices in the same order?"
 msgstr "Manter as escolhas fantasmas na mesma ordem?"
 
 #: includes/facets/checkboxes.php:386 includes/facets/dropdown.php:227
 #: includes/facets/fselect.php:299 includes/facets/hierarchy.php:203
+#: includes/facets/radio.php:257
 msgid "Count"
 msgstr "Contagem "
 
 #: includes/facets/checkboxes.php:389 includes/facets/dropdown.php:230
 #: includes/facets/fselect.php:302 includes/facets/hierarchy.php:206
+#: includes/facets/radio.php:260
 msgid "The maximum number of facet choices to show"
 msgstr "Número máximo de facetas escolhidas a ser mostrado"
 
@@ -350,7 +357,7 @@ msgstr "Data Exata"
 
 #: includes/facets/date_range.php:190
 msgid "Display format"
-msgstr ""
+msgstr "Formato de Exibição"
 
 #: includes/facets/dropdown.php:7
 msgid "Dropdown"
@@ -425,6 +432,10 @@ msgstr "Kilometros"
 #: includes/facets/proximity.php:212
 msgid "Distance"
 msgstr "Distancia"
+
+#: includes/facets/radio.php:7
+msgid "Radio"
+msgstr "Radio"
 
 #: includes/facets/search.php:19
 msgid "Enter keywords"
@@ -539,139 +550,139 @@ msgstr "Você tem certeza?"
 msgid "Select some items"
 msgstr "Escolha alguns itens"
 
-#: templates/page-settings.php:37
-msgid "Not yet activated"
-msgstr "Ainda não está ativado"
-
-#: templates/page-settings.php:42
-msgid "License active"
-msgstr "Licença ativada"
-
-#: templates/page-settings.php:43
-msgid "expires"
-msgstr "Expira"
-
-#: templates/page-settings.php:90
-msgid "Welcome"
-msgstr "Bem vindo"
-
-#: templates/page-settings.php:91
-msgid "Facets"
-msgstr "Facetas"
-
-#: templates/page-settings.php:92
-msgid "Templates"
-msgstr "Modelos"
-
-#: templates/page-settings.php:94
-msgid "Support"
-msgstr "Suporte "
-
-#: templates/page-settings.php:106
-msgid "Welcome to FacetWP"
-msgstr "Bem vindo ao FacetWP"
-
-#: templates/page-settings.php:121 templates/page-settings.php:145
-msgid "Add New"
-msgstr "Adicionar Novo"
-
-#: templates/page-settings.php:124 templates/page-settings.php:148
-msgid "Back"
-msgstr "Voltar"
-
-#: templates/page-settings.php:128
-msgid "Re-index"
-msgstr "Re-indexar"
-
-#: templates/page-settings.php:129 templates/page-settings.php:152
-#: templates/page-settings.php:169
-msgid "Save Changes"
-msgstr "Salvar Alterações"
-
-#: templates/page-settings.php:176
-msgid "License Key"
-msgstr "Código de Licença "
-
-#: templates/page-settings.php:179
-msgid "Activate"
-msgstr "Ativar"
-
-#: templates/page-settings.php:190
-msgid "Separators"
-msgstr "Separadores"
-
-#: templates/page-settings.php:193
-msgid "Thousands"
-msgstr "Milhares"
-
-#: templates/page-settings.php:195
-msgid "Decimal"
-msgstr "Decimal"
-
-#: templates/page-settings.php:206 templates/page-settings.php:214
-msgid "Export"
-msgstr "Exportar"
-
-#: templates/page-settings.php:222 templates/page-settings.php:227
-msgid "Import"
-msgstr "Importar"
-
-#: templates/page-settings.php:225
-msgid "Paste the import code here"
-msgstr "Cole o código de importação aqui"
-
-#: templates/page-settings.php:226
-msgid "Overwrite existing items?"
-msgstr "Substituir os itens existentes?"
-
-#: templates/page-settings.php:247
+#: templates/page-settings.php:39
 msgid "This facet type has no additional settings."
 msgstr "Esta faceta não possui configurações adicionais."
 
-#: templates/page-settings.php:267
+#: templates/page-settings.php:48
+msgid "Not yet activated"
+msgstr "Ainda não está ativado"
+
+#: templates/page-settings.php:53
+msgid "License active"
+msgstr "Licença ativada"
+
+#: templates/page-settings.php:54
+msgid "expires"
+msgstr "Expira"
+
+#: templates/page-settings.php:105
+msgid "Welcome"
+msgstr "Bem vindo"
+
+#: templates/page-settings.php:106
+msgid "Facets"
+msgstr "Facetas"
+
+#: templates/page-settings.php:107
+msgid "Templates"
+msgstr "Modelos"
+
+#: templates/page-settings.php:109
+msgid "Support"
+msgstr "Suporte "
+
+#: templates/page-settings.php:121
+msgid "Welcome to FacetWP"
+msgstr "Bem vindo ao FacetWP"
+
+#: templates/page-settings.php:136 templates/page-settings.php:160
+msgid "Add New"
+msgstr "Adicionar Novo"
+
+#: templates/page-settings.php:139 templates/page-settings.php:163
+msgid "Back"
+msgstr "Voltar"
+
+#: templates/page-settings.php:143
+msgid "Re-index"
+msgstr "Re-indexar"
+
+#: templates/page-settings.php:144 templates/page-settings.php:167
+#: templates/page-settings.php:184
+msgid "Save Changes"
+msgstr "Salvar Alterações"
+
+#: templates/page-settings.php:191
+msgid "License Key"
+msgstr "Código de Licença "
+
+#: templates/page-settings.php:194
+msgid "Activate"
+msgstr "Ativar"
+
+#: templates/page-settings.php:205
+msgid "Separators"
+msgstr "Separadores"
+
+#: templates/page-settings.php:208
+msgid "Thousands"
+msgstr "Milhares"
+
+#: templates/page-settings.php:210
+msgid "Decimal"
+msgstr "Decimal"
+
+#: templates/page-settings.php:221 templates/page-settings.php:229
+msgid "Export"
+msgstr "Exportar"
+
+#: templates/page-settings.php:237 templates/page-settings.php:242
+msgid "Import"
+msgstr "Importar"
+
+#: templates/page-settings.php:240
+msgid "Paste the import code here"
+msgstr "Cole o código de importação aqui"
+
+#: templates/page-settings.php:241
+msgid "Overwrite existing items?"
+msgstr "Substituir os itens existentes?"
+
+#: templates/page-settings.php:266
 msgid "Label"
 msgstr "Rótulo"
 
-#: templates/page-settings.php:271 templates/page-settings.php:314
+#: templates/page-settings.php:270 templates/page-settings.php:313
 msgid "Name"
 msgstr "Nome"
 
-#: templates/page-settings.php:275
+#: templates/page-settings.php:274
 msgid "Facet type"
 msgstr "Tipo de faceta"
 
-#: templates/page-settings.php:286
+#: templates/page-settings.php:285
 msgid "Data source"
 msgstr "Fonte de dados"
 
-#: templates/page-settings.php:301
+#: templates/page-settings.php:300
 msgid "Other settings"
 msgstr "Outras configurações"
 
-#: templates/page-settings.php:317
+#: templates/page-settings.php:316
 msgid "Open query builder"
 msgstr "Abrir construtor de consulta"
 
-#: templates/page-settings.php:318
+#: templates/page-settings.php:317
 msgid "Query Arguments"
 msgstr "Argumentos de consulta"
 
-#: templates/page-settings.php:322
+#: templates/page-settings.php:321
 msgid "What goes here?"
 msgstr "O que vai aqui?"
 
-#: templates/page-settings.php:323
+#: templates/page-settings.php:322
 msgid "Display Code"
 msgstr "Mostrar Codigo"
 
-#: templates/page-settings.php:337
+#: templates/page-settings.php:336
 msgid "Query Builder"
 msgstr "Construtor de Consulta"
 
-#: templates/page-settings.php:341
+#: templates/page-settings.php:340
 msgid "Which posts would you like to use for the content listing?"
 msgstr "Quais as posts gostaria de usar para a listagem de conteúdo?"
 
-#: templates/page-settings.php:350
+#: templates/page-settings.php:349
 msgid "Send to editor"
 msgstr "Enviar para o editor"

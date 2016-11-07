@@ -32,6 +32,7 @@ final class FacetWP_Helper
         include( FACETWP_DIR . '/includes/facets/search.php' );
         include( FACETWP_DIR . '/includes/facets/slider.php' );
         include( FACETWP_DIR . '/includes/facets/proximity.php' );
+        include( FACETWP_DIR . '/includes/facets/radio.php' );
 
         $this->facet_types = apply_filters( 'facetwp_facet_types', array(
             'checkboxes'        => new FacetWP_Facet_Checkboxes(),
@@ -44,6 +45,7 @@ final class FacetWP_Helper
             'date_range'        => new FacetWP_Facet_Date_Range(),
             'number_range'      => new FacetWP_Facet_Number_Range(),
             'proximity'         => new FacetWP_Facet_Proximity_Core(),
+            'radio'             => new FacetWP_Facet_Radio_Core(),
         ) );
     }
 
@@ -332,7 +334,7 @@ final class FacetWP_Helper
      * @return boolean
      * @since 2.3.4
      */
-    function facet_setting_is( $facet, $setting_name, $setting_value ) {
+    function facet_is( $facet, $setting_name, $setting_value ) {
         if ( is_string( $facet ) ) {
             $facet = $this->get_facet_by_name( $facet );
         }

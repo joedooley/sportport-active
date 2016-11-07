@@ -71,7 +71,6 @@ class WPMDB_Utils {
 	 * @return mixed, false on failure
 	 */
 	public static function unserialize( $serialized_string, $method = '' ) {
-		$wpmdbpro = wp_migrate_db_pro();
 		if ( ! is_serialized( $serialized_string ) ) {
 			return false;
 		}
@@ -80,8 +79,9 @@ class WPMDB_Utils {
 		$unserialized_string = @unserialize( $serialized_string );
 
 		if ( false === $unserialized_string ) {
+			$wpmdb = function_exists( 'wp_migrate_db_pro' ) ? wp_migrate_db_pro() : wp_migrate_db();
 			$scope = $method ? sprintf( __( 'Scope: %s().', 'wp-migrate-db' ), $method ) : false;
-			$wpmdbpro->log_error( __( 'Data cannot be unserialized.', 'wp-migrate-db' ), $scope );
+			$wpmdb->log_error( __( 'Data cannot be unserialized.', 'wp-migrate-db' ), $scope );
 
 			return false;
 		}

@@ -75,7 +75,7 @@ wpmdb.mediaFiles = {
 	var hide_show_options = function( unavailable ) {
 		var mig_type = wpmdb_migration_type();
 
-		if ( 'savefile' === mig_type ) {
+		if ( -1 !== $.inArray( mig_type, [ 'savefile', 'find_replace' ] ) ) {
 			$( '.media-files-options' ).hide();
 			return;
 		}
@@ -625,7 +625,7 @@ wpmdb.mediaFiles = {
 
 	$( document ).ready( function() {
 
-		if ( 'savefile' === wpmdb_migration_type() ) {
+		if ( -1 !== $.inArray( wpmdb_migration_type(), [ 'savefile', 'find_replace' ] ) ) {
 			$( '.media-files-options' ).hide();
 		}
 
