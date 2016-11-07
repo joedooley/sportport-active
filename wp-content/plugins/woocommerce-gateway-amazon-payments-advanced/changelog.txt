@@ -1,5 +1,43 @@
 *** Amazon Payments Advanced Changelog ***
 
+2016.10.25 - version 1.6.2
+* Fix - When woocommerce_create_account_default_checked is used to mark create account field as enabled by default and then the buyer uncheck it, the posted value of dupe element still set to 1.
+
+2016.10.19 - version 1.6.1
+* Tweak - Rename plugin's main file to match with text-domain and repo's slug.
+* Fix - Replace deprecated functions from WC with newer ones.
+* Tweak - Change default setting values for button type, button size, and enable login app.
+* Tweak - Updated translations for de_DE, fr_FR, ja, and id_ID.
+
+2016.09.09 - version 1.6.0
+* Fix - Mark order status as complete when order is captured.
+* Enhancement - Add support to refund via built-in refund interface in addition to Amazon Payments Advanced meta box.
+* Fix - Uncaptured address details when order total is zero.
+* Fix - Manual subscription should works for UK and GB.
+* Tweak - Add button language selection on setting when app is enabled.
+* Fix - Issue where guest checkout prompted with validation error when attempting to create an account.
+* Enhancement - Add compatibility with WooCommerce German Market.
+* Enhancement - Add compatibility with WooCommerce Drip.
+* Tweak - Update secret fields to password fields.
+* Tweak - Update gateway's title in setting to Login & Pay with Amazon.
+* Enhancement - Add Hide Button mode for troubleshooting without affecting buyer.
+* Enhancement - Customisable button appearance, via settings, when app is enabled.
+* Enhancement - MWS keys validation when updating the settings.
+* Enhancement - Expose functionalities (retrieve reference state, authorize, authorize-with-capture, close-authorization, capture, and refund) to REST API. See https://gist.github.com/gedex/570441b1e4d90d289db4c43d4067525b.
+* Enhancement - Sanitize senstive data in log.
+* Enhancement - Log API request/response to/from Amazon for better troubleshooting
+* Enhancement - Close the Amazon OrderReference if all funds have been captured.
+* Fix - Add correct transaction URL format in edit order screen.
+* Enhancement - Display nice refresh link in Amazon Payments Advanced meta box when order has capture and/or refund states.
+* Fix - Display Pay with Amazon option in setting even if app disabled. This would avoid confusion in setting UI. The help tip description should tells more information.
+* Fix - Handle unsupported recurring payment when base country is DE or GB. A filter is added to opt-out when merchant is whitelisted by Amazon.
+* Tweak - Logging is enabled by default.
+* Enhancement - Support to handle special shipping address format for AT and DE.
+* Fix - Wrong text domain found in plugin. Should be woocommerce-gateway-amazon-payments-advanced.
+* Fix - Widget button in cart page is not displayed after AJAX refresh.
+* Fix - Checkout fields were disabled under certain conditions (after validation is failed).
+* Enhancement - Added support for Japan.
+
 2016.02.03 - version 1.5.4
 * Fix - Missing last name and email from order details.
 

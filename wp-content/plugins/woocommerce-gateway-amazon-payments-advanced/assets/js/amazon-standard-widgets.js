@@ -7,24 +7,19 @@ jQuery( function( $ ) {
 	// Login Widget
 	function wcAmazonPaymentsButton() {
 
-		if ( buttonLoaded ) {
+		// if button skeleton element is not on the page or if button has already been created within the skeleton element
+		if ( 0 === $( '#pay_with_amazon' ).length || $( '#pay_with_amazon' ).html().length > 0 ) {
 			return;
 		}
 
-		if ( 0 !== $( '#pay_with_amazon' ).length ) {
-
-			new OffAmazonPayments.Widgets.Button( {
-				sellerId            : amazon_payments_advanced_params.seller_id,
-				useAmazonAddressBook: amazon_payments_advanced_params.is_checkout_pay_page ? false : true,
-				onSignIn            : function ( orderReference ) {
-					amazonOrderReferenceId = orderReference.getAmazonOrderReferenceId();
-					window.location = amazon_payments_advanced_params.redirect + '&amazon_reference_id=' + amazonOrderReferenceId;
-				}
-			} ).bind( 'pay_with_amazon' );
-
-			buttonLoaded = true;
-
-		}
+		new OffAmazonPayments.Widgets.Button( {
+			sellerId            : amazon_payments_advanced_params.seller_id,
+			useAmazonAddressBook: amazon_payments_advanced_params.is_checkout_pay_page ? false : true,
+			onSignIn            : function ( orderReference ) {
+				amazonOrderReferenceId = orderReference.getAmazonOrderReferenceId();
+				window.location = amazon_payments_advanced_params.redirect + '&amazon_reference_id=' + amazonOrderReferenceId;
+			}
+		} ).bind( 'pay_with_amazon' );
 
 	}
 
@@ -68,7 +63,7 @@ jQuery( function( $ ) {
 
 		$( this ).find( ':input[name=billing_email],:input[name=account_password]' ).each( function() {
 			var $input = $( this );
-			if ( '' === $input.val() ) {
+			if ( '' === $input.val() && $input.is(':hidden') ) {
 				$input.attr( 'disabled', 'disabled' );
 			}
 		} );
@@ -112,6 +107,9 @@ jQuery( function( $ ) {
 
 		widgetsLoaded = true;
 
+		// Not exactly widgets ready, but no onReady param for standard widgets.
+		// Use the same name with app widgets for consistency.
+		wcAmazonMaybeTriggerReadyEvent();
 	}
 
 	// Only load widgets on the initial render if Amazon Payments is the chosen method
@@ -119,6 +117,32 @@ jQuery( function( $ ) {
 
 		loadWidgets();
 
+	}
+
+	/**
+	 * Maybe trigger wc_amazon_pa_widget_ready.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
+	 */
+	function wcAmazonMaybeTriggerReadyEvent() {
+		if ( 'function' !== typeof MutationObserver  ) {
+			return false;
+		}
+
+		var triggered = false;
+		var observer = new MutationObserver( function( mutations ) {
+			mutations.forEach( function( mutation ) {
+				if ( ! triggered ) {
+					$( document ).trigger( 'wc_amazon_pa_widget_ready' );
+					triggered = true;
+					observer.disconnect();
+				}
+			} );
+		} );
+
+		observer.observe( document.getElementById( 'amazon_wallet_widget' ), {
+			childList: true
+		} );
 	}
 
 });

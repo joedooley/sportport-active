@@ -1,6 +1,6 @@
 <?php
 /**
- * WooCommerce Authorize.net AIM Gateway
+ * WooCommerce Authorize.Net AIM Gateway
  *
  * This source file is subject to the GNU General Public License v3.0
  * that is bundled with this package in the file license.txt.
@@ -12,8 +12,8 @@
  *
  * DISCLAIMER
  *
- * Do not edit or add to this file if you wish to upgrade WooCommerce Authorize.net AIM Gateway to newer
- * versions in the future. If you wish to customize WooCommerce Authorize.net AIM Gateway for your
+ * Do not edit or add to this file if you wish to upgrade WooCommerce Authorize.Net AIM Gateway to newer
+ * versions in the future. If you wish to customize WooCommerce Authorize.Net AIM Gateway for your
  * needs please refer to http://docs.woothemes.com/document/authorize-net-aim/
  *
  * @package   WC-Gateway-Authorize-Net-AIM/API/Request
@@ -22,11 +22,11 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+defined( 'ABSPATH' ) or exit;
 
 
 /**
- * Authorize.net AIM API Request Class
+ * Authorize.Net AIM API Request Class
  *
  * Generates XML required by API specs to perform an API request
  *
@@ -246,7 +246,16 @@ class WC_Authorize_Net_AIM_API_Request extends SV_WC_API_XML_Request implements 
 	 */
 	private function get_payment() {
 
-		if ( 'credit_card' == $this->order->payment->type ) {
+		if ( 'credit_card_accept_js' == $this->order->payment->type ) {
+
+			$payment = array(
+				'opaqueData' => array(
+					'dataDescriptor' => $this->order->payment->descriptor,
+					'dataValue'      => $this->order->payment->nonce,
+				),
+			);
+
+		} elseif ( 'credit_card' == $this->order->payment->type ) {
 
 			$payment = array(
 				'creditCard' => array(
@@ -267,7 +276,7 @@ class WC_Authorize_Net_AIM_API_Request extends SV_WC_API_XML_Request implements 
 					'accountType'   => $this->order->payment->account_type,
 					'routingNumber' => $this->order->payment->routing_number,
 					'accountNumber' => $this->order->payment->account_number,
-					'nameOnAccount' => SV_WC_Helper::str_truncate( sprintf( '%s %s', $this->order->billing_first_name, $this->order->billing_last_name ), 22 ),
+					'nameOnAccount' => SV_WC_Helper::str_truncate( $this->order->get_formatted_billing_full_name(), 22 ),
 					'echeckType'    => 'WEB',
 				),
 			);
@@ -525,7 +534,7 @@ class WC_Authorize_Net_AIM_API_Request extends SV_WC_API_XML_Request implements 
 		/**
 		 * API Request Data
 		 *
-		 * Allow actors to modify the request data before it's sent to Authorize.net
+		 * Allow actors to modify the request data before it's sent to Authorize.Net
 		 *
 		 * @since 3.2.0
 		 * @param array $data request data to be filtered

@@ -15,6 +15,24 @@ jQuery( function( $ ) {
 
 	}
 
+	function wcAmazonErrorToString( error ) {
+		var message = '';
+
+		if ( 'object' !== typeof error ) {
+			return message;
+		}
+
+		if ( 'function' === typeof error.getErrorCode ) {
+			message += '(' + error.getErrorCode() + ') ';
+		}
+
+		if ( 'function' === typeof error.getErrorMessage ) {
+			message += error.getErrorMessage();
+		}
+
+		return message;
+	}
+
 	/**
 	 * Pre-populate "create account" form with Amazon profile data if an existing WC user isn't present
 	 */
@@ -124,21 +142,29 @@ jQuery( function( $ ) {
 
 		if ( 0 !== $( '#pay_with_amazon' ).length ) {
 
-			OffAmazonPayments.Button( 'pay_with_amazon', amazon_payments_advanced_params.seller_id, {
+			var buttonWidgetParams = {
 				type : amazon_payments_advanced_params.button_type,
 				color: amazon_payments_advanced_params.button_color,
 				size : amazon_payments_advanced_params.button_size,
 
-				authorization: function () {
+				authorization: function() {
 					loginOptions = {
 						scope: 'profile postal_code payments:widget payments:shipping_address payments:billing_address'
 					};
 					authRequest = amazon.Login.authorize( loginOptions, amazon_payments_advanced_params.redirect );
 				},
-				onError      : function ( error ) {
-					logError( 'Error encountered in OffAmazonPayments.Button:', error );
+				onError      : function( error ) {
+					var msg = wcAmazonErrorToString( error );
+
+					logError( 'Error encountered in OffAmazonPayments.Button', msg ? ': ' + msg : '');
 				}
-			} );
+			};
+
+			if ( '' !== amazon_payments_advanced_params.button_language ) {
+				buttonWidgetParams.language = amazon_payments_advanced_params.button_language;
+			}
+
+			OffAmazonPayments.Button( 'pay_with_amazon', amazon_payments_advanced_params.seller_id, buttonWidgetParams );
 
 			buttonLoaded = true;
 
@@ -152,6 +178,7 @@ jQuery( function( $ ) {
 			sellerId              : amazon_payments_advanced_params.seller_id,
 			onReady               : function() {
 				wcAmazonWalletWidget();
+				$( document ).trigger( 'wc_amazon_pa_widget_ready' );
 			},
 			onOrderReferenceCreate: wcAmazonOnOrderReferenceCreate,
 			onAddressSelect       : function ( orderReference ) {
@@ -161,7 +188,8 @@ jQuery( function( $ ) {
 				designMode: 'responsive'
 			},
 			onError               : function ( error ) {
-				logError( 'Error encountered in OffAmazonPayments.Widgets.AddressBook:', error );
+				var msg = wcAmazonErrorToString( error );
+				logError( 'Error encountered in OffAmazonPayments.Widgets.AddressBook', msg ? ': ' + msg : '' );
 			}
 		};
 
@@ -174,6 +202,7 @@ jQuery( function( $ ) {
 				wcAmazonOnBillingAgreementCreate( billingAgreement );
 				wcAmazonWalletWidget();
 				wcAmazonConsentWidget();
+				$( document ).trigger( 'wc_amazon_pa_widget_ready' );
 
 			};
 
@@ -193,7 +222,8 @@ jQuery( function( $ ) {
 				designMode: 'responsive'
 			},
 			onError : function ( error ) {
-				logError( 'Error encountered in OffAmazonPayments.Widgets.Wallet:', error );
+				var msg = wcAmazonErrorToString( error );
+				logError( 'Error encountered in OffAmazonPayments.Widgets.Wallet', msg ? ': ' + msg : '' );
 			}
 		};
 
@@ -247,17 +277,15 @@ jQuery( function( $ ) {
 
 			},
 			onError: function ( error ) {
-				logError( 'Error encountered in OffAmazonPayments.Widgets.Consent:', error );
+				var msg = wcAmazonErrorToString( error );
+				logError( 'Error encountered in OffAmazonPayments.Widgets.Consent', msg ? ': ' + msg : '' );
 			}
 		} ).bind( 'amazon_consent_widget' );
 
 	}
 
 	$( 'body' ).on( 'click', '#amazon-logout', function ( e ) {
-		e.preventDefault();
 		amazon.Login.logout();
-
-		window.location = amazon_payments_advanced_params.checkout_url;
 	} );
 
 	/**
@@ -273,13 +301,20 @@ jQuery( function( $ ) {
 			':input[name=billing_email]',
 			':input[name=billing_first_name]',
 			':input[name=billing_last_name]',
-			':input[name=account_password]'
+			':input[name=account_password]',
+			':input[name=createaccount]'
 		].join( ',' );
 
 		$( this ).find( fieldSelectors ).each( function() {
 			var $input = $( this );
-			if ( '' === $input.val() ) {
+			if ( '' === $input.val() && $input.is(':hidden') ) {
 				$input.attr( 'disabled', 'disabled' );
+			}
+
+			// For createaccount checkbox, the value on dupe element should
+			// matches with visible createaccount checkbox.
+			if ( 'createaccount' === $input.attr( 'name' ) && $( '#createaccount' ).length ) {
+				$input.prop( 'checked', $( '#createaccount' ).is( ':checked' ) );
 			}
 		} );
 

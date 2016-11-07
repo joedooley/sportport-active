@@ -4,24 +4,43 @@
  */
 class WC_Amazon_Payments_Advanced_Order_Admin {
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
+	public function add_meta_box() {
 		add_action( 'add_meta_boxes', array( $this, 'meta_box' ) );
+	}
+
+	public function add_ajax_handler() {
 		add_action( 'wp_ajax_amazon_order_action', array( $this, 'order_actions' ) );
 	}
 
 	/**
-	 * Perform order actions for amazon
+	 * AJAX handler that performs order actions.
 	 */
 	public function order_actions() {
 		check_ajax_referer( 'amazon_order_action', 'security' );
 
 		$order_id = absint( $_POST['order_id'] );
-		$id       = isset( $_POST['amazon_id'] ) ? woocommerce_clean( $_POST['amazon_id'] ) : '';
+		$id       = isset( $_POST['amazon_id'] ) ? wc_clean( $_POST['amazon_id'] ) : '';
 		$action   = sanitize_title( $_POST['amazon_action'] );
 
+		$this->do_order_action( $order_id, $id, $action );
+
+		die();
+	}
+
+	/**
+	 * Perform the action.
+	 *
+	 * @TODO(gedex): Either return a value or throw exception so that error
+	 * message can be retrieved by the caller.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param int    $order_id  Order ID
+	 * @param int    $id        Reference ID
+	 * @param string $action    Action to perform
+	 */
+	public function do_order_action( $order_id, $id, $action ) {
+		wc_apa()->log( __METHOD__, sprintf( 'Info: Trying to perform "%s" for order #%s', $action, $order_id ) );
 		switch ( $action ) {
 			case 'refresh' :
 				$this->clear_stored_states( $order_id );
@@ -31,6 +50,9 @@ class WC_Amazon_Payments_Advanced_Order_Admin {
 				delete_post_meta( $order_id, 'amazon_authorization_id' );
 				delete_post_meta( $order_id, 'amazon_capture_id' );
 
+				// $id is order reference.
+				wc_apa()->log( __METHOD__, 'Info: Trying to authorize payment in order reference ' . $id );
+
 				WC_Amazon_Payments_Advanced_API::authorize_payment( $order_id, $id, false );
 				$this->clear_stored_states( $order_id );
 			break;
@@ -39,31 +61,64 @@ class WC_Amazon_Payments_Advanced_Order_Admin {
 				delete_post_meta( $order_id, 'amazon_authorization_id' );
 				delete_post_meta( $order_id, 'amazon_capture_id' );
 
+				// $id is order reference.
+				wc_apa()->log( __METHOD__, 'Info: Trying to authorize and capture payment in order reference ' . $id );
+
 				WC_Amazon_Payments_Advanced_API::authorize_payment( $order_id, $id, true );
+				WC_Amazon_Payments_Advanced_API::close_order_reference( $order_id );
 				$this->clear_stored_states( $order_id );
 			break;
 			case 'close_authorization' :
+				// $id is authorization reference.
+				wc_apa()->log( __METHOD__, 'Info: Trying to close authorization ' . $id );
+
 				WC_Amazon_Payments_Advanced_API::close_authorization( $order_id, $id );
 				$this->clear_stored_states( $order_id );
 			break;
 			case 'capture' :
+				// $id is authorization reference.
+				wc_apa()->log( __METHOD__, 'Info: Trying to capture payment with authorization ' . $id );
+
 				WC_Amazon_Payments_Advanced_API::capture_payment( $order_id, $id );
+				WC_Amazon_Payments_Advanced_API::close_order_reference( $order_id );
 				$this->clear_stored_states( $order_id );
 			break;
 			case 'refund' :
-				$amazon_refund_amount = floatval( woocommerce_clean( $_POST['amazon_refund_amount'] ) );
-				$amazon_refund_note   = woocommerce_clean( $_POST['amazon_refund_note'] );
+				// $id is capture reference.
+				wc_apa()->log( __METHOD__, 'Info: Trying to refund payment with capture reference ' . $id );
+
+				$amazon_refund_amount = floatval( wc_clean( $_POST['amazon_refund_amount'] ) );
+				$amazon_refund_note   = wc_clean( $_POST['amazon_refund_note'] );
 
 				WC_Amazon_Payments_Advanced_API::refund_payment( $order_id, $id, $amazon_refund_amount, $amazon_refund_note );
 				$this->clear_stored_states( $order_id );
 			break;
 		}
-
-		die();
 	}
 
 	/**
-	 * Wipe states so the value is refreshed
+	 * Get the refresh link.
+	 *
+	 * Refresh link in APA meta box is used to clear Amazon order state.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @return string HTML of refresh link with its container
+	 */
+	private function _get_refresh_link() {
+		return wpautop( sprintf(
+			'<a href="#" data-action="refresh" class="refresh">%s</a>%s',
+			esc_html__( 'Refresh', 'woocommerce-gateway-amazon-payments-advanced' ),
+			wc_help_tip( __( 'Refresh Amazon transaction status.', 'woocommerce-gateway-amazon-payments-advanced' ) )
+		) );
+	}
+
+	/**
+	 * Wipe states so the value is refreshed.
+	 *
+	 * Invoked when refresh link is clicked.
+	 *
+	 * @param int $order_id Order ID
 	 */
 	public function clear_stored_states( $order_id ) {
 		delete_post_meta( $order_id, 'amazon_reference_state' );
@@ -111,7 +166,8 @@ class WC_Amazon_Payments_Advanced_Order_Admin {
 			switch ( $amazon_capture_state ) {
 				case 'Pending' :
 
-					echo wpautop( sprintf( __( 'Capture Reference %s is <strong>%s</strong>.', 'woocommerce-gateway-amazon-payments-advanced' ), esc_html( $amazon_capture_id ), esc_html( $amazon_capture_state ) ) . ' <a href="#" data-action="refresh" class="refresh">' . __( 'Refresh', 'woocommerce-gateway-amazon-payments-advanced' ) . '</a>' );
+					echo wpautop( sprintf( __( 'Capture Reference %s is <strong>%s</strong>.', 'woocommerce-gateway-amazon-payments-advanced' ), esc_html( $amazon_capture_id ), esc_html( $amazon_capture_state ) ) );
+					echo $this->_get_refresh_link();
 
 					// Admin will need to re-check this, so clear the stored value
 					$this->clear_stored_states( $order_id );
@@ -119,6 +175,7 @@ class WC_Amazon_Payments_Advanced_Order_Admin {
 				case 'Declined' :
 
 					echo wpautop( __( 'The capture was declined.', 'woocommerce-gateway-amazon-payments-advanced' ) );
+					echo $this->_get_refresh_link();
 
 					$actions['authorize'] = array(
 						'id'     => $amazon_reference_id,
@@ -139,10 +196,13 @@ class WC_Amazon_Payments_Advanced_Order_Admin {
 					</form>
 					<?php
 
+					echo $this->_get_refresh_link();
+
 				break;
 				case 'Closed' :
 
 					echo wpautop( sprintf( __( 'Capture Reference %s is <strong>%s</strong>.', 'woocommerce-gateway-amazon-payments-advanced' ), esc_html( $amazon_capture_id ), esc_html( $amazon_capture_state ) ) );
+					echo $this->_get_refresh_link();
 
 				break;
 			}
@@ -154,7 +214,7 @@ class WC_Amazon_Payments_Advanced_Order_Admin {
 				foreach ( $amazon_refund_ids as $amazon_refund_id ) {
 
 					if ( isset( $refunds[ $amazon_refund_id ] ) ) {
-						echo wpautop( sprintf( __( 'Refund %s of %s is <strong>%s</strong> (%s).', 'woocommerce-gateway-amazon-payments-advanced' ), $amazon_refund_id, woocommerce_price( $refunds[ $amazon_refund_id ]['amount'] ), $refunds[ $amazon_refund_id ]['state'], $refunds[ $amazon_refund_id ]['note'] ) );
+						echo wpautop( sprintf( __( 'Refund %s of %s is <strong>%s</strong> (%s).', 'woocommerce-gateway-amazon-payments-advanced' ), $amazon_refund_id, wc_price( $refunds[ $amazon_refund_id ]['amount'] ), $refunds[ $amazon_refund_id ]['state'], $refunds[ $amazon_refund_id ]['note'] ) );
 					} else {
 
 						$response = WC_Amazon_Payments_Advanced_API::request( array(
@@ -168,7 +228,7 @@ class WC_Amazon_Payments_Advanced_Order_Admin {
 							$state  = (string) $response->GetRefundDetailsResult->RefundDetails->RefundStatus->State;
 							$amount = (string) $response->GetRefundDetailsResult->RefundDetails->RefundAmount->Amount;
 
-							echo wpautop( sprintf( __( 'Refund %s of %s is <strong>%s</strong> (%s).', 'woocommerce-gateway-amazon-payments-advanced' ), esc_html( $amazon_refund_id ), woocommerce_price( $amount ), esc_html( $state ), esc_html( $note ) ) );
+							echo wpautop( sprintf( __( 'Refund %s of %s is <strong>%s</strong> (%s).', 'woocommerce-gateway-amazon-payments-advanced' ), esc_html( $amazon_refund_id ), wc_price( $amount ), esc_html( $state ), esc_html( $note ) ) );
 
 							if ( $state == 'Completed' ) {
 								$refunds[ $amazon_refund_id ] = array(
@@ -190,7 +250,8 @@ class WC_Amazon_Payments_Advanced_Order_Admin {
 
 			$amazon_authorization_state = WC_Amazon_Payments_Advanced_API::get_authorization_state( $order_id, $amazon_authorization_id );
 
-			echo wpautop( sprintf( __( 'Auth Reference %s is <strong>%s</strong>.', 'woocommerce-gateway-amazon-payments-advanced' ), esc_html( $amazon_reference_id ), esc_html( $amazon_authorization_state ) ) . ' <a href="#" data-action="refresh" class="refresh">' . __( 'Refresh', 'woocommerce-gateway-amazon-payments-advanced' ) . '</a>' );
+			echo wpautop( sprintf( __( 'Auth Reference %s is <strong>%s</strong>.', 'woocommerce-gateway-amazon-payments-advanced' ), esc_html( $amazon_reference_id ), esc_html( $amazon_authorization_state ) ) );
+			echo $this->_get_refresh_link();
 
 			switch ( $amazon_authorization_state ) {
 				case 'Open' :
@@ -228,7 +289,8 @@ class WC_Amazon_Payments_Advanced_Order_Admin {
 
 			$amazon_reference_state = WC_Amazon_Payments_Advanced_API::get_reference_state( $order_id, $amazon_reference_id );
 
-			echo wpautop( sprintf( __( 'Order Reference %s is <strong>%s</strong>.', 'woocommerce-gateway-amazon-payments-advanced' ), esc_html( $amazon_reference_id ), esc_html( $amazon_reference_state ) ) . ' <a href="#" data-action="refresh" class="refresh">' . __( 'Refresh', 'woocommerce-gateway-amazon-payments-advanced' ) . '</a>' );
+			echo wpautop( sprintf( __( 'Order Reference %s is <strong>%s</strong>.', 'woocommerce-gateway-amazon-payments-advanced' ), esc_html( $amazon_reference_id ), esc_html( $amazon_reference_state ) ) );
+			echo $this->_get_refresh_link();
 
 			switch ( $amazon_reference_state ) {
 				case 'Open' :

@@ -1,0 +1,632 @@
+# Translation of WooCommerce - WooCommerce Pay With Amazon - 1.6.1 in Indonesian
+# This file is distributed under the same license as the WooCommerce - WooCommerce Pay With Amazon - 1.6.1 package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2016-10-19 04:30:47+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: GlotPress/2.3.0-alpha\n"
+"Language: id\n"
+"Project-Id-Version: WooCommerce - WooCommerce Pay With Amazon - 1.6.1\n"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:686
+msgid "You have not selected a shipping address from your Amazon account. Please choose a shipping address for this order."
+msgstr "Anda belum memilih alamat pengiriman dari akun Amazon. Pilih alamat pengiriman untuk pesanan ini."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:684
+msgid "There has been a problem with the selected payment method from your Amazon account. Please update the payment method or choose another one."
+msgstr "Ada masalah dengan metode pembayaran yang dipilih dari akun Amazon Anda. Perbarui metode pembayaran atau pilih yang lain."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:681
+msgid "You have not selected a payment method from your Amazon account. Please choose a payment method for this order."
+msgstr "Anda belum memilih metode pembayaran dari akun Amazon. Pilih metode pembayaran untuk pesanan ini."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:678
+msgid "You cannot shop on your own store."
+msgstr "Anda tidak dapat belanja di toko Anda sendiri."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:621
+msgid "Unable to refund order %s. Order does not have Amazon capture reference. Make sure order has been captured."
+msgstr "Tidak dapat mengembalikan dana pesanan %s. Pesanan tidak memiliki referensi tangkapan Amazon. Pastikan pesanan telah ditangkap."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:415
+msgid "Error: MWS responded with a RequestExpired error. This is typically caused by a system time issue. Please make sure your system time is correct and try again. (Current system time: %s)"
+msgstr "Error: MWS merespons dengan error RequestExpired. Hal ini biasanya disebabkan oleh masalah waktu sistem. Pastikan waktu sistem Anda sudah benar, lalu coba lagi. (Waktu sistem saat ini: %s)"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:362
+msgid "This will hides Amazon buttons on cart and checkout pages so the gateway looks not available to the customers. The buttons are hidden via CSS. Only enable this when troubleshooting your integration."
+msgstr "Ini akan menyembunyikan tombol Amazon di halaman keranjang dan checkout sehingga gateway tampak tidak tersedia bagi pelanggan. Tombol disembunyikan melalui CSS. Hanya aktifkan ini ketika memecahkan masalah integrasi Anda."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:361
+msgid "Enable hide button mode"
+msgstr "Aktifkan mode tombol tersembunyi"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:360
+msgid "Hide Button Mode"
+msgstr "Mode Tombol Tersembunyi"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:338
+msgid "Spain's Spanish"
+msgstr "Bahasa Spanyol Spanyol"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:337
+msgid "Italy's Italian"
+msgstr "Bahasa Italia Italia"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:336
+msgid "France's French"
+msgstr "Bahasa Prancis Prancis"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:335
+msgid "Germany's German"
+msgstr "Bahasa Jerman Jerman"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:334
+msgid "UK English"
+msgstr "Bahasa Inggris Inggris Raya"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:333
+msgid "Detect from buyer's browser"
+msgstr "Deteksi dari perambah pembeli"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:328
+msgid "Language to use in Login with Amazon or a Pay with Amazon button. Only used when Amazon Login App is enabled."
+msgstr "Bahasa yang akan digunakan pada tombol Login dengan Amazon atau Bayar dengan Amazon. Hanya gunakan jika Aplikasi Login Amazon diaktifkan."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:327
+msgid "Button language"
+msgstr "Bahasa tombol"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:203
+msgid "Amazon Payments"
+msgstr "Amazon Payments"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:25
+msgid "Login &amp; Pay with Amazon"
+msgstr "Login & Bayar dengan Amazon"
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:481
+msgid "Specified resource does not have Amazon capture ID"
+msgstr "Sumber daya yang ditentukan tidak memiliki ID tangkapan Amazon"
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:407
+msgid "Refund amount must be greater than zero."
+msgstr "Jumlah pengembalian dana harus lebih besar dari nol."
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:92
+msgid "Reason for refund."
+msgstr "Alasan pengembalian dana."
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:87
+msgid "Refund amount."
+msgstr "Jumlah pengembalian dana."
+
+#. Author URI of the plugin/theme
+msgid "http://woothemes.com"
+msgstr "http://woothemes.com"
+
+#. Author of the plugin/theme
+msgid "WooThemes"
+msgstr "WooThemes"
+
+#. Description of the plugin/theme
+msgid "Amazon Payments Advanced is embedded directly into your existing web site, and all the buyer interactions with Amazon Payments Advanced take place in embedded widgets so that the buyer never leaves your site. Buyers can log in using their Amazon account, select a shipping address and payment method, and then confirm their order. Requires an Amazon Seller account with the Amazon Payments Advanced service provisioned. Supports DE, UK, and US."
+msgstr "Amazon Payments Advanced disematkan langsung ke situs web Anda yang sudah ada, dan semua interaksi pembeli dengan Amazon Payments Advanced berlangsung di widget tersemat sehingga pembeli tak perlu keluar dari situs Anda. Pembeli bisa login menggunakan akun Amazon miliknya, memilih alamat pengiriman dan metode pembayaran, kemudian mengonfirmasi pesanan. Memerlukan akun Penjual Amazon dengan layanan Amazon Payments Advanced yang ditentukan. Mendukung DE, UK, dan AS."
+
+#. Plugin URI of the plugin/theme
+msgid "http://woothemes.com/woocommerce"
+msgstr "http://woothemes.com/woocommerce"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Amazon Payments Advanced Gateway"
+msgstr "WooCommerce Amazon Payments Advanced Gateway"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:601
+msgid "Error:"
+msgstr "Error:"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:417
+msgid "Error: MWS keys you provided are not valid. Please double-check that you entered them correctly and try again."
+msgstr "Error: Kunci MWS yang Anda berikan tidak valid. Periksa lagi untuk memastikan kunci yang dimasukkan sudah benar, lalu coba lagi."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:405
+msgid "Error: You must enter MWS Secret Key."
+msgstr "Error: Anda harus memasukkan Kunci Rahasia MWS."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:355
+msgid "Sends debug messages to the WooCommerce System Status log."
+msgstr "Mengirim pesan debug ke log Status Sistem WooCommerce."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:353
+msgid "Enable debugging messages"
+msgstr "Aktifkan pesan debug"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:352
+msgid "Debug"
+msgstr "Debug"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:348
+msgid "Miscellaneous"
+msgstr "Serbaneka"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:344
+msgid "Hide standard checkout button on cart page"
+msgstr "Sembunyikan tombol checkout standar di halaman keranjang"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:342
+msgid "Standard checkout button"
+msgstr "Tombol checkout standar"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:323
+msgid "Dark gray"
+msgstr "Abu-abu tua"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:322
+msgid "Light gray"
+msgstr "Abu-abu muda"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:321
+msgid "Gold"
+msgstr "Emas"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:316
+msgid "Button color to display on cart and checkout pages. Only used when Amazon Login App is enabled."
+msgstr "Warna tombol yang akan ditampilkan di halaman keranjang dan checkout. Hanya gunakan jika Aplikasi Login Amazon diaktifkan."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:315
+msgid "Button color"
+msgstr "Warna tombol"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:311
+msgid "X-Large"
+msgstr "Ekstra Besar"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:310
+msgid "Large"
+msgstr "Besar"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:309
+msgid "Medium"
+msgstr "Sedang"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:308
+msgid "Small"
+msgstr "Kecil"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:303
+msgid "Button size to display on cart and checkout pages. Only used when Amazon Login App is enabled."
+msgstr "Ukuran tombol yang akan ditampilkan di halaman keranjang dan checkout. Hanya gunakan jika Aplikasi Login Amazon diaktifkan."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:302
+msgid "Button size"
+msgstr "Ukuran tombol"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:298
+msgid "Button with Amazon Payments logo"
+msgstr "Tombol dengan logo Amazon Payments"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:297
+msgid "Button with text Pay"
+msgstr "Tombol dengan teks Bayar"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:296
+msgid "Button with text Pay with Amazon"
+msgstr "Tombol dengan teks Bayar dengan Amazon"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:295
+msgid "Button with text Login"
+msgstr "Tombol dengan teks Login"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:294
+msgid "Button with text Login with Amazon"
+msgstr "Tombol dengan teks Login dengan Amazon"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:289
+msgid "Type of button image to display on cart and checkout pages. Only used when Amazon Login App is enabled."
+msgstr "Jenis gambar tombol yang akan ditampilkan di halaman keranjang dan checkout. Hanya gunakan jika Aplikasi Login Amazon diaktifkan."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:288
+msgid "Button type"
+msgstr "Jenis tombol"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:282
+msgid "Disabled"
+msgstr "Nonaktif"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:281
+msgid "Banner"
+msgstr "Banner"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:280
+msgid "Button"
+msgstr "Tombol"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:277
+msgid "How the login with Amazon button gets displayed on the cart page. This requires cart page served via HTTPS. If HTTPS is not available in cart page, please select disabled."
+msgstr "Bagaimana tombol login dengan Amazon ditampilkan di halaman keranjang. Hal ini mengharuskan halaman keranjang disajikan melalui HTTPS. Jika HTTPS tidak tersedia di halaman keranjang, pilih nonaktif."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:276
+msgid "Cart login button display"
+msgstr "Tampilan tombol login keranjang"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:272
+msgid "Customize the appearance of Amazon widgets."
+msgstr "Menyesuaikan tampilan widget Amazon."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:271
+msgid "Display options"
+msgstr "Pilihan tampilan"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:267
+msgid "Don’t Authorize the payment when the order is placed (i.e. for pre-orders)."
+msgstr "Jangan Otorisasi pembayaran ketika pesanan dilakukan (yaitu, untuk pra-pemesanan)."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:266
+msgid "Authorize the payment when the order is placed."
+msgstr "Otorisasi pembayaran ketika pesanan dilakukan."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:265
+msgid "Authorize and Capture the payment when the order is placed."
+msgstr "Otorisasi dan Tangkap pembayaran ketika pesanan dilakukan."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:260
+msgid "Payment Capture"
+msgstr "Tangkapan Pembayaran"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:254
+msgid "Enable sandbox mode during testing and development - live payments will not be taken if enabled."
+msgstr "Aktifkan mode sandbox selama pengujian dan pengembangan - pembayaran langsung tidak akan diproses jika diaktifkan."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:253
+msgid "Use Sandbox"
+msgstr "Gunakan Sandbox"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:246
+msgid "App Client Secret"
+msgstr "Rahasia Klien Aplikasi"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:239
+msgid "App Client ID"
+msgstr "ID Klien Aplikasi"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:232
+msgid "Use Amazon Login App"
+msgstr "Gunakan Aplikasi Login Amazon"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:225
+msgid "MWS Secret Key"
+msgstr "Kunci Rahasia MWS"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:220
+#: includes/class-wc-gateway-amazon-payments-advanced.php:227
+msgid "Obtained from your Amazon account. You can get these keys by logging into Seller Central and viewing the MWS Access Key section under the Integration tab."
+msgstr "Diperoleh dari akun Amazon Anda. Anda bisa mendapatkan kunci ini dengan login ke Pusat Penjual dan melihat bagian Kunci Akses MWS di bawah tab Integrasi."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:218
+msgid "MWS Access Key"
+msgstr "Kunci Akses MWS"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:213
+msgid "Obtained from your Amazon account. Also known as the \"Merchant ID\". Usually found under Settings > Integrations after logging into your merchant account."
+msgstr "Diperoleh dari akun Amazon Anda. Disebut juga dengan \"ID Merchant\". Biasanya terdapat di Pengaturan > Integrasi setelah login ke akun merchant."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:211
+msgid "Seller ID"
+msgstr "ID Penjual"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:207
+msgid "Amazon account details"
+msgstr "Detail akun Amazon"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:202
+msgid "Payment method title that the customer will see on your website."
+msgstr "Nama metode pembayaran yang akan dilihat pelanggan di situs web Anda."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:200
+msgid "Title"
+msgstr "Judul"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:194
+msgid "Enable Amazon Payments Advanced"
+msgstr "Aktifkan Amazon Payments Advanced"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:193
+msgid "Enable/Disable"
+msgstr "Aktifkan/Nonaktifkan"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:187
+msgid "This option makes the plugin to work with the latest API from Amazon, this will enable support for Subscriptions and make transactions more securely. <a href=\"%s\" target=\"_blank\">You must create an Amazon Login App to be able to use this option.</a>"
+msgstr "Pilihan ini membuat plugin dapat digunakan dengan API terbaru dari Amazon, ini akan memungkinkan dukungan untuk Langganan dan meningkatkan keamanan transaksi. <a href=\"%s\" target=\"_blank\">Anda harus membuat Aplikasi Login Amazon agar dapat menggunakan pilihan ini.</a>"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:157
+msgid "Signup now"
+msgstr "Daftar sekarang"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:155
+msgid "Need an Amazon Payments Advanced account?"
+msgstr "Perlu akun Amazon Payments Advanced?"
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:584
+msgid "Exception encountered in 'CloseBillingAgreement': %s"
+msgstr "Terdapat pengecualian di 'CloseBillingAgreement': %s"
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:491
+msgid "Amazon subscription renewal failed - %s"
+msgstr "Perpanjangan langganan Amazon gagal - %s"
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:458
+msgid "An Amazon Billing Agreement ID was not found."
+msgstr "ID Persetujuan Penagihan Amazon tidak ditemukan."
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:401
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:423
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:483
+#: includes/class-wc-gateway-amazon-payments-advanced.php:561
+#: includes/class-wc-gateway-amazon-payments-advanced.php:583
+msgid "Could not authorize Amazon payment."
+msgstr "Tidak dapat melakukan otorisasi pembayaran Amazon."
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:375
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:392
+#: includes/class-wc-gateway-amazon-payments-advanced.php:539
+#: includes/class-wc-gateway-amazon-payments-advanced.php:554
+msgid "Amazon order opened. Use the \"Amazon Payments Advanced\" box to authorize and/or capture payment. Authorized payments must be captured within 7 days."
+msgstr "Pesanan Amazon dibuka. Gunakan kotak \"Amazon Payments Advanced\" untuk melakukan otorisasi dan/atau menangkap pembayaran. Pembayaran yang diotorisasi ditangkap dalam waktu 7 hari."
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:287
+msgid "Subscription(s): %s."
+msgstr "Langganan: %s."
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:286
+#: includes/class-wc-gateway-amazon-payments-advanced.php:650
+msgid "Order %s from %s."
+msgstr "Pesanan %s dari %s."
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:259
+msgid "Error: %s"
+msgstr "Error: %s"
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:183
+#: includes/class-wc-gateway-amazon-payments-advanced.php:505
+msgid "An Amazon payment method was not chosen."
+msgstr "Salah satu metode pembayaran Amazon tidak dipilih."
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:45
+msgid "Recurring payments via Pay with Amazon is currently not supported in Germany and United Kingdom. Please adjust your base country, or try <a href=\"%s\" target=\"_blank\">contact Amazon</a>."
+msgstr "Pembayaran berulang melalui Bayar dengan Amazon saat ini tidak didukung di Jerman dan Inggris Raya. Sesuaikan negara asal Anda, atau coba <a href=\"%s\" target=\"_blank\">hubungi Amazon</a>."
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:459
+msgid "Specified resource does not have Amazon authorization ID"
+msgstr "Sumber daya yang ditentukan tidak memiliki ID otorisasi Amazon"
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:437
+msgid "Specified resource does not have Amazon order reference ID"
+msgstr "Sumber daya yang ditentukan tidak memiliki ID referensi pesanan Amazon"
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:192
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:432
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:454
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:476
+msgid "Invalid order ID."
+msgstr "ID pesanan tidak valid."
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:174
+msgid "Sorry, you cannot %s this resource."
+msgstr "Maaf, Anda tidak dapat %s sumber daya ini."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:317
+msgid "The reference has been cancelled/closed. No authorizations can be made."
+msgstr "Referensi telah dibatalkan/ditutup. Tidak ada otorisasi yang bisa dilakukan."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:311
+msgid "The reference has been suspended. Another form of payment is required."
+msgstr "Referensi telah ditangguhkan. Memerlukan bentuk pembayaran lain."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:305
+msgid "Authorize &amp; Capture"
+msgstr "Otorisasi & Tangkap"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:300
+msgid "Authorize"
+msgstr "Otorisasi"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:292
+msgid "Order Reference %s is <strong>%s</strong>."
+msgstr "Referensi Pesanan %s <strong>%s</strong>."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:282
+msgid "Authorize again"
+msgstr "Otorisasi lagi"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:272
+msgid "You cannot capture funds whilst the authorization is pending. Try again later."
+msgstr "Anda tidak dapat menangkap dana ketika otorisasi menunggu keputusan. Coba lagi nanti."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:266
+msgid "Close Authorization"
+msgstr "Tutup Otorisasi"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:261
+msgid "Capture funds"
+msgstr "Tangkap dana"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:253
+msgid "Auth Reference %s is <strong>%s</strong>."
+msgstr "Referensi Otorisasi %s <strong>%s</strong>."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:217
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:231
+msgid "Refund %s of %s is <strong>%s</strong> (%s)."
+msgstr "Pengembalian dana %s sebesar %s <strong>%s</strong> (%s)."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:195
+msgid "Refund"
+msgstr "Pengembalian dana"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:194
+msgid "Add a note about this refund"
+msgstr "Tambahkan catatan tentang pengembalian dana ini"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:188
+msgid "Make a refund?"
+msgstr "Lakukan pengembalian dana?"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:182
+msgid "Re-authorize?"
+msgstr "Otorisasi ulang?"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:177
+msgid "The capture was declined."
+msgstr "Tangkapan ditolak."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:169
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:188
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:204
+msgid "Capture Reference %s is <strong>%s</strong>."
+msgstr "Referensi Tangkapan %s <strong>%s</strong>."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:139
+msgid "Amazon Payments Advanced"
+msgstr "Amazon Payments Advanced"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:112
+msgid "Refresh Amazon transaction status."
+msgstr "Perbarui status transaksi Amazon."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:111
+msgid "Refresh"
+msgstr "Segarkan"
+
+#. Translators: 1: refund amount, 2: refund note
+#: includes/class-wc-amazon-payments-advanced-api.php:1097
+msgid "Refunded %1$s (%2$s)"
+msgstr "Mengembalikan dana %1$s (%2$s)"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:1071
+msgid "Refund amount is greater than the max refund amount."
+msgstr "Jumlah pengembalian dana lebih besar dari batas maksimum."
+
+#: includes/class-wc-amazon-payments-advanced-api.php:1067
+msgid "Refund amount is greater than order total."
+msgstr "Jumlah pengembalian dana lebih besar dari total pesanan."
+
+#: includes/class-wc-amazon-payments-advanced-api.php:1067
+#: includes/class-wc-amazon-payments-advanced-api.php:1071
+#: includes/class-wc-amazon-payments-advanced-api.php:1087
+#: includes/class-wc-amazon-payments-advanced-api.php:1091
+msgid "Unable to refund funds via Amazon: %s"
+msgstr "Tidak dapat mengembalikan dana melalui Amazon. %s"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:1041
+msgid "Capture Attempted (Capture ID: %s)"
+msgstr "Upaya Tangkapan (ID Tangkapan: %s)"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:1017
+msgid "Error: Unable to capture funds with Amazon. Reason: %s"
+msgstr "Error: Tidak dapat menangkap pengembalian dana dengan Amazon. Alasan: %s"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:956
+msgid "Order missing Amazon authorization ID"
+msgstr "Tidak ada ID otorisasi Amazon pada pesanan"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:915
+msgid "Authorization closed (Auth ID: %s)"
+msgstr "Otorisasi ditutup (ID Otorisasi: %s)"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:882
+msgid "Order reference %s closed "
+msgstr "Referensi pesanan %s ditutup "
+
+#: includes/class-wc-amazon-payments-advanced-api.php:864
+msgid "Order missing Amazon reference ID"
+msgstr "Tidak ada ID referensi Amazon pada pesanan"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:837
+msgid "Authorized (Auth ID: %s)"
+msgstr "Diotorisasi (ID Otorisasi: %s)"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:835
+msgid "Captured (Auth ID: %s)"
+msgstr "Ditangkap (ID Otorisasi: %s)"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:827
+msgid "Order Declined with reason code: %s"
+msgstr "Pesanan Ditolak dengan kode alasan: %s"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:666
+msgid "Error: Unable to authorize funds with Amazon. Reason: %s"
+msgstr "Error: Tidak dapat melakukan otorisasi dana dengan Amazon. Alasan: %s"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:580
+msgid "Order missing Amazon billing agreement ID"
+msgstr "Tidak ada ID persetujuan penagihan Amazon pada pesanan"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:512
+msgid "Order missing Amazon order reference ID"
+msgstr "Tidak ada ID referensi pesanan Amazon pada pesanan"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:500
+#: includes/class-wc-amazon-payments-advanced-api.php:568
+#: includes/class-wc-amazon-payments-advanced-api.php:859
+#: includes/class-wc-amazon-payments-advanced-api.php:919
+#: includes/class-wc-amazon-payments-advanced-api.php:944
+msgid "Order is not paid via Amazon Payments"
+msgstr "Pesanan tidak dibayar melalui Amazon Payments"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:496
+#: includes/class-wc-amazon-payments-advanced-api.php:564
+#: includes/class-wc-amazon-payments-advanced-api.php:855
+#: includes/class-wc-amazon-payments-advanced-api.php:940
+msgid "Invalid order ID"
+msgstr "ID pesanan tidak valid"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:72
+msgid "Amazon"
+msgstr "Amazon"
+
+#: amazon-payments-advanced.php:608
+msgid "Create an account by entering the information below. If you are a returning customer please login at the top of the page."
+msgstr "Buat akun dengan memasukkan informasi di bawah ini. Jika Anda pelanggan lama, silakan login di bagian atas halaman."
+
+#: amazon-payments-advanced.php:607
+msgid "Create Account"
+msgstr "Buat Akun"
+
+#: amazon-payments-advanced.php:596
+msgid "Create an account?"
+msgstr "Buat akun?"
+
+#: amazon-payments-advanced.php:580
+msgid "Payment Method"
+msgstr "Metode Pembayaran"
+
+#: amazon-payments-advanced.php:560
+msgid "Your Address"
+msgstr "Alamat Anda"
+
+#: amazon-payments-advanced.php:558
+msgid "Shipping Address"
+msgstr "Alamat Pengiriman"
+
+#: amazon-payments-advanced.php:440
+msgid "Log out &raquo;"
+msgstr "Logout »"
+
+#: amazon-payments-advanced.php:440
+msgid "You're logged in with your Amazon Account."
+msgstr "Anda sudah login dengan Akun Amazon."
+
+#: amazon-payments-advanced.php:437
+#: includes/class-wc-gateway-amazon-payments-advanced.php:126
+msgid "Have an Amazon account?"
+msgstr "Punya akun Amazon?"
+
+#: amazon-payments-advanced.php:184
+msgid "Docs"
+msgstr "Dokumen"
+
+#: amazon-payments-advanced.php:183
+msgid "Support"
+msgstr "Dukungan"
