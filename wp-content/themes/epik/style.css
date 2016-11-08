@@ -2633,6 +2633,7 @@ body.woocommerce div.woocommerce-message div.wrap {
     border: 1px solid rgba(0, 0, 0, 0.15); }
     @media screen and (max-width: 480px) {
       .sidebar > div {
+        padding: 0.5em 0.5em 1.5em;
         margin-right: 0;
         margin-left: 0; } }
   .sidebar .search-form {
@@ -2716,6 +2717,8 @@ body.woocommerce div.woocommerce-message div.wrap {
     @media screen and (max-width: 480px) {
       .above-footer-container > div {
         width: 100%; } }
+  .above-footer-container .simple-social-icons ul li {
+    margin: 0 4px 12px !important; }
 
 /*! Footer Widgets
 -------------------------- */
@@ -3101,6 +3104,12 @@ body.woocommerce div.woocommerce-message div.wrap {
     font-size: 16px;
     margin-left: 10px;
     text-transform: capitalize; }
+    .archive.woocommerce ul.products li.product .button:hover, .archive.woocommerce ul.products li.product .button:focus,
+    .archive.woocommerce-page ul.products li.product .button:hover,
+    .archive.woocommerce-page ul.products li.product .button:focus {
+      background-color: #ff9933;
+      color: #fff;
+      transition: all 0.3s ease; }
 
 .archive .sidebar .facetwp-btn {
   display: none; }
@@ -3110,6 +3119,14 @@ body.woocommerce div.woocommerce-message div.wrap {
 
 .archive .sidebar .widget {
   background-color: #ebebeb; }
+
+.archive .sidebar .rf-recommendation-product {
+  margin-bottom: 3em !important;
+  background-color: white !important;
+  padding: 1em !important; }
+  @media screen and (max-width: 767px) {
+    .archive .sidebar .rf-recommendation-product {
+      margin-bottom: 5em !important; } }
 
 /* ## Blog
 --------------------- */
@@ -3699,7 +3716,7 @@ div.gform_wrapper .gform_footer input[type="submit"] {
   @media screen and (max-width: 480px) {
     #gform_wrapper_3 {
       margin: 0 auto;
-      padding: 0 1.1em;
+      padding: 0;
       max-width: 100%; } }
   #gform_wrapper_3 li {
     margin: 0; }
@@ -3712,7 +3729,8 @@ div.gform_wrapper .gform_footer input[type="submit"] {
   #gform_wrapper_3 label.gfield_label {
     font-size: 0.9em;
     font-weight: 700;
-    max-width: 380px; }
+    max-width: 380px;
+    text-align: center; }
   #gform_wrapper_3 .gform_body {
     display: inline-block;
     float: left;

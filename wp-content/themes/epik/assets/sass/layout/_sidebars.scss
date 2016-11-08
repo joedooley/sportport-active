@@ -22,6 +22,7 @@
 		border: 1px solid rgba(0, 0, 0, 0.15);
 
 		@include media($small-screen-up) {
+			@include padding(0.5em 0.5em 1.5em 0.5em);
 			@include margin(null 0);
 		}
 	}

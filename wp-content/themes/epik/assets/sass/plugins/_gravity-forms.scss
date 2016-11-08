@@ -38,7 +38,7 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 
 	@include media($small-screen-up) {
 		@include margin(0 auto);
-		@include padding(0 1.1em);
+		@include padding(0);
 		max-width: 100%;
 	}
 
@@ -59,6 +59,7 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 		font-size: 0.9em;
 		font-weight: 700;
 		max-width: 380px;
+		text-align: center;
 	}
 
 	.gform_body {

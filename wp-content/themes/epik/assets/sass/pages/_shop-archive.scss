@@ -66,11 +66,13 @@
 			margin-left: 10px;
 			text-transform: capitalize;
 
-			&:hover {
-				//background-color: $navpink2;
+			&:hover,
+			&:focus {
+				background-color: $orange-hover;
+				color: #fff;
+				transition: all 0.3s ease;
 			}
 		}
-
 	}
 
 	.sidebar {
@@ -84,6 +86,16 @@
 
 		.widget {
 			background-color: $gray2;
+		}
+
+		.rf-recommendation-product {
+			margin-bottom: 3em !important;
+			background-color: $white !important;
+			padding: 1em !important;
+
+			@include media(max-width 767px) {
+				margin-bottom: 5em !important;
+			}
 		}
 	}
 
