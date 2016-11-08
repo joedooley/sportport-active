@@ -176,9 +176,14 @@ body.single-product {
 
 	// Add to Cart Button
 	div.product form.cart button.button {
-		background-color: $orange;
-		font-size: 1.25em;
 		@include padding(14px em(60));
+		background-color: $orange;
+		border: 2px outset #ccc;
+		font-size: 1.25em;
+
+		&:active {
+			border-style: inset;
+		}
 
 		@include media($medium-screen-up) {
 			padding-left: 3em;

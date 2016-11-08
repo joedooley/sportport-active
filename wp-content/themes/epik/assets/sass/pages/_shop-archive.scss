@@ -57,6 +57,7 @@
 			@include margin(0);
 			@include padding(6px);
 			background-color: $orange;
+			border: 2px outset #ccc;
 			border-radius: 0;
 			color: $white;
 			font-size: 16px;
@@ -68,6 +69,10 @@
 				background-color: $orange-hover;
 				color: #fff;
 				transition: all 0.3s ease;
+			}
+
+			&:active {
+				border-style: inset;
 			}
 		}
 	}
@@ -96,6 +101,7 @@
 		}
 
 		button {
+			@include padding(8px 25px);
 			text-transform: unset;
 		}
 	}

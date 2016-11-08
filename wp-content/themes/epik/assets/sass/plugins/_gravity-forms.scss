@@ -99,10 +99,9 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 		}
 
 		.gform_button {
-			@include margin(5px null null);
+			@include margin(3px null null);
 			@include padding(10px 20px);
 			background-color: $orange;
-			border-color: $orange;
 			border-radius: 0;
 			color: #fff;
 
