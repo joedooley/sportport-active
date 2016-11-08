@@ -48,7 +48,7 @@ function spa_scripts_styles() {
 
 
 	wp_localize_script(
-		'spa-custom-scripts',
+		'spa-all-js',
 		'DigitalL10n',
 		$output
 	);
