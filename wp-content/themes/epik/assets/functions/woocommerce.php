@@ -193,3 +193,4 @@ function fwpis_custom_attributes_content( $attributes ) {
 
 
 add_filter( 'loop_shop_per_page', create_function( '$cols', 'return 24;' ), 20 );
+

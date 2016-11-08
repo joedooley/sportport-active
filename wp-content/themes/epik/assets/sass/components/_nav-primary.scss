@@ -20,8 +20,7 @@
 		}
 
 		&:hover {
-			//background-color: $orange-hover;
-			background-color: $navpink2;
+			background-color: $orange-hover;
 			@include transition(all 0.2s ease-in);
 		}
 	}

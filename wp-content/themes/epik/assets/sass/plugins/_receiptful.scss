@@ -4,3 +4,14 @@
 /* Styles were added to Receiptful Recommendations Widget
    in the receiptful dashboard due to errors in Firefox
    that caused receeiptful widgets to lose custom styling. */
+
+.rf-recommendations {
+
+	.rf-title {
+		margin-bottom: 0 !important;
+	}
+
+	a {
+		color: $black1 !important;
+	}
+}

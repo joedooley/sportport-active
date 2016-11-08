@@ -50,7 +50,6 @@
 	}
 
 	.section--title {
-		color: $pink1;
 		font-family: $lato-light;
 		margin-bottom: 0;
 		padding: 1.5rem 0;
@@ -70,8 +69,7 @@
 	// ACF Field - Full Row - Primary Hero
 	.primary-hero {
 		@include padding(300px 0);
-		//border-bottom: 2px solid $orange;
-		border-bottom: 2px solid $pink1;
+		border-bottom: 2px solid $orange;
 		color: #fff;
 		text-align: center;
 
@@ -164,7 +162,7 @@
 			text-transform: capitalize;
 
 			&:hover {
-				background-color: $navpink2;
+			//	background-color: $navpink2;
 			}
 		}
 	}
@@ -174,7 +172,7 @@
 	// ACF Field - Full Row - Mini Quote section
 	.mini-quote-section {
 		@include padding(30px 60px);
-		background-color: $pink1;
+		background-color: $headline-color;
 		max-width: 100%;
 		text-align: center;
 
@@ -245,8 +243,8 @@
 			border: 2px solid $white;
 
 			&:hover {
-				background-color: $navpink1;
-				border: 2px solid $navpink1;
+				background-color: $orange;
+				border: 2px solid $orange;
 			}
 		}
 
@@ -299,7 +297,7 @@
 			z-index: 1;
 
 			&:hover {
-				color: $navpink1;
+				color: $orange;
 			}
 		}
 	}

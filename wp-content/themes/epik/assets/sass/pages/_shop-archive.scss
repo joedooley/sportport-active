@@ -2,20 +2,21 @@
 ------------------------- */
 
 .archive {
-	background-color: $white;
-
-	.content {
-		margin-top: 4.6em;
-	}
-
-	.entry-header {
-		@include margin(1em 0 0.5em);
-	}
-
 	&.woocommerce ul.products li.product,
 	&.woocommerce-page ul.products li.product {
-		@include padding(0.25em 0.25em 1.5em);
+		@include margin(0 2% 3em);
+		@include padding(0.5em 0.5em 1.5em 0.5em);
 		background-color: $gray2;
+		width: 46%;
+
+		@include media(max-width 767px) {
+			@include margin(0 4% 5em 0);
+			width: 48%;
+
+			&:nth-child(2n) {
+				margin-right: 0;
+			}
+		}
 
 		@include media($small-screen-up) {
 			width: 100%;
@@ -41,6 +42,10 @@
 			text-align: center;
 			text-transform: lowercase;
 			width: 100%;
+
+			@include media($small-screen-up) {
+				margin-bottom: 2em;
+			}
 		}
 
 		.price {
@@ -54,7 +59,7 @@
 		.button {
 			@include margin(0);
 			@include padding(6px);
-			background-color: $navpink1;
+			background-color: $orange;
 			border-radius: 0;
 			color: $white;
 			font-size: 16px;
@@ -62,27 +67,8 @@
 			text-transform: capitalize;
 
 			&:hover {
-				background-color: $navpink2;
+				//background-color: $navpink2;
 			}
-		}
-
-	}
-
-	&.woocommerce.sidebar-content ul.products li.product,
-	&.woocommerce-page.sidebar-content ul.products li.product {
-		clear: right;
-		margin-right: 3.8%;
-		width: 29.25%;
-
-		@include media($large-screen-up) {
-			clear: none;
-			margin-right: 2%;
-			width: 48%;
-		}
-
-		@include media($small-screen-up) {
-			margin-right: 0;
-			width: 100%;
 		}
 
 	}
@@ -93,16 +79,11 @@
 		}
 
 		.facetwp-facet .noUi-connect {
-			background-color: $navpink1;
+			background-color: $orange;
 		}
 
 		.widget {
 			background-color: $gray2;
-			@include margin(2em);
-
-			@include media($xlarge-screen-up) {
-				@include margin(0);
-			}
 		}
 	}
 

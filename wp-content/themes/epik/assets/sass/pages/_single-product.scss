@@ -176,18 +176,13 @@ body.single-product {
 
 	// Add to Cart Button
 	div.product form.cart button.button {
-		//background-color: $orange;
-		background-color: $navpink1;
+		background-color: $orange;
 		font-size: 1.25em;
 		@include padding(14px em(60));
 
 		@include media($medium-screen-up) {
 			padding-left: 3em;
 			padding-right: 3em;
-		}
-
-		&:hover {
-			background-color: $navpink2;
 		}
 	}
 
@@ -236,7 +231,7 @@ body.single-product {
 		.button {
 			@include margin(0);
 			@include padding(0);
-			background-color: $navpink2;
+			background-color: $orange;
 			border-radius: 0;
 			color: #fff;
 			font-size: 16px;

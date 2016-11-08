@@ -1,10 +1,8 @@
 // Before Header Notification Area
 
 .before-header {
-	//background-color: #dce1e7;
-	background-color: $pink4;
-	//color: $light-gray;
-	color: $pink1;
+	background-color: #dce1e7;
+	color: $light-gray;
 	font-family: $open-sans-condensed-bold;
 	text-align: center;
 
@@ -39,27 +37,23 @@
 			display: inline-block;
 
 			a {
-				//color: $light-gray;
-				color: $pink1;
+				color: $light-gray;
 				font-family: $open-sans-condensed-bold;
 				font-size: 0.7em;
 				text-transform: uppercase;
 
 				&:hover {
-					//color: $orange-hover;
-					color: $gray1;
+					color: $black1;
 				}
 			}
 
 			&.current-menu-item > a {
-				//color: $orange-hover;
-				color: $gray1;
+				color: $black1;
 			}
 		}
 
 		li + li:before {
-			//color: $light-gray;
-			color: $pink1;
+			color: $light-gray;
 			content: " | ";
 			@include padding(0);
 		}
@@ -74,8 +68,7 @@
 
 	.free-shipping-notification {
 		@include padding(0);
-		//color: $light-gray;
-		color: $pink1;
+		color: $light-gray;
 		font: {
 			family: $raleway-bold;
 			size: 1.5rem;
@@ -123,7 +116,6 @@
 			@include padding(6px);
 
 			@include placeholder {
-				color: $pink1;
 				font-size: 1.35rem;
 				padding-top: 3px;
 			}

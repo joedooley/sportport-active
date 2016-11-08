@@ -14,6 +14,14 @@
 		text-align: center;
 	}
 
+	.widget {
+		margin-bottom: 40px;
+
+		&:first-child {
+			margin-bottom: 0;
+		}
+	}
+
 	a,
 	p {
 		color: $light-gray;
@@ -27,8 +35,7 @@
 	}
 
 	.widgettitle {
-		//color: $orange;
-		color: $pink1;
+		color: $orange;
 		font: {
 			family: $raleway;
 			size: 1.45rem;
@@ -55,3 +62,15 @@
 
 }
 
+.footer-widgets .widget {
+	margin-bottom: 40px;
+
+	&:first-child {
+		margin-bottom: 0;
+	}
+}
+
+
+#text-54 img {
+	margin-bottom: 0;
+}

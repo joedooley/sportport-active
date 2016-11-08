@@ -16,10 +16,14 @@
 	}
 
 	> div {
-		@include margin(1em 0);
+		@include margin(2em 1em 3em);
 		@include padding(1em);
 		background-color: rgba(255, 255, 255, 0.29);
 		border: 1px solid rgba(0, 0, 0, 0.15);
+
+		@include media($small-screen-up) {
+			@include margin(null 0);
+		}
 	}
 
 	.search-form {
@@ -36,8 +40,6 @@
 		text-align: right;
 
 		a {
-			color: $pink1;
-
 			&:hover {
 				color: $gray1;
 			}

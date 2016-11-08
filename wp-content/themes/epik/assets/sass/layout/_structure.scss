@@ -14,8 +14,6 @@
 	}
 
 	@include media($large-screen-up) {
-		padding-left: 2.5%;
-		padding-right: 2.5%;
 		width: 100%;
 	}
 }
@@ -23,11 +21,13 @@
 .site-inner {
 	@include margin(1em null 2em);
 	clear: both;
+}
 
-	@include media($xlarge-screen-up) {
-		background: none;
+.wrap {
+	@include media($large-screen-up) {
+		padding-left: 5%;
+		padding-right: 5%;
 	}
-
 }
 
 /*! Column Widths and Positions for Sidebar Layouts
@@ -69,6 +69,7 @@
 	}
 
 	@include media($xlarge-screen-up) {
+		float: none;
 		width: 100%;
 	}
 }
@@ -95,7 +96,6 @@
 }
 
 .sidebar-primary {
-	float: right;
 	width: 360px;
 	background: none;
 
