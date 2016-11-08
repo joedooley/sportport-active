@@ -7,6 +7,10 @@
 	.entry {
 		@include padding(1em 1em 0);
 		background-color: $white;
+
+		@include media($xlarge-screen-up) {
+			width: 100%;
+		}
 	}
 
 	.entry-meta {
