@@ -20,6 +20,7 @@
 		@include padding(1em);
 		background-color: rgba(255, 255, 255, 0.29);
 		border: 1px solid rgba(0, 0, 0, 0.15);
+		overflow: hidden;
 
 		@include media($small-screen-up) {
 			@include padding(0.5em 0.5em 1.5em 0.5em);

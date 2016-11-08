@@ -42,6 +42,7 @@
 			z-index: 999;
 
 			@include media($xlarge-screen-up) {
+				position: relative;
 				top: 0;
 			}
 		}

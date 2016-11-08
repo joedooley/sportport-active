@@ -2454,6 +2454,7 @@ li.comment ul li {
       z-index: 999; }
       @media screen and (max-width: 1023px) {
         .site-header .site-title img {
+          position: relative;
           top: 0; } }
   @media screen and (max-width: 1023px) {
     .site-header #mobile-logo {
@@ -2654,7 +2655,8 @@ body.woocommerce div.woocommerce-message div.wrap {
     margin: 2em 1em 3em;
     padding: 1em;
     background-color: rgba(255, 255, 255, 0.29);
-    border: 1px solid rgba(0, 0, 0, 0.15); }
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    overflow: hidden; }
     @media screen and (max-width: 480px) {
       .sidebar > div {
         padding: 0.5em 0.5em 1.5em;
