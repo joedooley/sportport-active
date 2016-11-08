@@ -32,6 +32,7 @@
 		margin: 0;
 
 		@include media($xlarge-screen-up) {
+			font-size: 0;
 			text-align: center;
 		}
 
@@ -44,6 +45,7 @@
 
 			@include media($xlarge-screen-up) {
 				@include transform(translateY(0));
+				margin-bottom: 0;
 				position: relative;
 				top: 0;
 			}

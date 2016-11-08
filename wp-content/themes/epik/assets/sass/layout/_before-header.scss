@@ -89,7 +89,7 @@
 		}
 
 		@include media($small-screen-up) {
-			display: inline;
+			@include padding(1.5px 0);
 		}
 	}
 }

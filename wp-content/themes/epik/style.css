@@ -2389,7 +2389,7 @@ li.comment ul li {
       margin-top: 0; } }
   @media screen and (max-width: 480px) {
     .before-header-middle-container .free-shipping-notification {
-      display: inline; } }
+      padding: 1.5px 0; } }
 
 @media screen and (max-width: 1023px) {
   .before-header-right-container {
@@ -2445,6 +2445,7 @@ li.comment ul li {
     margin: 0; }
     @media screen and (max-width: 1023px) {
       .site-header .site-title {
+        font-size: 0;
         text-align: center; } }
     .site-header .site-title img {
       -webkit-transform: translateY(20px);
@@ -2461,6 +2462,7 @@ li.comment ul li {
           -ms-transform: translateY(0);
           -o-transform: translateY(0);
           transform: translateY(0);
+          margin-bottom: 0;
           position: relative;
           top: 0; } }
   @media screen and (max-width: 1023px) {
@@ -2934,6 +2936,7 @@ body.woocommerce div.woocommerce-message div.wrap {
         display: block;
         margin-right: 2.35765%;
         width: 100%;
+        margin: 0;
         max-height: none; }
         .home .featured-products ul.products li.product:last-child {
           margin-right: 0; } }

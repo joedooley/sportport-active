@@ -124,6 +124,7 @@
 
 			@include media($small-screen-up) {
 				@include span-columns(12 of 12);
+				@include margin(0);
 				max-height: none;
 			}
 		}

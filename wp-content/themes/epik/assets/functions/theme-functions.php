@@ -31,7 +31,11 @@ function spa_header_inline_logo( $title, $inside, $wrap ) {
 	$logo = '<img src="' . get_stylesheet_directory_uri() . '/images/logo@2x.png" alt="' . esc_attr( get_bloginfo( 'name' ) ) .
 	        '" title="' . esc_attr( get_bloginfo( 'name' ) ) . '" width="317" height="91" />';
 
-	$inside = wp_is_mobile() ? sprintf( '<a href="%s" title="%s">%s</a>', trailingslashit( home_url() ), esc_attr( get_bloginfo( 'name' ) ), $logo_mobile ) : sprintf( '<a href="%s" title="%s">%s</a>', trailingslashit( home_url() ), esc_attr( get_bloginfo( 'name' ) ), $logo );
+	if ( wp_is_mobile() ) {
+		$inside = sprintf( '<a href="%s" title="%s">%s</a>', trailingslashit( home_url() ), esc_attr( get_bloginfo( 'name' ) ), $logo_mobile );
+	} else {
+		$inside = sprintf( '<a href="%s" title="%s">%s</a>', trailingslashit( home_url() ), esc_attr( get_bloginfo( 'name' ) ), $logo );
+	}
 
 	// Determine which wrapping tags to use - changed is_home to is_front_page to fix Genesis bug
 	$wrap = is_front_page() && 'title' === genesis_get_seo_option( 'home_h1_on' ) ? 'h1' : 'p';
