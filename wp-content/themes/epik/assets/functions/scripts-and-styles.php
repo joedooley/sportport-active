@@ -24,14 +24,6 @@ function spa_scripts_styles() {
 		CHILD_THEME_VERSION
 	);
 
-	wp_enqueue_style(
-		'ionicons',
-		'http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css',
-		array(),
-		'2.0.1'
-	);
-
-
 	wp_enqueue_script(
 		'spa-all-js',
 		CHILD_URL . '/dist/js/all.js',
@@ -40,19 +32,16 @@ function spa_scripts_styles() {
 		true
 	);
 
-
 	$output = [
 		'mainMenu' => __( 'Menu', 'EPIK' ),
 		//'subMenu'  => __( 'Menu', 'EPIK'' ),
 	];
-
 
 	wp_localize_script(
 		'spa-all-js',
 		'DigitalL10n',
 		$output
 	);
-
 
 }
 
