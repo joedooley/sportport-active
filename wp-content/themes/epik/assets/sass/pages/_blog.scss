@@ -2,12 +2,21 @@
 --------------------- */
 
 .blog {
-
-	.content .teaser {
+	.teaser {
 		@include margin(2em 0.5%);
 
 		@include media($large-screen-up) {
 			width: 100%;
+		}
+
+		.entry-title {
+			font-size: 1.5em;
+		}
+
+		.entry-categories {
+			a {
+				font-size: 1.2em;
+			}
 		}
 	}
 
@@ -15,12 +24,30 @@
 		background-color: $white;
 	}
 
-	.sidebar {
-		margin-top: 4.75em;
+	.entry-categories {
+		@include padding(5px 20px);
+		@include display(block);
+		background-color: $orange;
 
-		.widget {
-			background-color: $white;
+		a {
+			color: $white;
+			font-variant: petite-caps;
+			font-size: 1.5em;
+			text-decoration: none;
 		}
 	}
-	
+
+	.entry-header {
+		padding-top: 10px;
+	}
+
+	.entry-title {
+		font-variant: petite-caps;
+		font-size: 2.5em;
+		text-transform: none;
+
+		a {
+			text-decoration: none;
+		}
+	}
 }

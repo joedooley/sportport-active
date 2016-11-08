@@ -50,6 +50,12 @@ function spa_add_theme_support() {
 	// Remove Page/Post Edit Links
 	add_filter( 'genesis_edit_post_link', '__return_false' );
 
+	/**
+	 * Load Internationalization File
+	 */
+	load_child_theme_textdomain( 'epik', apply_filters( 'child_theme_textdomain', get_stylesheet_directory() . '/languages', 'epik' ) );
+
+
 }
 
 
@@ -198,9 +204,63 @@ add_filter( 'genesis_comment_list_args', function( $args ) {
 });
 
 
+add_action( 'genesis_before_entry', 'be_remove_post_title_in_grid' );
+/**
+ *  Remove Post Title from Grid Posts
+ */
+function be_remove_post_title_in_grid() {
+
+	if ( ! apply_filters( 'is_genesis_grid_loop', false ) ) {
+		return;
+	}
+
+	$grid_items = [
+		'teaser' => 'teaser',
+	    'feature' => 'feature',
+	];
+
+	if ( is_array( $grid_items ) ) {
+
+		remove_action( 'genesis_entry_header', 'genesis_entry_header_markup_open', 5 );
+		remove_action( 'genesis_entry_header', 'genesis_do_post_title' );
+		remove_action( 'genesis_entry_header', 'genesis_entry_header_markup_close', 15 );
+
+		remove_action( 'genesis_entry_footer', 'genesis_entry_footer_markup_open', 5 );
+		remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
+		remove_action( 'genesis_entry_footer', 'genesis_entry_footer_markup_close', 15 );
+
+		add_action( 'genesis_entry_content', 'genesis_entry_footer_markup_open', 9 );
+		add_action( 'genesis_entry_content', 'genesis_post_meta', 9 );
+		add_action( 'genesis_entry_content', 'genesis_entry_footer_markup_close', 9 );
+
+		add_action( 'genesis_entry_content', 'genesis_entry_header_markup_open', 9 );
+		add_action( 'genesis_entry_content', 'genesis_do_post_title', 9 );
+		add_action( 'genesis_entry_content', 'genesis_entry_header_markup_close', 9 );
 
 
+	}
+
+}
 
 
+add_filter( 'genesis_post_meta', 'spa_post_meta_filter' );
+/**
+ * Remove post tags and limit post categories to one using
+ * limited_post_categories custom shortcode
+ *
+ * @uses functions/shortcodes.php
+ *
+ * @param $post_meta
+ *
+ * @return string
+ *
+ */
+function spa_post_meta_filter( $post_meta ) {
 
+	if ( ! apply_filters( 'is_genesis_grid_loop', false ) ) {
+		return $post_meta;
+	}
+
+	return '[limited_post_categories before=""]';
+}
 

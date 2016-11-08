@@ -410,6 +410,9 @@ input[type="reset"],
 input[type="submit"] {
   transition: all 0.3s ease-in; }
 
+a:focus {
+  outline: none; }
+
 ol,
 ul {
   margin: 0;
@@ -3154,19 +3157,38 @@ body.woocommerce div.woocommerce-message div.wrap {
 
 /* ## Blog
 --------------------- */
-.blog .content .teaser {
+.blog .teaser {
   margin: 2em 0.5%; }
   @media screen and (max-width: 800px) {
-    .blog .content .teaser {
+    .blog .teaser {
       width: 100%; } }
+  .blog .teaser .entry-title {
+    font-size: 1.5em; }
+  .blog .teaser .entry-categories a {
+    font-size: 1.2em; }
 
 .blog .entry {
   background-color: white; }
 
-.blog .sidebar {
-  margin-top: 4.75em; }
-  .blog .sidebar .widget {
-    background-color: white; }
+.blog .entry-categories {
+  padding: 5px 20px;
+  display: block;
+  background-color: #fdab59; }
+  .blog .entry-categories a {
+    color: white;
+    font-variant: petite-caps;
+    font-size: 1.5em;
+    text-decoration: none; }
+
+.blog .entry-header {
+  padding-top: 10px; }
+
+.blog .entry-title {
+  font-variant: petite-caps;
+  font-size: 2.5em;
+  text-transform: none; }
+  .blog .entry-title a {
+    text-decoration: none; }
 
 /*! ## FAQ Page Template
 ------------------------ */

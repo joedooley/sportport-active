@@ -20,6 +20,7 @@ require_once __DIR__ . '/assets/functions/scripts-and-styles.php';
 require_once __DIR__ . '/assets/functions/woocommerce.php';
 require_once __DIR__ . '/assets/functions/layout.php';
 require_once __DIR__ . '/assets/functions/theme-options-page.php';
+require_once __DIR__ . '/assets/functions/shortcodes.php';
 
 
 /**
@@ -29,12 +30,5 @@ define( 'CHILD_THEME_NAME', 'Epik Theme' );
 define( 'CHILD_THEME_URL', 'https://www.sportportactive.com/' );
 define( 'CHILD_THEME_VERSION', '1.0.0' );
 define( 'CHILD_THEME_TEXTDOMAIN', 'epik' );
-
-
-/**
- * Load Internationalization File
- */
-load_child_theme_textdomain( 'epik', apply_filters( 'child_theme_textdomain', get_stylesheet_directory() . '/languages', 'epik' ) );
-
 
 add_theme_support( 'genesis-connect-woocommerce' );
