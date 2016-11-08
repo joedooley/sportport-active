@@ -1923,13 +1923,13 @@ Miscellaneous
     .genesis-nav-menu .menu-item.current-menu-item > a {
       background-color: #89a; }
   .genesis-nav-menu a {
+    padding: 25px 10px;
     border-bottom-width: 0;
     display: block;
     font-family: latoregular, sans-serif;
     font-size: 0.75rem;
     font-weight: 400;
     font-weight: 400;
-    padding: 38px 10px 42px;
     text-transform: uppercase; }
   .genesis-nav-menu .sub-menu {
     left: -9999px;
@@ -2445,8 +2445,12 @@ li.comment ul li {
       .site-header .site-title {
         text-align: center; } }
     .site-header .site-title img {
-      position: relative;
-      top: 30px;
+      -webkit-transform: translateY(20px);
+      -moz-transform: translateY(20px);
+      -ms-transform: translateY(20px);
+      -o-transform: translateY(20px);
+      transform: translateY(20px);
+      position: absolute;
       z-index: 999; }
       @media screen and (max-width: 1023px) {
         .site-header .site-title img {

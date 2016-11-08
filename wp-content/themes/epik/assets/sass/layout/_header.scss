@@ -35,8 +35,10 @@
 		}
 
 		img {
-			position: relative;
-			top: 30px;
+			//position: relative;
+			//top: 30px;
+			@include transform(translateY(20px));
+			position: absolute;
 			z-index: 999;
 
 			@include media($xlarge-screen-up) {
