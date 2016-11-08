@@ -3079,13 +3079,10 @@ body.woocommerce div.woocommerce-message div.wrap {
     font-weight: bold;
     height: 0;
     line-height: 1;
+    margin-bottom: 2em;
     text-align: center;
     text-transform: lowercase;
     width: 100%; }
-    @media screen and (max-width: 480px) {
-      .archive.woocommerce ul.products li.product h3,
-      .archive.woocommerce-page ul.products li.product h3 {
-        margin-bottom: 2em; } }
   .archive.woocommerce ul.products li.product .price,
   .archive.woocommerce-page ul.products li.product .price {
     margin-top: 5px;
@@ -3127,6 +3124,9 @@ body.woocommerce div.woocommerce-message div.wrap {
   @media screen and (max-width: 767px) {
     .archive .sidebar .rf-recommendation-product {
       margin-bottom: 5em !important; } }
+
+.archive .sidebar button {
+  text-transform: unset; }
 
 /* ## Blog
 --------------------- */
