@@ -4,32 +4,20 @@
 .blog {
 	background-color: $gray2;
 
-	.teaser {
-		@include margin(2em 0.5%);
-
-		@include media($large-screen-up) {
-			width: 100%;
-		}
-
-		.entry-title {
-			font-size: 1.5em;
-		}
-
-		.entry-categories {
-			a {
-				font-size: 1.2em;
-			}
-		}
+	.entry {
+		@include padding(1em 1em 0);
+		background-color: $white;
 	}
 
-	.entry {
-		background-color: $white;
+	.entry-meta {
+		@include margin(0);
 	}
 
 	.entry-categories {
 		@include padding(5px 20px);
 		@include display(block);
 		background-color: $orange;
+		border-radius: 25px;
 
 		a {
 			color: $white;
@@ -46,10 +34,45 @@
 	.entry-title {
 		font-variant: petite-caps;
 		font-size: 2.5em;
+		margin-top: 30px;
 		text-transform: none;
 
 		a {
 			text-decoration: none;
+		}
+	}
+
+	.read-more-button {
+		a {
+			@include padding(10px 25px);
+			background-color: $orange;
+			color: $white;
+			font-size: 18px;
+			text-decoration: none;
+		}
+	}
+
+	.feature {
+		margin-bottom: 5em;
+
+		.read-more-button {
+			a {
+				font-size: 24px;
+			}
+		}
+	}
+
+	.teaser {
+		margin-bottom: 3em;
+
+		.entry-title {
+			font-size: 1.5em;
+		}
+
+		.entry-categories {
+			a {
+				font-size: 1.2em;
+			}
 		}
 	}
 }

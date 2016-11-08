@@ -264,3 +264,14 @@ function spa_post_meta_filter( $post_meta ) {
 	return '[limited_post_categories before=""]';
 }
 
+
+
+add_filter( 'get_the_content_more_link', 'spa_read_more_link' );
+/**
+ * Modify the Genesis content limit read more link
+ *
+ * @return string
+ */
+function spa_read_more_link() {
+	return '... <div class="read-more-button"><a href="' . get_permalink() . '">Read More</a></div>';
+}

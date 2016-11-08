@@ -1,15 +1,6 @@
 /*! ## Content Area/Main Article
 -------------------------------- */
 
-.content {
-
-	.entry {
-		@extend %content-bg;
-		@include margin(2em 0);
-	}
-
-}
-
 .entry-content a {
 	color: #18d;
 	font-family: $raleway-semibold;

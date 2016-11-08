@@ -15,7 +15,7 @@ html {
 *, *::after, *::before {
   box-sizing: inherit; }
 
-.author-box, .comment-respond, .content .entry, .after-post-cta {
+.author-box, .comment-respond, .after-post-cta {
   padding: 1em 1em 2em;
   background-color: rgba(255, 255, 255, 0.29);
   border: 1px solid rgba(0, 0, 0, 0.15); }
@@ -2148,6 +2148,7 @@ Miscellaneous
   border-bottom: 1px solid #9ab;
   color: #567;
   font-size: 13px;
+  margin-bottom: 1em;
   margin-top: 0.9375em;
   padding-top: 0.9375em; }
 
@@ -2562,9 +2563,6 @@ body.woocommerce div.woocommerce-message div.wrap {
 
 /*! ## Content Area/Main Article
 -------------------------------- */
-.content .entry {
-  margin: 2em 0; }
-
 .entry-content a {
   color: #18d;
   font-family: ralewaysemibold, sans-serif;
@@ -3159,21 +3157,16 @@ body.woocommerce div.woocommerce-message div.wrap {
 --------------------- */
 .blog {
   background-color: #ebebeb; }
-  .blog .teaser {
-    margin: 2em 0.5%; }
-    @media screen and (max-width: 800px) {
-      .blog .teaser {
-        width: 100%; } }
-    .blog .teaser .entry-title {
-      font-size: 1.5em; }
-    .blog .teaser .entry-categories a {
-      font-size: 1.2em; }
   .blog .entry {
+    padding: 1em 1em 0;
     background-color: white; }
+  .blog .entry-meta {
+    margin: 0; }
   .blog .entry-categories {
     padding: 5px 20px;
     display: block;
-    background-color: #fdab59; }
+    background-color: #fdab59;
+    border-radius: 25px; }
     .blog .entry-categories a {
       color: white;
       font-variant: petite-caps;
@@ -3184,9 +3177,26 @@ body.woocommerce div.woocommerce-message div.wrap {
   .blog .entry-title {
     font-variant: petite-caps;
     font-size: 2.5em;
+    margin-top: 30px;
     text-transform: none; }
     .blog .entry-title a {
       text-decoration: none; }
+  .blog .read-more-button a {
+    padding: 10px 25px;
+    background-color: #fdab59;
+    color: white;
+    font-size: 18px;
+    text-decoration: none; }
+  .blog .feature {
+    margin-bottom: 5em; }
+    .blog .feature .read-more-button a {
+      font-size: 24px; }
+  .blog .teaser {
+    margin-bottom: 3em; }
+    .blog .teaser .entry-title {
+      font-size: 1.5em; }
+    .blog .teaser .entry-categories a {
+      font-size: 1.2em; }
 
 /*! ## FAQ Page Template
 ------------------------ */
