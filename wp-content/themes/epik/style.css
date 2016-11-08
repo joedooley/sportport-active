@@ -2426,7 +2426,8 @@ li.comment ul li {
   width: 100%; }
   @media screen and (max-width: 1023px) {
     .site-header {
-      max-height: 77px; } }
+      max-height: 77px;
+      min-height: 50px; } }
   @media screen and (max-width: 1023px) {
     .site-header.no-minh {
       max-height: unset; } }
@@ -2454,6 +2455,11 @@ li.comment ul li {
       z-index: 999; }
       @media screen and (max-width: 1023px) {
         .site-header .site-title img {
+          -webkit-transform: translateY(0);
+          -moz-transform: translateY(0);
+          -ms-transform: translateY(0);
+          -o-transform: translateY(0);
+          transform: translateY(0);
           position: relative;
           top: 0; } }
   @media screen and (max-width: 1023px) {

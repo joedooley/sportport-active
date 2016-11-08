@@ -6,6 +6,7 @@
 
 	@include media($xlarge-screen-up) {
 		max-height: 77px;
+		min-height: 50px;
 	}
 
 	&.no-minh {
@@ -42,6 +43,7 @@
 			z-index: 999;
 
 			@include media($xlarge-screen-up) {
+				@include transform(translateY(0));
 				position: relative;
 				top: 0;
 			}
