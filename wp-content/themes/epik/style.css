@@ -3157,38 +3157,36 @@ body.woocommerce div.woocommerce-message div.wrap {
 
 /* ## Blog
 --------------------- */
-.blog .teaser {
-  margin: 2em 0.5%; }
-  @media screen and (max-width: 800px) {
-    .blog .teaser {
-      width: 100%; } }
-  .blog .teaser .entry-title {
-    font-size: 1.5em; }
-  .blog .teaser .entry-categories a {
-    font-size: 1.2em; }
-
-.blog .entry {
-  background-color: white; }
-
-.blog .entry-categories {
-  padding: 5px 20px;
-  display: block;
-  background-color: #fdab59; }
-  .blog .entry-categories a {
-    color: white;
+.blog {
+  background-color: #ebebeb; }
+  .blog .teaser {
+    margin: 2em 0.5%; }
+    @media screen and (max-width: 800px) {
+      .blog .teaser {
+        width: 100%; } }
+    .blog .teaser .entry-title {
+      font-size: 1.5em; }
+    .blog .teaser .entry-categories a {
+      font-size: 1.2em; }
+  .blog .entry {
+    background-color: white; }
+  .blog .entry-categories {
+    padding: 5px 20px;
+    display: block;
+    background-color: #fdab59; }
+    .blog .entry-categories a {
+      color: white;
+      font-variant: petite-caps;
+      font-size: 1.5em;
+      text-decoration: none; }
+  .blog .entry-header {
+    padding-top: 10px; }
+  .blog .entry-title {
     font-variant: petite-caps;
-    font-size: 1.5em;
-    text-decoration: none; }
-
-.blog .entry-header {
-  padding-top: 10px; }
-
-.blog .entry-title {
-  font-variant: petite-caps;
-  font-size: 2.5em;
-  text-transform: none; }
-  .blog .entry-title a {
-    text-decoration: none; }
+    font-size: 2.5em;
+    text-transform: none; }
+    .blog .entry-title a {
+      text-decoration: none; }
 
 /*! ## FAQ Page Template
 ------------------------ */

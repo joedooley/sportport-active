@@ -2,6 +2,8 @@
 --------------------- */
 
 .blog {
+	background-color: $gray2;
+
 	.teaser {
 		@include margin(2em 0.5%);
 
