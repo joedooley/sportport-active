@@ -2481,9 +2481,6 @@ body.woocommerce div.woocommerce-message div.wrap {
     .sidebar-sidebar-content .content-sidebar-wrap {
       width: 100%; } }
 
-.content-sidebar-sidebar .content-sidebar-wrap {
-  float: left; }
-
 .sidebar-content-sidebar .content-sidebar-wrap,
 .sidebar-sidebar-content .content-sidebar-wrap {
   float: right; }
