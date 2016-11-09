@@ -3852,10 +3852,13 @@ div.gform_wrapper .gform_footer input[type="submit"] {
       margin-top: 3px;
       padding: 10px 20px;
       background-color: #fdab59;
+      border: 2px outset #ccc;
       border-radius: 0;
       color: #fff; }
       #gform_wrapper_3 .gform_footer .gform_button:hover {
-        background-color: #d1cece; }
+        background-color: #ff9933; }
+      #gform_wrapper_3 .gform_footer .gform_button:active {
+        border-style: inset; }
       @media screen and (max-width: 1023px) {
         #gform_wrapper_3 .gform_footer .gform_button {
           width: 97.5%; } }

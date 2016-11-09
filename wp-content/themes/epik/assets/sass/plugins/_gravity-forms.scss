@@ -102,11 +102,16 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 			@include margin(3px null null);
 			@include padding(10px 20px);
 			background-color: $orange;
+			border: 2px outset #ccc;
 			border-radius: 0;
 			color: #fff;
 
 			&:hover {
-				background-color: $gray1;
+				background-color: $orange-hover;
+			}
+
+			&:active {
+				border-style: inset;
 			}
 
 			@include media($xlarge-screen-up) {
