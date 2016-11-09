@@ -17,6 +17,16 @@ body.single-product {
 			padding-left: 0;
 			padding-right: 0;
 		}
+
+		@include media($large-screen-up) {
+			margin-top: 0;
+		}
+	}
+
+	.site-inner .wrap {
+		@include media($large-screen-up) {
+			@include padding(0);
+		}
 	}
 
 	// WooCommerce Message Section
@@ -186,6 +196,7 @@ body.single-product {
 		}
 
 		@include media($medium-screen-up) {
+			float: none;
 			padding-left: 3em;
 			padding-right: 3em;
 		}
@@ -194,9 +205,18 @@ body.single-product {
 	// Accordion
 	#accordion {
 		border-top: $border;
+
+		@include media($large-screen-up) {
+			margin-bottom: 4em;
+		}
 	}
 
 	// Related Products
+	&.woocommerce .products ul,
+	&.woocommerce ul.products {
+		margin-bottom: 0;
+	}
+
 	&.woocommerce ul.products li.product,
 	&.woocommerce-page ul.products li.product {
 		@include margin(0 5.9% 2.992em 0);
@@ -235,13 +255,18 @@ body.single-product {
 
 		.button {
 			@include margin(0);
-			@include padding(0);
+			@include padding(5px 15px);
 			background-color: $orange;
+			border: 2px outset #ccc;
 			border-radius: 0;
 			color: #fff;
 			font-size: 16px;
 			margin-left: 10px;
 			text-transform: capitalize;
+
+			&:active {
+				border-style: inset;
+			}
 		}
 	}
 
@@ -307,7 +332,7 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 	padding-top: 2em;
 
 	@include media($medium-screen-up) {
-		margin-top: 5em;
+		margin-top: 1em;
 	}
 }
 

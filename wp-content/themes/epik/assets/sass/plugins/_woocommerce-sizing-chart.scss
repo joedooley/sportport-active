@@ -3,11 +3,15 @@
 
 a#chart-button {
 	background-color: $orange;
+	border: 2px outset #ccc;
 	border-radius: 0;
 	font-size: 1.5em;
 
 	&:hover {
-		//background-color: $orange-hover;
-		background-color: $gray1;
+		background-color: $orange-hover;
+	}
+
+	&:active {
+		border-style: inset;
 	}
 }

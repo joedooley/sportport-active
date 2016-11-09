@@ -3311,6 +3311,12 @@ body.single-product {
       body.single-product .site-inner {
         padding-left: 0;
         padding-right: 0; } }
+    @media screen and (max-width: 800px) {
+      body.single-product .site-inner {
+        margin-top: 0; } }
+  @media screen and (max-width: 800px) {
+    body.single-product .site-inner .wrap {
+      padding: 0; } }
   body.single-product.woocommerce .woocommerce-error,
   body.single-product.woocommerce .woocommerce-info,
   body.single-product.woocommerce .woocommerce-message {
@@ -3419,10 +3425,17 @@ body.single-product {
       border-style: inset; }
     @media screen and (max-width: 600px) {
       body.single-product div.product form.cart button.button {
+        float: none;
         padding-left: 3em;
         padding-right: 3em; } }
   body.single-product #accordion {
     border-top: 1px solid #cacaca; }
+    @media screen and (max-width: 800px) {
+      body.single-product #accordion {
+        margin-bottom: 4em; } }
+  body.single-product.woocommerce .products ul,
+  body.single-product.woocommerce ul.products {
+    margin-bottom: 0; }
   body.single-product.woocommerce ul.products li.product,
   body.single-product.woocommerce-page ul.products li.product {
     margin: 0 5.9% 2.992em 0;
@@ -3459,13 +3472,17 @@ body.single-product {
     body.single-product.woocommerce ul.products li.product .button,
     body.single-product.woocommerce-page ul.products li.product .button {
       margin: 0;
-      padding: 0;
+      padding: 5px 15px;
       background-color: #fdab59;
+      border: 2px outset #ccc;
       border-radius: 0;
       color: #fff;
       font-size: 16px;
       margin-left: 10px;
       text-transform: capitalize; }
+      body.single-product.woocommerce ul.products li.product .button:active,
+      body.single-product.woocommerce-page ul.products li.product .button:active {
+        border-style: inset; }
   body.single-product .product_meta {
     margin-bottom: 1em; }
   body.single-product .upsells {
@@ -3507,7 +3524,7 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
   padding-top: 2em; }
   @media screen and (max-width: 600px) {
     body.woocommerce div.product form.cart .woocommerce-variation-description p:first-child {
-      margin-top: 5em; } }
+      margin-top: 1em; } }
 
 .single-product .above-footer-widgets {
   position: relative; }
@@ -3730,10 +3747,13 @@ input[type=number] {
 ------------------------------- */
 a#chart-button {
   background-color: #fdab59;
+  border: 2px outset #ccc;
   border-radius: 0;
   font-size: 1.5em; }
   a#chart-button:hover {
-    background-color: #d1cece; }
+    background-color: #ff9933; }
+  a#chart-button:active {
+    border-style: inset; }
 
 /* --------------------------------- *       # Simple Social Icons #
 \* --------------------------------- */
