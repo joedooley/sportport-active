@@ -18,16 +18,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 function spa_scripts_styles() {
 
 	wp_enqueue_style(
+		'dashicons'
+	);
+
+	wp_enqueue_style(
 		'fonts',
 		CHILD_URL . '/dist/fonts/fonts.css',
-		array(),
 		CHILD_THEME_VERSION
 	);
 
 	wp_enqueue_script(
 		'spa-all-js',
 		CHILD_URL . '/dist/js/all.js',
-		array(),
+		[ 'jquery' ],
 		CHILD_THEME_VERSION,
 		true
 	);

@@ -2,14 +2,6 @@
 --------------------------------- */
 
 .home {
-
-	@include media($large-screen-up) {
-		.wrap {
-			padding-left: 0;
-			padding-right: 0;
-		}
-	}
-
 	.site-inner {
 		background-color: #fff;
 		margin-bottom: 0;
@@ -124,7 +116,7 @@
 
 			@include media($small-screen-up) {
 				@include span-columns(12 of 12);
-				@include margin(0);
+				@include margin(0 0 5em);
 				max-height: none;
 			}
 		}

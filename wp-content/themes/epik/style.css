@@ -2821,11 +2821,6 @@ body.woocommerce div.woocommerce-message div.wrap {
 
 /* ## front-page.php
 --------------------------------- */
-@media screen and (max-width: 800px) {
-  .home .wrap {
-    padding-left: 0;
-    padding-right: 0; } }
-
 .home .site-inner {
   background-color: #fff;
   margin-bottom: 0;
@@ -2936,7 +2931,7 @@ body.woocommerce div.woocommerce-message div.wrap {
         display: block;
         margin-right: 2.35765%;
         width: 100%;
-        margin: 0;
+        margin: 0 0 5em;
         max-height: none; }
         .home .featured-products ul.products li.product:last-child {
           margin-right: 0; } }
