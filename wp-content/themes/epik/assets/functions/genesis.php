@@ -60,11 +60,13 @@ function spa_add_theme_support() {
 	 */
 	add_action( 'widgets_init', 'check_inn_systems_register_widgets' );
 
+
+//* Remove the entry meta in the entry header (requires HTML5 theme support)
+	remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
+
 }
 
 
-//* Remove the entry meta in the entry header (requires HTML5 theme support)
-remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
 
 
 
@@ -208,11 +210,11 @@ add_filter( 'genesis_comment_list_args', function( $args ) {
 });
 
 
-add_action( 'genesis_before_entry', 'be_remove_post_title_in_grid' );
+add_action( 'genesis_before_entry', 'spa_remove_post_title_in_grid' );
 /**
  *  Remove Post Title from Grid Posts
  */
-function be_remove_post_title_in_grid() {
+function spa_remove_post_title_in_grid() {
 
 	if ( ! apply_filters( 'is_genesis_grid_loop', false ) ) {
 		return;

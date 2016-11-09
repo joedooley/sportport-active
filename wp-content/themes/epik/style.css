@@ -2150,8 +2150,8 @@ Miscellaneous
   color: #567;
   font-size: 13px;
   margin-bottom: 1em;
-  margin-top: 0.9375em;
-  padding-top: 0.9375em; }
+  margin-top: 0;
+  padding-top: 0; }
 
 /*! ## Accordion
 ---------------------------- */
@@ -2495,7 +2495,7 @@ body.woocommerce div.woocommerce-message div.wrap {
       width: 100%; } }
 
 .site-inner {
-  margin-top: 1em;
+  margin-top: 3em;
   margin-bottom: 2em;
   clear: both; }
 
@@ -2660,14 +2660,14 @@ body.woocommerce div.woocommerce-message div.wrap {
   .sidebar p:last-child,
   .sidebar ul {
     margin: 0; }
-  .sidebar > div {
+  .sidebar > section {
     margin: 2em 1em 3em;
     padding: 1em;
     background-color: rgba(255, 255, 255, 0.29);
     border: 1px solid rgba(0, 0, 0, 0.15);
     overflow: hidden; }
     @media screen and (max-width: 480px) {
-      .sidebar > div {
+      .sidebar > section {
         padding: 0.5em 0.5em 1.5em;
         margin-right: 0;
         margin-left: 0; } }
@@ -3306,6 +3306,7 @@ body.single-product {
     max-width: none; }
   body.single-product .site-inner {
     margin-bottom: 0;
+    margin-top: 0;
     padding-top: 0; }
     @media screen and (max-width: 1023px) {
       body.single-product .site-inner {
@@ -3372,7 +3373,7 @@ body.single-product {
     text-transform: uppercase; }
   body.single-product .product-essential {
     max-width: 670px;
-    padding: 0 5em; }
+    padding: 2em 5em 0; }
     @media screen and (max-width: 1023px) {
       body.single-product .product-essential {
         max-width: none; } }
@@ -3439,6 +3440,9 @@ body.single-product {
   body.single-product.woocommerce ul.products li.product,
   body.single-product.woocommerce-page ul.products li.product {
     margin: 0 5.9% 2.992em 0;
+    padding: 0.5em;
+    background-color: white;
+    min-height: 330px;
     width: 44.10%; }
     @media screen and (max-width: 768px) {
       body.single-product.woocommerce ul.products li.product,
@@ -3483,6 +3487,9 @@ body.single-product {
       body.single-product.woocommerce ul.products li.product .button:active,
       body.single-product.woocommerce-page ul.products li.product .button:active {
         border-style: inset; }
+  body.single-product .woocommerce-variation-description img {
+    margin-bottom: 0;
+    padding-top: 2em; }
   body.single-product .product_meta {
     margin-bottom: 1em; }
   body.single-product .upsells {

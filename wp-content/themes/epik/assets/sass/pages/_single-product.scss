@@ -11,6 +11,7 @@ body.single-product {
 
 	.site-inner {
 		margin-bottom: 0;
+		margin-top: 0;
 		padding-top: 0;
 
 		@include media($xlarge-screen-up) {
@@ -105,7 +106,7 @@ body.single-product {
 
 	.product-essential {
 		max-width: 670px;
-		@include padding(0 em(80));
+		@include padding(2em 5em 0);
 
 		@include media($xlarge-screen-up) {
 			max-width: none;
@@ -220,6 +221,9 @@ body.single-product {
 	&.woocommerce ul.products li.product,
 	&.woocommerce-page ul.products li.product {
 		@include margin(0 5.9% 2.992em 0);
+		@include padding(0.5em);
+		background-color: $white;
+		min-height: 330px;
 		width: 44.10%;
 
 		@include media($ipad-screen-up) {
@@ -269,6 +273,14 @@ body.single-product {
 			}
 		}
 	}
+	
+	// Variation Description
+	.woocommerce-variation-description {
+		img {
+			margin-bottom: 0;
+			padding-top: 2em;
+		}
+	} 
 
 
 	// Product Meta section

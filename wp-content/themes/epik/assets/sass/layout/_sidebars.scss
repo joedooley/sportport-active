@@ -15,7 +15,7 @@
 		@include margin(0);
 	}
 
-	> div {
+	> section {
 		@include margin(2em 1em 3em);
 		@include padding(1em);
 		background-color: rgba(255, 255, 255, 0.29);
