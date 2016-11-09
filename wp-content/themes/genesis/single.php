@@ -11,5 +11,5 @@
  * @link    http://my.studiopress.com/themes/genesis/
  */
 
-//* This file handles single entries, but only exists for the sake of child theme forward compatibility.
+// This file handles single entries, but only exists for the sake of child theme forward compatibility.
 genesis();

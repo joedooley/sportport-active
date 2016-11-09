@@ -11,17 +11,11 @@
  * @link    http://my.studiopress.com/themes/genesis/
  */
 
-
 /**
  * Deprecated. Load the html5 shiv for IE8 and below. Can't enqueue with IE conditionals.
  *
  * @since 2.0.0
  * @deprecated 2.3.0
- *
- * @uses genesis_html5() Check for HTML5 support.
- *
- * @return Return early if HTML5 not supported.
- *
  */
 function genesis_html5_ie_fix() {
 
@@ -79,15 +73,11 @@ function genesis_rel_publisher() {
  * @since 0.2.3
  * @deprecated 2.2.0
  *
- * @uses genesis_get_seo_option() Get SEO setting value.
- * @uses genesis_rel_nofollow()   Add `rel="nofollow"` attribute and value to all links.
- *
  * @see genesis_do_nav()
  * @see genesis_do_subnav()
  *
  * @param array $args Menu arguments.
- *
- * @return string HTML for menu, unless `genesis_pre_nav` returns something truthy.
+ * @return string HTML for menu, unless `genesis_pre_nav` filter returns something truthy.
  */
 function genesis_nav( $args = array() ) {
 
@@ -96,7 +86,7 @@ function genesis_nav( $args = array() ) {
 	if ( isset( $args['context'] ) )
 		_deprecated_argument( __FUNCTION__, '1.2', __( 'The argument, "context", has been replaced with "theme_location" in the $args array.', 'genesis' ) );
 
-	//* Default arguments
+	// Default arguments.
 	$defaults = array(
 		'theme_location' => '',
 		'type'           => 'pages',
@@ -111,7 +101,7 @@ function genesis_nav( $args = array() ) {
 	$defaults = apply_filters( 'genesis_nav_default_args', $defaults );
 	$args     = wp_parse_args( $args, $defaults );
 
-	//* Allow child theme to short-circuit this function
+	// Allow child theme to short-circuit this function.
 	$pre = apply_filters( 'genesis_pre_nav', false, $args );
 	if ( $pre )
 		return $pre;
@@ -120,7 +110,7 @@ function genesis_nav( $args = array() ) {
 
 	$list_args = $args;
 
-	//* Show Home in the menu (mostly copied from WP source)
+	// Show Home in the menu (mostly copied from WP source).
 	if ( isset( $args['show_home'] ) && ! empty( $args['show_home'] ) ) {
 		if ( true === $args['show_home'] || '1' === $args['show_home'] || 1 === $args['show_home'] )
 			$text = apply_filters( 'genesis_nav_home_text', __( 'Home', 'genesis' ), $args );
@@ -136,7 +126,7 @@ function genesis_nav( $args = array() ) {
 
 		$menu .= genesis_get_seo_option( 'nofollow_home_link' ) ? genesis_rel_nofollow( $home ) : $home;
 
-		//* If the front page is a page, add it to the exclude list
+		// If the front page is a page, add it to the exclude list.
 		if ( 'page' === get_option( 'show_on_front' ) && 'pages' === $args['type'] ) {
 			$list_args['exclude'] .= $list_args['exclude'] ? ',' : '';
 
@@ -147,13 +137,13 @@ function genesis_nav( $args = array() ) {
 	$list_args['echo']     = false;
 	$list_args['title_li'] = '';
 
-	//* Add menu items
+	// Add menu items.
 	if ( 'pages' === $args['type'] )
 		$menu .= str_replace( array( "\r", "\n", "\t" ), '', wp_list_pages( $list_args ) );
 	elseif ( 'categories' === $args['type'] )
 		$menu .= str_replace( array( "\r", "\n", "\t" ), '', wp_list_categories( $list_args ) );
 
-	//* Apply filters to the nav items
+	// Apply filters to the nav items.
 	$menu = apply_filters( 'genesis_nav_items', $menu, $args );
 
 	$menu_class = ( $args['menu_class'] ) ? ' class="' . esc_attr( $args['menu_class'] ) . '"' : '';
@@ -162,7 +152,7 @@ function genesis_nav( $args = array() ) {
 	if ( $menu )
 		$menu = '<ul' . $menu_id . $menu_class . '>' . $menu . '</ul>';
 
-	//* Apply filters to the final nav output
+	// Apply filters to the final nav output.
 	$menu = apply_filters( 'genesis_nav', $menu, $args );
 
 	if ( $args['echo'] )
@@ -181,8 +171,7 @@ function genesis_nav( $args = array() ) {
  * @deprecated 2.1.0
  *
  * @param string $title Page title.
- *
- * @return string Plain text or HTML markup
+ *  @return string Plain text title if feed or WP admin, or title in HTML markup.
  */
 function genesis_doctitle_wrap( $title ) {
 
@@ -197,6 +186,9 @@ function genesis_doctitle_wrap( $title ) {
  *
  * @since 1.7.0
  * @deprecated 2.1.0
+ *
+ * @param string|array $new     New settings. Can be a string, or an array.
+ * @param string       $setting Optional. Settings field name. Default is GENESIS_SETTINGS_FIELD.
  */
 function _genesis_update_settings( $new, $setting = null ) {
 
@@ -213,8 +205,6 @@ function _genesis_update_settings( $new, $setting = null ) {
  *
  * @since 0.2.2
  * @deprecated 2.0.0
- *
- * @uses genesis_prev_next_posts_nav() Output archive pagination in next / previous format.
  */
 function genesis_older_newer_posts_nav() {
 
@@ -233,14 +223,9 @@ function genesis_older_newer_posts_nav() {
  * @since 1.0.0
  * @deprecated 2.0.0
  *
- * @uses PARENT_THEME_NAME
- * @uses PARENT_THEME_VERSION
- * @uses CHILD_DIR
- * @uses genesis_get_option() Get theme setting value
- *
  * @global string $wp_version WordPress version string.
  *
- * @return null Return early if `show_info` setting is off
+ * @return null Return early if `show_info` setting is falsy, or not a child theme.
  */
 function genesis_show_theme_info_in_head() {
 
@@ -249,17 +234,17 @@ function genesis_show_theme_info_in_head() {
 	if ( ! genesis_get_option( 'show_info' ) )
 		return;
 
-	//* Show Parent Info
+	// Show Parent Info.
 	echo "\n" . '<!-- Theme Information -->' . "\n";
 	echo '<meta name="wp_template" content="' . esc_attr( PARENT_THEME_NAME ) . ' ' . esc_attr( PARENT_THEME_VERSION ) . '" />' . "\n";
 
-	//* If there is no child theme, don't continue
+	// If there is no child theme, don't continue.
 	if ( ! is_child_theme() )
 		return;
 
 	global $wp_version;
 
-	//* Show Child Info
+	// Show Child Info.
 	$child_info = wp_get_theme();
 	echo '<meta name="wp_theme" content="' . esc_attr( $child_info['Name'] ) . ' ' . esc_attr( $child_info['Version'] ) . '" />' . "\n";
 
@@ -274,7 +259,6 @@ function genesis_show_theme_info_in_head() {
  * @deprecated 2.0.0
  *
  * @param string $text Optional string containing an entity.
- *
  * @return mixed Return a string by default, but might be filtered to return another type.
  */
 function g_ent( $text = '' ) {
@@ -308,7 +292,6 @@ function genesis_theme_files_to_edit() {
  * @link http://www.snipe.net/2009/09/php-twitter-clickable-links/
  *
  * @param string $text A string representing the content of a tweet.
- *
  * @return string Linkified tweet content.
  */
 function genesis_tweet_linkify( $text ) {
@@ -1266,8 +1249,6 @@ function genesis_post_tags_link( $sep = ', ', $label = '' ) {
 }
 
 /**
- */
-/**
  * Deprecated. Allow a child theme to add new image sizes.
  *
  * Use `add_image_size()` instead.
@@ -1275,10 +1256,10 @@ function genesis_post_tags_link( $sep = ', ', $label = '' ) {
  * @since 0.1.7
  * @deprecated 1.2.0
  *
- * @param string  $name   Name of the image size.
- * @param integer $width  Width of the image size.
- * @param integer $height Height of the image size.
- * @param boolean $crop   Whether to crop or not.
+ * @param string $name   Name of the image size.
+ * @param int    $width  Width of the image size.
+ * @param int    $height Height of the image size.
+ * @param bool   $crop   Whether to crop or not.
  */
 function genesis_add_image_size( $name, $width = 0, $height = 0, $crop = false ) {
 
@@ -1295,7 +1276,6 @@ function genesis_add_image_size( $name, $width = 0, $height = 0, $crop = false )
  * @deprecated 1.2.0
  *
  * @param array $sizes Array of sizes to add.
- *
  * @return array Empty array.
  */
 function genesis_add_intermediate_sizes( array $sizes ) {

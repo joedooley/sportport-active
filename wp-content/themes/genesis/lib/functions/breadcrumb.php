@@ -18,7 +18,7 @@
  *
  * @global Genesis_Breadcrumb $_genesis_breadcrumb
  *
- * @param array $args Breadcrumb arguments
+ * @param array $args Breadcrumb arguments.
  */
 function genesis_breadcrumb( $args = array() ) {
 
@@ -38,7 +38,7 @@ add_action( 'genesis_before_loop', 'genesis_do_breadcrumbs' );
  *
  * @since 0.1.6
  *
- * @return null Return null if a popular breadcrumb plugin is active
+ * @return null Null if a popular breadcrumb plugin is active.
  */
 function genesis_do_breadcrumbs() {
 

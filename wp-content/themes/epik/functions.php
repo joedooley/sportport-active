@@ -12,7 +12,7 @@
 /**
  * Bootstrap Genesis and include theme files.
  */
-include_once get_template_directory() . '/lib/init.php';
+//include_once get_template_directory() . '/lib/init.php';
 include_once __DIR__ . '/assets/functions/theme-functions.php';
 require_once __DIR__ . '/assets/functions/widgets.php';
 require_once __DIR__ . '/assets/functions/genesis.php';

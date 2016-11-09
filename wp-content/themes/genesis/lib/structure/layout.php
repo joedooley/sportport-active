@@ -17,13 +17,10 @@ add_filter( 'content_width', 'genesis_content_width', 10, 3 );
  *
  * @since 1.6.0
  *
- * @uses genesis_site_layout() Get the site layout for current context.
- *
- * @param integer $default Default width.
- * @param integer $small   Small width.
- * @param integer $large   Large width.
- *
- * @return integer Content width.
+ * @param int $default Default width.
+ * @param int $small   Small width.
+ * @param int $large   Large width.
+ * @return int Content width.
  */
 function genesis_content_width( $default, $small, $large ) {
 
@@ -52,11 +49,8 @@ add_filter( 'body_class', 'genesis_custom_body_class', 15 );
  *
  * @since 1.4.0
  *
- * @uses genesis_get_custom_field() Get custom field value.
- *
- * @param array $classes Existing classes.
- *
- * @return array Amended classes.
+ * @param array $classes Existing body classes.
+ * @return array Amended body classes.
  */
 function genesis_custom_body_class( array $classes ) {
 
@@ -77,11 +71,8 @@ add_filter( 'body_class', 'genesis_header_body_classes' );
  *
  * @since 0.2.2
  *
- * @uses genesis_get_option() Get theme setting value.
- *
- * @param array $classes Existing classes.
- *
- * @return array Amended classes.
+ * @param array $classes Existing body classes.
+ * @return array Amended body classes.
  */
 function genesis_header_body_classes( array $classes ) {
 
@@ -108,11 +99,8 @@ add_filter( 'body_class', 'genesis_layout_body_classes' );
  *
  * @since 0.2.2
  *
- * @uses genesis_site_layout() Return the site layout for different contexts.
- *
- * @param array $classes Existing classes.
- *
- * @return array Amended classes.
+ * @param array $classes Existing body classes.
+ * @return array Amended body classes.
  */
 function genesis_layout_body_classes( array $classes ) {
 
@@ -135,9 +123,8 @@ add_filter( 'body_class', 'genesis_archive_no_results_body_class' );
  *
  * @global WP_Query $wp_query Query object.
  *
- * @param array $classes Existing classes.
- *
- * @return array Amended classes
+ * @param array $classes Existing body classes.
+ * @return array Amended body classes.
  */
 function genesis_archive_no_results_body_class( array $classes ) {
 
@@ -159,11 +146,8 @@ add_filter( 'body_class', 'genesis_style_selector_body_classes' );
  *
  * @since 1.8.0
  *
- * @uses genesis_get_option() Get theme setting value.
- *
- * @param array $classes Existing classes.
- *
- * @return array Amended classes.
+ * @param array $classes Existing body classes.
+ * @return array Amended body classes.
  */
 function genesis_style_selector_body_classes( array $classes ) {
 
@@ -184,12 +168,8 @@ add_filter( 'body_class', 'genesis_cpt_archive_body_class', 15 );
  *
  * @since 2.0.0
  *
- * @uses genesis_has_post_type_archive_support() Check if current CPT has archive support.
- * @uses genesis_get_cpt_option()                Get CPT Archive setting.
- *
- * @param array $classes Existing classes.
- *
- * @return array Amended classes.
+ * @param array $classes Existing body classes.
+ * @return array Amended body classes.
  */
 function genesis_cpt_archive_body_class( array $classes ) {
 
@@ -210,14 +190,12 @@ add_action( 'genesis_after_content', 'genesis_get_sidebar' );
  * Output the sidebar.php file if layout allows for it.
  *
  * @since 0.2.0
- *
- * @uses genesis_site_layout() Return the site layout for different contexts.
  */
 function genesis_get_sidebar() {
 
 	$site_layout = genesis_site_layout();
 
-	//* Don't load sidebar on pages that don't need it
+	// Don't load sidebar on pages that don't need it.
 	if ( 'full-width-content' === $site_layout )
 		return;
 
@@ -230,14 +208,12 @@ add_action( 'genesis_after_content_sidebar_wrap', 'genesis_get_sidebar_alt' );
  * Output the sidebar_alt.php file if layout allows for it.
  *
  * @since 0.2.0
- *
- * @uses genesis_site_layout() Return the site layout for different contexts.
  */
 function genesis_get_sidebar_alt() {
 
 	$site_layout = genesis_site_layout();
 
-	//* Don't load sidebar-alt on pages that don't need it
+	// Don't load sidebar-alt on pages that don't need it.
 	if ( in_array( $site_layout, array( 'content-sidebar', 'sidebar-content', 'full-width-content' ) ) )
 		return;
 

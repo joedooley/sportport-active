@@ -16,15 +16,15 @@
  *
  * @since 2.2.6
  *
- * @return array Array of default term meta.
+ * @return array Default term meta values.
  */
 function genesis_term_meta_defaults() {
 
 	return apply_filters( 'genesis_term_meta_defaults', array(
 		'headline'            => '',
 		'intro_text'          => '',
-		'display_title'       => 0, //* vestigial
-		'display_description' => 0, //* vestigial
+		'display_title'       => 0, // Vestigial.
+		'display_description' => 0, // Vestigial.
 		'doctitle'            => '',
 		'description'         => '',
 		'keywords'            => '',
@@ -194,8 +194,6 @@ function genesis_add_taxonomy_layout_options() {
  *
  * @since 1.4.0
  *
- * @uses genesis_layout_selector() Layout selector.
- *
  * @see genesis_add_taxonomy_layout_options() Callback caller.
  *
  * @param \stdClass $tag      Term object.
@@ -236,22 +234,21 @@ add_filter( 'get_term', 'genesis_get_term_filter', 10, 2 );
  *
  * @param object $term     Database row object.
  * @param string $taxonomy Taxonomy name that $term is part of.
- *
- * @return object $term Database row object.
+ * @return object Database row object.
  */
 function genesis_get_term_filter( $term, $taxonomy ) {
 
-	//* Do nothing, if $term is not object
+	// Do nothing, if $term is not object.
 	if ( ! is_object( $term ) ) {
 		return $term;
 	}
 
-	//* Do nothing, if called in the context of creating a term via an ajax call
+	// Do nothing, if called in the context of creating a term via an ajax call.
 	if ( did_action( 'wp_ajax_add-tag' ) ) {
 		return $term;
 	}
 
-	//* Still set $term->meta and apply filter, for backward compatibility
+	// Still set $term->meta and apply filter, for backward compatibility.
 	$term->meta = apply_filters( 'genesis_term_meta', array(), $term, $taxonomy );
 
 	return $term;
@@ -266,8 +263,7 @@ add_filter( 'get_terms', 'genesis_get_terms_filter', 10, 2 );
  *
  * @param array  $terms    Database row objects.
  * @param string $taxonomy Taxonomy name that $terms are part of.
- *
- * @return array $terms Database row objects.
+ * @return array Database row objects.
  */
 function genesis_get_terms_filter( array $terms, $taxonomy ) {
 
@@ -284,6 +280,12 @@ add_filter( 'get_term_metadata', 'genesis_term_meta_filter', 10, 4 );
  * Maintain backward compatibility with the older `genesis_term_meta_{$key}` filter so old filter functions will still work.
  *
  * @since 2.3.0
+ *
+ * @param string|array $value     The term meta value.
+ * @param int          $object_id The term ID.
+ * @param string       $meta_key  Meta key.
+ * @param bool         $single    Whether to return only the first value of the specified $meta_key.
+ * @return mixed Filtered term meta value.
  */
 function genesis_term_meta_filter( $value, $object_id, $meta_key, $single ) {
 
@@ -299,10 +301,8 @@ add_action( 'edit_term', 'genesis_term_meta_save', 10, 2 );
  *
  * @since 1.2.0
  *
- * @uses genesis_formatting_kses() Genesis whitelist for wp_kses.
- *
- * @param integer $term_id Term ID.
- * @param integer $tt_id   Term Taxonomy ID.
+ * @param int $term_id Term ID.
+ * @param int $tt_id   Term Taxonomy ID.
  */
 function genesis_term_meta_save( $term_id, $tt_id ) {
 
@@ -331,8 +331,8 @@ add_action( 'delete_term', 'genesis_term_meta_delete', 10, 2 );
  *
  * @since 1.2.0
  *
- * @param integer $term_id Term ID.
- * @param integer $tt_id   Taxonomy Term ID.
+ * @param int $term_id Term ID.
+ * @param int $tt_id   Taxonomy Term ID.
  */
 function genesis_term_meta_delete( $term_id, $tt_id ) {
 
@@ -350,9 +350,8 @@ add_action( 'split_shared_term', 'genesis_split_shared_term' );
  *
  * @since 2.2.0
  *
- * @param integer @old_term_id The ID of the term being split.
- * @param integer @new_term_id The ID of the newly created term.
- *
+ * @param int $old_term_id The ID of the term being split.
+ * @param int $new_term_id The ID of the newly created term.
  */
 function genesis_split_shared_term( $old_term_id, $new_term_id ) {
 

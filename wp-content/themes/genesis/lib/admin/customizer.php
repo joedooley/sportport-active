@@ -23,14 +23,14 @@ abstract class Genesis_Customizer_Base {
 	 */
 	public function __construct() {
 
-		//* Register new customizer elements
+		// Register new customizer elements.
 		if ( method_exists( $this, 'register' ) ) {
 			add_action( 'customize_register', array( $this, 'register' ), 15 );
 		} else {
 			_doing_it_wrong( 'Genesis_Customizer_Base', __( 'When extending Genesis_Customizer_Base, you must create a register method.', 'genesis' ) );
 		}
 
-		//* Customizer scripts
+		// Customizer scripts.
 		if ( method_exists( $this, 'scripts' ) ) {
 			add_action( 'customize_preview_init', 'scripts' );
 		}
@@ -157,8 +157,8 @@ class Genesis_Customizer extends Genesis_Customizer_Base {
 	 *
 	 * @since 2.1.0
 	 *
-	 * @param WP_Customize_Manager $wp_customize WP_Customize_Manager instance.
-	 * @return Return early if the theme does not support genesis-style-selector.
+	 * @param WP_Customize_Manager $wp_customize `WP_Customize_Manager` instance.
+	 * @return null Return early if the theme does not support `genesis-style-selector`.
 	 */
 	private function color_scheme( $wp_customize ) {
 
@@ -313,7 +313,6 @@ class Genesis_Customizer extends Genesis_Customizer_Base {
 	 * @since 2.1.0
 	 *
 	 * @param WP_Customize_Manager $wp_customize WP_Customize_Manager instance.
-	 * @return null Return early if the theme does not support genesis-style-selector.
 	 */
 	private function comments( $wp_customize ) {
 
@@ -374,7 +373,7 @@ class Genesis_Customizer extends Genesis_Customizer_Base {
 			)
 		);
 
-		//* Setting key and default value array
+		// Setting key and default value array.
 		$settings = array(
 			'content_archive'           => 'full',
 			'content_archive_limit'     => '',

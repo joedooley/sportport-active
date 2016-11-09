@@ -11,7 +11,7 @@
  * @link    http://my.studiopress.com/themes/genesis/
  */
 
-add_action( 'genesis_init', 'genesis_create_initial_layouts', 0 );
+add_action( 'genesis_setup', 'genesis_create_initial_layouts' );
 /**
  * Register Genesis default layouts.
  *
@@ -25,13 +25,10 @@ add_action( 'genesis_init', 'genesis_create_initial_layouts', 0 );
  *  - full-width-content
  *
  * @since 1.4.0
- *
- * @uses genesis_register_layout() Register a layout in Genesis.
- * @uses GENESIS_ADMIN_IMAGES_URL  URL path to admin images.
  */
 function genesis_create_initial_layouts() {
 
-	//* Common path to default layout images
+	// Common path to default layout images.
 	$url = GENESIS_ADMIN_IMAGES_URL . '/layouts/';
 
 	$layouts = apply_filters( 'genesis_initial_layouts', array(
@@ -87,14 +84,11 @@ function genesis_create_initial_layouts() {
  *
  * @see genesis_set_default_layout() Set a default layout.
  *
- * @uses GENESIS_ADMIN_IMAGE_URL URL path to admin images.
- *
  * @global array $_genesis_layouts Holds all layouts data.
  *
- * @param string $id  ID of layout.
- * @param array $args Layout data.
- *
- * @return boolean|array Return false if ID is missing or is already set. Return merged $args otherwise.
+ * @param string $id   ID of layout.
+ * @param array  $args Layout data.
+ * @return bool|array Return `false` if ID is missing or is already set. Return merged `$args` otherwise.
  */
 function genesis_register_layout( $id = '', $args = array() ) {
 
@@ -103,7 +97,7 @@ function genesis_register_layout( $id = '', $args = array() ) {
 	if ( ! is_array( $_genesis_layouts ) )
 		$_genesis_layouts = array();
 
-	//* Don't allow empty $id, or double registrations
+	// Don't allow empty $id, or double registrations.
 	if ( ! $id || isset( $_genesis_layouts[$id] ) )
 		return false;
 
@@ -131,8 +125,7 @@ function genesis_register_layout( $id = '', $args = array() ) {
  * @global array $_genesis_layouts Holds all layouts data.
  *
  * @param string $id ID of layout to set as default.
- *
- * @return boolean|string Return false if ID is empty or layout is not registered. Return ID otherwise.
+ * @return bool|string Return `false` if ID is empty or layout is not registered. Return ID otherwise.
  */
 function genesis_set_default_layout( $id = '' ) {
 
@@ -141,11 +134,11 @@ function genesis_set_default_layout( $id = '' ) {
 	if ( ! is_array( $_genesis_layouts ) )
 		$_genesis_layouts = array();
 
-	//* Don't allow empty $id, or unregistered layouts
+	// Don't allow empty $id, or unregistered layouts.
 	if ( ! $id || ! isset( $_genesis_layouts[$id] ) )
 		return false;
 
-	//* Remove default flag for all other layouts
+	// Remove default flag for all other layouts.
 	foreach ( (array) $_genesis_layouts as $key => $value ) {
 		if ( isset( $_genesis_layouts[$key]['default'] ) )
 			unset( $_genesis_layouts[$key]['default'] );
@@ -167,8 +160,7 @@ function genesis_set_default_layout( $id = '' ) {
  * @global array $_genesis_layouts Holds all layout data.
  *
  * @param string $id ID of the layout to unregister.
- *
- * @return boolean Returns false if ID is empty, or layout is not registered.
+ * @return bool `false` if ID is empty, or layout is not registered, `true` if unregister is successful.
  */
 function genesis_unregister_layout( $id = '' ) {
 
@@ -191,26 +183,25 @@ function genesis_unregister_layout( $id = '' ) {
  * @global array $_genesis_layouts Holds all layout data.
  *
  * @param string $type Layout type to return. Leave empty to return all types.
- *
  * @return array Registered layouts.
  */
 function genesis_get_layouts( $type = '' ) {
 
 	global $_genesis_layouts;
 
-	//* If no layouts exists, return empty array
+	// If no layouts exists, return empty array.
 	if ( ! is_array( $_genesis_layouts ) ) {
 		$_genesis_layouts = array();
 		return $_genesis_layouts;
 	}
 
-	//* Return all layouts, if no type specified
+	// Return all layouts, if no type specified.
 	if ( '' === $type )
 		return $_genesis_layouts;
 
 	$layouts = array();
 
-	//* Cycle through looking for layouts of $type
+	// Cycle through looking for layouts of $type.
 	foreach ( (array) $_genesis_layouts as $id => $data ) {
 		if ( $data['type'] === $type )
 			$layouts[$id] = $data;
@@ -225,12 +216,9 @@ function genesis_get_layouts( $type = '' ) {
  *
  * @since 2.0.0
  *
- * @uses  genesis_get_layout() Return all registered Genesis layouts.
- *
  * @global array $_genesis_layouts Holds all layout data.
  *
  * @param string $type Layout type to return. Leave empty to return all types.
- *
  * @return array Registered layouts.
  */
 function genesis_get_layouts_for_customizer( $type = '' ) {
@@ -240,7 +228,7 @@ function genesis_get_layouts_for_customizer( $type = '' ) {
 	if ( empty( $layouts ) )
 		return $layouts;
 
-	//* Simplified layout array
+	// Simplified layout array.
 	foreach ( (array) $layouts as $id => $data )
 		$customizer_layouts[$id] = $data['label'];
 
@@ -253,11 +241,8 @@ function genesis_get_layouts_for_customizer( $type = '' ) {
  *
  * @since 1.4.0
  *
- * @uses genesis_get_layouts() Return all registered Genesis layouts.
- *
  * @param string $id ID of the layout to return data for.
- *
- * @return null|array Returns null if ID is not set, or layout is not registered. Returns array of layout data
+ * @return null|array `null` if ID is not set, or layout is not registered. Array of layout data
  *                    otherwise, with 'label' and 'image' (and possibly 'default') sub-keys.
  */
 function genesis_get_layout( $id ) {
@@ -278,7 +263,7 @@ function genesis_get_layout( $id ) {
  *
  * @global array $_genesis_layouts Holds all layout data.
  *
- * @return string Return ID of the layout, or 'nolayout'.
+ * @return string Return ID of the layout, or `nolayout`.
  */
 function genesis_get_default_layout() {
 
@@ -302,9 +287,7 @@ function genesis_get_default_layout() {
  *
  * @since 2.3.0
  *
- * @uses genesis_get_layouts()
- *
- * @return bool True if more than 1 layout, false otherwise.
+ * @return bool `true` if more than one layout, `false` otherwise.
  */
 function genesis_has_multiple_layouts() {
 
@@ -327,31 +310,25 @@ function genesis_has_multiple_layouts() {
  *
  * @since 0.2.2
  *
- * @uses genesis_get_custom_field()              Get per-post layout value.
- * @uses genesis_get_option()                    Get theme setting layout value.
- * @uses genesis_get_default_layout()            Get default from registered layouts.
- * @uses genesis_has_post_type_archive_support() Check if a post type supports an archive setting page.
- *
  * @global WP_Query $wp_query Query object.
  *
- * @param boolean $use_cache Conditional to use cache or get fresh.
- *
- * @return string Key of layout.
+ * @param bool $use_cache Conditional to use cache or get fresh.
+ * @return string Key of site layout or filtered value of `genesis_site_layout`.
  */
 function genesis_site_layout( $use_cache = true ) {
 
-	//* Allow child theme to short-circuit this function
+	// Allow child theme to short-circuit this function.
 	$pre = apply_filters( 'genesis_site_layout', null );
 	if ( null !== $pre )
 		return $pre;
 
-	//* If we're supposed to use the cache, setup cache. Use if value exists.
+	// If we're supposed to use the cache, setup cache. Use if value exists.
 	if ( $use_cache ) {
 
-		//* Setup cache
+		// Setup cache.
 		static $layout_cache = '';
 
-		//* If cache is populated, return value
+		// If cache is populated, return value.
 		if ( '' !== $layout_cache )
 			return esc_attr( $layout_cache );
 
@@ -359,14 +336,14 @@ function genesis_site_layout( $use_cache = true ) {
 
 	global $wp_query;
 
-	//* If viewing a singular page or post, or the posts page, but not the front page
+	// If viewing a singular page or post, or the posts page, but not the front page.
 	if ( is_singular() || ( is_home() && ! genesis_is_root_page() ) ) {
 		$post_id      = is_home() ? get_option( 'page_for_posts' ) : null;
 		$custom_field = genesis_get_custom_field( '_genesis_layout', $post_id );
 		$site_layout  = $custom_field ? $custom_field : genesis_get_option( 'site_layout' );
 	}
 
-	//* If viewing a taxonomy archive
+	// If viewing a taxonomy archive.
 	elseif ( is_category() || is_tag() || is_tax() ) {
 
 		$term        = $wp_query->get_queried_object();
@@ -375,30 +352,30 @@ function genesis_site_layout( $use_cache = true ) {
 
 	}
 
-	//* If viewing a supported post type
+	// If viewing a supported post type.
 	elseif ( is_post_type_archive() && genesis_has_post_type_archive_support() ) {
 		$site_layout = genesis_get_cpt_option( 'layout' ) ? genesis_get_cpt_option( 'layout' ) : genesis_get_option( 'site_layout' );
 	}
 
-	//* If viewing an author archive
+	// If viewing an author archive.
 	elseif ( is_author() ) {
 		$site_layout = get_the_author_meta( 'layout', (int) get_query_var( 'author' ) ) ? get_the_author_meta( 'layout', (int) get_query_var( 'author' ) ) : genesis_get_option( 'site_layout' );
 	}
 
-	//* Else pull the theme option
+	// Else pull the theme option.
 	else {
 		$site_layout = genesis_get_option( 'site_layout' );
 	}
 
-	//* Use default layout as a fallback, if necessary
+	// Use default layout as a fallback, if necessary.
 	if ( ! genesis_get_layout( $site_layout ) )
 		$site_layout = genesis_get_default_layout();
 
-	//* Push layout into cache, if caching turned on
+	// Push layout into cache, if caching turned on.
 	if ( $use_cache )
 		$layout_cache = $site_layout;
 
-	//* Return site layout
+	// Return site layout.
 	return esc_attr( $site_layout );
 
 }
@@ -419,19 +396,15 @@ function genesis_site_layout( $use_cache = true ) {
  *
  * @since 1.7.0
  *
- * @uses genesis_get_layouts()   Get all registered layouts.
- * @uses genesis_load_admin_js() Enqueue the custom script and localizations used in the admin.
- *
  * @param array $args Optional. Function arguments. Default is empty array.
- *
  * @return string HTML markup of labels, images and radio inputs for layout selector.
  */
 function genesis_layout_selector( $args = array() ) {
 
-	//* Enqueue the Javascript
+	// Enqueue the JavaScript.
 	genesis_load_admin_js();
 
-	//* Merge defaults with user args
+	// Merge defaults with user args.
 	$args = wp_parse_args(
 		$args,
 		array(
@@ -458,7 +431,7 @@ function genesis_layout_selector( $args = array() ) {
 		);
 	}
 
-	//* Echo or return output
+	// Echo or return output.
 	if ( $args['echo'] )
 		echo $output;
 	else
@@ -477,26 +450,25 @@ function genesis_layout_selector( $args = array() ) {
  * @param string $context The location ID.
  * @param string $output  Optional. The markup to include. Can also be 'open'
  *                        (default) or 'closed' to use pre-determined markup for consistency.
- * @param boolean $echo   Optional. Whether to echo or return. Default is true (echo).
- *
- * @return string Wrap HTML.
+ * @param bool   $echo    Optional. Whether to echo or return. Default is true (echo).
+ * @return null|string Wrap HTML, or `null` if `genesis-structural-wraps` support is falsy.
  */
 function genesis_structural_wrap( $context = '', $output = 'open', $echo = true ) {
 
 	$wraps = get_theme_support( 'genesis-structural-wraps' );
 
-	//* If theme doesn't support structural wraps, bail.
+	// If theme doesn't support structural wraps, bail.
 	if ( ! $wraps )
 		return;
 
-	//* Map of old $contexts to new $contexts
+	// Map of old $contexts to new $contexts.
 	$map = array(
 		'nav'    => 'menu-primary',
 		'subnav' => 'menu-secondary',
 		'inner'  => 'site-inner',
 	);
 
-	//* Make the swap, if necessary
+	// Make the swap, if necessary.
 	if ( $swap = array_search( $context, $map ) ) {
 		if ( in_array( $swap, $wraps[0] ) )
 			$wraps[0] = str_replace( $swap, $map[ $swap ], $wraps[0] );
@@ -505,7 +477,7 @@ function genesis_structural_wrap( $context = '', $output = 'open', $echo = true 
 	if ( ! in_array( $context, (array) $wraps[0] ) )
 		return '';
 
-	//* Save original output param
+	// Save original output param.
 	$original_output = $output;
 
 	switch ( $output ) {
@@ -533,7 +505,7 @@ function genesis_structural_wrap( $context = '', $output = 'open', $echo = true 
  *
  * @since 1.7.0
  *
- * @return string 'content-sidebar'
+ * @return string `'content-sidebar'`.
  */
 function __genesis_return_content_sidebar() {
 
@@ -548,7 +520,7 @@ function __genesis_return_content_sidebar() {
  *
  * @since 1.7.0
  *
- * @return string 'sidebar-content'
+ * @return string `'sidebar-content'`.
  */
 function __genesis_return_sidebar_content() {
 
@@ -563,7 +535,7 @@ function __genesis_return_sidebar_content() {
  *
  * @since 1.7.0
  *
- * @return string 'content-sidebar-sidebar'
+ * @return string `'content-sidebar-sidebar'`.
  */
 function __genesis_return_content_sidebar_sidebar() {
 
@@ -578,7 +550,7 @@ function __genesis_return_content_sidebar_sidebar() {
  *
  * @since 1.7.0
  *
- * @return string 'sidebar-sidebar-content'
+ * @return string `'sidebar-sidebar-content'`.
  */
 function __genesis_return_sidebar_sidebar_content() {
 
@@ -593,7 +565,7 @@ function __genesis_return_sidebar_sidebar_content() {
  *
  * @since 1.7.0
  *
- * @return string 'sidebar-content-sidebar'
+ * @return string `'sidebar-content-sidebar'`.
  */
 function __genesis_return_sidebar_content_sidebar() {
 
@@ -608,7 +580,7 @@ function __genesis_return_sidebar_content_sidebar() {
  *
  * @since 1.7.0
  *
- * @return string 'full-width-content'
+ * @return string `'full-width-content'`.
  */
 function __genesis_return_full_width_content() {
 

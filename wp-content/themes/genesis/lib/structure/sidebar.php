@@ -18,8 +18,6 @@ add_action( 'genesis_sidebar', 'genesis_do_sidebar' );
  * Only shows if sidebar is empty, and current user has the ability to edit theme options (manage widgets).
  *
  * @since 1.2.0
- *
- * @uses genesis_default_widget_area_content() Template for default widget are content.
  */
 function genesis_do_sidebar() {
 
@@ -36,8 +34,6 @@ add_action( 'genesis_sidebar_alt', 'genesis_do_sidebar_alt' );
  * Only shows if sidebar is empty, and current user has the ability to edit theme options (manage widgets).
  *
  * @since 1.2.0
- *
- * @uses genesis_default_widget_area_content() Template for default widget are content.
  */
 function genesis_do_sidebar_alt() {
 

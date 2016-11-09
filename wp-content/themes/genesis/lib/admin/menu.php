@@ -23,7 +23,7 @@ add_action( 'after_setup_theme', 'genesis_add_admin_menu' );
  * @global \Genesis_Admin_Settings _genesis_admin_settings          Theme Settings page object.
  * @global string                  _genesis_theme_settings_pagehook Old backwards-compatible pagehook.
  *
- * @return null Returns null if Genesis menu is disabled, or disabled for current user
+ * @return null Return early if not viewing WP admin, Genesis menu is disabled, or disabled for current user.
  */
 function genesis_add_admin_menu() {
 
@@ -35,14 +35,14 @@ function genesis_add_admin_menu() {
 	if ( ! current_theme_supports( 'genesis-admin-menu' ) )
 		return;
 
-	//* Don't add menu item if disabled for current user
+	// Don't add menu item if disabled for current user.
 	$user = wp_get_current_user();
 	if ( ! get_the_author_meta( 'genesis_admin_menu', $user->ID ) )
 		return;
 
 	$_genesis_admin_settings = new Genesis_Admin_Settings;
 
-	//* Set the old global pagehook var for backward compatibility
+	// Set the old global pagehook var for backward compatibility.
 	global $_genesis_theme_settings_pagehook;
 	$_genesis_theme_settings_pagehook = $_genesis_admin_settings->pagehook;
 
@@ -58,43 +58,40 @@ add_action( 'genesis_admin_menu', 'genesis_add_admin_submenus' );
  *
  * @see Genesis_Admin_SEO_Settings SEO Settings class
  * @see Genesis_Admin_Import_export Import / Export class
- * @see Genesis_Admin_Readme Readme class
  *
  * @global string $_genesis_seo_settings_pagehook Old backwards-compatible pagehook.
  * @global string $_genesis_admin_seo_settings
  * @global string $_genesis_admin_import_export
- * @global string $_genesis_admin_readme
  *
- * @return null Returns null if Genesis menu is disabled
+ * @return null Return early if not viewing WP admin, or if Genesis menu is not supported.
  */
 function genesis_add_admin_submenus() {
 
-	//* Do nothing, if not viewing the admin
 	if ( ! is_admin() )
 		return;
 
-	global $_genesis_admin_seo_settings, $_genesis_admin_import_export, $_genesis_admin_readme;
+	global $_genesis_admin_seo_settings, $_genesis_admin_import_export;
 
-	//* Don't add submenu items if Genesis menu is disabled
+	// Don't add submenu items if Genesis menu is disabled.
 	if( ! current_theme_supports( 'genesis-admin-menu' ) )
 		return;
 
 	$user = wp_get_current_user();
 
-	//* Add "SEO Settings" submenu item
+	// Add "SEO Settings" submenu item.
 	if ( current_theme_supports( 'genesis-seo-settings-menu' ) && get_the_author_meta( 'genesis_seo_settings_menu', $user->ID ) ) {
 		$_genesis_admin_seo_settings = new Genesis_Admin_SEO_Settings;
 
-		//* set the old global pagehook var for backward compatibility
+		// set the old global pagehook var for backward compatibility.
 		global $_genesis_seo_settings_pagehook;
 		$_genesis_seo_settings_pagehook = $_genesis_admin_seo_settings->pagehook;
 	}
 
-	//* Add "Import/Export" submenu item
+	// Add "Import/Export" submenu item.
 	if ( current_theme_supports( 'genesis-import-export-menu' ) && get_the_author_meta( 'genesis_import_export_menu', $user->ID ) )
 		$_genesis_admin_import_export = new Genesis_Admin_Import_Export;
 
-	//* Add the upgraded page (no menu)
+	// Add the upgraded page (no menu).
 	new Genesis_Admin_Upgraded;
 
 }
@@ -107,10 +104,6 @@ add_action( 'admin_menu', 'genesis_add_cpt_archive_page', 5 );
  * global variable.
  *
  * @since 2.0.0
- *
- * @uses \Genesis_Admin_CPT_Archive_Settings     CPT Archive Settings page class.
- * @uses genesis_get_cpt_archive_types()         Get list of custom post types which need an archive settings page.
- * @uses genesis_has_post_type_archive_support() Check post type has archive support.
  */
 function genesis_add_cpt_archive_page() {
 	$post_types = genesis_get_cpt_archive_types();

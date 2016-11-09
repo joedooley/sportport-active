@@ -55,6 +55,10 @@ function spa_add_theme_support() {
 	 */
 	load_child_theme_textdomain( 'epik', apply_filters( 'child_theme_textdomain', get_stylesheet_directory() . '/languages', 'epik' ) );
 
+	/**
+	 * Register widgets in widgets.php
+	 */
+	add_action( 'widgets_init', 'check_inn_systems_register_widgets' );
 
 }
 
