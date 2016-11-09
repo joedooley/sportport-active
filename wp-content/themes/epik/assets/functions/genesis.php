@@ -241,6 +241,8 @@ function be_remove_post_title_in_grid() {
 		add_action( 'genesis_entry_content', 'genesis_do_post_title', 9 );
 		add_action( 'genesis_entry_content', 'genesis_entry_header_markup_close', 9 );
 
+		remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
+
 
 	}
 
