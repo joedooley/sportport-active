@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: WooCommerce Google Product Feed
- * Plugin URI: https://www.woothemes.com/products/google-product-feed/
- * Description: Woocommerce extension that allows you to more easily populate advanced attributes into the Google Merchant Centre feed
+ * Plugin URI: https://www.woocommerce.com/products/google-product-feed/
+ * Description: WooCommerce extension that allows you to more easily populate advanced attributes into the Google Merchant Centre feed
  * Author: Lee Willis
- * Version: 6.7.7
+ * Version: 6.8.1
  * Author URI: http://www.leewillis.co.uk/
  * License: GPLv3
  *
@@ -83,15 +83,25 @@ function woocommerce_gpf_includes() {
 add_action( 'template_redirect', 'woocommerce_gpf_includes' );
 
 /**
- * Override the default customer address.
+ * Determine if this is a feed URL.
  *
- * Needs to happen before parse_query, so we have to manually check all sorts of query combinations.
+ * May need to be used before parse_query, so we have to manually check all
+ * sorts of combinations.
+ *
+ * @return boolean  True if a feed is being generated.
  */
-function woocommerce_gpf_set_customer_default_location($location) {
-	if ( ( isset( $_REQUEST['action'] ) && 'woocommerce_gpf' == $_REQUEST['action'] ) ||
-		 ( isset ( $_SERVER['REQUEST_URI'] ) && stripos( $_SERVER['REQUEST_URI'], '/woocommerce_gpf' ) === 0 ) ||
-		 isset( $_REQUEST['woocommerce_gpf'] )
-		  ) {
+function woocommerce_gpf_is_generating_feed() {
+	return
+		( isset( $_REQUEST['action'] ) && 'woocommerce_gpf' === $_REQUEST['action'] ) ||
+		( isset( $_SERVER['REQUEST_URI'] ) && stripos( $_SERVER['REQUEST_URI'], '/woocommerce_gpf' ) === 0 ) ||
+		isset( $_REQUEST['woocommerce_gpf'] );
+}
+
+/**
+ * Override the default customer address.
+ */
+function woocommerce_gpf_set_customer_default_location( $location ) {
+	if ( woocommerce_gpf_is_generating_feed() ) {
 		return wc_format_country_state_string( get_option( 'woocommerce_default_country' ) );
 	} else {
 		return $location;
@@ -156,3 +166,19 @@ function woocommerce_gpf_block_wordpress_gzip_compression() {
 	}
 }
 add_action( 'plugins_loaded', 'woocommerce_gpf_block_wordpress_gzip_compression' );
+
+
+function woocommerce_gpf_prevent_wporg_update_check( $r, $url ) {
+	if ( 0 === strpos( $url, 'https://api.wordpress.org/plugins/update-check/' ) ) {
+		$my_plugin = plugin_basename( __FILE__ );
+		$plugins   = @json_decode( $r['body']['plugins'], true );
+		if ( null === $plugins ) {
+			return $r;
+		}
+		unset( $plugins['active'][ array_search( $my_plugin, $plugins['active'] ) ] );
+		unset( $plugins['plugins'][ $my_plugin ] );
+		$r['body']['plugins'] = json_encode( $plugins );
+	}
+	return $r;
+}
+add_filter( 'http_request_args', 'woocommerce_gpf_prevent_wporg_update_check', 10, 2 );

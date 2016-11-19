@@ -47,9 +47,8 @@ class FacetWP_Facet_Autocomplete
         SELECT DISTINCT post_id FROM {$wpdb->prefix}facetwp_index
         WHERE facet_name = %s AND facet_display_value LIKE %s";
 
-        return $wpdb->get_col(
-            $wpdb->prepare( $sql, $facet['name'], '%' . $selected_values . '%' )
-        );
+        $sql = $wpdb->prepare( $sql, $facet['name'], '%' . $selected_values . '%' );
+        return facetwp_sql( $sql, $facet );
     }
 
 

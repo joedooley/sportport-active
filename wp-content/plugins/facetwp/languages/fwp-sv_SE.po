@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: FacetWP\n"
-"POT-Creation-Date: 2016-10-05 20:27-0400\n"
+"POT-Creation-Date: 2016-11-13 19:49-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Matt Gibbs <hello@facetwp.com>\n"
 "Language-Team: Johan Falk <johan@wpkonsulterna.se>\n"
@@ -9,9 +9,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.8.11\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: includes/class-ajax.php:191
@@ -38,37 +39,37 @@ msgstr "Hoppade över"
 msgid "Error"
 msgstr "Fel"
 
-#: includes/class-facet.php:448 includes/class-facet.php:565
+#: includes/class-facet.php:449 includes/class-facet.php:566
 msgid "of"
 msgstr "av"
 
-#: includes/class-facet.php:482 includes/facets/checkboxes.php:315
+#: includes/class-facet.php:483 includes/facets/checkboxes.php:315
 #: includes/facets/dropdown.php:201 includes/facets/fselect.php:273
-#: includes/facets/hierarchy.php:192 includes/facets/radio.php:216
+#: includes/facets/hierarchy.php:218 includes/facets/radio.php:216
 msgid "Sort by"
 msgstr "Sortera efter"
 
-#: includes/class-facet.php:486
+#: includes/class-facet.php:487
 msgid "Title (A-Z)"
 msgstr "Titel (A-Ö)"
 
-#: includes/class-facet.php:493
+#: includes/class-facet.php:494
 msgid "Title (Z-A)"
 msgstr "Titel (Ö-A)"
 
-#: includes/class-facet.php:500
+#: includes/class-facet.php:501
 msgid "Date (Newest)"
 msgstr "Datum (senaste)"
 
-#: includes/class-facet.php:507
+#: includes/class-facet.php:508
 msgid "Date (Oldest)"
 msgstr "Datum (äldsta)"
 
-#: includes/class-facet.php:564
+#: includes/class-facet.php:565
 msgid "Page"
 msgstr "Sida"
 
-#: includes/class-facet.php:615
+#: includes/class-facet.php:616
 msgid "Per page"
 msgstr "Per sida"
 
@@ -124,11 +125,11 @@ msgstr "Börja skriva..."
 msgid "Update"
 msgstr "Uppdatera"
 
-#: includes/facets/autocomplete.php:83
+#: includes/facets/autocomplete.php:82
 msgid "No results"
 msgstr "Inga resultat"
 
-#: includes/facets/autocomplete.php:125 includes/facets/search.php:102
+#: includes/facets/autocomplete.php:124 includes/facets/search.php:102
 msgid "Placeholder text"
 msgstr "Platshållartext"
 
@@ -140,7 +141,7 @@ msgstr "Kryssrutor"
 msgid "See {num} more"
 msgstr "Se {num} mer"
 
-#: includes/facets/checkboxes.php:160 includes/facets/hierarchy.php:129
+#: includes/facets/checkboxes.php:160 includes/facets/hierarchy.php:158
 msgid "See less"
 msgstr "Visa färre"
 
@@ -150,19 +151,19 @@ msgid "Parent term"
 msgstr "Föräldrabenämning"
 
 #: includes/facets/checkboxes.php:318 includes/facets/dropdown.php:204
-#: includes/facets/fselect.php:276 includes/facets/hierarchy.php:195
+#: includes/facets/fselect.php:276 includes/facets/hierarchy.php:221
 #: includes/facets/radio.php:219
 msgid "Highest Count"
 msgstr "Högsta antal"
 
 #: includes/facets/checkboxes.php:319 includes/facets/dropdown.php:205
-#: includes/facets/fselect.php:277 includes/facets/hierarchy.php:196
+#: includes/facets/fselect.php:277 includes/facets/hierarchy.php:222
 #: includes/facets/radio.php:220
 msgid "Display Value"
 msgstr "Visningsvärde"
 
 #: includes/facets/checkboxes.php:320 includes/facets/dropdown.php:206
-#: includes/facets/fselect.php:278 includes/facets/hierarchy.php:197
+#: includes/facets/fselect.php:278 includes/facets/hierarchy.php:223
 #: includes/facets/radio.php:221
 msgid "Raw Value"
 msgstr "Obearbetat värde"
@@ -194,14 +195,14 @@ msgstr "Är detta en hierarkisk taxonomi?"
 #: includes/facets/checkboxes.php:349 includes/facets/checkboxes.php:364
 #: includes/facets/checkboxes.php:379 includes/facets/dropdown.php:220
 #: includes/facets/fselect.php:245 includes/facets/radio.php:235
-#: includes/facets/radio.php:250 includes/integrations/acf/acf.php:197
+#: includes/facets/radio.php:250 includes/integrations/acf/acf.php:208
 msgid "No"
 msgstr "Nej"
 
 #: includes/facets/checkboxes.php:350 includes/facets/checkboxes.php:365
 #: includes/facets/checkboxes.php:380 includes/facets/dropdown.php:221
 #: includes/facets/fselect.php:246 includes/facets/radio.php:236
-#: includes/facets/radio.php:251 includes/integrations/acf/acf.php:197
+#: includes/facets/radio.php:251 includes/integrations/acf/acf.php:208
 msgid "Yes"
 msgstr "Ja"
 
@@ -222,13 +223,13 @@ msgid "Keep ghost choices in the same order?"
 msgstr "Håll spökval i samma ordning?"
 
 #: includes/facets/checkboxes.php:386 includes/facets/dropdown.php:227
-#: includes/facets/fselect.php:299 includes/facets/hierarchy.php:203
+#: includes/facets/fselect.php:299 includes/facets/hierarchy.php:229
 #: includes/facets/radio.php:257
 msgid "Count"
 msgstr "Antal"
 
 #: includes/facets/checkboxes.php:389 includes/facets/dropdown.php:230
-#: includes/facets/fselect.php:302 includes/facets/hierarchy.php:206
+#: includes/facets/fselect.php:302 includes/facets/hierarchy.php:232
 #: includes/facets/radio.php:260
 msgid "The maximum number of facet choices to show"
 msgstr "Det maximala antalet fasettval att visa"
@@ -249,105 +250,61 @@ msgstr "Datumintervall"
 msgid "Date"
 msgstr "Datum"
 
-#: includes/facets/date_range.php:27 includes/facets/date_range.php:183
+#: includes/facets/date_range.php:27 includes/facets/date_range.php:179
 msgid "Start Date"
 msgstr "Startdatum"
 
-#: includes/facets/date_range.php:30 includes/facets/date_range.php:184
+#: includes/facets/date_range.php:30 includes/facets/date_range.php:180
 msgid "End Date"
 msgstr "Slutdatum"
 
-#: includes/facets/date_range.php:120
-msgid "January"
-msgstr "Januari"
-
-#: includes/facets/date_range.php:121
-msgid "February"
-msgstr "Februari"
-
-#: includes/facets/date_range.php:122
-msgid "March"
-msgstr "Mars"
-
-#: includes/facets/date_range.php:123
-msgid "April"
-msgstr "April"
-
-#: includes/facets/date_range.php:124
-msgid "May"
-msgstr "Maj"
-
-#: includes/facets/date_range.php:125
-msgid "June"
-msgstr "Juni"
-
 #: includes/facets/date_range.php:126
-msgid "July"
-msgstr "Juli"
+msgid "Clear"
+msgstr "Rensa"
 
-#: includes/facets/date_range.php:127
-msgid "August"
-msgstr "Augusti"
-
-#: includes/facets/date_range.php:128
-msgid "September"
-msgstr "September"
-
-#: includes/facets/date_range.php:129
-msgid "October"
-msgstr "Oktober"
-
-#: includes/facets/date_range.php:130
-msgid "November"
-msgstr "November"
-
-#: includes/facets/date_range.php:131
-msgid "December"
-msgstr "December"
-
-#: includes/facets/date_range.php:149 includes/facets/number_range.php:106
-#: includes/facets/slider.php:167
+#: includes/facets/date_range.php:145 includes/facets/number_range.php:109
+#: includes/facets/slider.php:170
 msgid "Other data source"
 msgstr "Annan datakälla"
 
-#: includes/facets/date_range.php:152 includes/facets/number_range.php:109
-#: includes/facets/slider.php:170
+#: includes/facets/date_range.php:148 includes/facets/number_range.php:112
+#: includes/facets/slider.php:173
 msgid "Use a separate value for the upper limit?"
 msgstr "Använd en separat värde för den övre gränsen?"
 
-#: includes/facets/date_range.php:157 includes/facets/number_range.php:114
-#: includes/facets/slider.php:175
+#: includes/facets/date_range.php:153 includes/facets/number_range.php:117
+#: includes/facets/slider.php:178
 msgid "None"
 msgstr "Inget"
 
-#: includes/facets/date_range.php:169 includes/facets/number_range.php:126
-#: includes/facets/slider.php:187
+#: includes/facets/date_range.php:165 includes/facets/number_range.php:129
+#: includes/facets/slider.php:190
 msgid "Compare type"
 msgstr "Jämför typ"
 
-#: includes/facets/date_range.php:172 includes/facets/number_range.php:129
-#: includes/facets/slider.php:190
+#: includes/facets/date_range.php:168 includes/facets/number_range.php:132
+#: includes/facets/slider.php:193
 msgid "Basic"
 msgstr "Grundläggande"
 
-#: includes/facets/date_range.php:173 includes/facets/number_range.php:130
-#: includes/facets/slider.php:191
+#: includes/facets/date_range.php:169 includes/facets/number_range.php:133
+#: includes/facets/slider.php:194
 msgid "Intersect"
 msgstr "Skär av"
 
-#: includes/facets/date_range.php:178
+#: includes/facets/date_range.php:174
 msgid "Fields to show"
 msgstr "Fält att visa"
 
-#: includes/facets/date_range.php:181
+#: includes/facets/date_range.php:177
 msgid "Start + End Dates"
 msgstr "Start + slutdatum"
 
-#: includes/facets/date_range.php:182
+#: includes/facets/date_range.php:178
 msgid "Exact Date"
 msgstr "Exakt datum"
 
-#: includes/facets/date_range.php:190
+#: includes/facets/date_range.php:186
 msgid "Display format"
 msgstr "visningsformat"
 
@@ -357,7 +314,7 @@ msgstr "Rullgardin"
 
 #: includes/facets/dropdown.php:87 includes/facets/dropdown.php:181
 #: includes/facets/fselect.php:98 includes/facets/fselect.php:171
-#: includes/facets/fselect.php:253 includes/facets/hierarchy.php:71
+#: includes/facets/fselect.php:253 includes/facets/hierarchy.php:73
 msgid "Any"
 msgstr "Alla"
 
@@ -385,7 +342,7 @@ msgstr "Multi välj"
 msgid "Hierarchy"
 msgstr "Hierarki"
 
-#: includes/facets/hierarchy.php:128
+#: includes/facets/hierarchy.php:157
 msgid "See more"
 msgstr "Se mer"
 
@@ -449,35 +406,35 @@ msgstr "Reglage"
 msgid "Reset"
 msgstr "Återställ"
 
-#: includes/facets/slider.php:197
+#: includes/facets/slider.php:200
 msgid "Prefix"
 msgstr "Prefix"
 
-#: includes/facets/slider.php:200
+#: includes/facets/slider.php:203
 msgid "Text that appears before each slider value"
 msgstr "Text som visas innan varje reglagevärde"
 
-#: includes/facets/slider.php:207
+#: includes/facets/slider.php:210
 msgid "Suffix"
 msgstr "Suffix"
 
-#: includes/facets/slider.php:210
+#: includes/facets/slider.php:213
 msgid "Text that appears after each slider value"
 msgstr "Text som visas efter varje reglage värde"
 
-#: includes/facets/slider.php:217
+#: includes/facets/slider.php:220
 msgid "Format"
 msgstr "Format"
 
-#: includes/facets/slider.php:220
+#: includes/facets/slider.php:223
 msgid "The number format"
 msgstr "Nummerformat"
 
-#: includes/facets/slider.php:241
+#: includes/facets/slider.php:244
 msgid "Step"
 msgstr "Steg"
 
-#: includes/facets/slider.php:244
+#: includes/facets/slider.php:247
 msgid "The amount of increase between intervals"
 msgstr "Mängden ökningen mellan intervaller"
 
@@ -485,24 +442,40 @@ msgstr "Mängden ökningen mellan intervaller"
 msgid "Default"
 msgstr "Standard"
 
-#: includes/integrations/woocommerce/woocommerce.php:29
+#: includes/integrations/woocommerce/woocommerce.php:38
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: includes/integrations/woocommerce/woocommerce.php:31
+#: includes/integrations/woocommerce/woocommerce.php:40
+msgid "Price"
+msgstr "Pris"
+
+#: includes/integrations/woocommerce/woocommerce.php:41
+msgid "Sale Price"
+msgstr "Kampanjpris"
+
+#: includes/integrations/woocommerce/woocommerce.php:42
+msgid "Regular Price"
+msgstr "Ordinarie pris"
+
+#: includes/integrations/woocommerce/woocommerce.php:43
+msgid "Average Rating"
+msgstr "Genomsnittligt betyg"
+
+#: includes/integrations/woocommerce/woocommerce.php:44
 msgid "Stock Status"
 msgstr "Lagerstatus"
 
-#: includes/integrations/woocommerce/woocommerce.php:32
-#: includes/integrations/woocommerce/woocommerce.php:66
+#: includes/integrations/woocommerce/woocommerce.php:45
+#: includes/integrations/woocommerce/woocommerce.php:239
 msgid "On Sale"
 msgstr "På rea"
 
-#: includes/integrations/woocommerce/woocommerce.php:58
+#: includes/integrations/woocommerce/woocommerce.php:231
 msgid "In Stock"
 msgstr "I lager"
 
-#: includes/integrations/woocommerce/woocommerce.php:58
+#: includes/integrations/woocommerce/woocommerce.php:231
 msgid "Out of Stock"
 msgstr "Slut i lager"
 
@@ -578,103 +551,103 @@ msgstr "Support"
 msgid "Welcome to FacetWP"
 msgstr "Välkommen till FacetWP"
 
-#: templates/page-settings.php:136 templates/page-settings.php:160
+#: templates/page-settings.php:132 templates/page-settings.php:156
 msgid "Add New"
 msgstr "Skapa Ny"
 
-#: templates/page-settings.php:139 templates/page-settings.php:163
+#: templates/page-settings.php:135 templates/page-settings.php:159
 msgid "Back"
 msgstr "Tillbaka"
 
-#: templates/page-settings.php:143
+#: templates/page-settings.php:139
 msgid "Re-index"
 msgstr "Återindexera"
 
-#: templates/page-settings.php:144 templates/page-settings.php:167
-#: templates/page-settings.php:184
+#: templates/page-settings.php:140 templates/page-settings.php:163
+#: templates/page-settings.php:180
 msgid "Save Changes"
 msgstr "Spara ändringar"
 
-#: templates/page-settings.php:191
+#: templates/page-settings.php:187
 msgid "License Key"
 msgstr "Licensnyckel"
 
-#: templates/page-settings.php:194
+#: templates/page-settings.php:190
 msgid "Activate"
 msgstr "Aktivera"
 
-#: templates/page-settings.php:205
+#: templates/page-settings.php:201
 msgid "Separators"
 msgstr "separatorer"
 
-#: templates/page-settings.php:208
+#: templates/page-settings.php:204
 msgid "Thousands"
 msgstr "Tusen"
 
-#: templates/page-settings.php:210
+#: templates/page-settings.php:206
 msgid "Decimal"
 msgstr "Decimala talsystemet"
 
-#: templates/page-settings.php:221 templates/page-settings.php:229
+#: templates/page-settings.php:217 templates/page-settings.php:225
 msgid "Export"
 msgstr "Export"
 
-#: templates/page-settings.php:237 templates/page-settings.php:242
+#: templates/page-settings.php:233 templates/page-settings.php:238
 msgid "Import"
 msgstr "Import"
 
-#: templates/page-settings.php:240
+#: templates/page-settings.php:236
 msgid "Paste the import code here"
 msgstr "Klistra importkoden här"
 
-#: templates/page-settings.php:241
+#: templates/page-settings.php:237
 msgid "Overwrite existing items?"
 msgstr "Skriv över befintliga objekt?"
 
-#: templates/page-settings.php:266
+#: templates/page-settings.php:262
 msgid "Label"
 msgstr "Etikett"
 
-#: templates/page-settings.php:270 templates/page-settings.php:313
+#: templates/page-settings.php:266 templates/page-settings.php:309
 msgid "Name"
 msgstr "Namn"
 
-#: templates/page-settings.php:274
+#: templates/page-settings.php:270
 msgid "Facet type"
 msgstr "Fasetttyp"
 
-#: templates/page-settings.php:285
+#: templates/page-settings.php:281
 msgid "Data source"
 msgstr "Datakälla"
 
-#: templates/page-settings.php:300
+#: templates/page-settings.php:296
 msgid "Other settings"
 msgstr "Övrigt"
 
-#: templates/page-settings.php:316
+#: templates/page-settings.php:312
 msgid "Open query builder"
 msgstr "Öppna Frågeverktyget"
 
-#: templates/page-settings.php:317
+#: templates/page-settings.php:313
 msgid "Query Arguments"
 msgstr "Frågeargument"
 
-#: templates/page-settings.php:321
+#: templates/page-settings.php:317
 msgid "What goes here?"
 msgstr "Vad händer här?"
 
-#: templates/page-settings.php:322
+#: templates/page-settings.php:318
 msgid "Display Code"
 msgstr "Visningskod"
 
-#: templates/page-settings.php:336
+#: templates/page-settings.php:332
 msgid "Query Builder"
 msgstr "Query Builder"
 
-#: templates/page-settings.php:340
+#: templates/page-settings.php:336
 msgid "Which posts would you like to use for the content listing?"
 msgstr "Vilka inlägg vill du använda den innehåll lista?"
 
-#: templates/page-settings.php:349
+#: templates/page-settings.php:345
 msgid "Send to editor"
 msgstr "Skicka till redaktör"

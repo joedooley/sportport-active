@@ -187,7 +187,6 @@ class WoocommerceGpfFrontend {
 	 * Adjusts the prices of the feed item according to child products.
 	 */
 	private function adjust_prices_for_children( $prices, $woocommerce_product ) {
-
 		if ( ! $woocommerce_product->has_child() ) {
 			return $prices;
 		}
@@ -257,7 +256,7 @@ class WoocommerceGpfFrontend {
 		} else {
 			$tmp_product_data = array();
 		}
-		if ( isset ( $tmp_product_data['exclude_product'] ) ) {
+		if ( ! empty( $tmp_product_data['exclude_product'] ) ) {
 			$excluded = true;
 		}
 		return apply_filters( 'woocommerce_gpf_exclude_product', $excluded, $woocommerce_product->id, $this->feed_format );
@@ -269,26 +268,44 @@ class WoocommerceGpfFrontend {
 	 * @param  Object  &$feed_item  The feed item.
 	 */
 	private function get_additional_images( &$feed_item ) {
-		// Get other images
+		// Look for additional images.
 		$feed_item->additional_images = array();
+		$excluded_ids[] = get_post_meta( $feed_item->ID, '_thumbnail_id', true );
 
-		$main_thumbnail = get_post_meta( $feed_item->ID, '_thumbnail_id', true );
-		$images = get_children(
-			array(
-				'post_parent' => $feed_item->ID,
-				'post_status' => 'inherit',
-				'post_type' => 'attachment',
-				'post_mime_type' => 'image',
-				'exclude' => isset( $main_thumbnail ) ? $main_thumbnail : '',
-				'order' => 'ASC',
-				'orderby' => 'menu_order',
-			)
-		);
-
-		if ( is_array( $images ) && count( $images ) ) {
-			foreach ( $images as $image ) {
-				$full_image_src = wp_get_attachment_image_src( $image->ID, $this->image_style );
-				$feed_item->additional_images[] = $full_image_src[0];
+		// List product gallery images first.
+		if ( apply_filters( 'woocommerce_gpf_include_product_gallery_images', true ) ) {
+			$product_gallery_images = get_post_meta( $feed_item->ID, '_product_image_gallery', true );
+			$product_gallery_images = explode( ',', $product_gallery_images );
+			if ( is_array( $product_gallery_images ) && count( $product_gallery_images ) ) {
+				foreach ( $product_gallery_images as $product_gallery_image_id ) {
+					if ( in_array( $product_gallery_image_id, $excluded_ids ) ) {
+						continue;
+					}
+					$full_image_src = wp_get_attachment_image_src( $product_gallery_image_id, $this->image_style );
+					$feed_item->additional_images[] = $full_image_src[0];
+					$excluded_ids[] = $product_gallery_image_id;
+				}
+			}
+		}
+		if ( apply_filters( 'woocommerce_gpf_include_attached_images', true ) ) {
+			$images = get_children(
+				array(
+					'post_parent' => $feed_item->ID,
+					'post_status' => 'inherit',
+					'post_type' => 'attachment',
+					'post_mime_type' => 'image',
+					'order' => 'ASC',
+					'orderby' => 'menu_order',
+				)
+			);
+			if ( is_array( $images ) && count( $images ) ) {
+				foreach ( $images as $image ) {
+					if ( in_array( $image->ID, $excluded_ids ) ) {
+						continue;
+					}
+					$full_image_src = wp_get_attachment_image_src( $image->ID, $this->image_style );
+					$feed_item->additional_images[] = $full_image_src[0];
+				}
 			}
 		}
 	}
@@ -422,7 +439,10 @@ class WoocommerceGpfFrontend {
 		$feed_item->shipping_weight     = apply_filters( 'woocommerce_gpf_shipping_weight', $woocommerce_product->get_weight(), $feed_item->ID );
 		$feed_item->is_in_stock         = $woocommerce_product->is_in_stock();
 		$feed_item->sku                 = $woocommerce_product->get_sku();
-		$feed_item->categories          = wp_get_object_terms( $feed_item->ID, 'product_cat' );
+		$feed_item->categories          = get_the_terms( $feed_item->ID, 'product_cat' );
+		if ( false === $feed_item->categories ) {
+			$feed_item->categories = array();
+		}
 
 		// General, or feed-specific items
 		$feed_item->additional_elements = apply_filters( 'woocommerce_gpf_elements', array(), $feed_item->ID, null );
@@ -473,6 +493,7 @@ class WoocommerceGpfFrontend {
 			);
 			// Use the variation description if possible, main product description if not.
 			$feed_item->description = $variation_product->get_variation_description();
+
 			if ( empty( $feed_item->description ) ) {
 				$feed_item->description = $post->post_content;
 			}
@@ -494,7 +515,10 @@ class WoocommerceGpfFrontend {
 			$feed_item->shipping_weight     = apply_filters( 'woocommerce_gpf_shipping_weight', $variation_product->get_weight(), $variation_id );
 			$feed_item->is_in_stock         = $variation_product->is_in_stock();
 			$feed_item->sku                 = $variation_product->get_sku();
-			$feed_item->categories          = wp_get_object_terms( $post->ID, 'product_cat' );
+			$feed_item->categories          = get_the_terms( $post->ID, 'product_cat' );
+			if ( false === $feed_item->categories ) {
+				$feed_item->categories = array();
+			}
 
 			// General, or feed-specific items
 			$feed_item->additional_elements = apply_filters( 'woocommerce_gpf_elements', array(), $post->ID, $variation_id );
@@ -526,7 +550,6 @@ class WoocommerceGpfFrontend {
 
 		// Retrieve the info set against the product by this plugin.
 		$product_values   = $woocommerce_gpf_common->get_values_for_product( $product_id, $this->feed_format );
-
 		// Merge variation values over the top if this is a variation.
 		if ( $variation_id !== null ) {
 			$variation_values = $woocommerce_gpf_common->get_values_for_variation( $variation_id, $this->feed_format );

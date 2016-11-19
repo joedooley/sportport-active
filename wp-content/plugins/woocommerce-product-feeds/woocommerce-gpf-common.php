@@ -334,6 +334,7 @@ class WoocommerceGpfCommon {
 			$prepopulated_values = $this->remove_blanks( $prepopulated_values );
 			$values              = array_merge( $values, $prepopulated_values );
 		}
+
 		// Merge per-product settings.
 		$product_settings = get_post_meta( $variation_id, '_woocommerce_gpf_data', true );
 		if ( $product_settings ) {
@@ -372,9 +373,12 @@ class WoocommerceGpfCommon {
 		$settings = $this->remove_blanks( $this->settings['product_defaults'] );
 
 		// Merge category settings
-		$categories = wp_get_object_terms( $product_id, 'product_cat', array( 'fields' => 'ids' ) );
-
-		foreach ( $categories as $category_id ) {
+		$categories = get_the_terms( $product_id, 'product_cat' );
+		if ( false === $categories ) {
+			$categories = array();
+		}
+		foreach ( $categories as $category ) {
+			$category_id = $category->term_id;
 			$category_settings = $this->get_values_for_category( $category_id );
 			$category_settings = $this->remove_blanks( $category_settings );
 			if ( 'all' != $feed_format ) {
@@ -515,30 +519,33 @@ class WoocommerceGpfCommon {
 			$attributes = $product->get_variation_attributes();
 			// If the requested taxonomy is used as an attribute, grab it's value for this variation.
 			if ( isset( $attributes[ 'attribute_' . $value ] ) ) {
-				$term = get_term_by( 'slug', $attributes[ 'attribute_' . $value ], $value );
-				if ( $term !== false ) {
-					$result = array( $term->name );
-				} else {
+				$terms = get_terms( array(
+					'taxonomy' => $value,
+					'slug'     => $attributes[ 'attribute_' . $value ],
+				) );
+				if ( empty( $terms ) || is_wp_error( $terms ) ) {
 					$result = array();
+				} else {
+					$result = array( $terms[0]->name );
 				}
 			} else {
 				// Otherwise grab the values to use direct from the term relationships.
-				$terms = wp_get_object_terms( $product_id, array( $value ), array( 'fields' => 'names' ) );
+				$terms = get_the_terms( $product_id, $value );
 				if ( ! empty( $terms ) ) {
-					$result = $terms;
+					$result = wp_list_pluck( $terms, 'name' );
 				} elseif ( ! empty( $product->parent->id ) ) {
 					// Couldn't find it against the variation - grab the parent product value.
-					$terms = wp_get_object_terms( $product->parent->id, array( $value ), array( 'fields' => 'names' ) );
+					$terms = get_the_terms( $product->parent->id, $value );
 					if ( ! empty( $terms ) ) {
-						$result = $terms;
+						$result = wp_list_pluck( $terms, 'name' );
 					}
 				}
 			}
 		} else {
 			// Get the term(s) tagged against the main product.
-			$terms = wp_get_object_terms( $product_id, array( $value ), array( 'fields' => 'names' ) );
+			$terms = get_the_terms( $product_id, $value );
 			if ( ! empty( $terms ) ) {
-				$result = $terms;
+				$result = wp_list_pluck( $terms, 'name' );
 			}
 		}
 		return $result;

@@ -59,7 +59,7 @@ class FacetWP_Facet_Radio_Core
         $limit = ctype_digit( $facet['count'] ) ? $facet['count'] : 20;
 
         $sql = "
-        SELECT f.facet_value, f.facet_display_value, f.term_id, f.parent_id, f.depth, COUNT(*) AS counter
+        SELECT f.facet_value, f.facet_display_value, f.term_id, f.parent_id, f.depth, COUNT(DISTINCT f.post_id) AS counter
         FROM $from_clause
         WHERE f.facet_name = '{$facet['name']}' $where_clause
         GROUP BY f.facet_value
@@ -156,7 +156,7 @@ class FacetWP_Facet_Radio_Core
         $sql = "
         SELECT DISTINCT post_id FROM {$wpdb->prefix}facetwp_index
         WHERE facet_name = '{$facet['name']}' AND facet_value IN ('$selected_values')";
-        return $wpdb->get_col( $sql );
+        return facetwp_sql( $sql, $facet );
     }
 
 

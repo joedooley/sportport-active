@@ -66,7 +66,7 @@ class FacetWP_Facet_Checkboxes
         $where_clause = apply_filters( 'facetwp_facet_where', $where_clause, $facet );
 
         $sql = "
-        SELECT f.facet_value, f.facet_display_value, f.term_id, f.parent_id, f.depth, COUNT(*) AS counter
+        SELECT f.facet_value, f.facet_display_value, f.term_id, f.parent_id, f.depth, COUNT(DISTINCT f.post_id) AS counter
         FROM $from_clause
         WHERE f.facet_name = '{$facet['name']}' $where_clause
         GROUP BY f.facet_value
@@ -223,7 +223,7 @@ class FacetWP_Facet_Checkboxes
         // Match ALL values
         if ( 'and' == $facet['operator'] ) {
             foreach ( $selected_values as $key => $value ) {
-                $results = $wpdb->get_col( $sql . " AND facet_value IN ('$value')" );
+                $results = facetwp_sql( $sql . " AND facet_value IN ('$value')", $facet );
                 $output = ( $key > 0 ) ? array_intersect( $output, $results ) : $results;
 
                 if ( empty( $output ) ) {
@@ -234,7 +234,7 @@ class FacetWP_Facet_Checkboxes
         // Match ANY value
         else {
             $selected_values = implode( "','", $selected_values );
-            $output = $wpdb->get_col( $sql . " AND facet_value IN ('$selected_values')" );
+            $output = facetwp_sql( $sql . " AND facet_value IN ('$selected_values')", $facet );
         }
 
         return $output;

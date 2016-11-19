@@ -77,7 +77,7 @@ class FacetWP_Facet_Date_Range
         $sql = "
         SELECT DISTINCT post_id FROM {$wpdb->prefix}facetwp_index
         WHERE facet_name = '{$facet['name']}' $where";
-        return $wpdb->get_col( $sql );
+        return facetwp_sql( $sql, $facet );
     }
 
 
@@ -118,26 +118,19 @@ class FacetWP_Facet_Date_Range
      * Output any front-end scripts
      */
     function front_scripts() {
-        $i18n = array(
-            'months' => array(
-                __( 'January', 'fwp' ),
-                __( 'February', 'fwp' ),
-                __( 'March', 'fwp' ),
-                __( 'April', 'fwp' ),
-                __( 'May', 'fwp' ),
-                __( 'June', 'fwp' ),
-                __( 'July', 'fwp' ),
-                __( 'August', 'fwp' ),
-                __( 'September', 'fwp' ),
-                __( 'October', 'fwp' ),
-                __( 'November', 'fwp' ),
-                __( 'December', 'fwp' ),
-            ),
-        );
+        $locale = get_locale();
+        $locale = empty( $locale ) ? 'en' : substr( $locale, 0, 2 );
 
-        FWP()->display->json['datepicker'] = $i18n;
-        FWP()->display->assets['flatpickr.css'] = FACETWP_URL . '/assets/js/flatpickr/flatpickr.min.css';
+        FWP()->display->json['datepicker'] = array(
+            'locale'    => $locale,
+            'clearText' => __( 'Clear', 'fwp' ),
+        );
+        FWP()->display->assets['flatpickr.css'] = FACETWP_URL . '/assets/js/flatpickr/flatpickr.css';
         FWP()->display->assets['flatpickr.js'] = FACETWP_URL . '/assets/js/flatpickr/flatpickr.min.js';
+
+        if ( 'en' != $locale ) {
+            FWP()->display->assets['flatpickr-l10n.js'] = FACETWP_URL . "/assets/js/flatpickr/l10n/$locale.js";
+        }
     }
 
 

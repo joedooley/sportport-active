@@ -65,7 +65,7 @@ class FacetWP_Facet_Number_Range
         $sql = "
         SELECT DISTINCT post_id FROM {$wpdb->prefix}facetwp_index
         WHERE facet_name = '{$facet['name']}' $where";
-        return $wpdb->get_col( $sql );
+        return facetwp_sql( $sql, $facet );
     }
 
 

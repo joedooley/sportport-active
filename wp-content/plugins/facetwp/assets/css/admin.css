@@ -51,6 +51,13 @@
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
 }
 
+.facetwp-alert {
+    padding: 15px 20px;
+    margin: -20px -20px 20px -20px;
+    background-color: rgba(0, 188, 212, 0.1);
+    border-bottom: 1px solid rgba(0, 188, 212, 0.4);
+}
+
 /* Loading animation */
 
 .facetwp-loading {
@@ -254,7 +261,7 @@
 
 .facetwp-cards li {
     display: inline-block;
-    border-left: 8px solid #906DBE;
+    border-left: 6px solid #906DBE;
     margin: 6px;
     width: 240px;
     cursor: pointer;
@@ -319,8 +326,8 @@
 }
 
 .facetwp-region-welcome .about-text {
-    margin: 15px 0 0 0;
-    max-width: none;
+    margin: 0 0 15px 0;
+    min-height: initial;
 }
 
 .facetwp-region-welcome .welcome-box-wrap {

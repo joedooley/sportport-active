@@ -250,6 +250,7 @@ class FacetWP_Indexer
                     'term_id'               => 0,
                     'parent_id'             => 0,
                     'depth'                 => 0,
+                    'variation_id'          => 0,
                 );
 
                 // Set flag for custom facet indexing
@@ -432,7 +433,7 @@ class FacetWP_Indexer
         }
 
         $wpdb->query( $wpdb->prepare( "INSERT INTO {$wpdb->prefix}facetwp_index
-            (post_id, facet_name, facet_source, facet_value, facet_display_value, term_id, parent_id, depth) VALUES (%d, %s, %s, %s, %s, %d, %d, %d)",
+            (post_id, facet_name, facet_source, facet_value, facet_display_value, term_id, parent_id, depth, variation_id) VALUES (%d, %s, %s, %s, %s, %d, %d, %d, %d)",
             $params['post_id'],
             $params['facet_name'],
             $params['facet_source'],
@@ -440,7 +441,8 @@ class FacetWP_Indexer
             $params['facet_display_value'],
             $params['term_id'],
             $params['parent_id'],
-            $params['depth']
+            $params['depth'],
+            $params['variation_id']
         ) );
     }
 

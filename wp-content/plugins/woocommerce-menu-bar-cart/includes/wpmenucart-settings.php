@@ -256,7 +256,7 @@ class WpMenuCart_Settings {
 	 * Add settings link to plugins page
 	 */
 	public function wpmenucart_add_settings_link( $links ) {
-		$settings_link = '<a href="options-general.php?page=wpmenucart_options_page">'. __( 'Settings', 'woocommerce' ) . '</a>';
+		$settings_link = '<a href="admin.php?page=wpmenucart_options_page">'. __( 'Settings', 'woocommerce' ) . '</a>';
 		array_push( $links, $settings_link );
 		return $links;
 	}

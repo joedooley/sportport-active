@@ -119,12 +119,10 @@ FWP.builder = {
 
     <div class="facetwp-region facetwp-region-welcome about-wrap">
         <h1><?php _e( 'Welcome to FacetWP', 'fwp' ); ?> <span class="version"><?php echo FACETWP_VERSION; ?></span></h1>
-        <div class="about-text">Thank you for choosing FacetWP. Check out our intro screencast.</div>
-        <iframe src="https://player.vimeo.com/video/162724676?title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-        <p>
-            <a class="button" href="https://facetwp.com/documentation/facet-configuration/" target="_blank">Learn more about facets</a>
-            <a class="button" href="https://facetwp.com/documentation/template-configuration/" target="_blank">Learn more about templates</a>
-        </p>
+        <div class="about-text">Thank you for choosing FacetWP. Check out our intro video.</div>
+        <a href="https://vimeo.com/162724676" target="_blank">
+            <img src="https://i.imgur.com/AFQbw0y.png" width="596" height="334" />
+        </a>
     </div>
 
     <!-- Facets tab -->
@@ -169,6 +167,9 @@ FWP.builder = {
         </div>
 
         <div class="facetwp-content-wrap">
+            <div class="facetwp-alert">
+                There are two ways to set up templates in FacetWP. <a href="https://facetwp.com/documentation/template-configuration/" target="_blank">Learn more &raquo;</a>
+            </div>
             <ul class="facetwp-cards"></ul>
             <div class="facetwp-content"></div>
         </div>

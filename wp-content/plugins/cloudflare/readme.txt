@@ -1,9 +1,9 @@
-=== CloudFlare ===
+=== Cloudflare ===
 Contributors: jwineman, furkan811, icyapril
 Tags: cloudflare, seo, ssl, ddos, speed, security, cdn, performance, free
 Requires at least: 3.4
 Tested up to: 4.6
-Stable tag: 3.0.6
+Stable tag: 3.1.1
 License: BSD-3-Clause
 
 All of Cloudflare’s performance and security benefits in a simple one-click install of recommended settings specifically developed for WordPress.
@@ -36,6 +36,9 @@ Occurs when you change the appearance of your website. This means that you can f
 * Support for [HTTP2/Server Push](https://blog.cloudflare.com/announcing-support-for-http-2-server-push-2/)
 
 == Installation ==
+
+= Prerequisite =
+Make sure your PHP version is 5.3.10 or higher.
 
 = From your WordPress Dashboard =
 
@@ -83,6 +86,32 @@ Make sure that the php5-curl extension is installed on your system.
 1. Cloudflare Plugin
 
 == Changelog ==
+
+= 3.1.1 - 2016-11-17 =
+
+*Changed*
+
+* Moved Admin Bar behind Automatic Cache Purge toggle.
+
+= 3.1.0 - 2016-11-17 =
+
+*Added*
+
+* Added ability to automatically purge cache when a post is published, edited or deleted. (Thanks to brandomeniconi and mike503)
+* Added ability to work with Wordpress MU Domain Mapping plugin. (Thanks to brandomeniconi)
+
+*Changed*
+
+* Changed the UI to look more like cloudflare.com dashboard.
+* Changed plugin description.
+* Disabled showing WordPress Admin Bar and Edit Post Link to avoid caching problems for users using HTML Caching.
+
+*Fixed*
+
+* Fixed bug where require vendor folders was not working.
+* Fixed bug where static files were cached which caused issues updating the plugin.
+* Fixed dependencies which caused issues with PHP Compatibility Checker plugin.
+
 
 = 3.0.6 - 2016-10-6 =
 
@@ -152,7 +181,7 @@ Make sure that the php5-curl extension is installed on your system.
 * Added one-click application oft WordPress specific recommended settings
 * Added ability to purge the Cloudflare cache
 * Integrated with WordPress cache management to automatically clear the Cloudflare cache on updating site appearance
-* Added ability to change CloudFlare settings (Always Online mode, I’m Under Attack, Image Optimization, Security Level, Web Application Firewall)
+* Added ability to change Cloudflare settings (Always Online mode, I’m Under Attack, Image Optimization, Security Level, Web Application Firewall)
 * Added Analytics showing Cached Requests, bandwidth used, unique visitors, threats blocked
 * Added Header rewrite to prevent a redirect loop when Cloudflare’s Universal SSL is enabled
 * Added HTTP/2 Server Push support

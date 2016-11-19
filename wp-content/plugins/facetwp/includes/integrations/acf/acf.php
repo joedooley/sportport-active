@@ -192,6 +192,17 @@ class FacetWP_Integration_ACF
             }
         }
 
+        // date_picker
+        elseif ( 'date_picker' == $field['type'] ) {
+            if ( 8 == strlen( $value ) && ctype_digit( $value ) ) {
+                $formatted = substr( $value, 0, 4 ) . '-' . substr( $value, 4, 2 ) . '-' . substr( $value, 6, 2 );
+                $params['facet_value'] = $formatted;
+                $params['facet_display_value'] = $formatted;
+            }
+
+            FWP()->indexer->index_row( $params );
+        }
+
         // true_false
         elseif ( 'true_false' == $field['type'] ) {
             $display_value = ( 0 < (int) $value ) ? __( 'Yes', 'fwp' ) : __( 'No', 'fwp' );

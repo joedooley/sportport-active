@@ -24,3 +24,15 @@ function facetwp_display() {
 function facetwp_i18n( $string ) {
     return apply_filters( 'facetwp_i18n', $string );
 }
+
+
+/**
+ * Support SQL modifications
+ * @since 2.7
+ */
+function facetwp_sql( $sql, $facet ) {
+    global $wpdb;
+
+    $sql = apply_filters( 'facetwp_wpdb_sql', $sql, $facet );
+    return apply_filters( 'facetwp_wpdb_get_col', $wpdb->get_col( $sql ), $sql, $facet );
+}

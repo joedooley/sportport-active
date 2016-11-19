@@ -1,5 +1,16 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2016.10.31 - version 6.8.1
+* Change plugin URL to WooCommerce domain
+* Ensure plugin links always go to WooCommerce, not WordPress.org
+
+2016.10.11 - version 6.8.0
+* More accurate image support. Fixes issues where non-attached product gallery images weren't included.
+
+2016.08.31 - version 6.7.8
+* Various performance improvements to feed generation
+* Introduce woocommerce_gpf_is_generating_feed() so other plugins / filters can tell if this request is for a feed
+
 2016.08.02 - version 6.7.7
 * Replace tabs with spaces when generating the Bing feed
 * Allow the g:link element to be filtered

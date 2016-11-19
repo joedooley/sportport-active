@@ -158,20 +158,18 @@
             return;
         }
 
-        // datepicker i18n
-        Flatpickr.l10n.months.longhand = FWP_JSON.datepicker.months;
-
         var flatpickr_opts = {
             altInput: true,
             altInputClass: 'flatpickr-alt',
             altFormat: 'Y-m-d',
+            locale: FWP_JSON.datepicker.locale,
             onChange: function() {
                 FWP.autoload();
             },
             onReady: function(dateObj, dateStr, instance) {
                 var $cal = $(instance.calendarContainer);
                 if ($cal.find('.flatpickr-clear').length < 1) {
-                    $cal.append('<div class="flatpickr-clear">Clear</div>');
+                    $cal.append('<div class="flatpickr-clear">' + FWP_JSON.datepicker.clearText + '</div>');
                     $cal.find('.flatpickr-clear').on('click', function() {
                         instance.clear();
                         instance.close();
@@ -292,6 +290,24 @@
 
     /* ======== Proximity ======== */
 
+    var pac_input;
+    var _addEventListener;
+
+    // select first choice on "Enter"
+    function addEventListenerWrapper(type, listener) {
+        if ('keydown' === type) {
+            var orig_listener = listener;
+            listener = function(event) {
+                if (13 === event.which && 0 === $('.pac-container .pac-item-selected').length) {
+                    var simulated_downarrow = $.Event('keydown', {keyCode: 40, which: 40});
+                    orig_listener.apply(pac_input, [simulated_downarrow]);
+                }
+                orig_listener.apply(pac_input, [event]);
+            }
+        }
+        _addEventListener.apply(pac_input, [type, listener]);
+    }
+
     $(document).on('facetwp-loaded', function() {
         var $input = $('#facetwp-location');
 
@@ -299,18 +315,25 @@
             return;
         }
 
-        if ($input.parent('.location-wrap').length < 1) {
-            var options = FWP_JSON['autocomplete_options'];
-            var autocomplete = new google.maps.places.Autocomplete($input[0], options);
+        pac_input = $input[0];
+        _addEventListener = pac_input.addEventListener;
+        pac_input.addEventListener = addEventListenerWrapper;
 
+        if ($input.parent('.location-wrap').length < 1) {
+            $('.pac-container').remove();
             $input.wrap('<span class="location-wrap"></span>');
             $input.before('<i class="locate-me"></i>');
 
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            var options = FWP_JSON['autocomplete_options'];
+            var autocomplete = new google.maps.places.Autocomplete(pac_input, options);
+
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
                 var place = autocomplete.getPlace();
-                $('.facetwp-lat').val(place.geometry.location.lat());
-                $('.facetwp-lng').val(place.geometry.location.lng());
-                FWP.autoload();
+                if ('undefined' !== typeof place.geometry) {
+                    $('.facetwp-lat').val(place.geometry.location.lat());
+                    $('.facetwp-lng').val(place.geometry.location.lng());
+                    FWP.autoload();
+                }
             });
         }
 

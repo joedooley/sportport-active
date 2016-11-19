@@ -4,7 +4,7 @@
             "CF\\": "src/"
         }
     }, 
-    "description": "A CloudFlare plugin for WordPress", 
+    "description": "A Cloudflare plugin for WordPress", 
     "license": "BSD-3-Clause", 
     "name": "cloudflare/wordpress-plugin", 
     "require": {
@@ -26,5 +26,5 @@
         ], 
         "test": "vendor/bin/phpunit"
     }, 
-    "version": "3.0.6"
+    "version": "3.1.1"
 }
