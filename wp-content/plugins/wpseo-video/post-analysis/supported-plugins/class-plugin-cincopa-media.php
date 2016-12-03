@@ -38,7 +38,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Cincopa_Media' ) ) {
 
 				/* Full Oembed url as specified in plugin => VideoSEO service name */
 				$this->video_oembeds = array(
-					'http://www.cincopa.com/media-platform/oembed.aspx' => 'cincopa',
+					'//www.cincopa.com/media-platform/oembed.aspx' => 'cincopa',
 				);
 			}
 		}

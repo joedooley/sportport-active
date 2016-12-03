@@ -77,7 +77,10 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 			'FV_Wordpress_Flowplayer'            => 'fv-wordpress-flowplayer/flowplayer.php',
 			'WP_Youtube_Lyte'                    => 'wp-youtube-lyte/wp-youtube-lyte.php',
 			'Videojs'                            => 'videojs-html5-video-player-for-wordpress/video-js.php',
-			'Automatic_Youtube_Video_Post'       => 'automatic-youtube-video-posts/tern_wp_youtube.php',
+			'Automatic_Youtube_Video_Post'       => array(
+				'automatic-youtube-video-posts/init.php', // AYVP version 5.0+.
+				'automatic-youtube-video-posts/tern_wp_youtube.php',
+			),
 			'WP_Video_Lightbox'                  => 'wp-video-lightbox/wp-video-lightbox.php',
 			'Simple_Video_Embedder'              => 'simple-video-embedder/video-poster.php',
 			'Advanced_Responsive_Video_Embedder' => 'advanced-responsive-video-embedder/advanced-responsive-video-embedder.php',
@@ -95,7 +98,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 			'Vzaar_Media_Management'             => 'vzaar-media-management/vzaar-media-management.php',
 			'Vzaar_Official'                     => 'vzaar-official-plugin/vzaarAPI.php',
 			'Vippy'                              => 'vippy/vippy-wp.php',
-		'Ustudio'                            => 'ustudio/plugin.php',
+			'Ustudio'                            => 'ustudio/plugin.php',
 		);
 
 		// Weaver theme 305,025 -> als path niet te achterhalen, dan misschien bij static setup altijd toevoegen.
@@ -273,13 +276,17 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 			if ( ! function_exists( 'is_plugin_active' ) ) {
 				require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			}
-			foreach ( self::$supported_plugins as $name => $plugin_basename ) {
-				if ( is_plugin_active( $plugin_basename ) ) {
-					$classname                     = 'WPSEO_Video_Plugin_' . $name;
-					self::$active_plugins[ $name ] = new $classname;
+			foreach ( self::$supported_plugins as $name => $plugin_basenames ) {
+				$plugin_basenames = (array) $plugin_basenames;
+				foreach ( $plugin_basenames as $plugin_basename ) {
+					if ( is_plugin_active( $plugin_basename ) ) {
+						$classname                     = 'WPSEO_Video_Plugin_' . $name;
+						self::$active_plugins[ $name ] = new $classname;
+						break;
+					}
 				}
 			}
-			unset( $name, $plugin_basename, $classname );
+			unset( $name, $plugin_basenames, $plugin_basename, $classname );
 
 			// Add the plugin features for all active plugins.
 			if ( is_array( self::$active_plugins ) && self::$active_plugins !== array() ) {
@@ -406,7 +413,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 					$vid = call_user_func( array( $this, $method ) );
 
 					// Check for video.
-					if ( $vid !== array() && isset( $vid['content_loc'] ) || isset( $vid['player_loc'] ) ) {
+					if ( $vid !== array() && ( isset( $vid['content_loc'] ) || isset( $vid['player_loc'] ) ) ) {
 						$this->vid = array_merge( $this->vid, $vid );
 						break;
 					}
@@ -668,7 +675,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 			 * Get all the embeddable urls
 			 * Use the same regex as in WP_Embed::autoembed()
 			 */
-			if ( preg_match_all( '`^\s*(http[s]?://[^\s"]+)\s*$`im', $this->content, $matches, PREG_PATTERN_ORDER ) ) {
+			if ( preg_match_all( '`^(?:\s*)(https?://[^\s<>"]+)(?:\s*)$`im', $this->content, $matches, PREG_PATTERN_ORDER ) ) {
 				// Only interested in the real url matches.
 				$urls = $matches[1];
 
@@ -697,46 +704,32 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 									}
 								}
 							}
+							unset( $name, $details );
 						}
+						unset( $handler_array );
 					}
 
 					/*
 					 * Go through the Oembed handlers
-					 *
-					 * @internal At some point in the future, we can simplify the code by changing this
-					 * over to the WP_OEmbed::get_provider() method which was added in WP 4.0.
-					 * For now: keep the dealing with $matchmask in line with the WP_Oembed::get_html() method
 					 */
-					$oembed = _wp_oembed_get_object();
-					if ( ! empty( $oembed->providers ) && is_array( $oembed->providers ) ) {
-						foreach ( $oembed->providers as $matchmask => $data ) {
-							list( $providerurl, $regex ) = $data;
-							if ( strpos( $providerurl, '?' ) !== false ) {
-								$providerurl = self::strstr( $providerurl, '?', true );
-							}
-
-							if ( isset( self::$video_oembeds[ $providerurl ] ) ) {
-								// Turn the asterisk-type provider URLs into regex.
-								if ( ! $regex ) {
-									$matchmask = '#' . str_replace( '___wildcard___', '(.+)', preg_quote( str_replace( '*', '___wildcard___', $matchmask ), '#' ) ) . '#i';
-									$matchmask = preg_replace( '|^#http\\\://|', '#https?\://', $matchmask );
+					$oembed      = _wp_oembed_get_object();
+					$providerurl = $oembed->get_provider( $url, array( 'discover' => false ) );
+					if ( ( is_string( $providerurl ) && $providerurl !== '' ) && ! empty( self::$video_oembeds ) ) {
+						foreach ( self::$video_oembeds as $partial_url => $service ) {
+							if ( stripos( $providerurl, $partial_url ) !== false ) {
+								$vid['url'] = $url;
+								if ( $service !== '' ) {
+									$vid['type'] = $service;
 								}
 
-								if ( preg_match( $matchmask, $url ) ) {
-									$vid['url'] = $url;
-									if ( self::$video_oembeds[ $providerurl ] !== '' ) {
-										$vid['type'] = self::$video_oembeds[ $providerurl ];
-									}
-
-									$vid = $this->get_video_details( $vid );
-									if ( ! empty( $vid['player_loc'] ) || ! empty( $vid['content_loc'] ) ) {
-										// Stop on the first function which delivers results.
-										break 2;
-									}
-									else {
-										// Reset $vid if no usable info was found.
-										$vid = array();
-									}
+								$vid = $this->get_video_details( $vid );
+								if ( ! empty( $vid['player_loc'] ) || ! empty( $vid['content_loc'] ) ) {
+									// Stop on the first function which delivers results.
+									break 2;
+								}
+								else {
+									// Reset $vid if no usable info was found.
+									$vid = array();
 								}
 							}
 						}
@@ -777,17 +770,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 				}
 			}
 
-			if ( preg_match( '`<div id=([\'"])wistia_([^\'"\s]+)\1 class=([\'"])wistia_embed[^\'"]*\3`', $content, $matches ) ) {
-				$vid['id']   = $matches[2];
-				$vid['type'] = 'wistia';
-				$vid         = $this->get_video_details( $vid );
-			}
-
-			if ( preg_match( '`<a(?:.*?)href="(?:http[s]?:)?//fast\.wistia\.(?:com|net)/embed/iframe/([^\?]+)\?`', $content, $matches ) ) {
-				$vid['id']   = $matches[1];
-				$vid['type'] = 'wistia';
-				$vid         = $this->get_video_details( $vid );
-			}
+			$vid = $this->get_wistia_video_through_old_methods( $content );
 
 			if ( isset( $vid['content_loc'] ) || isset( $vid['player_loc'] ) ) {
 				return $vid;
@@ -835,6 +818,40 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 			}
 			unset( $oembed );
 
+
+			return $vid;
+		}
+
+
+		/**
+		 * Analyse post content for typical Wistia embed codes.
+		 *
+		 * @see https://wistia.com/doc/embedding
+		 *
+		 * @since 3.9
+		 *
+		 * @param string $content Post content.
+		 *
+		 * @return array Video info array or empty array if no wistia video was matched.
+		 */
+		protected function get_wistia_video_through_old_methods( $content ) {
+			$vid = array();
+
+			if ( preg_match( '`<(?:div|span)(?: [a-z]+=\S+)* class=(?:[\'"])wistia_embed wistia_async_([^\'"\s]+)`', $content, $matches ) ) {
+				$vid['id']   = $matches[1];
+				$vid['type'] = 'wistia';
+				$vid         = $this->get_video_details( $vid );
+			}
+			elseif ( preg_match( '`<div id=([\'"])wistia_([^\'"\s]+)\1 class=([\'"])wistia_embed[^\'"]*\3`', $content, $matches ) ) {
+				$vid['id']   = $matches[2];
+				$vid['type'] = 'wistia';
+				$vid         = $this->get_video_details( $vid );
+			}
+			elseif ( preg_match( '`<a(?:.*?)href="(?:http[s]?:)?//fast\.wistia\.(?:com|net)/embed/iframe/([^\?]+)\?`', $content, $matches ) ) {
+				$vid['id']   = $matches[1];
+				$vid['type'] = 'wistia';
+				$vid         = $this->get_video_details( $vid );
+			}
 
 			return $vid;
 		}
@@ -1008,7 +1025,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 
 		/**
 		 * Checks whether there are oembed URLs in the post that should be included in the video sitemap.
-		 * Uses DOMDocument and XPath to parse the content for url instead of preg matches
+		 * Uses DOMDocument and XPath to parse the content for urls instead of preg matches.
 		 *
 		 * @since 1.5.4.4
 		 *
@@ -1097,7 +1114,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 			if ( is_object( $script ) && $script->length > 0 ) {
 				foreach ( $script as $element ) {
 					$value = $element->getAttribute( 'value' );
-					$value = parse_url( $value );
+					$value = self::wp_parse_url( $value );
 					parse_str( $value['query'], $query );
 					if ( ! empty( $query['permalinkId'] ) ) {
 						$matched_urls[] = 'http://www.veoh.com/watch/' . $query['permalinkId'];
@@ -1175,6 +1192,9 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 		 */
 		public function get_video_details( $vid ) {
 			$vid = $this->verify_service_type( $vid );
+
+			// Make sure we don't lose an updated title, description or publication date.
+			$vid = array_merge( $this->vid, $vid );
 
 			$class = 'unknown';
 			if ( isset( $vid['type'] ) ) {
@@ -1479,6 +1499,49 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 			return trim( wp_kses_decode_entities( ent2ncr( wp_kses_normalize_entities( $string ) ) ) );
 		}
 
+
+		/**
+		 * Parse a url to its components in a largely cross-PHP consistent manner.
+		 *
+		 * Uses the WP wp_parse_url() function for the same if available.
+		 * Falls back to the PHP native parse_url() function.
+		 *
+		 * {@internal The WP version was introduced in WP 4.4.0 and will start
+		 * supporting the second argument "component" in WP 4.7.0.}}
+		 *
+		 * @link https://developer.wordpress.org/reference/functions/wp_parse_url/
+		 * @link http://php.net/manual/en/function.parse-url.php
+		 * @link https://core.trac.wordpress.org/ticket/36356
+		 *
+		 * @since 3.8.0
+		 *
+		 * @param string $url       The url to parse.
+		 * @param int    $component One of the predefined PHP url component constants.
+		 *
+		 * @return array|string|int|null|false False for seriously malformed urls.
+		 *                                     Array of components if no specific
+		 *                                     component was requested.
+		 *                                     String if a component was requested and
+		 *                                     available in the parsed url.
+		 *                                     Int if the requested component was 'port'.
+		 *                                     Null if the requested component was not
+		 *                                     in the url.
+		 */
+		public static function wp_parse_url( $url, $component = -1 ) {
+			if ( function_exists( 'wp_parse_url' ) ) {
+				if ( $component === -1 ) {
+					return wp_parse_url( $url );
+				}
+				elseif ( version_compare( $GLOBALS['wp_version'], '4.6.99', '>' ) ) {
+					return wp_parse_url( $url, $component );
+				}
+			}
+
+			// Fall back to PHP native functionality if the WP function is not available.
+			return @parse_url( $url, $component );
+		}
+
+
 		/**
 		 * Parse a URL and find the host name and more.
 		 *
@@ -1527,7 +1590,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 			$parsed_url = $defaults;
 			if ( strpos( $url, '/' ) !== 0 ) {
 				// This function is not meant for relative urls.
-				$parsed_url = @parse_url( $url );
+				$parsed_url = self::wp_parse_url( $url );
 				if ( is_array( $parsed_url ) && $parsed_url !== array() ) {
 					$parsed_url = array_merge( $defaults, $parsed_url );
 

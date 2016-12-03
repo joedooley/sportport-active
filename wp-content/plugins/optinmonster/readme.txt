@@ -160,6 +160,11 @@ OptinMonster is the <a href="http://optinmonster.com" rel="friend" title="OptinM
 
 == Changelog ==
 
+= 1.1.5.9 =
+* Added the async attribute to the OptinMonster API script output for improved performance.
+* Fixed a bug that caused the debugging report to not properly grab shortcodes.
+* Added helper to remove faulty admin scripts from the OptinMonster settings area that would cause things to fail in some cases.
+
 = 1.1.5.8 =
 * Fixed bug that caused the MailPoet integration to fail in some scenarios.
 

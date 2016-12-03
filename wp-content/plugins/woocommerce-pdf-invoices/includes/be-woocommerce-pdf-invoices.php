@@ -30,47 +30,47 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 			/**
 			 * Initialize plugin
 			 */
-			add_action( 'init', array( &$this, 'init' ) );
+			add_action( 'init', array( $this, 'init' ) );
 
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 
-			add_action( 'admin_init', array( &$this, 'catch_hide_notice' ) );
+			add_action( 'admin_init', array( $this, 'catch_hide_notice' ) );
 
 			/**
 			 * Adds Invoices submenu to WooCommerce menu.
 			 */
-			add_action( 'admin_menu', array( &$this, 'add_woocommerce_submenu_page' ) );
+			add_action( 'admin_menu', array( $this, 'add_woocommerce_submenu_page' ) );
 
 			/**
 			 * Enqueue admin scripts
 			 */
-			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
 			/**
 			 * Add actions to overview order page.
 			 */
 			add_action( 'woocommerce_admin_order_actions_end', array(
-				&$this,
+				$this,
 				'woocommerce_order_page_action_view_invoice'
 			) );
 
 			/**
 			 * Adds a meta box to the order details page.
 			 */
-			add_action( 'add_meta_boxes', array( &$this, 'add_meta_box_to_order_page' ) );
+			add_action( 'add_meta_boxes', array( $this, 'add_meta_box_to_order_page' ) );
 
 			/**
 			 * Adds the Email It In email as an extra recipient
 			 */
 			add_filter( 'woocommerce_email_headers', array(
-				&$this,
+				$this,
 				'add_email_it_in_account_to_email_headers'
 			), 10, 2 );
 
 			/**
 			 * Attach invoice to a specific WooCommerce email
 			 */
-			add_filter( 'woocommerce_email_attachments', array( &$this, 'attach_invoice_to_email' ), 99, 3 );
+			add_filter( 'woocommerce_email_attachments', array( $this, 'attach_invoice_to_email' ), 99, 3 );
 
             /**
              * Attach invoice to a new order email
@@ -81,7 +81,7 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 			 * Adds a download link for the pdf invoice on the my account page
 			 */
 			add_filter( 'woocommerce_my_account_my_orders_actions', array(
-				&$this,
+				$this,
 				'add_my_account_download_pdf_action'
 			), 10, 2 );
 
@@ -167,11 +167,11 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 					'{formatted_invoice_date}'      => $invoice->get_formatted_invoice_date(),
 					'{formatted_order_date}'        => $invoice->get_formatted_order_date()
 				);
-				foreach ( $tags as $key => $value )
-					$title = str_replace( $key, $value, $title );
+
+				$title = str_replace( array_keys( $tags ), array_values( $tags ), $title );
 
 				// example: Download (PDF) Invoice {formatted_invoice_number}
-				echo '<a href="' . $url . '" alt="' . $title . '">' . $title . '</a>';
+				echo '<a href="' . esc_attr( $url ) . '" alt="' . esc_attr( $title ) . '">' . esc_html( $title ) . '</a>';
 			}
 		}
 
@@ -201,11 +201,12 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 				$user = wp_get_current_user();
 				$allowed_roles = apply_filters("bewpi_allowed_roles_to_download_invoice", array("administrator", "shop_manager"));
 				$customer_user_id = get_post_meta( $order_id, '_customer_user', true );
-				if (  ! array_intersect( $allowed_roles, $user->roles ) && get_current_user_id() != $customer_user_id  )
+				if (  ! array_intersect( $allowed_roles, $user->roles ) && get_current_user_id() != $customer_user_id  ) {
 					wp_die( __( 'Access denied', 'woocommerce-pdf-invoices' ) );
+				}
 
 				$invoice = new BEWPI_Invoice( $order_id );
-				switch ( $_GET['bewpi_action'] ) {
+				switch ( $action ) {
 					case "view":
 						$invoice->view();
 						break;
@@ -255,7 +256,7 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 		 */
 		public function add_woocommerce_submenu_page() {
 			add_submenu_page( 'woocommerce', __( 'Invoices', 'woocommerce-pdf-invoices' ), __( 'Invoices', 'woocommerce-pdf-invoices' ), 'manage_options', $this->options_key, array(
-				&$this,
+				$this,
 				'options_page'
 			) );
 		}
@@ -292,15 +293,8 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 		 * The options page..
 		 */
 		public function options_page() {
-			$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'bewpi_general_settings';
+			$tab = isset( $_GET['tab'] ) ? (string) $_GET['tab'] : 'bewpi_general_settings';
 			?>
-			<script type="text/javascript">
-				window.onload = function () {
-					// Change footer text into rate text for WPI.
-					document.getElementById("footer-thankyou").innerHTML = "<?php printf( __( 'If you like <strong>WooCommerce PDF Invoices</strong> please leave us a %s★★★★★%s rating. A huge thank you in advance!', 'woocommerce-pdf-invoices' ), '<a href=\'https://wordpress.org/support/view/plugin-reviews/woocommerce-pdf-invoices?rate=5#postform\'>', '</a>' ); ?>";
-					document.getElementById("footer-upgrade").innerHTML = "<?php printf( __( 'Version %s', 'woocommerce-pdf-invoices' ), BEWPI_VERSION ); ?>";
-				};
-			</script>
 			<div class="wrap">
 				<?php $this->plugin_options_tabs(); ?>
 				<form class="bewpi-settings-form" method="post" action="options.php"
@@ -317,6 +311,27 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 
 			</div>
 		<?php
+
+			add_filter( 'admin_footer_text', array( $this, 'plugin_review_text' ), 50 );
+			add_filter( 'update_footer', array( $this, 'plugin_version' ), 50 );
+		}
+
+		/**
+		 * @param string $text
+		 *
+		 * @return string
+		 */
+		public function plugin_review_text( $text ) {
+			return sprintf( __( 'If you like <strong>WooCommerce PDF Invoices</strong> please leave us a %s★★★★★%s rating. A huge thank you in advance!', 'woocommerce-pdf-invoices' ), '<a href=\'https://wordpress.org/support/view/plugin-reviews/woocommerce-pdf-invoices?rate=5#postform\'>', '</a>' );
+		}
+
+		/**
+		 * @param string $text
+		 *
+		 * @return string
+		 */
+		public function plugin_version( $text ) {
+			return sprintf( __( 'Version %s', 'woocommerce-pdf-invoices' ), BEWPI_VERSION );
 		}
 
 		private function options_page_sidebar_html() {
@@ -421,7 +436,7 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 		 */
 		function add_meta_box_to_order_page() {
 			add_meta_box( 'order_page_create_invoice', __( 'PDF Invoice', 'woocommerce-pdf-invoices' ), array(
-				&$this,
+				$this,
 				'woocommerce_order_details_page_meta_box_create_invoice'
 			), 'shop_order', 'side', 'high' );
 		}
@@ -561,8 +576,7 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 		private static function insert_install_date() {
 			$datetime_now = new DateTime();
 			$date_string  = $datetime_now->format( 'Y-m-d' );
-			update_site_option( self::OPTION_INSTALL_DATE, $date_string, '', 'no' );
-
+			update_site_option( self::OPTION_INSTALL_DATE, $date_string );
 			return $date_string;
 		}
 
@@ -572,21 +586,13 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 		 */
 		private function get_install_date() {
 			$date_string = get_site_option( self::OPTION_INSTALL_DATE, '' );
-			if ( $date_string == '' ) {
+
+			if( empty( $date_string ) ) {
 				// There is no install date, plugin was installed before version 2.2.1. Add it now.
 				$date_string = self::insert_install_date();
 			}
 
-			return new DateTime( $date_string );
-		}
-
-		/**
-		 * @return mixed
-		 */
-		private function get_admin_querystring_array() {
-			parse_str( $_SERVER['QUERY_STRING'], $params );
-
-			return $params;
+			return DateTime::createFromFormat('Y-m-d', $date_string );
 		}
 
 		/**
@@ -596,24 +602,12 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 			if ( isset( $_GET[ self::OPTION_ADMIN_NOTICE_KEY ] ) && current_user_can( 'install_plugins' ) ) {
 				// Add user meta
 				global $current_user;
+
 				//add_user_meta( $current_user->ID, self::OPTION_ADMIN_NOTICE_KEY, '1', true );
 				update_user_meta( $current_user->ID, self::OPTION_ADMIN_NOTICE_KEY, '1' );
 
 				// Build redirect URL
-				$query_params = $this->get_admin_querystring_array();
-				unset( $query_params[ self::OPTION_ADMIN_NOTICE_KEY ] );
-				$query_string = http_build_query( $query_params );
-				if ( $query_string != '' ) {
-					$query_string = '?' . $query_string;
-				}
-
-				$redirect_url = 'http';
-				if ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' ) {
-					$redirect_url .= 's';
-				}
-				$redirect_url .= '://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $query_string;
-
-				// Redirect
+				$redirect_url = remove_query_arg( self::OPTION_ADMIN_NOTICE_KEY );
 				wp_redirect( $redirect_url );
 				exit;
 			}
@@ -622,12 +616,11 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 		/**
 		 * Ask admin to review plugin.
 		 */
-		public function display_rate_admin_notice() {
-			$query_params = $this->get_admin_querystring_array();
-			$query_string = '?' . http_build_query( array_merge( $query_params, array( self::OPTION_ADMIN_NOTICE_KEY => '1' ) ) );
+		public function display_admin_notice() {
+			$url = add_query_arg( array( self::OPTION_ADMIN_NOTICE_KEY => '1' ) );
 
 			echo '<div class="updated"><p>';
-			printf( __( "You are working with <b>WooCommerce PDF Invoices</b> for some time now. We really need your ★★★★★ rating. It will support future development big-time. A huge thanks in advance and keep up the good work! <br /> <a href='%s' target='_blank'>Yes, will do it right away!</a> - <a href='%s'>No, already done it!</a>", 'woocommerce-pdf-invoices' ), 'https://wordpress.org/support/view/plugin-reviews/woocommerce-pdf-invoices?rate=5#postform', $query_string );
+			printf( __( "You are working with <b>WooCommerce PDF Invoices</b> for some time now. We really need your ★★★★★ rating. It will support future development big-time. A huge thanks in advance and keep up the good work! <br /> <a href='%s' target='_blank'>Yes, will do it right away!</a> - <a href='%s'>No, already done it!</a>", 'woocommerce-pdf-invoices' ), 'https://wordpress.org/support/view/plugin-reviews/woocommerce-pdf-invoices?rate=5#postform', $url );
 			echo "</p></div>";
 		}
 	}

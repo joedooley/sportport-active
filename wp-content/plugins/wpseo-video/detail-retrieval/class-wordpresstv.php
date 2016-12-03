@@ -69,7 +69,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Wordpresstv' ) ) {
 			if ( ( is_string( $this->vid['url'] ) && $this->vid['url'] !== '' ) && $this->id_regex !== '' ) {
 
 				$replace_key = $this->vid['url'];
-				// Fix protocol-less urls in parameters as the remote get call most ofter will not work with them.
+				// Fix protocol-less urls in parameters as the remote get call most often will not work with them.
 				if ( strpos( $this->vid['url'], '//' ) === 0 ) {
 					$replace_key = 'http:' . $this->vid['url'];
 				}

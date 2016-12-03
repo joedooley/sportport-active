@@ -53,9 +53,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Flowplayer5' ) ) {
 		public function get_info_from_shortcode( $full_shortcode, $sc, $atts = array(), $content = '' ) {
 			$vid = array();
 
-			$validated_int = WPSEO_Video_Wrappers::yoast_wpseo_video_validate_int( $atts['id'] );
-
-			if ( isset( $atts['id'] ) && ! empty( $atts['id'] ) && $validated_int !== false ) {
+			if ( ! empty( $atts['id'] ) &&  WPSEO_Video_Wrappers::yoast_wpseo_video_validate_int( $atts['id'] ) !== false ) {
 				$vid = $this->get_info_for_post_type( (int) $atts['id'], 'flowplayer5', null, true );
 			}
 			else {

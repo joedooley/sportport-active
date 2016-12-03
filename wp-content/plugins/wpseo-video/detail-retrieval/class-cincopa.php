@@ -101,7 +101,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Cincopa' ) ) {
 		 */
 		protected function determine_video_id_from_url( $match_nr = 1 ) {
 			if ( isset( $this->vid['url'] ) && ( is_string( $this->vid['url'] ) && $this->vid['url'] !== '' ) && $this->id_regex !== '' ) {
-				$parse = parse_url( $this->vid['url'] );
+				$parse = WPSEO_Video_Analyse_Post::wp_parse_url( $this->vid['url'] );
 				if ( isset( $parse['query'] ) && preg_match( $this->id_regex, $parse['query'], $match ) ) {
 					$this->vid['id'] = $match[ $match_nr ];
 				}
@@ -113,8 +113,9 @@ if ( ! class_exists( 'WPSEO_Video_Details_Cincopa' ) ) {
 		 * Set the player location
 		 */
 		protected function set_player_loc() {
-			if ( ! empty( $this->decoded_response->content->attributes()->url ) ) {
-				$this->vid['player_loc'] = (string) $this->decoded_response->content->attributes()->url;
+			$url = $this->decoded_response->content->attributes()->url;
+			if ( ! empty( $url ) ) {
+				$this->vid['player_loc'] = (string) $url;
 			}
 		}
 
@@ -125,8 +126,9 @@ if ( ! class_exists( 'WPSEO_Video_Details_Cincopa' ) ) {
 		 * and this video service needs query params to generate thumbnails, look for a more direct approach
 		 */
 		protected function set_thumbnail_loc() {
-			if ( ! empty( $this->decoded_response->thumbnail->attributes()->url ) ) {
-				$image = $this->make_image_local( (string) $this->decoded_response->thumbnail->attributes()->url );
+			$url = $this->decoded_response->content->attributes()->url;
+			if ( ! empty( $url ) ) {
+				$image = $this->make_image_local( (string) $url );
 				if ( is_string( $image ) && $image !== '' ) {
 					$this->vid['thumbnail_loc'] = $image;
 				}

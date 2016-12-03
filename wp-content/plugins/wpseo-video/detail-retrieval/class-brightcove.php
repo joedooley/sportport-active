@@ -112,7 +112,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Brightcove' ) ) {
 		 */
 		protected function determine_video_id_from_url( $match_nr = 1 ) {
 			if ( is_string( $this->vid['url'] ) && $this->vid['url'] !== '' ) {
-				$parse      = parse_url( $this->vid['url'] );
+				$parse      = WPSEO_Video_Analyse_Post::wp_parse_url( $this->vid['url'] );
 				$query_vars = array();
 
 				if ( ! empty( $parse['query'] ) ) {

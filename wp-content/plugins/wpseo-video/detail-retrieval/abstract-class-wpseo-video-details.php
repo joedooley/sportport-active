@@ -597,11 +597,7 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 
 			$tmp = download_url( $url );
 
-			if ( is_wp_error( $tmp ) ) {
-				@unlink( $tmp );
-				return false;
-			}
-			else {
+			if ( ! is_wp_error( $tmp ) ) {
 
 				if ( preg_match( '`[^\?]+\.(' . WPSEO_Video_Sitemap::$image_ext_pattern . ')$`i', $url, $matches ) ) {
 					$ext = $matches[1];
@@ -686,28 +682,27 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 				'fragment' => '',
 			);
 
-			$parsed_url = @parse_url( $url );
+			$parsed_url = WPSEO_Video_Analyse_Post::wp_parse_url( $url );
 			$parsed_url = array_merge( $defaults, $parsed_url );
-			extract( $parsed_url );
 
-			if ( empty( $scheme ) === false ) {
-				$scheme .= '://';
+			if ( empty( $parsed_url['scheme'] ) === false ) {
+				$parsed_url['scheme'] .= '://';
 			}
 
-			if ( empty( $pass ) === false && empty( $user ) === false ) {
-				$user = rawurlencode( $user ) . ':';
-				$pass = rawurlencode( $pass ) . '@';
+			if ( empty( $parsed_url['pass'] ) === false && empty( $parsed_url['user'] ) === false ) {
+				$parsed_url['user'] = rawurlencode( $parsed_url['user'] ) . ':';
+				$parsed_url['pass'] = rawurlencode( $parsed_url['pass'] ) . '@';
 			}
-			elseif ( empty( $user ) === false ) {
-				$user .= '@';
-			}
-
-			if ( empty( $port ) === false && empty( $host ) === false ) {
-				$host = '' . $host . ':';
+			elseif ( empty( $parsed_url['user'] ) === false ) {
+				$parsed_url['user'] .= '@';
 			}
 
-			if ( empty( $path ) === false ) {
-				$arr  = preg_split( '`([/;=])`', $path, -1, PREG_SPLIT_DELIM_CAPTURE );
+			if ( empty( $parsed_url['port'] ) === false && empty( $parsed_url['host'] ) === false ) {
+				$parsed_url['host'] = $parsed_url['host'] . ':';
+			}
+
+			if ( empty( $parsed_url['path'] ) === false ) {
+				$arr  = preg_split( '`([/;=])`', $parsed_url['path'], -1, PREG_SPLIT_DELIM_CAPTURE );
 				$path = '';
 				foreach ( $arr as $var ) {
 					switch ( $var ) {
@@ -723,11 +718,12 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 					}
 				}
 				// Legacy patch for servers that need a literal /~username.
-				$path = str_replace( '/%7E', '/~', $path );
+				$parsed_url['path'] = str_replace( '/%7E', '/~', $path );
+				unset( $path );
 			}
 
-			if ( empty( $query ) === false ) {
-				$arr   = preg_split( '`([&=])`', $query, -1, PREG_SPLIT_DELIM_CAPTURE );
+			if ( empty( $parsed_url['query'] ) === false ) {
+				$arr   = preg_split( '`([&=])`', $parsed_url['query'], -1, PREG_SPLIT_DELIM_CAPTURE );
 				$query = '?';
 				foreach ( $arr as $var ) {
 					if ( '&' === $var || '=' === $var ) {
@@ -737,13 +733,24 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 						$query .= urlencode( $var );
 					}
 				}
+				$parsed_url['query'] = $query;
+				unset( $query );
 			}
 
-			if ( empty( $fragment ) === false ) {
-				$fragment = '#' . urlencode( $fragment );
+			if ( empty( $parsed_url['fragment'] ) === false ) {
+				$parsed_url['fragment'] = '#' . urlencode( $parsed_url['fragment'] );
 			}
 
-			return implode( '', array( $scheme, $user, $pass, $host, $port, $path, $query, $fragment ) );
+			return implode( '', array(
+				$parsed_url['scheme'],
+				$parsed_url['user'],
+				$parsed_url['pass'],
+				$parsed_url['host'],
+				$parsed_url['port'],
+				$parsed_url['path'],
+				$parsed_url['query'],
+				$parsed_url['fragment'],
+			) );
 		}
 	} /* End of class */
 

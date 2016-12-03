@@ -2,14 +2,16 @@
 Contributors: getpantheon, outlandish josh, mpvanwinkle77, danielbachhuber
 Tags: comments, sessions
 Requires at least: 3.0.1
-Tested up to: 4.5
-Stable tag: 0.5
+Tested up to: 4.7
+Stable tag: 0.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Use native PHP sessions and stay horizontally scalable. Better living through superior technology.
 
 == Description ==
+
+[![Build Status](https://travis-ci.org/pantheon-systems/wp-native-php-sessions.svg?branch=master)](https://travis-ci.org/pantheon-systems/wp-native-php-sessions) [![CircleCI](https://circleci.com/gh/pantheon-systems/wp-native-php-sessions/tree/master.svg?style=svg)](https://circleci.com/gh/pantheon-systems/wp-native-php-sessions/tree/master)
 
 WordPress core does not use PHP sessions, but sometimes they are required by your use-case, a plugin or theme.
 
@@ -25,6 +27,25 @@ https://github.com/pantheon-systems/wp-native-php-sessions
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 That's it!
+
+== Contributing ==
+
+The best way to contribute to the development of this plugin is by participating on the GitHub project:
+
+https://github.com/pantheon-systems/wp-native-php-sessions
+
+Pull requests and issues are welcome!
+
+You may notice there are two sets of tests running, on two different services:
+
+* Travis CI runs the [PHPUnit](https://phpunit.de/) test suite.
+* Circle CI runs the [Behat](http://behat.org/) test suite against a Pantheon site, to ensure the plugin's compatibility with the Pantheon platform.
+
+Both of these test suites can be run locally, with a varying amount of setup.
+
+PHPUnit requires the [WordPress PHPUnit test suite](https://make.wordpress.org/core/handbook/testing/automated-testing/phpunit/), and access to a database with name `wordpress_test`. If you haven't already configured the test suite locally, you can run `bash bin/install-wp-tests.sh wordpress_test root '' localhost`.
+
+Behat requires a Pantheon site. Once you've created the site, you'll need [install Terminus](https://github.com/pantheon-systems/terminus#installation), and set the `TERMINUS_TOKEN`, `TERMINUS_SITE`, and `TERMINUS_ENV` environment variables. Then, you can run `./bin/behat-prepare.sh` to prepare the site for the test suite.
 
 == Frequently Asked Questions ==
 
@@ -44,6 +65,10 @@ If you see an error like "Fatal error: session_start(): Failed to initialize sto
 
 
 == Changelog ==
+
+= 0.6.0 (November 23rd, 2016) =
+* Bug fix: Prevents PHP fatal error in `session_write_close()` by running on WordPress' `shutdown` action, before `$wpdb` destructs itself.
+* Bug fix: Stores the actual user id in the sessions table, instead of `(bool) $user_id`.
 
 = 0.5 =
 * Compatibility with PHP 7.

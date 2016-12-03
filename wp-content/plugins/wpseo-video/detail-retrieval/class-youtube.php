@@ -61,7 +61,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Youtube' ) ) {
 		 * @var    array    Information on the remote url to use for retrieving the video details
 		 */
 		protected $remote_url = array(
-			'pattern'       => 'https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=%1$s&fields=items&key=%2$s',
+			'pattern'       => 'https://www.googleapis.com/youtube/v3/videos?part=snippet,status,statistics,contentDetails,player&id=%1$s&fields=items&key=%2$s',
 			'replace_key'   => 'id',
 			'response_type' => 'json',
 		);
@@ -120,14 +120,28 @@ if ( ! class_exists( 'WPSEO_Video_Details_Youtube' ) ) {
 		 */
 		protected function set_duration() {
 			if ( ! empty( $this->decoded_response->contentDetails->duration ) ) {
-				$date = new DateTime( '00:00' );
-				$date->add( new DateInterval( $this->decoded_response->contentDetails->duration ) );
-				$parsed_time = $date->format( 'H:i:s' );
+				if ( version_compare( PHP_VERSION, '5.3.0', '>=' ) ) {
+					$date = new DateTime( '@0' );
+					$date->add( new DateInterval( $this->decoded_response->contentDetails->duration ) );
 
-				$parsed  = date_parse( $parsed_time );
-				$seconds = ($parsed['hour'] * 3600 + $parsed['minute'] * 60 + $parsed['second']);
+					$this->vid['duration'] = (int) $date->format( 'U' );
+				}
+				else {
+					if ( preg_match( '`^(?:P)(?:[^T]*)(?:T)?(?:(?P<hour>\d+)H)?(?:(?P<min>\d+)M)?(?:(?P<sec>\d+)S)?$`', $this->decoded_response->contentDetails->duration, $matches ) > 0 ) {
+						$seconds = 0;
+						if ( ! empty( $matches['hour'] ) ) {
+							$seconds += ( $matches['hour'] * 3600 );
+						}
+						if ( ! empty( $matches['min'] ) ) {
+							$seconds += ( $matches['min'] * 60 );
+						}
+						if ( ! empty( $matches['sec'] ) ) {
+							$seconds += $matches['sec'];
+						}
 
-				$this->vid['duration'] = $seconds;
+						$this->vid['duration'] = $seconds;
+					}
+				}
 			}
 		}
 
@@ -136,7 +150,15 @@ if ( ! class_exists( 'WPSEO_Video_Details_Youtube' ) ) {
 		 * Set the video height
 		 */
 		protected function set_height() {
-			$this->vid['height'] = 390; // @todo - shouldn't this be 360 ?
+			if ( ! empty( $this->decoded_response->player->embedHtml ) &&
+				preg_match( '` height="([^"]+)"`i', $this->decoded_response->player->embedHtml, $match )
+			) {
+				$this->vid['height'] = (int) $match[1];
+			}
+			else {
+				// Fall back to hard-coded default.
+				$this->vid['height'] = 390;
+			}
 		}
 
 
@@ -144,9 +166,19 @@ if ( ! class_exists( 'WPSEO_Video_Details_Youtube' ) ) {
 		 * Set the player location
 		 */
 		protected function set_player_loc() {
-			if ( ! empty( $this->vid['id'] ) ) {
-				// @todo: Check: why is htmlentities used here ? None of the other player_loc's have it
-				$this->vid['player_loc'] = htmlentities( 'https://www.youtube-nocookie.com/v/' . rawurlencode( $this->vid['id'] ) );
+			// Bow out if video is explicitely not embeddable - falls through if embeddable status not available.
+			if ( isset( $this->decoded_response->status->embeddable ) && $this->decoded_response->status->embeddable !== true ) {
+				return;
+			}
+
+			if ( ! empty( $this->decoded_response->player->embedHtml ) &&
+				preg_match( '` src="([^"]+)"`i', $this->decoded_response->player->embedHtml, $match )
+			) {
+				$this->vid['player_loc'] = $match[1];
+			}
+			else {
+				// Fall back to hard-coded default.
+				$this->vid['player_loc'] = '//www.youtube.com/embed/' . rawurlencode( $this->vid['id'] );
 			}
 		}
 
@@ -155,16 +187,18 @@ if ( ! class_exists( 'WPSEO_Video_Details_Youtube' ) ) {
 		 * Set the thumbnail location
 		 */
 		protected function set_thumbnail_loc() {
-			$formats = array( 'high', 'standard', 'medium', 'default' );
+			$formats = array( 'maxres', 'standard', 'high', 'medium', 'default' );
 
 			foreach ( $formats as $format ) {
-				$thumbnail = $this->decoded_response->snippet->thumbnails->$format;
-				if ( ! empty( $thumbnail->url ) ) {
-					$image = $this->make_image_local( $thumbnail->url );
-					if ( is_string( $image ) && $image !== '' ) {
-						$this->vid['thumbnail_loc'] = $image;
+				if ( ! empty( $this->decoded_response->snippet->thumbnails->$format ) && is_object( $this->decoded_response->snippet->thumbnails->$format ) ) {
+					$thumbnail = $this->decoded_response->snippet->thumbnails->$format;
+					if ( ! empty( $thumbnail->url ) ) {
+						$image = $this->make_image_local( $thumbnail->url );
+						if ( is_string( $image ) && $image !== '' ) {
+							$this->vid['thumbnail_loc'] = $image;
 
-						return;
+							return;
+						}
 					}
 				}
 			}
@@ -175,7 +209,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Youtube' ) ) {
 		 * Set the video view count
 		 */
 		protected function set_view_count() {
-			if ( is_object( $this->decoded_response->statistics ) && property_exists( $this->decoded_response->statistics, 'viewCount' ) ) {
+			if ( ! empty( $this->decoded_response->statistics->viewCount ) ) {
 				$this->vid['view_count'] = $this->decoded_response->statistics->viewCount;
 			}
 		}
@@ -185,8 +219,17 @@ if ( ! class_exists( 'WPSEO_Video_Details_Youtube' ) ) {
 		 * Set the video width
 		 */
 		protected function set_width() {
-			$this->vid['width'] = 640;
+			if ( ! empty( $this->decoded_response->player->embedHtml ) &&
+				preg_match( '` width="([^"]+)"`i', $this->decoded_response->player->embedHtml, $match )
+			) {
+				$this->vid['width'] = (int) $match[1];
+			}
+			else {
+				// Fall back to hard-coded default.
+				$this->vid['width'] = 640;
+			}
 		}
+
 
 		/**
 		 * Extends the parent method. By letting the parent set the response and get the first item afterwards
@@ -196,6 +239,10 @@ if ( ! class_exists( 'WPSEO_Video_Details_Youtube' ) ) {
 
 			if ( ! empty( $this->decoded_response->items[0] ) ) {
 				$this->decoded_response = $this->decoded_response->items[0];
+			}
+			else {
+				// Reset if no valid data received.
+				$this->decoded_response = null;
 			}
 		}
 	} /* End of class */

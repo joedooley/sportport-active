@@ -44,21 +44,12 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Yoast_Videoseo' ) ) {
 				$this->meta_keys = $meta_keys;
 			}
 
-			// Full Oembed url as specified in plugin => VideoSEO service name.
+			// OEmbed url (well, without the protocol or {format} tags) as specified in plugin => VideoSEO service name.
 			$this->video_oembeds = array(
-				'http://fast.wistia.com/oembed'              => 'wistia',
-				'http://www.screenr.com/api/oembed.{format}' => 'screenr',
+				'//fast.wistia.com/oembed'           => 'wistia',
+				'//www.screenr.com/api/oembed'       => 'screenr',
+				'//lab.viddler.com/services/oembed/' => 'viddler',
 			);
-
-			if ( version_compare( $GLOBALS['wp_version'], '3.9.99', '<' ) ) {
-				$this->video_oembeds['http://animoto.com/oembeds/create']           = 'animoto';
-				$this->video_oembeds['http://www.collegehumor.com/oembed.{format}'] = 'collegehumor';
-				$this->video_oembeds['http://www.ted.com/talks/oembed.{format}']    = 'ted';
-			}
-			else {
-				$this->video_oembeds['http://lab.viddler.com/services/oembed/'] = 'viddler';
-			}
-
 
 			$evs_location = get_option( 'evs_location' );
 			if ( $evs_location && ! empty( $evs_location ) ) {

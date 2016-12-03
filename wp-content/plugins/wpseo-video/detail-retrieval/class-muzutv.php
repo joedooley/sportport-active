@@ -57,8 +57,9 @@ if ( ! class_exists( 'WPSEO_Video_Details_Muzutv' ) ) {
 		 * Set the video duration
 		 */
 		protected function set_duration() {
-			if ( ! empty( $this->decoded_response->content->attributes()->duration ) ) {
-				$this->vid['duration'] = (string) $this->decoded_response->content->attributes()->duration;
+			$duration = $this->decoded_response->content->attributes()->duration;
+			if ( ! empty( $duration ) ) {
+				$this->vid['duration'] = (string) $duration;
 			}
 		}
 
@@ -67,8 +68,9 @@ if ( ! class_exists( 'WPSEO_Video_Details_Muzutv' ) ) {
 		 * Set the video height
 		 */
 		protected function set_height() {
-			if ( ! empty( $this->decoded_response->content->attributes()->height ) ) {
-				$this->vid['height'] = (string) $this->decoded_response->content->attributes()->height;
+			$height = $this->decoded_response->content->attributes()->height;
+			if ( ! empty( $height ) ) {
+				$this->vid['height'] = (string) $height;
 			}
 		}
 
@@ -100,8 +102,9 @@ if ( ! class_exists( 'WPSEO_Video_Details_Muzutv' ) ) {
 		 * Set the video view count
 		 */
 		protected function set_view_count() {
-			if ( ! empty( $this->xml->channel->item->children( 'http://www.muzu.tv/schemas/muzu/1.0' )->video->info->attributes()->views ) ) {
-				$this->vid['view_count'] = (string) $this->xml->channel->item->children( 'http://www.muzu.tv/schemas/muzu/1.0' )->video->info->attributes()->views;
+			$views = $this->xml->channel->item->children( 'http://www.muzu.tv/schemas/muzu/1.0' )->video->info->attributes()->views;
+			if ( ! empty( $views ) ) {
+				$this->vid['view_count'] = (string) $views;
 			}
 		}
 
@@ -110,9 +113,10 @@ if ( ! class_exists( 'WPSEO_Video_Details_Muzutv' ) ) {
 		 * Set the video width
 		 */
 		protected function set_width() {
-			if ( ! empty( $this->decoded_response->content->attributes()->width ) ) {
+			$width = $this->decoded_response->content->attributes()->width;
+			if ( ! empty( $width ) ) {
 				// @todo Why cast to string ? Int would be more logical
-				$this->vid['width'] = (string) $this->decoded_response->content->attributes()->width;
+				$this->vid['width'] = (string) $width;
 			}
 		}
 	} /* End of class */

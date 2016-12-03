@@ -97,6 +97,11 @@ $GLOBALS["gtm4wp_includefieldtexts"] = array(
 		"description" => __( "Check this option to include the ID of the logged in user.", 'duracelltomi-google-tag-manager' ),
 		"phase"       => GTM4WP_PHASE_STABLE
 	),
+	GTM4WP_OPTION_INCLUDE_USEREMAIL   => array(
+		"label"       => __( "Logged in user email", 'duracelltomi-google-tag-manager' ),
+		"description" => __( "Check this option to include the email address of the logged in user.", 'duracelltomi-google-tag-manager' ),
+		"phase"       => GTM4WP_PHASE_STABLE
+	),
 	GTM4WP_OPTION_INCLUDE_REMARKETING => array(
 		"label"       => __( "Remarketing variable", 'duracelltomi-google-tag-manager' ),
 		"description" => __( "Check this option to include a dataLayer variable where all dataLayer values are stored to be included in your AdWords remarketing tag as a custom variable field", 'duracelltomi-google-tag-manager' ),
@@ -418,9 +423,9 @@ $GLOBALS["gtm4wp_integratefieldtexts"] = array(
 		"phase"         => GTM4WP_PHASE_STABLE,
 		"plugintocheck" => "woocommerce/woocommerce.php"
 	),
-	GTM4WP_OPTION_INTEGRATE_WCREMARKETINGSKU => array(
+	GTM4WP_OPTION_INTEGRATE_WCUSESKU => array(
 		"label"         => __( "Use SKU instead of ID", 'duracelltomi-google-tag-manager' ),
-		"description"   => __( "Check this to use product SKU in the dynamic remarketing variables instead of the ID of the products. Will fallback to ID if no SKU is set.", 'duracelltomi-google-tag-manager' ),
+		"description"   => __( "Check this to use product SKU instead of the ID of the products for remarketing and ecommerce tracking. Will fallback to ID if no SKU is set.", 'duracelltomi-google-tag-manager' ),
 		"phase"         => GTM4WP_PHASE_EXPERIMENTAL,
 		"plugintocheck" => "woocommerce/woocommerce.php"
 	)
@@ -440,6 +445,10 @@ function gtm4wp_admin_output_section( $args ) {
 			_e( "Here you can check what data is needed to be included in the dataLayer to be able to access them in Google Tag Manager", 'duracelltomi-google-tag-manager' );
 			echo "<br />";
 			printf( __( '* Browser, OS and Device data is provided using <a href="%s">WhichBrowser</a> library.', 'duracelltomi-google-tag-manager' ), "http://whichbrowser.net/" );
+			if ( version_compare( PHP_VERSION, '5.4.0' ) < 0 ) {
+				echo "<br />";
+				_e( 'You are using an <strong>outdated</strong> version of PHP (5.3 or less). You <strong>should not turn on</strong> browser/device/os tracking as this can hurt your site. Please talk to your hosting and upgrade to PHP 5.4 or newer.', 'duracelltomi-google-tag-manager' );
+			}
 
 			break;        
 		}

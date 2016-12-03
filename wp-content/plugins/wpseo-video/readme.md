@@ -1,8 +1,8 @@
 Video SEO
 =========
-Requires at least: 4.3<br/>
-Tested up to: 4.6<br/>
-Stable tag: 3.7.0<br/>
+Requires at least: 4.4<br/>
+Tested up to: 4.7<br/>
+Stable tag: 3.9<br/>
 Depends: wordpress-seo
 
 Video SEO adds Video SEO capabilities to WordPress SEO.
@@ -31,6 +31,43 @@ You can find the [Video SEO FAQ](https://kb.yoast.com/kb/category/video-seo/) in
 Changelog
 =========
 
+### 3.9: November 29th, 2016
+
+* Enhancements
+    * Added support for the additional Wistia video urls and embed codes. If you use the Wistia video service, re-indexing your videos is highly recommended.
+    * Added fallback for the detail retrieval of private Vimeo videos. This will allow these to be recognized. (needs force re-index for existing posts).
+    * Added recognition of //player.vimeo.com/... type URLs. (needs force re-index for existing posts).
+    * Change the 'og:type' meta value to the more accurate 'video.other'.
+    * Change the 'og:video:type' meta value HTML5 which is now more accurate than Flash in most cases.
+    * Minor improvements in behaviour when installed on WP multi-site.
+
+* Bugfixes
+    * Fixed the YouTube video player URL. This should solve black screens and/or "Unable to resolve DNS" errors when embedding videos on Facebook and other sites. (needs force re-index for existing posts)
+    * Updated the Vimeo video player URL to the new HTML5 player format (with Flash fallback). This should solve black screens and/or "Unable to resolve DNS" errors when embedding these videos on Facebook and other sites. (needs force re-index for existing posts).
+
+### 3.8: November 8th, 2016
+
+* Enhancements
+    * The wpseo_sitemaps_base_url filter will now be respected by the VideoSEO plugin.
+    * Makes the oEmbed recognition compatible with the upcoming WP 4.7.
+
+* Bugfixes
+    * Fixes a fatal error when adding a YouTube video.
+    * Fixes a bug where adding a video in a custom post type would show an undefined index.
+    * Fixes support for Advanced Responsive Video Embedder plugin.
+    * Fixes a bug where the sitemap had the wrong style when a custom post type 'video' exists.
+    * Makes sure that the video sitemap will be available as soon as this plugin is activated and unavailable after deactivation.
+    * Fixes "Disable video for this post" per-post setting not being respected for the og: meta tags which led to Facebook still displaying the video even if the video for the post was disabled.
+    * If an invalid date is encountered for the publication date of a video post, the publication date will be re-evaluated.
+    * If a video post title or content/excerpt is - or has been - updated, this will now be reflected in the sitemap and the video meta data. (needs force re-index for existing posts)
+    * If a video post SEO title or SEO description is - or has been - added/adjusted, this will now be reflected in the sitemap. (needs force re-index for existing posts)
+    * If a SEO description template had been set for the post type which includes the video, this will now be respected. (needs force re-index for existing posts)
+    * If a video post was first saved as draft and only published later, the publication date would be stuck on the draft date in the sitemap, this has been fixed. (needs force re-index for existing posts)
+    * The "Force re-index" functionality was broken with the implementation of the progress bar. This has now been fixed. Checking the "Force re-index" checkbox will now work again as expected, including the regeneration of thumbnails.
+    * The "Re-index" functionality did not properly respect the post types to be indexed for the Video sitemap as set on the VideoSEO settings page, which unintentionally led to fewer items being re-indexed than they should. This has now been fixed.
+    * The re-index functionality has been made more efficient and should now - for the same number of posts - be faster.
+    * The sitemap cache was not automatically cleared after a re-index. This has now been fixed.
+    
 ### 3.7: October 11th, 2016
 
 * Enhancements

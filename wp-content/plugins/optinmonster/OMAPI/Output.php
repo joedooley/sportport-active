@@ -144,7 +144,7 @@ class OMAPI_Output {
 	    }
 
 	    // Adjust the output to add our custom script ID.
-	    return str_replace( ' src', ' data-cfasync="false" id="omapi-script" src', $tag );
+	    return str_replace( ' src', ' data-cfasync="false" id="omapi-script" async="async" src', $tag );
 
     }
 
@@ -164,7 +164,7 @@ class OMAPI_Output {
 	    }
 
 	    // Adjust the URL to add our custom script ID.
-	    return "$url' id='omapi-script";
+	    return "$url' async='async' id='omapi-script";
 
     }
 

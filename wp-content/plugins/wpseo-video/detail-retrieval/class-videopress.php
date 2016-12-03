@@ -90,7 +90,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Videopress' ) ) {
 		 */
 		public function __construct( $vid, $old_vid = array() ) {
 			// Pre-adjust the remote url.
-			$host                        = parse_url( home_url(), PHP_URL_HOST );
+			$host                        = WPSEO_Video_Analyse_Post::wp_parse_url( home_url(), PHP_URL_HOST );
 			$this->remote_url['pattern'] = $this->remote_url['pattern'] . $host;
 
 			parent::__construct( $vid, $old_vid );

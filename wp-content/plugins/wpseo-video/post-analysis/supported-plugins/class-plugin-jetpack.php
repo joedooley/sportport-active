@@ -70,9 +70,6 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 						'jetpack_vine'                  => 'vine',
 						'wpcom_youtube_embed_crazy_url' => 'youtube',
 					);
-					if ( version_compare( $GLOBALS['wp_version'], '3.9.99', '<' ) ) {
-						$this->video_oembeds['http://www.ted.com/talks/oembed.json'] = 'ted';
-					}
 				}
 
 				// Conditionally add VideoPress shortcodes.

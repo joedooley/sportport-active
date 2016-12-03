@@ -42,9 +42,7 @@ if ( ! class_exists( 'WPSEO_Video_Support_Core' ) ) {
 				'embed',
 			);
 
-			if ( version_compare( $GLOBALS['wp_version'], '3.6', '>=' ) ) {
-				$this->shortcodes[] = 'video';
-			}
+			$this->shortcodes[] = 'video'; // WP 3.6+.
 
 			// Handler name => VideoSEO service name.
 			$this->video_autoembeds = array(
@@ -52,27 +50,21 @@ if ( ! class_exists( 'WPSEO_Video_Support_Core' ) ) {
 				'video'       => '',
 			);
 
-			// Full Oembed url (well, up to the ?) as specified in plugin => VideoSEO service name.
+			// OEmbed url (well, without the protocol or {format} tags) as specified in plugin => VideoSEO service name.
 			$this->video_oembeds = array(
-				'http://blip.tv/oembed/'                     => 'blip',
-				'http://www.dailymotion.com/services/oembed' => 'dailymotion',
-				'https://www.flickr.com/services/oembed/'    => 'flickr',
-				'http://www.funnyordie.com/oembed'           => 'funnyordie',
-				'http://www.hulu.com/api/oembed.{format}'    => 'hulu',
-				'http://revision3.com/api/oembed/'           => 'revision3',
-				'http://vimeo.com/api/oembed.{format}'       => 'vimeo',
-				'http://wordpress.tv/oembed/'                => 'wordpresstv',
-				'http://www.youtube.com/oembed'              => 'youtube',
+				'//blip.tv/oembed/'                     => 'blip',
+				'//www.dailymotion.com/services/oembed' => 'dailymotion',
+				'//www.flickr.com/services/oembed/'     => 'flickr',
+				'//www.funnyordie.com/oembed'           => 'funnyordie',
+				'//www.hulu.com/api/oembed'             => 'hulu',
+				'//revision3.com/api/oembed/'           => 'revision3',
+				'//vimeo.com/api/oembed'                => 'vimeo',
+				'//wordpress.tv/oembed/'                => 'wordpresstv',
+				'//www.youtube.com/oembed'              => 'youtube',
+				'//animoto.com/oembeds/create'          => 'animoto',
+				'//www.collegehumor.com/oembed'         => 'collegehumor',
+				'//www.ted.com/talks/oembed'            => 'ted',
 			);
-
-			if ( version_compare( $GLOBALS['wp_version'], '3.9.99', '<' ) ) {
-				$this->video_oembeds['http://lab.viddler.com/services/oembed/'] = 'viddler';
-			}
-			else {
-				$this->video_oembeds['http://animoto.com/oembeds/create']           = 'animoto';
-				$this->video_oembeds['http://www.collegehumor.com/oembed.{format}'] = 'collegehumor';
-				$this->video_oembeds['http://www.ted.com/talks/oembed.{format}']    = 'ted';
-			}
 		}
 
 		/**
@@ -112,7 +104,7 @@ if ( ! class_exists( 'WPSEO_Video_Support_Core' ) ) {
 				// If a poster image was specified, use that, otherwise, try and find a suitable .jpg.
 				if ( isset( $atts['poster'] ) && is_string( $atts['poster'] ) && $atts['poster'] !== '' ) {
 					if ( WPSEO_Video_Wrappers::yoast_wpseo_video_is_url_relative( $atts['poster'] ) === true ) {
-						$info = parse_url( get_site_url() );
+						$info = WPSEO_Video_Analyse_Post::wp_parse_url( get_site_url() );
 						// @todo should we surround this with a file_exists check?
 						$vid['thumbnail_loc'] = $info['scheme'] . '://' . $info['host'] . $atts['poster'];
 					}
@@ -129,7 +121,7 @@ if ( ! class_exists( 'WPSEO_Video_Support_Core' ) ) {
 
 
 		/**
-		 * Analyse a video shortcode as used in WP core for usable video information
+		 * Analyse the embed shortcode as used in WP core for usable video information
 		 *
 		 * @param  string $full_shortcode Full shortcode as found in the post content.
 		 * @param  string $sc             Shortcode found.

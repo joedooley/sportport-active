@@ -34,7 +34,8 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Automatic_Youtube_Video_Post' ) ) {
 		 */
 		public function __construct() {
 			if ( function_exists( 'WP_ayvpp_init' ) ) {
-				$this->meta_keys[] = '_tern_wp_youtube_video';
+				$this->meta_keys[] = '_tern_wp_youtube_video'; // Pre 5.0.
+				$this->meta_keys[] = '_ayvpp_video'; // 5.0+.
 			}
 		}
 
@@ -55,30 +56,66 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Automatic_Youtube_Video_Post' ) ) {
 				$vid['type'] = 'youtube';
 				$vid['id']   = $meta_value;
 
-				// From automatic-youtube-video-posts/core/video.php.
-				$vid['thumbnail_loc'] = 'http://img.youtube.com/vi/' . $meta_value . '/0.jpg';
+				// AYVP 5.0+.
+				if ( $meta_key === '_ayvpp_video' ) {
 
-				// Fall-back default from automatic-youtube-video-posts/conf.php.
-				$tern_options = get_option( 'tern_wp_youtube' );
-				if ( $tern_options !== false && ! empty( $tern_options['dims'][0] ) ) {
-					$vid['width'] = $tern_options['dims'][0];
-				}
-				elseif ( ! empty( $GLOBALS['tern_wp_youtube_options']['dims'][0] ) ) {
-					$vid['width'] = $GLOBALS['tern_wp_youtube_options']['dims'][0];
-				}
-				else {
-					$vid['width'] = 506;
-				}
+					// Yes, they are doing it wrong, saving a url instead of a thumbnail id,
+					// but that's just how it is...
+					$thumb = get_post_meta( $post_id, '_thumbnail_id', true );
+					if ( ! empty( $thumb ) ) {
+						$vid['thumbnail_loc'] = $thumb;
+					}
 
-				if ( $tern_options !== false && ! empty( $tern_options['dims'][1] ) ) {
-					$vid['height'] = $tern_options['dims'][1];
+					$vid = $this->get_video_dimensions_from_option( $vid, 'ayvpp_settings', 'video_dims', 'ayvpp_options' );
 				}
-				elseif ( ! empty( $GLOBALS['tern_wp_youtube_options']['dims'][1] ) ) {
-					$vid['height'] = $GLOBALS['tern_wp_youtube_options']['dims'][1];
+				// Old logic for pre-5.0.
+				elseif ( $meta_key === '_tern_wp_youtube_video' ) {
+
+					// From automatic-youtube-video-posts/core/video.php.
+					$vid['thumbnail_loc'] = 'http://img.youtube.com/vi/' . $meta_value . '/0.jpg';
+
+					$vid = $this->get_video_dimensions_from_option( $vid, 'tern_wp_youtube', 'dims', 'tern_wp_youtube_options' );
 				}
-				else {
-					$vid['height'] = 304;
-				}
+			}
+
+			return $vid;
+		}
+
+
+		/**
+		 * Get the video dimensions from the AYVP option.
+		 *
+		 * Fall-back default from automatic-youtube-video-posts/conf.php.
+		 *
+		 * @since 3.8.0
+		 *
+		 * @param array  $vid           Current video information.
+		 * @param string $option_name   The name of AYVP option.
+		 * @param string $array_key     The key in the options array holding the video dimensions.
+		 * @param string $global_option The name of the option in $GLOBALS.
+		 *
+		 * @return array Adjusted $vid array
+		 */
+		private function get_video_dimensions_from_option( $vid, $option_name, $array_key, $global_option ) {
+			$options = get_option( $option_name );
+			if ( $options !== false && ! empty( $options[ $array_key ][0] ) ) {
+				$vid['width'] = $options[ $array_key ][0];
+			}
+			elseif ( ! empty( $GLOBALS[ $global_option ][ $array_key ][0] ) ) {
+				$vid['width'] = $GLOBALS[ $global_option ][ $array_key ][0];
+			}
+			else {
+				$vid['width'] = 506;
+			}
+
+			if ( $options !== false && ! empty( $options[ $array_key ][1] ) ) {
+				$vid['height'] = $options[ $array_key ][1];
+			}
+			elseif ( ! empty( $GLOBALS[ $global_option ][ $array_key ][1] ) ) {
+				$vid['height'] = $GLOBALS[ $global_option ][ $array_key ][1];
+			}
+			else {
+				$vid['height'] = 304;
 			}
 
 			return $vid;

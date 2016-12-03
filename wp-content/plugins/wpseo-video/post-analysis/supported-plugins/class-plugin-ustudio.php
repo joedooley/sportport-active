@@ -1,8 +1,8 @@
 <?php
 /**
  * @package    Internals
- * @since      x.x.x
- * @version    x.x.x
+ * @since      3.7.0
+ * @version    3.7.0
  */
 
 // Avoid direct calls to this file.
@@ -75,7 +75,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Ustudio' ) ) {
 			$vid = array();
 
 			if ( isset( $atts['destination'] ) && isset( $atts['video'] ) ) {
-				$vid['id'] = $atts['destination'].'/'.$atts['video'];
+				$vid['id']   = $atts['destination'] . '/' . $atts['video'];
 				$vid['type'] = 'ustudio';
 			}
 

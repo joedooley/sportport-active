@@ -19,31 +19,30 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *
  * @see      http://wordpress.org/plugins/advanced-responsive-video-embedder/
  *
- * @internal Last update: July 2014 based upon v 4.9.0
+ * @internal Last update: October 2016 based upon v 7.5.1
  *
  * Shortcode list from plugin:
  *   'shortcodes'            => array(
- *       '4players'               => '4players',
+ *       'allmyvideos'            => 'allmyvideos',
+ *       'alugha'                 => 'alugha',
  *       'archiveorg'             => 'archiveorg',
- *       'blip'                   => 'blip',
- *       'bliptv'                 => 'bliptv', //* Deprecated
  *       'break'                  => 'break',
  *       'collegehumor'           => 'collegehumor',
  *       'comedycentral'          => 'comedycentral',
  *       'dailymotion'            => 'dailymotion',
  *       'dailymotionlist'        => 'dailymotionlist', // should not be recognized
- *       'flickr'                 => 'flickr',
+ *       'facebook'               => 'facebook',
  *       'funnyordie'             => 'funnyordie',
- *       'gametrailers'           => 'gametrailers',
  *       'iframe'                 => 'iframe',
  *       'ign'                    => 'ign',
  *       'kickstarter'            => 'kickstarter',
  *       'liveleak'               => 'liveleak',
+ *       'livestream'             => 'livestream',
+ *       'klatv'                  => 'klatv',
  *       'metacafe'               => 'metacafe',
  *       'movieweb'               => 'movieweb',
  *       'mpora'                  => 'mpora',
  *       'myspace'                => 'myspace',
- *       'myvideo'                => 'myvideo',
  *       'snotr'                  => 'snotr',
  *       'spike'                  => 'spike',
  *       'ted'                    => 'ted',
@@ -52,11 +51,12 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *       'veoh'                   => 'veoh',
  *       'vevo'                   => 'vevo',
  *       'viddler'                => 'viddler',
- *       'videojug'               => 'videojug',
+ *       'vidspot'                => 'vidspot',
  *       'vine'                   => 'vine',
  *       'vimeo'                  => 'vimeo',
  *       'xtube'                  => 'xtube',
  *       'yahoo'                  => 'yahoo',
+ *       'youku'                  => 'youku',
  *       'youtube'                => 'youtube',
  *       'youtubelist'            => 'youtubelist', //* Deprecated and should not be recognized
  *   ),
@@ -68,45 +68,83 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Advanced_Responsive_Video_Embedder' ) )
 	 */
 	class WPSEO_Video_Plugin_Advanced_Responsive_Video_Embedder extends WPSEO_Video_Supported_Plugin {
 
+		/**
+		 * ARVE native options, containing relevant information on the supported shortcodes.
+		 *
+		 * @since 3.8.0
+		 *
+		 * @var array
+		 */
+		protected $arve_options;
 
 		/**
-		 * Conditionally add plugin features to analyse for video content
+		 * ARVE native properties, containing relevant information on the supported embeds.
+		 *
+		 * @since 3.8.0
+		 *
+		 * @var array
+		 */
+		protected $arve_properties;
+
+
+		/**
+		 * Conditionally add plugin features to analyse for video content.
 		 */
 		public function __construct() {
-			if ( class_exists( 'Advanced_Responsive_Video_Embedder' ) && method_exists( 'Advanced_Responsive_Video_Embedder', 'get_instance' ) ) {
+			// ARVE is getting into a habit of continuously renaming their core classes and methods....
+			// so checking for several for compatibility.
+			if ( class_exists( 'Advanced_Responsive_Video_Embedder_Shared' ) || function_exists( 'arve_get_options' ) ) {
 
-				// Retrieve the enabled shortcodes the ARVE way.
-				$arve    = Advanced_Responsive_Video_Embedder::get_instance();
-				$options = $arve->get_options();
+				// Register the main ARVE 5.3+ shortcode.
+				$this->shortcodes[] = 'arve';
 
-				// We don't support playlists.
-				unset( $options['shortcodes']['dailymotionlist'], $options['shortcodes']['youtubelist'] );
-
-				foreach ( $options['shortcodes'] as $provider => $shortcode ) {
-					$this->shortcodes[] = $provider;
+				// ARVE still supports legacy format, so we should too.
+				$arve_options = array();
+				if ( method_exists( 'Advanced_Responsive_Video_Embedder_Shared', 'get_options' ) ) {
+					$arve_options = Advanced_Responsive_Video_Embedder_Shared::get_options();
+				}
+				else if ( function_exists( 'arve_get_options' ) ) {
+					$arve_options = arve_get_options();
 				}
 
+				if ( ! empty( $arve_options ) && is_array( $arve_options ) ) {
+					// We don't support playlists.
+					unset( $arve_options['shortcodes']['dailymotionlist'], $arve_options['shortcodes']['youtubelist'] );
 
-				$arve_embed_list = $arve->get_regex_list();
-				// We don't support playlists.
-				unset( $arve_embed_list['dailymotionlist'] );
+					$this->arve_options = $arve_options;
 
-				foreach ( $arve_embed_list as $provider => $regex ) {
-					// Fix two service names.
-					$service = $provider;
-					if ( $service === 'youtu_be' ) {
-						$service = 'youtube';
+					foreach ( $this->arve_options['shortcodes'] as $provider => $shortcode ) {
+						$this->shortcodes[] = $shortcode;
 					}
-					elseif ( $service === 'dai_ly' || $service === 'dailymotion_hub' ) {
-						$service = 'dailymotion';
-					}
+				}
+			}
+
+
+			if ( class_exists( 'Advanced_Responsive_Video_Embedder_Shared' ) || function_exists( 'arve_get_host_properties' ) ) {
+				$arve_properties = array();
+				if ( method_exists( 'Advanced_Responsive_Video_Embedder_Shared', 'get_properties' ) ) {
+					$arve_properties = Advanced_Responsive_Video_Embedder_Shared::get_properties();
+				}
+				else if ( function_exists( 'arve_get_host_properties' ) ) {
+					$arve_properties = arve_get_host_properties();
+				}
+
+				if ( ! empty( $arve_properties ) && is_array( $arve_properties ) ) {
+					// We don't support playlists.
+					unset( $arve_properties['dailymotionlist'], $arve_properties['youtubelist'] );
 
 					/*
-					 * Add the embed keys
-					 * Handler name => VideoSEO service name
+					 * Add the embed keys.
+					 * Handler name => VideoSEO service name.
 					 */
-					$this->video_autoembeds[ 'arve_' . $provider ] = $service;
+					foreach ( $arve_properties as $provider => $values ) {
+						if ( ! empty( $values['regex'] ) ) {
+							$this->video_autoembeds[ 'arve_' . $provider ] = $provider;
+						}
+					}
 				}
+
+				$this->arve_properties = $arve_properties;
 			}
 		}
 
@@ -124,37 +162,129 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Advanced_Responsive_Video_Embedder' ) )
 		public function get_info_from_shortcode( $full_shortcode, $sc, $atts = array(), $content = '' ) {
 			$vid = array();
 
-			// Deal with blip weirdness.
-			if ( ( $sc === 'blip' || $sc === 'bliptv' ) && ! empty( $atts['id'] ) ) {
-				$vid = $this->what_the_blip( $vid, $atts['id'], $full_shortcode );
-			}
-			elseif ( $sc !== 'iframe' && ! empty( $atts['id'] ) ) {
-				$vid['id'] = $atts['id'];
-			}
-			elseif ( $sc === 'iframe' && ( isset( $atts['id'] ) && is_string( $atts['id'] ) && $atts['id'] !== '' ) ) {
-				$vid['url'] = $atts['id'];
+			if ( $sc === 'arve' ) {
+				if ( ! isset( $atts['url'] ) ) {
+					// Not usable, no url.
+					return $vid;
+				}
+
+				$maybe_type = $this->get_service_type_from_shortcode( $atts['url'] );
+				if ( $maybe_type !== false ) {
+					$vid['type'] = $maybe_type;
+					$vid['url']  = $atts['url'];
+				}
+
+				if ( $vid !== array() && ! empty( $atts['thumbnail'] ) ) {
+					$maybe_thumb = $this->get_thumbnail_loc_from_shortcode( $atts['thumbnail'] );
+
+					if ( is_string( $maybe_thumb ) && $maybe_thumb !== '' ) {
+						$vid['thumbnail_loc'] = $maybe_thumb;
+					}
+				}
 			}
 
-			if ( $vid !== array() ) {
-				// Only add type if we succesfully found an id/url.
-				switch ( $sc ) {
-					case 'bliptv':
-						$vid['type'] = 'blip';
-						break;
+			/* Legacy shortcodes. */
+			else {
+				// Deal with blip weirdness.
+				if ( ( $sc === 'blip' || $sc === 'bliptv' ) && ! empty( $atts['id'] ) ) {
+					$vid = $this->what_the_blip( $vid, $atts['id'], $full_shortcode );
+				}
+				elseif ( $sc !== 'iframe' && ! empty( $atts['id'] ) ) {
+					$vid['id'] = $atts['id'];
+				}
+				elseif ( $sc === 'iframe' && ( isset( $atts['id'] ) && is_string( $atts['id'] ) && $atts['id'] !== '' ) ) {
+					$vid['url'] = $atts['id'];
+				}
 
-					case 'iframe':
-						// @todo what should this be? - url iframe embed?
-						$vid['type']        = 'iframe';
-						$vid['maybe_local'] = true;
-						break;
+				if ( $vid !== array() ) {
+					// Only add type if we succesfully found an id/url.
+					switch ( $sc ) {
+						case 'bliptv':
+							$vid['type'] = 'blip';
+							break;
 
-					default:
-						$vid['type'] = $sc;
-						break;
+						case 'iframe':
+							// @todo what should this be? - url iframe embed?
+							$vid['type']        = 'iframe';
+							$vid['maybe_local'] = true;
+							break;
+
+						default:
+							$type = false;
+							if ( isset( $this->arve_options['shortcodes'] ) ) {
+								$type = array_search( $sc, $this->arve_options['shortcodes'], true );
+							}
+
+							if ( $type !== false ) {
+								$vid['type'] = $type;
+							}
+							break;
+					}
 				}
 			}
 
 			return $vid;
+		}
+
+
+		/**
+		 * Get a thumbnail url from an ARVE thumbnail shortcode attribute.
+		 *
+		 * This code is a simplified version of code found in the ARVE plugin.
+		 *
+		 * @see Advanced_Responsive_Video_Embedder_Public::build_embed()
+		 *
+		 * @since 3.8.0
+		 *
+		 * @param string $thumbnail The value of the thumbnail shortcode attribute.
+		 *
+		 * @return string|false URL if a valid thumbnail was found, false otherwise.
+		 */
+		private function get_thumbnail_loc_from_shortcode( $thumbnail ) {
+			$maybe_url = filter_var( $thumbnail, FILTER_SANITIZE_STRING );
+
+			if ( substr( $maybe_url, 0, 4 ) === 'http' && filter_var( $maybe_url, FILTER_VALIDATE_URL ) ) {
+				return $thumbnail;
+			}
+			elseif ( is_numeric( $thumbnail ) ) {
+				$img_src = wp_get_attachment_image_url( $thumbnail, 'medium' );
+
+				if ( $img_src !== false ) {
+					return $img_src;
+				}
+			}
+
+			return false;
+		}
+
+
+		/**
+		 * Try and determine the video service based on the url using input from ARVE.
+		 *
+		 * This code is a simplified version of code found in the ARVE plugin.
+		 *
+		 * @see Advanced_Responsive_Video_Embedder_Public::build_embed()
+		 *
+		 * @since 3.8.0
+		 *
+		 * @param string $url The url provided in the shortcode.
+		 *
+		 * @return string|false The provider name or false if provider could not be determined.
+		 */
+		private function get_service_type_from_shortcode( $url ) {
+
+			foreach ( $this->arve_properties as $provider => $values ) {
+
+				if ( in_array( $provider, array( 'dailymotionlist', 'youtubelist' ), true ) || empty( $values['regex'] ) ) {
+					continue;
+				}
+
+				if ( preg_match( '#' . $values['regex'] . '#i', $url, $matches ) === 1 ) {
+					return $provider;
+				}
+			}
+
+			return false;
 		}
 	} /* End of class */
 

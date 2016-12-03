@@ -1,8 +1,8 @@
 <?php
 /**
  * @package    Internals
- * @since      x.x.x
- * @version    x.x.x
+ * @since      3.7.0
+ * @version    3.7.0
  */
 
 // Avoid direct calls to this file.

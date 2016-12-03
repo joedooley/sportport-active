@@ -53,10 +53,7 @@ if ( ! class_exists( 'BEWPI_Template_Settings' ) ) {
 	     * @return array
 	     */
 	    private function get_defaults() {
-		    $defaults = array();
-		    foreach ( $this->the_settings() as $setting ) :
-			    $defaults[ $setting['name'] ] = $setting['default'];
-		    endforeach;
+		    $defaults = wp_list_pluck( $this->the_settings(), 'default', 'name' );
 		    return $defaults;
 	    }
 
@@ -104,6 +101,19 @@ if ( ! class_exists( 'BEWPI_Template_Settings' ) ) {
 				    'type' => 'color',
 				    'desc' => '',
 				    'default' => '#000000'
+			    ),
+			    array(
+				    'id' => 'bewpi-theme-text-black',
+				    'name' => $this->prefix . 'theme_text_black',
+				    'title' => '',
+				    'callback' => array( &$this, 'input_callback' ),
+				    'page' => $this->settings_key,
+				    'section' => 'general',
+				    'type' => 'checkbox',
+				    'desc' => __( 'Display theme text in black color', 'woocommerce-pdf-invoices' )
+				              . "<br/><div class='bewpi-notes'>" . __( 'Enable if you\'ve set the color theme to white or some other light color.', 'woocommerce-pdf-invoices' ) . "</div>",
+				    'class' => 'bewpi-checkbox-option-title',
+				    'default' => 0,
 			    ),
 			    array(
 				    'id' => 'bewpi-date-format',
@@ -307,7 +317,7 @@ if ( ! class_exists( 'BEWPI_Template_Settings' ) ) {
 				    'class' => 'bewpi-checkbox-option-title',
 				    'default' => 0,
 				    'attrs' => array(
-					    'onchange="Settings.enableDisableNextInvoiceNumbering(this)"'
+					    'onchange="BEWPI.Settings.enableDisableNextInvoiceNumbering(this)"'
 				    )
 			    ),
 			    array(

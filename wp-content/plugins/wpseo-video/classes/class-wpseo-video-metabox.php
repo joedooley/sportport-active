@@ -33,18 +33,6 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 			add_filter( 'wpseo_do_meta_box_field_videositemap-rating', array( $this, 'do_number_field' ), 10, 3 );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-
-			// Only add the filter on Yoast SEO before 3.0, because 3.0 removed this filter. 2.3.5 was the last 2.x
-			// version.
-			if ( version_compare( WPSEO_VERSION, '2.3.5', '<=' ) ) {
-				add_filter( 'wpseo_snippet', array( $this, 'snippet_preview' ), 10, 3 );
-				add_filter( 'wpseo_metadesc_length', array( $this, 'meta_length' ), 10, 1 );
-				add_filter( 'wpseo_metadesc_length_reason', array( $this, 'meta_length_reason' ), 10, 1 );
-				add_filter( 'wpseo_linkdex_results', array( $this, 'filter_linkdex_results' ), 10, 3 );
-
-			}
-
-
 		}
 
 
@@ -162,11 +150,64 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 			return $content;
 		}
 
+		/**
+		 * Enqueues the pluginscripts.
+		 */
+		public function enqueue_scripts() {
+			wp_enqueue_script( 'wp-seo-video-seo', plugins_url( 'js/yoast-videoseo-plugin-330' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_VIDEO_FILE ), array(), WPSEO_VERSION, true );
+
+			wp_localize_script( 'wp-seo-video-seo', 'wpseoVideoL10n', $this->localize_video_script() );
+		}
+
+		/**
+		 * Check if the post type the user is currently editing is shown in the sitemaps. If so, the video metabox should be shown.
+		 *
+		 * @return bool
+		 */
+		private function should_show_metabox() {
+			$options              = get_option( 'wpseo_video' );
+			$supported_post_types = $options['videositemap_posttypes'];
+			$current_post_type    = get_post_type();
+			if ( is_array( $supported_post_types ) && ! empty( $supported_post_types ) ) {
+				if ( in_array( $current_post_type, $supported_post_types ) ) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		/**
+		 * Localizes scripts for the videoplugin.
+		 *
+		 * @return array
+		 */
+		private function localize_video_script() {
+			return array(
+				'has_video'           => $this->has_video(),
+				'video'               => __( 'video', 'yoast-video-seo' ),
+				'video_title_ok'      => __( 'You should consider adding the word "video" in your title, to optimize your ability to be found by people searching for video.', 'yoast-video-seo' ),
+				'video_title_good'    => __( 'You\'re using the word "video" in your title, this optimizes your ability to be found by people searching for video.', 'yoast-video-seo' ),
+				'video_body_short'    => __( 'Your body copy is too short for Search Engines to understand the topic of your video, add some more content describing the contents of the video.', 'yoast-video-seo' ),
+				'video_body_good'     => __( 'Your body copy is optimal length for your video to be recognized by Search Engines.', 'yoast-video-seo' ),
+				/* translators 1: links to https://yoast.com/video-not-showing-search-results, 2: closing link tag */
+				'video_body_long'     => __( 'Your body copy is quite long, make sure that the video is the most important asset on the page, read %1$sthis post%2$s for more info.', 'yoast-video-seo' ),
+				'video_body_long_url' => '<a target="new" href="https://yoast.com/video-not-showing-search-results/">',
+				'video_body_long'     => __( 'Your body copy is quite long, make sure that the video is the most important asset on the page, read %1$sthis post%2$s for more info.', 'yoast-video-seo' ),
+				'video_body_long_url' => '<a target="new" href="https://yoast.com/video-not-showing-search-results/">',
+			);
+		}
+
+
+		/********************** DEPRECATED METHODS **********************/
+
 
 		/**
 		 * Replace the default snippet with a video snippet by hooking this function into the wpseo_snippet filter.
 		 *
-		 * @since 0.1
+		 * @since      0.1
+		 * @deprecated 3.8 Functionality can no longer be reached as the filter calling this was
+		 *                 removed from WPSEO. Replaced by javascript.
 		 *
 		 * @param string $content The original snippet content.
 		 * @param object $post    The post object of the post for which the snippet was generated.
@@ -184,8 +225,6 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 			if ( $disable === 'on' || $this->has_video() !== true ) {
 				return $content;
 			}
-
-			extract( $vars );
 
 			$video = self::get_value( 'video_meta', $post->ID );
 			$video = $GLOBALS['wpseo_video_xml']->get_video_image( $post->ID, $video );
@@ -259,7 +298,9 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 		/**
 		 * Restricts the length of the meta description in the snippet preview and throws appropriate warnings.
 		 *
-		 * @since 0.1
+		 * @since      0.1
+		 * @deprecated 3.8 Functionality can no longer be reached as the filter calling this was
+		 *                 removed from WPSEO. Replaced by javascript.
 		 *
 		 * @todo  [JRF -> whomever] should 115 be an override of the WPSEO_Meta property ? or a property of this class ?
 		 *
@@ -280,7 +321,9 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 		/**
 		 * Explains the length restriction of the meta description
 		 *
-		 * @since 0.1
+		 * @since      0.1
+		 * @deprecated 3.8 Functionality can no longer be reached as the filter calling this was
+		 *                 removed from WPSEO. Replaced by javascript.
 		 *
 		 * @param string $reason Input string.
 		 *
@@ -298,7 +341,9 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 		/**
 		 * Filter the Page Analysis results to make sure we're giving the correct hints.
 		 *
-		 * @since 1.4
+		 * @since      1.4
+		 * @deprecated 3.8 Functionality can no longer be reached as the filter calling this was
+		 *                 removed from WPSEO. Replaced by javascript.
 		 *
 		 * @param array  $results The results array to filter and update.
 		 * @param array  $job     The current jobs variables.
@@ -345,54 +390,6 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 			}
 
 			return $results;
-		}
-
-		/**
-		 * Enqueues the pluginscripts.
-		 */
-		public function enqueue_scripts() {
-			wp_enqueue_script( 'wp-seo-video-seo', plugins_url( 'js/yoast-videoseo-plugin-330' . WPSEO_CSSJS_SUFFIX . '.js', WPSEO_VIDEO_FILE ), array(), WPSEO_VERSION, true );
-
-			wp_localize_script( 'wp-seo-video-seo', 'wpseoVideoL10n', $this->localize_video_script() );
-		}
-
-		/**
-		 * Check if the post type the user is currently editing is shown in the sitemaps. If so, the video metabox should be shown.
-		 *
-		 * @return bool
-		 */
-		private function should_show_metabox() {
-			$options              = get_option( 'wpseo_video' );
-			$supported_post_types = $options['videositemap_posttypes'];
-			$current_post_type    = get_post_type();
-			if ( is_array( $supported_post_types ) && ! empty( $supported_post_types ) ) {
-				if ( in_array( $current_post_type, $supported_post_types ) ) {
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		/**
-		 * Localizes scripts for the videoplugin.
-		 *
-		 * @return array
-		 */
-		private function localize_video_script() {
-			return array(
-				'has_video'           => $this->has_video(),
-				'video'               => __( 'video', 'yoast-video-seo' ),
-				'video_title_ok'      => __( 'You should consider adding the word "video" in your title, to optimize your ability to be found by people searching for video.', 'yoast-video-seo' ),
-				'video_title_good'    => __( 'You\'re using the word "video" in your title, this optimizes your ability to be found by people searching for video.', 'yoast-video-seo' ),
-				'video_body_short'    => __( 'Your body copy is too short for Search Engines to understand the topic of your video, add some more content describing the contents of the video.', 'yoast-video-seo' ),
-				'video_body_good'     => __( 'Your body copy is optimal length for your video to be recognized by Search Engines.', 'yoast-video-seo' ),
-				/* translators 1: links to https://yoast.com/video-not-showing-search-results, 2: closing link tag */
-				'video_body_long'     => __( 'Your body copy is quite long, make sure that the video is the most important asset on the page, read %1$sthis post%2$s for more info.', 'yoast-video-seo' ),
-				'video_body_long_url' => '<a target="new" href="https://yoast.com/video-not-showing-search-results/">',
-				'video_body_long'     => __( 'Your body copy is quite long, make sure that the video is the most important asset on the page, read %1$sthis post%2$s for more info.', 'yoast-video-seo' ),
-				'video_body_long_url' => '<a target="new" href="https://yoast.com/video-not-showing-search-results/">',
-			);
 		}
 	} /* End of class */
 

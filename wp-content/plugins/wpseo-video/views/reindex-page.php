@@ -8,7 +8,10 @@
 <p><?php _e( 'Your site is being indexed at the moment, so don\'t close this window. This process may take a few minutes to complete.', 'yoast-video-seo' ); ?></p>
 
 <input type="hidden" name="video_seo_percentage" id="video_seo_percentage_hidden" value="0" />
-<?php wp_nonce_field( 'videoseo-ajax-nonce-for-reindex', 'videoseo-nonce-ajax' ); ?>
+<?php wp_nonce_field( 'videoseo-ajax-nonce-for-reindex', 'videoseo-nonce-ajax' );
+if ( isset( $_POST['force'] ) && $_POST['force'] === 'on' ) : ?>
+<input type="hidden" name="video_seo_force_reindex" id="video_seo_force_reindex" value="on" />
+<?php endif; ?>
 
 <div id="video_seo_progressbar">
 	<div class="bar">

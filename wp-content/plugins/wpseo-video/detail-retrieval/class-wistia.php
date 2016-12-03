@@ -109,17 +109,18 @@ if ( ! class_exists( 'WPSEO_Video_Details_Wistia' ) ) {
 		protected function get_remote_video_info() {
 			if ( is_string( $this->vid['url'] ) && $this->vid['url'] !== '' ) {
 				// Temporarily change the url.
-				$real_url         = $this->vid['url'];
+				$real_url = $this->vid['url'];
 				if ( strpos( $this->vid['url'], 'embedType=' ) !== false ) {
 					// Avoid adding embedType twice.
-					$this->vid['url'] = str_replace( array( 'embedType=api', 'embedType=iframe', 'embedType=popover', 'embedType=seo' ), 'embedType=seo', $this->vid['url'] );
+					$this->vid['url'] = str_replace( array( 'embedType=api', 'embedType=iframe', 'embedType=popover', 'embedType=seo', 'embedType=async' ), 'embedType=seo', $this->vid['url'] );
 				}
 				else {
 					$this->vid['url'] = add_query_arg( 'embedType', 'seo', $this->vid['url'] );
 				}
 
 				parent::get_remote_video_info();
-				// Rest the url.
+
+				// Reset the url.
 				$this->vid['url'] = $real_url;
 			}
 		}

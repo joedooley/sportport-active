@@ -20,14 +20,20 @@ function update_bar(percentage) {
 
 function video_fetch(start) {
 	var totalposts = parseInt(jQuery('#video_seo_total_posts').html());
+	var force_reindex = jQuery('#video_seo_force_reindex').length;
 
 	var data = {
 		'action' : 'index_posts',
 		'type'   : 'index',
 		'start'  : start,
+		'total'  : totalposts,
 		'portion': 5,
 		'nonce' : jQuery('#videoseo-nonce-ajax').val()
 	};
+
+	if ( force_reindex > 0 ) {
+		data.force = 'on';
+	}
 
 	jQuery.post(ajaxurl, data, function (response) {
 		if (start < totalposts) {

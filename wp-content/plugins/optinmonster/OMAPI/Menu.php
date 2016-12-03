@@ -152,6 +152,7 @@ class OMAPI_Menu {
         add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
         add_filter( 'admin_footer_text', array( $this, 'footer' ) );
 	    add_action( 'in_admin_header', array( $this, 'output_plugin_screen_banner') );
+		add_action( 'admin_enqueue_scripts', array( $this, 'fix_plugin_js_conflicts'), 100 );
 
     }
 
@@ -207,6 +208,26 @@ class OMAPI_Menu {
     }
 
 	/**
+	 * Deque specific scripts that cause conflicts on settings page
+	 *
+	 * @since 1.1.5.9
+	 */
+	public function fix_plugin_js_conflicts(){
+
+		// Get current screen.
+		$screen = get_current_screen();
+
+		// Bail if we're not on the OptinMonster Settings screen.
+		if ( isset( $screen->id ) && 'toplevel_page_optin-monster-api-settings' !== $screen->id ) {
+			return;
+		}
+
+		// Dequeue scripts that might cause our settings not to work properly.
+		wp_dequeue_script( 'optimizely_config' );
+
+	}
+
+	/**
 	 * Combine Support data together to pass into localization
 	 *
 	 * @since 1.1.5
@@ -256,7 +277,7 @@ class OMAPI_Menu {
 					'Categories'                       => get_post_meta( $optin->ID, '_omapi_categories', true ),
 					'Taxonomies'                       => get_post_meta( $optin->ID, '_omapi_taxonomies', true ),
 					'Template types to Show on'        => get_post_meta( $optin->ID, '_omapi_show', true ),
-					'Shortcodes Synced and Recognized' => get_post_meta( $optin->ID, '_omapi_shortecode', true ),
+					'Shortcodes Synced and Recognized' => get_post_meta( $optin->ID, '_omapi_shortcode', true ) ? htmlspecialchars_decode( get_post_meta( $optin->ID, '_omapi_shortcode_output', true ) ) : 'None recognized',
 				);
 			}
 		}

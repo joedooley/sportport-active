@@ -93,7 +93,7 @@ $xsl = '<xsl:stylesheet version="2.0"
 			<p class="expl">
 				This sitemap contains <xsl:value-of select="count(sitemap:urlset/sitemap:url)"/> URLs.
 			</p>
-			<p class="expl"><a href="'.home_url( 'sitemap_index.xml' ).'">&#8593; Sitemap Index</a></p>
+			<p class="expl"><a href="' . home_url( 'sitemap_index.xml' ) . '">&#8593; Sitemap Index</a></p>
 			<div class="content">
 				<table id="sitemap">
 				<thead>
