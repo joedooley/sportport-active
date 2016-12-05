@@ -167,6 +167,7 @@ function gencwooc_single_product_loop() {
 		<?php do_action('woocommerce_before_single_product'); ?>
 
 		<div itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
+			<meta itemprop="itemCondition" content="http://schema.org/NewCondition" />
 
 			<?php do_action( 'woocommerce_before_single_product_summary' ); ?>
 
