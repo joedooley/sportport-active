@@ -283,3 +283,21 @@ add_filter( 'get_the_content_more_link', 'spa_read_more_link' );
 function spa_read_more_link() {
 	return '... <div class="read-more-button"><a href="' . get_permalink() . '">Read More</a></div>';
 }
+
+
+add_filter( 'genesis_attr_breadcrumb-link-wrap', 'spa_genesis_attributes_remove_itemlistelement', 20 );
+/**
+ * Remove itemListElement because it wasn't validating in Google Shopping
+ *
+ * @param array $attributes Existing attributes for breadcrumb item element.
+ * @return array Amended attributes for breadcrumb item element.
+ */
+function spa_genesis_attributes_remove_itemlistelement( $attributes ) {
+
+	$attributes['itemprop']  = '';
+	$attributes['itemscope'] = true;
+	$attributes['itemtype']  = 'http://schema.org/ListItem';
+
+	return $attributes;
+
+}

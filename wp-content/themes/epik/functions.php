@@ -32,3 +32,24 @@ define( 'CHILD_THEME_VERSION', '1.0.0' );
 define( 'CHILD_THEME_TEXTDOMAIN', 'epik' );
 
 add_theme_support( 'genesis-connect-woocommerce' );
+
+
+/**
+ * TEMP
+ */
+add_filter( 'wc_additional_variation_images_main_images_class', 'variation_swap_main_image_class' );
+
+function variation_swap_main_image_class() {
+	return '.product .images .thumbnails';
+}
+
+add_filter( 'wc_additional_variation_images_gallery_images_class', 'variation_swap_gallery_image_class' );
+
+function variation_swap_gallery_image_class() {
+	return '.product .images .slick-list';
+}
+
+add_filter( 'wc_additional_variation_images_custom_swap', '__return_true' );
+add_filter( 'wc_additional_variation_images_custom_reset_swap', '__return_true' );
+add_filter( 'wc_additional_variation_images_custom_original_swap', '__return_true' );
+add_filter( 'wc_additional_variation_images_get_first_image', '__return_true' );

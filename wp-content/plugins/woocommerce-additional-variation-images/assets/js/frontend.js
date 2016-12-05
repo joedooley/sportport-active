@@ -159,7 +159,7 @@ jQuery( document ).ready( function( $ ) {
 					}
 
 					$( wc_additional_variation_images_local.gallery_images_class ).unblock();
-				});	
+				});
 			});
 
 			// on reset click
@@ -192,4 +192,4 @@ jQuery( document ).ready( function( $ ) {
 	$.wc_additional_variation_images_frontend.init();
 
 // end document ready
-});	
+});
