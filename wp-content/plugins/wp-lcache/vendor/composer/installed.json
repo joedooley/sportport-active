@@ -1,0 +1,51 @@
+[
+    {
+        "name": "lcache/lcache",
+        "version": "v0.3.5",
+        "version_normalized": "0.3.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/lcache/lcache.git",
+            "reference": "0874dca593f79305a963dc0f40fc99e8fc495b78"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/lcache/lcache/zipball/0874dca593f79305a963dc0f40fc99e8fc495b78",
+            "reference": "0874dca593f79305a963dc0f40fc99e8fc495b78",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6.0"
+        },
+        "require-dev": {
+            "phpunit/dbunit": "*",
+            "phpunit/phpunit": "4.*",
+            "satooshi/php-coveralls": "^1.0",
+            "squizlabs/php_codesniffer": "2.*"
+        },
+        "time": "2016-10-11 00:01:45",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "LCache\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "David Strauss",
+                "email": "david@davidstrauss.net"
+            }
+        ],
+        "description": "LCache library."
+    }
+]
