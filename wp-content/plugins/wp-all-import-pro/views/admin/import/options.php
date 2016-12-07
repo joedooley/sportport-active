@@ -83,7 +83,14 @@
 					<div class="options">
 						<?php
 													
-							if ( in_array('reimport', $visible_sections)) include( 'options/_reimport_template.php' );
+							if ( in_array('reimport', $visible_sections)){
+								if ($post_type == 'taxonomies'){
+									include( 'options/_reimport_taxonomies_template.php' );
+								}
+								else{
+									include( 'options/_reimport_template.php' );
+								}
+							}
 							do_action('pmxi_options_tab', $isWizard, $post);
 							if ( in_array('settings', $visible_sections)) include( 'options/_settings_template.php' );
 							

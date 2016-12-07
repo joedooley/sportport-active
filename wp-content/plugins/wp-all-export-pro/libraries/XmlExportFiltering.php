@@ -62,10 +62,14 @@ if ( ! class_exists('XmlExportFiltering') )
 				{
 					$this->queryWhere = " AND ($wpdb->comments.comment_ID NOT IN (SELECT post_id FROM " . $postList->getTable() . " WHERE export_id = '". $export_id ."'))";	
 				}
+				elseif (XmlExportEngine::$is_taxonomy_export)
+				{
+					$this->queryWhere = " AND ($wpdb->terms.term_id NOT IN (SELECT post_id FROM " . $postList->getTable() . " WHERE export_id = '". $export_id ."'))";
+				}
 				else
 				{
 					$this->queryWhere = " AND ($wpdb->posts.ID NOT IN (SELECT post_id FROM " . $postList->getTable() . " WHERE export_id = '". $export_id ."'))";	
-				}								
+				}
 			}
 
 			if ( empty($this->options['filter_rules_hierarhy'])) return false;
@@ -77,7 +81,7 @@ if ( ! class_exists('XmlExportFiltering') )
 				if ( ! empty(XmlExportEngine::$exportOptions['export_only_new_stuff']) )
 				{
 					$this->queryWhere .= " AND (";								
-				}				
+				}
 				else
 				{
 					$this->queryWhere = " AND (";								
@@ -86,7 +90,7 @@ if ( ! class_exists('XmlExportFiltering') )
 				foreach ($filter_rules_hierarhy as $rule) 
 				{				
 					if ( is_null($rule->parent_id) )
-					{												
+					{
 						$this->parse_single_rule($rule);						
 					}
 				}										
@@ -98,7 +102,7 @@ if ( ! class_exists('XmlExportFiltering') )
 					switch ($this->options['product_matching_mode']) 
 					{											
 						// Permissive matching allows the product to be exported if any of the variations pass.
-						case 'permissive':							
+						case 'permissive':
 
 							$tmp_queryWhere = $this->queryWhere;
 							$tmp_queryJoin  = $this->queryJoin;							
@@ -110,10 +114,8 @@ if ( ! class_exists('XmlExportFiltering') )
 								foreach ($filter_rules_hierarhy as $rule) {
 					
 									if ( is_null($rule->parent_id) )
-									{												
-
+									{
 										$this->parse_single_rule($rule);
-										
 									}
 								}
 
@@ -138,13 +140,12 @@ if ( ! class_exists('XmlExportFiltering') )
 								SELECT DISTINCT $wpdb->posts.ID
 								FROM $wpdb->posts $join
 								WHERE $where
-							)) GROUP BY $wpdb->posts.ID";							
+							)) GROUP BY $wpdb->posts.ID";
 
 							break;						
 
 						// Strict matching requires all variations to pass in order for the product to be exported.
 						default:													
-
 							$tmp_queryWhere = $this->queryWhere;
 							$tmp_queryJoin  = $this->queryJoin;							
 							
@@ -170,16 +171,15 @@ if ( ! class_exists('XmlExportFiltering') )
 							}
 
 							$where = $this->queryWhere;							
-							$join  = implode( ' ', array_unique( $this->queryJoin ) );		
+							$join  = implode( ' ', array_unique( $this->queryJoin ) );
 
 							$this->queryWhere = $tmp_queryWhere;
 							$this->queryJoin  = $tmp_queryJoin;
 
-							$this->queryWhere .= " AND $wpdb->posts.post_type = 'product') OR ($wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_parent IN (
-								SELECT DISTINCT $wpdb->posts.ID
-								FROM $wpdb->posts $join
-								WHERE $where
-							)) GROUP BY $wpdb->posts.ID";							
+							$vatiationOptionsFactory = new \Wpae\VariationOptions\VariationOptionsFactory();
+							$variationOptions = $vatiationOptionsFactory->createVariationOptions(PMXE_EDITION);
+
+							$this->queryWhere .= ") " . $variationOptions->getQueryWhere($wpdb, $where, $join);
 
 							break;
 					}
@@ -205,6 +205,10 @@ if ( ! class_exists('XmlExportFiltering') )
 						{
 							$this->queryWhere .= " ) GROUP BY $wpdb->comments.comment_ID";					
 						}
+						elseif (XmlExportEngine::$is_taxonomy_export)
+						{
+							$this->queryWhere .= " ) GROUP BY $wpdb->terms.term_id";
+						}
 						else
 						{
 							$this->queryWhere .= " ) GROUP BY $wpdb->posts.ID";
@@ -219,7 +223,7 @@ if ( ! class_exists('XmlExportFiltering') )
 			else:
 
 				// disable exports for orphaned variations entirely
-				if ( ! XmlExportEngine::$is_comment_export and ! XmlExportEngine::$is_user_export and ! empty(XmlExportEngine::$post_types) and @in_array("product", XmlExportEngine::$post_types) and class_exists('WooCommerce'))
+				if ( ! XmlExportEngine::$is_comment_export and ! XmlExportEngine::$is_user_export and ! XmlExportEngine::$is_taxonomy_export and ! empty(XmlExportEngine::$post_types) and @in_array("product", XmlExportEngine::$post_types) and class_exists('WooCommerce'))
 				{					
 					$tmp_queryWhere = $this->queryWhere;
 					$tmp_queryJoin  = $this->queryJoin;							
@@ -233,17 +237,16 @@ if ( ! class_exists('XmlExportFiltering') )
 						$this->queryWhere .= " AND ($wpdb->posts.ID NOT IN (SELECT post_id FROM " . $postList->getTable() . " WHERE export_id = '". $export_id ."'))";	
 					}
 					
-					$where = $this->queryWhere;							
+					$where = $this->queryWhere;
 					$join  = implode( ' ', array_unique( $this->queryJoin ) );		
 
 					$this->queryWhere = $tmp_queryWhere;
 					$this->queryJoin  = $tmp_queryJoin;
 
-					$this->queryWhere .= " AND $wpdb->posts.post_type = 'product' OR ($wpdb->posts.post_type = 'product_variation' AND $wpdb->posts.post_parent IN (
-						SELECT DISTINCT $wpdb->posts.ID
-						FROM $wpdb->posts $join
-						WHERE $where
-					)) GROUP BY $wpdb->posts.ID";
+					$vatiationOptionsFactory = new \Wpae\VariationOptions\VariationOptionsFactory();
+					$variationOptions = $vatiationOptionsFactory->createVariationOptions(PMXE_EDITION);
+
+					$this->queryWhere .= $variationOptions->getQueryWhere($wpdb, $where, $join, false);
 
 				}
 				elseif( XmlExportEngine::$is_user_export && ! empty(XmlExportEngine::$post_types) and @in_array("shop_customer", XmlExportEngine::$post_types) )
@@ -251,7 +254,7 @@ if ( ! class_exists('XmlExportFiltering') )
 					$in_users = $wpdb->prepare("SELECT DISTINCT meta_value FROM $wpdb->postmeta WHERE meta_key = %s AND meta_value != %s", '_customer_user', '0');
 
 					$this->queryWhere .= " AND $wpdb->users.ID IN (" . $in_users . ") GROUP BY $wpdb->users.ID";					
-				}				
+				}
 
 			endif;
 
@@ -288,7 +291,7 @@ if ( ! class_exists('XmlExportFiltering') )
 					case 'user_url':
 						$this->queryWhere .= "$wpdb->users.$rule->element " . $this->parse_condition($rule);
 						break;
-					case 'blog_id':																
+					case 'blog_id':
 						
 						break;
 					default:
@@ -306,8 +309,7 @@ if ( ! class_exists('XmlExportFiltering') )
 							{
 								$this->queryJoin[] = " INNER JOIN $wpdb->usermeta ON ($wpdb->usermeta.user_id = $wpdb->users.ID) ";
 								$this->queryWhere .= "$wpdb->usermeta.meta_key = '$meta_key' AND $wpdb->usermeta.meta_value " . $this->parse_condition($rule);
-							}										
-																	
+							}
 						}
 						break;
 				}
@@ -352,8 +354,126 @@ if ( ! class_exists('XmlExportFiltering') )
 							{
 								$this->queryJoin[] = " INNER JOIN $wpdb->commentmeta ON ($wpdb->commentmeta.comment_id = $wpdb->comments.comment_ID) ";
 								$this->queryWhere .= "$wpdb->commentmeta.meta_key = '$meta_key' AND $wpdb->commentmeta.meta_value " . $this->parse_condition($rule);
-							}										
+							}
 																	
+						}
+						break;
+				}
+			}
+			elseif ( XmlExportEngine::$is_taxonomy_export ){
+
+				switch ($rule->element) {
+					case 'term_id':
+					case 'term_group':
+						$this->queryWhere .= "t." . $rule->element . " " . $this->parse_condition($rule, true);
+						break;
+					case 'name':
+					case 'slug':
+						$this->queryWhere .= "t." . $rule->element . " " . $this->parse_condition($rule);
+						break;
+					case 'term_parent_id':
+						switch ($rule->condition){
+							case 'is_empty':
+								$rule->value = 0;
+								$rule->condition = 'equals';
+								break;
+							case 'is_not_empty':
+								$rule->value = 0;
+								$rule->condition = 'not_equals';
+								break;
+						}
+						$this->queryWhere .= "tt.parent " . $this->parse_condition($rule);
+						break;
+					case 'term_parent_name':
+
+						switch ($rule->condition){
+							case 'contains':
+								$result = new WP_Term_Query( array( 'taxonomy' => $this->options['taxonomy_to_export'], 'name__like' => $rule->value, 'hide_empty' => false));
+								$parent_terms = $result->get_terms();
+								if ($parent_terms){
+									$parent_term_ids = array();
+									foreach ($parent_terms as $p_term){
+										$parent_term_ids[] = $p_term->term_id;
+									}
+									$parent_term_ids_str = implode(",", $parent_term_ids);
+									$this->queryWhere .= "tt.parent IN ($parent_term_ids_str)";
+								}
+								break;
+							case 'not_contains':
+								$result = new WP_Term_Query( array( 'taxonomy' => $this->options['taxonomy_to_export'], 'name__like' => $rule->value, 'hide_empty' => false));
+								$parent_terms = $result->get_terms();
+								if ($parent_terms){
+									$parent_term_ids = array();
+									foreach ($parent_terms as $p_term){
+										$parent_term_ids[] = $p_term->term_id;
+									}
+									$parent_term_ids_str = implode(",", $parent_term_ids);
+									$this->queryWhere .= "tt.parent NOT IN ($parent_term_ids_str)";
+								}
+								break;
+							default:
+
+								switch ($rule->condition){
+									case 'is_empty':
+										$rule->value = 0;
+										$rule->condition = 'equals';
+										break;
+									case 'is_not_empty':
+										$rule->value = 0;
+										$rule->condition = 'not_equals';
+										break;
+									default:
+										$parent_term = get_term_by('name', $rule->value, $this->options['taxonomy_to_export']);
+										if ($parent_term){
+											$rule->value = $parent_term->term_id;
+										}
+										break;
+								}
+
+								$this->queryWhere .= "tt.parent " . $this->parse_condition($rule);
+								break;
+						}
+						break;
+					case 'term_parent_slug':
+
+						switch ($rule->condition){
+							case 'is_empty':
+								$rule->value = 0;
+								$rule->condition = 'equals';
+								break;
+							case 'is_not_empty':
+								$rule->value = 0;
+								$rule->condition = 'not_equals';
+								break;
+							default:
+								$parent_term = get_term_by('slug', $rule->value, $this->options['taxonomy_to_export']);
+								if ($parent_term){
+									$rule->value = $parent_term->term_id;
+								}
+								break;
+						}
+						$this->queryWhere .= "tt.parent " . $this->parse_condition($rule);
+						break;
+					case 'term_posts_count':
+						$this->queryWhere .= "tt.count " . $this->parse_condition($rule);
+						break;
+					default:
+						if (strpos($rule->element, "cf_") === 0)
+						{
+							$this->meta_query = true;
+							$meta_key = str_replace("cf_", "", $rule->element);
+
+							if ($rule->condition == 'is_empty')
+							{
+								$this->queryJoin[] = " LEFT JOIN $wpdb->termmeta ON ($wpdb->termmeta.term_id = t.term_id AND $wpdb->termmeta.meta_key = '$meta_key') ";
+								$this->queryWhere .= "$wpdb->termmeta.meta_id " . $this->parse_condition($rule);
+							}
+							else
+							{
+								$this->queryJoin[] = " INNER JOIN $wpdb->termmeta ON ($wpdb->termmeta.term_id = t.term_id) ";
+								$this->queryWhere .= "$wpdb->termmeta.meta_key = '$meta_key' AND $wpdb->termmeta.meta_value " . $this->parse_condition($rule);
+							}
+
 						}
 						break;
 				}
@@ -362,9 +482,9 @@ if ( ! class_exists('XmlExportFiltering') )
 			{
 
 				switch ($rule->element) {					
-					case 'ID':								
-					case 'post_parent':		
-					case 'post_author':						
+					case 'ID':
+					case 'post_parent':
+					case 'post_author':
 						$this->queryWhere .= "$wpdb->posts.$rule->element " . $this->parse_condition($rule, true);																
 						break;
 					case 'post_status':
@@ -375,7 +495,7 @@ if ( ! class_exists('XmlExportFiltering') )
 					case 'post_name':
 					case 'menu_order':
 						$this->queryWhere .= "$wpdb->posts.$rule->element " . $this->parse_condition($rule);
-						break;		
+						break;
 					case 'user_ID':
 						$rule->element = 'post_author';
 						$this->queryWhere .= "$wpdb->posts.$rule->element " . $this->parse_condition($rule, true);																
@@ -406,7 +526,7 @@ if ( ! class_exists('XmlExportFiltering') )
 								// $rule->value = date("Y-m-d H:i:s", strtotime($rule->value));															
 								$this->parse_date_field( $rule );
 								$this->userWhere .= "$wpdb->users.$rule->element " . $this->parse_condition($rule);
-								break;								
+								break;
 							case 'user_login':
 							case 'user_nicename':
 							case 'user_email':
@@ -426,12 +546,10 @@ if ( ! class_exists('XmlExportFiltering') )
 										$this->userJoin[] = " LEFT JOIN $wpdb->usermeta ON ($wpdb->usermeta.user_id = $wpdb->users.ID AND $wpdb->usermeta.meta_key = '$meta_key') ";
 										$this->userWhere .= "$wpdb->usermeta.umeta_id " . $this->parse_condition($rule);
 									}
-									else
-									{
+									else {
 										$this->userJoin[] = " INNER JOIN $wpdb->usermeta ON ($wpdb->usermeta.user_id = $wpdb->users.ID) ";
 										$this->userWhere .= "$wpdb->usermeta.meta_key = '$meta_key' AND $wpdb->usermeta.meta_value " . $this->parse_condition($rule);
-									}										
-																			
+									}
 								}
 								break;
 						}
@@ -486,8 +604,7 @@ if ( ! class_exists('XmlExportFiltering') )
 								$table_alias = (count($this->queryJoin) > 0) ? 'meta' . count($this->queryJoin) : 'meta';
 								$this->queryJoin[] = " INNER JOIN $wpdb->postmeta AS $table_alias ON ($wpdb->posts.ID = $table_alias.post_id) ";
 								$this->queryWhere .= "$table_alias.meta_key = '$meta_key' AND $table_alias.meta_value " . $this->parse_condition($rule, false, $table_alias);								
-							}										
-																	
+							}
 						}
 						elseif (strpos($rule->element, "tx_") === 0)
 						{
@@ -500,7 +617,7 @@ if ( ! class_exists('XmlExportFiltering') )
 
 								foreach ($txs as $tx) {
 									if (is_numeric($tx)){
-										$terms[] = $tx;													
+										$terms[] = $tx;
 									}
 									else{
 										$term = term_exists($tx, $tx_name);													
@@ -585,7 +702,7 @@ if ( ! class_exists('XmlExportFiltering') )
 
 		protected function parse_condition($rule, $is_int = false, $table_alias = false){
 				
-			$value = $rule->value; 
+			$value = $rule->value;
 			$q = "";
 			switch ($rule->condition) {
 				case 'equals':
@@ -596,7 +713,7 @@ if ( ! class_exists('XmlExportFiltering') )
 					else
 					{
 						$q = "= " . (($is_int or is_numeric($value)) ? $value : "'" . $value . "'");
-					}					
+					}
 					break;
 				case 'not_equals':
 					if ( in_array($rule->element, array('post_date', 'comment_date', 'user_registered', 'user_role')) )
@@ -659,13 +776,13 @@ if ( ! class_exists('XmlExportFiltering') )
 		{			
 			$obj->query_where .= $this->userWhere;			
 
-			if ( ! empty( $this->userJoin ) ) {		
+			if ( ! empty( $this->userJoin ) ) {
 				$obj->query_from .= implode( ' ', array_unique( $this->userJoin ) );	
 			}
 		}
 
 		public function parse_rule_value( $rule )
-		{			
+		{
 			if ( preg_match("%^\[.*\]$%", $rule->value) )
 			{
 				$function = trim(trim($rule->value, "]"), "[");

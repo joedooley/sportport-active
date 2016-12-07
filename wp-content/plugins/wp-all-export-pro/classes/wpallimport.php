@@ -211,15 +211,15 @@ final class PMXE_Wpallimport
 					'single_product_regular_price_adjust_type' => '%',
 					'single_product_sale_price_adjust_type' => '%',					
 					'is_variation_product_manage_stock' => 'no',
-					'variation_stock_status' => 'auto'
+					'variation_stock_status' => 'auto',
 				);
 
-				self::$templateOptions = array_replace_recursive(self::$templateOptions, $default);				
+				self::$templateOptions = array_replace_recursive(self::$templateOptions, $default);
 
 				self::$templateOptions['_virtual'] = 1;
 				self::$templateOptions['_downloadable'] = 1;
 				self::$templateOptions['put_variation_image_to_gallery'] = 1;
-				self::$templateOptions['disable_auto_sku_generation'] = 1;							
+				self::$templateOptions['disable_auto_sku_generation'] = 1;
 			}	
 
 			if ( in_array('shop_order', $exportOptions['cpt']) )
@@ -242,11 +242,13 @@ final class PMXE_Wpallimport
 				self::$templateOptions['pmwi_order']['is_update_shipping'] = 0;
 				self::$templateOptions['pmwi_order']['is_update_taxes'] = 0;
 				self::$templateOptions['pmwi_order']['is_update_refunds'] = 0;
-				self::$templateOptions['pmwi_order']['is_update_total'] = 0;		
+				self::$templateOptions['pmwi_order']['is_update_total'] = 0;
+                self::$templateOptions['pmwi_order']['is_guest_matching'] = 1;
 				self::$templateOptions['pmwi_order']['status'] = 'wc-pending';
 				self::$templateOptions['pmwi_order']['billing_source'] = 'existing';
 				self::$templateOptions['pmwi_order']['billing_source_match_by'] = 'username';
-				self::$templateOptions['pmwi_order']['shipping_source'] = 'copy';
+				self::$templateOptions['pmwi_order']['shipping_source'] = 'guest';
+                self::$templateOptions['pmwi_order']['copy_from_billing'] = 1;
 				self::$templateOptions['pmwi_order']['products_repeater_mode'] = 'csv';
 				self::$templateOptions['pmwi_order']['products_repeater_mode_separator'] = '|';
 				self::$templateOptions['pmwi_order']['products_source'] = 'existing';
@@ -282,7 +284,25 @@ final class PMXE_Wpallimport
 				self::$templateOptions['is_update_url'] = 0;
 			}
 
-			self::prepare_import_template( $exportOptions );												
+			if (XmlExportEngine::$is_taxonomy_export){
+                self::$templateOptions['taxonomy_type'] = $exportOptions['taxonomy_to_export'];
+            }
+
+			self::prepare_import_template( $exportOptions );
+
+            if ( in_array('product', $exportOptions['cpt']) )
+            {
+                self::$templateOptions['single_page_parent'] = '';
+                if ( ! empty($exportOptions['export_variations']) && $exportOptions['export_variations'] == XmlExportEngine::VARIABLE_PRODUCTS_EXPORT_VARIATION ){
+                    if ( $exportOptions['export_variations_title'] == XmlExportEngine::VARIATION_USE_PARENT_TITLE ){
+                        self::$templateOptions['matching_parent'] = 'first_is_variation';
+                    }
+                    if ( $exportOptions['export_variations_title'] == XmlExportEngine::VARIATION_USE_DEFAULT_TITLE ) {
+                        self::$templateOptions['matching_parent'] = 'first_is_parent_id';
+                        //self::$templateOptions['single_product_id_first_is_parent_id'] = '{parent_id[1]}';
+                    }
+                }
+            }
 
 			$tpl_options = self::$templateOptions;
 
@@ -512,6 +532,8 @@ final class PMXE_Wpallimport
 					XmlExportMediaGallery::prepare_import_template( $options, self::$templateOptions, $element_name, $ID);
 
 					XmlExportUser::prepare_import_template( $options, self::$templateOptions, $element_name, $ID);
+
+                    XmlExportTaxonomy::prepare_import_template( $options, self::$templateOptions, $element_name, $ID);
 
 					XmlExportWooCommerceOrder::prepare_import_template( $options, self::$templateOptions, $element_name, $ID);
 

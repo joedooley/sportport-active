@@ -40,9 +40,8 @@
 			<option value="php"><?php _e("Natural Language PHP date()", "wp_all_export_plugin");?></option>									
 		</select>
 		<div class="input pmxe_date_format_wrapper">
-			<label><?php _e("date() Format", "wp_all_export_plugin"); ?></label>
-			<br>
-			<input type="text" class="pmxe_date_format" value="" placeholder="Y-m-d H:i:s" style="width: 100%;"/>
+			<label style="padding:4px; display: block;"><?php _e("date() Format", "wp_all_export_plugin"); ?></label>			
+			<input type="text" class="pmxe_date_format" value="" placeholder="Y-m-d" style="width: 100%;"/>
 		</div>
 	</div>		
 	<!-- Options for Up/Cross sells products -->

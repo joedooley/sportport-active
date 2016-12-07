@@ -560,7 +560,9 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 			}
 		}
 		
-		$post_type = false;		
+		$post_type = false;
+
+		$taxonomy_type = false;
 
 		$notice = false;
 
@@ -575,7 +577,7 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 			$uploader = new PMXI_Upload($filePath, $errors, rtrim(str_replace(basename($filePath), '', $filePath), '/'));			
 			
 			$upload_result = $uploader->upload();			
-			
+
 			if ($upload_result instanceof WP_Error){
 				$errors = $upload_result;
 
@@ -596,6 +598,8 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 				if ( ! empty($upload_result['post_type'])) 
 				{
 					$post_type = $upload_result['post_type'];
+
+					$taxonomy_type = $upload_result['taxonomy_type'];
 
 					switch ( $post_type ) {
 
@@ -638,7 +642,7 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 				if ( ! empty($upload_result['is_empty_bundle_file']))
 				{
 					// Return JSON-RPC response
-					exit(json_encode(array("jsonrpc" => "2.0", "error" => null, "result" => null, "id" => "id", "name" => $upload_result['filePath'], "post_type" => $post_type, "notice" => $notice, "template" => $upload_result['template'], "url_bundle" => true)));
+					exit(json_encode(array("jsonrpc" => "2.0", "error" => null, "result" => null, "id" => "id", "name" => $upload_result['filePath'], "post_type" => $post_type, "taxonomy_type" => $taxonomy_type, "notice" => $notice, "template" => $upload_result['template'], "url_bundle" => true)));
 				}
 				else
 				{					
@@ -725,7 +729,7 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 		}			
 
 		// Return JSON-RPC response
-		exit(json_encode(array("jsonrpc" => "2.0", "error" => null, "result" => null, "id" => "id", "name" => $filePath, "post_type" => $post_type, "notice" => $notice)));
+		exit(json_encode(array("jsonrpc" => "2.0", "error" => null, "result" => null, "id" => "id", "name" => $filePath, "post_type" => $post_type, "taxonomy_type" => $taxonomy_type, "notice" => $notice)));
 
 	}		
 

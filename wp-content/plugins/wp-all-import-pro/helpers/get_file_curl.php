@@ -6,7 +6,7 @@ if ( ! function_exists('get_file_curl') ):
 		
 		if ( ! preg_match('%^(http|ftp)s?://%i', $url) ) return;
 
-		$response = wp_remote_get($url);					
+		$response = wp_remote_get($url);
 
 		if ( ! is_wp_error($response) and ( ! isset($response['response']['code']) or isset($response['response']['code']) and ! in_array($response['response']['code'], array(401, 403, 404))) ) 
 		{

@@ -21,11 +21,11 @@ class WpaePhpInterpreterErrorHandler
             if($error['message'] == '') {
                 $error['message'] = __('An unknown error occured', 'wp_all_import_plugin');
             }
-            $this->terminate(json_encode(array('error' => '<span class="error">'.$error['message'].'</span>', 'line' => $error['line'], 'title' => __('An error occurred','wp_all_import_plugin'))));
+            $this->terminate(json_encode(array('error' => '<span class="error">'.$error['message'].' of the Functions Editor'.'</span>', 'line' => $error['line'], 'title' => __('PHP Error','wp_all_import_plugin'))));
         } else if(strpos($error['file'], 'XMLWriter.php') !== false ) {
             if(strpos($error['message'],'syntax error, unexpected') !== false) {
                 echo "[[ERROR]]";
-                $this->terminate(json_encode(array('error'=>__('You probably forgot to close a quote', 'wp_all_import_plugin'),'title' => __('An error occurred','wp_all_import_plugin'))));
+                $this->terminate(json_encode(array('error'=>__('You probably forgot to close a quote', 'wp_all_import_plugin'),'title' => __('PHP Error','wp_all_import_plugin'))));
             }
         }
     }

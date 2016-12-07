@@ -16,7 +16,12 @@ if ( ! class_exists('XmlExportWooCommerce') )
 				'name'  => 'product_type',
 				'type'  => 'cats',				
 				'label' => 'product_type'
-			)		
+			),
+            array(
+                'label' => 'parent',
+                'name'  => 'Parent Product ID',
+                'type'  => 'parent'
+            )
 		);
 		
 		private $_woo_data     = array();
@@ -27,7 +32,7 @@ if ( ! class_exists('XmlExportWooCommerce') )
 		public static $is_active = true;
 
 		public function __construct()
-		{					
+		{
 			$this->_woo_data = array(
 				'_visibility', '_stock_status', '_downloadable', '_virtual', '_regular_price', '_sale_price', '_purchase_note', '_featured', '_weight', '_length',
 				'_width', '_height', '_sku', '_sale_price_dates_from', '_sale_price_dates_to', '_price', '_sold_individually', '_manage_stock', '_stock', '_upsell_ids', '_crosssell_ids',
@@ -65,6 +70,37 @@ if ( ! class_exists('XmlExportWooCommerce') )
 				}
 			}
 
+            global $wp_taxonomies;
+
+            $max_input_vars = @ini_get('max_input_vars');
+            if (empty($max_input_vars)) $max_input_vars = 100;
+            foreach ($wp_taxonomies as $key => $obj) {	if (in_array($obj->name, array('nav_menu'))) continue;
+
+                if (strpos($obj->name, "pa_") === 0 and strlen($obj->name) > 3 ){
+
+                    if ( count($this->init_fields) < $max_input_vars / 10 ){
+                        $this->init_fields[] = array(
+                            'name'  => $obj->label,
+                            'label' => $obj->name,
+                            'type'  => 'attr'
+                        );
+                    }
+                }
+            }
+
+            if ( ! empty(self::$products_data['attributes']))
+            {
+                foreach (self::$products_data['attributes'] as $attribute) {
+                    if ( count($this->init_fields) < $max_input_vars / 10 ) {
+                        $this->init_fields[] = $this->fix_titles(array(
+                            'name' => str_replace('attribute_', '', $attribute->meta_key),
+                            'label' => $attribute->meta_key,
+                            'type' => 'cf'
+                        ));
+                    }
+                }
+            }
+
 			add_filter("wp_all_export_init_fields",    		array( &$this, "filter_init_fields"), 10, 1);
 			add_filter("wp_all_export_default_fields", 		array( &$this, "filter_default_fields"), 10, 1);
 			add_filter("wp_all_export_other_fields", 		array( &$this, "filter_other_fields"), 10, 1);
@@ -95,7 +131,12 @@ if ( ! class_exists('XmlExportWooCommerce') )
 			public function filter_default_fields($default_fields){		
 				foreach ($default_fields as $key => $field) {
 					$default_fields[$key]['auto'] = true;
-				}	
+				}
+                $default_fields[] = array(
+                    'label' => 'parent',
+                    'name'  => 'Parent Product ID',
+                    'type'  => 'parent'
+                );
 				return array_map(array( &$this, 'fix_titles'), $default_fields);	
 			}
 
@@ -118,7 +159,12 @@ if ( ! class_exists('XmlExportWooCommerce') )
 				{
 					if ( strpos($field['label'], '_min_') === 0 || strpos($field['label'], '_max_') === 0 ) 
 						continue;
-				
+
+                    if ($field['type'] == 'parent'){
+                        unset($other_fields[$key]);
+                        continue;
+                    }
+
 					if ( $field['type'] != 'attr' ) $other_fields[$key]['auto'] = true;	
 
 					$other_fields[$key] = $this->fix_titles($other_fields[$key]);					
@@ -218,11 +264,11 @@ if ( ! class_exists('XmlExportWooCommerce') )
 					{
 						foreach (self::$_existing_attributes as $key => $tx_name) {
 							$tx = get_taxonomy($tx_name);
-							$attributes_fields[] = array(
-								'name'  => $tx->label,
-								'label' => $tx_name,
-								'type'  => 'attr'								
-							);							
+                            $attributes_fields[] = array(
+                                'name'  => $tx->label,
+                                'label' => $tx_name,
+                                'type'  => 'attr'
+                            );
 						}
 					}
 
@@ -248,7 +294,7 @@ if ( ! class_exists('XmlExportWooCommerce') )
 			public function filter_available_data($available_data){
 				$available_data['woo_data'] = $this->_woo_data;
 				$available_data['existing_attributes'] = self::$_existing_attributes;				
-				$available_data['product_fields'] = $this->get_fields_for_product_data_section();	
+				$available_data['product_fields'] = $this->get_fields_for_product_data_section();
 				// $available_data['product_attributes'] = $this->get_fields_for_product_attributes_section();								
 
 				if ( ! empty($available_data['existing_taxonomies']) )	{
@@ -428,7 +474,7 @@ if ( ! class_exists('XmlExportWooCommerce') )
 
 			$existing_taxonomies = wp_all_export_get_existing_taxonomies_by_cpt('product');
 
-			foreach ($existing_taxonomies as $taxonomy) 
+			foreach ($existing_taxonomies as $taxonomy)
 			{
 				$tx = get_taxonomy($taxonomy['label']);
 				if ($taxonomy['label'] == 'product_shipping_class')
@@ -585,12 +631,12 @@ if ( ! class_exists('XmlExportWooCommerce') )
 					
 					default:
 						
-						$cur_meta_values = get_post_meta($record->ID, $element_value);		
+						$cur_meta_values = get_post_meta($record->ID, $element_value);
 
 						if ( ! empty($cur_meta_values) and is_array($cur_meta_values) )
 						{
 							foreach ($cur_meta_values as $key => $cur_meta_value) 
-							{								
+							{
 								$fieldOptions = $options['cc_options'][$elId];
 								$fieldSettings = empty($options['cc_settings'][$elId]) ? $fieldOptions : $options['cc_settings'][$elId];
 
@@ -645,30 +691,16 @@ if ( ! class_exists('XmlExportWooCommerce') )
 													# code...
 													break;
 											}																																	
-										}													
+										}
 										$data[$element_name] = apply_filters('pmxe_woo_field', pmxe_filter(implode($implode_delimiter, $_values), $fieldSnipped), $element_value, $record->ID);								
 										break;
 
 									case '_sale_price_dates_from':
 									case '_sale_price_dates_to':
-					
-										if ( ! empty($fieldSettings))
-										{
-											switch ($fieldSettings) 
-											{
-												case 'unix':
-													$post_date = $cur_meta_value;
-													break;									
-												default:
-													$post_date = date($fieldSettings, $cur_meta_value);
-													break;
-											}														
-										}
-										else
-										{
-											$post_date = $cur_meta_value;
-										}
-										$data[$element_name] = apply_filters('pmxe_woo_field', pmxe_filter($post_date, $fieldSnipped), $element_value, $record->ID);								
+
+                                        $post_date = $cur_meta_value ? prepare_date_field_value($fieldSettings, $cur_meta_value) : "";
+
+										$data[$element_name] = apply_filters('pmxe_woo_field', pmxe_filter($post_date, $fieldSnipped), $element_value, $record->ID);
 										
 										// wp_all_export_write_article( $article, $element_name, apply_filters('pmxe_post_date', pmxe_filter($post_date, $fieldSnipped), $record->ID) );
 										break;		
@@ -886,7 +918,7 @@ if ( ! class_exists('XmlExportWooCommerce') )
 					break;
 				case '_sku':
 					$templateOptions['single_product_sku'] = '{'. $element_name .'[1]}';								
-					$templateOptions['single_product_parent_id'] = '{parent_id[1]}';
+					//$templateOptions['single_product_parent_id'] = '{parent_id[1]}';
 					break;
 				case '_sale_price_dates_from':
 					$templateOptions['single_sale_price_dates_from'] = '{'. $element_name .'[1]}';
@@ -959,7 +991,15 @@ if ( ! class_exists('XmlExportWooCommerce') )
 				case '_backorders':
 					$templateOptions['product_allow_backorders'] = 'xpath';
 					$templateOptions['single_product_allow_backorders'] = '{'. $element_name .'[1]}';
-					break;				
+					break;
+                case '_variation_description':
+                    $templateOptions['single_product_variation_description'] = '{'. $element_name .'[1]}';
+                    break;
+                case '_default_attributes':
+                    $templateOptions['custom_name'][] = $element_key;
+                    $templateOptions['custom_value'][] = '{'. $element_name .'[1]}';
+                    $templateOptions['custom_format'][] = 0;
+                    break;
 				case 'attributes':
 						
 					global $wp_taxonomies;									

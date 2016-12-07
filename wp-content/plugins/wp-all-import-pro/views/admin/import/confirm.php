@@ -1,5 +1,5 @@
 <?php $is_new_import = ($isWizard or $import->imported + $import->skipped == $import->count or $import->imported + $import->skipped == 0 or $import->options['is_import_specified'] or $import->triggered); ?>
-
+<?php $visible_sections = apply_filters('pmxi_visible_confirm_sections', array('data_to_import'), $post['custom_type']); ?>
 <h2 class="wpallimport-wp-notices"></h2>
 
 <div class="wpallimport-wrapper wpallimport-step-5">
@@ -53,7 +53,16 @@
 		<a class="button button-primary button-hero wpallimport-large-button wpallimport-notify-read-more" href="http://www.wpallimport.com/documentation/troubleshooting/problems-with-import-files/#invalid" target="_blank"><?php _e('Read More', 'wp_all_import_plugin');?></a>		
 	</div>
 
-	<?php $custom_type = get_post_type_object( PMXI_Plugin::$session->custom_type ); ?>
+	<?php
+		switch ($post['custom_type']){
+			case 'taxonomies':
+				$custom_type = get_taxonomy($post['taxonomy_type']);
+				break;
+			default:
+				$custom_type = get_post_type_object( $post['custom_type'] );
+				break;
+		}
+	?>
 		
 	<?php if ($is_valid_root_element):?>
 		<div class="wpallimport-content-section" style="padding: 30px; overflow: hidden;">			
@@ -160,8 +169,7 @@
 						<?php endif;?>
 						
 						<!-- Record Matching -->
-						<?php $custom_type = get_post_type_object( $post['custom_type'] ); ?>
-						
+
 						<?php if ( "new" == $post['wizard_type']): ?>
 						
 							<p><?php printf(__('Your unique key is <span style="color:#000; font-weight:bold;">%s</span>', 'wp_all_import_plugin'), $post['unique_key']); ?></p>
@@ -199,9 +207,10 @@
 							<p><?php _e('Existing data will be updated with the data specified in this import.', 'wp_all_import_plugin'); ?></p>
 							<?php } elseif ("no" == $post['is_keep_former_posts'] and "no" == $post['update_all_data']){?>
 							<div>
-								<p><?php printf(__('Next %s data will be updated, <strong>all other data will be left alone</strong>', 'wp_all_import_plugin'), $custom_type->labels->singular_name); ?></p>				
+								<p><?php printf(__('Next %s data will be updated, <strong>all other data will be left alone</strong>', 'wp_all_import_plugin'), $custom_type->labels->singular_name); ?></p>
+								<?php if ( in_array('data_to_import', $visible_sections)):?>
 								<ul style="padding-left: 35px;">
-									<?php if ( $post['is_update_status']): ?>
+									<?php if ( $post['is_update_status'] && 'taxonomies' != $post['custom_type'] ): ?>
 									<li> <?php _e('status', 'wp_all_import_plugin'); ?></li>
 									<?php endif; ?>
 									<?php if ( $post['is_update_title']): ?>
@@ -213,19 +222,22 @@
 									<?php if ( $post['is_update_content']): ?>
 									<li> <?php _e('content', 'wp_all_import_plugin'); ?></li>
 									<?php endif; ?>
-									<?php if ( $post['is_update_excerpt']): ?>
+									<?php if ( $post['is_update_excerpt'] && 'taxonomies' != $post['custom_type']): ?>
 									<li> <?php _e('excerpt', 'wp_all_import_plugin'); ?></li>
 									<?php endif; ?>
-									<?php if ( $post['is_update_dates']): ?>
+									<?php if ( $post['is_update_dates'] && 'taxonomies' != $post['custom_type']): ?>
 									<li> <?php _e('dates', 'wp_all_import_plugin'); ?></li>
 									<?php endif; ?>
-									<?php if ( $post['is_update_menu_order']): ?>
+									<?php if ( $post['is_update_menu_order'] && 'taxonomies' != $post['custom_type']): ?>
 									<li> <?php _e('menu order', 'wp_all_import_plugin'); ?></li>
 									<?php endif; ?>
 									<?php if ( $post['is_update_parent']): ?>
 									<li> <?php _e('parent post', 'wp_all_import_plugin'); ?></li>
 									<?php endif; ?>
-									<?php if ( $post['is_update_attachments']): ?>
+									<?php if ( $post['is_update_post_type'] && 'taxonomies' != $post['custom_type']): ?>
+									<li> <?php _e('post type', 'wp_all_import_plugin'); ?></li>
+									<?php endif; ?>
+									<?php if ( $post['is_update_attachments'] && 'taxonomies' != $post['custom_type']): ?>
 									<li> <?php _e('attachments', 'wp_all_import_plugin'); ?></li>
 									<?php endif; ?>
 									<?php if ( ! empty($post['is_update_acf'])): ?>
@@ -276,7 +288,7 @@
 										} ?>
 										</li>						
 									<?php endif; ?>
-									<?php if ( ! empty($post['is_update_categories'])): ?>
+									<?php if ( ! empty($post['is_update_categories']) && 'taxonomies' != $post['custom_type']): ?>
 										<li>
 										<?php 
 										switch($post['update_categories_logic']){
@@ -296,6 +308,8 @@
 										</li>						
 									<?php endif; ?>					
 								</ul>
+								<?php endif; ?>
+								<?php do_action('pmxi_confirm_data_to_import', $isWizard, $post);?>
 							</div>
 							<?php } ?>
 							<?php if ( $post['create_new_records']): ?>

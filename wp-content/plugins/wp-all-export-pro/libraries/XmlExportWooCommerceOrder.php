@@ -389,10 +389,29 @@ if ( ! class_exists('XmlExportWooCommerceOrder') )
 						
 						$data[$options['cc_name'][$elId]] = ( strpos($options['cc_value'][$elId], "_") === 0 ) ? get_post_meta($record->ID, $options['cc_value'][$elId], true) : $record->{$options['cc_value'][$elId]};
 
-						if ($options['cc_value'][$elId] == "post_title")
-						{							
-							$data[$options['cc_name'][$elId]] = str_replace("&ndash;", '-', $data[$options['cc_name'][$elId]]);
-						}						
+						switch ($options['cc_value'][$elId]){
+							case 'post_title':
+								$data[$options['cc_name'][$elId]] = str_replace("&ndash;", '-', $data[$options['cc_name'][$elId]]);
+								break;
+							case 'post_date':
+								$data[$options['cc_name'][$elId]] = prepare_date_field_value($options['cc_settings'][$elId], get_post_time('U', true, $record->ID), "Ymd");
+								break;
+							case '_completed_date':
+								$_completed_date = get_post_meta($record->ID, '_completed_date', true);
+								$_completed_date_unix = empty($_completed_date) ? '' : strtotime($_completed_date);
+								$data[$options['cc_name'][$elId]] = empty($_completed_date_unix) ? '' : prepare_date_field_value($options['cc_settings'][$elId], $_completed_date_unix, "Ymd");
+								break;
+							case '_customer_user_email':
+								$customer_user_id = get_post_meta($record->ID, '_customer_user', true);
+								if ( $customer_user_id ){
+									$user = get_user_by( 'id', $customer_user_id );
+									if ($user){
+										$data[$options['cc_name'][$elId]] = $user->user_email;
+									}
+								}
+								if (empty($data[$options['cc_name'][$elId]])) $data[$options['cc_name'][$elId]] = get_post_meta($record->ID, '_billing_email', true);
+								break;
+						}
 
 						$data[$options['cc_name'][$elId]] = pmxe_filter( $data[$options['cc_name'][$elId]], $fieldSnipped);	
 
@@ -909,7 +928,7 @@ if ( ! class_exists('XmlExportWooCommerceOrder') )
 					if ( ! empty($data))
 					{													
 						if ( $key == 'items' and ( $options['order_item_per_row'] or $options['xml_template_type'] == 'custom'))
-						{																		
+						{
 							foreach ($data as $item) {			
 								$additional_article = array();											
 								if ( ! empty($item) ){																		
@@ -930,7 +949,7 @@ if ( ! class_exists('XmlExportWooCommerceOrder') )
 									}								
 									$this->additional_articles[] = $additional_article;
 								}
-							}													
+							}
 						}	
 						else
 						{			
@@ -988,7 +1007,7 @@ if ( ! class_exists('XmlExportWooCommerceOrder') )
 					}
 					$this->additional_articles = array();
 				}				
-			}			
+			}
 
 			return $articles;
 		}
@@ -1810,7 +1829,7 @@ if ( ! class_exists('XmlExportWooCommerceOrder') )
 				'_billing_first_name',  '_billing_last_name', '_billing_company',
 				'_billing_address_1', '_billing_address_2', '_billing_city',
 				'_billing_postcode', '_billing_country', '_billing_state', 
-				'_billing_email', '_billing_phone'
+				'_billing_email', '_customer_user_email', '_billing_phone'
 			);
 
 			$data = $this->generate_friendly_titles($keys, 'billing');
@@ -1847,7 +1866,10 @@ if ( ! class_exists('XmlExportWooCommerceOrder') )
 							$key2 = ' ('.__($keyword, 'wp_all_export_plugin').')';
 						}
 				
-				$data[$key] = __(trim($key1), 'woocommerce').$key2;	
+				$data[$key] = __(trim($key1), 'wp_all_export_plugin').$key2;
+
+				if ( '_billing_email' == $key ) $data[$key] = __('Billing Email Address', 'wp_all_export_plugin');
+				if ( '_customer_user_email' == $key)  $data[$key] = __('Customer Account Email Address', 'wp_all_export_plugin');
 										
 			}
 			return $data;
@@ -1865,6 +1887,19 @@ if ( ! class_exists('XmlExportWooCommerceOrder') )
 			$is_xml_template = $options['export_to'] == 'xml';
 
             $implode_delimiter = XmlExportEngine::$implode;
+
+			$billing_keys = array(
+				'_billing_first_name',  '_billing_last_name', '_billing_company',
+				'_billing_address_1', '_billing_address_2', '_billing_city',
+				'_billing_postcode', '_billing_country', '_billing_state',
+				'_billing_email', '_billing_phone'
+			);
+
+			$shipping_keys = array(
+				'_shipping_first_name', '_shipping_last_name', '_shipping_company',
+				'_shipping_address_1', '_shipping_address_2', '_shipping_city',
+				'_shipping_postcode', '_shipping_country', '_shipping_state'
+			);
 
 			switch ($element_type) 
 			{
@@ -1889,11 +1924,12 @@ if ( ! class_exists('XmlExportWooCommerceOrder') )
 					$templateOptions['pmwi_order']['date'] = '{'. $element_name .'[1]}';						
 					break;
 
-				case '_billing_email':
+				case '_customer_user_email':
 					$templateOptions['pmwi_order']['billing_source_match_by'] = 'email';
 					$templateOptions['pmwi_order']['billing_source_email'] = '{'. $element_name .'[1]}';	
 					$templateOptions['pmwi_order']['is_update_billing_details'] = 1;
 					$templateOptions['pmwi_order']['is_update_shipping_details'] = 1;
+					//$templateOptions['pmwi_order']['guest' . $element_type] = '{'. $element_name .'[1]}';
 					break;
 
 				case 'post_excerpt':
@@ -2086,7 +2122,14 @@ if ( ! class_exists('XmlExportWooCommerceOrder') )
 						$templateOptions['pmwi_order']['order_refund_issued_email'] = '{'. $element_name .'[1]}';
 					}
 					break;
-				
+				default:
+					if ( in_array($element_type, $billing_keys)){
+						$templateOptions['pmwi_order']['guest' . $element_type] = '{'. $element_name .'[1]}';
+					}
+					if ( in_array($element_type, $shipping_keys)){
+						$templateOptions['pmwi_order'][ltrim($element_type, '_')] = '{'. $element_name .'[1]}';
+					}
+					break;
 			}
 
 		}

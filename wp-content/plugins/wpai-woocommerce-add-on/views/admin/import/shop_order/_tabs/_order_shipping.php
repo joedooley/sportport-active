@@ -15,6 +15,11 @@
 			<span class="wpallimport-clear"></span>
 			<div class="switcher-target-shipping_source_guest" style="padding-left:45px;">
 				<span class="wpallimport-slide-content" style="padding-left:0;">
+					<div class="form-field wpallimport-radio-field" style="padding-left: 3px;">
+						<input type="hidden" name="pmwi_order[copy_from_billing]" value="0"/>
+						<input type="checkbox" id="shipping_copy_from_billing" name="pmwi_order[copy_from_billing]" value="1" <?php echo $post['pmwi_order']['copy_from_billing'] ? 'checked="checked"' : '' ?> class="switcher"/>
+						<label for="shipping_copy_from_billing" style="width:auto;"><?php _e('If order has no shipping info, copy from billing', 'wp_all_import_plugin') ?></label>
+					</div>
 					<table cellspacing="5" class="wpallimport-order-billing-fields">
 						<tr>
 							<td>																		

@@ -128,6 +128,7 @@ function pmxi_wp_ajax_upload_resource(){
 				$response['upload_result'] = $upload_result;			
 				$response['filesize'] = filesize($upload_result['filePath']);
 				$response['post_type'] = $upload_result['post_type'];
+				$response['taxonomy_type'] = $upload_result['taxonomy_type'];
 
 				if ( ! empty($response['post_type']) ) 
 				{

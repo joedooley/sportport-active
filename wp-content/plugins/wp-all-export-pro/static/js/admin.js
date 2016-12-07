@@ -4,10 +4,28 @@
 (function($){$(function () {
 
 	var vm = {
+		'preiviewText' :'',
 		'isWoocommerceOrderExport' : function(){
 			return $('#woo_commerce_order').length;
-		}
+		},
+		'isCSVExport': function(){
+			return $('input[name=export_to]').val() === 'csv';
+		},
+		'isProductVariationsExport' : function() {
+			return this.hasVariations;
+		},
+		'hasVariations' : false
 	};
+
+	$('.export_variations').change(function(){
+		setTimeout(liveFiltering, 200);
+	});
+
+	$('.variations_disabled').click(function(){
+		$('#updateNotice').show();
+		$('html, body').animate({scrollTop: $("#updateNotice").offset().top - 50});
+		return false;
+	});
 
 	var helpers = {
 		'sanitizeElementName' : function($elementName) {
@@ -180,7 +198,9 @@
 			$parent.find('hr').show();
 			$parent.removeClass('closed');
 			$parent.find('.wpallexport-collapsed-content:first').slideDown(400, function(){
-				if ($('#wp_all_export_main_code').length) main_editor.setCursor(1);
+				if ($('#wp_all_export_main_code').length) {
+					main_editor.setCursor(1);
+				}
 				if ($('#wp_all_export_custom_xml_template').length){
 					xml_editor.setCursor(1);
 				}
@@ -218,7 +238,7 @@
 
 		var missing_fields = ['id'];
 
-		if ( $('#is_product_export').length ) missing_fields = missing_fields.concat(['_sku', 'product_type']);
+		if ( $('#is_product_export').length ) missing_fields = missing_fields.concat(['_sku', 'product_type', 'parent']);
 		if ( $('#is_wp_query').length ) missing_fields.push('post_type');
 
 		$('#columns').find('li:not(.placeholder)').each(function(i, e){
@@ -240,6 +260,12 @@
 				var index = missing_fields.indexOf('product_type');
 				if (index > -1) {
 				    missing_fields.splice(index, 1);
+				}
+			}
+			if ($(this).find('input[name^=cc_label]').val() == 'parent'){
+				var index = missing_fields.indexOf('parent');
+				if (index > -1) {
+					missing_fields.splice(index, 1);
 				}
 			}
 			if ($(this).find('input[name^=cc_label]').val() == 'post_type'){
@@ -280,7 +306,6 @@
 		{
 			$('.wp-all-export-warning').hide();
 		}
-
 	}
 
 	// Get a valid filtering rules for selected field type
@@ -361,7 +386,7 @@
 
 		var request = {
 			action: 'wpae_filtering',
-			data: {'cpt' : postType, 'export_type' : 'specific', 'filter_rules_hierarhy' : filter_rules_hierarhy, 'product_matching_mode' : 'strict'},
+			data: {'cpt' : postType, 'export_type' : 'specific', 'filter_rules_hierarhy' : filter_rules_hierarhy, 'product_matching_mode' : 'strict', 'taxonomy_to_export' : $('input[name=taxonomy_to_export]').val()},
 			security: wp_all_export_security
 	    };
 
@@ -436,7 +461,9 @@
 				'is_confirm_screen' : $('.wpallexport-step-4').length,
 				'is_template_screen' : $('.wpallexport-step-3').length,
 				'export_only_new_stuff' : $('#export_only_new_stuff').is(':checked') ? 1 : 0,
-				'export_type' : $('input[name=export_type]').val()
+				'export_type' : $('input[name=export_type]').val(),
+				'taxonomy_to_export' : $('input[name=taxonomy_to_export]').val(),
+				'export_variations' : $('#export_variations').val()
 			},
 			security: wp_all_export_security
 	    };
@@ -449,6 +476,20 @@
 			url: get_valid_ajaxurl(),
 			data: request,
 			success: function(response) {
+
+				vm.hasVariations = response.hasVariations;
+				if(vm.hasVariations) {
+
+					if($('#export_to_sheet').val() == 'xls' || $('#export_to_sheet').val() == 'xlsx') {
+						$('.csv_delimiter').hide();
+						$('.export_to_csv').slideDown();
+					}
+
+					$('.product_variations').show();
+
+				} else {
+					$('.product_variations').hide();
+				}
 
 				$('.wp_all_export_filter_preloader').hide();
 
@@ -550,6 +591,12 @@
 						showImportType = true;
 						$('.wpallexport-choose-file').find('.wpallexport-upload-resource-step-two').slideDown();
 						$('.wpallexport-filtering-wrapper').show();
+						if (postType == 'taxonomies'){
+							$('.taxonomy_to_export_wrapper').slideDown();
+						}
+					}
+					else{
+						$('.taxonomy_to_export_wrapper').slideUp();
 					}
 					break;
 				case 'advanced_type':
@@ -595,11 +642,26 @@
 
 					$('.wpallexport-choose-file').find('input[name=cpt]').val(postType);
 
-					filtering(postType);
+					if (postType == 'taxonomies'){
+						$('.taxonomy_to_export_wrapper').slideDown();
+						if ($('input[name=taxonomy_to_export]').val() != ''){
+							filtering(postType);
+						}
+						else{
+							$('.wpallexport-choose-file').find('.wpallexport-filtering-wrapper').slideUp();
+							$('.wpallexport-choose-file').find('.wpallexport-upload-resource-step-two').slideUp();
+							$('.wpallexport-choose-file').find('.wpallexport-submit-buttons').hide();
+						}
+					}
+					else{
+						$('.taxonomy_to_export_wrapper').slideUp();
+						filtering(postType);
+					}
 
 		    	}
 		    	else
 		    	{
+					$('.taxonomy_to_export_wrapper').slideUp();
 		    		$('.wpallexport-choose-file').find('input[name=cpt]').val('');
 		    		$('#file_selector').find('.dd-selected').css({'color':'#cfceca'});
 		    		$('.wpallexport-choose-file').find('.wpallexport-upload-resource-step-two').slideUp();
@@ -667,7 +729,25 @@
 		    	}
 		    }
 		});
+		// Taxonomies Export
+		$('#taxonomy_to_export').ddslick({
+			width: 600,
+			onSelected: function(selectedData){
 
+				if (selectedData.selectedData.value != ""){
+
+					$('#taxonomy_to_export').find('.dd-selected').css({'color':'#555'});
+					$('input[name=taxonomy_to_export]').val(selectedData.selectedData.value);
+					filtering($('input[name=cpt]').val());
+				}
+				else{
+					$('#taxonomy_to_export').find('.dd-selected').css({'color':'#cfceca'});
+					$('.wpallexport-choose-file').find('.wpallexport-filtering-wrapper').slideUp();
+					$('.wpallexport-choose-file').find('.wpallexport-upload-resource-step-two').slideUp();
+					$('.wpallexport-choose-file').find('.wpallexport-submit-buttons').hide();
+				}
+			}
+		});
 	});
 	// [ \Step 1 ( chose & filter export data ) ]
 
@@ -859,7 +939,6 @@
 			hoverClass: "pmxe-template-state-hover",
 			accept: ":not(.ui-sortable-helper)",
 			drag: function( event, ui ){
-				console.log(event);
 			},
 			drop: function( event, ui ) {
 
@@ -1043,6 +1122,8 @@
 			{
 				// save post date field format
 				case 'date':
+				case 'comment_date':
+				case 'user_registered':
 					var $dateType = $addAnotherForm.find('select.date_field_export_data').val();
 					if ($dateType == 'unix')
 						$clone.find('input[name^=cc_settings]').val('unix');
@@ -1068,6 +1149,19 @@
 						case 'item_data___upsell_ids':
 						case 'item_data___crosssell_ids':
 							$clone.find('input[name^=cc_settings]').val($addAnotherForm.find('select.linked_field_export_data').val());
+							break;
+					}
+					break;
+				case 'woo_order':
+					$woo_type = $clone.find('input[name^=cc_value]');
+					switch ($woo_type.val()) {
+						case 'post_date':
+						case '_completed_date':
+							var $dateType = $addAnotherForm.find('select.date_field_export_data').val();
+							if ($dateType == 'unix')
+								$clone.find('input[name^=cc_settings]').val('unix');
+							else
+								$clone.find('input[name^=cc_settings]').val($('.pmxe_date_format').val());
 							break;
 					}
 					break;
@@ -1186,7 +1280,34 @@
 							break;
 					}
 					break;
+				case 'woo_order':
+					$woo_type = $(this).find('input[name^=cc_value]');
+					switch ($woo_type.val())
+					{
+						case 'post_date':
+						case '_completed_date':
+
+							$addAnotherForm.find('select.date_field_export_data').find('option').each(function(){
+								if ($(this).val() == $settings || $settings != 'unix' && $(this).val() == 'php')
+									$(this).attr({'selected':'selected'}).click();
+								else
+									$(this).removeAttr('selected');
+							});
+
+							if ($settings != 'php' && $settings != 'unix'){
+								if ($settings != '0') $('.pmxe_date_format').val($settings); else $('.pmxe_date_format').val('');
+								$('.pmxe_date_format_wrapper').show();
+							}
+							else{
+								$('.pmxe_date_format').val('');
+							}
+							$addAnotherForm.find('.date_field_type').show();
+							break;
+					}
+					break;
 				case 'date':
+				case 'comment_date':
+				case 'user_registered':
 					$addAnotherForm.find('select.date_field_export_data').find('option').each(function(){
 						if ($(this).val() == $settings || $settings != 'unix' && $(this).val() == 'php')
 							$(this).attr({'selected':'selected'}).click();
@@ -1268,7 +1389,6 @@
 				tagno: tagno,
 				security: wp_all_export_security
 		    };
-
 			var url = get_valid_ajaxurl();
 			var show_cdata = $('#show_cdata_in_preview').val();
 
@@ -1304,6 +1424,8 @@
 				error: function( jqXHR, textStatus ) {
 					// Handle an eval error
 					if(jqXHR.responseText.indexOf('[[ERROR]]') !== -1) {
+						vm.preiviewText = $('.wpallexport-preview-title').text();
+						console.log(vm.preiviewText);
 						var json = jqXHR.responseText.split('[[ERROR]]')[1];
 						json = $.parseJSON(json);
 						ths.pointer({'content' : '<div id="post-preview" class="wpallexport-preview">' +
@@ -1500,11 +1622,7 @@
 
     		init_filtering_fields();
 
-    		// if ($('form.edit').length){
-
-    			liveFiltering();
-
-    		// }
+			liveFiltering();
 
 		    $('form.wpallexport-template').find('input[type=submit]').click(function(e){
 				e.preventDefault();
@@ -1570,7 +1688,6 @@
 							$('#validationError').fadeIn();
 							$('html, body').animate({scrollTop: $("#validationError").offset().top - 50});
 						}
-
 					},
 					dataType: "json"
 				});
@@ -1596,22 +1713,23 @@
 
 				$('input[name=export_to]').val('csv');
 
-				if($('#export_to_sheet').val() === 'csv') {
-					if(!isWooCommerceOrder){
-						$('.export_to_csv').show();
-						$('.csv_delimiter').show();
-					} else {
-						$('.export_to_csv').show();
-					}
-				} else {
-					if(isWooCommerceOrder){
+				if ($('#export_to_sheet').val() !== 'csv') {
+					if (isWooCommerceOrder || vm.isProductVariationsExport()) {
 						$('.csv_delimiter').hide();
 						$('.export_to_csv').show();
 					} else {
 						$('.export_to_csv').hide();
 					}
+				} else {
+					/** isProductVariationsExport */
+					if (isWooCommerceOrder) {
+						$('.export_to_csv').show();
+					} else {
+						$('.export_to_csv').show();
+						$('.csv_delimiter').show();
+					}
 				}
-    		}
+			}
     		else
     		{
     			$('.wpallexport-csv-options').hide();
@@ -1981,22 +2099,24 @@
 
 	// Logic to show CSV advanced options
 	$('#export_to_sheet').change(function(){
+//		if (!vm.isCSVExport()) return;
 
-		//Todo: Cache this value in vm
 		var isWooCommerceOrder = vm.isWoocommerceOrderExport();
+		var isVariationsExport = vm.isProductVariationsExport();
+
 		var value = $(this).val();
-		if(value === 'xls') {
-			if(isWooCommerceOrder) {
+		if(value === 'xls' || value === 'xlsx') {
+			if(isWooCommerceOrder || isVariationsExport) {
 				$('.csv_delimiter').hide();
 			} else {
 				$('.export_to_csv').slideUp();
 			}
 		} else {
-			if(isWooCommerceOrder) {
+			if(isWooCommerceOrder || isVariationsExport) {
 				$('.csv_delimiter').show();
 			} else {
 				$('.export_to_csv').slideDown();
 			}
 		}
-	});
+	}).change();
 });})(jQuery);

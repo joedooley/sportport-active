@@ -68,7 +68,19 @@ final Class XmlCsvExport
                 $articles = apply_filters('wp_all_export_csv_rows', $articles, XmlExportEngine::$exportOptions, XmlExportEngine::$exportID);
                 if (!$preview) do_action('pmxe_exported_post', $comment->comment_ID, XmlExportEngine::$exportRecord);
             }
-		}  else  { // exporting custom post types
+		}
+		elseif ( XmlExportEngine::$is_taxonomy_export )  { // exporting WordPress taxonomy terms
+
+            add_filter('terms_clauses', 'wp_all_export_terms_clauses', 10, 3);
+            $terms = XmlExportEngine::$exportQuery->get_terms();
+            remove_filter('terms_clauses', 'wp_all_export_terms_clauses');
+            foreach ( $terms as $term ) {
+                $articles[] = XmlExportTaxonomy::prepare_data($term, false, $acfs, XmlExportEngine::$implode, $preview);
+                $articles = apply_filters('wp_all_export_csv_rows', $articles, XmlExportEngine::$exportOptions, XmlExportEngine::$exportID);
+                if (!$preview) do_action('pmxe_exported_post', $term->term_id, XmlExportEngine::$exportRecord);
+            }
+        }
+		else  { // exporting custom post types
 			while ( XmlExportEngine::$exportQuery->have_posts() ) {
                 XmlExportEngine::$exportQuery->the_post();
                 $record = get_post(get_the_ID());
@@ -114,15 +126,16 @@ final Class XmlCsvExport
 			}
 		}
 		// [ \Prepare CSV headers ]				
-
-		foreach ($articles as $article) {									
-			$line = array();			
-			foreach ($headers as $header) {
-				$line[$header] = ( isset($article[$header]) ) ? $article[$header] : '';						
-			}											
-			fputcsv($stream, $line, XmlExportEngine::$exportOptions['delimiter']);
-			apply_filters('wp_all_export_after_csv_line', $stream, XmlExportEngine::$exportID);
-		}			
+        if (!empty($articles)) {
+            foreach ($articles as $article) { if (empty($article)) continue;
+                $line = array();
+                foreach ($headers as $header) {
+                    $line[$header] = (isset($article[$header])) ? $article[$header] : '';
+                }
+                fputcsv($stream, $line, XmlExportEngine::$exportOptions['delimiter']);
+                apply_filters('wp_all_export_after_csv_line', $stream, XmlExportEngine::$exportID);
+            }
+        }
 
 		if ($preview) return ob_get_clean();	
 
@@ -221,6 +234,42 @@ final Class XmlCsvExport
 			endforeach;
 			
 		}
+		elseif ( XmlExportEngine::$is_taxonomy_export ) // exporting WordPress taxonomy terms
+        {
+            add_filter('terms_clauses', 'wp_all_export_terms_clauses', 10, 3);
+            $terms = XmlExportEngine::$exportQuery->get_terms();
+            remove_filter('terms_clauses', 'wp_all_export_terms_clauses');
+            foreach ( $terms as $term ) {
+
+                $is_export_record = apply_filters('wp_all_export_xml_rows', true, $term, XmlExportEngine::$exportOptions, XmlExportEngine::$exportID);
+
+                if (!$is_export_record) continue;
+
+                if (!$is_custom_xml) {
+                    // add additional information before each node
+                    self::before_xml_node($xmlWriter, $term->term_id);
+
+                    $xmlWriter->startElement(self::$node_xml_tag);
+
+                    XmlExportTaxonomy::prepare_data($term, $xmlWriter, $acfs, XmlExportEngine::$implode, $preview);
+
+                    $xmlWriter->closeElement(); // end post
+
+                    // add additional information after each node
+                    self::after_xml_node($xmlWriter, $term->term_id);
+                } else {
+                    $articles = array();
+                    $articles[] = XmlExportTaxonomy::prepare_data($term, $xmlWriter, $acfs, XmlExportEngine::$implode, $preview);
+                    $articles = apply_filters('wp_all_export_csv_rows', $articles, XmlExportEngine::$exportOptions, XmlExportEngine::$exportID);
+
+                    $xmlWriter->writeArticle($articles);
+                }
+
+                if (!$preview) do_action('pmxe_exported_post', $term->term_id, XmlExportEngine::$exportRecord);
+
+            }
+
+        }
 		elseif ( XmlExportEngine::$is_comment_export ) // exporting comments
 		{
 			global $wp_version;
@@ -442,6 +491,7 @@ final Class XmlCsvExport
 	public static function prepare_csv_headers( & $headers, $ID, &$acfs )
 	{									
 		$element_name = ( ! empty(XmlExportEngine::$exportOptions['cc_name'][$ID]) ) ? XmlExportEngine::$exportOptions['cc_name'][$ID] : 'untitled_' . $ID;
+        $element_name = apply_filters('wp_all_export_field_name', wp_all_export_parse_field_name($element_name), XmlExportEngine::$exportID);
 
 		if ( strpos(XmlExportEngine::$exportOptions['cc_label'][$ID], "item_data__") !== false ) {
 			XmlExportEngine::$woo_order_export->get_element_header( $headers, XmlExportEngine::$exportOptions, $ID );
@@ -496,9 +546,9 @@ final Class XmlCsvExport
 					while ( ! $is_added );						
 				}
 
-				if ( XmlExportEngine::$exportOptions['cc_label'][$ID] == 'product_type' and ! in_array('parent_id', $headers)) {
-					$headers[] = 'parent_id';
-				}
+//				if ( XmlExportEngine::$exportOptions['cc_label'][$ID] == 'product_type' and ! in_array('parent_id', $headers)) {
+//					$headers[] = 'parent_id';
+//				}
 
 				break;
 		}		
@@ -753,6 +803,8 @@ final Class XmlCsvExport
 				}
 			}
 		}
+
+        if ( ! XmlExportEngine::$is_comment_export ) XmlExportEngine::$acf_export->auto_generate_export_fields( $auto_generate );
 
 		return $auto_generate;
 	}

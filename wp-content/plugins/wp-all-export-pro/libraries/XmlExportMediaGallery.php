@@ -68,7 +68,11 @@ final class XmlExportMediaGallery
 				// prepare featured image data
 				if ( empty(self::$featured_image) )
 				{
-					$_featured_image_id = get_post_meta(self::$pid, '_thumbnail_id', true); 
+					$_featured_image_id = self::get_meta(self::$pid, '_thumbnail_id', true);
+
+                    if (empty($_featured_image_id)){
+                        $_featured_image_id = self::get_meta(self::$pid, 'thumbnail_id', true);
+                    }
 
 					if ( ! empty($_featured_image_id) )
 					{
@@ -91,7 +95,7 @@ final class XmlExportMediaGallery
 				if ( empty($options) or ! empty($options['is_export_attached']) )
 				{
 
-					$_gallery = get_post_meta(self::$pid, '_product_image_gallery', true); 
+					$_gallery = self::get_meta(self::$pid, '_product_image_gallery', true);
 
 					if ( ! empty($_gallery))
 					{
@@ -154,11 +158,11 @@ final class XmlExportMediaGallery
 			{
 				$v = self::get_media( str_replace("attachment_", "", $field), $attachment );
 
-				if ( $v and ! in_array($v, $data)) $data[] = $v;
+				$data[] = $v;
 			}
 		}
 
-		return array_unique($data);
+        return $data;
 	}
 
 	public static function get_images(  $field = 'image_url', $options = false )
@@ -173,11 +177,11 @@ final class XmlExportMediaGallery
 			{
 				$v = self::get_media( str_replace("image_", "", $field), $image );
 
-				if ( $v and ! in_array($v, $data)) $data[] = $v;
+				$data[] = $v;
 			}
 		}
 
-		return array_unique($data);
+		return $data;
 	}
 
 	private static function get_media( $field = 'url', $attachment = false )
@@ -210,7 +214,7 @@ final class XmlExportMediaGallery
 				return $attachment->post_content;
 				break;
 			case 'alt':
-				return get_post_meta($attachment->ID, '_wp_attachment_image_alt', true);
+				return self::get_meta($attachment->ID, '_wp_attachment_image_alt', true);
 				break;
 			
 			default:
@@ -334,4 +338,14 @@ final class XmlExportMediaGallery
 		}
 
 	}
+
+	public static function get_meta($pid, $key){
+	    if (XmlExportTaxonomy::$is_active){
+            return get_term_meta($pid, $key, true);
+        }
+        if (XmlExportUser::$is_active){
+            return get_user_meta($pid, $key, true);
+        }
+	    return get_post_meta($pid, $key, true);
+    }
 }

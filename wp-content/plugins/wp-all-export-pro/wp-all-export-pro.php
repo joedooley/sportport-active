@@ -3,7 +3,7 @@
 Plugin Name: WP All Export Pro
 Plugin URI: http://www.wpallimport.com/export/
 Description: Export any post type to a CSV or XML file. Edit the exported data, and then re-import it later using WP All Import.
-Version: 1.4.1
+Version: 1.4.2
 Author: Soflyy
 */
 
@@ -51,7 +51,7 @@ else {
 	 */
 	define('PMXE_PREFIX', 'pmxe_');
 
-	define('PMXE_VERSION', '1.4.1');
+	define('PMXE_VERSION', '1.4.2');
 
 	define('PMXE_EDITION', 'paid');
 
@@ -304,7 +304,7 @@ else {
 		/**
 		 * pre-dispatching logic for admin page controllers
 		 */
-		public function __adminInit() {			
+		public function __adminInit() {
 
 			// create history folder
 			$uploads = wp_upload_dir();
@@ -391,7 +391,6 @@ else {
 				} else { // redirect to dashboard if requested page and/or action don't exist
 					wp_redirect(admin_url()); die();
 				}
-
 			}
 		}
 
@@ -399,8 +398,9 @@ else {
 		 * Dispatch shorttag: create corresponding controller instance and call its index method
 		 * @param array $args Shortcode tag attributes
 		 * @param string $content Shortcode tag content
-		 * @param string $tag Shortcode tag name which is being dispatched
+		 * @param string $tag shortcode tag name which is being dispatched
 		 * @return string
+		 * @throws Exception
 		 */
 		public function shortcodeDispatcher($args, $content, $tag) {
 
@@ -420,7 +420,10 @@ else {
 		/**
 		 * Dispatch admin page: call corresponding controller based on get parameter `page`
 		 * The method is called twice: 1st time as handler `parse_header` action and then as admin menu item handler
-		 * @param string[optional] $page When $page set to empty string ealier buffered content is outputted, otherwise controller is called based on $page value
+		 * @param string $page
+		 * @param string $action
+		 * @throws Exception
+		 * @internal param $string [optional] $page When $page set to empty string ealier buffered content is outputted, otherwise controller is called based on $page value
 		 */
 		public function adminDispatcher($page = '', $action = 'index') {
 			if ('' === $page) {				
@@ -474,10 +477,41 @@ else {
 				}
 				if ( ! $is_prefix) {
 					$pathAlt = self::ROOT_DIR . '/' . $subdir . '/' . $filePathAlt;
+					if(strpos($className, '_') !== false) {
+						$pathAlt = str_replace('_',DIRECTORY_SEPARATOR, $pathAlt);
+					}
 					if (is_file($pathAlt)) {
 						require $pathAlt;
 						return TRUE;
 					}
+				}
+			}
+
+			if(strpos($className, '\\') !== false){
+				// project-specific namespace prefix
+				$prefix = 'Wpae\\';
+
+				// base directory for the namespace prefix
+				$base_dir = __DIR__ . '/src/';
+
+				// does the class use the namespace prefix?
+				$len = strlen($prefix);
+				if (strncmp($prefix, $className, $len) !== 0) {
+					// no, move to the next registered autoloader
+					return;
+				}
+
+				// get the relative class name
+				$relative_class = substr($className, $len);
+
+				// replace the namespace prefix with the base directory, replace namespace
+				// separators with directory separators in the relative class name, append
+				// with .php
+				$file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+
+				// if the file exists, require it
+				if (file_exists($file)) {
+					require $file;
 				}
 			}
 			
@@ -486,8 +520,9 @@ else {
 
 		/**
 		 * Get plugin option
-		 * @param string[optional] $option Parameter to return, all array of options is returned if not set
+		 * @param string [optional] $option Parameter to return, all array of options is returned if not set
 		 * @return mixed
+		 * @throws Exception
 		 */
 		public function getOption($option = NULL) {
 			$options = apply_filters('wp_all_export_config_options', $this->options);			
@@ -499,11 +534,14 @@ else {
 				throw new Exception("Specified option is not defined for the plugin");
 			}
 		}
+
 		/**
 		 * Update plugin option value
 		 * @param string $option Parameter name or array of name => value pairs
-		 * @param mixed[optional] $value New value for the option, if not set than 1st parameter is supposed to be array of name => value pairs
+		 * @param null $value
 		 * @return array
+		 * @throws Exception
+		 * @internal param $mixed [optional] $value New value for the option, if not set than 1st parameter is supposed to be array of name => value pairs
 		 */
 		public function updateOption($option, $value = NULL) {
 			is_null($value) or $option = array($option => $value);
@@ -617,7 +655,31 @@ else {
 			if ( ! $export_post_type ){				
 				$wpdb->query("ALTER TABLE {$table} ADD `export_post_type` VARCHAR(64) NOT NULL DEFAULT '';");
 			}
-		}	
+		}
+
+		/**
+		 * Determine is current export was created before current version
+		 */
+		public static function isExistingExport( $checkVersion = false ){
+
+			$input  = new PMXE_Input();
+			$export_id = $input->get('id', 0);
+
+			if (empty($export_id)) $export_id = $input->get('export_id', 0);
+
+			// ID not found means this is new export
+			if (empty($export_id)) return false;
+
+			if ( ! $checkVersion ) $checkVersion = PMXE_VERSION;
+
+			$export = new PMXE_Export_Record();
+			$export->getById($export_id);
+			if ( ! $export->isEmpty() && (empty($export->options['created_at_version']) || version_compare($export->options['created_at_version'], $checkVersion) < 0 )){
+				return true;
+			}
+
+			return false;
+		}
 
 		/**
 		 * Method returns default import options, main utility of the method is to avoid warnings when new
@@ -691,6 +753,11 @@ else {
 				'custom_xml_template_footer' => '',				
 				'custom_xml_template_options' => array(),
                 'custom_xml_cdata_logic' => 'auto',
+				'show_cdata_in_preview' => 0,
+				'taxonomy_to_export' => '',
+				'created_at_version' => '',
+                'export_variations' => XmlExportEngine::VARIABLE_PRODUCTS_EXPORT_VARIATION,
+				'export_variations_title' => XmlExportEngine::VARIATION_USE_PARENT_TITLE,
 				'show_cdata_in_preview' => 0
 			);
 		}		
@@ -718,5 +785,4 @@ else {
 	}
 
 	add_action( 'admin_init', 'wp_all_export_pro_updater', 0 );
-	
 }

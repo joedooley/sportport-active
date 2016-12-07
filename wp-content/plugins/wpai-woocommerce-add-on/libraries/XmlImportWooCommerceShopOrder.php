@@ -201,7 +201,7 @@ class XmlImportWooCommerceShopOrder extends XmlImportWooCommerce{
 		{
 			if ( in_array($option, array('status_xpath', 'payment_method_xpath', 'order_note_visibility_xpath', 'billing_source', 
 				'billing_source_match_by', 'shipping_source', 'products_source', 'order_taxes_logic', 'order_refund_issued_source', 'order_refund_issued_match_by', 
-				'order_total_logic', 'order_note_separate_logic', 'order_note_separator')) or strpos($option, 'is_update_') !== false or strpos($option, '_repeater_mode') !== false) continue;
+				'order_total_logic', 'order_note_separate_logic', 'order_note_separator', 'is_guest_matching', 'copy_from_billing')) or strpos($option, 'is_update_') !== false or strpos($option, '_repeater_mode') !== false) continue;
 
 			switch ($option) 
 			{
@@ -688,7 +688,7 @@ class XmlImportWooCommerceShopOrder extends XmlImportWooCommerce{
 				// Load details from existing customer
 				case 'existing':							
 					
-					$customer = $this->get_existing_customer('billing_source', $index);							
+					$customer = $this->get_existing_customer('billing_source', $index);
 
 					if ( $customer )
 					{					
@@ -704,8 +704,20 @@ class XmlImportWooCommerceShopOrder extends XmlImportWooCommerce{
 					}
 					else
 					{
-						$this->logger and call_user_func($this->logger, sprintf(__('<b>WARNING</b>: Existing customer not found for Order `%s`.', 'wpai_woocommerce_addon_plugin'), $this->order_data['post_title']));																
+                        if ($this->import->options['pmwi_order']['is_guest_matching']){
+                            foreach ($billing_fields as $billing_field) {
+                                $billing_data[$billing_field] = $this->data['pmwi_order']['guest_' . $billing_field][$index];
+                                update_post_meta( $order_id, '_' . $billing_field, $billing_data[$billing_field]);
+                                $this->logger and call_user_func($this->logger, sprintf(__('- Billing field `%s` has been updated with value `%s` for order `%s` ...', 'wp_all_import_plugin'), $billing_field, $this->data['pmwi_order']['guest_' . $billing_field][$index], $order_id));
+                            }
+
+                            update_post_meta( $order_id, '_customer_user', '0');
+                        }
+                        else{
+                            $this->logger and call_user_func($this->logger, sprintf(__('<b>WARNING</b>: Existing customer not found for Order `%s`.', 'wpai_woocommerce_addon_plugin'), $this->order_data['post_title']));
+                        }
 					}
+
 					break;
 				
 				// Use guest customer
@@ -746,11 +758,17 @@ class XmlImportWooCommerceShopOrder extends XmlImportWooCommerce{
 
 				// Import shipping address
 				default:
-
 					foreach ($billing_fields as $billing_field) {		
-						$shipping_field = str_replace('billing', 'shipping', $billing_field);						
-						update_post_meta( $order_id, '_' . $shipping_field, $this->data['pmwi_order'][$shipping_field][$index]);
-						$this->logger and call_user_func($this->logger, sprintf(__('- Shipping field `%s` has been updated with value `%s` for order `%s` ...', 'wp_all_import_plugin'), $shipping_field, $this->data['pmwi_order'][$shipping_field][$index], $order_id));						
+						$shipping_field = str_replace('billing', 'shipping', $billing_field);
+                        $shipping_value = '';
+                        if ( ! empty($this->data['pmwi_order'][$shipping_field][$index]) ){
+                            $shipping_value = $this->data['pmwi_order'][$shipping_field][$index];
+                        }
+                        elseif ($this->import->options['pmwi_order']['copy_from_billing']) {
+                            $shipping_value = empty($billing_data[$billing_field]) ? '' : $billing_data[$billing_field];
+                        }
+                        update_post_meta( $order_id, '_' . $shipping_field, $shipping_value);
+                        $this->logger and call_user_func($this->logger, sprintf(__('- Shipping field `%s` has been updated with value `%s` for order `%s` ...', 'wp_all_import_plugin'), $shipping_field, $shipping_value, $order_id));
 					}
 
 					break;
@@ -847,7 +865,7 @@ class XmlImportWooCommerceShopOrder extends XmlImportWooCommerce{
 		*
 		* Import Order Items
 		*
-		*/	
+		*/
 
 		// Importing product items
 		if ( empty($this->articleData['ID']) or $this->import->options['update_all_data'] == 'yes' or $this->import->options['is_update_products'] )
@@ -870,18 +888,18 @@ class XmlImportWooCommerceShopOrder extends XmlImportWooCommerce{
 			}
 
 			$this->_import_line_items( $order, $order_id, $index );				
-		}				
+		}
 
 		// Importing fee items
 		if ( empty($this->articleData['ID']) or $this->import->options['update_all_data'] == 'yes' or $this->import->options['is_update_fees'] )
 		{
-			$this->_import_fee_items( $order, $order_id, $index );					
+			$this->_import_fee_items( $order, $order_id, $index );
 		}
 
 		// Importing coupons items
 		if ( empty($this->articleData['ID']) or $this->import->options['update_all_data'] == 'yes' or $this->import->options['is_update_coupons'] )
 		{
-			$this->_import_coupons_items( $order, $order_id, $index );		
+			$this->_import_coupons_items( $order, $order_id, $index );
 		}
 
 		// Importing shipping items
@@ -1011,7 +1029,7 @@ class XmlImportWooCommerceShopOrder extends XmlImportWooCommerce{
 		{
 			if ( $this->import->options['pmwi_order']['billing_source'] == 'existing' ) {
 				$customer = $this->get_existing_customer('billing_source', $index);						
-				if ( empty($customer) )
+				if ( empty($customer) && empty($this->import->options['pmwi_order']['is_guest_matching']))
 				{
 					$this->logger and call_user_func($this->logger, sprintf(__('<b>SKIPPED</b>: %s Existing customer not found for Order `%s`.', 'wpai_woocommerce_addon_plugin'), $this->get_existing_customer_for_logger('billing_source', $index), $order_title));
 					$is_post_to_skip = true;
@@ -1289,7 +1307,7 @@ class XmlImportWooCommerceShopOrder extends XmlImportWooCommerce{
 							
 							// in case when this is new order just add new line items
 							if ( ! $item_id )
-							{								
+							{
 								$item_id = $order->add_product(
 									$product,
 									$item_qty,
@@ -2090,6 +2108,7 @@ class XmlImportWooCommerceShopOrder extends XmlImportWooCommerce{
 				$customer = get_user_by('id', $search_by);
 				break;
 		}
+
 		return $customer;
 	}
 

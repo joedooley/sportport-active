@@ -1018,7 +1018,7 @@ class XmlImportWooCommerceProduct extends XmlImportWooCommerce{
 					
 				}
 				else
-				{					
+				{
 					if (!empty($articleData['post_parent']))
 					{
 						$product_parent_post_id = $articleData['post_parent'];						
@@ -1106,7 +1106,7 @@ class XmlImportWooCommerceProduct extends XmlImportWooCommerce{
 							'post_status'   => $post_status,					
 							'post_parent' 	=> $product_parent_post_id,
 							'post_type' 	=> 'product_variation'							
-						);		
+						);
 
 						if ( $pid and ! $is_new_product and ! $this->is_update_data_allowed('is_update_status'))
 						{						
@@ -1849,7 +1849,7 @@ class XmlImportWooCommerceProduct extends XmlImportWooCommerce{
 						$this->make_simple_product($post_parent);													
 					}
 
-					wc_delete_product_transients($post_parent);		
+//					wc_delete_product_transients($post_parent);
 
 					do_action('wp_all_import_variable_product_imported', $post_parent);
 
@@ -2466,7 +2466,23 @@ class XmlImportWooCommerceProduct extends XmlImportWooCommerce{
 					// Save shipping class		
 					if (ctype_digit($variation_product_shipping_class[ $j ])){
 
-						$v_shipping_class = $variation_product_shipping_class[ $j ] > 0 ? absint( $variation_product_shipping_class[ $j ] ) : '';			
+                        $t_shipping_class = get_term_by('slug', $variation_product_shipping_class[ $j ], 'product_shipping_class');
+
+                        // For compatibility with WPML plugin
+                        $t_shipping_class = apply_filters('wp_all_import_term_exists', $t_shipping_class, 'product_shipping_class', $variation_product_shipping_class[ $j ], null);
+
+                        if ( ! empty($t_shipping_class) and ! is_wp_error($t_shipping_class) )
+                        {
+                            $v_shipping_class = (int) $t_shipping_class->term_taxonomy_id;
+                        }
+                        else{
+                            $t_shipping_class = is_exists_term( (int) $variation_product_shipping_class[ $j ], 'product_shipping_class', 0);
+
+                            if ( ! empty($t_shipping_class) and ! is_wp_error($t_shipping_class) )
+                            {
+                                $v_shipping_class = (int) $t_shipping_class['term_taxonomy_id'];
+                            }
+                        }
 
 					}
 					else{
@@ -2478,8 +2494,9 @@ class XmlImportWooCommerceProduct extends XmlImportWooCommerce{
 						if ( ! is_wp_error($vt_shipping_class) )												
 							$v_shipping_class = (int) $vt_shipping_class['term_id']; 				
 					}
-					
-					wp_set_object_terms( $variation_to_update_id, $v_shipping_class, 'product_shipping_class');					
+
+                    $this->associate_terms( $variation_to_update_id, array( $v_shipping_class ), 'product_shipping_class' );
+//					wp_set_object_terms( $variation_to_update_id, $v_shipping_class, 'product_shipping_class');
 
 					// Unique SKU
 					$sku				= get_post_meta($variation_to_update_id, '_sku', true);
@@ -3082,8 +3099,10 @@ class XmlImportWooCommerceProduct extends XmlImportWooCommerce{
 							 		$values = array();
 							 	}					 						 	
 						 		// Update post terms
-						 		if ( taxonomy_exists( wc_attribute_taxonomy_name( $attr_name ) ))
-						 			wp_set_object_terms( $pid, $values, wc_attribute_taxonomy_name( $attr_name ));
+						 		if ( taxonomy_exists( wc_attribute_taxonomy_name( $attr_name ) )){
+                                    $this->associate_terms( $pid, $values, wc_attribute_taxonomy_name( $attr_name ) );
+                                    //wp_set_object_terms( $pid, $values, wc_attribute_taxonomy_name( $attr_name ));
+                                }
 
 						 		if ( $values ) {
 							 		// Add attribute to array, but don't set values
@@ -3101,8 +3120,10 @@ class XmlImportWooCommerceProduct extends XmlImportWooCommerce{
 							}
 							else{
 
-								if ( taxonomy_exists( wc_attribute_taxonomy_name( $attr_name ) ))
-									wp_set_object_terms( $pid, NULL, wc_attribute_taxonomy_name( $attr_name ));
+								if ( taxonomy_exists( wc_attribute_taxonomy_name( $attr_name ) )){
+                                    $this->associate_terms( $pid, NULL, wc_attribute_taxonomy_name( $attr_name ) );
+                                    //wp_set_object_terms( $pid, NULL, wc_attribute_taxonomy_name( $attr_name ));
+                                }
 
 								$parent_attributes[ sanitize_title( $attr_name ) ] = array(
 							 		'name' 			=> sanitize_text_field( $attr_name ),
@@ -3443,7 +3464,13 @@ class XmlImportWooCommerceProduct extends XmlImportWooCommerce{
 					$postRecord->set(array('iteration' => $iteration))->update();											
 				}
 
-	            $available_variations[] = $child->get_variation_attributes();
+                $variation_attributes = $child->get_variation_attributes();
+
+                foreach ($variation_attributes as $key => $value) {
+                    $variation_attributes[$key] = sanitize_title($value);
+                }
+
+                $available_variations[] = $variation_attributes;
 
 	            update_post_meta( $child->variation_id, '_regular_price', get_post_meta( $post_id, '_regular_price', true ) );
 				update_post_meta( $child->variation_id, '_sale_price', get_post_meta( $post_id, '_sale_price', true ) );

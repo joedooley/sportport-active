@@ -154,3 +154,42 @@
 			return stripslashes(esc_sql(htmlspecialchars(strip_tags($str))));
 		}
 	}
+
+	if ( ! function_exists('wp_all_import_get_taxonomies')) {
+        function wp_all_import_get_taxonomies() {
+            // get all taxonomies
+            $taxonomies = get_taxonomies(FALSE, 'objects');
+            $ignore = array('nav_menu', 'link_category');
+            $r = array();
+            // populate $r
+            foreach ($taxonomies as $taxonomy) {
+                if (in_array($taxonomy->name, $ignore) || $taxonomy->show_in_nav_menus === false ) {
+                    continue;
+                }
+                if ( ! empty($taxonomy->labels->name) && strpos($taxonomy->labels->name, "_") === false){
+                    $r[$taxonomy->name] = $taxonomy->labels->name;
+                }
+                else{
+                    $r[$taxonomy->name] = empty($taxonomy->labels->singular_name) ? $taxonomy->name : $taxonomy->labels->singular_name;
+                }
+            }
+            asort($r, SORT_FLAG_CASE | SORT_STRING);
+            // return
+            return $r;
+
+        }
+    }
+
+    if ( ! function_exists('wp_all_import_is_password_protected_feed')){
+        function wp_all_import_is_password_protected_feed($url){
+            $url_data = parse_url($url);
+            return (!empty($url_data['user']) and !empty($url_data['pass'])) ? true : false;
+        }
+    }
+
+    if ( ! function_exists('wp_all_import_cmp_custom_types')){
+        function wp_all_import_cmp_custom_types($a, $b)
+        {
+            return strcmp($a->labels->name, $b->labels->name);
+        }
+    }

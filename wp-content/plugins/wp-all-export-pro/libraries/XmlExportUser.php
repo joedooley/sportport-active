@@ -241,8 +241,8 @@ if ( ! class_exists('XmlExportUser') ){
 			if ( ! self::$is_active ) return;
 
 			global $wpdb;
-			$table_prefix = $wpdb->prefix;
-			self::$meta_keys = $wpdb->get_results("SELECT DISTINCT {$table_prefix}usermeta.meta_key FROM {$table_prefix}usermeta, {$table_prefix}users WHERE {$table_prefix}usermeta.user_id = {$table_prefix}users.ID LIMIT 500");			
+			//$table_prefix = $wpdb->prefix;
+			self::$meta_keys = $wpdb->get_results("SELECT DISTINCT ".$wpdb->usermeta .".meta_key FROM $wpdb->usermeta, $wpdb->users WHERE ".$wpdb->usermeta.".user_id = ".$wpdb->users.".ID LIMIT 500");
 
 			$user_ids = array();
 			if ( ! empty(XmlExportEngine::$exportQuery->results)) {
@@ -255,7 +255,7 @@ if ( ! class_exists('XmlExportUser') ){
 
 				$address_fields = $this->available_customer_data();
 
-				$customer_users = $wpdb->get_results($wpdb->prepare("SELECT DISTINCT meta_value FROM $wpdb->postmeta, $wpdb->users WHERE meta_key = %s AND meta_value != %s ", '_customer_user', '0'));
+				$customer_users = $wpdb->get_results($wpdb->prepare("SELECT DISTINCT meta_value FROM $wpdb->postmeta WHERE meta_key = %s AND meta_value != %s ", '_customer_user', '0'));
 
 				// detect if at least one filtered user is a WooCommerce customer
 				if ( ! empty($customer_users) ) {					
@@ -444,7 +444,7 @@ if ( ! class_exists('XmlExportUser') ){
 
 			foreach (XmlExportEngine::$exportOptions['ids'] as $ID => $value) 
 			{								
-				$fieldName    = XmlExportEngine::$exportOptions['cc_name'][$ID];
+				$fieldName    = apply_filters('wp_all_export_field_name', wp_all_export_parse_field_name(XmlExportEngine::$exportOptions['cc_name'][$ID]), XmlExportEngine::$exportID);
 				$fieldValue   = XmlExportEngine::$exportOptions['cc_value'][$ID];
 				$fieldLabel   = XmlExportEngine::$exportOptions['cc_label'][$ID];
 				$fieldSql     = XmlExportEngine::$exportOptions['cc_sql'][$ID];
@@ -452,6 +452,7 @@ if ( ! class_exists('XmlExportUser') ){
 				$fieldCode    = XmlExportEngine::$exportOptions['cc_code'][$ID];
 				$fieldType    = XmlExportEngine::$exportOptions['cc_type'][$ID];
 				$fieldOptions = XmlExportEngine::$exportOptions['cc_options'][$ID];
+                $fieldSettings = empty(XmlExportEngine::$exportOptions['cc_settings'][$ID]) ? $fieldOptions : XmlExportEngine::$exportOptions['cc_settings'][$ID];
 
 				if ( empty($fieldName) or empty($fieldType) or ! is_numeric($ID) ) continue;
 				
@@ -474,8 +475,9 @@ if ( ! class_exists('XmlExportUser') ){
 
 				switch ($fieldType)
 				{						
-					case 'id':						
-						wp_all_export_write_article( $article, $element_name, apply_filters('pmxe_user_id', pmxe_filter($user->ID, $fieldSnipped), $user->ID) );
+					case 'id':
+                        if ($element_name == 'ID') $element_name = 'id';
+                        wp_all_export_write_article( $article, $element_name, apply_filters('pmxe_user_id', pmxe_filter($user->ID, $fieldSnipped), $user->ID) );
 						break;
 					case 'user_login':						
 						wp_all_export_write_article( $article, $element_name, apply_filters('pmxe_user_login', pmxe_filter($user->user_login, $fieldSnipped), $user->ID) );
@@ -518,24 +520,9 @@ if ( ! class_exists('XmlExportUser') ){
 						wp_all_export_write_article( $article, $element_name, ($preview) ? trim(preg_replace('~[\r\n]+~', ' ', htmlspecialchars($val))) : $val );
 						break;		
 					case 'user_registered':
-						
-						if ( ! empty($fieldOptions))
-						{
-							switch ($fieldOptions) 
-							{
-								case 'unix':
-									$post_date = strtotime($user->user_registered);
-									break;									
-								default:
-									$post_date = date($fieldOptions, strtotime($user->user_registered));
-									break;
-							}														
-						}
-						else
-						{
-							$post_date = $user->user_registered;
-						}
-						
+
+					    $post_date = prepare_date_field_value($fieldSettings, strtotime($user->user_registered));
+
 						wp_all_export_write_article( $article, $element_name, apply_filters('pmxe_user_registered', pmxe_filter($post_date, $fieldSnipped), $user->ID) );
 
 						break;																	

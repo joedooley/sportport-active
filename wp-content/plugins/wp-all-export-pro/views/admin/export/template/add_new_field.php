@@ -11,8 +11,6 @@
 			<div class="clear"></div>
 			<input type="text" class="column_name" value="" style="width:50%"/>
 		</div>
-		
-		<a href="javascript:void(0);" class="wp-all-export-advanced-field-options"><span>+</span> <?php _e("Advanced", 'wp_all_export_plugin'); ?></a>
 
 		<!-- Advanced Field Options -->
 		

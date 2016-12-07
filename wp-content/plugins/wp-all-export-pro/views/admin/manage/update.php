@@ -78,7 +78,9 @@
 					?>
 					
 					<input type="hidden" name="selected_post_type" value="<?php echo $selected_post_type; ?>"/>
-					<input type="hidden" name="export_type" value="<?php echo $post['export_type']; ?>"/>							
+					<input type="hidden" name="export_type" value="<?php echo $post['export_type']; ?>"/>
+					<input type="hidden" name="taxonomy_to_export" value="<?php echo $post['taxonomy_to_export'];?>">
+					<input type="hidden" id="export_variations" name="export_variations" value="<?php echo XmlExportEngine::getProductVariationMode();?>" />
 
 					<?php XmlExportFiltering::render_filtering_block( $engine, $isWizard, $post ); ?>							
 

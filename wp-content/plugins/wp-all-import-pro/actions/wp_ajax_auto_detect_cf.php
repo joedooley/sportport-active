@@ -24,20 +24,29 @@ function pmxi_wp_ajax_auto_detect_cf(){
 	if ($fields) {
 		is_array($fields) or $fields = array($fields);
 		foreach ($fields as $field) {
-			if ($post_type == 'import_users'){
-				$values = $wpdb->get_results("
-					SELECT DISTINCT usermeta.meta_value
-					FROM ".$wpdb->usermeta." as usermeta
-					WHERE usermeta.meta_key='".$field."'
-				", ARRAY_A);	
-			}
-			else{
-				$values = $wpdb->get_results("
-					SELECT DISTINCT postmeta.meta_value
-					FROM ".$wpdb->postmeta." as postmeta
-					WHERE postmeta.meta_key='".$field."'
-				", ARRAY_A);	
-			}
+		    switch ($post_type){
+                case 'import_users':
+                    $values = $wpdb->get_results("
+                        SELECT DISTINCT usermeta.meta_value
+                        FROM ".$wpdb->usermeta." as usermeta
+                        WHERE usermeta.meta_key='".$field."'
+                    ", ARRAY_A);
+                    break;
+                case 'taxonomies':
+                    $values = $wpdb->get_results("
+                        SELECT DISTINCT termmeta.meta_value
+                        FROM ".$wpdb->termmeta." as termmeta
+                        WHERE termmeta.meta_key='".$field."'
+                    ", ARRAY_A);
+                    break;
+                default:
+                    $values = $wpdb->get_results("
+                        SELECT DISTINCT postmeta.meta_value
+                        FROM ".$wpdb->postmeta." as postmeta
+                        WHERE postmeta.meta_key='".$field."'
+                    ", ARRAY_A);
+                    break;
+            }
 
 			if ( ! empty($values) ){
 				foreach ($values as $key => $value) {
@@ -55,7 +64,16 @@ function pmxi_wp_ajax_auto_detect_cf(){
 	}
 
 	if (empty($result)){
-		$custom_type = get_post_type_object( $post_type );		
+        switch ($post_type){
+            case 'taxonomies':
+                $custom_type = new stdClass();
+                $custom_type->labels = new stdClass();
+                $custom_type->labels->singular_name = __('Taxonomy Term', 'wp_all_import_plugin');
+                break;
+            default:
+                $custom_type = get_post_type_object( $post_type );
+                break;
+        }
 		$msg = sprintf(__('No Custom Fields are present in your database for %s', 'wp_all_import_plugin'), $custom_type->labels->name);
 	}
 	elseif (count($result) === 1)

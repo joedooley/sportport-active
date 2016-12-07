@@ -25,6 +25,8 @@ function pmxi_wp_ajax_get_bundle_post_type(){
 
 		if ( ! class_exists('PclZip') ) include_once( PMXI_Plugin::ROOT_DIR . '/libraries/pclzip.lib.php' );
 
+        $wp_uploads = wp_upload_dir();
+
 		$uploads = $wp_uploads['basedir'] . DIRECTORY_SEPARATOR . PMXI_Plugin::FILES_DIRECTORY . DIRECTORY_SEPARATOR;
 
 		$archive = new PclZip($uploads . $post['file']);
@@ -52,6 +54,7 @@ function pmxi_wp_ajax_get_bundle_post_type(){
 						$options = (empty($templateOptions[0]['options'])) ? false : maybe_unserialize($templateOptions[0]['options']);			
 
 						$response['post_type'] = ( ! empty($options) ) ? $options['custom_type'] : false;
+                        $response['taxonomy_type'] = ( ! empty($options) ) ? $options['taxonomy_type'] : false;
 					}					
 				}
 			}

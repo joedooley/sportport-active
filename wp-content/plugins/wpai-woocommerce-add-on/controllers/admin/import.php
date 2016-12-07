@@ -55,4 +55,15 @@ class PMWI_Admin_Import extends PMWI_Controller_Admin
 
 		$this->render();
 	}
+
+    public function confirm( $isWizard = false, $post = array() )
+    {
+        $this->data['isWizard'] = $isWizard;
+
+        $this->data['post'] =& $post;
+
+        $this->data['existing_meta_keys'] = array();
+
+        $this->render();
+    }
 }

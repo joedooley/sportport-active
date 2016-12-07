@@ -17,15 +17,15 @@ function pmxe_wp_ajax_wpallexport(){
 	if (empty($export_id))
 	{
 		$export_id = ( ! empty(PMXE_Plugin::$session->update_previous)) ? PMXE_Plugin::$session->update_previous : 0;		
-	} 
+	}
 
 	$wp_uploads = wp_upload_dir();	
 
 	$export = new PMXE_Export_Record();
 
-	$export->getById($export_id);	
-	
-	if ( $export->isEmpty() ){
+	$export->getById($export_id);
+
+    if ( $export->isEmpty() ){
 		exit( __('Export is not defined.', 'wp_all_export_plugin') );
 	}
 		
@@ -33,11 +33,12 @@ function pmxe_wp_ajax_wpallexport(){
 
 	wp_reset_postdata();	
 
-	XmlExportEngine::$exportOptions     = $exportOptions;	
-	XmlExportEngine::$is_user_export    = $exportOptions['is_user_export'];
-	XmlExportEngine::$is_comment_export = $exportOptions['is_comment_export'];
-	XmlExportEngine::$exportID 			= $export_id;
-	XmlExportEngine::$exportRecord 		= $export;
+	XmlExportEngine::$exportOptions      = $exportOptions;
+	XmlExportEngine::$is_user_export     = $exportOptions['is_user_export'];
+	XmlExportEngine::$is_comment_export  = $exportOptions['is_comment_export'];
+    XmlExportEngine::$is_taxonomy_export = empty($exportOptions['is_taxonomy_export']) ? false : $exportOptions['is_taxonomy_export'];
+	XmlExportEngine::$exportID 			 = $export_id;
+	XmlExportEngine::$exportRecord 		 = $export;
 
 	$errors = new WP_Error();
 	$engine = new XmlExportEngine($exportOptions, $errors);	
@@ -83,6 +84,13 @@ function pmxe_wp_ajax_wpallexport(){
 			$exportQuery = new WP_User_Query( array( 'orderby' => 'ID', 'order' => 'ASC', 'number' => $posts_per_page, 'offset' => $export->exported));
 			remove_action('pre_user_query', 'wp_all_export_pre_user_query');							
 		}
+		elseif (in_array('taxonomies', $exportOptions['cpt']))
+        {
+            add_filter('terms_clauses', 'wp_all_export_terms_clauses', 10, 3);
+            $exportQuery = new WP_Term_Query( array( 'taxonomy' => $exportOptions['taxonomy_to_export'], 'orderby' => 'term_id', 'order' => 'ASC', 'number' => $posts_per_page, 'offset' => $export->exported, 'hide_empty' => false));
+            $postCount  = count($exportQuery->get_terms());
+            remove_filter('terms_clauses', 'wp_all_export_terms_clauses');
+        }
 		elseif(in_array('comments', $exportOptions['cpt']))
 		{			
 			add_action('comments_clauses', 'wp_all_export_comments_clauses', 10, 1);
@@ -138,6 +146,12 @@ function pmxe_wp_ajax_wpallexport(){
 			remove_action('comments_clauses', 'wp_all_export_comments_clauses');	
 		}		
 	}
+	elseif(XmlExportEngine::$is_taxonomy_export){
+        add_filter('terms_clauses', 'wp_all_export_terms_clauses', 10, 3);
+        $result = new WP_Term_Query( array( 'taxonomy' => $exportOptions['taxonomy_to_export'], 'orderby' => 'term_id', 'order' => 'ASC', 'hide_empty' => false));
+        $foundPosts = count($result->get_terms());
+        remove_filter('terms_clauses', 'wp_all_export_terms_clauses');
+    }
 	else
 	{
 		$foundPosts = ( ! XmlExportEngine::$is_user_export ) ? $exportQuery->found_posts : $exportQuery->get_total();

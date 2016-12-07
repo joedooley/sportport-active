@@ -1,5 +1,5 @@
 <?php
-function pmxe_render_xml_element(DOMElement $el, $shorten = false, $path = '/', $ind = 1, $lvl = 0)
+function pmxe_render_xml_element($el, $shorten = false, $path = '/', $ind = 1, $lvl = 0)
 {
 	$path .= $el->nodeName;	
 	$alternativePath = $path;	

@@ -16,10 +16,10 @@ class PMXI_History_Record extends PMXI_Model_Record {
 
 			$uploads = wp_upload_dir();
 
-			$history_file_path = wp_all_import_secure_file( $uploads['basedir'] . DIRECTORY_SEPARATOR . PMXI_Plugin::LOGS_DIRECTORY, $this->id ) . DIRECTORY_SEPARATOR . $this->id . '.html';			
-			if ( @file_exists($history_file_path) ){ 
+			$history_file_path = wp_all_import_secure_file( $uploads['basedir'] . DIRECTORY_SEPARATOR . PMXI_Plugin::LOGS_DIRECTORY, $this->id, false, false ) . DIRECTORY_SEPARATOR . $this->id . '.html';
+			if ( @file_exists($history_file_path) ){
 				wp_all_import_remove_source($history_file_path);
-			}			
+			}
 		}
 		return ($db) ? parent::delete() : true;
 	}

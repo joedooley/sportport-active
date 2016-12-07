@@ -391,7 +391,7 @@
 			$targets.slideUp().find('.clear-on-switch').add($targets.filter('.clear-on-switch')).val('');
 		}
 
-	}).change();	
+	}).change();
 
 	$('a.add-new-line').live('click', function(){
 		var $parent = $(this).parents('table').first();
@@ -493,6 +493,20 @@
 			}
 		}
 
+	}).change();
+
+	$('#billing_source_match_by').on('change', function(){
+		$('.wpallimport-select-switcher-target').hide();
+		$('.wpallimport-select-switcher-target[rel='+ $(this).val() +']').slideDown();
+	}).change();
+
+	$('#billing_is_guest_matching').on('change', function(){
+		if ($(this).is(':checked')){
+			$('.is_guest_matching_notice').hide();
+		}
+		else{
+			$('.is_guest_matching_notice').slideDown();
+		}
 	}).change();
 
 });})(jQuery);

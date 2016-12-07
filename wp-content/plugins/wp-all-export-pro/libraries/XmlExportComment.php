@@ -242,7 +242,7 @@ if ( ! class_exists('XmlExportComment') )
 
 			foreach (XmlExportEngine::$exportOptions['ids'] as $ID => $value) 
 			{								
-				$fieldName    = XmlExportEngine::$exportOptions['cc_name'][$ID];
+				$fieldName    = apply_filters('wp_all_export_field_name', wp_all_export_parse_field_name(XmlExportEngine::$exportOptions['cc_name'][$ID]), XmlExportEngine::$exportID);
 				$fieldValue   = XmlExportEngine::$exportOptions['cc_value'][$ID];
 				$fieldLabel   = XmlExportEngine::$exportOptions['cc_label'][$ID];
 				$fieldSql     = XmlExportEngine::$exportOptions['cc_sql'][$ID];
@@ -250,6 +250,7 @@ if ( ! class_exists('XmlExportComment') )
 				$fieldCode    = XmlExportEngine::$exportOptions['cc_code'][$ID];
 				$fieldType    = XmlExportEngine::$exportOptions['cc_type'][$ID];
 				$fieldOptions = XmlExportEngine::$exportOptions['cc_options'][$ID];
+                $fieldSettings = empty(XmlExportEngine::$exportOptions['cc_settings'][$ID]) ? $fieldOptions : XmlExportEngine::$exportOptions['cc_settings'][$ID];
 
 				if ( empty($fieldName) or empty($fieldType) or ! is_numeric($ID)) continue;
 				
@@ -298,23 +299,10 @@ if ( ! class_exists('XmlExportComment') )
 						$val = apply_filters('pmxe_comment_content', pmxe_filter($comment->comment_content, $fieldSnipped), $comment->comment_ID);										
 						wp_all_export_write_article( $article, $element_name, ($preview) ? trim(preg_replace('~[\r\n]+~', ' ', htmlspecialchars($val))) : $val );
 						break;		
-					case 'comment_date':							
-						if ( ! empty($fieldOptions))
-						{
-							switch ($fieldOptions) 
-							{
-								case 'unix':
-									$post_date = strtotime($comment->comment_date);
-									break;									
-								default:
-									$post_date = date($fieldOptions, strtotime($comment->comment_date));
-									break;
-							}														
-						}
-						else
-						{
-							$post_date = $comment->comment_date;
-						}						
+					case 'comment_date':
+
+                        $post_date = prepare_date_field_value($fieldSettings, strtotime($comment->comment_date), "Y-m-d H:i:s");
+
 						wp_all_export_write_article( $article, $element_name, apply_filters('pmxe_comment_date', pmxe_filter($post_date, $fieldSnipped), $comment->comment_ID) );
 						break;						
 					case 'comment_approved':						

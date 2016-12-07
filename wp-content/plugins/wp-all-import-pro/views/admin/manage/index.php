@@ -277,7 +277,16 @@ $columns = apply_filters('pmxi_manage_imports_columns', $columns);
 									}
 									else{
 										if (!empty($item['options']['custom_type'])){
-											$custom_type = get_post_type_object( $item['options']['custom_type'] );
+											switch ($item['options']['custom_type']){
+												case 'taxonomies':
+													$tx = get_taxonomy($item['options']['taxonomy_type']);
+													$custom_type = new stdClass();
+													$custom_type->label = empty($tx->labels->name) ? __('Taxonomy Terms', 'wp_all_import_plugin') : $tx->labels->name;
+													break;
+												default:
+													$custom_type = get_post_type_object( $item['options']['custom_type'] );
+													break;
+											}
 											$cpt_name = ( ! empty($custom_type)) ? $custom_type->label : '';
 										}
 										else{

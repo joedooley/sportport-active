@@ -50,7 +50,7 @@ function pmxe_wp_ajax_wpae_filtering(){
 	if ( XmlExportEngine::$is_auto_generate_enabled ):
 	?>
 	<span class="wp_all_export_btn_with_note">
-		<a href="javascript:void(0);" class="back rad3 auto-generate-template" style="float:none; background: #425f9a; padding: 0 50px; margin-right: 10px; color: #fff; font-weight: normal;"><?php printf(__('Migrate %s', 'wp_all_export_plugin'), wp_all_export_get_cpt_name(array($post['cpt']), 2)); ?></a>											
+		<a href="javascript:void(0);" class="back rad3 auto-generate-template" style="float:none; background: #425f9a; padding: 0 50px; margin-right: 10px; color: #fff; font-weight: normal;"><?php printf(__('Migrate %s', 'wp_all_export_plugin'), wp_all_export_get_cpt_name(array($post['cpt']), 2, $post)); ?></a>
 		<span class="auto-generate-template">&nbsp;</span>
 	</span>
 	<span class="wp_all_export_btn_with_note">
