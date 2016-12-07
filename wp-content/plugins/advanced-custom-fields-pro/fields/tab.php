@@ -36,7 +36,7 @@ class acf_field_tab extends acf_field {
 		$this->label = __("Tab",'acf');
 		$this->category = 'layout';
 		$this->defaults = array(
-			'value'		=> false, // prevents acf_render_fields() from attempting to load value
+			'value'		=> false, // prevents ACF from attempting to load value
 			'placement'	=> 'top',
 			'endpoint'	=> 0 // added in 5.2.8
 		);
@@ -124,21 +124,46 @@ class acf_field_tab extends acf_field {
 		acf_render_field_setting( $field, array(
 			'label'			=> __('End-point','acf'),
 			'instructions'	=> __('Use this field as an end-point and start a new group of tabs','acf'),
-			'type'			=> 'radio',
 			'name'			=> 'endpoint',
-			'choices'		=> array(
-				1				=> __("Yes",'acf'),
-				0				=> __("No",'acf'),
-			),
-			'layout'	=>	'horizontal',
+			'type'			=> 'true_false',
+			'ui'			=> 1,
 		));
 				
 	}
 	
+	
+	/*
+	*  update_field()
+	*
+	*  This filter is appied to the $field before it is saved to the database
+	*
+	*  @type	filter
+	*  @since	3.6
+	*  @date	23/01/13
+	*
+	*  @param	$field - the field array holding all the field options
+	*  @param	$post_id - the field group ID (post_type = acf)
+	*
+	*  @return	$field - the modified field
+	*/
+
+	function update_field( $field ) {
+		
+		// remove name
+		$field['name'] = '';
+		$field['required'] = 0;
+		
+		
+		// return
+		return $field;
+	}
+	
 }
 
-new acf_field_tab();
 
-endif;
+// initialize
+acf_register_field_type( new acf_field_tab() );
+
+endif; // class_exists check
 
 ?>
