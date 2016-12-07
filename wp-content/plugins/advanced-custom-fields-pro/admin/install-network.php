@@ -1,18 +1,10 @@
 <?php
 
-/*
-*  ACF Admin Update Network Class
-*
-*  All the logic for updates
-*
-*  @class 		acf_admin_update
-*  @package		ACF
-*  @subpackage	Admin
-*/
+if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if( ! class_exists('acf_admin_update_network') ) :
+if( ! class_exists('acf_admin_install_network') ) :
 
-class acf_admin_update_network {
+class acf_admin_install_network {
 
 	/*
 	*  __construct
@@ -54,7 +46,7 @@ class acf_admin_update_network {
 		
 		
 		// loop through sites and find updates
-		$sites = wp_get_sites();
+		$sites = acf_get_sites();
 		
 		if( $sites ) {
 			
@@ -65,7 +57,7 @@ class acf_admin_update_network {
 				
 				
 				// get site updates
-				$updates = acf_get_updates();
+				$updates = acf_get_db_updates();
 				
 				
 				// restore
@@ -93,7 +85,7 @@ class acf_admin_update_network {
 		
 		
 		// add page
-		$page = add_submenu_page('index.php', __('Upgrade Database','acf'), __('Upgrade Database','acf'), acf_get_setting('capability'), 'acf-upgrade', array($this,'network_html'));
+		$page = add_submenu_page('index.php', __('Upgrade Database','acf'), __('Upgrade Database','acf'), acf_get_setting('capability'), 'acf-upgrade-network', array($this,'network_html'));
 		
 		
 		// actions
@@ -146,13 +138,13 @@ class acf_admin_update_network {
 		// view
 		$view = array(
 			'button_text'	=> __("Review sites & upgrade", 'acf'),
-			'button_url'	=> network_admin_url('index.php?page=acf-upgrade'),
+			'button_url'	=> network_admin_url('index.php?page=acf-upgrade-network'),
 			'confirm'		=> false
 		);
 		
 		
 		// load view
-		acf_get_view('update-notice', $view);
+		acf_get_view('install-notice', $view);
 		
 	}
 	
@@ -177,7 +169,7 @@ class acf_admin_update_network {
 		
 		
 		// loop through sites and find updates
-		$sites = wp_get_sites();
+		$sites = acf_get_sites();
 		
 		if( $sites ) {
 			
@@ -193,7 +185,7 @@ class acf_admin_update_network {
 				
 				
 				// get site updates
-				$site['updates'] = acf_get_updates();
+				$site['updates'] = acf_get_db_updates();
 				
 				
 				// get site version
@@ -228,15 +220,60 @@ class acf_admin_update_network {
 		
 		
 		// load view
-		acf_get_view('update-network', $view);
+		acf_get_view('install-network', $view);
 		
 	}
 			
 }
 
 // initialize
-new acf_admin_update_network();
+new acf_admin_install_network();
 
-endif;
+endif; // class_exists check
+
+
+/*
+*  acf_get_sites
+*
+*  This function will return an array of site data
+*
+*  @type	function
+*  @date	29/08/2016
+*  @since	5.4.0
+*
+*  @param	n/a
+*  @return	(array)
+*/
+
+function acf_get_sites() {
+	
+	// vars
+	$sites = array();
+	
+	
+	// WP >= 4.6
+	if( function_exists('get_sites') ) {
+		
+		$_sites = get_sites();
+		
+		foreach( $_sites as $_site ) {
+			
+	        $_site = get_site( $_site );
+	        $sites[] = $_site->to_array();
+	        
+	    }
+		
+	// WP < 4.6	
+	} else {
+		
+		$sites = wp_get_sites();
+		
+	}
+	
+	
+	// return
+	return $sites;
+	
+}
 
 ?>
