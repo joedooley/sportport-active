@@ -25,7 +25,7 @@
 					else
 					{
 						?>
-						<h3 style="padding-left:0;"><?php printf(__('WP All Import will create new %s for each unique record in your file.','wp_all_import_plugin'), $custom_type->labels->name);?></h3>	
+						<h3 style="padding-left:0;"><?php printf(__('WP All Import will create new %s for each unique record in your file.','wp_all_import_plugin'), $custom_type->labels->name);?></h3>
 						<?php 
 					}
 				} 

@@ -9,8 +9,8 @@
 		</div>
 		<div class="input">
 			<input type="hidden" name="is_delete_posts" value="0"/>
-			<input type="checkbox" id="is_delete_posts" name="is_delete_posts" class="switcher" style="position: relative; top: 2px;" value="1"/> 
-			<label for="is_delete_posts"><?php printf(__('Delete posts created by %s','wp_all_import_plugin'), empty($item->friendly_name) ? $item->name : $item->friendly_name );?> </label>
+			<input type="checkbox" id="is_delete_posts" name="is_delete_posts" class="switcher" style="position: relative; top: 2px;" value="1"/>
+			<label for="is_delete_posts"><?php printf(__('Delete %s created by %s','wp_all_import_plugin'), ($item->options['custom_type'] == 'taxonomies') ? 'terms' : 'posts', empty($item->friendly_name) ? $item->name : $item->friendly_name );?> </label>
 		</div>
 		<div class="switcher-target-is_delete_posts" style="padding: 5px 17px;">
 			<div class="input">
@@ -38,7 +38,17 @@
 		$cpt_name = '';
 		if (!empty($item['options']['custom_type']))
 		{
-			$custom_type = get_post_type_object( $item['options']['custom_type'] );
+			switch ($item['options']['custom_type']){
+				case 'taxonomies':
+					$tx = get_taxonomy($item->options['taxonomy_type']);
+					$custom_type = new stdClass();
+					$custom_type->label = empty($tx->labels->name) ? __('Taxonomy Terms', 'wp_all_import_plugin') : $tx->labels->name;
+					break;
+				default:
+					$custom_type = get_post_type_object( $item['options']['custom_type'] );
+					break;
+			}
+
 			$cpt_name = ( ! empty($custom_type)) ? $custom_type->label : '';
 		}		
 		?>

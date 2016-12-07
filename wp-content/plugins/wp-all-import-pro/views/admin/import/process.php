@@ -32,8 +32,18 @@
 			</div>			
 		</div>
 		
-		<?php $custom_type = get_post_type_object( PMXI_Plugin::$session->options['custom_type'] ); ?>		
-
+		<?php
+		switch (PMXI_Plugin::$session->options['custom_type']){
+			case 'taxonomies':
+				$custom_type = new stdClass();
+				$custom_type->labels = new stdClass();
+				$custom_type->labels->singular_name = __('Taxonomy Term', 'wp_all_import_plugin');
+				break;
+			default:
+				$custom_type = get_post_type_object( PMXI_Plugin::$session->options['custom_type'] );
+				break;
+		}
+		?>
 		<div id="import_finished">			
 			<h1><?php _e('Import Complete!', 'wp_all_import_plugin'); ?></h1>						
 			<div class="wpallimport-content-section wpallimport-console wpallimport-complete-warning">

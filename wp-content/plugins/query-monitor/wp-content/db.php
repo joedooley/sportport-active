@@ -23,13 +23,6 @@ GNU General Public License for more details.
 
 */
 
-/**
- * FacetWP Cache plugin
- */
-if ( file_exists( WP_CONTENT_DIR . '/plugins/facetwp-cache/cache.php' ) ) {
-	include( WP_CONTENT_DIR . '/plugins/facetwp-cache/cache.php' );
-}
-
 defined( 'ABSPATH' ) or die();
 
 if ( defined( 'QM_DISABLED' ) and QM_DISABLED ) {

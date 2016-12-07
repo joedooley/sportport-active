@@ -13,7 +13,8 @@
     <h3 id="wpae_help_php_functions_tab"><span>+</span>&nbsp;<?php _e('PHP Functions', 'wp_all_export_plugin'); ?></h3>
 
     <div rel="wpae_help_php_functions_tab" class="wp_all_export_help_tab">
-        <p><?php _e('To add a PHP function to your XML template wrap it in brackets: <span class="wp_all_export_code"><span class="wp_all_export_code_text">[my_function({Content})]','wp_all_export_plugin');?></span></span></p>
+        <p><?php _e('To add a custom PHP function to your XML template wrap it in brackets: <span class="wp_all_export_code"><span class="wp_all_export_code_text">[my_function({Content})]','wp_all_export_plugin');?></span></span></p>
+        <p><?php _e('You can also use native PHP functions: <span class="wp_all_export_code"><span class="wp_all_export_code_text">[str_replace(",","",{Price})]','wp_all_export_plugin');?></span></span></p>
         <p><?php _e('Whatever your function returns will appear in your exported XML file. You can pass as many elements as you like to your function so that they can be combined and processed in any way.','wp_all_export_plugin');?></p>
     </div>
 

@@ -176,7 +176,7 @@ function pmxe_pmxe_after_export($export_id, $export)
 						fclose($out);	
 
 						// convert splitted files into XLS format
-						if ( ! empty($exportOptions['split_files_list']) && ! empty($export->options['export_to_sheet']) and $export->options['export_to_sheet'] == 'xls' )
+						if ( ! empty($exportOptions['split_files_list']) && ! empty($export->options['export_to_sheet']) and $export->options['export_to_sheet'] != 'csv' )
 						{
 							require_once PMXE_Plugin::ROOT_DIR . '/classes/PHPExcel/IOFactory.php';
 
@@ -187,11 +187,19 @@ function pmxe_pmxe_after_export($export_id, $export)
 								$objReader->setDelimiter($export->options['delimiter']);
 								// If the files uses an encoding other than UTF-8 or ASCII, then tell the reader
 								$objPHPExcel = $objReader->load($file);
-								$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-								$objWriter->save(str_replace(".csv", ".xls", $file));
+                                switch ($export->options['export_to_sheet']){
+                                    case 'xls':
+                                        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+                                        $objWriter->save(str_replace(".csv", ".xls", $file));
+                                        $exportOptions['split_files_list'][$key] = str_replace(".csv", ".xls", $file);
+                                        break;
+                                    case 'xlsx':
+                                        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+                                        $objWriter->save(str_replace(".csv", ".xlsx", $file));
+                                        $exportOptions['split_files_list'][$key] = str_replace(".csv", ".xlsx", $file);
+                                        break;
+                                }
 								@unlink($file);
-
-								$exportOptions['split_files_list'][$key] = str_replace(".csv", ".xls", $file);
 							}
 						}
 
@@ -207,7 +215,7 @@ function pmxe_pmxe_after_export($export_id, $export)
 		}	
 
 		// convert CSV to XLS
-		if ( @file_exists($filepath) and $export->options['export_to'] == 'csv' && ! empty($export->options['export_to_sheet']) and $export->options['export_to_sheet'] == 'xls')
+		if ( @file_exists($filepath) and $export->options['export_to'] == 'csv' && ! empty($export->options['export_to_sheet']) and $export->options['export_to_sheet'] != 'csv')
 		{			
 			
 			require_once PMXE_Plugin::ROOT_DIR . '/classes/PHPExcel/IOFactory.php';
@@ -218,11 +226,21 @@ function pmxe_pmxe_after_export($export_id, $export)
 			// If the files uses an encoding other than UTF-8 or ASCII, then tell the reader
 
 			$objPHPExcel = $objReader->load($filepath);
-			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-			$objWriter->save(str_replace(".csv", ".xls", $filepath));
-			@unlink($filepath);
 
-			$filepath = str_replace(".csv", ".xls", $filepath);
+            switch ($export->options['export_to_sheet']) {
+                case 'xls':
+                    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+                    $objWriter->save(str_replace(".csv", ".xls", $filepath));
+                    @unlink($filepath);
+                    $filepath = str_replace(".csv", ".xls", $filepath);
+                    break;
+                case 'xlsx':
+                    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+                    $objWriter->save(str_replace(".csv", ".xlsx", $filepath));
+                    @unlink($filepath);
+                    $filepath = str_replace(".csv", ".xlsx", $filepath);
+                    break;
+            }
 
 			$exportOptions = $export->options;
 			$exportOptions['filepath'] = wp_all_export_get_relative_path($filepath);

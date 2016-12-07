@@ -111,7 +111,14 @@ $.fn.wplupload  = function($options) {
 						if (index != -1)
 						{
 							$('#custom_type_selector').ddslick('select', {index: index });
-							
+
+							if (r.taxonomy_type){
+								var tindex = $('#taxonomy_to_import li:has(input[value="'+ r.taxonomy_type +'"])').index();
+								if (tindex != -1){
+									$('#taxonomy_to_import').ddslick('select', {index: tindex });
+								}
+							}
+
 							if (typeof r.url_bundle != "undefined")
 							{								
 								$('.auto-generate-template').css({'display':'inline-block'}).attr('rel', 'url_type');

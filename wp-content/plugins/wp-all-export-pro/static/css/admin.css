@@ -434,7 +434,12 @@
 	color: #000;
 	font-weight: bold;
 }
-
+.wpallexport-plugin .taxonomy_to_export_wrapper{
+	display: none;
+}
+.wpallexport-plugin .wp-all-export-advanced-field-options-content{
+	padding: 14px 0;
+}
 /*--------------------------------------------------------------------------
 *
 *	Basic rules
@@ -1024,9 +1029,7 @@
 	padding: 10px 0;
 	width: 100px;
 }
-.wpallexport-plugin .wp-all-export-advanced-field-options-content{
-	display: none;
-}
+
 /*--------------------------------------------------------------------------
 *
 *	Fixes & Other Stuff
@@ -1540,7 +1543,8 @@
 }
 .wpallexport-plugin #custom_type_selector, 
 .wpallexport-plugin #file_selector,
-.wpallexport-plugin #wp_query_selector{
+.wpallexport-plugin #wp_query_selector,
+.wpallexport-plugin #taxonomy_to_export{
 	margin: 0 auto;
 	margin-bottom: 20px;
 	text-align: left;
@@ -1559,12 +1563,14 @@
 }
 .wpallexport-plugin #custom_type_selector .dd-options li,
 .wpallexport-plugin #file_selector .dd-options li,
-.wpallexport-plugin #wp_query_selector .dd-options li{
+.wpallexport-plugin #wp_query_selector .dd-options li,
+.wpallexport-plugin #taxonomy_to_export .dd-options li{
 	margin-bottom: 0;
 }
 .wpallexport-plugin #custom_type_selector .dd-options li .dd-option,
 .wpallexport-plugin #file_selector .dd-options li .dd-option,
-.wpallexport-plugin #wp_query_selector .dd-options li .dd-option{
+.wpallexport-plugin #wp_query_selector .dd-options li .dd-option,
+.wpallexport-plugin #taxonomy_to_export .dd-options li .dd-option{
 	font-size: 18px;
 	color: #555;
 	border: none;
@@ -1579,7 +1585,9 @@
 	.wpallexport-plugin #file_selector .dd-options li .dd-option:hover, 
 	.wpallexport-plugin #file_selector .dd-options li .dd-option-selected,
 	.wpallexport-plugin #wp_query_selector .dd-options li .dd-option:hover, 
-	.wpallexport-plugin #wp_query_selector .dd-options li .dd-option-selected{
+	.wpallexport-plugin #wp_query_selector .dd-options li .dd-option-selected,
+	.wpallexport-plugin #taxonomy_to_export .dd-options li .dd-option:hover,
+	.wpallexport-plugin #taxonomy_to_export .dd-options li .dd-option-selected{
 		background: #eee;
 		color: #555;
 	}
@@ -1590,14 +1598,16 @@
 	}*/
 .wpallexport-plugin #custom_type_selector .dd-select,
 .wpallexport-plugin #file_selector .dd-select,
-.wpallexport-plugin #wp_query_selector .dd-select{
+.wpallexport-plugin #wp_query_selector .dd-select,
+.wpallexport-plugin #taxonomy_to_export .dd-select{
 	background: #fff !important;
 	padding: 10px 0;
 	/*margin-left: -5px;*/
 }
 .wpallexport-plugin #custom_type_selector .dd-selected,
 .wpallexport-plugin #file_selector .dd-selected,
-.wpallexport-plugin #wp_query_selector .dd-selected{
+.wpallexport-plugin #wp_query_selector .dd-selected,
+.wpallexport-plugin #taxonomy_to_export .dd-selected{
 	color: #000;
 	font-weight: normal;
 	font-size: 18px;	
@@ -1606,11 +1616,13 @@
 	line-height: 24px;
 }
 .wpallexport-plugin .change_file #file_selector .dd-select,
-.wpallexport-plugin .change_file #wp_query_selector .dd-select{
+.wpallexport-plugin .change_file #wp_query_selector .dd-select,
+.wpallexport-plugin .change_file #taxonomy_to_export .dd-select{
 	padding: 5px 0 0;
 }
 	.wpallexport-plugin .change_file #file_selector .dd-options .dd-option,
-	.wpallexport-plugin .change_file #wp_query_selector .dd-options .dd-option{
+	.wpallexport-plugin .change_file #wp_query_selector .dd-options .dd-option,
+	.wpallexport-plugin .change_file #taxonomy_to_export .dd-options .dd-option{
 		padding: 0 10px;
 	}
 .wpallexport-plugin .dd-options{
@@ -1643,8 +1655,8 @@
 }
 .wpallexport-plugin #file_selector .dd-option .dashicon-product:before,
 .wpallexport-plugin #file_selector .dd-selected .dashicon-product:before{
-	font-family: "dashicons";
-	content: "\f174";
+	font-family: "WooCommerce";
+	content: "\e006";
 	color: #555;
 	margin-top: 0;
 }
@@ -1667,8 +1679,8 @@
 	content: "\f333";
 	color: #555;
 }
-.wpallexport-plugin #file_selector .dd-option .dashicon-import_users:before,
-.wpallexport-plugin #file_selector .dd-selected .dashicon-import_users:before{
+.wpallexport-plugin #file_selector .dd-option .dashicon-users:before,
+.wpallexport-plugin #file_selector .dd-selected .dashicon-users:before{
 	font-family: "dashicons";
 	content: "\f110";
 	color: #555;
@@ -1677,6 +1689,12 @@
 .wpallexport-plugin #file_selector .dd-selected .dashicon-comments:before{
 	font-family: "dashicons";
 	content: "\f101";
+	color: #555;
+}
+.wpallexport-plugin #file_selector .dd-option .dashicon-taxonomies:before,
+.wpallexport-plugin #file_selector .dd-selected .dashicon-taxonomies:before{
+	font-family: "dashicons";
+	content: "\f318";
 	color: #555;
 }
 .wpallexport-plugin #file_selector .dd-option:hover .dashicon:before,
@@ -2621,6 +2639,13 @@
 	/*margin-top: 15px;	*/
 }
 
+.wpallexport-plugin .product_variations .sub-options {
+	margin-left: 20px;
+}
+
+.sub-options {
+	display: none;
+}
 /*--------------------------------------------------------------------------
 *
 *	Step 4 - Import Options
@@ -2769,12 +2794,21 @@
 }*/
 
 .wpallexport-plugin .wpallexport-ready-to-go{
-	background: url("../img/elements.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
-	float: left;
+	/*background: url("../img/elements.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0) !important;*/
+	/*float: left;*/
+	/*margin-left: 40px;*/
+	/*margin-top: 25px;*/
+	/*padding-left: 80px;*/
+	/*text-align: left;*/
+
+	background: rgba(0, 0, 0, 0) url("../img/elements.png") no-repeat scroll 0 0 !important;
+	height: 63px;
+	margin-bottom: 20px;
 	margin-left: 40px;
 	margin-top: 25px;
 	padding-left: 80px;
-	text-align: left;
+	position: relative;
+
 }
 	.wpallexport-plugin .wpallexport-ready-to-go h3{
 		color: #425f9a;
@@ -2786,7 +2820,7 @@
 	.wpallexport-plugin .wpallexport-ready-to-go h4{
 		color: #777;
 		margin-top: 5px;
-		font-size:20px;
+		font-size:18px;
 	}
 	.wpallexport-plugin .nothing_to_export{
 		background: url("../img/exclamation.png") no-repeat scroll 5px 5px rgba(0, 0, 0, 0) !important;
@@ -3262,6 +3296,9 @@
 	border-collapse:collapse;
 	border-spacing:0;
 }
+.product_variations {
+	display: none;
+}
 /*@*/
 
 /*--------------------------------------------------------------------------
@@ -3476,12 +3513,6 @@
 	.wpallexport-plugin .wpallexport-wrapper{
 		width: 1020px;		
 	}
-	/*.wpallexport-plugin a.wpallexport-import-from{
-		width: 300px;
-	}*/
-	.wpallexport-plugin .wpallexport-ready-to-go h4{
-		font-size: 18px;
-	}
 	.wpallexport-plugin .change_file .wpallexport-import-types h3{
 		font-size: 22px;
 	}
@@ -3504,9 +3535,6 @@
 	}
 	.wpallexport-plugin .wpallexport-is-continue{
 		margin: 12px 10px 12px 0;
-	}
-	.wpallexport-plugin .wpallexport-ready-to-go h3{
-		font-size: 18px;
 	}
 	.wpallexport-plugin .wpallexport-choose-import-direction[rel="new"]{
 		margin-left: -17%;
@@ -3532,14 +3560,12 @@
 	.wpallexport-plugin .wpallexport-upload-type-container{
 		padding: 0 40px;
 	}
+/*	.wpallexport-plugin .wpallexport-ready-to-go h4,
 	.wpallexport-plugin .ajax-console .founded_records h4{
 		font-size: 18px;
 	}
-	.wpallexport-plugin #pmxi_add_rule{
+*/	.wpallexport-plugin #pmxi_add_rule{
 		padding: 13px 25px 10px 50px;
-	}
-	.wpallexport-plugin .wpallexport-ready-to-go h4{
-		font-size: 15px;
 	}
 	.wpallexport-plugin #process_notice,
 	.wpallexport-plugin #export_finished h3{
@@ -3575,12 +3601,6 @@
 	.wpallexport-plugin .wpallexport-is-continue{
 		margin: 12px 10px 12px 0;
 	}
-	.wpallexport-plugin .wpallexport-ready-to-go h3{
-		font-size: 14px;
-	}
-	.wpallexport-plugin .wpallexport-ready-to-go h4{
-		font-size: 14px;
-	}
 	.wpallexport-plugin .wpallexport-choose-import-direction[rel="new"]{
 		margin-left: -17%;
 	}
@@ -3608,12 +3628,10 @@
 	.wpallexport-plugin .wpallexport-upload-type-container{
 		padding: 0 40px;
 	}
+/*	.wpallexport-plugin .wpallexport-ready-to-go h4,
 	.wpallexport-plugin .ajax-console .founded_records h4{
 		font-size: 14px;
-	}
-	.wpallexport-plugin .wpallexport-ready-to-go h4{
-		font-size: 12px;
-	}
+	}*/
 	.wpallexport-plugin form.confirm input[type="submit"]{
 		padding: 20px 10px 20px 10px;
 	}
@@ -3657,14 +3675,10 @@
 	.wpallexport-plugin .wpallexport-is-continue{
 		margin: 12px 10px 12px 0;
 	}
-	.wpallexport-plugin .wpallexport-ready-to-go h3{
-		font-size: 11px;
+/*	.wpallexport-plugin .wpallexport-ready-to-go h3{
 		line-height: 20px;
 		margin-top: 10px;
-	}
-	.wpallexport-plugin .wpallexport-ready-to-go h4{
-		font-size: 11px;
-	}
+	}*/
 	.wpallexport-plugin .wpallexport-choose-import-direction[rel="new"]{
 		margin-left: -17%;
 	}
@@ -3689,12 +3703,10 @@
 	.wpallexport-plugin .wpallexport-import-to{
 		width: 330px;
 	}
+/*	.wpallexport-plugin .wpallexport-ready-to-go h4,
 	.wpallexport-plugin .ajax-console .founded_records h4{
 		font-size: 13px;
-	}
-	.wpallexport-plugin .wpallexport-ready-to-go h4{
-		font-size: 12px;
-	}
+	}*/
 	.wpallexport-plugin form.confirm input[type="submit"]{
 		padding: 20px 10px 20px 10px;
 	}
@@ -3745,20 +3757,16 @@
 	.wpallexport-plugin .wpallexport-existing-records{
 		font-size: 11px;
 	}
-	.wpallexport-plugin .wpallexport-ready-to-go{
+/*	.wpallexport-plugin .wpallexport-ready-to-go{
 		padding-left: 70px;
-	}
+	}*/
 	.wpallexport-plugin .wpallexport-is-continue{
 		margin: 12px 10px 12px 0;
 	}
-	.wpallexport-plugin .wpallexport-ready-to-go h3{
-		font-size: 11px;
+/*	.wpallexport-plugin .wpallexport-ready-to-go h3{
 		line-height: 20px;
 		margin-top: 10px;
-	}
-	.wpallexport-plugin .wpallexport-ready-to-go h4{
-		font-size: 11px;
-	}
+	}*/
 	.wpallexport-plugin .wpallexport-choose-import-direction[rel="new"]{
 		margin-left: -17%;
 	}

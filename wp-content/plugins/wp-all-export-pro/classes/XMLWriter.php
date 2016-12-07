@@ -33,7 +33,12 @@ class PMXE_XMLWriter extends XMLWriter
                     if (!isset($article[$key])) {
                         $article[$key] = array($value);
                     } else {
-                        $article[$key] = array($article[$key], $value);
+                        if (is_array($article[$key])){
+                            array_push($article[$key], $value);
+                        }
+                        else{
+                            $article[$key] = array($article[$key], $value);
+                        }
                     }
 
                     if (!in_array($key, $keys)) $keys[] = $key;
@@ -167,6 +172,8 @@ class PMXE_XMLWriter extends XMLWriter
                         $v = str_replace(']', 'CLOSEBRAKET', str_replace('[', 'OPENBRAKET', $value));
                         // replace { and }
                         $v = str_replace('}', 'CLOSECURVE', str_replace('{', 'OPENCURVE', $v));
+                        // replace ( and )
+                        $v = str_replace(')', 'CLOSECIRCLE', str_replace('(', 'OPENCIRCLE', $v));
 
                         $originalValue = $v;
 
@@ -200,6 +207,7 @@ class PMXE_XMLWriter extends XMLWriter
             }
 
             $xml .= $node_tpl;
+
         }
 
         $this->articles = array();
@@ -264,6 +272,7 @@ class PMXE_XMLWriter extends XMLWriter
                     $filtered = preg_replace("%[\{\}]%", "\"", $filtered);
                     $filtered = str_replace('CLOSEBRAKET', ']', str_replace('OPENBRAKET', '[', $filtered));
                     $filtered = str_replace('CLOSECURVE', '}', str_replace('OPENCURVE', '{', $filtered));
+                    $filtered = str_replace('CLOSECIRCLE', ')', str_replace('OPENCIRCLE', '(', $filtered));
 
                     $functionName = self::sanitizeFunctionName($filtered);
 
@@ -326,6 +335,7 @@ class PMXE_XMLWriter extends XMLWriter
 
                 $filtered = str_replace('CLOSEBRAKET', ']', str_replace('OPENBRAKET', '[', $filtered));
                 $filtered = str_replace('CLOSECURVE', '}', str_replace('OPENCURVE', '{', $filtered));
+                $filtered = str_replace('CLOSECIRCLE', ')', str_replace('OPENCIRCLE', '(', $filtered));
 
                 if ($is_attribute) {
                     $xml = str_replace($snipet, $filtered, $xml);

@@ -175,6 +175,7 @@ $columns = apply_filters('pmxe_manage_imports_columns', $columns);
 											if ((in_array('product', $item['options']['cpt']) or $item['options']['export_type'] == 'advanced') and class_exists('WooCommerce') and (empty($item['options']['wp_query_selector']) or $item['options']['wp_query_selector'] == 'wp_query')) {	
 												$required_fields['woo']  = '_sku';
 												$required_fields['cats'] = 'product_type';
+												$required_fields['parent'] = 'parent';
 											}
 											if ((in_array('users', $item['options']['cpt']) or $item['options']['export_type'] == 'advanced') and (!empty($item['options']['wp_query_selector']) and $item['options']['wp_query_selector'] == 'wp_user_query')) {	
 												$required_fields['user_email']  = 'user_email';

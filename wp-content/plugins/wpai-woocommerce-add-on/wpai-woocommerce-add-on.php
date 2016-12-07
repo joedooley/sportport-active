@@ -3,7 +3,7 @@
 Plugin Name: WP All Import - WooCommerce Add-On Pro
 Plugin URI: http://www.wpallimport.com/
 Description: Import to WooCommerce. Adds a section to WP All Import that looks just like WooCommerce. Requires WP All Import.
-Version: 2.3.1
+Version: 2.3.2
 Author: Soflyy
 */
 /**
@@ -24,7 +24,7 @@ define('PMWI_ROOT_URL', rtrim(plugin_dir_url(__FILE__), '/'));
  */
 define('PMWI_PREFIX', 'pmwi_');
 
-define('PMWI_VERSION', '2.3.1');
+define('PMWI_VERSION', '2.3.2');
 
 if ( class_exists('PMWI_Plugin') and PMWI_EDITION == "free"){
 
@@ -663,6 +663,18 @@ else {
 					'billing_state' => '',
 					'billing_email' => '',
 					'billing_phone' => '',
+					'guest_billing_first_name' => '',
+					'guest_billing_last_name' => '',
+					'guest_billing_company' => '',
+					'guest_billing_address_1' => '',
+					'guest_billing_address_2' => '',
+					'guest_billing_city' => '',
+					'guest_billing_postcode' => '',
+					'guest_billing_country' => '',
+					'guest_billing_state' => '',
+					'guest_billing_email' => '',
+					'guest_billing_phone' => '',
+					'is_guest_matching' => 0,
 					'shipping_source' => 'copy',
 					'shipping_first_name' => '',
 					'shipping_last_name' => '',
@@ -675,6 +687,7 @@ else {
 					'shipping_state' => '',
 					'shipping_email' => '',
 					'shipping_phone' => '',
+					'copy_from_billing' => 0,
 					'customer_provided_note' => '',
 					'payment_method' => '',
 					'payment_method_xpath' => '',

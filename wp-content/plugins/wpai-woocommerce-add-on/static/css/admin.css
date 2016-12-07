@@ -379,7 +379,7 @@
 	width: 98%;
 }
 .wpallimport-plugin .wpallimport-order-billing-fields input[type="text"]{
-	width: 100%;	
+	width: 100% !important;
 }
 .wpallimport-plugin a.add-new-line{
 	position: relative;
@@ -472,4 +472,18 @@ div#order_coupons.panel.woocommerce_options_panel,
 div#order_shipping.panel.woocommerce_options_panel,
 div#order_taxes.panel.woocommerce_options_panel {
 	padding-bottom: 0;
+}
+.wpallimport-plugin .is_guest_matching_notice,
+.wpallimport-plugin .wpallimport-select-switcher-target{
+	display: none;
+}
+.wpallimport-plugin .wpallimport-billing-user-try-match-selector label{
+	line-height: 40px !important;
+	padding-left: 20px;
+	padding-right: 10px;
+	width: auto;
+}
+.wpallimport-plugin .wpallimport-billing-user-try-match-selector select{
+	width: 130px;
+	font-size: 14px !important;
 }

@@ -215,6 +215,12 @@ if ( ! class_exists('XmlExportACF') )
 				$is_xml_export = true;
 			}
 
+			$is_custom_xml_export = false;
+
+			if ( XmlExportEngine::$exportOptions['export_to'] == 'xml' and in_array(XmlExportEngine::$exportOptions['xml_template_type'], array('custom')) ){
+				$is_custom_xml_export = true;
+			}
+
 			if ( ! empty($field_value) ) 
 			{						
 				$field_value = maybe_unserialize($field_value);																					
@@ -353,13 +359,18 @@ if ( ! class_exists('XmlExportACF') )
 						{
 							if ( ! $return_value )
 							{
-								$acfs[$element_name] = array($element_name . '_item_name', $element_name . '_item_description', $element_name . '_price');
+								if ( $is_custom_xml_export ){
+									$article[$element_name] = json_encode($field_value);
+								}
+								else{
+									$acfs[$element_name] = array($element_name . '_item_name', $element_name . '_item_description', $element_name . '_price');
 
-								if ( is_array($field_value) )
-								{
-									foreach ($field_value as $key => $value) 
+									if ( is_array($field_value) )
 									{
-										$article[$element_name . '_' . $key] = $value;												
+										foreach ($field_value as $key => $value)
+										{
+											$article[$element_name . '_' . $key] = $value;
+										}
 									}
 								}
 							}
@@ -389,11 +400,15 @@ if ( ! class_exists('XmlExportACF') )
 						{
 							if ( ! $return_value )
 							{
-								$acfs[$element_name] = array($element_name . '_address', $element_name . '_lat', $element_name . '_lng');
-
-								$article[$element_name . '_address'] = $field_value['address'];												
-								$article[$element_name . '_lat'] = $field_value['lat'];				
-								$article[$element_name . '_lng'] = $field_value['lng'];														
+								if ( $is_custom_xml_export ){
+									$article[$element_name] = json_encode($field_value);
+								}
+								else{
+									$acfs[$element_name] = array($element_name . '_address', $element_name . '_lat', $element_name . '_lng');
+									$article[$element_name . '_address'] = $field_value['address'];
+									$article[$element_name . '_lat'] = $field_value['lat'];
+									$article[$element_name . '_lng'] = $field_value['lng'];
+								}
 							}														
 						}								
 						$put_to_csv = false;															
@@ -569,7 +584,7 @@ if ( ! class_exists('XmlExportACF') )
 						if ( is_array($field_value) )
 						{
 							$field_value = implode($implode_delimiter, $field_value);																							
-						}																						
+						}
 
 						break;
 					
@@ -956,7 +971,7 @@ if ( ! class_exists('XmlExportACF') )
 							$fields['cc_php'][] = '';
 							$fields['cc_code'][] = '';
 							$fields['cc_sql'][] = '';
-							$fields['cc_options'][] = esc_html(serialize(array_merge($field, array('group_id' => ((!empty($group['ID'])) ? $group['ID'] : $group['id']) ))));
+							$fields['cc_options'][] = serialize(array_merge($field, array('group_id' => ((!empty($group['ID'])) ? $group['ID'] : $group['id']) )));
 							$fields['cc_type'][] = 'acf';
 							$fields['cc_value'][] = $field['name'];
 							$fields['cc_name'][] = $field_key;
@@ -992,7 +1007,7 @@ if ( ! class_exists('XmlExportACF') )
 								foreach ($group['fields'] as $field) 
 								{
 									?>
-									<li class="pmxe_acf_<?php echo (!empty($group['ID'])) ? $group['ID'] : $group['id'];?>">
+									<li class="pmxe_acf_<?php echo (!empty($group['ID'])) ? $group['ID'] : $group['id'];?> wp_all_export_auto_generate">
 										<div class="custom_column" rel="<?php echo ($i + 1);?>">															
 											<label class="wpallexport-xml-element"><?php echo $field['label']; ?></label>
 											<input type="hidden" name="ids[]" value="1"/>
@@ -1115,28 +1130,20 @@ if ( ! class_exists('XmlExportACF') )
 					break;
 				case 'gallery':
 
-					if ($is_xml_template)
-					{						
-						$field_template = array(
-						  'gallery' => '{' . $field_tpl_key . '}'
-                        );
-					}
-					else
-					{
-                        $field_template = array(
-                          'search_in_media' => 1,
-                          'delim' => $implode_delimiter,
-                          'gallery' => '{' . $field_tpl_key . '}'
-                        );						
-					}
+					$field_template = array(
+						'search_in_media' => 1,
+						'delim' => $implode_delimiter,
+						'gallery' => '{' . $field_tpl_key . '}'
+					);
+
 					break;
 				case 'relationship':
-					if ($implode_delimiter == "|") {
-						$field_template = '[str_replace("|", ",",{' . $field_tpl_key . '})]';
-					}
-					else{
-						$field_template = '{' . $field_tpl_key . '}';
-					}
+
+					$field_template = array(
+						'delim' => $implode_delimiter,
+						'value' => '{' . $field_tpl_key . '}'
+					);
+
 					break;
 				case 'post_object':
 				case 'page_link':				
@@ -1393,6 +1400,32 @@ if ( ! class_exists('XmlExportACF') )
 
 			}							
 			return $field_template;
+		}
+
+		public function auto_generate_export_fields( & $fields ){
+
+			if ( ! empty($this->_acf_groups) )
+			{
+				foreach ($this->_acf_groups as $key => $group)
+				{
+					if ( ! empty($group['fields']))
+					{
+						foreach ($group['fields'] as $field)
+						{
+							$fields['ids'][] 	    	= 1;
+							$fields['cc_label'][]   	= $field['name'];
+							$fields['cc_php'][] 	   	= 0;
+							$fields['cc_code'][]    	= '';
+							$fields['cc_sql'][]     	= '';
+							$fields['cc_settings'][]    = '';
+							$fields['cc_type'][]    	= 'acf';
+							$fields['cc_options'][] 	= serialize(array_merge($field, array('group_id' => ((!empty($group['ID'])) ? $group['ID'] : $group['id']) )));
+							$fields['cc_value'][]   	= $field['name'];
+							$fields['cc_name'][]    	= $field['label'];
+						}
+					}
+				}
+			}
 		}
 
 		/**

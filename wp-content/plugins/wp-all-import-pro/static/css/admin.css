@@ -512,10 +512,6 @@
 	border: 1px solid #FF8383;
 	color: #000;
 }
-.wpallimport-plugin .upgrade_link{
-	color: #000 !important;
-	font-size: 1.3em !important;	
-}
 .wpallimport-plugin .auto-generate-template{
 	display: none;
 }
@@ -591,6 +587,21 @@
 .wpallimport-plugin .wpallimport-trigger-options{
 	cursor: pointer;
 	margin: 5px 0;
+}
+.wpallimport-plugin .taxonomy_to_import_wrapper{
+	display: none;
+}
+.wpallimport-plugin .wp_all_import_change_taxonomy_type{
+	display: table;
+}
+.wpallimport-plugin .wp_all_import_change_taxonomy_type #taxonomy_to_import{
+	margin: 0;
+}
+.wpallimport-plugin .wp_all_import_change_taxonomy_type #taxonomy_to_import .dd-select{
+	padding: 5px 0;
+}
+.wpallimport-plugin .wp_all_import_change_taxonomy_type #taxonomy_to_import .dd-options li a{
+	padding: 5px;
 }
 /*--------------------------------------------------------------------------
 *
@@ -966,7 +977,38 @@
 .wpallimport-plugin .wpallimport-wrapper{
 	width: 1200px;
 }
-
+.wpallimport-plugin .wpallimport-step-4 .wpallimport-upgrade-notice{
+	background-color: #FFB8B8;
+	border: 1px solid #FF8383;
+	color: #000;
+	display: none;
+	line-height: 40px;
+	margin: 30px auto 0 -4px;
+	padding: 15px;
+	text-align: center;
+	width: 560px;
+}
+.wpallimport-plugin .wpallimport-choose-file .wpallimport-upgrade-notice{
+	background-color: #FFB8B8;
+	border: 1px solid #FF8383;
+	color: #000;
+	display: none;
+	line-height: 40px;
+	margin: 30px auto 0 29.8%;
+	padding: 15px;
+	text-align: center;
+	width: 650px;
+}
+.wpallimport-plugin .wpallimport-upgrade-notice p{
+	color: #000 !important;
+	font-size: 1.3em !important;
+	margin-bottom: 0;
+}
+.wpallimport-plugin .wpallimport-upgrade-notice .upgrade_link{
+	color: #000 !important;
+	font-size: 1.3em !important;
+	text-decoration: underline;
+}
 /*--------------------------------------------------------------------------
 *
 *	Step 1 - choose file
@@ -1230,7 +1272,8 @@
 	border: 1px solid #ddd;
 }
 .wpallimport-plugin #custom_type_selector, 
-.wpallimport-plugin #file_selector{
+.wpallimport-plugin #file_selector,
+.wpallimport-plugin #taxonomy_to_import{
 	margin: 0 auto;
 	margin-bottom: 20px;
 	text-align: left;
@@ -1244,15 +1287,21 @@
 .wpallimport-plugin .wpallimport-change-custom-type #custom_type_selector .dd-select{
 	padding: 5px 0 0;
 }
-.wpallimport-plugin #file_selector{
+.wpallimport-plugin #file_selector,
+.wpallimport-plugin #taxonomy_to_import{
 	margin-top: 30px;
 }
+.wpallimport-plugin #taxonomy_to_import .dd-options{
+	max-height: 300px;
+}
 .wpallimport-plugin #custom_type_selector .dd-options li,
-.wpallimport-plugin #file_selector .dd-options li{
+.wpallimport-plugin #file_selector .dd-options li,
+.wpallimport-plugin #taxonomy_to_import .dd-options li{
 	margin-bottom: 0;
 }
 .wpallimport-plugin #custom_type_selector .dd-options li .dd-option,
-.wpallimport-plugin #file_selector .dd-options li .dd-option{
+.wpallimport-plugin #file_selector .dd-options li .dd-option,
+.wpallimport-plugin #taxonomy_to_import .dd-options li .dd-option{
 	font-size: 18px;
 	color: #555;
 	border: none;
@@ -1265,7 +1314,9 @@
 	.wpallimport-plugin #custom_type_selector .dd-options li .dd-option:hover, 
 	.wpallimport-plugin #custom_type_selector .dd-options li .dd-option-selected,
 	.wpallimport-plugin #file_selector .dd-options li .dd-option:hover, 
-	.wpallimport-plugin #file_selector .dd-options li .dd-option-selected{
+	.wpallimport-plugin #file_selector .dd-options li .dd-option-selected,
+	.wpallimport-plugin #taxonomy_to_import .dd-options li .dd-option:hover,
+	.wpallimport-plugin #taxonomy_to_import .dd-options li .dd-option-selected{
 		background: #eee;
 		color: #555;
 	}
@@ -1275,13 +1326,15 @@
 		color: #fff;
 	}*/
 .wpallimport-plugin #custom_type_selector .dd-select,
-.wpallimport-plugin #file_selector .dd-select{
+.wpallimport-plugin #file_selector .dd-select,
+.wpallimport-plugin #taxonomy_to_import .dd-select{
 	background: #fff !important;
 	padding: 10px 0;
 	margin-left: -5px;
 }
 .wpallimport-plugin #custom_type_selector .dd-selected,
-.wpallimport-plugin #file_selector .dd-selected{
+.wpallimport-plugin #file_selector .dd-selected,
+.wpallimport-plugin #taxonomy_to_import .dd-selected{
 	color: #000;
 	font-weight: normal;
 	font-size: 18px;	
@@ -1289,10 +1342,12 @@
 	padding: 0 10px;
 	line-height: 24px;
 }
-.wpallimport-plugin .change_file #file_selector .dd-select{
+.wpallimport-plugin .change_file #file_selector .dd-select,
+.wpallimport-plugin .change_file #taxonomy_to_import .dd-select{
 	padding: 5px 0 0;
 }
-	.wpallimport-plugin .change_file #file_selector .dd-options .dd-option{
+	.wpallimport-plugin .change_file #file_selector .dd-options .dd-option,
+	.wpallimport-plugin .change_file #taxonomy_to_import .dd-options .dd-option{
 		padding: 0 10px;
 	}
 .wpallimport-plugin .dd-options{
@@ -1381,8 +1436,8 @@
 }
 .wpallimport-plugin #custom_type_selector .dd-option .dashicon-product:before,
 .wpallimport-plugin #custom_type_selector .dd-selected .dashicon-product:before{
-	font-family: "dashicons";
-	content: "\f174";
+	font-family: "WooCommerce";
+	content: "\e006";
 	color: #555;
 	margin-top: 0;
 }
@@ -1405,6 +1460,12 @@
 .wpallimport-plugin #custom_type_selector .dd-selected .dashicon-import_users:before{
 	font-family: "dashicons";
 	content: "\f110";
+	color: #555;
+}
+.wpallimport-plugin #custom_type_selector .dd-option .dashicon-taxonomies:before,
+.wpallimport-plugin #custom_type_selector .dd-selected .dashicon-taxonomies:before{
+	font-family: "dashicons";
+	content: "\f318";
 	color: #555;
 }
 .wpallimport-plugin #custom_type_selector .dd-option:hover .dashicon:before,
@@ -3140,6 +3201,10 @@ body.rtl.wpallimport-plugin .show_hints
 	.wpallimport-plugin .wpallimport-extra-text-left{
 		width: 36%;
 	}
+	.wpallimport-plugin .wpallimport-choose-file .wpallimport-upgrade-notice{
+		margin: 30px auto 0 28.4%;
+		width: 650px;
+	}
 	.wpallimport-plugin .wpallimport-extra-text-right{
 		width: 37%;
 	}
@@ -3180,6 +3245,10 @@ body.rtl.wpallimport-plugin .show_hints
 	}
 	.wpallimport-plugin .wpallimport-extra-text-left{
 		width: 35%;
+	}
+	.wpallimport-plugin .wpallimport-choose-file .wpallimport-upgrade-notice{
+		margin: 30px auto 0 26.7%;
+		width: 666px;
 	}
 	.wpallimport-plugin .wpallimport-extra-text-right{
 		width: 35%;
@@ -3242,6 +3311,10 @@ body.rtl.wpallimport-plugin .show_hints
 	}
 	.wpallimport-plugin .wpallimport-extra-text-left{
 		width: 33%;
+	}
+	.wpallimport-plugin .wpallimport-choose-file .wpallimport-upgrade-notice{
+		margin: 30px auto 0 24.7%;
+		width: 625px;
 	}
 	.wpallimport-plugin .wpallimport-extra-text-right{
 		width: 34%;
@@ -3317,6 +3390,10 @@ body.rtl.wpallimport-plugin .show_hints
 	}
 	.wpallimport-plugin .wpallimport-extra-text-left{
 		width: 30%;
+	}
+	.wpallimport-plugin .wpallimport-choose-file .wpallimport-upgrade-notice{
+		margin: 30px auto 0 22.7%;
+		width: 553px;
 	}
 	.wpallimport-plugin .wpallimport-extra-text-right{
 		width: 31%;
@@ -3413,6 +3490,10 @@ body.rtl.wpallimport-plugin .show_hints
 	}
 	.wpallimport-plugin .wpallimport-extra-text-left{
 		width: 29%;
+	}
+	.wpallimport-plugin .wpallimport-choose-file .wpallimport-upgrade-notice{
+		margin: 30px auto 0 22%;
+		width: 530px;
 	}
 	.wpallimport-plugin .wpallimport-extra-text-right{
 		width: 30%;

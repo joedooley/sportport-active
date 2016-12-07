@@ -95,4 +95,70 @@
 			return $_existing_taxonomies;
 		}	
 	}
-		
+
+    if ( ! function_exists('wp_all_export_get_taxonomies')) {
+        function wp_all_export_get_taxonomies() {
+            // get all taxonomies
+            $taxonomies = get_taxonomies(FALSE, 'objects');
+            $ignore = array('nav_menu', 'link_category');
+            $r = array();
+            // populate $r
+            foreach ($taxonomies as $taxonomy) {
+                if (in_array($taxonomy->name, $ignore) || $taxonomy->show_in_nav_menus === false ) {
+                    continue;
+                }
+                if ( ! empty($taxonomy->labels->name) && strpos($taxonomy->labels->name, "_") === false){
+                    $r[$taxonomy->name] = $taxonomy->labels->name;
+                }
+                else{
+                    $r[$taxonomy->name] = empty($taxonomy->labels->singular_name) ? $taxonomy->name : $taxonomy->labels->singular_name;
+                }
+            }
+            asort($r, SORT_FLAG_CASE | SORT_STRING);
+            // return
+            return $r;
+
+        }
+    }
+
+    if ( ! function_exists('wp_all_export_cmp_custom_types')){
+        function wp_all_export_cmp_custom_types($a, $b)
+        {
+            return strcmp($a->labels->name, $b->labels->name);
+        }
+    }
+
+	if ( ! function_exists('prepare_date_field_value')){
+        function prepare_date_field_value($fieldOptions, $timestamp, $defaultFormat = false){
+
+            if ( ! empty($fieldOptions))
+            {
+                switch ($fieldOptions)
+                {
+                    case 'unix':
+                        $post_date = $timestamp;
+                        break;
+                    default:
+                        $post_date = date($fieldOptions, $timestamp);
+                        break;
+                }
+            }
+            else
+            {
+                // Check if export was created before v1.4.2-beta-2.0
+                if ( PMXE_Plugin::isExistingExport("1.4.2-beta-2.0") ){
+                    // Do not change date fields for exports created before v1.4.2-beta-2.0
+                    $post_date = $defaultFormat ? date($defaultFormat, $timestamp) : $timestamp;
+                }
+                else
+                {
+                    if ( in_array(XmlExportEngine::$exportOptions['xml_template_type'], array('custom', 'XmlGoogleMerchants')) ){
+                        $post_date = date("Y-m-d H:i:s", $timestamp);
+                    } else {
+                        $post_date = date("Y-m-d", $timestamp);
+                    }
+                }
+            }
+            return $post_date;
+        }
+    }		

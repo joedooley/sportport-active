@@ -180,7 +180,13 @@
 						</div>						
 					</div>
 				</div>
-			</div>	
+			</div>
+			<?php
+
+			// add-ons re-import options
+			do_action('pmxi_reimport', $post_type, $post);
+
+			?>
 		</div>
 	</div>
 </div>	

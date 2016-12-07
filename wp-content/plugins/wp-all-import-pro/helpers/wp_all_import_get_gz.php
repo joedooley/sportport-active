@@ -8,14 +8,20 @@ if ( ! function_exists('wp_all_import_get_gz')){
 
 		$tmpname = wp_unique_filename($targetDir, (strlen(basename($filename)) < 30) ? basename($filename) : time() );	
 		$localPath = $targetDir  .'/'. urldecode(sanitize_file_name($tmpname));
-		
+
+//        if (wp_all_import_is_password_protected_feed($filename)){
+//            $tmpname = wp_unique_filename($targetDir, (strlen(basename($filename)) < 30) ? basename($filename) : time() );
+//            $localGZpath = $targetDir  .'/'. urldecode(sanitize_file_name($tmpname));
+//            $request = pmxi_curl_download($filename, $localGZpath, false);
+//        }
+
 		$fp = @fopen($localPath, 'w');			
 	    $file = @gzopen($filename, 'rb', $use_include_path);
-	    
+
 	    if ($file) {
 	        $first_chunk = true;
 	        while (!gzeof($file)) {
-	            $chunk = gzread($file, 1024);		            
+	            $chunk = gzread($file, 1024);
 	            if ($first_chunk and strpos($chunk, "<?") !== false and strpos($chunk, "</") !== false) { $type = 'xml'; $first_chunk = false; } // if it's a 1st chunk, then chunk <? symbols to detect XML file
 	            @fwrite($fp, $chunk);
 	        }

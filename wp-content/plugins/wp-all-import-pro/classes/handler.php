@@ -97,7 +97,7 @@ class PMXI_Handler extends PMXI_Session {
 		    	add_option( $session_expiry_option, $this->_session_expiration, '', 'no' );
 	    	} else {
 		    	update_option( $session_option, $this->_data );
-	    	}	    	
+	    	}
 	    }	    
     }
 

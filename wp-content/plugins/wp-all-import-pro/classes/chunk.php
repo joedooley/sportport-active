@@ -376,9 +376,19 @@ class preprocessXml_filter extends php_user_filter {
         {
           // the & symbol is not valid in XML, so replace it with temporary word _ampersand_
           $bucket->data = str_replace("&", "_ampersand_", $bucket->data);
-          $bucket->data = preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $this->replace_colons($bucket->data));                  
-        }                
-        $consumed += $bucket->datalen;        
+          $cleanXML = preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $this->replace_colons($bucket->data));
+          if ($cleanXML == NULL && preg_last_error() == PREG_BAD_UTF8_ERROR){
+              $cleanXML = preg_replace('/[^\x09\x0a\x0d\x20-\xFF]+/', ' ', $this->replace_colons($bucket->data));
+          }
+          if ($cleanXML == NULL && preg_last_error() == PREG_BAD_UTF8_ERROR){
+              if (function_exists('mb_ereg_replace')){
+                  mb_regex_encoding('UTF-8');
+                  $cleanXML = mb_ereg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $this->replace_colons($bucket->data));
+              }
+          }
+          $bucket->data = empty($cleanXML) ? $this->replace_colons($bucket->data) : $cleanXML;
+        }
+        $consumed += $bucket->datalen;
         stream_bucket_append($out, $bucket);
       }      
       return PSFS_PASS_ON;

@@ -183,7 +183,7 @@ $columns = array(
 									<?php 
 									if ( ! in_array($item['type'], array('trigger'))){
 										$wp_uploads = wp_upload_dir();
-										$log_file = wp_all_import_secure_file( $wp_uploads['basedir'] . DIRECTORY_SEPARATOR . PMXI_Plugin::LOGS_DIRECTORY, $item['id'] ) . DIRECTORY_SEPARATOR . $item['id'] . '.html';										
+										$log_file = wp_all_import_secure_file( $wp_uploads['basedir'] . DIRECTORY_SEPARATOR . PMXI_Plugin::LOGS_DIRECTORY, $item['id'], false, false ) . DIRECTORY_SEPARATOR . $item['id'] . '.html';
 										if (file_exists($log_file)){
 											?>											
 											<a href="<?php echo add_query_arg(array('id' => $import->id, 'action' => 'log', 'history_id' => $item['id'], '_wpnonce' => wp_create_nonce( '_wpnonce-download_log' )), $this->baseUrl); ?>"><?php _e('Download Log', 'wp_all_import_plugin'); ?></a>

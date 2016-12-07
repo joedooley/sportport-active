@@ -7,10 +7,18 @@ if ( ! class_exists('XmlExportEngine') ){
 	require_once dirname(__FILE__) . '/XmlExportWooCommerceOrder.php';
 	require_once dirname(__FILE__) . '/XmlExportUser.php';
 	require_once dirname(__FILE__) . '/XmlExportComment.php';
+	require_once dirname(__FILE__) . '/XmlExportTaxonomy.php';
 	require_once dirname(__FILE__) . '/XmlExportFiltering.php';
 
 	final class XmlExportEngine
 	{		
+
+		const VARIABLE_PRODUCTS_EXPORT_PARENT_AND_VARIATION = 1;
+		const VARIABLE_PRODUCTS_EXPORT_VARIATION = 2;
+		const VARIABLE_PRODUCTS_EXPORT_PARENT = 3;
+		
+		const VARIATION_USE_PARENT_TITLE = 1;
+		const VARIATION_USE_DEFAULT_TITLE = 2;
 
 		/**
 		 * Custom XML Loop begin statement
@@ -31,6 +39,7 @@ if ( ! class_exists('XmlExportEngine') ){
 		public static $woo_refund_export;
 		public static $user_export;
 		public static $comment_export;
+		public static $taxonomy_export;
 
 		public static $is_preview = false;
 
@@ -45,17 +54,17 @@ if ( ! class_exists('XmlExportEngine') ){
 				'label' => 'id',
 				'name'  => 'ID',
 				'type'  => 'id'
-			),			 			
+			),
 			array(
 				'label' => 'title',
 				'name'  => 'Title',
 				'type'  => 'title'
-			),		 			
+			),
 			array(
 				'label' => 'content',
 				'name'  => 'Content',
 				'type'  => 'content'
-			)			
+			)
 		);
 
 		public static $default_fields = array( 
@@ -93,7 +102,7 @@ if ( ! class_exists('XmlExportEngine') ){
 				'label' => 'permalink', 
 				'name'  => 'Permalink',
 				'type'  => 'permalink'
-			)			
+			)
 		);
 
 		private $other_fields = array( 
@@ -165,6 +174,7 @@ if ( ! class_exists('XmlExportEngine') ){
 
 		public static $is_user_export    = false;	
 		public static $is_comment_export = false;
+		public static $is_taxonomy_export = false;
 		public static $post_types    = array();	
 		public static $exportOptions = array();
 		public static $exportQuery;
@@ -329,6 +339,8 @@ if ( ! class_exists('XmlExportEngine') ){
 
 				self::$is_comment_export = ( in_array('comments', self::$post_types) ) ? true : false;
 
+				self::$is_taxonomy_export = ( in_array('taxonomies', self::$post_types) ) ? true : false;
+
 			}	
 			else
 			{				
@@ -336,7 +348,7 @@ if ( ! class_exists('XmlExportEngine') ){
 				self::$is_comment_export = ( 'wp_comment_query' == $this->post['wp_query_selector'] );
 			}			
 
-			if ( ! self::$is_user_export && ! self::$is_comment_export)
+			if ( ! self::$is_user_export && ! self::$is_comment_export && ! self::$is_taxonomy_export)
 			{
 				add_filter("wp_all_export_filters", array( &$this, "filter_export_filters"), 10, 1);
 
@@ -363,7 +375,8 @@ if ( ! class_exists('XmlExportEngine') ){
 			{
 				$filter_args = array(
 					'filter_rules_hierarhy' => $this->post['filter_rules_hierarhy'],
-					'product_matching_mode' => $this->post['product_matching_mode']
+					'product_matching_mode' => $this->post['product_matching_mode'],
+					'taxonomy_to_export' => empty($this->post['taxonomy_to_export']) ? '' : $this->post['taxonomy_to_export']
 				);
 
 				$this->filters = new XmlExportFiltering($filter_args);
@@ -381,6 +394,7 @@ if ( ! class_exists('XmlExportEngine') ){
 			self::$woo_export  		 = new XmlExportWooCommerce();
 			self::$user_export 		 = new XmlExportUser();
 			self::$comment_export    = new XmlExportComment();
+			self::$taxonomy_export   = new XmlExportTaxonomy();
 			self::$woo_order_export  = new XmlExportWooCommerceOrder(); 
 			self::$woo_coupon_export = new XmlExportWooCommerceCoupon(); 			
 
@@ -403,6 +417,7 @@ if ( ! class_exists('XmlExportEngine') ){
 
 			PMXE_Plugin::$session->set('is_user_export', self::$is_user_export);	
 			PMXE_Plugin::$session->set('is_comment_export', self::$is_comment_export);
+			PMXE_Plugin::$session->set('is_taxonomy_export', self::$is_taxonomy_export);
 			PMXE_Plugin::$session->save_data();	
 
 			if ('advanced' == $this->post['export_type']) { 
@@ -447,13 +462,13 @@ if ( ! class_exists('XmlExportEngine') ){
 			$table_prefix = $wpdb->prefix;
 
 			// Prepare existing taxonomies
-			if ( 'specific' == $this->post['export_type'] and ! self::$is_user_export and ! self::$is_comment_export )
+			if ( 'specific' == $this->post['export_type'] and ! self::$is_user_export and ! self::$is_comment_export and ! self::$is_taxonomy_export )
 			{ 
 				$this->_existing_taxonomies = wp_all_export_get_existing_taxonomies_by_cpt( self::$post_types[0] );								
 
 				$this->_existing_meta_keys = wp_all_export_get_existing_meta_by_cpt( self::$post_types[0] );				
 			}	
-			if ( 'advanced' == $this->post['export_type'] and ! self::$is_user_export and ! self::$is_comment_export ) 
+			if ( 'advanced' == $this->post['export_type'] and ! self::$is_user_export and ! self::$is_comment_export and ! self::$is_taxonomy_export )
 			{
 				$meta_keys = $wpdb->get_results("SELECT DISTINCT meta_key FROM {$table_prefix}postmeta WHERE {$table_prefix}postmeta.meta_key NOT LIKE '_edit%' LIMIT 500");
 				if ( ! empty($meta_keys)){
@@ -493,7 +508,10 @@ if ( ! class_exists('XmlExportEngine') ){
 			self::$user_export->init($this->_existing_meta_keys);
 
 			// Prepare existing Comments data
-			self::$comment_export->init($this->_existing_meta_keys);			
+			self::$comment_export->init($this->_existing_meta_keys);
+
+			// Prepare existing Taxonomy data
+			self::$taxonomy_export->init($this->_existing_meta_keys);
 
 			return $this->get_available_data();
 		}
@@ -592,9 +610,28 @@ if ( ! class_exists('XmlExportEngine') ){
 			if ( ! self::$is_comment_export )
 			{							
 				self::$acf_export->get_fields_options( $fields, $field_keys );
-			}			
+			}
 
-			return $fields;
+			$sort_fields = array();
+			foreach ($field_keys as $i => $field_key){
+				foreach ($fields['cc_name'] as $j => $cc_name){
+					if (!empty($cc_name) && $cc_name == $field_key){
+						$sort_fields['ids'][] = 1;
+						$sort_fields['cc_label'][] = $fields['cc_label'][$j];
+						$sort_fields['cc_php'][] = $fields['cc_php'][$j];
+						$sort_fields['cc_code'][] = $fields['cc_code'][$j];
+						$sort_fields['cc_sql'][] = $fields['cc_sql'][$j];
+						$sort_fields['cc_options'][] = $fields['cc_options'][$j];
+						$sort_fields['cc_type'][] = $fields['cc_type'][$j];
+						$sort_fields['cc_value'][] = $fields['cc_value'][$j];
+						$sort_fields['cc_name'][] = $fields['cc_name'][$j];
+						$sort_fields['cc_settings'][] = $fields['cc_settings'][$j];
+						break;
+					}
+				}
+			}
+
+			return $sort_fields;
 
 		}
 
@@ -739,8 +776,8 @@ if ( ! class_exists('XmlExportEngine') ){
 								<?php
 
 								$field_label = is_array($field) ? $field['label'] : $field;
-								$field_type = is_array($field) ? $field['type'] : $slug;
-								$field_name = is_array($field) ? $field['name'] : $field;
+								$field_type  = is_array($field) ? $field['type'] : $slug;
+								$field_name  = is_array($field) ? $field['name'] : $field;
 
 								switch ($field_type) 
 								{
@@ -954,9 +991,9 @@ if ( ! class_exists('XmlExportEngine') ){
 										}	
 										?>
 									</optgroup>
-									<?php																											
+									<?php
 								}
-							}						
+							}
 						endif;							
 					}
 
@@ -1048,7 +1085,7 @@ if ( ! class_exists('XmlExportEngine') ){
 					
 				if ( ! empty($field_keys)){						
 					$result['custom_xml_template_options'] = $this->get_fields_options( $field_keys );						
-				}											
+				}
 			}
 			return $result;
 		}
@@ -1074,5 +1111,23 @@ if ( ! class_exists('XmlExportEngine') ){
 	    public function get( $key, $default = null ) {        
 	        return isset( $this->{$key} ) ? $this->{$key} : $default;
 	    }
+
+		public static function getProductVariationMode()
+		{
+			if(!isset(self::$exportOptions['export_variations'])) {
+				self::$exportOptions['export_variations'] = self::VARIABLE_PRODUCTS_EXPORT_PARENT_AND_VARIATION;
+			}
+
+			return self::$exportOptions['export_variations'];
+		}
+
+		public static function getProductVariationTitleMode()
+		{
+			if(!isset(self::$exportOptions['export_variations_title'])) {
+				self::$exportOptions['export_variations_title'] = self::VARIATION_USE_DEFAULT_TITLE;
+			}
+
+			return self::$exportOptions['export_variations_title'];
+		}
 	}
 }

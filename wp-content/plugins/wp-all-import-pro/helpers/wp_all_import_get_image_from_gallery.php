@@ -13,9 +13,9 @@ function wp_all_import_get_image_from_gallery($image_name, $targetDir = false, $
 	$attch = '';
 
 	// search attachment by attached file
-	$attachment_meta = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . $wpdb->postmeta . " WHERE meta_key = %s AND meta_value LIKE %s;", '_wp_attached_file', "%/" . $image_name ) );	
+    $attachment_meta = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . $wpdb->postmeta . " WHERE meta_key = %s AND meta_value = %s OR meta_value LIKE %s;", '_wp_attached_file', $image_name, "%/" . $image_name ) );
 
-	if ( ! empty($attachment_meta) )
+    if ( ! empty($attachment_meta) )
 	{
 		$attch = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . $wpdb->posts . " WHERE ID = %d;", $attachment_meta->post_id ) );			
 	}

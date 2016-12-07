@@ -18,20 +18,29 @@ function pmxi_wp_ajax_auto_detect_sf(){
 
 	if ($fieldName) {
 
-		if ($post_type == 'import_users'){
-			$values = $wpdb->get_results("
-				SELECT DISTINCT usermeta.meta_value
-				FROM ".$wpdb->usermeta." as usermeta
-				WHERE usermeta.meta_key='".$fieldName."'
-			", ARRAY_A);	
-		}
-		else{
-			$values = $wpdb->get_results("
-				SELECT DISTINCT postmeta.meta_value
-				FROM ".$wpdb->postmeta." as postmeta
-				WHERE postmeta.meta_key='".$fieldName."'
-			", ARRAY_A);	
-		}
+	    switch ($post_type){
+            case 'import_users':
+                $values = $wpdb->get_results("
+                    SELECT DISTINCT usermeta.meta_value
+                    FROM ".$wpdb->usermeta." as usermeta
+                    WHERE usermeta.meta_key='".$fieldName."'
+                ", ARRAY_A);
+                break;
+            case 'taxonomies':
+                $values = $wpdb->get_results("
+                    SELECT DISTINCT termmeta.meta_value
+                    FROM ".$wpdb->termmeta." as termmeta
+                    WHERE termmeta.meta_key='".$fieldName."'
+                ", ARRAY_A);
+                break;
+            default:
+                $values = $wpdb->get_results("
+                    SELECT DISTINCT postmeta.meta_value
+                    FROM ".$wpdb->postmeta." as postmeta
+                    WHERE postmeta.meta_key='".$fieldName."'
+                ", ARRAY_A);
+                break;
+        }
 
 		if ( ! empty($values) ){
 			foreach ($values as $key => $value) {
