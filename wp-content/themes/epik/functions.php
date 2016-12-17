@@ -32,3 +32,17 @@ define( 'CHILD_THEME_VERSION', '1.0.0' );
 define( 'CHILD_THEME_TEXTDOMAIN', 'epik' );
 
 add_theme_support( 'genesis-connect-woocommerce' );
+
+
+/**
+ * Add link to Mercury Amp Converter for AmpHtml
+ *
+ * @link https://mercury.postlight.com/amp-converter/
+ */
+add_action( 'genesis_meta', function () {
+	if ( is_single() ) {
+		echo '<link rel="amphtml" href="https://mercury.postlight.com/amp?url=<?php echo urlencode(get_the_permalink()); ?>">';
+	}
+} );
+
+
