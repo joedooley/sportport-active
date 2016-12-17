@@ -41,7 +41,7 @@ add_theme_support( 'genesis-connect-woocommerce' );
  */
 add_action( 'genesis_meta', function () {
 	if ( is_single() ) {
-		echo '<link rel="amphtml" href="https://mercury.postlight.com/amp?url=<?php echo urlencode(get_the_permalink()); ?>">';
+		echo '<link rel="amphtml" href="https://mercury.postlight.com/amp?url=' . urlencode(get_the_permalink()) . '">';
 	}
 } );
 
