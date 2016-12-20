@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: FacetWP\n"
-"POT-Creation-Date: 2016-11-13 19:55-0500\n"
-"PO-Revision-Date: 2016-11-13 19:55-0500\n"
+"POT-Creation-Date: 2016-12-13 21:44-0500\n"
+"PO-Revision-Date: 2016-12-13 21:44-0500\n"
 "Last-Translator: Matt Gibbs <hello@facetwp.com>\n"
 "Language-Team: Matt Gibbs <hello@facetwp.com>\n"
 "Language: es\n"
@@ -443,40 +443,40 @@ msgstr "La cantidad de aumento entre intervalos"
 msgid "Default"
 msgstr "Por omisión"
 
-#: includes/integrations/woocommerce/woocommerce.php:38
+#: includes/integrations/woocommerce/woocommerce.php:40
 msgid "WooCommerce"
 msgstr "Tienda"
 
-#: includes/integrations/woocommerce/woocommerce.php:40
+#: includes/integrations/woocommerce/woocommerce.php:42
 msgid "Price"
 msgstr "Precio"
 
-#: includes/integrations/woocommerce/woocommerce.php:41
+#: includes/integrations/woocommerce/woocommerce.php:43
 msgid "Sale Price"
 msgstr "Precio de venta"
 
-#: includes/integrations/woocommerce/woocommerce.php:42
+#: includes/integrations/woocommerce/woocommerce.php:44
 msgid "Regular Price"
 msgstr "Precio normal"
 
-#: includes/integrations/woocommerce/woocommerce.php:43
+#: includes/integrations/woocommerce/woocommerce.php:45
 msgid "Average Rating"
 msgstr "Nota media"
 
-#: includes/integrations/woocommerce/woocommerce.php:44
+#: includes/integrations/woocommerce/woocommerce.php:46
 msgid "Stock Status"
 msgstr "Estado del inventario"
 
-#: includes/integrations/woocommerce/woocommerce.php:45
-#: includes/integrations/woocommerce/woocommerce.php:239
+#: includes/integrations/woocommerce/woocommerce.php:47
+#: includes/integrations/woocommerce/woocommerce.php:364
 msgid "On Sale"
 msgstr "Oferta"
 
-#: includes/integrations/woocommerce/woocommerce.php:231
+#: includes/integrations/woocommerce/woocommerce.php:356
 msgid "In Stock"
 msgstr "En Stock"
 
-#: includes/integrations/woocommerce/woocommerce.php:231
+#: includes/integrations/woocommerce/woocommerce.php:356
 msgid "Out of Stock"
 msgstr "¡Agotado!"
 
@@ -552,103 +552,103 @@ msgstr "Soporte"
 msgid "Welcome to FacetWP"
 msgstr "Bienvenido a FacetWP"
 
-#: templates/page-settings.php:132 templates/page-settings.php:156
+#: templates/page-settings.php:134 templates/page-settings.php:158
 msgid "Add New"
 msgstr "Añadir nuevo"
 
-#: templates/page-settings.php:135 templates/page-settings.php:159
+#: templates/page-settings.php:137 templates/page-settings.php:161
 msgid "Back"
 msgstr "Atrás"
 
-#: templates/page-settings.php:139
+#: templates/page-settings.php:141
 msgid "Re-index"
 msgstr "Reindexar correo"
 
-#: templates/page-settings.php:140 templates/page-settings.php:163
-#: templates/page-settings.php:180
+#: templates/page-settings.php:142 templates/page-settings.php:165
+#: templates/page-settings.php:185
 msgid "Save Changes"
 msgstr "Guardar cambios"
 
-#: templates/page-settings.php:187
+#: templates/page-settings.php:192
 msgid "License Key"
 msgstr "Llave de licencia"
 
-#: templates/page-settings.php:190
+#: templates/page-settings.php:195
 msgid "Activate"
 msgstr "Activar"
 
-#: templates/page-settings.php:201
+#: templates/page-settings.php:206
 msgid "Separators"
 msgstr "Separadores"
 
-#: templates/page-settings.php:204
+#: templates/page-settings.php:209
 msgid "Thousands"
 msgstr "Miles"
 
-#: templates/page-settings.php:206
+#: templates/page-settings.php:211
 msgid "Decimal"
 msgstr "Sistema de numeración decimal"
 
-#: templates/page-settings.php:217 templates/page-settings.php:225
+#: templates/page-settings.php:222 templates/page-settings.php:230
 msgid "Export"
 msgstr "Exportar"
 
-#: templates/page-settings.php:233 templates/page-settings.php:238
+#: templates/page-settings.php:238 templates/page-settings.php:243
 msgid "Import"
 msgstr "Importar"
 
-#: templates/page-settings.php:236
+#: templates/page-settings.php:241
 msgid "Paste the import code here"
 msgstr "Pegar el código importado aquí"
 
-#: templates/page-settings.php:237
+#: templates/page-settings.php:242
 msgid "Overwrite existing items?"
 msgstr "¿Sobreescribir los elementos existentes?"
 
-#: templates/page-settings.php:262
+#: templates/page-settings.php:267
 msgid "Label"
 msgstr "Etiqueta"
 
-#: templates/page-settings.php:266 templates/page-settings.php:309
+#: templates/page-settings.php:271 templates/page-settings.php:314
 msgid "Name"
 msgstr "Nombre"
 
-#: templates/page-settings.php:270
+#: templates/page-settings.php:275
 msgid "Facet type"
 msgstr "Tipo de faceta"
 
-#: templates/page-settings.php:281
+#: templates/page-settings.php:286
 msgid "Data source"
 msgstr "Origen de los datos"
 
-#: templates/page-settings.php:296
+#: templates/page-settings.php:301
 msgid "Other settings"
 msgstr "Otras opciones"
 
-#: templates/page-settings.php:312
+#: templates/page-settings.php:317
 msgid "Open query builder"
 msgstr "Generador de consultas abiertas"
 
-#: templates/page-settings.php:313
+#: templates/page-settings.php:318
 msgid "Query Arguments"
 msgstr "Argumentos de consulta"
 
-#: templates/page-settings.php:317
+#: templates/page-settings.php:322
 msgid "What goes here?"
 msgstr "¿Qué pasa aquí?"
 
-#: templates/page-settings.php:318
+#: templates/page-settings.php:323
 msgid "Display Code"
 msgstr "Mostrar código"
 
-#: templates/page-settings.php:332
+#: templates/page-settings.php:337
 msgid "Query Builder"
 msgstr "Generador de consultas"
 
-#: templates/page-settings.php:336
+#: templates/page-settings.php:341
 msgid "Which posts would you like to use for the content listing?"
 msgstr "¿Qué mensajes desea utilizar para el listado de contenidos?"
 
-#: templates/page-settings.php:345
+#: templates/page-settings.php:350
 msgid "Send to editor"
 msgstr "Enviar al editor"

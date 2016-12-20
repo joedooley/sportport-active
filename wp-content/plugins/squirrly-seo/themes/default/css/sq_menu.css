@@ -502,7 +502,7 @@
     background: transparent url('../img/sprite.png') no-repeat;
     margin: 0 10px 0 0;
     color: brown;
-    width: 55px;
+    width: 54px;
     height: 50px;
 }
 #sq_settings_body fieldset .sq_icon_googleplus {
@@ -522,6 +522,16 @@
 }
 #sq_settings_body fieldset .sq_icon_linkedin {
     background-position: -78px -279px;
+    width: 74px;
+    height: 70px;
+}
+#sq_settings_body fieldset .sq_icon_social_instagram {
+    background-position: -445px -279px;
+    width: 74px;
+    height: 70px;
+}
+#sq_settings_body fieldset .sq_icon_social_pinterest {
+    background-position: -518px -279px;
     width: 74px;
     height: 70px;
 }

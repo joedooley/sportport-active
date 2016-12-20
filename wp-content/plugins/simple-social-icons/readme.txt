@@ -3,7 +3,7 @@ Contributors: studiopress, nathanrice, bgardner, laurenmancke, shannonsans
 Tags: social media, social networking, social profiles
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 
 This plugin allows you to insert social icons in any widget area.
 
@@ -58,6 +58,13 @@ Yes, icons can be added with the use of a filter. See: https://github.com/copybl
 NOTE - The rights to each pictogram in the social extension are either trademarked or copyrighted by the respective company.
 
 == Changelog ==
+
+= 2.0.1 =
+* Fixed typo in Snapchat icon markup
+* Made CSS selectors more specific
+* Added classes to each icon
+* Added plugin version to enqueued CSS
+* Updated Google + icon
 
 = 2.0.0 =
 * Added Behance, Medium, Periscope, Phone, Snapchat, and Xing icons

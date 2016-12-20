@@ -138,6 +138,8 @@ class SQ_Tools extends SQ_FrontController {
             'sq_facebook_account' => '',
             'sq_google_plus' => '',
             'sq_linkedin_account' => '',
+            'sq_pinterest_account' => '',
+            'sq_instagram_account' => '',
             // --
             'sq_auto_seo' => 1,
             'sq_auto_title' => 1,
@@ -170,6 +172,7 @@ class SQ_Tools extends SQ_FrontController {
             'sq_sla' => 1,
             'sq_keywordtag' => 1,
             'sq_local_images' => 1,
+            'sq_force_savepost' => 0,
             //--
             'sq_dashboard' => 0,
             'sq_analytics' => 0,

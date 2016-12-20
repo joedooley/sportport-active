@@ -55,54 +55,6 @@
 	display: none;
 }
 
-.retina-info {
-	margin-top: 0px;
-	cursor: pointer;
-	float: left;
-}
-
-.retina-info li, #wr2x-modal-info .retina-status-icon {
-	display: block;
-	color: white;
-	padding: 5px 0px;
-	font-size: 10px;
-	text-align: center;
-	width: 18px;
-	height: 18px;
-	line-height: 8px;
-	background: black;
-	float: left;
-	margin-right: 1px;
-	box-sizing: border-box;
-	margin-bottom: 2px;
-}
-
-#wr2x-modal-info .retina-status-icon {
-	width: 19px;
-	height: 19px;
-	margin-right: 10px;
-}
-
-.retina-info .retina-exists, #wr2x-modal-info .retina-exists {
-	background: #3C82C7;
-}
-
-.retina-info .retina-pending, #wr2x-modal-info .retina-pending {
-	background: orange;
-}
-
-.retina-info .retina-issue, #wr2x-modal-info .retina-issue {
-	background: red;
-}
-
-.retina-info .retina-missing, #wr2x-modal-info .retina-missing {
-	background: red;
-}
-
-.retina-info .retina-ignored, #wr2x-modal-info .retina-ignored {
-	background: gray;
-}
-
 .wr2x-image {
 	padding: 0px;
 }
@@ -180,57 +132,6 @@
 	background-position-y: 4px;
 	background-repeat: no-repeat;
 	border: none;
-}
-
-#wr2x-modal-info-backdrop {
-	background: rgba(0, 0, 0, 0.75);
-	position: fixed;
-	top: 0px;
-	bottom: 0px;
-	right: 0px;
-	left: 0px;
-	z-index: 10000;
-}
-
-#wr2x-modal-info {
-	background: white;
-	box-shadow: 0px 0px 5px black;
-	padding: 15px;
-	overflow-y: scroll;
-	position: fixed;
-	z-index: 10000;
-	left: 100px;
-	right: 100px;
-	top: 50px;
-	bottom: 50px;
-}
-
-#wr2x-modal-info h3 {
-	height: 25px;
-	border-bottom: 2px solid #808080;
-}
-
-#wr2x-modal-info td {
-	text-align: center;
-	font-size: 11px;
-	border: 1px solid #D3DCFF;
-	padding: 10px 15px;
-	background: #EFF8FF;
-}
-
-#wr2x-modal-info .close {
-	float: right;
-	font-size: 18px;
-	font-weight: bold;
-	font-family: Verdana;
-	cursor: pointer;
-}
-
-#wr2x-modal-info .loading {
-	background-color: #F2F2F2;
-	text-align: center;
-	padding-top: 10px;
-	background-size: 32px 32px;
 }
 
 .wp-core-ui .button-red {

@@ -253,6 +253,10 @@ class FacetWP_Indexer
                     'variation_id'          => 0,
                 );
 
+                $defaults = apply_filters( 'facetwp_indexer_post_facet_defaults', $defaults, array(
+                    'facet' => $facet
+                ) );
+
                 // Set flag for custom facet indexing
                 $this->is_overridden = true;
 

@@ -451,12 +451,20 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 			}
 
 			/*
-			Only override the thumbnail if it hasn't been set already.
+			    Only override the thumbnail if it hasn't been set already.
 				This is in contrast to all the other methods, where the info retrieved from the remote
 				service is leading. For the thumbnail, the user preference is leading.
 			*/
 			if ( empty( $this->vid['thumbnail_loc'] ) ) {
 				$this->set_thumbnail_loc();
+			}
+
+			/*
+			   Add protocol if the resulting player_loc URL would be protocol-less to prevent invalid sitemaps.
+			   Default to http as not all video services support https.
+			*/
+			if ( isset( $this->vid['player_loc'] ) && strpos( $this->vid['player_loc'], '//' ) === 0 ) {
+				$this->vid['player_loc'] = 'http:' . $this->vid['player_loc'];
 			}
 		}
 

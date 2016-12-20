@@ -325,6 +325,8 @@ function sq_submitSettings() {
             sq_facebook_account: jQuery('#sq_settings').find('input[name=sq_facebook_account]').val(),
             sq_google_plus: jQuery('#sq_settings').find('input[name=sq_google_plus]').val(),
             sq_linkedin_account: jQuery('#sq_settings').find('input[name=sq_linkedin_account]').val(),
+            sq_pinterest_account: jQuery('#sq_settings').find('input[name=sq_pinterest_account]').val(),
+            sq_instagram_account: jQuery('#sq_settings').find('input[name=sq_instagram_account]').val(),
 //--
             sq_auto_sitemap: jQuery('#sq_settings').find('input[name=sq_auto_sitemap]:checked').val(),
             sq_auto_feed: jQuery('#sq_settings').find('input[name=sq_auto_feed]:checked').val(),

@@ -2,7 +2,7 @@ Video SEO
 =========
 Requires at least: 4.4<br/>
 Tested up to: 4.7<br/>
-Stable tag: 3.9<br/>
+Stable tag: 4.0<br/>
 Depends: wordpress-seo
 
 Video SEO adds Video SEO capabilities to WordPress SEO.
@@ -30,6 +30,10 @@ You can find the [Video SEO FAQ](https://kb.yoast.com/kb/category/video-seo/) in
 
 Changelog
 =========
+
+### 4.0: December 13th, 2016
+
+* Fixes the YouTube video player URL to always use a protocol. This solves issues where the Google invalidates the sitemap and where Facebook does not recognize the player. (needs force re-index for existing posts)
 
 ### 3.9: November 29th, 2016
 

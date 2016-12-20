@@ -152,7 +152,7 @@
                                         <label for="sq_auto_amp0" class="sq_switch-label sq_switch-label-on"><?php _e('No', _SQ_PLUGIN_NAME_); ?></label>
                                         <span class="sq_switch-selection"></span>
                                     </div>
-                                    <span><?php echo sprintf(__('turn on <strong>%sGoogle AMP%s</strong> for this website', _SQ_PLUGIN_NAME_), '<a href="https://developers.google.com/analytics/devguides/collection/amp-analytics/" target="_blank">', '</a>'); ?></span>
+                                    <span><?php echo sprintf(__('turn on <strong>%sGoogle AMP%s</strong> for this website (Note: only if you have an AMP Theme)', _SQ_PLUGIN_NAME_), '<a href="https://developers.google.com/analytics/devguides/collection/amp-analytics/" target="_blank">', '</a>'); ?></span>
                                 </div>
                             </li>
                             <p class="sq_option_info" style="padding-left:10px; color: darkgrey;"> <?php _e('Note! By switching the  <strong>Json-LD</strong>, <strong>XML Sitemap</strong> and <strong>Favicon</strong> on, you open new options below', _SQ_PLUGIN_NAME_); ?></p>
@@ -463,7 +463,7 @@
                                         <label for="sq_auto_twitter0" class="sq_switch-label sq_switch-label-on"><?php _e('No', _SQ_PLUGIN_NAME_); ?></label>
                                         <span class="sq_switch-selection"></span>
                                     </div>
-                                    <span><?php echo __('Add the <strong>Twitter card</strong> in your tweets. ', _SQ_PLUGIN_NAME_) . ' <a href="https://dev.twitter.com/docs/cards/validation/validator" target="_blank" title="Twitter Card Validator">Check here</a> to validate your site'; ?></span>
+                                    <span><?php echo __('Add the <strong>Twitter card</strong> in your tweets. ', _SQ_PLUGIN_NAME_) . ' <a href="https://cards-dev.twitter.com/validator" target="_blank" title="Twitter Card Validator">Check here</a> to validate your site'; ?></span>
                                     <div class="sq_switch sq_seo_switch_condition" style="<?php echo ((SQ_Tools::$options['sq_use'] == 0) ? 'display:none;' : ''); ?>">
                                         <input id="sq_auto_twittersize1" type="radio" class="sq_switch-input" name="sq_auto_twittersize"  value="summary_large_image" <?php echo ((SQ_Tools::$options['sq_auto_twittersize'] <> 'summary') ? "checked" : '') ?> />
                                         <label for="sq_auto_twittersize1" class="sq_switch-label sq_switch-label-off"><?php _e('Yes', _SQ_PLUGIN_NAME_); ?></label>
@@ -513,6 +513,18 @@
                                 <p class="withborder withcode">
                                     <span class="sq_icon sq_icon_linkedin"></span>
                                     <?php _e('Linkedin Profile:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_linkedin_account" value="<?php echo ((SQ_Tools::$options['sq_linkedin_account'] <> '') ? SQ_Tools::$options['sq_linkedin_account'] : '') ?>" size="60" placeholder="https://www.linkedin.com/" /> (e.g. https://www.linkedin.com/XXXX/XXXXXXXXXXXXXXXXXX)</strong>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="withborder withcode">
+                                    <span class="sq_icon sq_icon_social_pinterest"></span>
+                                    <?php _e('Pinterest Profile:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_pinterest_account" value="<?php echo ((SQ_Tools::$options['sq_pinterest_account'] <> '') ? SQ_Tools::$options['sq_pinterest_account'] : '') ?>" size="60" placeholder="https://www.pinterest.com/" /> (e.g. https://www.pinterest.com/XXXXXXXXXXXXXXXXXX)</strong>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="withborder withcode">
+                                    <span class="sq_icon sq_icon_social_instagram"></span>
+                                    <?php _e('Instagram Profile:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_instagram_account" value="<?php echo ((SQ_Tools::$options['sq_instagram_account'] <> '') ? SQ_Tools::$options['sq_instagram_account'] : '') ?>" size="60" placeholder="https://www.instagram.com/" /> (e.g. https://www.linkedin.com/XXXXXXXXXXXXXXXXXX)</strong>
                                 </p>
                             </li>
                         </ul>

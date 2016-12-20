@@ -23,7 +23,7 @@ class WPSEO_Premium {
 
 	const OPTION_CURRENT_VERSION = 'wpseo_current_version';
 
-	const PLUGIN_VERSION_NAME = '3.9';
+	const PLUGIN_VERSION_NAME = '4.0.2';
 	const PLUGIN_VERSION_CODE = '16';
 	const PLUGIN_AUTHOR = 'Yoast';
 	const EDD_STORE_URL = 'http://my.yoast.com';
@@ -33,6 +33,11 @@ class WPSEO_Premium {
 	 * @var WPSEO_Redirect_Page
 	 */
 	private $redirects;
+
+	/**
+	 * @var WPSEO_WordPress_Integration[]
+	 */
+	private $integrations = array();
 
 	/**
 	 * Function that will be executed when plugin is activated
@@ -67,6 +72,17 @@ class WPSEO_Premium {
 	 * WPSEO_Premium Constructor
 	 */
 	public function __construct() {
+		$link_suggestions_service = new WPSEO_Premium_Link_Suggestions_Service();
+
+		$this->integrations = array(
+			'premium-metabox' => new WPSEO_Premium_Metabox(),
+			'prominent-words-registration' => new WPSEO_Premium_Prominent_Words_Registration(),
+			'prominent-words-endpoint' => new WPSEO_Premium_Prominent_Words_Endpoint( new WPSEO_Premium_Prominent_Words_Service() ),
+			'prominent-words-recalculation' => new WPSEO_Premium_Prominent_Words_Recalculation(),
+			'link-suggestions' => new WPSEO_Metabox_Link_Suggestions(),
+			'link-suggestions-endpoint' => new WPSEO_Premium_Link_Suggestions_Endpoint( $link_suggestions_service ),
+		);
+
 		$this->setup();
 	}
 
@@ -191,8 +207,9 @@ class WPSEO_Premium {
 		$facebook_name = new WPSEO_Facebook_Profile();
 		$facebook_name->set_hooks();
 
-		$premium_metabox = new WPSEO_Premium_Metabox();
-		$premium_metabox->register_hooks();
+		foreach ( $this->integrations as $integration ) {
+			$integration->register_hooks();
+		}
 	}
 
 	/**

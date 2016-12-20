@@ -6,7 +6,25 @@
 /**
  * The metabox for premium
  */
-class WPSEO_Premium_Metabox {
+class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
+
+	/**
+	 * @var WPSEO_Metabox_Link_Suggestions
+	 */
+	protected $link_suggestions;
+
+	/**
+	 * Creates the meta box class.
+	 *
+	 * @param WPSEO_Metabox_Link_Suggestions|null $link_suggestions The link suggestions meta box.
+	 */
+	public function __construct( WPSEO_Metabox_Link_Suggestions $link_suggestions = null ) {
+		if ( $link_suggestions === null ) {
+			$link_suggestions = new WPSEO_Metabox_Link_Suggestions();
+		}
+
+		$this->link_suggestions = $link_suggestions;
+	}
 
 	/**
 	 * Registers relevant hooks to WordPress
@@ -14,14 +32,21 @@ class WPSEO_Premium_Metabox {
 	public function register_hooks() {
 		add_action( 'admin_init', array( $this, 'register_assets' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+
+		$this->link_suggestions->register_hooks();
 	}
 
 	/**
 	 * Registers assets to WordPress
 	 */
 	public function register_assets() {
-		wp_register_script( WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/js/dist/wp-seo-premium-metabox-390' . WPSEO_CSSJS_SUFFIX . '.js', array( 'jquery', 'wp-util', 'underscore' ), WPSEO_VERSION );
-		wp_register_style( WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/css/dist/premium-metabox-380' . WPSEO_CSSJS_SUFFIX . '.css', array(), WPSEO_VERSION );
+		wp_register_script(
+			WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox',
+			plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/js/dist/wp-seo-premium-metabox-402' . WPSEO_CSSJS_SUFFIX . '.js',
+			array( 'jquery', 'wp-util', 'underscore' ),
+			WPSEO_VERSION
+		);
+		wp_register_style( WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/css/dist/premium-metabox-400' . WPSEO_CSSJS_SUFFIX . '.css', array(), WPSEO_VERSION );
 	}
 
 	/**
@@ -48,10 +73,44 @@ class WPSEO_Premium_Metabox {
 			$insights_enabled = false;
 		}
 
+		$post = $this->get_post();
+		$post_type = get_post_type_object( $post->post_type );
+
+		$rest_base = isset( $post_type->rest_base ) ? $post_type->rest_base : '';
+
 		$data = array(
 			'insightsEnabled' => ( $insights_enabled ) ? 'enabled' : 'disabled',
+			'postID' => $this->get_post_ID(),
+			'restApi' => array(
+				'available' => WPSEO_Utils::is_api_available(),
+				'contentEndpointsAvailable' => WPSEO_Utils::are_content_endpoints_available(),
+				'root' => esc_url_raw( rest_url() ),
+				'nonce' => wp_create_nonce( 'wp_rest' ),
+				'postTypeBase' => $rest_base,
+			),
+			'linkSuggestionsAvailable' => $this->link_suggestions->is_available( $post->post_type ),
+			'linkSuggestions' => $this->link_suggestions->get_js_data(),
 		);
 
-		wp_localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox', 'wpseoPremiumMetaboxL10n', $data );
+		// Use an extra level in the array to preserve booleans. WordPress sanitizes scalar values in the first level of the array.
+		wp_localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox', 'wpseoPremiumMetaboxData', array( 'data' => $data ) );
+	}
+
+	/**
+	 * Returns the post for the current admin page.
+	 *
+	 * @return WP_Post The post for the current admin page.
+	 */
+	protected function get_post() {
+		return get_post( $this->get_post_ID() );
+	}
+
+	/**
+	 * Retrieves the post ID from the globals
+	 *
+	 * @return {int} The post ID.
+	 */
+	protected function get_post_ID() {
+		return $GLOBALS['post_ID'];
 	}
 }

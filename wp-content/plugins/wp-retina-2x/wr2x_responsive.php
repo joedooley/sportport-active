@@ -11,9 +11,9 @@ add_filter( 'wp_calculate_image_srcset', 'wr2x_wp_calculate_image_srcset', 1000,
  */
 
 function wr2x_wp_calculate_image_srcset( $srcset, $size ) {
-  if ( wr2x_getoption( "disable_responsive", "wr2x_basics", false ) )
+  if ( get_option( "wr2x_disable_responsive" ) )
     return null;
-  $method = wr2x_getoption( "method", "wr2x_advanced", 'Picturefill' );
+  $method = get_option( "wr2x_method"  );
   if ( $method == "none" )
     return $srcset;
   $count = 0;

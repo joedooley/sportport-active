@@ -178,8 +178,8 @@ function wr2x_admin_head() {
 					alert(data.message);
 				}
 				else {
-					jQuery('#wr2x-modal-info .loading').css('display', 'none');
-					jQuery('#wr2x-modal-info .content').html(data.result);
+					jQuery('#meow-modal-info .loading').css('display', 'none');
+					jQuery('#meow-modal-info .content').html(data.result);
 				}
 			});
 		}
@@ -301,31 +301,31 @@ function wr2x_admin_head() {
 				this.addEventListener('drop', wr2x_filedropped);
 			});
 
-			jQuery('.retina-info, .wr2x-button-view').on('click', function (evt) {
-				jQuery('#wr2x-modal-info-backdrop').css('display', 'block');
-				jQuery('#wr2x-modal-info .content').html("");
-				jQuery('#wr2x-modal-info .loading').css('display', 'block');
-				jQuery('#wr2x-modal-info').css('display', 'block');
-				jQuery('#wr2x-modal-info').focus();
-				var postid = jQuery(evt.target).parents('.retina-info').attr('postid');
+			jQuery('.wr2x-info, .wr2x-button-view').on('click', function (evt) {
+				jQuery('#meow-modal-info-backdrop').css('display', 'block');
+				jQuery('#meow-modal-info .content').html("");
+				jQuery('#meow-modal-info .loading').css('display', 'block');
+				jQuery('#meow-modal-info').css('display', 'block');
+				jQuery('#meow-modal-info').focus();
+				var postid = jQuery(evt.target).parents('.wr2x-info').attr('postid');
 				if (!postid)
 					postid = jQuery(evt.target).parents('.wr2x-file-row').attr('postid');
 				wr2x_load_details(postid);
 			});
 
-			jQuery('#wr2x-modal-info .close, #wr2x-modal-info-backdrop').on('click', function (evt) {
-				jQuery('#wr2x-modal-info').css('display', 'none');
-				jQuery('#wr2x-modal-info-backdrop').css('display', 'none');
+			jQuery('#meow-modal-info .close, #meow-modal-info-backdrop').on('click', function (evt) {
+				jQuery('#meow-modal-info').css('display', 'none');
+				jQuery('#meow-modal-info-backdrop').css('display', 'none');
 			});
 
 			jQuery('.wr2x-info-full img').on('click', function (evt) {
 				wr2x_delete_full( jQuery(evt.target).parents('.wr2x-file-row').attr('postid') );
 			});
 
-			jQuery('#wr2x-modal-info').bind('keydown', function (evt) {
+			jQuery('#meow-modal-info').bind('keydown', function (evt) {
 				if (evt.keyCode === 27) {
-					jQuery('#wr2x-modal-info').css('display', 'none');
-					jQuery('#wr2x-modal-info-backdrop').css('display', 'none');
+					jQuery('#meow-modal-info').css('display', 'none');
+					jQuery('#meow-modal-info-backdrop').css('display', 'none');
 				}
 			});
 		});
@@ -368,7 +368,7 @@ function wr2x_wp_ajax_wr2x_list_all( $issuesOnly ) {
 				post_mime_type = 'image/png' OR
 				post_mime_type = 'image/gif' )
 		" );
-		$ignore = wr2x_getoption( "ignore_sizes", "wr2x_basics", array() );
+		$ignore = get_option( "wr2x_ignore_sizes", array() );
 		foreach ($postids as $id) {
 			if ( wr2x_is_ignore( $id ) )
 				continue;
@@ -446,7 +446,7 @@ function wr2x_wp_ajax_wr2x_delete() {
 	$attachmentId = intval( $_POST['attachmentId'] );
 	$results_full[$attachmentId] = wr2x_wp_ajax_wr2x_delete_full( true );
 
-	wr2x_delete_attachment( $attachmentId );
+	wr2x_delete_attachment( $attachmentId, true );
 	$meta = wp_get_attachment_metadata( $attachmentId );
 
 	// RESULTS FOR RETINA DASHBOARD
@@ -499,7 +499,7 @@ function wr2x_wp_ajax_wr2x_generate() {
 	}
 
 	$attachmentId = intval( $_POST['attachmentId'] );
-	wr2x_delete_attachment( $attachmentId );
+	wr2x_delete_attachment( $attachmentId, false );
 	$meta = wp_get_attachment_metadata( $attachmentId );
 	wr2x_generate_images( $meta );
 
@@ -609,7 +609,7 @@ function wr2x_wp_ajax_wr2x_replace() {
 	$attachmentId = (int) $_POST['attachmentId'];
 	$meta = wp_get_attachment_metadata( $attachmentId );
 	$current_file = get_attached_file( $attachmentId );
-	wr2x_delete_attachment( $attachmentId );
+	wr2x_delete_attachment( $attachmentId, false );
 	$pathinfo = pathinfo( $current_file );
 	$basepath = $pathinfo['dirname'];
 

@@ -174,12 +174,19 @@ if ( ! class_exists( 'WPSEO_Video_Details_Youtube' ) ) {
 			if ( ! empty( $this->decoded_response->player->embedHtml ) &&
 				preg_match( '` src="([^"]+)"`i', $this->decoded_response->player->embedHtml, $match )
 			) {
-				$this->vid['player_loc'] = $match[1];
+				$player_loc = $match[1];
 			}
 			else {
 				// Fall back to hard-coded default.
-				$this->vid['player_loc'] = '//www.youtube.com/embed/' . rawurlencode( $this->vid['id'] );
+				$player_loc = '//www.youtube.com/embed/' . rawurlencode( $this->vid['id'] );
 			}
+
+			// Add protocol if the resulting player URL would be protocol-less.
+			if ( 0 !== strpos( $player_loc, 'http' ) ) {
+				$player_loc = 'https:' . $player_loc;
+			}
+
+			$this->vid['player_loc'] = $player_loc;
 		}
 
 

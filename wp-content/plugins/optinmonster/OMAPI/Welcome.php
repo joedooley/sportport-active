@@ -181,7 +181,7 @@ class OMAPI_Welcome {
 	public function callback_to_display_page() {
 
 		$text = $this->base->menu->has_trial_link() ? __( 'Get Started for Free', 'optin-monster-api' ) : __( 'Get OptinMonster Now', 'optin-monster-api' );
-		$link = esc_url( $this->base->menu->get_trial_link() );
+		$link = esc_url( $this->base->menu->get_action_link() );
 		$api_link = esc_url_raw( admin_url( 'admin.php?page=optin-monster-api-settings' ) );
 	?>
 		<div class="omapi-welcome-content">

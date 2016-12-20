@@ -22,7 +22,7 @@ function wr2x_manage_media_custom_column( $column_name, $id ) {
 			return;
     $info = wpr2x_html_get_basic_retina_info( $id, $info );
     echo "<a style='' onclick='wr2x_generate(" . $id . ", true)' id='wr2x_generate_button_" . $id . "' class='wr2x-button'>" . __( "GENERATE", 'wp-retina-2x' ) . "</a><br />";
-		echo '<div id="wr2x-info-' . $id . '">';
+		echo '<div class="wr2x-info" postid="' . $id . '" id="wr2x-info-' . $id . '">';
 		echo $info;
     echo '</div>';
   }
@@ -35,10 +35,10 @@ function wr2x_admin_footer_library() {
 	if ( $screen->base != 'upload' && $screen->base != 'media_page_wp-retina-2x' )
 		return;
 	?>
-	<div id="wr2x-modal-info-backdrop" style="display: none;">
+	<div id="meow-modal-info-backdrop" style="display: none;">
 	</div>
 
-	<div id="wr2x-modal-info" style="display: none;" tabindex="1">
+	<div id="meow-modal-info" style="display: none;" tabindex="1">
 		<div class="close">X</div>
 		<h2 style="margin-top: 0px;">Retina Details</h2>
 		<div class="loading">

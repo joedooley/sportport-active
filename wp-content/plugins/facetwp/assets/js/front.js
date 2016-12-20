@@ -80,7 +80,7 @@ var FWP = FWP || {};
             '"': '&quot;',
             "'": '&#039;'
         };
-        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; }).trim();
     }
 
 

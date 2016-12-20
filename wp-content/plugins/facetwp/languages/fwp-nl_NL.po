@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: FacetWP\n"
-"POT-Creation-Date: 2016-11-13 19:52-0500\n"
-"PO-Revision-Date: 2016-11-13 19:52-0500\n"
+"POT-Creation-Date: 2016-12-13 21:44-0500\n"
+"PO-Revision-Date: 2016-12-13 21:44-0500\n"
 "Last-Translator: Matt Gibbs <hello@facetwp.com>\n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -447,40 +447,40 @@ msgstr "De hoeveelheid stijging tussen intervallen"
 msgid "Default"
 msgstr "Standaard"
 
-#: includes/integrations/woocommerce/woocommerce.php:38
+#: includes/integrations/woocommerce/woocommerce.php:40
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: includes/integrations/woocommerce/woocommerce.php:40
+#: includes/integrations/woocommerce/woocommerce.php:42
 msgid "Price"
 msgstr "Prijs"
 
-#: includes/integrations/woocommerce/woocommerce.php:41
+#: includes/integrations/woocommerce/woocommerce.php:43
 msgid "Sale Price"
 msgstr "Verkoopprijs"
 
-#: includes/integrations/woocommerce/woocommerce.php:42
+#: includes/integrations/woocommerce/woocommerce.php:44
 msgid "Regular Price"
 msgstr "Normale prijs"
 
-#: includes/integrations/woocommerce/woocommerce.php:43
+#: includes/integrations/woocommerce/woocommerce.php:45
 msgid "Average Rating"
 msgstr "Gemiddelde Beoordeling"
 
-#: includes/integrations/woocommerce/woocommerce.php:44
+#: includes/integrations/woocommerce/woocommerce.php:46
 msgid "Stock Status"
 msgstr "Voorraadstatus"
 
-#: includes/integrations/woocommerce/woocommerce.php:45
-#: includes/integrations/woocommerce/woocommerce.php:239
+#: includes/integrations/woocommerce/woocommerce.php:47
+#: includes/integrations/woocommerce/woocommerce.php:364
 msgid "On Sale"
 msgstr "In verkoop"
 
-#: includes/integrations/woocommerce/woocommerce.php:231
+#: includes/integrations/woocommerce/woocommerce.php:356
 msgid "In Stock"
 msgstr "In Voorraad"
 
-#: includes/integrations/woocommerce/woocommerce.php:231
+#: includes/integrations/woocommerce/woocommerce.php:356
 msgid "Out of Stock"
 msgstr "Niet in voorraad"
 
@@ -556,104 +556,104 @@ msgstr "Ondersteuning"
 msgid "Welcome to FacetWP"
 msgstr "Welkom bij FacetWP"
 
-#: templates/page-settings.php:132 templates/page-settings.php:156
+#: templates/page-settings.php:134 templates/page-settings.php:158
 msgid "Add New"
 msgstr "Voeg nieuwe toe"
 
-#: templates/page-settings.php:135 templates/page-settings.php:159
+#: templates/page-settings.php:137 templates/page-settings.php:161
 msgid "Back"
 msgstr "Terug"
 
-#: templates/page-settings.php:139
+#: templates/page-settings.php:141
 msgid "Re-index"
 msgstr "Herindexeer"
 
-#: templates/page-settings.php:140 templates/page-settings.php:163
-#: templates/page-settings.php:180
+#: templates/page-settings.php:142 templates/page-settings.php:165
+#: templates/page-settings.php:185
 msgid "Save Changes"
 msgstr "Wijzigingen opslaan"
 
-#: templates/page-settings.php:187
+#: templates/page-settings.php:192
 msgid "License Key"
 msgstr "Licentiesleutel"
 
-#: templates/page-settings.php:190
+#: templates/page-settings.php:195
 msgid "Activate"
 msgstr "Activeer"
 
-#: templates/page-settings.php:201
+#: templates/page-settings.php:206
 msgid "Separators"
 msgstr "Scheidingstekens"
 
-#: templates/page-settings.php:204
+#: templates/page-settings.php:209
 msgid "Thousands"
 msgstr "Duizendtallen"
 
-#: templates/page-settings.php:206
+#: templates/page-settings.php:211
 msgid "Decimal"
 msgstr "Decimaalteken"
 
-#: templates/page-settings.php:217 templates/page-settings.php:225
+#: templates/page-settings.php:222 templates/page-settings.php:230
 msgid "Export"
 msgstr "Exporteer"
 
-#: templates/page-settings.php:233 templates/page-settings.php:238
+#: templates/page-settings.php:238 templates/page-settings.php:243
 msgid "Import"
 msgstr "Importeer"
 
-#: templates/page-settings.php:236
+#: templates/page-settings.php:241
 msgid "Paste the import code here"
 msgstr "Plak de importcode hier"
 
-#: templates/page-settings.php:237
+#: templates/page-settings.php:242
 msgid "Overwrite existing items?"
 msgstr "Overschrijf bestaande items?"
 
-#: templates/page-settings.php:262
+#: templates/page-settings.php:267
 msgid "Label"
 msgstr "Label"
 
-#: templates/page-settings.php:266 templates/page-settings.php:309
+#: templates/page-settings.php:271 templates/page-settings.php:314
 msgid "Name"
 msgstr "Naam"
 
-#: templates/page-settings.php:270
+#: templates/page-settings.php:275
 msgid "Facet type"
 msgstr "Soort facet"
 
-#: templates/page-settings.php:281
+#: templates/page-settings.php:286
 msgid "Data source"
 msgstr "Gegevensbron"
 
-#: templates/page-settings.php:296
+#: templates/page-settings.php:301
 msgid "Other settings"
 msgstr "Overige instellingen"
 
-#: templates/page-settings.php:312
+#: templates/page-settings.php:317
 msgid "Open query builder"
 msgstr "Query-builder openen"
 
-#: templates/page-settings.php:313
+#: templates/page-settings.php:318
 msgid "Query Arguments"
 msgstr "Query-argumenten"
 
-#: templates/page-settings.php:317
+#: templates/page-settings.php:322
 msgid "What goes here?"
 msgstr "Wat komt hier?"
 
-#: templates/page-settings.php:318
+#: templates/page-settings.php:323
 msgid "Display Code"
 msgstr "Toon code"
 
-#: templates/page-settings.php:332
+#: templates/page-settings.php:337
 msgid "Query Builder"
 msgstr "Query-builder"
 
-#: templates/page-settings.php:336
+#: templates/page-settings.php:341
 msgid "Which posts would you like to use for the content listing?"
 msgstr "Welke berichten zou je willen gebruiken voor de inhoudslijst?"
 
-#: templates/page-settings.php:345
+#: templates/page-settings.php:350
 msgid "Send to editor"
 msgstr "Stuur naar redacteur"
 

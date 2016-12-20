@@ -11,7 +11,6 @@ class SQ_Frontend extends SQ_FrontController {
         }
 
         parent::__construct();
-        SQ_ObjController::getController('SQ_Tools', false);
 
         if (SQ_Tools::$options['sq_use'] == 1) {
             /* Check if sitemap is on  */

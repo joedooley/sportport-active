@@ -1254,8 +1254,52 @@ class OMAPI_Menu {
 
 	/**
 	 * Called whenever a signup link is displayed, this function will
-	 * check if there's a trial ID specified.
+	 * check if there's an affiliate ID specified.
+	 *
+	 * There are three ways to specify an ID, ordered by highest to lowest priority
+	 * - add_filter( 'optinmonster_sas_id', function() { return 1234; } );
+	 * - define( 'OPTINMONSTER_SAS_ID', 1234 );
+	 * - get_option( 'optinmonster_sas_id' ); (with the option being in the wp_options
+	 * table) If an ID is present, returns the affiliate link with the affiliate ID. If no ID is
+	 * present, just returns the OptinMonster pricing page URL.
+	 */
+	public function get_sas_link() {
 
+		global $omSasId;
+		$omSasId = '';
+
+		// Check if sas ID is a constant
+		if ( defined( 'OPTINMONSTER_SAS_ID' ) ) {
+			$omSasId = OPTINMONSTER_SAS_ID;
+		}
+
+		// Now run any filters that may be on the sas ID
+		$omSasId = apply_filters( 'optinmonster_sas_id', $omSasId );
+
+		/**
+		 * If we still don't have a sas ID by this point
+		 * check the DB for an option
+		 */
+		if ( empty( $omSasId ) ) {
+			$sasId = get_option( 'optinmonster_sas_id', $omSasId );
+		}
+
+		// Return the sas link if we have a sas ID
+		if ( ! empty( $omSasId ) ) {
+			return 'http://www.shareasale.com/r.cfm?u='
+			       . urlencode( trim( $omSasId ) )
+			       . '&b=601672&m=49337&afftrack=&urllink=optinmonster.com';
+		}
+
+		// Return the regular pricing page by default
+		return 'https://optinmonster.com/pricing/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpdashboard';
+
+	}
+
+	/**
+	 * Called whenever a signup link is displayed, this function will
+	 * check if there's a trial ID specified.
+	 *
 	 * There are three ways to specify an ID, ordered by highest to lowest priority
 	 * - add_filter( 'optinmonster_trial_id', function() { return 1234; } );
 	 * - define( 'OPTINMONSTER_TRIAL_ID', 1234 );
@@ -1265,34 +1309,49 @@ class OMAPI_Menu {
 	 */
 	public function get_trial_link() {
 
-		$trialId = '';
+		global $omTrialId;
+		$omTrialId = '';
 
 		// Check if trial ID is a constant
 		if ( defined( 'OPTINMONSTER_TRIAL_ID' ) ) {
-			$trialId = OPTINMONSTER_TRIAL_ID;
+			$omTrialId = OPTINMONSTER_TRIAL_ID;
 		}
 
 		// Now run any filters that may be on the trial ID
-		$trialId = apply_filters( 'optinmonster_trial_id', $trialId );
+		$omTrialId = apply_filters( 'optinmonster_trial_id', $omTrialId );
 
 		/**
 		 * If we still don't have a trial ID by this point
 		 * check the DB for an option
 		 */
-		if ( empty( $trialId ) ) {
-			$trialId = get_option( 'optinmonster_trial_id', $trialId );
+		if ( empty( $omTrialId ) ) {
+			$omTrialId = get_option( 'optinmonster_trial_id', $omTrialId );
 		}
 
 		// Return the trial link if we have a trial ID
-		if ( ! empty( $trialId ) ) {
+		if ( ! empty( $omTrialId ) ) {
 			return 'http://www.shareasale.com/r.cfm?u='
-			       . urlencode( trim( $trialId ) )
-			       . '&b=601672&m=49337&afftrack=&urllink=optinmonster.com%2Ffree-trial%2F%3Fid%3D' . urlencode( trim( $trialId ) );
+			       . urlencode( trim( $omTrialId ) )
+			       . '&b=601672&m=49337&afftrack=&urllink=optinmonster.com%2Ffree-trial%2F%3Fid%3D' . urlencode( trim( $omTrialId ) );
 		}
 
 		// Return the regular pricing page by default
 		return 'https://optinmonster.com/pricing/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpdashboard';
 
+	}
+
+	public function get_action_link() {
+		global $omTrialId, $omSasId;
+		$trial = $this->get_trial_link();
+		$sas   = $this->get_sas_link();
+
+		if ( ! empty( $omTrialId ) ) {
+			return $trial;
+		} else if ( ! empty( $omSasId ) ) {
+			return $sas;
+		} else {
+			return 'https://optinmonster.com/pricing/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpdashboard';
+		}
 	}
 
 	public function has_trial_link() {

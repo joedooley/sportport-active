@@ -238,6 +238,23 @@ class Model_SQ_BlockSettingsSeo
         return $account;
     }
 
+    public function checkPinterestAccount($account)
+    {
+        if ($account <> '' && strpos($account, 'pinterest.com') === false) {
+            $account = 'https://www.pinterest.com/' . $account;
+        }
+        return $account;
+    }
+
+    public function checkInstagramAccount($account)
+    {
+        if ($account <> '' && strpos($account, 'instagram.com') === false) {
+            $account = 'https://www.instagram.com/' . $account;
+        }
+        return $account;
+    }
+
+
     /**
      * Add the image to the root path
      *

@@ -180,7 +180,7 @@ class OMAPI_Content {
      */
     public function api( $panel, $object ) {
 
-		$link = $this->base->menu->has_trial_link() ? $this->base->menu->get_trial_link() : 'https://optinmonster.com/pricing/';
+		$link = $this->base->menu->get_action_link();
 		$text = $this->base->menu->has_trial_link() ? 'Click here to start your free 30-day trial!' : 'Click here to view OptinMonster plans and pricing.';
 		if ( ! $this->base->get_api_credentials() ) : ?>
 		<p class="omapi-red"><strong><?php _e( 'You must authenticate your OptinMonster account before you can use OptinMonster on this site.', 'optin-monster-api' ); ?></strong></p>

@@ -2,7 +2,7 @@
 Contributors: calinvingan, florinmuresan, nagy.sorel
 Tags: seo,seo plugin,apps,wordpress seo,seo optimization,seo content,plugin,content seo,search engine optimization,xml,sitemap,keyword,keyword research,post,posts,page,multisite,squirrly,wordpress,tag,image,images,photos,flickr,statistics,stats,google,content,title,description,favicon,mobile,canonical,author,google plus,analytics,admin,seo correction,seo title,seo meta,meta,google,twitter,news,blog,e-commerce,ecommerce,woocommerce,feed,feeds,marketing,buddypress,social,social media,url,automatic,iphone,administration,analytics,blogging,categories,comment,dashboard,free,google-analytics,linkedin,list,media,optimization,performance,pinterest,plugins,products,share,sharing,tags,tracking,traffic,tweet
 Requires at least: 3.5    
-Tested up to: 4.6
+Tested up to: 4.7
 Stable tag: trunk  
 Donate link: https://www.squirrly.co/wordpress-seo-by-squirrly      
    
@@ -137,9 +137,15 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
 
 == Changelog ==
+= 6.2.5 =
+* Added Instagram and Pinterest in Social Json-LD
+* Fixed the connection issue in some cases when a keyword is modified
+* Fixed memory load when not usign Squirrly SEO
+
 = 6.2.4 =
 * Fixed bug for Google Analytics AMP version
 * Fixed both title and description when include price value
+* Compatible with WP 4.7
 
 = 6.2.3 =
 * Added Open Graph Image for First Page when the first page is a blog feed

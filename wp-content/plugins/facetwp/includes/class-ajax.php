@@ -226,7 +226,7 @@ class FacetWP_Ajax
      */
     function process_post_data() {
         $data = stripslashes_deep( $_POST['data'] );
-        $facets = json_decode( $data['facets'] );
+        $facets = json_decode( $data['facets'], true );
         $extras = isset( $data['extras'] ) ? $data['extras'] : array();
         $used_facets = isset( $data['used_facets'] ) ? $data['used_facets'] : array();
 

@@ -46,3 +46,9 @@ add_action( 'genesis_meta', function () {
 } );
 
 
+/**
+ * Enable WooCommerce FacetWP variations
+ */
+add_filter( 'facetwp_enable_product_variations', '__return_true' );
+
+

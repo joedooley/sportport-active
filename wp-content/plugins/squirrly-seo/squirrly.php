@@ -8,12 +8,12 @@
   Plugin URI: http://www.squirrly.co
   Description: SEO Plugin By Squirrly is for the NON-SEO experts. Get Excellent Seo with Better Content, Ranking and Analytics. For Both Humans and Search Bots.<BR> <a href="http://my.squirrly.co/user" target="_blank"><strong>Check your profile</strong></a>
   Author: calinvingan, florinmuresan, nagy.sorel
-  Version: 6.2.4
+  Version: 6.2.5
   Author URI: http://www.squirrly.co
  */
 
 /* SET THE CURRENT VERSION ABOVE AND BELOW */
-define('SQ_VERSION', '6.2.4');
+define('SQ_VERSION', '6.2.5');
 /* Call config files */
 if (file_exists(dirname(__FILE__) . '/config/config.php')) {
     require(dirname(__FILE__) . '/config/config.php');
@@ -22,6 +22,8 @@ if (file_exists(dirname(__FILE__) . '/config/config.php')) {
     if (PHP_VERSION_ID >= 5100) {
         /* inport main classes */
         require_once(_SQ_CLASSES_DIR_ . 'SQ_ObjController.php');
+        SQ_ObjController::getController('SQ_FrontController', false);
+        SQ_ObjController::getController('SQ_Tools', false);
 
         if (is_admin()) {
             require_once(_SQ_CLASSES_DIR_ . 'SQ_BlockController.php');
@@ -32,10 +34,8 @@ if (file_exists(dirname(__FILE__) . '/config/config.php')) {
              */
             register_activation_hook(__FILE__, array(SQ_ObjController::getController('SQ_Tools', false), 'sq_activate'));
             register_deactivation_hook(__FILE__, array(SQ_ObjController::getController('SQ_Tools', false), 'sq_deactivate'));
-        } else {
-            SQ_ObjController::getController('SQ_FrontController', false);
+        } elseif (SQ_Tools::$options['sq_use'] == 1) {
             SQ_ObjController::getController('SQ_Frontend');
-
         }
 
         add_action('sq_processCron', array(SQ_ObjController::getController('SQ_Ranking', false), 'processCron'));

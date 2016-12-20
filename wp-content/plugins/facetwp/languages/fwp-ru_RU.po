@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: FacetWP\n"
-"POT-Creation-Date: 2016-11-13 19:50-0500\n"
-"PO-Revision-Date: 2016-11-13 19:50-0500\n"
+"POT-Creation-Date: 2016-12-13 21:44-0500\n"
+"PO-Revision-Date: 2016-12-13 21:44-0500\n"
 "Last-Translator: Matt Gibbs <hello@facetwp.com>\n"
 "Language-Team: VBurlak <vburlak.ru@gmail.com>\n"
 "Language: ru\n"
@@ -446,40 +446,40 @@ msgstr "Размер увеличения между интервалами"
 msgid "Default"
 msgstr "По умолчанию"
 
-#: includes/integrations/woocommerce/woocommerce.php:38
+#: includes/integrations/woocommerce/woocommerce.php:40
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: includes/integrations/woocommerce/woocommerce.php:40
+#: includes/integrations/woocommerce/woocommerce.php:42
 msgid "Price"
 msgstr "Цена"
 
-#: includes/integrations/woocommerce/woocommerce.php:41
+#: includes/integrations/woocommerce/woocommerce.php:43
 msgid "Sale Price"
 msgstr "Выгодно!"
 
-#: includes/integrations/woocommerce/woocommerce.php:42
+#: includes/integrations/woocommerce/woocommerce.php:44
 msgid "Regular Price"
 msgstr "Цена"
 
-#: includes/integrations/woocommerce/woocommerce.php:43
+#: includes/integrations/woocommerce/woocommerce.php:45
 msgid "Average Rating"
 msgstr "Средний рейтинг"
 
-#: includes/integrations/woocommerce/woocommerce.php:44
+#: includes/integrations/woocommerce/woocommerce.php:46
 msgid "Stock Status"
 msgstr "Есть ли в наличии"
 
-#: includes/integrations/woocommerce/woocommerce.php:45
-#: includes/integrations/woocommerce/woocommerce.php:239
+#: includes/integrations/woocommerce/woocommerce.php:47
+#: includes/integrations/woocommerce/woocommerce.php:364
 msgid "On Sale"
 msgstr "Распродажа"
 
-#: includes/integrations/woocommerce/woocommerce.php:231
+#: includes/integrations/woocommerce/woocommerce.php:356
 msgid "In Stock"
 msgstr "Есть в наличии"
 
-#: includes/integrations/woocommerce/woocommerce.php:231
+#: includes/integrations/woocommerce/woocommerce.php:356
 msgid "Out of Stock"
 msgstr "Нет в наличии"
 
@@ -555,103 +555,103 @@ msgstr "Поддержка"
 msgid "Welcome to FacetWP"
 msgstr "Добро пожаловать на FacetWP"
 
-#: templates/page-settings.php:132 templates/page-settings.php:156
+#: templates/page-settings.php:134 templates/page-settings.php:158
 msgid "Add New"
 msgstr "Добавить местоположение"
 
-#: templates/page-settings.php:135 templates/page-settings.php:159
+#: templates/page-settings.php:137 templates/page-settings.php:161
 msgid "Back"
 msgstr "Назад"
 
-#: templates/page-settings.php:139
+#: templates/page-settings.php:141
 msgid "Re-index"
 msgstr "Повторное индексирование"
 
-#: templates/page-settings.php:140 templates/page-settings.php:163
-#: templates/page-settings.php:180
+#: templates/page-settings.php:142 templates/page-settings.php:165
+#: templates/page-settings.php:185
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: templates/page-settings.php:187
+#: templates/page-settings.php:192
 msgid "License Key"
 msgstr "Лицензионный ключ"
 
-#: templates/page-settings.php:190
+#: templates/page-settings.php:195
 msgid "Activate"
 msgstr "Активировать"
 
-#: templates/page-settings.php:201
+#: templates/page-settings.php:206
 msgid "Separators"
 msgstr "Сепаратор"
 
-#: templates/page-settings.php:204
+#: templates/page-settings.php:209
 msgid "Thousands"
 msgstr "Тысяча"
 
-#: templates/page-settings.php:206
+#: templates/page-settings.php:211
 msgid "Decimal"
 msgstr "Десятичный"
 
-#: templates/page-settings.php:217 templates/page-settings.php:225
+#: templates/page-settings.php:222 templates/page-settings.php:230
 msgid "Export"
 msgstr "Экспорт"
 
-#: templates/page-settings.php:233 templates/page-settings.php:238
+#: templates/page-settings.php:238 templates/page-settings.php:243
 msgid "Import"
 msgstr "Импорт"
 
-#: templates/page-settings.php:236
+#: templates/page-settings.php:241
 msgid "Paste the import code here"
 msgstr "Вставьте код импорта здесь"
 
-#: templates/page-settings.php:237
+#: templates/page-settings.php:242
 msgid "Overwrite existing items?"
 msgstr "Заменить существующие данные?"
 
-#: templates/page-settings.php:262
+#: templates/page-settings.php:267
 msgid "Label"
 msgstr "Лейбл"
 
-#: templates/page-settings.php:266 templates/page-settings.php:309
+#: templates/page-settings.php:271 templates/page-settings.php:314
 msgid "Name"
 msgstr "Имя"
 
-#: templates/page-settings.php:270
+#: templates/page-settings.php:275
 msgid "Facet type"
 msgstr "Тип Фасета"
 
-#: templates/page-settings.php:281
+#: templates/page-settings.php:286
 msgid "Data source"
 msgstr "Источник данных"
 
-#: templates/page-settings.php:296
+#: templates/page-settings.php:301
 msgid "Other settings"
 msgstr "Другие настройки"
 
-#: templates/page-settings.php:312
+#: templates/page-settings.php:317
 msgid "Open query builder"
 msgstr "Открыть построитель"
 
-#: templates/page-settings.php:313
+#: templates/page-settings.php:318
 msgid "Query Arguments"
 msgstr "Аргументы Запроса"
 
-#: templates/page-settings.php:317
+#: templates/page-settings.php:322
 msgid "What goes here?"
 msgstr "То, что происходит здесь?"
 
-#: templates/page-settings.php:318
+#: templates/page-settings.php:323
 msgid "Display Code"
 msgstr "Отображаемый код"
 
-#: templates/page-settings.php:332
+#: templates/page-settings.php:337
 msgid "Query Builder"
 msgstr "Построитель Запросов"
 
-#: templates/page-settings.php:336
+#: templates/page-settings.php:341
 msgid "Which posts would you like to use for the content listing?"
 msgstr "Какие сообщения вы хотите использовать для контента списка?"
 
-#: templates/page-settings.php:345
+#: templates/page-settings.php:350
 msgid "Send to editor"
 msgstr "Отправить редактор"

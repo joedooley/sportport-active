@@ -491,7 +491,7 @@ class WPSEO_Video_Sitemap {
 		}
 
 		// Recommend force re-index.
-		if ( isset( $options['dbversion'] ) && version_compare( $options['dbversion'], '3.9', '<' ) ) {
+		if ( isset( $options['dbversion'] ) && version_compare( $options['dbversion'], '4.0', '<' ) ) {
 			set_transient( 'video_seo_recommend_reindex', 1 );
 		}
 

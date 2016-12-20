@@ -65,6 +65,8 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
                 SQ_Tools::saveOptions('sq_facebook_account', $this->model->checkFacebookAccount(SQ_Tools::getValue('sq_facebook_account')));
                 SQ_Tools::saveOptions('sq_google_plus', $this->model->checkGoogleAccount(SQ_Tools::getValue('sq_google_plus')));
                 SQ_Tools::saveOptions('sq_linkedin_account', $this->model->checkLinkeinAccount(SQ_Tools::getValue('sq_linkedin_account')));
+                SQ_Tools::saveOptions('sq_pinterest_account', $this->model->checkPinterestAccount(SQ_Tools::getValue('sq_pinterest_account')));
+                SQ_Tools::saveOptions('sq_instagram_account', $this->model->checkInstagramAccount(SQ_Tools::getValue('sq_instagram_account')));
 
                 ///////////////////////////////////////////
                 /////////////////////////////FIRST PAGE OPTIMIZATION

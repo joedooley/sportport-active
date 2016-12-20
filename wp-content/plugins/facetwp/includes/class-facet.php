@@ -348,7 +348,7 @@ class FacetWP_Facet
             }
 
             // Handle each facet
-            if ( isset( $this->facet_types[ $facet_type ] ) && ! empty( $selected_values ) ) {
+            if ( isset( $this->facet_types[ $facet_type ] ) ) {
 
                 $hook_params = array(
                     'facet' => $the_facet,
@@ -367,6 +367,9 @@ class FacetWP_Facet
             if ( 'continue' == $matches ) {
                 continue;
             }
+
+            // Force array
+            $matches = (array) $matches;
 
             // Store post IDs per facet
             // Required for dropdowns and checkboxes in "or" mode

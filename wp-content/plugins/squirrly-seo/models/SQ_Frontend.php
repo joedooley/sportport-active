@@ -227,8 +227,6 @@ class Model_SQ_Frontend {
                         $buffer = @preg_replace('/<title[^<>]*>([^<>]*)<\/title>/si', '', $buffer, -1);
                         $buffer = @preg_replace('/(<head[^>]*>)/si', sprintf("$1\n<title>%s</title>", $this->title) . "\n", $buffer, -1 );
                     }
-                } else {
-                    $buffer = @preg_replace('/(<head[^>]*>)/si', sprintf("$1%s", $this->getHeader()) . "\n", $buffer, 1);
                 }
 
                 if (strpos($buffer, '<squirrly />') !== false) {
@@ -1144,7 +1142,7 @@ class Model_SQ_Frontend {
 
   ga('create', '%s', 'auto');
   ga('send', 'pageview');
-
+  ga('require', 'linked');
 </script>", $sq_google_analytics);
             }
         }
@@ -1284,17 +1282,23 @@ src='https://www.facebook.com/tr?id=%s&ev=PageView&noscript=1'
 
             if ($meta <> '') {
                 $social = '';
-                if (isset(SQ_Tools::$options['sq_twitter_account'])) {
+                if (SQ_Tools::$options['sq_twitter_account'] <> '') {
                     $social .= ($social <> '' ? "," : '') . '"' . SQ_Tools::$options['sq_twitter_account'] . '"';
                 }
-                if (isset(SQ_Tools::$options['sq_facebook_account'])) {
+                if (SQ_Tools::$options['sq_facebook_account'] <> '') {
                     $social .= ($social <> '' ? "," : '') . '"' . SQ_Tools::$options['sq_facebook_account'] . '"';
                 }
-                if (isset(SQ_Tools::$options['sq_google_plus'])) {
+                if (SQ_Tools::$options['sq_google_plus'] <> '') {
                     $social .= ($social <> '' ? "," : '') . '"' . SQ_Tools::$options['sq_google_plus'] . '"';
                 }
-                if (isset(SQ_Tools::$options['sq_linkedin_account'])) {
+                if (SQ_Tools::$options['sq_linkedin_account'] <> '') {
                     $social .= ($social <> '' ? "," : '') . '"' . SQ_Tools::$options['sq_linkedin_account'] . '"';
+                }
+                if (SQ_Tools::$options['sq_pinterest_account'] <> '') {
+                    $social .= ($social <> '' ? "," : '') . '"' . SQ_Tools::$options['sq_pinterest_account'] . '"';
+                }
+                if (SQ_Tools::$options['sq_instagram_account'] <> '') {
+                    $social .= ($social <> '' ? "," : '') . '"' . SQ_Tools::$options['sq_instagram_account'] . '"';
                 }
 
                 $search = $sep . '"potentialAction": { "@type": "SearchAction", "target": "' . get_bloginfo('url') . '?s={search_string}", "query-input": "required name=search_string" }';
