@@ -43,7 +43,7 @@ add_action( 'wp_enqueue_scripts', function() {
 
 	wp_enqueue_script(
 		'backstretch',
-		get_stylesheet_directory_uri() . '/assets/js/vendors/single/jquery.backstretch.min.js',
+		CHILD_JS_DIR . '/dist/js/vendors/jquery.backstretch.min.js',
 		array( 'jquery' ),
 		'2.0.4',
 		true
@@ -51,7 +51,7 @@ add_action( 'wp_enqueue_scripts', function() {
 
 	wp_enqueue_script(
 		'backstretch-set',
-		get_stylesheet_directory_uri() . '/assets/js/custom/single/backstretch-set.js',
+		CHILD_JS_DIR . '/dist/js/custom/single/backstretch-set.js',
 		array( 'jquery', 'backstretch' ),
 		CHILD_THEME_VERSION,
 		true
