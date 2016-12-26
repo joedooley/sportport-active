@@ -5,7 +5,7 @@ if ( !class_exists( 'Meow_Admin' ) ) {
 	class Meow_Admin {
 
 		public static $loaded = false;
-		public static $version = "0.1";
+		public static $version = "0.2";
 		public $prefix = null;
 		public $item = null;
 
@@ -17,11 +17,13 @@ if ( !class_exists( 'Meow_Admin' ) ) {
 					add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 				}
 			}
-			if ( !empty( $prefix ) && !empty( $item ) && is_admin() ) {
+			if ( !empty( $prefix ) && !empty( $item ) ) {
 				$this->prefix = $prefix;
 				$this->item = $item;
-				add_action( 'update_option_' . $prefix . '_pro_serial', array( $this, 'serial_updated' ), 10, 2 );
-				add_action( 'admin_menu', array( $this, 'admin_menu_for_serialkey' ) );
+				if ( is_admin() ) {
+					add_action( 'update_option_' . $prefix . '_pro_serial', array( $this, 'serial_updated' ), 10, 2 );
+					add_action( 'admin_menu', array( $this, 'admin_menu_for_serialkey' ) );
+				}
 			}
 			Meow_Admin::$loaded = true;
 		}
