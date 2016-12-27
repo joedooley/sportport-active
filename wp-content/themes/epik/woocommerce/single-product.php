@@ -90,7 +90,7 @@ add_action( 'wp_enqueue_scripts', function() {
 		wp_enqueue_script(
 			'accordion-js',
 			CHILD_JS_DIR . '/single/accordion.js',
-			array( 'jquery' ),
+			[ 'jquery' ],
 			CHILD_THEME_VERSION,
 			true
 		);
@@ -101,12 +101,27 @@ add_action( 'wp_enqueue_scripts', function() {
 			wp_enqueue_script(
 				'scrolltofixed-init',
 				CHILD_JS_DIR . '/single/scrolltofixed-init.js',
-				array( 'jquery' ),
+				[ 'jquery' ],
 				CHILD_THEME_VERSION,
 				true
 			);
 
 		}
+
+		wp_enqueue_script(
+			'magnifik',
+			CHILD_VENDOR_JS_DIR . '/magnifik.js',
+			[ 'jquery' ],
+			CHILD_THEME_VERSION,
+			true
+		);
+
+		wp_add_inline_script(
+			'magnifik',
+			'jQuery(document).ready(function($){
+				$("a.magnifik").magnifik()
+			});'
+		);
 
 	}
 });

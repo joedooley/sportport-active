@@ -9,7 +9,7 @@
  */
 (function (document, $, undefined) {
 
-	$('body').addClass('js');
+	//$('body').addClass('js');
 
 	'use strict';
 

@@ -49,14 +49,6 @@ add_action( 'wp_enqueue_scripts', function() {
 		true
 	);
 
-//	wp_enqueue_script(
-//		'backstretch-set',
-//		CHILD_JS_DIR . '/dist/js/custom/single/backstretch-set.js',
-//		array( 'jquery', 'backstretch' ),
-//		CHILD_THEME_VERSION,
-//		true
-//	);
-
 	wp_add_inline_script( 'backstretch', 'jQuery(document).ready(function($){
 		var PrimaryBSHero = PrimaryBackstretchHero;
 		var SecondaryBSHero = SecondaryBackstretchHero;
