@@ -89,7 +89,7 @@ add_action( 'wp_enqueue_scripts', function() {
 
 		wp_enqueue_script(
 			'accordion-js',
-			CHILD_JS_DIR . '/dist/js/custom/single/accordion.js',
+			CHILD_JS_DIR . '/single/accordion.js',
 			array( 'jquery' ),
 			CHILD_THEME_VERSION,
 			true
@@ -100,7 +100,7 @@ add_action( 'wp_enqueue_scripts', function() {
 
 			wp_enqueue_script(
 				'scrolltofixed-init',
-				distCHILD_JS_DIR . '/dist/js/custom/single/scrolltofixed-init.js',
+				CHILD_JS_DIR . '/single/scrolltofixed-init.js',
 				array( 'jquery' ),
 				CHILD_THEME_VERSION,
 				true

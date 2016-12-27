@@ -2,13 +2,6 @@
  * site.js
  */
 
-jQuery(document).ready(function ($) {
-
-	// Match height for content and sidebar
-	$('.content, .sidebar, .product').matchHeight();
-
-});
-
 /**
  * responsive-nav.js
  */
@@ -29,18 +22,16 @@ jQuery(document).ready(function ($) {
 				'aria-expanded': false,
 				'aria-pressed' : false,
 				'role'         : 'button'
-			})
-				.append(digital.params.mainMenu),
+			}).append(digital.params.mainMenu),
 			submenu: $('<button />', {
 				'class'        : subMenuButtonClass,
 				'aria-expanded': false,
 				'aria-pressed' : false,
 				'role'         : 'button'
-			})
-				.append($('<span />', {
-					'class': 'screen-reader-text',
-					text   : digital.params.subMenu
-				}))
+			}).append($('<span />', {
+				'class': 'screen-reader-text',
+				text   : digital.params.subMenu
+			}))
 		};
 		$('.nav-primary').before(toggleButtons.menu); // add the main nav buttons
 		$('nav .sub-menu').before(toggleButtons.submenu); // add the submenu nav buttons
@@ -98,7 +89,6 @@ jQuery(document).ready(function ($) {
 
 		others.find('.' + subMenuButtonClass).removeClass('activated').attr('aria-pressed', 'false');
 		others.find('.sub-menu').slideUp('fast');
-
 	}
 
 	/**
@@ -140,12 +130,8 @@ jQuery(document).ready(function ($) {
 		if ('none' !== _getDisplayValue(buttons)) {
 			return;
 		}
-		$('.menu-toggle, .sub-menu-toggle')
-			.removeClass('activated')
-			.attr('aria-expanded', false)
-			.attr('aria-pressed', false);
-		$('nav, .sub-menu')
-			.attr('style', '');
+		$('.menu-toggle, .sub-menu-toggle').removeClass('activated').attr('aria-expanded', false).attr('aria-pressed', false);
+		$('nav, .sub-menu').attr('style', '');
 	}
 
 	/**
@@ -171,6 +157,9 @@ jQuery(document).ready(function ($) {
 		});
 	}
 
+
+
+
 	$(document).ready(function () {
 
 		digital.params = typeof DigitalL10n === 'undefined' ? '' : DigitalL10n;
@@ -179,6 +168,17 @@ jQuery(document).ready(function ($) {
 			digital.init();
 		}
 
+		var npButton = document.getElementById('mobile-nav-primary');
+
+		function headerToggleMinHeight() {
+			var header = document.querySelector('.site-header');
+			header.classList.toggle('no-minh');
+		}
+
+		npButton.addEventListener('click', headerToggleMinHeight, false);
+
 	});
+
+
 
 })(document, jQuery);

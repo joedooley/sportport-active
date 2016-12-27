@@ -4,12 +4,6 @@
  * site.js
  */
 
-jQuery(document).ready(function ($) {
-
-	// Match height for content and sidebar
-	$('.content, .sidebar, .product').matchHeight();
-});
-
 /**
  * responsive-nav.js
  */
@@ -172,5 +166,14 @@ jQuery(document).ready(function ($) {
 		if (typeof digital.params !== 'undefined') {
 			digital.init();
 		}
+
+		var npButton = document.getElementById('mobile-nav-primary');
+
+		function headerToggleMinHeight() {
+			var header = document.querySelector('.site-header');
+			header.classList.toggle('no-minh');
+		}
+
+		npButton.addEventListener('click', headerToggleMinHeight, false);
 	});
 })(document, jQuery);

@@ -43,18 +43,26 @@ add_action( 'wp_enqueue_scripts', function() {
 
 	wp_enqueue_script(
 		'backstretch',
-		CHILD_JS_DIR . '/dist/js/vendors/jquery.backstretch.min.js',
+		CHILD_VENDOR_JS_DIR . '/jquery.backstretch.min.js',
 		array( 'jquery' ),
 		'2.0.4',
 		true
 	);
 
-	wp_enqueue_script(
-		'backstretch-set',
-		CHILD_JS_DIR . '/dist/js/custom/single/backstretch-set.js',
-		array( 'jquery', 'backstretch' ),
-		CHILD_THEME_VERSION,
-		true
+//	wp_enqueue_script(
+//		'backstretch-set',
+//		CHILD_JS_DIR . '/dist/js/custom/single/backstretch-set.js',
+//		array( 'jquery', 'backstretch' ),
+//		CHILD_THEME_VERSION,
+//		true
+//	);
+
+	wp_add_inline_script( 'backstretch', 'jQuery(document).ready(function($){
+		var PrimaryBSHero = PrimaryBackstretchHero;
+		var SecondaryBSHero = SecondaryBackstretchHero;
+		$(".primary-hero").backstretch(PrimaryBSHero.primary_hero);
+		$(".secondary-hero").backstretch(SecondaryBSHero.secondary_hero);
+		});'
 	);
 
 });

@@ -31,6 +31,7 @@ define( 'CHILD_THEME_URL', 'https://www.sportportactive.com/' );
 define( 'CHILD_THEME_VERSION', '1.0.0' );
 define( 'CHILD_THEME_TEXTDOMAIN', 'epik' );
 define( 'CHILD_JS_DIR', get_stylesheet_directory_uri() . '/dist/js/custom' );
+define( 'CHILD_VENDOR_JS_DIR', get_stylesheet_directory_uri() . '/dist/js/vendors' );
 
 
 add_theme_support( 'genesis-connect-woocommerce' );

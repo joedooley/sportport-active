@@ -37,6 +37,25 @@ function spa_scripts_styles() {
 		);
 	}
 
+	if ( is_product_taxonomy() || is_shop() ) {
+
+		wp_enqueue_script(
+			'match-height',
+			CHILD_VENDOR_JS_DIR . '/match-height.js',
+			[ 'jquery' ],
+			CHILD_THEME_VERSION,
+			true
+		);
+
+		wp_add_inline_script( 'match-height',
+			'jQuery(document).ready(function($){
+			$(".product").matchHeight();
+			});'
+		);
+
+	}
+
+
 
 
 	wp_enqueue_script(

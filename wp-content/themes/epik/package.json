@@ -21,7 +21,7 @@
     "build:js": "npm run babel && npm run vendorjs",
     "build:all": "npm run build:css && npm run build:js",
     "watch:css": "onchange 'assets/scss/**/*.scss' -- npm run build:css",
-    "watch:js": "onchange 'assets/js/custom/*.js' -- npm run build:js",
+    "watch:js": "onchange 'assets/js/custom/*.js' 'assets/js/custom/single/*.js' 'assets/js/vendors/*.js' -- npm run build:js",
     "watch:all": "parallelshell 'npm run watch:css' 'npm run watch:js'",
     "watch": "npm run watch:all",
     "postinstall": "npm run watch",
