@@ -20,7 +20,7 @@
     "build:css": "npm run scss && npm run autoprefixer",
     "build:js": "npm run babel && npm run vendorjs",
     "build:all": "npm run build:css && npm run build:js",
-    "watch:css": "onchange 'assets/scss/**/*.scss' -- npm run build:css",
+    "watch:css": "onchange 'assets/sass/**/*.scss' -- npm run build:css",
     "watch:js": "onchange 'assets/js/custom/*.js' 'assets/js/custom/single/*.js' 'assets/js/vendors/*.js' -- npm run build:js",
     "watch:all": "parallelshell 'npm run watch:css' 'npm run watch:js'",
     "watch": "npm run watch:all",
@@ -31,6 +31,7 @@
   "dependencies": {
     "bourbon": "^4.2.7",
     "bourbon-neat": "^1.8.0",
+    "drift-zoom": "^1.1.0",
     "normalize.css": "^5.0.0",
     "react-hot-loader": "^1.3.0",
     "redux-devtools": "^2.1.5",

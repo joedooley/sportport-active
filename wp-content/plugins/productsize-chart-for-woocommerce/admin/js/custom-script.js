@@ -13,6 +13,22 @@ jQuery(document).ready(function($){
 		
 		} 
 	 );
+
+
+     $('._img_remove').on('click',  function(event) {
+
+        var data=$(this).data('id'),
+        placeholder=$(this).data('placeholder');
+        if(data){
+            $('input#'+data).val('');
+            $(this).next('img').attr('src',placeholder);
+            $(this).css({
+                display: 'none',
+            });
+
+        }
+         
+     });
 	 
 	 $('select#position').change(function(){
 		 
@@ -52,6 +68,9 @@ jQuery(document).ready(function($){
  
             // Sends the attachment URL to our custom image input field.
             $('#primary-chart-image').attr('value',media_attachment.id);
+            $('.chart-0 ._img_remove').css({
+                display: 'block',
+            });
 			$('#meta_img').attr("src",media_attachment.url);
 			$('#meta_img').attr("width","auto");
 			$('#meta_img').attr("height","180");
@@ -88,6 +107,9 @@ jQuery(document).ready(function($){
  
             // Sends the attachment URL to our custom image input field.
             $('#chart-image-1').attr('value',media_attachment.id);
+            $('.chart-1 ._img_remove').css({
+                display: 'block',
+            });
 			$('#meta_img_1').attr("src",media_attachment.url);
 			$('#meta_img_1').attr("width","auto");
 			$('#meta_img_1').attr("height","180");
@@ -124,6 +146,9 @@ jQuery(document).ready(function($){
  
             // Sends the attachment URL to our custom image input field.
             $('#chart-image-2').attr('value',media_attachment.id);
+            $('.chart-2 ._img_remove').css({
+                display: 'block',
+            });
 			$('#meta_img_2').attr("src",media_attachment.url);
 			$('#meta_img_2').attr("width","auto");
 			$('#meta_img_2').attr("height","180");

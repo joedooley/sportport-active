@@ -109,7 +109,7 @@ HTML5 Reset
 	Link: http://necolas.github.com/normalize.css/
 --------------------------------------------- */
 
-article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,video{display:inline-block}audio:not([controls]){display:none;height:0}[hidden]{display:none}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}a:focus{outline:thin dotted}a:active,a:hover{outline:0}h1{font-size:2em;margin:.67em 0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}mark{background:#ff0;color:#000}code,kbd,pre,samp{font-family:monospace,serif;font-size:1em}pre{white-space:pre-wrap}q{quotes:"\201C" "\201D" "\2018" "\2019"}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:0}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}button,input{line-height:normal}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,video{display:inline-block}audio:not([controls]){display:none;height:0}[hidden]{display:none}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}a:focus{outline:thin dotted}a:active,a:hover{outline:0}h1{font-size:2em;margin:.67em 0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}hr{box-sizing:content-box;height:0}mark{background:#ff0;color:#000}code,kbd,pre,samp{font-family:monospace,serif;font-size:1em}pre{white-space:pre-wrap}q{quotes:"\201C" "\201D" "\2018" "\2019"}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:0}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}button,input{line-height:normal}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}
 
 
 /* Box Sizing
@@ -117,8 +117,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 
 *,
 input[type="search"] {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing:    border-box;
 	box-sizing:         border-box;
 }
 
@@ -264,8 +262,6 @@ body.inspire .woo-float-left .woo-inspire-shop a:hover {
 body.inspire .grey-boxed {
 	border: 1px solid #CCC;
 	padding: 4px;
-	-webkit-box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24);
-	-moz-box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24);
 	box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24); }
 
 /* Hide Purchase Options */
@@ -294,8 +290,6 @@ body.gallery .grey-boxed {
 	border: 1px solid #333;
 	padding: 13px 20px;
 	margin: 0 0 5px 8px;
-	-webkit-box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24);
-	-moz-box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24);
 	box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.24); }
 
 /* Envira Gallery [x64] ---------------------------------------- */
@@ -331,10 +325,12 @@ body.gallery .grey-boxed {
 .envirabox-skin { padding: 1px !important; } /* Controls amount of white border on pop-up */
 
 .envira-gallery-wrap .envira-gallery-public.envira-gallery-css-animations .envira-gallery-item img {
+   -webkit-transition:all .2s ease-in-out;
    transition: all .2s ease-in-out;
 }
 .envira-gallery-wrap .envira-gallery-public.envira-gallery-css-animations .envira-gallery-item:hover img {
-   transform: scale(1.1); }
+   -webkit-transform: scale(1.1);
+           transform: scale(1.1); }
 
 .envira-gallery-wrap .envira-gallery-public.envira-gallery-css-animations .envira-gallery-item,
 .envira-gallery-wrap .envira-gallery-public.envira-gallery-css-animations .envira-gallery-item .envira-gallery-item-inner { overflow: hidden; }
@@ -492,8 +488,6 @@ body.page-template-page_blog .post-image.entry-image {
 	border-bottom-left-radius: 1em; }
 
 .sp-blockquote-img img {
-	-webkit-box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.22);
-	-moz-box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.22);
 	box-shadow: 0px 10px 5px 0px rgba(0,0,0,0.22);
 	padding: 10px; }
 
@@ -634,14 +628,10 @@ body.intro-welcome .content[role="main"] .entry-title a {
 	color: #777;
 	clear: both;
 	margin: 25px 0 0 0;
-	-webkit-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
-	-moz-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
 	box-shadow: 0px 9px 20px -12px rgba(0,0,0,1); }
 
 img.fabrics-icon {
 	width: 78px;
-	-webkit-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
-	-moz-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
 	box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
 	border: 1px solid #FFF;
 	float: left;
@@ -651,8 +641,6 @@ img.fabrics-icon {
 	background: rgba(255, 255, 255, 0.60);
 	padding: 22px 20px 30px 25px;
 	margin: 20px 0 25px 0;
-	-webkit-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
-	-moz-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
 	box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
 	clear: both;  }
 
@@ -675,8 +663,6 @@ table.fabrics-grid td {
 
 img.small-fabrics-icon {
 	width: 52px;
-	-webkit-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
-	-moz-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
 	box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
 	border: 1px solid #FFF;
 	float: left;
@@ -850,8 +836,6 @@ img.small-fabrics-icon {
 /* ADD SHADOWS TO PRODUCTS on CATEGORY and SHOP PAGES [x34] ---------------------------------------- */
 
 .woocommerce ul.products li.product a img {
-	-webkit-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
-	-moz-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
 	box-shadow: 0px 9px 20px -12px rgba(0,0,0,1); }
 
 /* WOO PRODUCT-CATEGORY CUSTOM [x33] ---------------------------------------- */
@@ -1127,8 +1111,6 @@ body.category-testimonials .entry-content p {  /*--- For archive page ---*/
 	margin:0;
 	font-weight: normal;
 	font-weight: 100;
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
 	border-radius: 20px;
 	color: #000;
 	background: #FFF; }
@@ -1243,8 +1225,6 @@ body.home .woocommerce ul.product_list_widget li a {
 	font-weight: 100 !important;
 	font-size: 12px;
 	background: #FFF;
-	-webkit-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
-	-moz-box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
 	box-shadow: 0px 9px 20px -12px rgba(0,0,0,1);
 }
 
@@ -1322,8 +1302,6 @@ body.home table th img, body.home table td img {
   margin:0;
   color:#000;
   background:#FFF;
-  -webkit-border-radius:10px;
-  -moz-border-radius:10px;
   border-radius:10px; }
 
 /* display of quote author (alternatively use a class on the element following the blockquote) */
@@ -1404,8 +1382,6 @@ body.category-testimonials .sidebar .entry-content {
 	height: 42px !important;
 	background-color: #F93 !important;
 	border: none !important;
-	-webkit-box-shadow: 0px 9px 10px -3px rgba(0,0,0,0.29) !important;
-	-moz-box-shadow: 0px 9px 10px -3px rgba(0,0,0,0.29) !important;
 	box-shadow: 0px 9px 10px -3px rgba(0,0,0,0.29) !important;
 	padding-top: 2px;
 	margin: 15px; }
@@ -1442,9 +1418,6 @@ input[type="button"],
 input[type="reset"],
 input[type="submit"] {
 	-webkit-transition: all 0.1s ease-in-out;
-	-moz-transition:    all 0.1s ease-in-out;
-	-ms-transition:     all 0.1s ease-in-out;
-	-o-transition:      all 0.1s ease-in-out;
 	transition:         all 0.1s ease-in-out;
 }
 
@@ -2453,8 +2426,6 @@ Widgets
 }
 
 #genesis-responsive-slider li a {
-	-moz-transition: none;
-	-o-transition: none;
 	-webkit-transition: none;
 	transition: none;
 }
@@ -2665,8 +2636,6 @@ Home Feature BG
 .home-feature-bg .featuredpage img:hover,
 .home-feature-bg .featuredpost img:hover {
 	opacity: .7;
-	-moz-transition:all .5s ease;
-	-o-transition:all .5s ease;
 	-webkit-transition:all .5s ease;
 	transition:all .5s ease;
 }
@@ -2722,8 +2691,6 @@ Home Feature BG Alt
 .home-feature-bg-alt .featuredpage img:hover,
 .home-feature-bg-alt .featuredpost img:hover {
 	opacity: .7;
-	-moz-transition:all .5s ease;
-	-o-transition:all .5s ease;
 	-webkit-transition:all .5s ease;
 	transition:all .5s ease;
 }
@@ -2788,8 +2755,6 @@ Home Feature BG Dark
 .home-feature-bg-dark .featuredpage img:hover,
 .home-feature-bg-dark .featuredpost img:hover {
 	opacity: .7;
-	-moz-transition:all .5s ease;
-	-o-transition:all .5s ease;
 	-webkit-transition:all .5s ease;
 	transition:all .5s ease;
 }
@@ -3178,6 +3143,7 @@ Plugins
 
 .enews-widget input:hover[type="submit"] {
 	opacity: .7;
+	-webkit-transition:all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -3185,6 +3151,7 @@ Plugins
 	background: #48B;
 	box-shadow: none;
 	opacity: 10;
+	-webkit-transition:0;
 	transition: 0; }
 
 .widget-wrap .enews input {  /*---PK---*/
@@ -3407,9 +3374,6 @@ Site Navigation
 	padding: 0;
 	position: absolute;
 	-webkit-transition: opacity .4s ease-in-out;
-	-moz-transition:    opacity .4s ease-in-out;
-	-ms-transition:     opacity .4s ease-in-out;
-	-o-transition:      opacity .4s ease-in-out;
 	transition:         opacity .4s ease-in-out;
 	width: 202px;
 	z-index: 99;
@@ -3900,8 +3864,6 @@ Portfolio
 }
 
 .portfolio .post-image:hover {
-	-moz-transition:all .5s ease;
-	-o-transition:all .5s ease;
 	-webkit-transition:all .5s ease;
 	transition:all .5s ease;
 	opacity: 0.6;
@@ -5349,8 +5311,6 @@ Site Footer
 	.hf14 {
 		/*background-attachment: scroll;*/
 		background-position: top;
-		-webkit-background-size: auto;
-		-moz-background-size: auto;
 		background-size: auto;
 	}
 
@@ -5615,9 +5575,6 @@ body.home .woocommerce ul.product_list_widget li img { width: 90px; }
 		left: auto;
 		opacity: 1;
 		position: relative;
-		-moz-transition:    opacity .4s ease-in-out;
-		-ms-transition:     opacity .4s ease-in-out;
-		-o-transition:      opacity .4s ease-in-out;
 		-webkit-transition: opacity .4s ease-in-out;
 		transition:         opacity .4s ease-in-out;
 		width: 100%;
@@ -5805,21 +5762,20 @@ div.soliloquy-container .slider-heading {
     font-weight: 800;
     font-size: 70px;
     opacity: 1;
-    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-    transform-origin: 50% 50% 0px;
+    -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+            transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    -webkit-transform-origin: 50% 50% 0px;
+            transform-origin: 50% 50% 0px;
 }
 
 div.soliloquy-container .soliloquy-caption  .soliloquy-caption-inside {
     display: -webkit-box;
-    display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-    -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
     -webkit-box-pack: center;
-    -webkit-justify-content: center;
         -ms-flex-pack: center;
             justify-content: center;
     padding-top: 10%;

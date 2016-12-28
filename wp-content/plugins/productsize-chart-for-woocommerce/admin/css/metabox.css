@@ -24,3 +24,23 @@
 	#chart-table,#chart-table-1,#chart-table-2{display:none;}
 	.select2-container{margin-top:20px !important;}
 	.title-wrap h2{font-size:20px !important; margin-left:0 !important; padding-left:0 !important}
+    #productsize-chart-meta-fields #field-image{position: relative;}
+    #productsize-chart-meta-fields #field-image ._img_remove {
+     display: block;
+    font-size: 2.5em;
+    height: 1em;
+    width: 1em;
+    text-align: center;
+    line-height: 1;
+    border-radius: 100%;
+    background: red!important;
+    text-decoration: none;
+    font-weight: 700;
+    border: 0;
+    cursor: pointer;
+    position: absolute;
+    top: -16px;
+    left: 0px;
+    font-weight: bold;
+    color: #ffffff;
+}

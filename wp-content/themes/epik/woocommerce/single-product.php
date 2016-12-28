@@ -107,22 +107,6 @@ add_action( 'wp_enqueue_scripts', function() {
 			);
 
 		}
-
-		wp_enqueue_script(
-			'magnifik',
-			CHILD_VENDOR_JS_DIR . '/magnifik.js',
-			[ 'jquery' ],
-			CHILD_THEME_VERSION,
-			true
-		);
-
-		wp_add_inline_script(
-			'magnifik',
-			'jQuery(document).ready(function($){
-				$("a.magnifik").magnifik()
-			});'
-		);
-
 	}
 });
 

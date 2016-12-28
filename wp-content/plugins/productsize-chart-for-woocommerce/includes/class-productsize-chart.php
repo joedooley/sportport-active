@@ -22,7 +22,7 @@ class productsize_chart {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Plugin_Name_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var       productsize-chart_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -56,7 +56,7 @@ class productsize_chart {
 	public function __construct() {
 
 		$this->plugin_name = 'productsize-chart-for-woocommerce';
-		$this->version = '1.0.0';
+		$this->version = '1.0.5';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -70,10 +70,10 @@ class productsize_chart {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Plugin_Name_Loader. Orchestrates the hooks of the plugin.
-	 * - Plugin_Name_i18n. Defines internationalization functionality.
-	 * - Plugin_Name_Admin. Defines all hooks for the admin area.
-	 * - Plugin_Name_Public. Defines all hooks for the public side of the site.
+	 * -  productsize-chart_Loader. Orchestrates the hooks of the plugin.
+	 * -  productsize-chart_i18n. Defines internationalization functionality.
+	 * -  productsize-chart_Admin. Defines all hooks for the admin area.
+	 * -  productsize-chart_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -113,7 +113,7 @@ class productsize_chart {
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Plugin_Name_i18n class in order to set the domain and to register the hook
+	 * Uses the  productsize-chart_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0

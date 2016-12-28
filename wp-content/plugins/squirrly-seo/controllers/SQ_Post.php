@@ -204,15 +204,16 @@ class SQ_Post extends SQ_FrontController {
         $args['author'] = (int)SQ_Tools::getUserID();
         $args['post_id'] = $post_id;
 
+
         if (SQ_Tools::$options['sq_force_savepost'] == 1) {
-            SQ_Action::apiCall('sq/seo/post', $args, 1);
+            SQ_Action::apiCall('sq/seo/post', $args, 10);
         } else {
             $process = array();
             if (get_transient('sq_seopost') !== false) {
                 $process = json_decode(get_transient('sq_seopost'), true);
             }
-            $process[] = $args;
-            $process = array_reverse($process);
+            //Add args at the beginning of the process
+            array_unshift($process, $args);
 
             //save for later send to api
             set_transient('sq_seopost', json_encode($process));
@@ -220,7 +221,7 @@ class SQ_Post extends SQ_FrontController {
             //prevent lost posts if there are not processed
             if (count($process) > 5){
                 SQ_Tools::saveOptions('sq_force_savepost', 1);
-                $this->processCron();
+                SQ_Action::apiCall('sq/seo/post', $args, 10);
             }
 
             if (get_transient('sq_seopost') !== false) {

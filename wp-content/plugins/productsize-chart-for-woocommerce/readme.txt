@@ -2,8 +2,8 @@
 Contributors: Nabaraj Chapagain
 Tags: Size Chart for Woocommerce, Product Chart for Woocommerce, Size Chart, Product Chart 
 Requires at least: 4.0
-Tested up to: 4.4.1
-Stable tag: 1.0.4
+Tested up to: 4.7
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,7 +47,7 @@ Decide whether you wanna show the chart as modal pop up or additional chart.
 1. Upload the plugin to the '/wp-content/plugins/' directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Add chart from "Charts" menu at the left hand side menu bar
-4. Manage default setting through Woocommerce > NC Size Chart settings
+4. Manage default setting through Size Chart >  settings
 
 
 

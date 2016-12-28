@@ -137,6 +137,12 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
 
 == Changelog ==
+= 6.2.6 =
+* Fixed Canonical link for facebook Open Graph
+* Don't show the Canonical Link if Squirrly SEO is off
+* Fixed keyword saving on post update
+* Happy New Year!
+
 = 6.2.5 =
 * Added Instagram and Pinterest in Social Json-LD
 * Fixed the connection issue in some cases when a keyword is modified
