@@ -1,0 +1,20 @@
+/*! ## Woo-Swatches
+------------------------------- */
+
+body.woocommerce ul.products li.product a img {
+	margin-bottom: 0.5em;
+}
+
+body.woocommerce ul.products li.product h3 {
+	margin-top: 0.5em;
+}
+
+.shopswatchinput {
+	border-bottom: 1px solid $white;
+	text-align: center;
+
+	div.wcvashopswatchlabel {
+		border: 0;
+		outline: 0;
+	}
+}

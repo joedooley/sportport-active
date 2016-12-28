@@ -3094,7 +3094,6 @@ body.woocommerce div.woocommerce-message div.wrap {
     font-weight: bold;
     height: 0;
     line-height: 1;
-    margin-bottom: 2em;
     text-align: center;
     text-transform: lowercase;
     width: 100%; }
@@ -3929,4 +3928,19 @@ div.gform_wrapper .gform_footer input[type="submit"] {
 
 .rf-recommendations a {
   color: #333 !important; }
+
+/*! ## Woo-Swatches
+------------------------------- */
+body.woocommerce ul.products li.product a img {
+  margin-bottom: 0.5em; }
+
+body.woocommerce ul.products li.product h3 {
+  margin-top: 0.5em; }
+
+.shopswatchinput {
+  border-bottom: 1px solid white;
+  text-align: center; }
+  .shopswatchinput div.wcvashopswatchlabel {
+    border: 0;
+    outline: 0; }
 /*# sourceMappingURL=style.css.map */

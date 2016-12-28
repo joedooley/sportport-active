@@ -156,9 +156,9 @@ add_action( 'get_header', function () {
  * @param $title string
  * @return $title string
  */
-add_filter( 'the_title', function( $title ) {
-	return is_shop() || is_front_page() || is_product_taxonomy() ? wp_trim_words( $title, 2 ) : $title;
-} );
+//add_filter( 'the_title', function( $title ) {
+//	return is_shop() || is_front_page() || is_product_taxonomy() ? wp_trim_words( $title, 2 ) : $title;
+//} );
 
 
 

@@ -34,19 +34,10 @@ define( 'CHILD_JS_DIR', get_stylesheet_directory_uri() . '/dist/js/custom' );
 define( 'CHILD_VENDOR_JS_DIR', get_stylesheet_directory_uri() . '/dist/js/vendors' );
 
 
-add_theme_support( 'genesis-connect-woocommerce' );
-
-
 /**
- * Add link to Mercury Amp Converter for AmpHtml
- *
- * @link https://mercury.postlight.com/amp-converter/
+ * Enable WooCommerce support.
  */
-add_action( 'genesis_meta', function () {
-	if ( is_single() ) {
-		echo '<link rel="amphtml" href="https://mercury.postlight.com/amp?url=' . urlencode(get_the_permalink()) . '">';
-	}
-} );
+add_theme_support( 'genesis-connect-woocommerce' );
 
 
 /**
@@ -55,3 +46,7 @@ add_action( 'genesis_meta', function () {
 add_filter( 'facetwp_enable_product_variations', '__return_true' );
 
 
+/**
+ * Show admin bar
+ */
+add_filter( 'show_admin_bar', '__return_true' );
