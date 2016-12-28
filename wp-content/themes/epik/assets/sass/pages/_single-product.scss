@@ -136,12 +136,8 @@ body.single-product {
 	}
 
 	// Color Swatches
-	.label > label {
-		display: none;
-	}
-
 	.value {
-		width: 100%;
+		width: 90%;
 	}
 
 	.variations tr {
@@ -305,7 +301,6 @@ body.single-product div.product div.images .attachment-shop_thumbnail {
 }
 
 body.woocommerce div.product form.cart .variations label {
-	color: #567;
 
 	select {
 		font-size: em(16);

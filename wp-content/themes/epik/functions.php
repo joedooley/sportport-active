@@ -49,4 +49,8 @@ add_filter( 'facetwp_enable_product_variations', '__return_true' );
 /**
  * Show admin bar
  */
-add_filter( 'show_admin_bar', '__return_true' );
+if ( current_user_can( 'manage_options' ) ) {
+
+	add_filter( 'show_admin_bar', '__return_true' );
+
+}1

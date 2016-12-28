@@ -3372,10 +3372,8 @@ body.single-product {
     color: #222;
     font-family: open_sans_condensedbold, sans-serif;
     font-size: 1.5em; }
-  body.single-product .label > label {
-    display: none; }
   body.single-product .value {
-    width: 100%; }
+    width: 90%; }
   body.single-product .variations tr {
     border-bottom: 1px solid #cacaca; }
   body.single-product div.radio-select li {
@@ -3483,11 +3481,9 @@ body.single-product div.product div.images .attachment-shop_thumbnail {
   display: inline;
   width: auto; }
 
-body.woocommerce div.product form.cart .variations label {
-  color: #567; }
-  body.woocommerce div.product form.cart .variations label select {
-    font-size: 1em;
-    min-width: 0; }
+body.woocommerce div.product form.cart .variations label select {
+  font-size: 1em;
+  min-width: 0; }
 
 body.woocommerce div.product form.cart .woocommerce-variation-description p,
 body.woocommerce .quantity .qty {
