@@ -156,9 +156,9 @@ add_action( 'get_header', function () {
  * @param $title string
  * @return $title string
  */
-add_filter( 'the_title', function( $title ) {
-	return is_shop() || is_front_page() || is_product_taxonomy() ? wp_trim_words( $title, 2 ) : $title;
-} );
+//add_filter( 'the_title', function( $title ) {
+//	return is_shop() || is_front_page() || is_product_taxonomy() ? wp_trim_words( $title, 2 ) : $title;
+//} );
 
 
 
@@ -192,5 +192,4 @@ function fwpis_custom_attributes_content( $attributes ) {
 }
 
 
-add_filter( 'loop_shop_per_page', create_function( '$cols', 'return 8;' ), 20 );
-
+add_filter( 'loop_shop_per_page', create_function( '$cols', 'return 20;' ), 20 );

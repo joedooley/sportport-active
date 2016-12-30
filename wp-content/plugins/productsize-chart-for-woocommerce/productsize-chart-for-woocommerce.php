@@ -4,7 +4,7 @@
  * @wordpress-plugin
  * Plugin Name:       NC Size Chart for Woocommerce
  * Description:       This plugin allow you to use size charts to products on woocommerce.
- * Version:           1.0.4
+ * Version:           1.0.5
  * Author:            Nabaraj Chapagain
  * Author URI:        http://ncplugins.com
  * License:           GPL-2.0+

@@ -27,9 +27,40 @@ function spa_scripts_styles() {
 		CHILD_THEME_VERSION
 	);
 
+	if ( is_product() || is_cart() ) {
+		wp_enqueue_script(
+			'increment-decrement',
+			CHILD_JS_DIR . '/single/input-increment-decrement.js',
+			[ 'jquery' ],
+			CHILD_THEME_VERSION,
+			true
+		);
+	}
+
+	if ( is_product_taxonomy() || is_shop() ) {
+
+		wp_enqueue_script(
+			'match-height',
+			CHILD_VENDOR_JS_DIR . '/match-height.js',
+			[ 'jquery' ],
+			CHILD_THEME_VERSION,
+			true
+		);
+
+		wp_add_inline_script( 'match-height',
+			'jQuery(document).ready(function($){
+			$(".product").matchHeight();
+			});'
+		);
+
+	}
+
+
+
+
 	wp_enqueue_script(
-		'spa-all-js',
-		CHILD_URL . '/dist/js/all.js',
+		'spa-site-js',
+		CHILD_JS_DIR . '/site.js',
 		[ 'jquery' ],
 		CHILD_THEME_VERSION,
 		true
@@ -41,7 +72,7 @@ function spa_scripts_styles() {
 	];
 
 	wp_localize_script(
-		'spa-all-js',
+		'spa-site-js',
 		'DigitalL10n',
 		$output
 	);

@@ -22,11 +22,8 @@ jQuery(function ($) {
 
 		if (window.matchMedia("(min-width: 1024px)").matches) {
 
-			//Set Media Query
-			//if (Modernizr.mq('only screen and (min-width: 769px)')) {
-
-			//set left height
-			$('.images').height(leftHeight);
+			//set left height yeah
+			$('.images').height(leftHeight) ;
 
 			//set image height
 			$('.product-img-box').height(imageHeight);
@@ -36,12 +33,12 @@ jQuery(function ($) {
 			if (footerTop < currScroll + winHeight - scrollHeight) {
 				$('.images').css({
 					'position': 'absolute',
-					'top': footerTop - leftHeight - scrollHeight - 15
+					'top'     : footerTop - leftHeight - scrollHeight - 15
 				});
 			} else {
 				$('.images').css({
 					'position': 'fixed',
-					'top': scrollHeight > currScroll ? scrollHeight - currScroll : 0
+					'top'     : scrollHeight > currScroll ? scrollHeight - currScroll : 0
 				});
 			}
 
@@ -57,15 +54,15 @@ jQuery(function ($) {
 	}
 
 
-		$(window).on('resize', positionProduct);
+	$(window).on('resize', positionProduct);
 
-		$(window).load(function () {
-			setTimeout(positionProduct, 200);
-		});
+	$(window).load(function () {
+		setTimeout(positionProduct, 200);
+	});
 
-		$(window).on('scroll', function (e) {
-			positionProduct(e);
-		});
+	$(window).on('scroll', function (e) {
+		positionProduct(e);
+	});
 
 
 });

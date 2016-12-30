@@ -3,7 +3,7 @@
 Plugin Name: WP Retina 2x
 Plugin URI: http://meowapps.com
 Description: Make your website look beautiful and crisp on modern displays by creating + displaying retina images. WP 4.4 is also supported and enhanced.
-Version: 4.7.5
+Version: 4.7.6
 Author: Jordy Meow
 Author URI: http://meowapps.com
 Text Domain: wp-retina-2x
@@ -26,7 +26,7 @@ Originally developed for two of my websites:
  *
  */
 
-$wr2x_version = '4.7.5';
+$wr2x_version = '4.7.6';
 $wr2x_retinajs = '2.0.0';
 $wr2x_picturefill = '3.0.2';
 $wr2x_lazysizes = '2.0.3';
@@ -815,14 +815,12 @@ function wr2x_is_debug() {
 	if ( $debug == -1 ) {
 		$debug = get_option( "wr2x_debug" );
 	}
-	return $debug && $debug == "on";
+	return !!$debug;
 }
 
 function wr2x_log( $data, $isExtra = false ) {
 	global $wr2x_extra_debug;
-	if ( $isExtra && !$wr2x_extra_debug )
-		return;
-	if ( !$isExtra && !wr2x_is_debug() )
+	if ( !wr2x_is_debug() )
 		return;
 	$fh = fopen( trailingslashit( WP_PLUGIN_DIR ) . 'wp-retina-2x/wp-retina-2x.log', 'a' );
 	$date = date( "Y-m-d H:i:s" );

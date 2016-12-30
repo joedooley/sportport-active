@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: retina, images, image, responsive, lazysizes, lazy, attachment, media, files, iphone, ipad, high-dpi
 Requires at least: 3.5
 Tested up to: 4.7
-Stable tag: 4.7.5
+Stable tag: 4.7.6
 
 Make your website look beautiful and crisp on modern displays by creating and displaying retina images. WP 4.4+ is also supported and enhanced.
 
@@ -33,6 +33,10 @@ More information and tutorial available one http://meowapps.com/wp-retina-2x/.
 3. Check if it works! - if it doesn't, read the FAQ, the tutorial, and check the forums.
 
 == Changelog ==
+
+= 4.7.6 =
+* Fix: Issue with Pro being non-Pro outside of WP Admin.
+* Fix: Retina debugging file was not being created properly.
 
 = 4.7.5 =
 * Fix: Don't delete the full-size Retina if we re-generate.

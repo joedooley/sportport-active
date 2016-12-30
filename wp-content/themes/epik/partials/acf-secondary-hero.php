@@ -16,7 +16,7 @@ $add_overlay = get_sub_field( 'add_overlay_content' );
 $hero_overlay  = get_sub_field( 'hero_overlay' );
 
 wp_localize_script(
-	'backstretch-set',
+	'backstretch',
 	'SecondaryBackstretchHero',
 	[
 		'secondary_hero' => $sec_hero_image['url'],

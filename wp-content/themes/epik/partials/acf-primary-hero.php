@@ -15,7 +15,7 @@ $add_hero_heading = get_sub_field( 'add_hero_heading' );
 $add_two_buttons  = get_sub_field( 'add_two_buttons' );
 
 wp_localize_script(
-	'backstretch-set',
+	'backstretch',
 	'PrimaryBackstretchHero',
 	[
 		'primary_hero' => $hero_image['url'],

@@ -498,11 +498,10 @@ class Model_SQ_Frontend {
      * @return string
      */
     private function setCanonical() {
-
-        if ($this->url) {
+        if ($url = $this->getCanonicalUrl(true)) {
             remove_action('wp_head', 'rel_canonical');
 
-            return sprintf("<link rel=\"canonical\" href=\"%s\" />", $this->url) . "\n";
+            return sprintf("<link rel=\"canonical\" href=\"%s\" />", $url) . "\n";
         }
 
         return '';
@@ -1583,25 +1582,23 @@ src='https://www.facebook.com/tr?id=%s&ev=PageView&noscript=1'
      *
      * @return string
      */
-    public function getCanonicalUrl() {
+    public function getCanonicalUrl($external = false) {
         global $wp_query;
-
-        if (isset($this->url)) {
-            return $this->url;
-        }
 
         if (!isset($wp_query) || is_404() || is_search()) {
             return false;
         }
 
-        if (isset($this->post->ID) && $link = $this->getAdvancedMeta($this->post->ID, 'canonical')) {
-            if ($link <> '') {
-                return apply_filters('sq_canonical', $link);
+        //If external is TRUE, get the original canonical link set
+        if ($external) {
+            if (isset($this->post->ID) && $link = $this->getAdvancedMeta($this->post->ID, 'canonical')) {
+                if ($link <> '') {
+                    return apply_filters('sq_canonical', $link);
+                }
             }
         }
 
         $haspost = (count($wp_query->posts) > 0);
-        $has_ut = function_exists('user_trailingslashit');
 
         if (get_query_var('m') <> '') {
             $m = preg_replace('/[^0-9]/', '', get_query_var('m'));
