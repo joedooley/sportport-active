@@ -98,7 +98,7 @@ function spa_conditionally_load_woc_js_css() {
 
 	if ( function_exists( 'spa_conditionally_load_woc_js_css' ) ) {
 
-		if ( ! is_woocommerce() && ! is_cart() && ! is_checkout() ) {
+		if ( ! is_woocommerce() && ! is_cart() && ! is_checkout() && ! is_single() ) {
 
 			wp_dequeue_script( 'woocommerce' );
 			wp_dequeue_script( 'wc-add-to-cart' );
