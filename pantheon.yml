@@ -3,38 +3,27 @@ api_version: 1
 php_version: 5.6
 
 workflows:
-
   # Cloudflare - Clear cache on code commits
-  clear_cache:
-    after:
-      - type: webphp
-        description: Cloudflare Cache
-        script: private/scripts/cloudflare_cache.php
+    clear_cache:
+      after:
+        - type: webphp
+          description: Cloudflare Cache
+          script: private/scripts/cloudflare_cache.php
 
-  # Slack - Add notifications to SPA Deployments channel in Slack
-  deploy_product:
-    after:
+    # Code Sync: Making Magic Happen With Each Commit
+    sync_code:
+      after:
         - type: webphp
-          description: Post to Slack after site creation
-          script: private/scripts/slack_notification.php
-  create_cloud_development_environment:
-    after:
+          description: posting to Slack about the commit
+          script: private/scripts/slack_after_code_push.php
+
+    # Deploy: Making Magic Happen in the Test Environment
+    deploy:
+      before:
         - type: webphp
-          description: Post to Slack after Multidev creation
+          description: posting to Slack about the deployment
           script: private/scripts/slack_notification.php
-  deploy:
-    after:
-        - type: webphp
-          description: Post to Slack after deploy
-          script: private/scripts/slack_notification.php
-  sync_code:
-    after:
-        - type: webphp
-          description: Post to Slack after code commit
-          script: private/scripts/slack_notification.php
-  clear_cache:
-    after:
-        - type: webphp
-          description: Someone is clearing the cache again
-          script: private/scripts/slack_notification.php
+
+
+
 
