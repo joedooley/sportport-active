@@ -2874,7 +2874,8 @@ body.woocommerce div.woocommerce-message div.wrap {
 .home .featured-products {
   max-width: 68em;
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto;
+  padding: 0 0 2em; }
   .home .featured-products::after {
     clear: both;
     content: "";
@@ -2931,6 +2932,8 @@ body.woocommerce div.woocommerce-message div.wrap {
     text-align: center;
     text-transform: uppercase;
     width: 100%; }
+  .home .featured-products .woocommerce-Price-amount {
+    font-size: 13px; }
   .home .featured-products .price {
     padding-top: 5px;
     padding-right: 5px;

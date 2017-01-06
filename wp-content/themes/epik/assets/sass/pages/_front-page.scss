@@ -91,6 +91,7 @@
 	// ACF Field - Full Row - Featured Products
 	.featured-products {
 		@include outer-container();
+		@include padding(0 0 2em);
 
 		@include media($xlarge-screen-up) {
 			@include padding(0 1em);
@@ -135,6 +136,10 @@
 			text-align: center;
 			text-transform: uppercase;
 			width: 100%;
+		}
+
+		.woocommerce-Price-amount {
+			font-size: 13px;
 		}
 
 		.price {
