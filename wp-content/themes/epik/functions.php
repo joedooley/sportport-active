@@ -53,4 +53,4 @@ if ( current_user_can( 'manage_options' ) ) {
 
 	add_filter( 'show_admin_bar', '__return_true' );
 
-}1
+}

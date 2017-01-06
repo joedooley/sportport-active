@@ -55,17 +55,19 @@ class FacetWP_API
         $valid_facets = array();
         $facets = array();
 
-        // Set default "posts_per_page" and "paged"
-        if ( empty( $params['query_args']['posts_per_page'] ) ) {
-            $params['query_args']['posts_per_page'] = 10;
-        }
+        // Validate input
+        $page = (int) $params['query_args']['paged'];
+        $per_page = (int) $params['query_args']['posts_per_page'];
 
-        if ( empty( $params['query_args']['paged'] ) ) {
-            $params['query_args']['paged'] = 1;
-        }
+        $page = max( $page, 1 );
+        $per_page = ( 0 === $per_page ) ? 10 : $per_page;
+        $per_page = ( -1 > $per_page ) ? absint( $per_page ) : $per_page;
 
-        // Validate facets and set FWP()->facet->facets
-        // The latter is required by FWP()->helper->facet_setting_exists()
+        $params['query_args']['paged'] = $page;
+        $params['query_args']['posts_per_page'] = $per_page;
+
+        // Generate FWP()->facet->facets
+        // Required by FWP()->helper->facet_setting_exists()
         foreach ( $params['facets'] as $facet_name => $facet_value ) {
             $facet = FWP()->helper->get_facet_by_name( $facet_name );
             if ( false !== $facet ) {
@@ -116,19 +118,35 @@ class FacetWP_API
                 $facet_data['choices'] = $choices;
             }
 
+            // Load facet settings if available
+            if ( method_exists( $facet_types[ $facet['type'] ], 'settings_js' ) ) {
+                $facet_data['settings'] = $facet_types[ $facet['type'] ]->settings_js( $args );
+            }
+
             $facets[ $facet_name ] = $facet_data;
         }
 
-        $page = (int) $params['query_args']['paged'];
-        $per_page = (int) $params['query_args']['posts_per_page'];
         $total_rows = count( $post_ids );
-        $total_pages = ceil( $total_rows / $per_page );
-        $offset = ( $per_page * ( $page - 1 ) );
-        $results = array_slice( $post_ids, $offset, $per_page );
+
+        // Paginate?
+        if ( 0 < $per_page ) {
+            $total_pages = ceil( $total_rows / $per_page );
+
+            if ( $page > $total_pages ) {
+                $post_ids = array();
+            }
+            else {
+                $offset = ( $per_page * ( $page - 1 ) );
+                $post_ids = array_slice( $post_ids, $offset, $per_page );
+            }
+        }
+        else {
+            $total_pages = ( 0 < $total_rows ) ? 1 : 0;
+        }
 
         // Generate the output
         $output = array(
-            'results' => $results,
+            'results' => $post_ids,
             'facets' => $facets,
             'pager' => array(
                 'page' => $page,

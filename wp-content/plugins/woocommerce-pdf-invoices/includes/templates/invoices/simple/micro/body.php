@@ -40,7 +40,7 @@ $is_theme_text_black = $this->template_options['bewpi_theme_text_black'];
 </table>
 <?php echo $this->outlining_columns_html(); ?>
 <table class="products small-font">
-	<tbody>
+	<thead>
 	<tr class="table-headers">
 		<!-- Description -->
 		<th class="align-left"><?php _e( 'Description', 'woocommerce-pdf-invoices' ); ?></th>
@@ -72,6 +72,8 @@ $is_theme_text_black = $this->template_options['bewpi_theme_text_black'];
 		<!-- Total -->
 		<th class="align-right"><?php _e( 'Total', 'woocommerce-pdf-invoices' ); ?></th>
 	</tr>
+	</thead>
+	<tbody>
 	<!-- Products -->
 	<?php foreach( $this->order->get_items( 'line_item' ) as $item_id => $item ) {
 		$product = wc_get_product( $item['product_id'] ); ?>
@@ -89,8 +91,11 @@ $is_theme_text_black = $this->template_options['bewpi_theme_text_black'];
 					'_line_subtotal_tax',
 					'_line_total',
 					'_line_tax',
-					'_wc_cog_item_cost', '_wc_cog_item_total_cost' // "WooCommerce Cost of Goods" plugin only hides within admin.
+					'_wc_cog_item_cost',
+					'_wc_cog_item_total_cost',
 				) );
+
+				$hidden_order_itemmeta = apply_filters( 'bewpi_hidden_order_itemmeta', $hidden_order_itemmeta );
 
 				if ( $metadata = $this->order->has_meta( $item_id ) ) {
 					foreach ( $metadata as $meta ) {
@@ -200,8 +205,6 @@ $is_theme_text_black = $this->template_options['bewpi_theme_text_black'];
 	<tr class="space">
 		<td colspan="<?php echo $this->columns_count; ?>"></td>
 	</tr>
-	</tbody>
-	<tfoot>
 	<!-- Table footers -->
 	<!-- Discount -->
 	<?php if( $this->template_options['bewpi_show_discount'] && $this->order->get_total_discount() !== 0.00 ) { ?>
@@ -286,7 +289,7 @@ $is_theme_text_black = $this->template_options['bewpi_theme_text_black'];
 			<td colspan="<?php echo $this->colspan['right_right']; ?>" class="refunded align-right"><?php echo '-' . wc_price( $this->order->get_total_refunded(), array( 'currency' => $this->order->get_order_currency() ) ); ?></td>
 		</tr>
 	<?php } ?>
-	</tfoot>
+	</thead>
 </table>
 <table id="terms-notes">
 	<!-- Notes & terms -->

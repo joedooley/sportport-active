@@ -296,7 +296,9 @@ class FacetWP_Integration_WooCommerce
         $post_id = (int) $defaults['post_id'];
         $post_type = get_post_type( $post_id );
 
-        if ( 'product' == $post_type || 'product_variation' == $post_type ) {
+        // Index out of stock products?
+        $index_all = apply_filters( 'facetwp_index_all_products', false );
+        if ( ! $index_all && ( 'product' == $post_type || 'product_variation' == $post_type ) ) {
             $product = wc_get_product( $post_id );
             if ( ! $product->is_in_stock() ) {
                 return true; // skip
@@ -307,10 +309,14 @@ class FacetWP_Integration_WooCommerce
             return $return;
         }
 
-        // Ignore product attributes for variable products
+        // Ignore product attributes with "Used for variations" ticked
         if ( 0 === strpos( $facet['source'], 'tax/pa_' ) ) {
             if ( $product->is_type( 'variable' ) ) {
-                return true; // skip
+                $attrs = $product->get_attributes();
+                $attr_name = str_replace( 'tax/', '', $facet['source'] );
+                if ( isset( $attrs[ $attr_name ] ) && 1 === $attrs[ $attr_name ]['is_variation'] ) {
+                    return true; // skip
+                }
             }
         }
 
