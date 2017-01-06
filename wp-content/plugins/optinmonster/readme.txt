@@ -160,6 +160,9 @@ OptinMonster is the <a href="http://optinmonster.com" rel="friend" title="OptinM
 
 == Changelog ==
 
+= 1.1.6.1 =
+* General plugin enhancements and bug fixes.
+
 = 1.1.6 =
 * Compatibility updates for WordPress 4.7.
 

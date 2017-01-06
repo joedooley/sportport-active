@@ -212,6 +212,18 @@ FWP.builder = {
                         <input type="text" style="width:50px" class="facetwp-setting" data-name="decimal_separator" />
                     </td>
                 </tr>
+                <tr>
+                    <td style="width:175px; vertical-align:top">
+                        <?php _e( 'Loading Animation', 'fwp' ); ?>
+                    </td>
+                    <td>
+                        <select class="facetwp-setting" data-name="loading_animation">
+                            <option value=""><?php _e( 'Spin', 'fwp' ); ?></option>
+                            <option value="fade"><?php _e( 'Fade', 'fwp' ); ?></option>
+                            <option value="none"><?php _e( 'None', 'fwp' ); ?></option>
+                        </select>
+                    </td>
+                </tr>
             </table>
 
             <!-- Migration -->

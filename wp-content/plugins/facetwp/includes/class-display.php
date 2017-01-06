@@ -108,6 +108,9 @@ class FacetWP_Display
                 $http_params['archive_args'] = FWP()->facet->archive_args;
             }
 
+            // Set the loading animation
+            $this->json['loading_animation'] = FWP()->helper->get_setting( 'loading_animation' );
+
             ob_start();
 
             foreach ( $this->active_types as $type ) {

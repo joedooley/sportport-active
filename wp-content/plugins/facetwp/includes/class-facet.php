@@ -112,7 +112,7 @@ class FacetWP_Facet
         }
 
         // Sort the results by relevancy
-        if ( $this->is_search && 'default' == $sort_value ) {
+        if ( $this->is_search && 'default' == $sort_value && empty( $this->http_params['get']['orderby'] ) ) {
             $this->query_args['orderby'] = 'post__in';
         }
 

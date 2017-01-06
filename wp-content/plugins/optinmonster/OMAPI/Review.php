@@ -85,17 +85,19 @@ class OMAPI_Review {
 
 		// Set our object.
 		$this->set();
-		// Scripts
-		add_action('admin_enqueue_scripts', array($this, 'maybe_enqueue_pointer') );
-		add_action('admin_enqueue_scripts', array($this, 'maybe_enqueue_reminder_pointer') );
-		// Options
-		add_action('wp_ajax_set_omapi_review_reminder', array($this, 'set_user_review_reminder') );
+
 		// Pages
-		add_action('admin_menu', array($this, 'register_review_page') );
+		add_action( 'admin_menu', array( $this, 'register_review_page' ) );
+
 		// Action
-		add_action( 'admin_post_omapi_send_review', array( $this, 'omapi_send_review') );
+		add_action( 'admin_post_omapi_send_review', array( $this, 'omapi_send_review' ) );
+
+		// Review Notices
+		add_action( 'admin_notices', array( $this, 'review' ) );
+		add_action( 'wp_ajax_omapi_dismiss_review', array( $this, 'dismiss_review' ) );
+
 		// Admin Notices
-		add_action('admin_notices', array($this, 'notices') );
+		add_action( 'admin_notices', array( $this, 'notices' ) );
 
 	}
 
@@ -172,10 +174,9 @@ class OMAPI_Review {
 	 */
 	public function footer( $text ) {
 
-		$new_text = sprintf( __( 'Thank you for using <a href="%1$s" target="_blank">OptinMonster</a>!', 'optin-monster-api' ),
-			'http://optinmonster.com'
-		);
-		return str_replace( '</span>', '', $text ) . ' | ' . $new_text . '</span>';
+		$url  = 'https://wordpress.org/support/plugin/optinmonster/reviews?filter=5#new-post';
+		$text = sprintf( __( 'Please rate <strong>OptinMonster</strong> <a href="%s" target="_blank" rel="noopener">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%s" target="_blank">WordPress.org</a> to help us spread the word. Thank you from the OptinMonster team!', 'optin-monster-api' ), $url, $url );
+		return $text;
 
 	}
 
@@ -359,9 +360,6 @@ class OMAPI_Review {
 
 		$message = isset($action_query) ? $action_query : 'success';
 
-		// Stop the review pointers from showing since they tried submitting a valid form
-		$this->dismiss_all_the_pointers();
-
 		// Update array
 		$data_array['status'] = 'finished';
 
@@ -374,283 +372,118 @@ class OMAPI_Review {
 	}
 
 	/**
-	 * Maybe add in our pointer
+	 * Add admin notices as needed for reviews.
 	 *
-	 * @since 1.1.4.5
-	 * @param $hook_suffix
+	 * @since 1.1.6.1
 	 */
-	public function maybe_enqueue_pointer( $hook_suffix ) {
-
-		$enqueue_pointer_script_style = false;
-
-		$current_screen = get_current_screen();
-		$show_on = array('dashboard', 'plugins', 'toplevel_page_optin-monster-api-settings' );
-
-		if(  ! in_array( $current_screen->id, $show_on ) ) {
-			return;
-		}
-
-		// If no API credentials have been entered, hide the notice.
+	public function review() {
+		// Verify API credentials have been set.
 		if ( ! $this->base->get_api_credentials() ) {
 			return;
 		}
 
-		// Get array list of dismissed pointers for current user and convert it to array
-		$dismissed_pointers = explode( ',', get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
+		// Verify that we can do a check for reviews.
+		$review = get_option( 'omapi_review' );
+		$time	= time();
+		$load	= false;
 
-		// Check if our pointer is not among dismissed ones and that the user should see this
-		if( !in_array( 'omapi_review_pointer', $dismissed_pointers ) && current_user_can('activate_plugins')  ) {
-			$time = get_user_meta( get_current_user_id(), '_om_pointer_time', true );
-			if ( ! $time ) {
-				update_user_meta( get_current_user_id(), '_om_pointer_time', strtotime( '+1 week' ) );
-				return;
-			} else {
-				// Don't enqueue if it hasn't been a week.
-				if ( $time > time() ) {
-					return;
-				}
+		if ( ! $review ) {
+			$review = array(
+				'time' 		=> $time,
+				'dismissed' => false
+			);
+			$load = true;
+		} else {
+			// Check if it has been dismissed or not.
+			if ( (isset( $review['dismissed'] ) && ! $review['dismissed']) && (isset( $review['time'] ) && (($review['time'] + DAY_IN_SECONDS) <= $time)) ) {
+				$load = true;
 			}
-
-			$enqueue_pointer_script_style = true;
-
-			// Add footer scripts using callback function
-			add_action( 'admin_print_footer_scripts', array( $this, 'pointer_review_content') );
 		}
 
-		// Enqueue pointer CSS and JS files, if needed
-		if( $enqueue_pointer_script_style ) {
-			wp_enqueue_style( 'wp-pointer' );
-			wp_enqueue_script( 'wp-pointer' );
-		}
-
-	}
-
-	/**
-	 * Maybe add in our reminder pointer
-	 *
-	 * @since 1.1.4.5
-	 * @param $hook_suffix
-	 */
-	public function maybe_enqueue_reminder_pointer( $hook_suffix ) {
-
-		$enqueue_pointer_script_style = false;
-
-		$current_screen = get_current_screen();
-		$show_on = array('dashboard', 'plugins', 'toplevel_page_optin-monster-api-settings' );
-
-		if(  ! in_array( $current_screen->id, $show_on ) ) {
+		// If we cannot load, return early.
+		if ( ! $load ) {
 			return;
 		}
 
-		$reminder_time = get_user_meta( get_current_user_id(), 'omapi_reminder', true );
-		if ( $reminder_time === '') {
+		// Update the review option now.
+		update_option( 'omapi_review', $review );
+
+		// Run through optins on the site to see if any have been loaded for more than a week.
+		$valid	= false;
+		$optins = $this->base->get_optins();
+		if ( ! $optins ) {
 			return;
 		}
 
-		// Get array list of dismissed pointers for current user and convert it to array
-		$dismissed_pointers = explode( ',', get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
-
-		// Make sure the initial pointer has been viewed and user still has permissions
-		if( in_array( 'omapi_review_pointer', $dismissed_pointers ) && !in_array( 'omapi_reminder_pointer', $dismissed_pointers) && current_user_can('activate_plugins')  ) {
-
-			if ( current_time('timestamp') > $reminder_time ) {
-				$enqueue_pointer_script_style = true;
-
-				// Add footer scripts using callback function
-				add_action( 'admin_print_footer_scripts', array( $this, 'pointer_review_content_reminder') );
+		foreach ( $optins as $optin ) {
+			// Verify the optin has been enabled.
+			$enabled = get_post_meta( $optin->ID, '_omapi_enabled', true );
+			if ( ! $enabled ) {
+				continue;
 			}
 
+			// Check the creation date of the local optin. It must be at least one week after.
+			$created = isset( $optin->post_date ) ? strtotime( $optin->post_date ) + (7 * DAY_IN_SECONDS) : false;
+			if ( ! $created ) {
+				continue;
+			}
+
+			if ( $created <= $time ) {
+				$valid = true;
+				break;
+			}
 		}
 
-		// Enqueue pointer CSS and JS files, if needed
-		if( $enqueue_pointer_script_style ) {
-			wp_enqueue_style( 'wp-pointer' );
-			wp_enqueue_script( 'wp-pointer' );
+		// If we don't have a valid optin yet, return.
+		if ( ! $valid ) {
+			return;
 		}
 
-	}
-
-	/**
-	 * Ask for OptinMonster review
-	 *
-	 * @since 1.1.4.5
-	 */
-	public function pointer_review_content() {
-
-		$pointer_content  = '<h3 class="omapi-pointer_review">' . __( 'Rate OptinMonster', 'optin-monster-api' ) . '</h3>';
-		$pointer_content .= '<p><strong>' . __("Thank you for using OptinMonster.","optin-monster-api") . '</strong></p>';
-		$pointer_content .= '<p>' . __("Would you mind taking a moment to rate it? It wont take more than two minutes.", "optin-monster-api") . '</p>';
-		$pointer_content .= '<p><strong>' . __("Thanks for your support!", "optin-monster-api") . '</strong></p>';
-		$pointer_content .= '<p><a class="button button-primary button-hero omapi-pointer_button" href="' . esc_url_raw( admin_url( 'admin.php?page=optin-monster-api-review' ) ) . '">' . __("Rate OptinMonster Now","optin-monster-api") . '</a></p>';
-		$pointer_content .= '<p><a id="omapi-pointer_remind-me-later" class="button button-secondary button-hero omapi-pointer_button" href="#" >' . __("Remind me later","optin-monster-api") . '</a></p>';
-		$nothanks = __( 'No, thanks', 'optin-monster-api' );
+		// We have a candidate! Output a review message.
 		?>
-
+		<div class="notice notice-info is-dismissible om-review-notice">
+			<p><?php _e( 'Hey, I noticed you have been using OptinMonster for 7 days now - that\'s awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? This will help us spread the word and boost our motivation - thanks!', 'optin-monster-api' ); ?></p>
+			<p><strong><?php _e( '~ Syed Balkhi<br>Co-Founder of OptinMonster', 'optin-monster-api' ); ?></strong></p>
+			<p>
+				<a href="https://wordpress.org/support/plugin/optinmonster/reviews?filter=5#new-post" class="om-dismiss-review-notice om-review-out" target="_blank" rel="noopener"><?php _e( 'Ok, you deserve it', 'optin-monster-api' ); ?></a><br>
+				<a href="#" class="om-dismiss-review-notice" target="_blank" rel="noopener"><?php _e( 'Nope, maybe later', 'optin-monster-api' ); ?></a><br>
+				<a href="#" class="om-dismiss-review-notice" target="_blank" rel="noopener"><?php _e( 'I already did', 'optin-monster-api' ); ?></a><br>
+			</p>
+		</div>
 		<script type="text/javascript">
 			jQuery(document).ready( function($) {
-				var nothanks = '<?php echo $nothanks; ?>';
-				$('#toplevel_page_optin-monster-api-settings').pointer({
-					content: '<?php echo $pointer_content; ?>',
-					position: {
-						edge: 'left',
-						align: 'middle'
-					},
-					pointerWidth:	270,
-					buttons: function( event, t ) {
-						var button = $('<a class="close omapi-pointer_close-override" href="#">' + nothanks + '</a>');
-
-						return button.bind( 'click.pointer', function(e) {
-							e.preventDefault();
-							t.element.pointer('close');
-						});
-					},
-					close: function() {
-						$.post( ajaxurl, {
-							pointer: 'omapi_review_pointer',
-							action: 'dismiss-wp-pointer'
-						});
+				$(document).on('click', '.om-dismiss-review-notice, .om-review-notice button', function( event ) {
+					if ( ! $(this).hasClass('om-review-out') ) {
+						event.preventDefault();
 					}
-				}).pointer('open');
 
-				$('#omapi-pointer_remind-me-later').click(function( event ) {
-					event.preventDefault();
-					//Set the pointer to be closed for this user
 					$.post( ajaxurl, {
-						pointer: 'omapi_review_pointer',
-						action: 'dismiss-wp-pointer'
+						action: 'omapi_dismiss_review'
 					});
-					$.post( ajaxurl, {
-						omapi_reminder: 'omapi_review_pointer',
-						action: 'set_omapi_review_reminder'
-					});
-					$('#omapi-pointer_remind-me-later').parents('.wp-pointer').remove();
+
+					$('.om-review-notice').remove();
 				});
 			});
 		</script>
-		<style type="text/css">
-			.wp-pointer-content h3.omapi-pointer_review {
-				background: #0085BA;
-			}
-			.wp-pointer-content h3.omapi-pointer_review::before {
-				content: "\f529";
-				color: #fff;
-				background: transparent;
-			}
-			.wp-pointer-content .omapi-pointer_button {
-				width: 100%;
-				text-align: center;
-			}
-			.wp-pointer-buttons .close.omapi-pointer_close-override {
-				float: left;
-				margin-left: 15px;
-			}
-		</style>
-	<?php
+		<?php
 	}
 
 	/**
-	 * Requested reminder to review OptinMonster
+	 * Dismiss the review nag
 	 *
-	 * @since 1.1.4.5
+	 * @since 1.1.6.1
 	 */
-	public function pointer_review_content_reminder(){
+	public function dismiss_review() {
+		$review = get_option( 'omapi_review' );
+		if ( ! $review ) {
+			$review = array();
+		}
 
-		$pointer_content  = '<h3 class="omapi-pointer_review">' . __( 'Rate OptinMonster', 'optin-monster-api' ) . '</h3>';
-		$pointer_content .= '<p><strong>' . __("Thank you for using OptinMonster.","optin-monster-api") . '</strong></p>';
-		$pointer_content .= '<p>' . __("You asked to be reminded to review OptinMonster.","optin-monster-api") . '</p>';
-		$pointer_content .= '<p><strong>' . __("Thanks for your support!","optin-monster-api") . '</strong></p>';
-		$pointer_content .= '<p><a id="omapi-pointer_review-now" class="button button-primary button-hero omapi-pointer_button" href="' . esc_url_raw( admin_url( 'admin.php?page=optin-monster-api-review' ) ) . '">' . __("Rate OptinMonster Now","optin-monster-api") . '</a></p>';
-		$pointer_content .= '<p><a id="omapi-pointer_remind-me-later" class="button button-secondary button-hero omapi-pointer_button" href="#" >' . __("Remind me later","optin-monster-api") . '</a></p>';
-		$nothanks = __( 'No, thanks', 'optin-monster-api' );
-		?>
+		$review['time'] 	 = time();
+		$review['dismissed'] = true;
 
-		<script type="text/javascript">
-			jQuery(document).ready( function($) {
-				var nothanks = '<?php echo $nothanks; ?>';
-				$('#toplevel_page_optin-monster-api-settings').pointer({
-					content: '<?php echo $pointer_content; ?>',
-					position: {
-						edge: 'left',
-						align: 'middle'
-					},
-					pointerWidth:	270,
-					buttons: function( event, t ) {
-						var button = $('<a class="close omapi-pointer_close-override" href="#">' + nothanks + '</a>');
-
-						return button.bind( 'click.pointer', function(e) {
-							e.preventDefault();
-							t.element.pointer('close');
-						});
-					},
-					close: function() {
-						$.post( ajaxurl, {
-							pointer: 'omapi_reminder_pointer',
-							action: 'dismiss-wp-pointer'
-						});
-					}
-				}).pointer('open');
-
-				$('#omapi-pointer_remind-me-later').click(function( event ) {
-					event.preventDefault();
-					$.post( ajaxurl, {
-						omapi_reminder: 'omapi_review_pointer',
-						action: 'set_omapi_review_reminder'
-					});
-					$('#omapi-pointer_remind-me-later').parents('.wp-pointer').remove();
-				});
-
-				$('#omapi-pointer_review-now').click(function( event ) {
-					event.preventDefault();
-					$.post( ajaxurl, {
-						omapi_reminder: 'omapi_review_pointer',
-						action: 'set_omapi_review_reminder'
-					});
-					//Set the pointer to be closed for this user
-					$.post( ajaxurl, {
-						pointer: 'omapi_review_pointer',
-						action: 'dismiss-wp-pointer'
-					});
-					$('#omapi-pointer_remind-me-later').parents('.wp-pointer').remove();
-				});
-			});
-		</script>
-		<style type="text/css">
-			.wp-pointer-content h3.omapi-pointer_review {
-				background: #0085BA;
-			}
-			.wp-pointer-content h3.omapi-pointer_review::before {
-				content: "\f529";
-				color: #fff;
-				background: transparent;
-			}
-			.wp-pointer-content .omapi-pointer_button {
-				width: 100%;
-				text-align: center;
-			}
-			.wp-pointer-buttons .close.omapi-pointer_close-override {
-				float: left;
-				margin-left: 15px;
-			}
-		</style>
-	<?php
-
-	}
-
-	/**
-	 * Set the review reminder user_meta
-	 *
-	 * @since 1.1.4.5
-	 */
-	public function set_user_review_reminder() {
-
-		//set reminder time 1 week from now
-		$reminder_time = (int) strtotime("+1 week");
-
-		//update user_meta with request
-		update_user_meta( get_current_user_id(), 'omapi_reminder', $reminder_time);
-
-		wp_die();
-
+		update_option( 'omapi_review', $review );
+		die;
 	}
 
 	/**
@@ -673,24 +506,6 @@ class OMAPI_Review {
 		if ( 'required-fields' === $_GET['action'] ) {
 			echo '<div class="error is-dismissible"><p>' . __( 'Your Name, Review, and Email address are required to submit your review.', 'optin-monster-api' ) . '</p></div>';
 		}
-
-	}
-
-	/**
-	 * Add all review pointers as read for current user
-	 *
-	 * @since 1.1.4.5
-	 *
-	 */
-	public function dismiss_all_the_pointers() {
-
-		$dismissed = array_filter( explode( ',', (string) get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) ) );
-		$review_pointers = array('omapi_review_pointer', 'omapi_reminder_pointer');
-
-		$dismissed = array_merge( $dismissed, $review_pointers);
-		$dismissed = implode( ',', $dismissed);
-
-		update_user_meta( get_current_user_id(), 'dismissed_wp_pointers', $dismissed );
 
 	}
 

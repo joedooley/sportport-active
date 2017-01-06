@@ -192,4 +192,13 @@ function fwpis_custom_attributes_content( $attributes ) {
 }
 
 
+/**
+ * Product archive columns
+ */
 add_filter( 'loop_shop_per_page', create_function( '$cols', 'return 20;' ), 20 );
+
+
+/**
+ * Remove on sale badges in loop
+ */
+add_filter( 'woocommerce_sale_flash', __return_false() );

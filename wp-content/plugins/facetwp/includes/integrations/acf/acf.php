@@ -271,7 +271,10 @@ class FacetWP_Integration_ACF
 
         foreach ( $field_groups as $field_group ) {
             $fields = acf_get_fields( $field_group );
-            $this->recursive_get_fields( $fields, $field_group );
+
+            if ( ! empty( $fields ) ) {
+                $this->recursive_get_fields( $fields, $field_group );
+            }
         }
 
         return $this->fields;
@@ -288,6 +291,7 @@ class FacetWP_Integration_ACF
         $class = new facetwp_acf_field_group();
 
         $field_groups = $class->get_field_groups( array() );
+
         foreach ( $field_groups as $field_group ) {
             $fields = $class->get_fields( array(), $field_group['id'] );
             $this->recursive_get_fields( $fields, $field_group );

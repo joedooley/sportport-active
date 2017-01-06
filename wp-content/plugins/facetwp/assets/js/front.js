@@ -171,7 +171,25 @@ var FWP = FWP || {};
 
 
     FWP.loading_handler = function(args) {
-        args.element.html('<div class="facetwp-loading"></div>');
+        if ('fade' == FWP_JSON.loading_animation) {
+            if (! FWP.loaded) {
+                var $el = args.element;
+                $(document).on('facetwp-refresh', function() {
+                    $el.prepend('<div class="facetwp-overlay">');
+                    $el.find('.facetwp-overlay').css({
+                        width: $el.width(),
+                        height: $el.height()
+                    });
+                });
+
+                $(document).on('facetwp-loaded', function() {
+                    $el.find('.facetwp-overlay').remove();
+                });
+            }
+        }
+        else if ('' == FWP_JSON.loading_animation) {
+            args.element.html('<div class="facetwp-loading"></div>');
+        }
     }
 
 
@@ -213,6 +231,13 @@ var FWP = FWP || {};
         if (history.pushState) {
             history.pushState(null, null, window.location.pathname + query_string);
         }
+
+        // Update FWP_HTTP.get
+        FWP_HTTP.get = {};
+        window.location.search.replace('?', '').split('&').forEach(function(el) {
+            var item = el.split('=');
+            FWP_HTTP.get[item[0]] = item[1];
+        });
     }
 
 

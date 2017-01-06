@@ -3,8 +3,8 @@ Contributors: baaaaas
 Donate link: 
 Tags: woocommerce pdf invoices, invoice, generate, pdf, woocommerce, attachment, email, completed order, customer invoice, processing order, attach, automatic, vat, rate, sequential, number
 Requires at least: 4.0
-Tested up to: 4.6
-Stable tag: 2.4.13
+Tested up to: 4.7
+Stable tag: 2.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,26 +13,25 @@ Automatically generate and attach customizable PDF Invoices to WooCommerce email
 == Description ==
 *Invoicing can be time consuming. Well, not anymore! WooCommerce PDF Invoices automates the invoicing process by generating and sending it to your customers.*
 
-This WooCommerce plugin generates PDF invoices, attaches it to the WooCommerce email type of your choice and sends invoices to your customers and Dropbox, Google Drive, OneDrive or Egnyte. The clean and customizable template will definitely suit your needs.
+This WooCommerce plugin generates PDF invoices, attaches it to WooCommerce email types of your choice and sends invoices to your customers and Dropbox, Google Drive, OneDrive or Egnyte. The clean and customizable template will definitely suit your needs.
 
 = Main features =
-- Automatic PDF invoice generation and attachment
-- Manually create or delete PDF invoice
-- Attach PDF invoice to WooCommerce email type of your choice
-- Connect with Google Drive, Egnyte, Dropbox or OneDrive
-- Clean PDF Invoice template with with many customization options
-- WooCommerce order numbering or built-in sequential invoice numbering
-- Many invoice and date format customization options
-- Advanced items table with refunds, discounts, different item tax rates columns and more
-- Resend PDF invoices to customer
-- Download invoice from customer account
-- Mark invoices as paid
+- Automatic PDF invoice generation and attachment.
+- Manually create or delete PDF invoice.
+- Attach PDF invoice to multiple WooCommerce email types of your choice.
+- Connect with Google Drive, Egnyte, Dropbox or OneDrive.
+- Clean PDF Invoice template with with many customization options.
+- WooCommerce order numbering or built-in sequential invoice numbering.
+- Many invoice and date format customization options.
+- Advanced items table with refunds, discounts, different item tax rates columns and more.
+- Download invoice from My Account page.
+- Mark invoices as paid.
 
 > **WooCommerce PDF Invoices Premium**<br /><br />
-> This plugin offers a premium version wich comes with the following features:<br /><br />
-> - Periodically bill by generating and sending global invoices.<br />
-> - Add additional PDF's to customer invoices.<br />
-> - Send customer invoices directly to suppliers and others.<br />
+> This plugin offers a premium version which comes with the following features:<br /><br />
+> - Periodically bill by generating and sending global invoices<br />
+> - Add additional PDF files to customer invoices.<br />
+> - Send customer invoices directly to multiple recipients like suppliers.<br />
 > - Compatible with [WooCommerce Subscriptions](http://www.woothemes.com/products/woocommerce-subscriptions) plugin emails.<br /><br />
 > [Upgrade to WooCommerce PDF Invoices Premium >>](http://wcpdfinvoices.com)
 
@@ -97,14 +96,22 @@ add_action( 'woocommerce_cart_calculate_fees','add_woocommerce_fee' );
 To hide order item meta from the invoice, simply add the following filter to your themes `functions.php`.
 
 `
-function add_hidden_order_items( $order_items ) {
-    $order_items[] = '_subscription_interval';
-    $order_items[] = '_subscription_length';
-    // end so on...
-
-    return $order_items;
+/**
+ * Hide order itemmeta on WooCommerce PDF Invoices' invoice template.
+ *
+ * @param array $hidden_order_itemmeta itemmeta.
+ *
+ * @return array
+ */
+function bewpi_alter_hidden_order_itemmeta( $hidden_order_itemmeta ) {
+	$hidden_order_itemmeta[] = '_wc_cog_item_cost';
+	$hidden_order_itemmeta[] = '_wc_cog_item_total_cost';
+	$hidden_order_itemmeta[] = '_subscription_interval';
+    $hidden_order_itemmeta[] = '_subscription_length';
+	// end so on..
+	return $hidden_order_itemmeta;
 }
-add_filter( 'woocommerce_hidden_order_itemmeta', 'add_hidden_order_items' );
+add_filter( 'bewpi_hidden_order_itemmeta', 'bewpi_alter_hidden_order_itemmeta', 10, 1 );
 `
 
 #### How to change the common PDF options?
@@ -171,36 +178,14 @@ function convert_company_logo_to_base64( $company_logo_path ) {
 add_filter( 'bewpi_company_logo_url', 'convert_company_logo_to_base64' );
 `
 
-#### How to remove 'Paid' watermark based on specific order statuses?
-By default the 'Paid' watermark won't display for 'Pending', 'On-Hold' and 'Auto-Draft' statuses.
-
-`
-function bewpi_paid_watermark_excluded_order_statuses($order_statuses, $order_id){
-    // add (short) name of order status to exclude
-    return array('pending', 'on-hold', 'auto-draft');
-}
-add_filter('bewpi_paid_watermark_excluded_order_statuses', 'bewpi_paid_watermark_excluded_order_statuses', 10, 2);
-`
-
-#### How to remove 'Paid' watermark based on specific payment methods?
-By default 'BACS', 'Cash on Delivery' and 'Cheque' payment methods are excluded, so the invoice won't get marked as paid.
-
-`
-function exclude_payment_method_for_watermark($payment_methods, $order_id){
-    // add (short) name of payment method to exclude
-    return array('bacs', 'cod', 'cheque', 'paypal');
-}
-add_filter('bewpi_paid_watermark_excluded_payment_methods', 'exclude_payment_method_for_watermark', 10, 2);
-`
-
 #### How to skip invoice generation based on specific payment methods?
 Add the name of the payment method to the array.
 
 `
-function bewpi_attach_invoice_excluded_payment_methods($payment_methods) {
-    return array('bacs', 'cod', 'cheque', 'paypal');
+function bewpi_attach_invoice_excluded_payment_methods( $payment_methods ) {
+    return array( 'bacs', 'cod', 'cheque', 'paypal' );
 }
-add_filter('bewpi_attach_invoice_excluded_payment_methods', 'bewpi_attach_invoice_excluded_payment_methods', 10, 2);
+add_filter( 'bewpi_attach_invoice_excluded_payment_methods', 'bewpi_attach_invoice_excluded_payment_methods', 10, 2 );
 `
 
 #### How to allow specific roles to download invoice?
@@ -210,10 +195,10 @@ Add the name of the role to the array. By default shop managers and administrato
 function bewpi_allowed_roles_to_download_invoice($allowed_roles) {
     // available roles: shop_manager, customer, contributor, author, editor, administrator
     $allowed_roles[] = "editor";
-
+    // end so on..
     return $allowed_roles;
 }
-add_filter('bewpi_allowed_roles_to_download_invoice', 'bewpi_allowed_roles_to_download_invoice', 10, 2);
+add_filter( 'bewpi_allowed_roles_to_download_invoice', 'bewpi_allowed_roles_to_download_invoice', 10, 2 );
 `
 
 ### How to alter formatted invoice number? ###
@@ -221,17 +206,39 @@ Add following filter function to your functions.php within your theme.
 
 `
 function alter_formatted_invoice_number( $formatted_invoice_number, $invoice_type ) {
-   if ( $invoice_type === 'global' ) {
-      // add M for global invoices
+   if ( $invoice_type === 'global' ) { // simple or global.
+      // add M for global invoices.
       return 'M' . $formatted_invoice_number;
    }
-Filter to alter formatted invoice number.
    return $formatted_invoice_number;
 }
-add_filter('bewpi_formatted_invoice_number', 'alter_formatted_invoice_number', 10, 2);
+add_filter( 'bewpi_formatted_invoice_number', 'alter_formatted_invoice_number', 10, 2 );
 `
 
 == Changelog ==
+
+= 2.5.2 - January 5, 2017 =
+
+- Fixed: "Expression is not allowed as class constant value" due to PHP versions older then 5.6.
+
+= 2.5.1 - January 5, 2017 =
+
+- Fixed: "Warning: array_merge(): Argument #2 is not an array" by casting empty get_option to array.
+- Fixed: "Parse error: syntax error, unexpected T_OBJECT_OPERATOR" by not using class member access on instantiation.
+
+= 2.5.0 - January 5, 2017 =
+
+- Added: Invoice number column on Shop Order page.
+- Added: Czech Republic language files thanks to Stanislav Cihak.
+- Improved: All language files.
+- Improved: Overall code from BE_WooCommerce_PDF_Invoices class and Settings classes by following WordPress Coding Standards and removing unnecessary variables, functions etc. (long way to go but it's a start)
+- Improved: Email attachment option with multiple checkboxes to attach invoice to multiple email types.
+- Improved: Admin notices by using transients and did some separation of concern by creating a new class file for admin notices.
+- Fixed: Fatal error "tfoot must appear before tbody" by deleting tfoot and added thead so the header will appear on multiple pages. The tfoot does not need to be on all pages.
+- Fixed: Not sending email when there are multiple BCC headers.
+- Fixed: Hidden order itemmeta hiding on admin pages by adding custom filter "bewpi_hidden_order_itemmeta".
+- Fixed: Activation admin notice keeps displaying when redirected to different page.
+- Removed: Filters 'bewpi_paid_watermark_excluded_payment_methods' and 'bewpi_paid_watermark_excluded_order_statuses', because there is no reason to show watermark based on order status or payment method. Watermark should only be displayed when order has been paid for, so order status should be Processing or Completed. Using WooCommerce' "is_paid" function to achieve this.
 
 = 2.4.13 - December 5, 2016 =
 

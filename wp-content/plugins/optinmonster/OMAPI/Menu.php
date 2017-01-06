@@ -337,10 +337,9 @@ class OMAPI_Menu {
      */
     public function footer( $text ) {
 
-        $new_text = sprintf( __( 'Thank you for using <a href="%1$s" target="_blank">OptinMonster</a>!', 'optin-monster-api' ),
-			'http://optinmonster.com'
-		);
-		return str_replace( '</span>', '', $text ) . ' | ' . $new_text . '</span>';
+	    $url  = 'https://wordpress.org/support/plugin/optinmonster/reviews?filter=5#new-post';
+		$text = sprintf( __( 'Please rate <strong>OptinMonster</strong> <a href="%s" target="_blank" rel="noopener">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%s" target="_blank">WordPress.org</a> to help us spread the word. Thank you from the OptinMonster team!', 'optin-monster-api' ), $url, $url );
+		return $text;
 
     }
 
