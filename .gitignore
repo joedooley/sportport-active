@@ -76,3 +76,4 @@ Thumbs.db
 # Kalabox #
 ###########
 wp-content/.unison.*
+/wp-content/themes/epik/node_modules/

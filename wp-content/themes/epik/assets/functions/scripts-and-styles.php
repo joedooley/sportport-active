@@ -37,7 +37,7 @@ function spa_scripts_styles() {
 		);
 	}
 
-	if ( is_product_taxonomy() || is_shop() ) {
+	if ( is_product_taxonomy() || is_shop() || is_front_page() || is_single() ) {
 
 		wp_enqueue_script(
 			'match-height',
