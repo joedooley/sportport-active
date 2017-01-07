@@ -37,18 +37,25 @@ function spa_add_theme_support() {
 	 */
 	add_action( 'wp_enqueue_scripts', 'spa_scripts_styles' );
 
-	//* Remove the site description
+	/**
+	 * Remove the site description
+	 */
 	remove_action( 'genesis_site_description', 'genesis_seo_site_description' );
 
-	//* Remove header right widget area
+	/**
+	 * Unregister sidebars and layouts
+	 */
 	unregister_sidebar( 'header-right' );
+	genesis_unregister_layout( 'content-sidebar-sidebar' );
+	genesis_unregister_layout( 'sidebar-sidebar-content' );
+	genesis_unregister_layout( 'sidebar-content-sidebar' );
 
-	//* Reposition secondary navigation menu
+
+	/**
+	 * Reposition secondary navigation menu
+	 */
 	remove_action( 'genesis_after_header', 'genesis_do_nav' );
 	add_action( 'genesis_header', 'genesis_do_nav', 12 );
-
-	// Remove Page/Post Edit Links
-	add_filter( 'genesis_edit_post_link', '__return_false' );
 
 	/**
 	 * Load Internationalization File
