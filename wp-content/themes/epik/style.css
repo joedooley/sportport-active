@@ -3744,14 +3744,13 @@ input[type=number] {
 /*! ## WooCommerce Sizing Chart
 ------------------------------- */
 a#chart-button {
-  background-color: #fdab59;
-  border: 2px outset #ccc;
+  padding: 0;
+  background-color: transparent;
+  color: #fdab59;
   border-radius: 0;
-  font-size: 1.5em; }
+  font-size: 1em; }
   a#chart-button:hover {
-    background-color: #ff9933; }
-  a#chart-button:active {
-    border-style: inset; }
+    background: transparent; }
 
 /* --------------------------------- *       # Simple Social Icons #
 \* --------------------------------- */
