@@ -22,7 +22,6 @@ function spa_add_theme_support() {
 
 	add_theme_support( 'html5' );
 	add_theme_support( 'genesis-responsive-viewport' );
-	add_theme_support( 'custom-background' );
 
 	add_theme_support( 'genesis-structural-wraps', array(
 		'header',
@@ -33,8 +32,9 @@ function spa_add_theme_support() {
 		'footer',
 	) );
 
-
-
+	/**
+	 * Enqueue site assets
+	 */
 	add_action( 'wp_enqueue_scripts', 'spa_scripts_styles' );
 
 	//* Remove the site description
@@ -60,14 +60,16 @@ function spa_add_theme_support() {
 	 */
 	add_action( 'widgets_init', 'check_inn_systems_register_widgets' );
 
-
-//* Remove the entry meta in the entry header (requires HTML5 theme support)
+	/**
+	 * Remove the entry meta in the entry header
+	 */
 	remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
 
+	/**
+	 * Remove inpost layout settings
+	 */
+	remove_theme_support( 'genesis-inpost-layouts' );
 }
-
-
-
 
 
 /**
