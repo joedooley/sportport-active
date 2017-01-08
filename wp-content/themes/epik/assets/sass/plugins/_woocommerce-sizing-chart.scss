@@ -2,16 +2,13 @@
 ------------------------------- */
 
 a#chart-button {
-	background-color: $orange;
-	border: 2px outset #ccc;
+	@include padding(0);
+	background-color: transparent;
+	color: $orange;
 	border-radius: 0;
-	font-size: 1.5em;
+	font-size: 1em;
 
 	&:hover {
-		background-color: $orange-hover;
-	}
-
-	&:active {
-		border-style: inset;
+		background: transparent;
 	}
 }
