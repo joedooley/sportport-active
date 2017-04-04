@@ -286,7 +286,7 @@
 </div>
 
 <script>
-    jQuery('.sq_analytics_tasks_video_cover').unbind('click').bind('click', function () {
+    jQuery('.sq_analytics_tasks_video_cover').off('click').on('click', function () {
         jQuery(this).html('<object width="280" height="158"><param name="movie" value="https://www.youtube.com/v/' + jQuery(this).attr('rel') + ((jQuery(this).attr('rel').indexOf('?') != -1) ? '&' : '?') + 'version=3&amp;hl=en_US&amp;autoplay=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="https://www.youtube.com/v/' + jQuery(this).attr('rel') + ((jQuery(this).attr('rel').indexOf('?') != -1) ? '&' : '?') + 'version=3&amp;hl=en_US&amp;autoplay=1" type="application/x-shockwave-flash" width="280" height="158" allowscriptaccess="always" allowfullscreen="true"></embed></object>');
     });
 </script>

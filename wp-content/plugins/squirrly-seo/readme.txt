@@ -17,7 +17,7 @@ Recommended by <strong><a href="http://www.quicksprout.com/university/how-to-max
 
 [youtube https://www.youtube.com/watch?v=mEjrE7TuDDc]
 
-See all the Squirrly SEO 2016 features at: http://howto.squirrly.co/category/sides/
+See all the Squirrly SEO 2017 features at: http://howto.squirrly.co/category/sides/
 
 Based on the topic you're writing about, the interface will light up green while you're editing your text, so that you know you've done something right. When all the lights are green, you can publish it, because your text has excellent SEO and it's 100% optimized.
 
@@ -134,9 +134,35 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 7. Seo - Check your Weekly Site Audit and improve to get higher scores
 
 == Upgrade Notice ==
-Squirrly 5.2.8 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
+Squirrly 6.2.8 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
 
 == Changelog ==
+= 6.3.1 =
+* Inform users with multiple active subscriptions
+* Updated terms and contitions
+* Added more links for support in the Feedback and Support sections
+* Fixed Facebook Admin ID for Profile and Pages
+* Changed the Theme for Squirrly SEO Settings and Advanced sections
+* Fixed Typos and Broken Links
+* Updated the Keyword Research for Long Tail Keyword
+
+* Optimized the loading speed in case of poor connection with the API
+* Pass the SSL issue for API calls
+* Fixed the Squirrly SEO Weekly audit for free users
+* Fixed Pay With a Tweet button
+* Added google.us in Ranking Option
+
+= 6.3.0 =
+* Updated the facebook and google tracking code
+* Improved the Faceboox Pixel Feature to work with Woocommerce
+* Corrected the google tracking code
+* Improved the comunication with the API server
+
+= 6.2.8 =
+* Fixed the Canonical link for some WP Themes
+* Added forced keyword update in Squirrly SEO Settings
+* Added a new Country in the Rank Option section
+
 = 6.2.6 =
 * Fixed Canonical link for facebook Open Graph
 * Don't show the Canonical Link if Squirrly SEO is off
@@ -374,7 +400,7 @@ For higher content marketing and SEO needs, you can check our Official Site and 
 == Frequently Asked Questions ==
 = I can't log into the Wordpress with my user. Get the message 'An error occured.' What can I do? =
 I see that your host server is not letting you to access our remote API.
-Please tell your web master to add the IPs 144.76.66.106 and 176.9.112.210 in the white-list for remote access and it should work.
+Please tell your web master to add the IPs 176.9.59.55 and 176.9.112.210 in the white-list for remote access and it should work.
 
 = How does Squirrly WordPress SEO Plugin work? =
 Neil Patel, the Co-Founder of Kissmetrics and Crazy Egg made a great video on how to use Squirrly's Live Assistant:

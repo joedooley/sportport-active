@@ -5,7 +5,7 @@
  * Description: OptinMonster API plugin to connect your WordPress site to your OptinMonster forms.
  * Author:		Thomas Griffin
  * Author URI:	https://thomasgriffin.io
- * Version:		1.1.6.1
+ * Version:		1.1.6.2
  * Text Domain: optin-monster-api
  * Domain Path: languages
  *
@@ -60,7 +60,7 @@ class OMAPI {
 	 *
 	 * @var string
 	 */
-	public $version = '1.1.6.1';
+	public $version = '1.1.6.2';
 
 	/**
 	 * The name of the plugin.

@@ -85,7 +85,8 @@ class SQ_Ranking extends SQ_FrontController
      */
     public function getGoogleRank()
     {
-        global $wpdb;
+
+        @ini_set('open_basedir', null);
         $this->error = '';
 
         if (trim($this->keyword) == '') {
@@ -229,7 +230,6 @@ class SQ_Ranking extends SQ_FrontController
 
         preg_match_all('/<h3.*?><a href="(.*?)".*?<\/h3>/is', $response, $matches);
 
-        SQ_Tools::dump($matches[1]);
         if (!empty($matches[1])) {
             $pos = -1;
             foreach ($matches[1] as $index => $url) {
@@ -251,8 +251,15 @@ class SQ_Ranking extends SQ_FrontController
     public function processCron()
     {
         global $wpdb;
-        if (get_transient('google_blocked') !== false) {
+
+        if (get_transient('google_blocked') !== false || SQ_Tools::$options['sq_google_ranksperhour'] == 0) {
             return;
+        }
+
+        if (isset($_SERVER['SERVER_ADDR'])){
+            if (strpos($_SERVER['SERVER_ADDR'], '192.') === 0){
+                return;
+            }
         }
         set_time_limit(3000);
         /* Load the Submit Actions Handler */

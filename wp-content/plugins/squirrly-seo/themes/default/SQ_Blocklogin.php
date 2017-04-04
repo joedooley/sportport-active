@@ -17,13 +17,16 @@
         <div id="sq_autologin" align="center">
             <div class="sq_error"></div>
             <span id="sq_register"><?php _e('Enter your email', _SQ_PLUGIN_NAME_); ?></span><span id="sq_register_wait"></span>
-            <div id="sq_register_email" ><label for="sq_email"><?php _e('Your Email:', _SQ_PLUGIN_NAME_); ?></label>
+            <div id="sq_register_email" >
+                <label for="sq_email"><?php _e('Your Email:', _SQ_PLUGIN_NAME_); ?></label>
                 <input type="text" id="sq_email" name="sq_email"  value="<?php
                 $current_user = wp_get_current_user();
                 echo $current_user->user_email;
                 ?>" />
+
             </div>
-            <div id="sq_loginimage"><?php _e('Sign Up', _SQ_PLUGIN_NAME_); ?></div>
+            <div id="sq_termsdiv"><input type="checkbox" id="sq_terms" style="height: 18px;width: 18px; margin: 0 10px;" /><?php echo sprintf(__('I Agree with the %sSquirrly Terms%s', _SQ_PLUGIN_NAME_),'<a href="http://www.squirrly.co/terms-of-use#page-block-lvtsrakgujgzxgvi" target="_blank" >','</a>'); ?></div>
+            <div id="sq_loginimage" style="opacity: 0.4"><?php _e('Sign Up', _SQ_PLUGIN_NAME_); ?></div>
             <div id="sq_signin"><?php _e('I already have an account', _SQ_PLUGIN_NAME_); ?></div>
             <span><?php _e('This email connects you to Squirrly.co', _SQ_PLUGIN_NAME_); ?></span>
 
@@ -39,7 +42,7 @@
         var __try_again = '<?php _e('Click on Sign Up button and try again ...', _SQ_PLUGIN_NAME_); ?>';
         var __error_login = '<?php _e('An error occured while logging in!', _SQ_PLUGIN_NAME_); ?>';
         var __connecting = '<?php _e('Connecting ...', _SQ_PLUGIN_NAME_); ?>';
-        jQuery('#sq_loginimage').bind('click', function () {
+        jQuery('#sq_loginimage').on('click', function () {
             sq_autoLogin();
         });
 

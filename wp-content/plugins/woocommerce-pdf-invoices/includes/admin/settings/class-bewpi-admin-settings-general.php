@@ -62,7 +62,7 @@ if ( ! class_exists( 'BEWPI_General_Settings' ) ) {
 						array(
 							'name'    => __( 'New order', 'woocommerce-pdf-invoices' ),
 							'value'   => 'new_order',
-							'default' => 0,
+							'default' => 1,
 						),
 						array(
 							'name'    => __( 'Order on-hold', 'woocommerce-pdf-invoices' ),
@@ -77,7 +77,7 @@ if ( ! class_exists( 'BEWPI_General_Settings' ) ) {
 						array(
 							'name'    => __( 'Completed order', 'woocommerce-pdf-invoices' ),
 							'value'   => 'customer_completed_order',
-							'default' => 0,
+							'default' => 1,
 						),
 						array(
 							'name'    => __( 'Customer invoice', 'woocommerce-pdf-invoices' ),
@@ -128,6 +128,21 @@ if ( ! class_exists( 'BEWPI_General_Settings' ) ) {
 							'disabled'  => 1,
 						),
 					),
+				),
+				array(
+					'id'       => 'bewpi-disable-free-products',
+					'name'     => self::PREFIX . 'disable_free_products',
+					'title'    => '',
+					'callback' => array( $this, 'input_callback' ),
+					'page'     => self::SETTINGS_KEY,
+					'section'  => 'email',
+					'type'     => 'checkbox',
+					'desc'     => __( 'Disable for free products', 'woocommerce-pdf-invoices' )
+					              . '<br/><div class="bewpi-notes">'
+					              . __( 'Skip automatic PDF invoice generation for orders containing only free products.', 'woocommerce-pdf-invoices' )
+					              . '</div>',
+					'class'    => 'bewpi-checkbox-option-title',
+					'default'  => 0,
 				),
 				array(
 					'id'       => 'bewpi-view-pdf',
@@ -199,7 +214,7 @@ if ( ! class_exists( 'BEWPI_General_Settings' ) ) {
 					'desc'     => __( 'Enable Invoice Number column' )
 					              . '<br/><div class="bewpi-notes">' . __( 'Display invoice numbers on Shop Order page.', 'woocommerce-pdf-invoices' ) . '</div>',
 					'class'    => 'bewpi-checkbox-option-title',
-					'default'  => 0,
+					'default'  => 1,
 				),
 				array(
 					'id'       => 'bewpi-mpdf-debug',
@@ -269,11 +284,18 @@ if ( ! class_exists( 'BEWPI_General_Settings' ) ) {
 		 * Adds all the different settings sections
 		 */
 		private function add_settings_sections() {
-			add_settings_section( 'email', __( 'Email Options', 'woocommerce-pdf-invoices' ), null, self::SETTINGS_KEY );
+			add_settings_section( 'email', __( 'Email Options', 'woocommerce-pdf-invoices' ), array( $this, 'email_options_section_description' ), self::SETTINGS_KEY );
 			add_settings_section( 'download', __( 'Download Options', 'woocommerce-pdf-invoices' ), null, self::SETTINGS_KEY );
 			add_settings_section( 'cloud_storage', __( 'Cloud Storage Options', 'woocommerce-pdf-invoices' ), array( $this, 'cloud_storage_desc_callback' ), self::SETTINGS_KEY );
 			add_settings_section( 'interface', __( 'Interface Options', 'woocommerce-pdf-invoices' ), null, self::SETTINGS_KEY );
 			add_settings_section( 'debug', __( 'Debug Options', 'woocommerce-pdf-invoices' ), null, self::SETTINGS_KEY );
+		}
+
+		/**
+		 * Description of section Email Options.
+		 */
+		public function email_options_section_description() {
+			printf( __( 'The PDF invoice will be generated when WooCommerce sends the corresponding email. The email should be <a href="%1$s">enabled</a> in order to <span class="underline">automatically</span> generate the PDF invoice.', 'woocommerce-pdf-invoices' ), 'admin.php?page=wc-settings&tab=email' );
 		}
 
 		/**

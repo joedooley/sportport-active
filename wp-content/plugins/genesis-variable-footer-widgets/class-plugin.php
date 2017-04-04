@@ -33,7 +33,7 @@ class Genesis_Simple_Footer_Widgets {
 	 *
 	 * @var string
 	 */
-	const VERSION = '1.1';
+	const VERSION = '1.2.1';
 
 	/**
 	 * The plugin's minimum WordPress requirement

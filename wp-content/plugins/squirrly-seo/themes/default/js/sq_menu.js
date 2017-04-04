@@ -7,73 +7,42 @@ if (jQuery('#sq_settings').length > 0) {
 }
 
 
-function ctl_setThemeColors(background, button, text) {
-    jQuery('#sq_settings fieldset').css('background-color', background);
-    jQuery('#sq_settings input[type="submit"]').css('background-color', button);
-    jQuery('#sq_settings input[type="submit"]').css('color', text);
-    jQuery('#sq_settings legend > span').css('color', text);
-    jQuery('#sq_settings legend label').css('color', text);
-    jQuery('#sq_settings_body fieldset legend > span a').css('color', text);
-
-}
-
 function sq_blockmenu() {
 ///////////////////////////////
 
     //Go to dashboard listener
-    jQuery("#sq_goto_dashboard").bind('click', function () {
+    jQuery(".sq_goto_dashboard").on('click', function () {
         location.href = "?page=sq_dashboard";
     });
 
-    jQuery('input[name=sq_update]').bind('click', function () {
+    jQuery('input[name=sq_update]').on('click', function () {
         jQuery('#sq_settings_form').submit();
     });
 
-    jQuery('input[name=sq_restore]').bind('click', function () {
+    jQuery('input[name=sq_restore]').on('click', function () {
         jQuery('.sq_settings_restore').show();
     });
 
-    jQuery('.sq_settings_restore').find('.sq_close').bind('click', function () {
+    jQuery('.sq_settings_restore').find('.sq_close').on('click', function () {
         jQuery('.sq_settings_restore').find('textarea').val('');
         jQuery('.sq_settings_restore').hide();
     });
 
-    //Go to settings listener
-    jQuery("#sq_goto_seo").bind('click', function () {
-        location.href = "?page=sq_seo";
-    });
-
-    //Go to settings listener
-    jQuery("#sq_goto_settings").bind('click', function () {
-        location.href = "?page=sq_settings";
-    });
-
-    //Set the squirrly seo style according to wp colors
-    var colorwait = setInterval(function () {
-        if (jQuery('#adminmenuback').is(':visible')) {
-            clearInterval(colorwait);
-
-            ctl_setThemeColors(jQuery('#adminmenuback').css('background-color')
-                    , jQuery('#adminmenu li.current a.menu-top').css('background-color')
-                    , jQuery('#adminmenu a').css('color'));
-        }
-
-    }, 100);
 
     //switch click
-    jQuery('#sq_settings_form').find('input[type=radio]').bind('change', function () {
+    jQuery('#sq_settings_form').find('input[type=radio]').on('change', function () {
         sq_submitSettings();
     });
 
     //Custom title/description
-    jQuery('#sq_customize').bind('click', function () {
+    jQuery('#sq_customize').on('click', function () {
         jQuery('#sq_customize_settings').show();
         jQuery('#sq_snippet_disclaimer').show();
         jQuery('#sq_title_description_keywords').addClass('sq_custom_title');
     });
 
     //Login
-    jQuery('.sq_login_link').bind('click', function () {
+    jQuery('.sq_login_link').on('click', function () {
         var previewtop = jQuery('#sq_settings_login').offset().top - 100;
         jQuery('html,body').animate({scrollTop: previewtop}, 1000);
     });
@@ -338,7 +307,7 @@ function checkResponse(response) {
     }
 }
 
-function showSaved(time) {
+function sq_showSaved(time) {
     jQuery("#sq_settings").prepend('<div class="sq_savenotice sq_absolute" ><span class="sq_success">Saved!</span></div>');
 
     if (typeof sq_help_reload == 'function') {

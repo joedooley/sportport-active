@@ -30,29 +30,33 @@ function sq_submitSettings() {
     });
 
     jQuery.post(
-            sqQuery.ajaxurl,
-            {
-                action: 'sq_settings_update',
-                sq_post_types: sq_post_types,
-                sq_keyword_help: jQuery('#sq_settings').find('input[name=sq_keyword_help]:checked').val(),
-                sq_keyword_information: jQuery('#sq_settings').find('input[name=sq_keyword_information]:checked').val(),
+        sqQuery.ajaxurl,
+        {
+            action: 'sq_settings_update',
+            sq_post_types: sq_post_types,
+            sq_keyword_help: jQuery('#sq_settings').find('input[name=sq_keyword_help]:checked').val(),
+            sq_keyword_information: jQuery('#sq_settings').find('input[name=sq_keyword_information]:checked').val(),
+            sq_force_savepost: jQuery('#sq_settings').find('input[name=sq_force_savepost]:checked').val(),
+
+
 // --
-                sq_google_country: jQuery('#sq_settings').find('select[name=sq_google_country] option:selected').val(),
-                sq_google_country_strict: jQuery('#sq_settings').find('input[name=sq_google_country_strict]:checked').val(),
-                sq_google_ranksperhour: jQuery('#sq_settings').find('select[name=sq_google_ranksperhour] option:selected').val(),
+            sq_google_country: jQuery('#sq_settings').find('select[name=sq_google_country] option:selected').val(),
+            sq_google_country_strict: jQuery('#sq_settings').find('input[name=sq_google_country_strict]:checked').val(),
+            sq_google_ranksperhour: jQuery('#sq_settings').find('select[name=sq_google_ranksperhour] option:selected').val(),
 // --
-                sq_sla: jQuery('#sq_settings').find('input[name=sq_sla]:checked').val(),
-                sq_keywordtag: jQuery('#sq_settings').find('input[name=sq_keywordtag]:checked').val(),
-                sq_local_images: jQuery('#sq_settings').find('input[name=sq_local_images]:checked').val(),
+            sq_sla: jQuery('#sq_settings').find('input[name=sq_sla]:checked').val(),
+            sq_keywordtag: jQuery('#sq_settings').find('input[name=sq_keywordtag]:checked').val(),
+            sq_local_images: jQuery('#sq_settings').find('input[name=sq_local_images]:checked').val(),
+            sq_url_fix: jQuery('#sq_settings').find('input[name=sq_url_fix]:checked').val(),
 // --
-                sq_google_wt: jQuery('#sq_settings').find('input[name=sq_google_wt]').val(),
-                sq_bing_wt: jQuery('#sq_settings').find('input[name=sq_bing_wt]').val(),
-                sq_alexa: jQuery('#sq_settings').find('input[name=sq_alexa]').val(),
+            sq_google_wt: jQuery('#sq_settings').find('input[name=sq_google_wt]').val(),
+            sq_bing_wt: jQuery('#sq_settings').find('input[name=sq_bing_wt]').val(),
+            sq_alexa: jQuery('#sq_settings').find('input[name=sq_alexa]').val(),
 // --
-                nonce: sqQuery.nonce
-            }
+            nonce: sqQuery.nonce
+        }
     ).done(function () {
-        showSaved(2000);
+        sq_showSaved(2000);
     }, 'json');
 
 }

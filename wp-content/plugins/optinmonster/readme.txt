@@ -160,6 +160,9 @@ OptinMonster is the <a href="http://optinmonster.com" rel="friend" title="OptinM
 
 == Changelog ==
 
+= 1.1.6.2 =
+* Fixed undefined index errors when API responses returned an error.
+
 = 1.1.6.1 =
 * General plugin enhancements and bug fixes.
 

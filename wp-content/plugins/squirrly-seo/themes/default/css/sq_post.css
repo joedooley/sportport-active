@@ -260,6 +260,7 @@
     display: block;
     height: 37px;
     width: 37px;
+    margin: 5px auto;
     background: transparent url('../img/sprite.png') no-repeat;
     border: none;
     cursor: pointer;
@@ -291,7 +292,7 @@
 #sq_options_support .sq_options_support_popup,
 #sq_options_feedback .sq_options_feedback_popup{
     display: table;
-    min-width: 245px;
+    min-width: 345px;
     position: absolute;
     z-index: 1002;
     background-color: white;
@@ -309,12 +310,18 @@
     cursor: default;
 }
 #sq_options_support .sq_options_support_popup{
-    left: -50px;
+    right: 0px;
 }
 #sq_options_feedback .sq_options_feedback_popup{
     left: -101px;
 }
 
+#sq_options_feedback table td{
+    text-align: center;
+    color: #999;
+    min-width: 50px;
+    height: 70px;
+}
 #sq_options_support .sq_options_support_popup li,
 #sq_options_feedback .sq_options_feedback_popup li{
     color: #333;
@@ -329,10 +336,11 @@
     margin: 6px 0;
 }
 #sq_options_feedback .sq_small_input{
-    width: 240px;
+    width: 100%;
+    height: 70px;
 }
 #sq_options_support .sq_small_input{
-    width: 225px;
+    width: 100%;
 }
 #sq_options_support .sq_options_support_popup #sq_support_submit,
 #sq_options_feedback .sq_options_feedback_popup #sq_feedback_submit{
@@ -373,8 +381,9 @@
 }
 
 #sq_facebook_b {
-    padding: 6px 0;
+    padding: 6px 50px;
     clear: both;
+    display: table;
 }
 #sq_facebook_b > span{
     display: block;

@@ -104,7 +104,7 @@ class SQ_Menu extends SQ_FrontController {
         ));
 
         $this->model->addSubmenu(array('sq_dashboard',
-            ucfirst(_SQ_NAME_) . __(' dashboard', _SQ_PLUGIN_NAME_),
+            ucfirst(_SQ_NAME_) . __(' Dashboard', _SQ_PLUGIN_NAME_),
             ( (SQ_Tools::$options['sq_api'] == '') ? __('First Step', _SQ_PLUGIN_NAME_) : __('Dashboard', _SQ_PLUGIN_NAME_)) . SQ_Tools::showNotices($dashboard_alert, 'errors_count'),
             'edit_posts',
             'sq_dashboard',
@@ -115,7 +115,7 @@ class SQ_Menu extends SQ_FrontController {
             //IF SERP PLUGIN IS NOT INSTALLED
             if (!class_exists('SRC_Classes_ObjController')){
                 $this->model->addSubmenu(array('sq_dashboard',
-                    ucfirst(_SQ_NAME_) . __(' post list', _SQ_PLUGIN_NAME_),
+                    ucfirst(_SQ_NAME_) . __(' Performance Analytics', _SQ_PLUGIN_NAME_),
                     __('Performance <br />Analytics', _SQ_PLUGIN_NAME_) . SQ_Tools::showNotices($analytics_alert, 'errors_count'),
                     'edit_posts',
                     'sq_posts',
@@ -126,23 +126,23 @@ class SQ_Menu extends SQ_FrontController {
 
 
             $this->model->addSubmenu(array('sq_dashboard',
-                ucfirst(_SQ_NAME_) . __(' settings', _SQ_PLUGIN_NAME_),
-                __('SEO', _SQ_PLUGIN_NAME_) . SQ_Tools::showNotices(SQ_Tools::$errors_count, 'errors_count'),
+                ucfirst(_SQ_NAME_) . __(' SEO Settings', _SQ_PLUGIN_NAME_),
+                __('SEO Settings', _SQ_PLUGIN_NAME_) . SQ_Tools::showNotices(SQ_Tools::$errors_count, 'errors_count'),
                 'manage_options',
                 'sq_seo',
                 array(SQ_ObjController::getBlock('SQ_BlockSettingsSeo'), 'init')
             ));
 
             $this->model->addSubmenu(array('sq_dashboard',
-                ucfirst(_SQ_NAME_) . __(' Settings', _SQ_PLUGIN_NAME_),
-                __('Settings', _SQ_PLUGIN_NAME_),
+                ucfirst(_SQ_NAME_) . __(' Advanced Settings', _SQ_PLUGIN_NAME_),
+                __('Advanced', _SQ_PLUGIN_NAME_),
                 'manage_options',
                 'sq_settings',
                 array(SQ_ObjController::getBlock('SQ_BlockSettings'), 'init')
             ));
 
             $this->model->addSubmenu(array('sq_dashboard',
-                ucfirst(_SQ_NAME_) . __(' account info', _SQ_PLUGIN_NAME_),
+                ucfirst(_SQ_NAME_) . __(' Account Info', _SQ_PLUGIN_NAME_),
                 __('Account Info', _SQ_PLUGIN_NAME_),
                 'manage_options',
                 'sq_account',
@@ -152,7 +152,7 @@ class SQ_Menu extends SQ_FrontController {
 
         $this->model->addSubmenu(array('sq_dashboard',
             __('Become an Affiliate with ', _SQ_PLUGIN_NAME_) . ucfirst(_SQ_NAME_),
-            __('Affiliate plan', _SQ_PLUGIN_NAME_),
+            __('Affiliate', _SQ_PLUGIN_NAME_),
             'manage_options',
             'sq_affiliate',
             array(SQ_ObjController::getBlock('SQ_BlockAffiliate'), 'init')

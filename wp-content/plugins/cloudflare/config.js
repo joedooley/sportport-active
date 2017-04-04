@@ -1,22 +1,7 @@
 {
     "debug": false, 
-    "featureManagerIsAlwaysOnlineEnabled": true, 
-    "featureManagerIsBrowserCacheTTLEnabled": true, 
-    "featureManagerIsBrowserIntegrityCheckEnabled": true, 
-    "featureManagerIsCacheLevelEnabled": true, 
-    "featureManagerIsChallengePassageEnabled": true, 
-    "featureManagerIsDevelopmentModeEnabled": true, 
     "featureManagerIsFullZoneProvisioningEnabled": false, 
-    "featureManagerIsImageOptimizationEnabled": true, 
-    "featureManagerIsIpRewriteEnabled": true, 
-    "featureManagerIsIpv6Enabled": true, 
-    "featureManagerIsMinifyEnabled": true, 
-    "featureManagerIsPurgeCacheEnabled": true, 
-    "featureManagerIsRailgunEnabled": true, 
-    "featureManagerIsSSLEnabled": true, 
-    "featureManagerIsScanEnabled": false, 
-    "featureManagerIsSecurityLevelEnabled": true, 
-    "featureManagerIsWAFEnabled": true, 
+    "isDNSPageEnabled": false, 
     "isSubdomainCheckEnabled": true, 
     "useHostAPILogin": false, 
     "homePageCards": [
@@ -28,7 +13,8 @@
         "container.moresettings.speed": [
             "AlwaysOnlineCard", 
             "ImageOptimizationCard", 
-            "DevelopmentModeCard"
+            "DevelopmentModeCard", 
+            "BypassCacheByCookieCard"
         ], 
         "container.moresettings.security": [
             "SecurityLevelCard", 
@@ -39,5 +25,5 @@
     }, 
     "locale": "en", 
     "integrationName": "wordpress", 
-    "version": "3.1.1"
+    "version": "3.2.1"
 }

@@ -1,13 +1,11 @@
 <?php
 
-class Model_SQ_BlockSettingsSeo
-{
+class Model_SQ_BlockSettingsSeo {
 
     var $eTypes;
     var $appleSizes;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->appleSizes = preg_split('/[,]+/', _SQ_MOBILE_ICON_SIZES);
     }
 
@@ -15,8 +13,7 @@ class Model_SQ_BlockSettingsSeo
      * Check if ecommerce is installed
      * @return boolean
      */
-    public function isEcommerce()
-    {
+    public function isEcommerce() {
         if (isset($this->eTypes)) {
             return $this->eTypes;
         }
@@ -41,8 +38,7 @@ class Model_SQ_BlockSettingsSeo
      *
      * @return string
      */
-    public function checkGoogleWTCode($code)
-    {
+    public function checkGoogleWTCode($code) {
 
         if ($code <> '') {
             if (strpos($code, 'content') !== false) {
@@ -64,8 +60,7 @@ class Model_SQ_BlockSettingsSeo
      *
      * @return string
      */
-    public function checkGoogleAnalyticsCode($code)
-    {
+    public function checkGoogleAnalyticsCode($code) {
         //echo $code;
         if ($code <> '') {
             if (strpos($code, 'GoogleAnalyticsObject') !== false) {
@@ -91,50 +86,44 @@ class Model_SQ_BlockSettingsSeo
      *
      * @return string
      */
-    public function checkFavebookInsightsCode($code)
-    {
+    public function checkFavebookInsightsCode($code) {
+        $id = '';
         if ($code <> '') {
-            if (strpos($code, 'content') !== false) {
-                preg_match('/content\\s*=\\s*[\'\"]([^\'\"]+)[\'\"]/i', $code, $result);
-                $code = '';
+            if (strpos($code, '"') !== false) {
+                preg_match('/[\'\"]([^\'\"]+)[\'\"]/i', $code, $result);
                 if (isset($result[1]) && !empty($result[1])) {
-                    $code = $result[1];
+                    $id = $result[1];
                 }
             }
 
             if (strpos($code, 'facebook.com/') !== false) {
                 preg_match('/facebook.com\/([^\/]+)/i', $code, $result);
-                $code = '';
                 if (isset($result[1]) && !empty($result[1])) {
                     if (is_string($result[1])) {
-                        $html = SQ_Tools::sq_remote_post('http://findmyfbid.com/', array('url' => $result[1]));
-                        if ($html <> '' && strpos($html, '<code') !== false) {
-                            $result = array();
-                            if (preg_match('/<code[^>]*>([0-9]+)<\/code[^>]*>/i', $html, $result)) {
-                                if (isset($result[1]) && !empty($result[1])) {
-                                    $code = $result[1];
-                                }
-                            }
+                        $response = SQ_Action::apiCall('sq/seo/facebook-id', array('profile' => $result[1]));
+                        if ($response && $json = json_decode($response)) {
+                            $id = $json->code;
                         }
-                    } elseif(is_numeric($result[1])) {
-                        $code = $result[1];
+                    } elseif (is_numeric($result[1])) {
+                        $id = $result[1];
                     }
                 }
-            }
-
-            if (strpos($code, '"') !== false) {
-                preg_match('/[\'\"]([^\'\"]+)[\'\"]/i', $code, $result);
-                $code = '';
-                if (isset($result[1]) && !empty($result[1])) {
-                    $code = $result[1];
+            }else {
+                if (is_string($code)) {
+                    $response = SQ_Action::apiCall('sq/seo/facebook-id', array('profile' => $code));
+                    if ($response && $json = json_decode($response)) {
+                        $id = $json->code;
+                    }
+                } elseif (is_numeric($code)) {
+                    $id = $code;
                 }
             }
 
-            if ($code == '') {
+            if ($id == '') {
                 SQ_Error::setError(__("The code for Facebook is incorrect.", _SQ_PLUGIN_NAME_));
             }
         }
-        return $code;
+        return $id;
     }
 
     /**
@@ -142,8 +131,7 @@ class Model_SQ_BlockSettingsSeo
      *
      * @return string
      */
-    public function checkPinterestCode($code)
-    {
+    public function checkPinterestCode($code) {
         if ($code <> '') {
             if (strpos($code, 'content') !== false) {
                 preg_match('/content\\s*=\\s*[\'\"]([^\'\"]+)[\'\"]/i', $code, $result);
@@ -165,8 +153,7 @@ class Model_SQ_BlockSettingsSeo
      *
      * @return string
      */
-    public function checkBingWTCode($code)
-    {
+    public function checkBingWTCode($code) {
         if ($code <> '') {
             if (strpos($code, 'content') !== false) {
                 preg_match('/content\\s*=\\s*[\'\"]([^\'\"]+)[\'\"]/i', $code, $result);
@@ -188,8 +175,7 @@ class Model_SQ_BlockSettingsSeo
      *
      * @return string
      */
-    public function checkTwitterAccount($account)
-    {
+    public function checkTwitterAccount($account) {
         if (SQ_ObjController::getModel('SQ_Frontend')->getTwitterAccount($account) === false) {
             SQ_Error::setError(__("The twitter account is incorrect", _SQ_PLUGIN_NAME_));
         }
@@ -204,8 +190,7 @@ class Model_SQ_BlockSettingsSeo
      *
      * @return string
      */
-    public function checkGoogleAccount($account)
-    {
+    public function checkGoogleAccount($account) {
         if ($account <> '' && strpos($account, 'google.') === false) {
             $account = 'https://plus.google.com/' . $account;
         }
@@ -217,8 +202,7 @@ class Model_SQ_BlockSettingsSeo
      *
      * @return string
      */
-    public function checkLinkeinAccount($account)
-    {
+    public function checkLinkeinAccount($account) {
         if ($account <> '' && strpos($account, 'linkedin.') === false) {
             $account = 'https://www.linkedin.com/in/' . $account;
         }
@@ -230,24 +214,21 @@ class Model_SQ_BlockSettingsSeo
      *
      * @return string
      */
-    public function checkFacebookAccount($account)
-    {
+    public function checkFacebookAccount($account) {
         if ($account <> '' && strpos($account, 'facebook.com') === false) {
             $account = 'https://www.facebook.com/' . $account;
         }
         return $account;
     }
 
-    public function checkPinterestAccount($account)
-    {
+    public function checkPinterestAccount($account) {
         if ($account <> '' && strpos($account, 'pinterest.com') === false) {
             $account = 'https://www.pinterest.com/' . $account;
         }
         return $account;
     }
 
-    public function checkInstagramAccount($account)
-    {
+    public function checkInstagramAccount($account) {
         if ($account <> '' && strpos($account, 'instagram.com') === false) {
             $account = 'https://www.instagram.com/' . $account;
         }
@@ -263,8 +244,7 @@ class Model_SQ_BlockSettingsSeo
      * @return array [name (the name of the file), favicon (the path of the ico), message (the returned message)]
      *
      */
-    public function addFavicon($file, $path = ABSPATH)
-    {
+    public function addFavicon($file, $path = ABSPATH) {
 
         /* get the file extension */
         $file_name = explode('.', $file['name']);
@@ -358,8 +338,7 @@ class Model_SQ_BlockSettingsSeo
         }
     }
 
-    private function checkFunctions()
-    {
+    private function checkFunctions() {
         $required_functions = array('getimagesize', 'imagecreatefromstring', 'imagecreatetruecolor', 'imagecolortransparent', 'imagecolorallocatealpha', 'imagealphablending', 'imagesavealpha', 'imagesx', 'imagesy', 'imagecopyresampled',);
 
         foreach ($required_functions as $function) {

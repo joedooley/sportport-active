@@ -33,6 +33,7 @@ class SQ_Frontend extends SQ_FrontController {
                 add_filter('sq_description', array($this->model, 'clearDescription'));
 
                 add_action('plugins_loaded', array($this->model, 'startBuffer'));
+                add_action('template_redirect', array($this->model, 'checkHandles'));
                 //flush the header with the title and removing duplicates
                 add_action('wp_head', array($this->model, 'flushHeader'),99);
                 add_action('shutdown', array($this->model, 'flushHeader'));
@@ -55,8 +56,10 @@ class SQ_Frontend extends SQ_FrontController {
     }
 
     private function _isAjax() {
-        if (isset($_SERVER['PHP_SELF']) && strpos($_SERVER['PHP_SELF'], '/admin-ajax.php') !== false)
+        $url = (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : false);
+        if ($url && (strpos($url, admin_url('admin-ajax.php', 'relative')) !== false || strpos(admin_url('admin-ajax.php', 'relative'), $url) !== false)) {
             return true;
+        }
 
         return false;
     }

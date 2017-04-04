@@ -349,6 +349,16 @@
     padding: 0;
 }
 
+/* Support tab */
+
+.facetwp-region-support {
+    border: none;
+}
+
+.facetwp-region-support .facetwp-content-wrap {
+    background: none;
+}
+
 /* Action buttons */
 
 .flexbox {

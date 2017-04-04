@@ -6,14 +6,13 @@
     font-size: 13px;
     text-align: center;
 
-    border-width: 1px;
-    border-style: solid;
+    border: 1px solid #E6DB55;
     -webkit-border-bottom-right-radius: 3px;
     -webkit-border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
     background-color: #FFFBCC;
-    border-color: #E6DB55;
+    position: relative;
 }
 .sq_notices{
     font-size: 13px;

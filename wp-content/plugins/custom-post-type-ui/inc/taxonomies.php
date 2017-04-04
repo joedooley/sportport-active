@@ -49,8 +49,8 @@ add_action( 'admin_enqueue_scripts', 'cptui_taxonomies_enqueue_scripts' );
  *
  * @internal
  *
- * @param array  $tabs         Array of tabs to display.
- * @param string $current_page Current page being shown.
+ * @param array  $tabs         Array of tabs to display. Optional.
+ * @param string $current_page Current page being shown. Optional. Default empty string.
  * @return array Amended array of tabs to show.
  */
 function cptui_taxonomy_tabs( $tabs = array(), $current_page = '' ) {
@@ -59,7 +59,7 @@ function cptui_taxonomy_tabs( $tabs = array(), $current_page = '' ) {
 		$taxonomies = cptui_get_taxonomy_data();
 		$classes    = array( 'nav-tab' );
 
-		$tabs['page_title'] = esc_html__( 'Manage Taxonomies', 'custom-post-type-ui' );
+		$tabs['page_title'] = get_admin_page_title();
 		$tabs['tabs']       = array();
 		// Start out with our basic "Add new" tab.
 		$tabs['tabs']['add'] = array(
@@ -97,7 +97,7 @@ function cptui_taxonomy_tabs( $tabs = array(), $current_page = '' ) {
 			$tabs['tabs']['export'] = array(
 				'text'          => esc_html__( 'Import/Export Taxonomies', 'custom-post-type-ui' ),
 				'classes'       => array( 'nav-tab' ), // Prevent notices.
-				'url'           => esc_url( cptui_admin_url( 'admin.php?page=cptui_importexport&action=taxonomies' ) ),
+				'url'           => esc_url( cptui_admin_url( 'admin.php?page=cptui_tools&action=taxonomies' ) ),
 				'aria-selected' => 'false',
 			);
 		}
@@ -228,7 +228,7 @@ function cptui_manage_taxonomies() {
 							) );
 
 							echo '<p class="cptui-slug-details">';
-							esc_html_e( 'Slugs should only contain alphanumeric, latin characters. Underscores or dashes should be used in place of spaces.', 'custom-post-type-ui' );
+							esc_html_e( 'Slugs should only contain alphanumeric, latin characters. Underscores should be used in place of spaces. Set "Custom Rewrite Slug" field to make slug use dashes for URLs.', 'custom-post-type-ui' );
 							echo '</p>';
 
 							if ( 'edit' == $tab ) {
@@ -915,7 +915,7 @@ function cptui_manage_taxonomies() {
  *
  * @since 1.0.0
  *
- * @param array $taxonomies Array of taxonomies that are registered.
+ * @param array $taxonomies Array of taxonomies that are registered. Optional.
  */
 function cptui_taxonomies_dropdown( $taxonomies = array() ) {
 
@@ -949,7 +949,7 @@ function cptui_taxonomies_dropdown( $taxonomies = array() ) {
  *
  * @internal
  *
- * @param bool $taxonomy_deleted Whether or not a taxonomy was recently deleted.
+ * @param bool $taxonomy_deleted Whether or not a taxonomy was recently deleted. Optional. Default false.
  * @return bool|string False on no result, sanitized taxonomy if set.
  */
 function cptui_get_current_taxonomy( $taxonomy_deleted = false ) {
@@ -963,7 +963,13 @@ function cptui_get_current_taxonomy( $taxonomy_deleted = false ) {
 			$taxonomies = cptui_get_taxonomy_data();
 			$tax = key( $taxonomies );
 		} else if ( isset( $_POST['cpt_custom_tax']['name'] ) ) {
-			$tax = sanitize_text_field( $_POST['cpt_custom_tax']['name'] );
+			// Return the submitted value.
+			if ( ! in_array( $_POST['cpt_custom_tax']['name'], cptui_reserved_taxonomies(), true ) ) {
+				$tax = sanitize_text_field( $_POST['cpt_custom_tax']['name'] );
+			} else {
+				// Return the original value since user tried to submit a reserved term.
+				$tax = sanitize_text_field( $_POST['tax_original'] );
+			}
 		}
 	} else if ( ! empty( $_GET ) && isset( $_GET['cptui_taxonomy'] ) ) {
 		$tax = sanitize_text_field( $_GET['cptui_taxonomy'] );
@@ -992,7 +998,7 @@ function cptui_get_current_taxonomy( $taxonomy_deleted = false ) {
  *
  * @internal
  *
- * @param array $data The $_POST values.
+ * @param array $data The $_POST values. Optional.
  * @return bool|string False on failure, string on success.
  */
 function cptui_delete_taxonomy( $data = array() ) {
@@ -1064,7 +1070,7 @@ function cptui_delete_taxonomy( $data = array() ) {
  *
  * @internal
  *
- * @param array $data Array of taxonomy data to update.
+ * @param array $data Array of taxonomy data to update. Optional.
  * @return bool|string False on failure, string on success.
  */
 function cptui_update_taxonomy( $data = array() ) {
@@ -1122,11 +1128,9 @@ function cptui_update_taxonomy( $data = array() ) {
 	 * @param array  $post_types Array of existing post types from CPTUI.
 	 */
 	$slug_exists = apply_filters( 'cptui_taxonomy_slug_exists', false, $data['cpt_custom_tax']['name'], $taxonomies );
-	if ( 'new' == $data['cpt_tax_status'] ) {
-		if ( true === $slug_exists ) {
-			add_filter( 'cptui_custom_error_message', 'cptui_slug_matches_taxonomy' );
-			return 'error';
-		}
+	if ( true === $slug_exists ) {
+		add_filter( 'cptui_custom_error_message', 'cptui_slug_matches_taxonomy' );
+		return 'error';
 	}
 
 	foreach ( $data['cpt_tax_labels'] as $key => $label ) {
@@ -1227,6 +1231,7 @@ function cptui_update_taxonomy( $data = array() ) {
 function cptui_reserved_taxonomies() {
 
 	$reserved = array(
+		'action',
 		'attachment',
 		'attachment_id',
 		'author',
@@ -1250,6 +1255,7 @@ function cptui_reserved_taxonomies() {
 		'feed',
 		'fields',
 		'hour',
+		'include',
 		'link_category',
 		'm',
 		'minute',
@@ -1336,18 +1342,19 @@ function cptui_reserved_taxonomies() {
  *
  * @internal
  *
- * @param string $original_slug Original taxonomy slug.
- * @param string $new_slug      New taxonomy slug.
+ * @param string $original_slug Original taxonomy slug. Optional. Default empty string.
+ * @param string $new_slug      New taxonomy slug. Optional. Default empty string.
  */
 function cptui_convert_taxonomy_terms( $original_slug = '', $new_slug = '' ) {
 	global $wpdb;
 
 	$args = array(
+		'taxonomy'   => $original_slug,
 		'hide_empty' => false,
 		'fields'     => 'ids',
 	);
 
-	$term_ids = get_terms( $original_slug, $args );
+	$term_ids = get_terms( $args );
 
 	if ( is_int( $term_ids ) ) {
 		$term_ids = (array) $term_ids;
@@ -1370,9 +1377,9 @@ function cptui_convert_taxonomy_terms( $original_slug = '', $new_slug = '' ) {
  *
  * @since 1.3.0
  *
- * @param bool   $slug_exists   Whether or not the post type slug exists.
- * @param string $taxonomy_slug The post type slug being saved.
- * @param array  $taxonomies    Array of CPTUI-registered post types.
+ * @param bool   $slug_exists   Whether or not the post type slug exists. Optional. Default false.
+ * @param string $taxonomy_slug The post type slug being saved. Optional. Default empty string.
+ * @param array  $taxonomies    Array of CPTUI-registered post types. Optional.
  *
  * @return bool
  */
@@ -1461,3 +1468,26 @@ function cptui_do_convert_taxonomy_terms() {
 	}
 }
 add_action( 'init', 'cptui_do_convert_taxonomy_terms' );
+
+/**
+ * Handles slug_exist checks for cases of editing an existing taxonomy.
+ *
+ * @since 1.5.3
+ *
+ * @param bool   $slug_exists   Current status for exist checks.
+ * @param string $taxonomy_slug Taxonomy slug being processed.
+ * @param array  $taxonomies    CPTUI taxonomies.
+ * @return bool
+ */
+function cptui_updated_taxonomy_slug_exists( $slug_exists, $taxonomy_slug = '', $taxonomies = array() ) {
+	if (
+		( ! empty( $_POST['cpt_tax_status'] ) && 'edit' == $_POST['cpt_tax_status'] ) &&
+		! in_array( $taxonomy_slug, cptui_reserved_taxonomies() ) &&
+		( ! empty( $_POST['tax_original'] ) && $taxonomy_slug === $_POST['tax_original'] )
+	)
+		{
+		$slug_exists = false;
+	}
+	return $slug_exists;
+}
+add_filter( 'cptui_taxonomy_slug_exists', 'cptui_updated_taxonomy_slug_exists', 11, 3 );

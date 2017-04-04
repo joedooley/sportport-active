@@ -26,6 +26,7 @@ class FacetWP_Integration_ACF
         $sources['acf'] = array(
             'label' => 'Advanced Custom Fields',
             'choices' => array(),
+            'weight' => 5
         );
 
         // ACF 5
@@ -135,7 +136,7 @@ class FacetWP_Integration_ACF
         $value = maybe_unserialize( $value );
 
         // checkboxes
-        if ( 'checkbox' == $field['type'] || 'select' == $field['type'] ) {
+        if ( 'checkbox' == $field['type'] || 'select' == $field['type'] || 'radio' == $field['type'] ) {
             if ( false !== $value ) {
                 foreach ( (array) $value as $val ) {
                     $display_value = isset( $field['choices'][ $val ] ) ?

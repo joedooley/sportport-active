@@ -50,17 +50,6 @@ class FacetWP_Upgrade
     private function run_upgrade() {
         global $wpdb;
 
-        // Add "facet_name" column
-        if ( version_compare( $this->last_version, '0.6', '<' ) ) {
-            $wpdb->query( "ALTER TABLE {$wpdb->prefix}facetwp_index ADD COLUMN facet_name VARCHAR(255) AFTER post_id" );
-        }
-
-        // Add "parent_id" and "depth" columns
-        if ( version_compare( $this->last_version, '0.9', '<' ) ) {
-            $wpdb->query( "ALTER TABLE {$wpdb->prefix}facetwp_index ADD COLUMN parent_id INT unsigned default '0' AFTER facet_display_value" );
-            $wpdb->query( "ALTER TABLE {$wpdb->prefix}facetwp_index ADD COLUMN depth INT unsigned default '0' AFTER parent_id" );
-        }
-
         // Add "term_id" column
         if ( version_compare( $this->last_version, '1.9', '<' ) ) {
             $wpdb->query( "ALTER TABLE {$wpdb->prefix}facetwp_index ADD COLUMN term_id INT unsigned default '0' AFTER facet_display_value" );

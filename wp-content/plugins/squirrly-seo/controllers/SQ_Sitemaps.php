@@ -107,16 +107,14 @@ class SQ_Sitemaps extends SQ_FrontController {
 
     /**
      * Show the Sitemap Header
-     * @global integer $blog_id Used for charset
      * @param array $include Include schema
      */
     public function showSitemapHeader($include = array()) {
         @ini_set('memory_limit', apply_filters('admin_memory_limit', WP_MAX_MEMORY_LIMIT));
-        global $blog_id;
 
         header('Status: 200 OK', true, 200);
         header('Content-Type: text/xml; charset=' . get_bloginfo('charset'), true);
-//Generate header
+        //Generate header
         echo '<?xml version="1.0" encoding="' . get_bloginfo('charset') . '"?>' . "\n";
         echo '<?xml-stylesheet type="text/xsl" href="' . wp_make_link_relative(_SQ_THEME_URL_) . 'css/sq_sitemap' . ($this->model->type == 'sitemap' ? 'index' : '') . '.xsl"?>' . "\n";
         echo '<!-- generated-on="' . date('Y-m-d\TH:i:s+00:00') . '" -->' . "\n";

@@ -3,7 +3,7 @@
     <div>
         <span class="sq_icon"></span>
 
-        <div id="sq_settings_title"><?php _e('Settings', _SQ_PLUGIN_NAME_); ?> </div>
+        <div id="sq_settings_title"><?php _e('Advanced Settings', _SQ_PLUGIN_NAME_); ?> </div>
         <div id="sq_settings_title">
             <input type="submit" name="sq_update" value="<?php _e('Save settings', _SQ_PLUGIN_NAME_) ?> &raquo;"/>
         </div>
@@ -73,7 +73,7 @@
                                 <label for="sq_keyword_help0" class="sq_switch-label sq_switch-label-on"><?php _e('No', _SQ_PLUGIN_NAME_); ?></label>
                                 <span class="sq_switch-selection"></span>
                             </div>
-                            <span><?php _e('Show <strong>Squirrly Tooltips</strong> posting a new article (e.g. "Enter a keyword").', _SQ_PLUGIN_NAME_); ?></span>
+                            <span><?php _e('Show <strong>Squirrly Tooltips</strong> when posting a new article (e.g. "Enter a keyword").', _SQ_PLUGIN_NAME_); ?></span>
                         </div>
 
                         <div class="sq_option_content">
@@ -87,6 +87,16 @@
                             <span><?php _e('Always show <strong>Keyword Research</strong> about the selected keyword.', _SQ_PLUGIN_NAME_); ?></span>
                         </div>
 
+                        <div class="sq_option_content">
+                            <div class="sq_switch">
+                                <input id="sq_force_savepost1" type="radio" class="sq_switch-input" name="sq_force_savepost" value="1" <?php echo((SQ_Tools::$options['sq_force_savepost'] == 1) ? "checked" : '') ?> />
+                                <label for="sq_force_savepost1" class="sq_switch-label sq_switch-label-off"><?php _e('Yes', _SQ_PLUGIN_NAME_); ?></label>
+                                <input id="sq_force_savepost0" type="radio" class="sq_switch-input" name="sq_force_savepost" value="0" <?php echo((SQ_Tools::$options['sq_force_savepost'] == 0) ? "checked" : '') ?> />
+                                <label for="sq_force_savepost0" class="sq_switch-label sq_switch-label-on"><?php _e('No', _SQ_PLUGIN_NAME_); ?></label>
+                                <span class="sq_switch-selection"></span>
+                            </div>
+                            <span><?php _e('Send optimization data to Squirrly API when the post is saved (don\'t use cron)', _SQ_PLUGIN_NAME_); ?></span>
+                        </div>
 
                         <div class="sq_option_content">
                             <div class="sq_switch">
@@ -108,7 +118,7 @@
                                 <label for="sq_keywordtag0" class="sq_switch-label sq_switch-label-on"><?php _e('No', _SQ_PLUGIN_NAME_); ?></label>
                                 <span class="sq_switch-selection"></span>
                             </div>
-                            <span><?php _e('Add the Post tags in <strong>META keyword</strong>.', _SQ_PLUGIN_NAME_); ?></span>
+                            <span><?php _e('Add the Post tags in <strong>Keyword META</strong>.', _SQ_PLUGIN_NAME_); ?></span>
                         </div>
 
                         <div class="sq_option_content">
@@ -140,6 +150,7 @@
                     <legend>
                         <span class="sq_legend_title"><?php _e('Google Rank Options', _SQ_PLUGIN_NAME_); ?></span>
                         <span><?php echo sprintf(__('%sCountry targeting%s', _SQ_PLUGIN_NAME_), '<a href="https://support.google.com/webmasters/answer/62399?hl=en" target="_blank">', '</a>'); ?></span>
+                        <span><?php echo sprintf(__('%sPowerful SEO Tool For Strong Google Rankings%s', _SQ_PLUGIN_NAME_), '<a href="http://www.squirrly.co/serp-checker" target="_blank">', '</a>'); ?></span>
                     </legend>
                     <div>
                         <div class="sq_option_content">
@@ -250,24 +261,31 @@
                                     <option value="com.ua"><?php _e('Ukraine', _SQ_PLUGIN_NAME_); ?> (http://www.google.com.ua/)</option>
                                     <option value="ae"><?php _e('United Arab Emirates', _SQ_PLUGIN_NAME_); ?> (http://www.google.ae/)</option>
                                     <option value="co.uk"><?php _e('United Kingdom', _SQ_PLUGIN_NAME_); ?> (http://www.google.co.uk/)</option>
+v                                   <option value="us"><?php _e('United States', _SQ_PLUGIN_NAME_); ?> (http://www.google.us/)</option>
                                     <option value="com.uy"><?php _e('Uruguay', _SQ_PLUGIN_NAME_); ?> (http://www.google.com.uy/)</option>
                                     <option value="uz"><?php _e('Uzbekistan', _SQ_PLUGIN_NAME_); ?> (http://www.google.uz/)</option>
                                     <option value="vu"><?php _e('Vanuatu', _SQ_PLUGIN_NAME_); ?> (http://www.google.vu/)</option>
                                     <option value="co.ve"><?php _e('Venezuela', _SQ_PLUGIN_NAME_); ?> (http://www.google.co.ve/)</option>
-                                </select>
+                                    <option value="com.vn"><?php _e('Vietnam', _SQ_PLUGIN_NAME_); ?> (http://www.google.com.vn/)</option>
+                                    </select>
                             </div>
                             <p>
-                                <span><?php echo sprintf(__('Select how many pages to be checked by google rank every hour. %s5 pages (recommended)%s', _SQ_PLUGIN_NAME_), '<br /><span style="color:#aaa;font-size:12px;">', '</span>'); ?></span>
+                                <span><?php echo sprintf(__('Select how many pages to be checked by google rank every hour. %s(not recommended for shared hosting plan)%s', _SQ_PLUGIN_NAME_), '<br /><span style="color:#aaa;font-size:12px;">', '</span>'); ?></span>
                             </p>
 
                             <div class="withborder">
                                 <select id="sq_google_ranksperhour" name="sq_google_ranksperhour">
-                                    <?php for ($i = 0; $i < 10; $i++) {
-                                        if ((int)SQ_Tools::$options['sq_google_ranksperhour'] > 10) {
-                                            SQ_Tools::$options['sq_google_ranksperhour'] = 9;
+                                    <?php for ($i = 0; $i <= 5; $i++) {
+                                        if ($i == 1) {
+                                            $text = __('page', _SQ_PLUGIN_NAME_);
+                                        }else{
+                                            $text = __('pages', _SQ_PLUGIN_NAME_);
+                                        }
+                                        if ((int)SQ_Tools::$options['sq_google_ranksperhour'] > 5) {
+                                            SQ_Tools::$options['sq_google_ranksperhour'] = 5;
                                         }
                                         ?>
-                                        <option value="<?php echo $i ?>" <?php echo((SQ_Tools::$options['sq_google_ranksperhour'] == $i) ? "selected='selected'" : '') ?>><?php echo $i ?><?php _e('pages', _SQ_PLUGIN_NAME_); ?></option>
+                                        <option value="<?php echo $i ?>" <?php echo((SQ_Tools::$options['sq_google_ranksperhour'] == $i) ? "selected='selected'" : '') ?>><?php echo $i  . ' ' . $text . '/' . __('h',_SQ_PLUGIN_NAME_)?> </option>
                                     <?php } ?>
                                 </select>
 
@@ -283,6 +301,7 @@
                                 </div>
                                 <span><?php _e('Restricts search results to results originating in the above particular country.', _SQ_PLUGIN_NAME_); ?></span>
                             </div>
+
 
                         </div>
                     </div>

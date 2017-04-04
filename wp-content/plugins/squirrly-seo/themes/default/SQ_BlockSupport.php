@@ -24,7 +24,10 @@
                     <p><input id="sq_support_submit" type="button" value="<?php _e('Send Question', _SQ_PLUGIN_NAME_) ?>"></p>
 
                 </li>
-                <li><?php _e('Go to:', _SQ_PLUGIN_NAME_) ?> <a href="<?php echo _SQ_SUPPORT_URL_ ?>" title="<?php _e('support page', _SQ_PLUGIN_NAME_) ?>" target="_blank"><?php _e('support page', _SQ_PLUGIN_NAME_) ?></a></li>
+                <hr />
+                <li><?php _e('Facebook:', _SQ_PLUGIN_NAME_) ?> <a href="<?php echo _SQ_SUPPORT_FACEBOOK_URL_ ?>" title="<?php _e('Send us a message', _SQ_PLUGIN_NAME_) ?>" target="_blank"><?php _e('Send us a message', _SQ_PLUGIN_NAME_) ?></a></li>
+                <li><?php _e('Google:', _SQ_PLUGIN_NAME_) ?> <a href="<?php echo _SQ_SUPPORT_GOOGLE_URL_ ?>" title="<?php _e('Join the support community', _SQ_PLUGIN_NAME_) ?>" target="_blank"><?php _e('Join the support community', _SQ_PLUGIN_NAME_) ?></a></li>
+                <li><?php _e('Contact:', _SQ_PLUGIN_NAME_) ?> <a href="<?php echo _SQ_SUPPORT_EMAIL_URL_ ?>" title="<?php _e('Write an email', _SQ_PLUGIN_NAME_) ?>" target="_blank"><?php _e('Write an email', _SQ_PLUGIN_NAME_) ?></a></li>
 
             </ul>
         </li>
@@ -49,11 +52,11 @@
                     <li>
                         <table width="100%" cellpadding="2" cellspacing="0" border="0">
                             <tr>
-                                <td><label class="sq_label_feedback_smiley sq_label_feedback_0" for="sq_feedback_0"></label><input class="sq_feedback_smiley" type="radio" name="sq_feedback_face" id="sq_feedback_0" value="1" title="<?php _e('Angry', _SQ_PLUGIN_NAME_) ?>" /></td>
-                                <td><label class="sq_label_feedback_smiley sq_label_feedback_1" for="sq_feedback_1"></label><input class="sq_feedback_smiley" type="radio" name="sq_feedback_face" id="sq_feedback_1" value="2" title="<?php _e('Sad', _SQ_PLUGIN_NAME_) ?>" /></td>
-                                <td><label class="sq_label_feedback_smiley sq_label_feedback_2" for="sq_feedback_2"></label><input class="sq_feedback_smiley" type="radio" name="sq_feedback_face" id="sq_feedback_2" value="3" title="<?php _e('Happy', _SQ_PLUGIN_NAME_) ?>" /></td>
-                                <td><label class="sq_label_feedback_smiley sq_label_feedback_3" for="sq_feedback_3"></label><input class="sq_feedback_smiley" type="radio" name="sq_feedback_face" id="sq_feedback_3" value="4" title="<?php _e('Excited', _SQ_PLUGIN_NAME_) ?>" /></td>
-                                <td><label class="sq_label_feedback_smiley sq_label_feedback_4" for="sq_feedback_4"></label><input class="sq_feedback_smiley" type="radio" name="sq_feedback_face" id="sq_feedback_4" value="5" title="<?php _e('Love it', _SQ_PLUGIN_NAME_) ?>" /></td>
+                                <td><label class="sq_label_feedback_smiley sq_label_feedback_0" for="sq_feedback_0"></label><input class="sq_feedback_smiley" type="radio" name="sq_feedback_face" id="sq_feedback_0" value="1" title="<?php _e('Angry', _SQ_PLUGIN_NAME_) ?>" /><?php _e("Annoying", _SQ_PLUGIN_NAME_) ?></td>
+                                <td><label class="sq_label_feedback_smiley sq_label_feedback_1" for="sq_feedback_1"></label><input class="sq_feedback_smiley" type="radio" name="sq_feedback_face" id="sq_feedback_1" value="2" title="<?php _e('Sad', _SQ_PLUGIN_NAME_) ?>" /><?php _e("Bad", _SQ_PLUGIN_NAME_) ?></td>
+                                <td><label class="sq_label_feedback_smiley sq_label_feedback_2" for="sq_feedback_2"></label><input class="sq_feedback_smiley" type="radio" name="sq_feedback_face" id="sq_feedback_2" value="3" title="<?php _e('Happy', _SQ_PLUGIN_NAME_) ?>" /><?php _e("Nice", _SQ_PLUGIN_NAME_) ?></td>
+                                <td><label class="sq_label_feedback_smiley sq_label_feedback_3" for="sq_feedback_3"></label><input class="sq_feedback_smiley" type="radio" name="sq_feedback_face" id="sq_feedback_3" value="4" title="<?php _e('Excited', _SQ_PLUGIN_NAME_) ?>" /><?php _e("Great", _SQ_PLUGIN_NAME_) ?></td>
+                                <td><label class="sq_label_feedback_smiley sq_label_feedback_4" for="sq_feedback_4"></label><input class="sq_feedback_smiley" type="radio" name="sq_feedback_face" id="sq_feedback_4" value="5" title="<?php _e('Love it', _SQ_PLUGIN_NAME_) ?>" /><?php _e("Love it", _SQ_PLUGIN_NAME_) ?></td>
                             </tr>
                         </table>
                         <div id="sq_options_feedback_error"></div>
@@ -65,7 +68,9 @@
                         </p>
 
                     </li>
-                    <li><?php _e('Go to:', _SQ_PLUGIN_NAME_) ?> <a href="<?php echo _SQ_SUPPORT_URL_ ?>" title="<?php _e('support page', _SQ_PLUGIN_NAME_) ?>" target="_blank"><?php _e('support page', _SQ_PLUGIN_NAME_) ?></a></li>
+                    <li style="margin-top: 10px;"><?php _e('Facebook:', _SQ_PLUGIN_NAME_) ?> <a href="<?php echo _SQ_SUPPORT_FACEBOOK_URL_ ?>" title="<?php _e('Send us a message', _SQ_PLUGIN_NAME_) ?>" target="_blank"><?php _e('Send us a message', _SQ_PLUGIN_NAME_) ?></a></li>
+                    <li><?php _e('Google:', _SQ_PLUGIN_NAME_) ?> <a href="<?php echo _SQ_SUPPORT_GOOGLE_URL_ ?>" title="<?php _e('Join the support community', _SQ_PLUGIN_NAME_) ?>" target="_blank"><?php _e('Join the support community', _SQ_PLUGIN_NAME_) ?></a></li>
+                    <li><?php _e('Contact:', _SQ_PLUGIN_NAME_) ?> <a href="<?php echo _SQ_SUPPORT_EMAIL_URL_ ?>" title="<?php _e('Write an email', _SQ_PLUGIN_NAME_) ?>" target="_blank"><?php _e('Write an email', _SQ_PLUGIN_NAME_) ?></a></li>
                 </ul>
             <?php } else { ?>
                 <ul class="sq_options_feedback_popup" style="display: none;">

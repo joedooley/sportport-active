@@ -49,9 +49,11 @@
     border-radius: 2px;
     bottom: -5px;
     cursor: pointer;
-    font-size: 15px;
+    color: darkorange;
+    font-size: 17px;
+    font-weight: bold;
     height: 35px;
-    padding: 10px 0 4px 0;
+    padding: 14px 0 0px 0;
     margin: 0 0 5px 0;
     overflow: hidden;
     position: absolute;

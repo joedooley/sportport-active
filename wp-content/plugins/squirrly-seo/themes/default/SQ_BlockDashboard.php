@@ -10,7 +10,7 @@
 
 
         <div class="sq_login_link"><?php _e('Connect to Squirrly and start optimizing your site', _SQ_PLUGIN_NAME_); ?></div>
-        <input id="sq_goto_dashboard" style="display:none;  margin: 0 auto; width: 500px; padding: 0px 10px;" type="button" value="&laquo;<?php _e('START HERE', _SQ_PLUGIN_NAME_) ?> &raquo;" />
+        <input id="sq_goto_dashboard" class="sq_goto_dashboard" style="display:none;  margin: 0 auto; width: 500px; padding: 0px 10px;" type="button" value="&laquo;<?php _e('START HERE', _SQ_PLUGIN_NAME_) ?> &raquo;" />
 
         <?php
     } else {
@@ -26,7 +26,7 @@
 
     <div class="sq_helpcontent" style="display: none; clear: left; <?php echo (SQ_Tools::$options['sq_api'] == '') ? 'text-align: center;' : '' ?>">
         <div style="width: 700px; display: inline-block;">
-            <div style="font-size: 24px; margin: 30px 0; color: #999;">All Squirrly Features</div>
+            <div style="font-size: 24px; margin: 30px 0; color: #999;">Learn About Squirrly's Features (click on the images):</div>
             <ul class="sq_slidelist">
                 <li>
                     <a href="javascript:void(0);" rel="44987512" style="background-image: url('//image.slidesharecdn.com/kr-150222110827-conversion-gate01/95/squirrly-keyword-research-1-638.jpg?cb=1424624994')"></a>
@@ -82,7 +82,7 @@
                 </li>
                 <li>
                     <a href="javascript:void(0);" rel="46222827" style="background-image: url('//image.slidesharecdn.com/success-150324093815-conversion-gate01/95/measure-your-success-option-from-squirrly-1-638.jpg?cb=1427713584')"></a>
-                    <div>Measure Your Success Option from Squirrly</div>
+                    <div>Measure Your Success with Squirrly</div>
                 </li>
                 <li>
                     <a href="javascript:void(0);" rel="46256414" style="background-image: url('//image.slidesharecdn.com/robots-150325031929-conversion-gate01/95/squirrly-robotstxt-1-638.jpg?cb=1427713635')"></a>

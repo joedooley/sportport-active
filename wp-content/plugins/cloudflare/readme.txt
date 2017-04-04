@@ -2,8 +2,8 @@
 Contributors: jwineman, furkan811, icyapril
 Tags: cloudflare, seo, ssl, ddos, speed, security, cdn, performance, free
 Requires at least: 3.4
-Tested up to: 4.6
-Stable tag: 3.1.1
+Tested up to: 4.7.2
+Stable tag: 3.2.1
 License: BSD-3-Clause
 
 All of Cloudflare’s performance and security benefits in a simple one-click install of recommended settings specifically developed for WordPress.
@@ -42,7 +42,7 @@ Make sure your PHP version is 5.3.10 or higher.
 
 = From your WordPress Dashboard =
 
-1. Visit “Plugins” > Add New
+1. Visit “Plugins” → Add New
 2. Search for Cloudflare
 3. Activate Cloudflare from your Plugins page.
 
@@ -52,16 +52,16 @@ Make sure your PHP version is 5.3.10 or higher.
 2. Upload the “cloudflare” directory to your “/wp-content/plugins/” directory, using ftp, sftp, scp etc.
 3. Activate Cloudflare from your Plugins page.
 
-= Once Activated = 
+= Once Activated =
 
 1. Go to cloudflare.com
 2. Login with your cloudflare account. (If you don’t have a Cloudflare account first sign up for Cloudflare)
 3. Press your account name on top right corner and select “My Settings”
-4. Scroll down to “API Key” > “Global API Key” > View API Key
+4. Scroll down to “API Key” → “Global API Key” → View API Key
 5. Copy the API key
 6. Return back to WordPress Cloudflare Plugin page
 7. Enter your email address and paste your API key
-8. Press Login. 
+8. Press Login.
 
 == Frequently Asked Questions ==
 
@@ -77,15 +77,37 @@ Yes, on install and activation the plugin, first time users will be asked to ent
 
 Yes, Cloudflare works with, and helps speed up your site even more, if you have Varnish enabled.
 
-= Why am I getting “Cloudflare plugin requires php5-curl to be installed” error? =
-
-Make sure that the php5-curl extension is installed on your system.
-
 == Screenshots ==
 
 1. Cloudflare Plugin
 
 == Changelog ==
+
+= 3.2.1 - 2017-3-14 =
+
+*Fixed*
+
+* Bug where accounts which had more than 20 zones would not show up correctly.
+
+= 3.2.0 - 2017-3-1 =
+
+*Added*
+
+* Bypass Cache By Cookie functionality.
+* HTTP/2 Server Push functionality (disabled by default).
+
+*Changed*
+
+* Lowered the plugin size.
+* Automatic Cache Management feature includes purging taxonomies.
+* Automatic Cache Management feature supports sites which use both HTTP and HTTPS.
+
+*Fixed*
+
+* Admin bar disappearing from the plugin.
+* Bug where spinner was loading forever.
+* Bug where the backend errors where not being shown in the frontend.
+* Issues where IE11 was not working properly.
 
 = 3.1.1 - 2016-11-17 =
 
@@ -98,7 +120,7 @@ Make sure that the php5-curl extension is installed on your system.
 *Added*
 
 * Added ability to automatically purge cache when a post is published, edited or deleted. (Thanks to brandomeniconi and mike503)
-* Added ability to work with Wordpress MU Domain Mapping plugin. (Thanks to brandomeniconi)
+* Added ability to work with WordPress MU Domain Mapping plugin. (Thanks to brandomeniconi)
 
 *Changed*
 
@@ -111,7 +133,6 @@ Make sure that the php5-curl extension is installed on your system.
 * Fixed bug where require vendor folders was not working.
 * Fixed bug where static files were cached which caused issues updating the plugin.
 * Fixed dependencies which caused issues with PHP Compatibility Checker plugin.
-
 
 = 3.0.6 - 2016-10-6 =
 
@@ -196,4 +217,4 @@ Make sure that the php5-curl extension is installed on your system.
 *Changed*
 
 * Updated user interface
-* Started to support WordPress 3.4+ instead of 2.8+ because we depend on the  [WordPress Options API](https://codex.wordpress.org/Options_API)  
+* Started to support WordPress 3.4+ instead of 2.8+ because we depend on the  [WordPress Options API](https://codex.wordpress.org/Options_API)

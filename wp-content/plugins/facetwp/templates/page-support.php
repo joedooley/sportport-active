@@ -60,7 +60,7 @@ $sysinfo = urlencode( $sysinfo );
     $(function() {
         $(document).on('click', '.facetwp-tab[rel="support"]', function() {
             if ( 1 > $('.fwp-iframe-wrapper iframe').length) {
-                var iframe = '<iframe src="https://facetwp.com/create-ticket/?sysinfo=<?php echo $sysinfo; ?>" style="width:100%; height:600px"></iframe>';
+                var iframe = '<iframe src="https://facetwp.com/support/create-ticket/?sysinfo=<?php echo $sysinfo; ?>" style="width:100%; height:600px"></iframe>';
                 $('.fwp-iframe-wrapper').html(iframe);
             }
         });

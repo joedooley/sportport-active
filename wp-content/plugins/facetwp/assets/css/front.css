@@ -263,18 +263,17 @@
 
 .facetwp-selections li {
     display: inline-block;
-    font-size: 12px;
     line-height: 1;
-    margin-right: 20px;
-    cursor: pointer;
 }
 
-.facetwp-selections li::after {
+.facetwp-selections .facetwp-selection-value {
     display: inline-block;
-    content: '';
-    width: 12px;
-    height: 12px;
-    margin-left: 5px;
-    background: url(../images/icon-close.png) no-repeat;
+    margin-right: 10px;
+    cursor: pointer;
+
+    padding-right: 16px;
+    background-image: url(../images/icon-close.png);
     background-size: 12px 12px;
+    background-repeat: no-repeat;
+    background-position: right center;
 }

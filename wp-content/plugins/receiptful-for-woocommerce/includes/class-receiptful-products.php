@@ -50,7 +50,7 @@ class Receiptful_Products {
 	public function update_product( $post_id ) {
 
 		// Bail if its not a product / if its trashed
-		if ( 'product' !== get_post_type( $post_id ) || 'trash' == get_post_status( $post_id ) ) {
+		if ( 'product' !== get_post_type( $post_id ) || in_array( get_post_status( $post_id ), array( 'trash', 'auto-draft' ) ) ) {
 			return;
 		}
 

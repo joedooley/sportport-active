@@ -6,7 +6,7 @@
  *               from four widgets to three or three to six from a dropdown in Genesis Theme Settings.
  * Author:       Joe Dooley
  * Author URI:   http://www.developingdesigns.com/
- * Version:      1.2
+ * Version:      1.2.1
  * Text Domain:  genesis-simple-footer-widgets
  * Domain Path:  languages
  * Requires PHP: 5.4
@@ -27,7 +27,7 @@
  * @package    JD_Genesis_Simple_Footer_Widgets
  * @author     Joe Dooley <hello@developingdesigns.com>
  * @license    GPL-2.0+
- * @copyright  2015 Joe Dooley, Developing Designs
+ * @copyright  2017 Joe Dooley, Developing Designs
  */
 
 namespace JD_Genesis_Simple_Footer_Widgets;

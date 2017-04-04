@@ -5,8 +5,6 @@ class FacetWP_Facet_Checkboxes
 
     function __construct() {
         $this->label = __( 'Checkboxes', 'fwp' );
-
-        add_filter( 'facetwp_store_unfiltered_post_ids', array( $this, 'store_unfiltered_post_ids' ) );
     }
 
 
@@ -402,22 +400,5 @@ class FacetWP_Facet_Checkboxes
             <td><input type="text" class="facet-soft-limit" value="5" /></td>
         </tr>
 <?php
-    }
-
-
-    /**
-     * Store unfiltered post IDs if a checkbox facet exists
-     * with ghosts or "OR" mode enabled
-     */
-    function store_unfiltered_post_ids( $boolean ) {
-        if ( FWP()->helper->facet_setting_exists( 'ghosts', 'yes' ) ) {
-            return true;
-        }
-
-        if ( FWP()->helper->facet_setting_exists( 'operator', 'or' ) ) {
-            return true;
-        }
-
-        return $boolean;
     }
 }

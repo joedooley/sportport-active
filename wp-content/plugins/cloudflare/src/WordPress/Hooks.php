@@ -18,19 +18,13 @@ class Hooks
 
     public function __construct()
     {
-        $this->config = new Integration\DefaultConfig('[]');
-        $this->logger = new Integration\DefaultLogger(false);
+        $this->config = new Integration\DefaultConfig(file_get_contents(CLOUDFLARE_PLUGIN_DIR.'config.js', true));
+        $this->logger = new Integration\DefaultLogger($this->config->getValue('debug'));
         $this->dataStore = new DataStore($this->logger);
         $this->integrationAPI = new WordPressAPI($this->dataStore);
         $this->integrationContext = new Integration\DefaultIntegration($this->config, $this->integrationAPI, $this->dataStore, $this->logger);
         $this->api = new WordPressClientAPI($this->integrationContext);
         $this->proxy = new Proxy($this->integrationContext);
-
-        // Don't allow "logged in" options to display to anonymous users
-        if ($this->isPluginSpecificCacheEnabled()) {
-            add_filter('show_admin_bar', '__return_false');
-            add_filter('edit_post_link', '__return_null');
-        }
     }
 
     /**
@@ -102,12 +96,6 @@ class Hooks
             wp_die('<p><strong>Cloudflare</strong> plugin requires WordPress version '.CLOUDFLARE_MIN_WP_VERSION.' or greater.</p>', 'Plugin Activation Error', array('response' => 200, 'back_link' => true));
         }
 
-        // Guzzle3 depends on php5-curl. If dependency does not exist kill the plugin.
-        if (!extension_loaded('curl')) {
-            deactivate_plugins(basename(CLOUDFLARE_PLUGIN_DIR));
-            wp_die('<p><strong>Cloudflare</strong> plugin requires php5-curl to be installed.</p>', 'Plugin Activation Error', array('response' => 200, 'back_link' => true));
-        }
-
         return true;
     }
 
@@ -169,20 +157,23 @@ class Hooks
     public function getPostRelatedLinks($postId)
     {
         $listofurls = array();
+        $post_type = get_post_type($postId);
 
-        // Category purge
-        $categories = get_the_category($postId);
-        if ($categories) {
-            foreach ($categories as $cat) {
-                array_push($listofurls, get_category_link($cat->term_id));
+        //Purge taxonomies terms URLs
+        $post_type_taxonomies = get_object_taxonomies($post_type);
+
+        foreach ($post_type_taxonomies as $taxonomy) {
+            $terms = get_the_terms($postId, $taxonomy);
+
+            if (empty($terms) || is_wp_error($terms)) {
+                continue;
             }
-        }
 
-        // Tag purge
-        $tags = get_the_tags($postId);
-        if ($tags) {
-            foreach ($tags as $tag) {
-                array_push($listofurls, get_tag_link($tag->term_id));
+            foreach ($terms as $term) {
+                $term_link = get_term_link($term);
+                if (!is_wp_error($term_link)) {
+                    array_push($listofurls, $term_link);
+                }
             }
         }
 
@@ -194,11 +185,11 @@ class Hooks
         );
 
         // Archives and their feeds
-        if (get_post_type_archive_link(get_post_type($postId)) == true) {
+        if (get_post_type_archive_link($post_type) == true) {
             array_push(
                 $listofurls,
-                get_post_type_archive_link(get_post_type($postId)),
-                get_post_type_archive_feed_link(get_post_type($postId))
+                get_post_type_archive_link($post_type),
+                get_post_type_archive_feed_link($post_type)
             );
         }
 
@@ -229,6 +220,13 @@ class Hooks
             array_push($listofurls, get_permalink(get_option('page_for_posts')));
         }
 
+        // Purge https and http URLs
+        if (function_exists('force_ssl_admin') && force_ssl_admin()) {
+            $listofurls = array_merge($listofurls, str_replace('https://', 'http://', $listofurls));
+        } elseif (!is_ssl() && function_exists('force_ssl_content') && force_ssl_content()) {
+            $listofurls = array_merge($listofurls, str_replace('http://', 'https://', $listofurls));
+        }
+
         return $listofurls;
     }
 
@@ -238,5 +236,10 @@ class Hooks
         $cacheSettingValue = $cacheSettingObject[\CF\API\Plugin::SETTING_VALUE_KEY];
 
         return isset($cacheSettingValue) && $cacheSettingValue !== false && $cacheSettingValue !== 'off';
+    }
+
+    public function http2ServerPushInit()
+    {
+        HTTP2ServerPush::init();
     }
 }

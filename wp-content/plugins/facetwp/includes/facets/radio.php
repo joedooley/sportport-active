@@ -5,8 +5,6 @@ class FacetWP_Facet_Radio_Core
 
     function __construct() {
         $this->label = __( 'Radio', 'fwp' );
-
-        add_filter( 'facetwp_store_unfiltered_post_ids', array( $this, 'store_unfiltered_post_ids' ) );
     }
 
 
@@ -263,17 +261,5 @@ class FacetWP_Facet_Radio_Core
             <td><input type="text" class="facet-count" value="20" /></td>
         </tr>
 <?php
-    }
-
-
-    /**
-     * Store unfiltered post IDs if a dropdown facet exists
-     */
-    function store_unfiltered_post_ids( $boolean ) {
-        if ( FWP()->helper->facet_setting_exists( 'type', 'radio' ) ) {
-            return true;
-        }
-
-        return $boolean;
     }
 }

@@ -161,7 +161,9 @@ class OMAPI_Api {
 
         // If not a 200 status header, send back error.
         if ( 200 != $response_code ) {
-	        return new WP_Error( $response_body->type, sprintf( __( 'The API returned a <strong>%s</strong> response with this message: <strong>%s</strong>', 'optin-monster-api' ), $response_code, stripslashes( $response_body->error ) ) );
+	        $type  = ! empty( $response_body->type ) ? $response_body->type : 'api-error';
+			$error = ! empty( $response_body->error ) ? stripslashes( $response_body->error ) : '';
+			return new WP_Error( $type, sprintf( __( 'The API returned a <strong>%s</strong> response with this message: <strong>%s</strong>', 'optin-monster-api' ), $response_code, $error ) );
         }
 
         // Return the json decoded content.

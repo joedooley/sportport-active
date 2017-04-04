@@ -2,7 +2,7 @@
 /*
 Plugin Name: Genesis Connect for WooCommerce
 Plugin URI: http://www.studiopress.com/plugins/genesis-connect-woocommerce
-Version: 0.9.8
+Version: 0.9.9
 Author: StudioPress
 Author URI: http://www.studiopress.com/
 Description: Allows you to seamlessly integrate WooCommerce with the Genesis Framework and Genesis child themes.
@@ -20,34 +20,20 @@ register_activation_hook( __FILE__, 'gencwooc_activation' );
  *
  * Requirements:
  * - WooCommerce needs to be installed and activated
- * - Child theme needs to have add_theme_support( 'genesis-connect-woocommerce' ) in functions.php
  *
  * Note: register_activation_hook() isn't run after auto or manual upgrade, only on activation
- * Note: this version of GCW is based on WooCommerce 1.4.4
+ * Note: this version of GCW is based on WooCommerce 2.1+
  *
  * @since 0.9.0
  */
 function gencwooc_activation() {
 
-	$message = '';
-
-	if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-		$message .= sprintf( '<br /><br />%s', __( 'Install and activate the WooCommerce plugin.', 'gencwooc') );
+	//* If Genesis is not the active theme, deactivate and die.
+	if ( 'genesis' != get_option( 'template' ) ) {
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+		wp_die( sprintf( __( 'Sorry, you can\'t activate unless you have installed <a href="%s">Genesis</a>', 'gencwooc' ), 'http://my.studiopress.com/themes/genesis/' ) );
 	}
 
-	if ( ! current_theme_supports( 'genesis-connect-woocommerce' ) ) {
-		$message .= sprintf( '<br /><br />%s<br />%s', __( "Add this code to your child theme's functions.php:", 'gencwooc' ), "<code> add_theme_support( 'genesis-connect-woocommerce' );</code>" );
-	}
-
-	if ( ! empty( $message ) ) {
-
-		deactivate_plugins( plugin_basename( __FILE__ ) ); /** Deactivate ourself */
-
-		$message = __( 'Sorry! In order to use the Genesis Connect for WooCommerce plugin you need to do the following:', 'gencwooc' ) . $message;
-
-		wp_die( $message, 'Genesis Connect for WooCommerce Plugin', array( 'back_link' => true ) );
-
-	}
 }
 
 
@@ -75,10 +61,6 @@ function gencwooc_setup() {
 	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )
 		return;
 
-	/** Fail silently if theme doesn't support GCW */
-	if ( ! current_theme_supports( 'genesis-connect-woocommerce' ) )
-		return;
-
 	/** Environment is OK, let's go! */
 
 	global $woocommerce;
@@ -86,10 +68,13 @@ function gencwooc_setup() {
 	/** Load GCW files */
 	require_once( GCW_LIB_DIR . '/template-loader.php' );
 
+	// Load posts per page option
+	require_once( GCW_LIB_DIR . '/posts-per-page.php' );
+
 	/** Load modified Genesis breadcrumb filters and callbacks */
 	if ( ! current_theme_supports( 'gencwooc-woo-breadcrumbs') )
 		require_once( GCW_LIB_DIR . '/breadcrumb.php' );
-		
+
 	/** Ensure WooCommerce 2.0+ compatibility */
 	add_theme_support( 'woocommerce' );
 

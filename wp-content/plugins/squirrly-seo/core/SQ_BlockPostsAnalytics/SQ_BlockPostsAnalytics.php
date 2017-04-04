@@ -12,6 +12,8 @@ class SQ_BlockPostsAnalytics extends SQ_BlockController {
         $this->postlist = SQ_ObjController::getController('SQ_PostsList');
 
         $this->model->prepare_items();
+
+        @ini_set('open_basedir', null);
     }
 
     public function getNavigationTop() {

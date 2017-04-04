@@ -5,6 +5,7 @@ class FacetWP_Init
 
     function __construct() {
         add_action( 'init', array( $this, 'init' ) );
+        add_action( 'admin_notices', array( $this, 'admin_notices' ) );
     }
 
 
@@ -19,14 +20,20 @@ class FacetWP_Init
         // is_plugin_active
         include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
+        // api 
+        include( FACETWP_DIR . '/includes/api/fetch.php' );
+        include( FACETWP_DIR . '/includes/api/refresh.php' );
+
         // classes
-        foreach ( array( 'helper', 'ajax', 'api', 'facet', 'indexer', 'display', 'upgrade' ) as $f ) {
+        foreach ( array( 'helper', 'ajax', 'facet', 'indexer', 'display', 'overrides', 'upgrade' ) as $f ) {
             include( FACETWP_DIR . "/includes/class-{$f}.php" );
         }
 
         new FacetWP_Upgrade();
+        new FacetWP_Overrides();
+        new FacetWP_API_Fetch();
+
         FWP()->helper       = new FacetWP_Helper();
-        FWP()->api          = new FacetWP_API();
         FWP()->facet        = new FacetWP_Facet();
         FWP()->indexer      = new FacetWP_Indexer();
         FWP()->display      = new FacetWP_Display();
@@ -119,6 +126,40 @@ class FacetWP_Init
         $settings_link = '<a href=" ' . $settings_link . '">' . __( 'Settings', 'fwp' )  . '</a>';
         array_unshift( $links, $settings_link );
         return $links;
+    }
+
+
+    /**
+     * Notify users to install necessary integrations
+     */
+    function admin_notices() {
+        $reqs = array(
+            'WPML' => array(
+                'is_active' => defined( 'ICL_SITEPRESS_VERSION' ),
+                'addon' => 'facetwp-wpml/facetwp-wpml.php',
+                'slug' => 'wpml'
+            ),
+            'Polylang' => array(
+                'is_active' => function_exists( 'pll_register_string' ),
+                'addon' => 'facetwp-polylang/index.php',
+                'slug' => 'polylang'
+            ),
+            'Relevanssi' => array(
+                'is_active' => function_exists( 'relevanssi_search' ),
+                'addon' => 'facetwp-relevanssi/facetwp-relevanssi.php',
+                'slug' => 'relevanssi'
+            )
+        );
+
+        $addon = __( 'integration add-on', 'fwp' );
+        $message = __( 'To use FacetWP with %s, please install the %s, then re-index.', 'fwp' );
+
+        foreach ( $reqs as $req_name => $req ) {
+            if ( $req['is_active'] && ! is_plugin_active( $req['addon'] ) ) {
+                $link = sprintf( '<a href="https://facetwp.com/add-ons/%s/" target="_blank">%s</a>', $req['slug'], $addon );
+                echo '<div class="error"><p>' . sprintf( $message, $req_name, $link ) . '</p></div>';
+            }
+        }
     }
 }
 

@@ -39,6 +39,7 @@ class FacetWP_Updater
                 'slug'      => $this->slug,
                 'license'   => $this->license,
                 'host'      => FWP()->helper->get_http_host(),
+                'php_v'     => phpversion(),
             )
         ) );
 

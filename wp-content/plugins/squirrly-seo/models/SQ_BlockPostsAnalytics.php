@@ -220,13 +220,18 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table
 
     function get_sortable_columns()
     {
-        return array(
+        $columns = array(
             'title' => 'title',
             'type' => 'type',
             'author' => 'author',
-            'rank' => 'rank',
-            'date' => array('date', true)
         );
+        if(SQ_Tools::$options['sq_google_ranksperhour'] > 0){
+            $columns['rank'] = 'rank';
+        }
+
+        $columns['date'] = array('date', true);
+
+        return $columns;
     }
 
     function print_column_headers($with_id = true)
@@ -302,7 +307,14 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table
         if (empty($post_type) || is_object_in_taxonomy($post_type, 'post_tag'))
             $posts_columns['keywords'] = __('Keywords');
 
-        $posts_columns['rank'] = sprintf(__('Google.%s Position'), SQ_Tools::$options['sq_google_country']);
+        if(SQ_Tools::$options['sq_google_ranksperhour'] > 0) {
+            $blog_ip = @gethostbyname(gethostname());
+            if (isset($blog_ip)) {
+                if (strpos($blog_ip, '192.') === false) {
+                    $posts_columns['rank'] = sprintf(__('Google.%s Position'), SQ_Tools::$options['sq_google_country']);
+                }
+            }
+        }
         $posts_columns['traffic'] = '';
         $posts_columns['date'] = __('Date');
         return $posts_columns;

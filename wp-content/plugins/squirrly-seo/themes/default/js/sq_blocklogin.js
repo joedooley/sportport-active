@@ -6,7 +6,7 @@ if (jQuery('#sq_blocklogin').length > 0) {
     });
 }
 function sq_blocklogin() {
-    jQuery('#sq_email').bind('keypress', function (event) {
+    jQuery('#sq_email').on('keypress', function (event) {
 
         if (event.keyCode === 13)
             sq_autoLogin();
@@ -14,7 +14,7 @@ function sq_blocklogin() {
         return event.keyCode !== 13;
     });
 
-    jQuery('#sq_user').bind('keypress', function (event) {
+    jQuery('#sq_user').on('keypress', function (event) {
 
         if (event.keyCode === 13)
             jQuery('#sq_login').trigger('click');
@@ -22,7 +22,7 @@ function sq_blocklogin() {
         return event.keyCode !== 13;
     });
 
-    jQuery('#sq_password').bind('keypress', function (event) {
+    jQuery('#sq_password').on('keypress', function (event) {
 
         if (event.keyCode === 13)
             jQuery('#sq_login').trigger('click');
@@ -30,7 +30,16 @@ function sq_blocklogin() {
         return event.keyCode !== 13;
     });
 
-    jQuery('#sq_signin').bind('click', function (event) {
+    jQuery('#sq_terms').on('click', function () {
+        if (jQuery(this).prop("checked") == true){
+            jQuery('#sq_loginimage').css('opacity','1');
+        }else{
+            jQuery('#sq_loginimage').css('opacity','0.4');
+        }
+    });
+
+
+    jQuery('#sq_signin').on('click', function (event) {
         jQuery('#sq_autologin').hide();
         jQuery('#sq_blocklogin').find('ul').show();
 
@@ -39,7 +48,7 @@ function sq_blocklogin() {
         jQuery('#sq_email').focus();
     });
 
-    jQuery('#sq_signup').bind('click', function (event) {
+    jQuery('#sq_signup').on('click', function (event) {
         jQuery('#sq_autologin').show();
         jQuery('#sq_blocklogin').find('ul').hide();
 
@@ -48,7 +57,7 @@ function sq_blocklogin() {
         jQuery('#sq_email').focus();
     });
 
-    jQuery('#sq_login').bind('click', function () {
+    jQuery('#sq_login').on('click', function () {
         jQuery('#sq_login').addClass('sq_minloading');
         jQuery('#sq_login').attr("disabled", "disabled");
         jQuery('#sq_login').val('');
@@ -214,6 +223,10 @@ function sq_reload(response) {
         jQuery('#sq_goto_dashboard').show();
         jQuery('.sq_login_link').after(jQuery('#sq_goto_dashboard').clone());
         jQuery('.sq_login_link').remove();
+
+        jQuery(".sq_goto_dashboard").on('click', function () {
+            location.href = "?page=sq_dashboard";
+        });
     }
 }
 

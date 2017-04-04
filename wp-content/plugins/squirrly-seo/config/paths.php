@@ -6,14 +6,16 @@ define('_SQ_NAME_', 'squirrly');
 define('_SQ_PLUGIN_NAME_', 'squirrly-seo'); //THIS LINE WILL BE CHANGED WITH THE USER SETTINGS
 define('_THEME_NAME_', 'default'); //THIS LINE WILL BE CHANGED WITH THE USER SETTINGS
 
-defined('_SQ_DASH_URL_') ||  define('_SQ_DASH_URL_', 'https://my.squirrly.co/');
 $scheme = (((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") || (defined('FORCE_SSL_ADMIN') && FORCE_SSL_ADMIN)) ? 'https:' : 'http:'); //CHECK IF SCURE
-
+defined('_SQ_DASH_URL_') || define('_SQ_DASH_URL_', 'https://my.squirrly.co/');
 defined('SQ_URI') || define('SQ_URI', (WP_VERSION_ID >= 3000) ? 'wp350' : 'wp2');
-defined('_SQ_API_URL_') || define('_SQ_API_URL_', $scheme . '//api.squirrly.co/');
+defined('_SQ_API_URL_') || define('_SQ_API_URL_', '//api.squirrly.co/');
 
-defined('_SQ_STATIC_API_URL_') || define('_SQ_STATIC_API_URL_', $scheme . '//storage.googleapis.com/squirrly/');
-defined('_SQ_SUPPORT_URL_') || define('_SQ_SUPPORT_URL_', 'https://plus.google.com/u/0/communities/104196720668136264985');
+defined('_SQ_STATIC_API_URL_') || define('_SQ_STATIC_API_URL_', '//storage.googleapis.com/squirrly/');
+defined('_SQ_SUPPORT_EMAIL_URL_') || define('_SQ_SUPPORT_EMAIL_URL_', 'http://plugin.squirrly.co/contact/');
+defined('_SQ_SUPPORT_GOOGLE_URL_') || define('_SQ_SUPPORT_GOOGLE_URL_', 'https://plus.google.com/u/0/communities/104196720668136264985');
+defined('_SQ_SUPPORT_FACEBOOK_URL_') || define('_SQ_SUPPORT_FACEBOOK_URL_', 'https://www.facebook.com/Squirrly.co');
+defined('_SQ_SUPPORT_URL_') || define('_SQ_SUPPORT_URL_', _SQ_SUPPORT_FACEBOOK_URL_);
 
 /* Directories */
 define('_SQ_ROOT_DIR_', realpath(dirname($currentDir)));

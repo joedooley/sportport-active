@@ -7,6 +7,9 @@ class FacetWP_Facet_Autocomplete
         $this->label = __( 'Autocomplete', 'fwp' );
 
         // ajax
+        add_action( 'facetwp_autocomplete_load', array( $this, 'ajax_load' ) );
+
+        // deprecated
         add_action( 'wp_ajax_facetwp_autocomplete_load', array( $this, 'ajax_load' ) );
         add_action( 'wp_ajax_nopriv_facetwp_autocomplete_load', array( $this, 'ajax_load' ) );
     }

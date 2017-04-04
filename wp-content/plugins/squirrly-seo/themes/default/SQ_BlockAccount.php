@@ -6,7 +6,7 @@
             <span class="sq_icon"></span>
             <div id="sq_settings_title" ><?php _e('Squirrly account information', _SQ_PLUGIN_NAME_); ?> </div>
             <div id="sq_settings_title" style="text-align: right">
-                <input id="sq_goto_dashboard" type="button" value="<?php _e('Go to dashboard', _SQ_PLUGIN_NAME_) ?> &raquo;" />
+                <input id="sq_goto_dashboard" class="sq_goto_dashboard" type="button" value="<?php _e('Go to dashboard', _SQ_PLUGIN_NAME_) ?> &raquo;" />
                 <br style="clear: both;">
             </div>
         </div>

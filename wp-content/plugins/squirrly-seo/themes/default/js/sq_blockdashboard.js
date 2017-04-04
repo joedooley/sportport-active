@@ -11,7 +11,7 @@ function sq_blockdashboard(){
         jQuery('#sq_settings_login').after(jQuery('.sq_helpcontent'));
     }
     jQuery('.sq_helpcontent').show();
-    jQuery('.sq_slidelist a').bind('click', function () {
+    jQuery('.sq_slidelist a').on('click', function () {
         var li = jQuery(this).parent('li');
         li.addClass('sq_loading');
         li.find('a').hide();
@@ -22,7 +22,7 @@ function sq_blockdashboard(){
         li.find('iframe').show();
         li.append('<span>x</span>');
 
-        li.find('span').bind('click', function () {
+        li.find('span').on('click', function () {
             var li = jQuery(this).parent('li');
             li.find('a').show();
             li.find('div').show();

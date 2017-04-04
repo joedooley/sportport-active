@@ -89,6 +89,7 @@ foreach ( $facet_types as $class ) {
 <script src="<?php echo FACETWP_URL; ?>/assets/js/admin.js?ver=<?php echo FACETWP_VERSION; ?>"></script>
 <script>
 FWP.i18n = <?php echo json_encode( $i18n ); ?>;
+FWP.nonce = '<?php echo wp_create_nonce( 'fwp_admin_nonce' ); ?>';
 FWP.settings = <?php echo json_encode( $settings ); ?>;
 FWP.clone = <?php echo json_encode( $facet_clone ); ?>;
 FWP.builder = {
@@ -120,8 +121,8 @@ FWP.builder = {
     <div class="facetwp-region facetwp-region-welcome about-wrap">
         <h1><?php _e( 'Welcome to FacetWP', 'fwp' ); ?> <span class="version"><?php echo FACETWP_VERSION; ?></span></h1>
         <div class="about-text">Thank you for choosing FacetWP. Check out our intro video.</div>
-        <a href="https://vimeo.com/162724676" target="_blank">
-            <img src="https://i.imgur.com/AFQbw0y.png" width="596" height="334" />
+        <a href="https://facetwp.com/documentation/getting-started/" target="_blank">
+            <img src="https://i.imgur.com/U4ko9Eh.png" width="575" height="323" />
         </a>
     </div>
 
@@ -221,6 +222,17 @@ FWP.builder = {
                             <option value=""><?php _e( 'Spin', 'fwp' ); ?></option>
                             <option value="fade"><?php _e( 'Fade', 'fwp' ); ?></option>
                             <option value="none"><?php _e( 'None', 'fwp' ); ?></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:175px; vertical-align:top">
+                        <?php _e( 'Debug Mode', 'fwp' ); ?>
+                    </td>
+                    <td>
+                        <select class="facetwp-setting" data-name="debug_mode">
+                            <option value="off"><?php _e( 'Off', 'fwp' ); ?></option>
+                            <option value="on"><?php _e( 'On', 'fwp' ); ?></option>
                         </select>
                     </td>
                 </tr>

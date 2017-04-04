@@ -11,23 +11,23 @@ function sq_blocksettingsseo() {
 ///////////////////////////////
     var snippet_timeout;
     //switch click
-    jQuery('#sq_settings_form').find('input[name=sq_auto_title],input[name=sq_auto_description]').bind('click', function () {
+    jQuery('#sq_settings_form').find('input[name=sq_auto_title],input[name=sq_auto_description]').on('click', function () {
         sq_getSnippet();
     });
 
     //Custom title/description
-    jQuery('#sq_customize').bind('click', function () {
+    jQuery('#sq_customize').on('click', function () {
         jQuery('#sq_customize_settings').show();
         jQuery('#sq_snippet_disclaimer').show();
         jQuery('#sq_title_description_keywords').addClass('sq_custom_title');
     });
 
-    jQuery('.sq_checkissues').bind('click', function () {
+    jQuery('.sq_checkissues').on('click', function () {
         location.href = '?page=sq_seo&action=sq_checkissues&nonce=' + jQuery('#sq_settings_form').find('input[name=nonce]').val();
     });
 
     //Listen the title field imput for snippet preview
-    jQuery('#sq_settings').find('input[name=sq_fp_title]').bind('keyup', function () {
+    jQuery('#sq_settings').find('input[name=sq_fp_title]').on('keyup', function () {
         if (snippet_timeout) {
             clearTimeout(snippet_timeout);
         }
@@ -41,7 +41,7 @@ function sq_blocksettingsseo() {
     });
 
     //Listen the description field imput for snippet preview
-    jQuery('#sq_settings').find('textarea[name=sq_fp_description]').bind('keyup', function () {
+    jQuery('#sq_settings').find('textarea[name=sq_fp_description]').on('keyup', function () {
         if (snippet_timeout) {
             clearTimeout(snippet_timeout);
         }
@@ -54,7 +54,7 @@ function sq_blocksettingsseo() {
         sq_trackLength(jQuery(this), 'description');
     });
 
-    jQuery('#sq_settings').find('input[name=sq_fp_keywords]').bind('keyup', function () {
+    jQuery('#sq_settings').find('input[name=sq_fp_keywords]').on('keyup', function () {
         if (snippet_timeout) {
             clearTimeout(snippet_timeout);
         }
@@ -71,28 +71,29 @@ function sq_blocksettingsseo() {
     }
 
     //Listen the favicon switch
-    jQuery('#sq_auto_favicon1').bind('click', function () {
-        jQuery('#sq_favicon').slideDown('fast');
+    jQuery('#sq_auto_favicon1').on('click', function () {
+        jQuery('#sq_favicon').removeClass('deactivated');
     });
-    jQuery('#sq_auto_favicon0').bind('click', function () {
-        jQuery('#sq_favicon').slideUp('fast');
+    jQuery('#sq_auto_favicon0').on('click', function () {
+        jQuery('#sq_favicon').addClass('deactivated');
     });
 
     //Listen the favicon switch
-    jQuery('#sq_auto_sitemap1').bind('click', function () {
-        jQuery('#sq_sitemap').slideDown('fast');
+    jQuery('#sq_auto_sitemap1').on('click', function () {
+        jQuery('#sq_sitemap').removeClass('deactivated');
     });
-    jQuery('#sq_auto_sitemap0').bind('click', function () {
-        jQuery('#sq_sitemap').slideUp('fast');
+    jQuery('#sq_auto_sitemap0').on('click', function () {
+        jQuery('#sq_sitemap').addClass('deactivated');
     });
-    jQuery('#sq_auto_jsonld1').bind('click', function () {
-        jQuery('#sq_jsonld').slideDown('fast');
+    jQuery('#sq_auto_jsonld1').on('click', function () {
+        jQuery('#sq_jsonld').removeClass('deactivated');
+
     });
-    jQuery('#sq_auto_jsonld0').bind('click', function () {
-        jQuery('#sq_jsonld').slideUp('fast');
+    jQuery('#sq_auto_jsonld0').on('click', function () {
+        jQuery('#sq_jsonld').addClass('deactivated');
     });
 
-    jQuery('.sq_social_link').bind('click', function () {
+    jQuery('.sq_social_link').on('click', function () {
         var previewtop = jQuery('#sq_social_media_accounts').offset().top - 100;
         jQuery('html,body').animate({scrollTop: previewtop}, 1000);
     });
@@ -111,21 +112,21 @@ function sq_blocksettingsseo() {
     });
 
     //Listen the Squirrly Auto seo switch ON
-    jQuery('#sq_use_on').bind('click', function () {
+    jQuery('#sq_use_on').on('click', function () {
         jQuery('#sq_settings .sq_seo_switch_condition').show();
-        jQuery('#sq_title_description_keywords').slideDown('fast');
-        jQuery('#sq_social_media').slideDown('fast');
+        jQuery('#sq_title_description_keywords').removeClass('deactivated');
+        jQuery('#sq_social_media').removeClass('deactivated');
 
         if (jQuery('#sq_settings').find('input[name=sq_auto_sitemap]:checked').val() == 1) {
-            jQuery('#sq_sitemap').slideDown('fast');
+            jQuery('#sq_sitemap').removeClass('deactivated');
         }
 
         if (jQuery('#sq_settings').find('input[name=sq_auto_favicon]:checked').val() == 1) {
-            jQuery('#sq_favicon').slideDown('fast');
+            jQuery('#sq_favicon').removeClass('deactivated');
         }
 
-        if (jQuery('#sq_settings').find('input[name=sq_jsonld]:checked').val() == 1) {
-            jQuery('#sq_jsonld').slideDown('fast');
+        if (jQuery('#sq_settings').find('input[name=sq_auto_jsonld]:checked').val() == 1) {
+            jQuery('#sq_jsonld').removeClass('deactivated');
         }
 
         if (parseInt(jQuery('.sq_count').html()) > 0) {
@@ -137,19 +138,19 @@ function sq_blocksettingsseo() {
                 jQuery('.sq_count').hide();
             }
         }
-        jQuery('#sq_fix_auto').slideUp('show');
+        jQuery('#sq_fix_auto').slideUp('fast');
 
 
     });
     //Listen the Squirrly Auto seo switch OFF
-    jQuery('#sq_use_off').bind('click', function () {
+    jQuery('#sq_use_off').on('click', function () {
         jQuery('#sq_settings .sq_seo_switch_condition').hide();
-        jQuery('#sq_title_description_keywords').slideUp('fast');
 
-        jQuery('#sq_social_media').slideUp('fast');
-        jQuery('#sq_favicon').slideUp('fast');
-        jQuery('#sq_sitemap').slideUp('fast');
-        jQuery('#sq_jsonld').slideUp('fast');
+        jQuery('#sq_title_description_keywords').addClass('deactivated');
+        jQuery('#sq_social_media').addClass('deactivated');
+        jQuery('#sq_favicon').addClass('deactivated');
+        jQuery('#sq_sitemap').addClass('deactivated');
+        jQuery('#sq_jsonld').addClass('deactivated');
 
 
         if (parseInt(jQuery('.sq_count').html()) >= 0) {
@@ -161,10 +162,44 @@ function sq_blocksettingsseo() {
         jQuery('#sq_fix_auto').slideDown('show');
     });
 
+    jQuery('#sq_title_description_keywords').on('click', function () {
+        if (jQuery('#sq_title_description_keywords').hasClass('deactivated')) {
+            jQuery('#sq_use_on').trigger('click');
+            jQuery(this).removeClass('deactivated');
+        }
+    });
+    jQuery('#sq_social_media.deactivated').on('click', function () {
+        if (jQuery('#sq_social_media').hasClass('deactivated')) {
+            jQuery('#sq_use_on').trigger('click');
+            jQuery(this).removeClass('deactivated');
+        }
+    });
+    jQuery('#sq_favicon.deactivated').on('click', function () {
+        if (jQuery('#sq_favicon').hasClass('deactivated')) {
+            jQuery('#sq_use_on').trigger('click');
+            jQuery('#sq_auto_favicon1').trigger('click');
+            jQuery(this).removeClass('deactivated');
+        }
+    });
+    jQuery('#sq_sitemap.deactivated').on('click', function () {
+        if (jQuery('#sq_sitemap').hasClass('deactivated')) {
+            jQuery('#sq_use_on').trigger('click');
+            jQuery('#sq_auto_sitemap1').trigger('click');
+            jQuery(this).removeClass('deactivated');
+        }
+    });
+    jQuery('#sq_jsonld.deactivated').on('click', function () {
+        if (jQuery('#sq_jsonld').hasClass('deactivated')) {
+            jQuery('#sq_use_on').trigger('click');
+            jQuery('#sq_auto_jsonld1').trigger('click');
+            jQuery(this).removeClass('deactivated');
+        }
+    });
+
 ///////////////////////////////
 ////////////////////FIX ACTIONS
     //FIX Google settings
-    jQuery('#sq_google_index1').bind('click', function () {
+    jQuery('#sq_google_index1').on('click', function () {
         if (parseInt(jQuery('.sq_count').html()) > 0) {
             var notif = (parseInt(jQuery('.sq_count').html()) - 1);
             if (notif > 0) {
@@ -177,7 +212,7 @@ function sq_blocksettingsseo() {
         jQuery('#sq_fix_private').slideUp('show');
 
     });
-    jQuery('#sq_google_index0').bind('click', function () {
+    jQuery('#sq_google_index0').on('click', function () {
         if (parseInt(jQuery('.sq_count').html()) >= 0) {
             var notif = (parseInt(jQuery('.sq_count').html()) + 1);
             if (notif > 0) {
@@ -188,7 +223,7 @@ function sq_blocksettingsseo() {
     });
 
     //JsonLD switch types
-    jQuery('.sq_jsonld_type').bind('change', function () {
+    jQuery('.sq_jsonld_type').on('change', function () {
         jQuery('.sq_jsonld_types').hide();
         jQuery('.sq_jsonld_' + jQuery('#sq_settings').find('select[name=sq_jsonld_type] option:selected').val()).show();
 
@@ -196,7 +231,7 @@ function sq_blocksettingsseo() {
     //////////////////////////////////////////
 
     //Upload image from library
-    jQuery('#sq_json_imageselect').bind('click', function (event) {
+    jQuery('#sq_json_imageselect').on('click', function (event) {
         var frame;
 
         event.preventDefault();
@@ -232,23 +267,23 @@ function sq_blocksettingsseo() {
         frame.open();
     });
 
-    jQuery('#sq_auto_facebook1').bind('click', function () {
+    jQuery('#sq_auto_facebook1').on('click', function () {
         jQuery('p.sq_select_ogimage').slideDown();
         jQuery('div.sq_select_ogimage_preview').slideDown();
 
     });
-    jQuery('#sq_auto_facebook0').bind('click', function () {
+    jQuery('#sq_auto_facebook0').on('click', function () {
         jQuery('p.sq_select_ogimage').slideUp();
         jQuery('div.sq_select_ogimage_preview').slideUp();
     });
 
-    jQuery('div.sq_fp_ogimage_close').bind('click', function (event) {
+    jQuery('div.sq_fp_ogimage_close').on('click', function (event) {
         jQuery('input[name=sq_fp_ogimage]').val('');
         jQuery('div.sq_fp_ogimage').html('');
         jQuery('div.sq_fp_ogimage_close').hide();
     });
     //Upload image from library
-    jQuery('#sq_fp_imageselect').bind('click', function (event) {
+    jQuery('#sq_fp_imageselect').on('click', function (event) {
         var frame;
 
         event.preventDefault();
@@ -363,7 +398,7 @@ function sq_submitSettings() {
             nonce: sqQuery.nonce
         }
     ).done(function () {
-        showSaved(2000);
+        sq_showSaved(2000);
     }, 'json');
 
 }

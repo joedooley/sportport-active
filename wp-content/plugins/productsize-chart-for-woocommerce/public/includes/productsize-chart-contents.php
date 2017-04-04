@@ -16,8 +16,7 @@ $title_wrapper=$this->default_assets['productsize-chart-title'];
 $title=!empty($title_wrapper) ? $title_wrapper : "h2";
 $enable_additional_chart= $this->default_assets['productsize-chart-enable-additional-chart'];
 
-
-echo '<'.$title.' id="modal1Title">'.__($assets['label'],$this->plugin_name).'</'.$title.'>';
+printf('<%1$s id="modal1Title">%2$s</%3$s>', $title, __($assets['label'],$this->plugin_name), $title);
 
 $post_data=get_post($chart_id);  
 
@@ -48,27 +47,27 @@ if($enable_additional_chart==1):
 $title2=!empty($title_additional) ? $title_additional : "h3";
 
 if($assets['chart-1']):
-	$title=$assets['chart-1'][0]['chart-title'];
-$image=$assets['chart-1'][0]['chart-image'];
-$content=$assets['chart-1'][0]['chart-content'];
-$position=$assets['chart-1'][0]['image-position']=='left' ? 'image-left' : 'image-right';
-$chart=$assets['chart-1'][0]['chart-table'];
+$title_c1 = $assets['chart-1'][0]['chart-title'];
+$image_c1 = $assets['chart-1'][0]['chart-image'];
+$content_c1 = $assets['chart-1'][0]['chart-content'];
+$position_c1 = $assets['chart-1'][0]['image-position']=='left' ? 'image-left' : 'image-right';
+$chart_c1 = $assets['chart-1'][0]['chart-table'];
 
-echo '<div class="add-chart-1">
-<'.$title2.' id="modal1Title">'.__($title,$this->plugin_name); $title2.' >';
+echo '<div class="add-chart-1">';
+printf('<%1$s id="modal1Title">%2$s</%3$s>', $title2, __($title_c1,$this->plugin_name), $title2);
 
-if($image):
-	$img=wp_get_attachment_image_src($image,'full'); 
-echo '<div class="chart-1-image '.$position.'"><img src="'.$img[0].'" alt="'.$title.'" 
-title="'.$title.'" />
+if($image_c1):
+	$img=wp_get_attachment_image_src($image_c1,'full'); 
+echo '<div class="chart-1-image '.$position_c1.'"><img src="'.$img[0].'" alt="'.$title_c1.'" 
+title="'.$title_c1.'" />
 </div>';
 endif;
 
-if($content) 
-echo apply_filters('the_content',$content);
+if($content_c1) 
+echo apply_filters('the_content',$content_c1);
 
-if($chart)
-$this->productsize_chart_display_table($chart); 
+if($chart_c1)
+$this->productsize_chart_display_table($chart_c1); 
 
 echo '</div>
 <div class="clear"></div>';
@@ -77,28 +76,27 @@ endif;
 
 if($assets['chart-2']):
 
-$title2=$assets['chart-2'][0]['chart-title-1'];
-$image2=$assets['chart-2'][0]['chart-image-1'];
-$content2=$assets['chart-2'][0]['chart-content-1'];
-$position2=$assets['chart-2'][0]['image-position-1']=='left' ? 'image-left' : 'image-right';
-$chart2=$assets['chart-2'][0]['chart-table-1'];
+$title_c2=$assets['chart-2'][0]['chart-title-1'];
+$image_c2=$assets['chart-2'][0]['chart-image-1'];
+$content_c2=$assets['chart-2'][0]['chart-content-1'];
+$position_c2=$assets['chart-2'][0]['image-position-1']=='left' ? 'image-left' : 'image-right';
+$chart_c2=$assets['chart-2'][0]['chart-table-1'];
 
-echo '<div class="add-chart-2">
-<'.$title2.' id="modal1Title">'.__($title,$this->plugin_name).'</'.$title2.'>';
-
-if($image): 
-	$img=wp_get_attachment_image_src($image2,'full'); 
-echo '<div class="chart-2-image '.$position2.'">
-<img src="'.$img[0].'" alt="'.$title2.' ?>" 
-title="'.$title.'" />
+echo '<div class="add-chart-2">';
+printf('<%1$s id="modal1Title">%2$s</%3$s>', $title2, __($title_c2,$this->plugin_name), $$title2);
+if($image_c2): 
+	$img=wp_get_attachment_image_src($image_c2,'full'); 
+echo '<div class="chart-2-image '.$position_c2.'">
+<img src="'.$img[0].'" alt="'.$title_c2.' ?>" 
+title="'.$title_c2.'" />
 </div>';
 endif; 
 
-if($content2)
-echo apply_filters('the_content',$content2); 
+if($content_c2)
+echo apply_filters('the_content',$content_c2); 
 
-if($chart2)
-$this->productsize_chart_display_table($chart2); 
+if($chart_c2)
+$this->productsize_chart_display_table($chart_c2); 
 
 echo '</div>';
 

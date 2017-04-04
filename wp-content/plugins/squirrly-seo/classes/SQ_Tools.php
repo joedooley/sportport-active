@@ -22,7 +22,7 @@ class SQ_Tools extends SQ_FrontController {
 
         self::$options = $this->getOptions();
 
-        $this->checkDebug(); //dev mode
+        //$this->checkDebug(); //dev mode
     }
 
     public static function getUserID() {
@@ -64,7 +64,7 @@ class SQ_Tools extends SQ_FrontController {
     /**
      * Load the Options from user option table in DB
      *
-     * @return void
+     * @return array
      */
     public static function getOptions() {
         $default = array(
@@ -72,7 +72,7 @@ class SQ_Tools extends SQ_FrontController {
             'sq_api' => '',
             'sq_checkedissues' => 0,
             'sq_areissues' => 0,
-            'sq_use' => 0,
+            'sq_use' => 1,
             'sq_post_types' => array(
                 'post', 'page', 'product', 'shopp_page_shopp-products'
             ),
@@ -187,6 +187,10 @@ class SQ_Tools extends SQ_FrontController {
         return $default;
     }
 
+    /**
+     * Send completed tasks from tutorial
+     * @return array
+     */
     public static function getBriefOptions() {
         if ($pageId = get_option('page_on_front')) {
             $title = SQ_ObjController::getModel('SQ_Frontend')->getAdvancedMeta($pageId, 'title');
@@ -894,15 +898,11 @@ class SQ_Tools extends SQ_FrontController {
         }
 
         if ($postid > 0) {
-            self::dump("it's a post", $url, $postid);
             $frontend->setPost(get_post($postid));
             $snippet['title'] = $frontend->getTitle();
             $snippet['description'] = $frontend->getDescription();
             $snippet['url'] = $url;
-            self::dump($snippet);
         } elseif ($url == get_bloginfo('url')) {
-            self::dump("it's main page", $url, get_bloginfo('url'));
-
             if (self::$options ['sq_auto_title'] == 1) {
                 $snippet['title'] = self::$options['sq_fp_title'];
             }
@@ -911,7 +911,6 @@ class SQ_Tools extends SQ_FrontController {
             }
 
             $snippet['url'] = $url;
-            self::dump($snippet);
         } else {
             $length = array('title' => 66,
                 'description' => 240,
@@ -1027,7 +1026,6 @@ class SQ_Tools extends SQ_FrontController {
 
         echo PHP_EOL . " Load: {$memory_avail} (avail) / {$memory_used}M (used) / {$memory_peak}M (peak)";
         echo "  | Time: {$run_time}s | {$pps} req/sec";
-        echo "<pre>" . print_r($wp_query, true) . "</pre>";
     }
 
     public function sq_activate() {

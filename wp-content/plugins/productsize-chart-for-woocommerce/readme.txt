@@ -2,8 +2,8 @@
 Contributors: Nabaraj Chapagain
 Tags: Size Chart for Woocommerce, Product Chart for Woocommerce, Size Chart, Product Chart 
 Requires at least: 4.0
-Tested up to: 4.7
-Stable tag: 1.0.5
+Tested up to: 4.7.3
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,3 +66,11 @@ Decide whether you wanna show the chart as modal pop up or additional chart.
 
 = 1.0.4 =
 * New Version Release
+
+= 1.0.5 =
+* New Version Release
+
+= 1.0.6 =
+* New Version Release
+* bug fixes
+

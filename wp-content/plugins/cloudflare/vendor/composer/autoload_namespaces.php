@@ -6,10 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Psr\\Log\\' => array($vendorDir . '/psr/log'),
+    'SimplyAdmire\\ComposerPlugins' => array($vendorDir . '/simplyadmire/composer-plugins'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
     'JohnKary' => array($vendorDir . '/johnkary/phpunit-speedtrap/src'),
-    'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
-    'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
     'CloudFlare\\' => array($vendorDir . '/cloudflare/cf-ip-rewrite/src'),
 );

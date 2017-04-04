@@ -33,7 +33,6 @@ class SQ_BlockSettingsSeo extends SQ_BlockController {
     public function action() {
         parent::action();
 
-
         switch (SQ_Tools::getValue('action')) {
 
             case 'sq_settingsseo_update':

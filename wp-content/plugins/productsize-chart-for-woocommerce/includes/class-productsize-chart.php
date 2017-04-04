@@ -56,7 +56,7 @@ class productsize_chart {
 	public function __construct() {
 
 		$this->plugin_name = 'productsize-chart-for-woocommerce';
-		$this->version = '1.0.5';
+		$this->version = '1.0.6';
 
 		$this->load_dependencies();
 		$this->set_locale();

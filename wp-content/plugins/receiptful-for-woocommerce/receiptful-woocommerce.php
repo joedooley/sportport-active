@@ -5,7 +5,7 @@
  * Description: 	Conversio is the all-in-one marketing dashboard for your WooCommerce store.
  * Author: 			Receiptful
  * Author URI: 		https://conversio.com
- * Version: 		1.3.3
+ * Version: 		1.3.4
  * Text Domain: 	receiptful-for-woocommerce
  * Domain Path: 	/languages/
  *
@@ -35,7 +35,7 @@ class Receiptful_WooCommerce {
 	 * @since 1.0.1
 	 * @var string $version Plugin version number.
 	 */
-	public $version = '1.3.3';
+	public $version = '1.3.4';
 
 
 	/**
@@ -245,14 +245,14 @@ class Receiptful_WooCommerce {
 	/**
 	 * Enqueue script.
 	 *
-	 * Enqueue Receiptful tracking script to track click conversions.
+	 * Enqueue Conversio tracking script to track click conversions.
 	 *
 	 * @since 1.0.2
 	 */
 	public function enqueue_scripts() {
 
 		// Add tracking script
-		wp_enqueue_script( 'receiptful-tracking', 'https://media.conversio.com/scripts/conversio.js', array(), $this->version, false );
+		wp_enqueue_script( 'receiptful-tracking', 'https://media.conversio.com/scripts/conversio.js', array(), $this->version, true );
 
 	}
 

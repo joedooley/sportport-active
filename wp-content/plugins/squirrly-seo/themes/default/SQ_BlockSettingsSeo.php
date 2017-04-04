@@ -19,7 +19,7 @@
                 <fieldset>
                     <legend>
                         <span class="sq_legend_title"><?php _e('Let Squirrly SEO optimize this blog', _SQ_PLUGIN_NAME_); ?></span>
-                        <span><?php echo sprintf(__('%sIs Squirrly SEO better then WordPress SEO by Yoast?%s', _SQ_PLUGIN_NAME_), '<a href="http://www.squirrly.co/why_is_squirrly_seo_better_then_wordpress_seo_by_yoast-pagblog-article_id61980-html" target="_blank"><strong>', '</strong></a>'); ?></span>
+                        <span><?php echo sprintf(__('%sIs Squirrly SEO better then WordPress SEO by Yoast?%s', _SQ_PLUGIN_NAME_), '<a href="http://www.squirrly.co/why_is_squirrly_seo_better_then_wordpress_seo_by_yoast-pagblog-article_id61980-html" target="_blank">', '</a>'); ?></span>
 
                         <span><?php _e('Activate the built-in SEO settings from Squirrly by switching Yes below. <strong>Works well with Multisites and Ecommerce.</strong>', _SQ_PLUGIN_NAME_); ?></span><br />
                         <div class="sq_option_content">
@@ -152,7 +152,7 @@
                                         <label for="sq_auto_amp0" class="sq_switch-label sq_switch-label-on"><?php _e('No', _SQ_PLUGIN_NAME_); ?></label>
                                         <span class="sq_switch-selection"></span>
                                     </div>
-                                    <span><?php echo sprintf(__('turn on <strong>%sGoogle AMP%s</strong> for this website (Note: only if you have an AMP Theme)', _SQ_PLUGIN_NAME_), '<a href="https://developers.google.com/analytics/devguides/collection/amp-analytics/" target="_blank">', '</a>'); ?></span>
+                                    <span><?php echo sprintf(__('loads <strong>%sGoogle Analytics AMP%s</strong> (Note: Only for AMP Themes!)', _SQ_PLUGIN_NAME_), '<a href="https://developers.google.com/analytics/devguides/collection/amp-analytics/" target="_blank">', '</a>'); ?></span>
                                 </div>
                             </li>
                             <p class="sq_option_info" style="padding-left:10px; color: darkgrey;"> <?php _e('Note! By switching the  <strong>Json-LD</strong>, <strong>XML Sitemap</strong> and <strong>Favicon</strong> on, you open new options below', _SQ_PLUGIN_NAME_); ?></p>
@@ -162,11 +162,11 @@
                         </div>
                     </div>
                 </fieldset>
-                <fieldset id="sq_title_description_keywords" <?php echo ((SQ_Tools::$options['sq_use'] == 0) ? 'style="display:none;"' : ''); ?> <?php echo ((SQ_Tools::$options['sq_fp_title'] == '' || SQ_Tools::$options['sq_auto_seo'] == 1) ? '' : 'class="sq_custom_title"'); ?>>
+                <fieldset id="sq_title_description_keywords" <?php echo ((SQ_Tools::$options['sq_use'] == 0) ? 'class="deactivated"' : ''); ?> <?php echo ((SQ_Tools::$options['sq_fp_title'] == '' || SQ_Tools::$options['sq_auto_seo'] == 1) ? '' : 'class="sq_custom_title"'); ?>>
                     <legend>
-                        <span class="sq_legend_title"><?php _e('First page optimization', _SQ_PLUGIN_NAME_); ?></span>
+                        <span class="sq_legend_title"><?php _e('Page Optimization', _SQ_PLUGIN_NAME_); ?></span>
                         <span><?php echo sprintf(__('%sThe best SEO approach to Meta information%s', _SQ_PLUGIN_NAME_), '<a href="http://www.squirrly.co/the-best-seo-approach-to-meta-information" target="_blank">', '</a>'); ?></span>
-                        <span><?php _e('Add meta <strong>title</strong> in Home Page', _SQ_PLUGIN_NAME_); ?></span>
+                        <span><?php _e('Optimize the <strong>Titles</strong>', _SQ_PLUGIN_NAME_); ?></span>
                         <?php
                         $auto_option = false;
                         if (SQ_Tools::$options['sq_auto_title'] == 1)
@@ -182,7 +182,7 @@
                             </div>
                         </div>
 
-                        <span><?php _e('Add meta <strong>description</strong> and <strong>keywords</strong> in Home Page', _SQ_PLUGIN_NAME_); ?></span>
+                        <span><?php _e('Optimize <strong>Descriptions</strong> and <strong>Keywords</strong>', _SQ_PLUGIN_NAME_); ?></span>
 
                         <?php
                         $auto_option = false;
@@ -200,7 +200,7 @@
                         </div>
                         <span class="withborder"></span>
                         <span class="sq_legend_title"><?php _e('SEO for all post/pages', _SQ_PLUGIN_NAME_); ?></span>
-                        <span><?php echo sprintf(__('To customize the Title and Description for all the Posts and Pages in your site use the %s<strong>Squirrly Snippet Tool</strong>%s', _SQ_PLUGIN_NAME_), '<a href="http://howto.squirrly.co/sides/squirrly-snippet-tool/" target="_blank" >', '</a>'); ?></span>
+                        <span><?php echo sprintf(__('To customize the Title and Description for all the Posts and Pages in your site use the %sSquirrly Snippet Tool%s', _SQ_PLUGIN_NAME_), '<a href="http://howto.squirrly.co/sides/squirrly-snippet-tool/" target="_blank" >', '</a>'); ?></span>
 
                     </legend>
 
@@ -225,49 +225,55 @@
                             }
                         }
                         ?>
-                        <input id="sq_customize" type="hidden" name="sq_auto_seo"  value="0">
-
-                        <div id="sq_customize_settings">
-                            <p class="withborder">
-                                <span style="width: 65px;display: inline-block; vertical-align: top;"><?php _e('Title:', _SQ_PLUGIN_NAME_); ?></span><input type="text" name="sq_fp_title" value="<?php echo ((SQ_Tools::$options['sq_fp_title'] <> '') ? SQ_Tools::$options['sq_fp_title'] : '') ?>" size="75" /><span id="sq_title_info" />
-                                <span id="sq_fp_title_length"></span><span class="sq_settings_info"><?php _e('Tips: Length 10-75 chars', _SQ_PLUGIN_NAME_); ?></span>
-                            </p>
-                            <p class="withborder">
-                                <span style="width: 65px;display: inline-block; vertical-align: top;"><?php _e('Description:', _SQ_PLUGIN_NAME_); ?></span><textarea name="sq_fp_description" cols="70" rows="3" ><?php echo ((SQ_Tools::$options['sq_fp_description'] <> '') ? SQ_Tools::$options['sq_fp_description'] : '') ?></textarea><span id="sq_description_info" />
-                                <span id="sq_fp_description_length"></span><span class="sq_settings_info"><?php _e('Tips: Length 70-165 chars', _SQ_PLUGIN_NAME_); ?></span>
-                            </p>
-                            <p class="withborder">
-                                <span style="width: 65px;display: inline-block; vertical-align: top;"><?php _e('Keywords:', _SQ_PLUGIN_NAME_); ?></span><input type="text" name="sq_fp_keywords" value="<?php echo ((SQ_Tools::$options['sq_fp_keywords'] <> '') ? SQ_Tools::$options['sq_fp_keywords'] : '') ?>" size="70" />
-                                <span id="sq_fp_keywords_length"></span><span class="sq_settings_info"><?php _e('Tips: 2-4 keywords', _SQ_PLUGIN_NAME_); ?></span>
-                            </p>
-                            <p class="withborder sq_select_ogimage" <?php   echo ((SQ_Tools::$options['sq_auto_facebook'] == 1) ? '' : 'style="display:none"') ?>>
-                                <span style="width: 65px;display: inline-block; vertical-align: top;"><?php _e('OG Image:', _SQ_PLUGIN_NAME_); ?></span>
-                                <strong><input type="text" name="sq_fp_ogimage" value="<?php echo ((SQ_Tools::$options['sq_fp_ogimage'] <> '') ? SQ_Tools::$options['sq_fp_ogimage'] : '') ?>" size="60" style="display:none;" /><input id="sq_fp_imageselect" type="button" class="sq_button" value="<?php echo __('Select Open Graph Image', _SQ_PLUGIN_NAME_) ?>"/></strong>
-                            </p>
-                        </div>
-
-                        <span class="sq_option_info"><?php _e('First Page Preview (Title, Description, Keywords)', _SQ_PLUGIN_NAME_); ?></span>
-                        <div id="sq_snippet">
-                            <div id="sq_snippet_name"><?php _e('Squirrly Snippet', _SQ_PLUGIN_NAME_) ?></div>
-
-                            <ul id="sq_snippet_ul">
-                                <div class="sq_select_ogimage_preview" <?php   echo ((SQ_Tools::$options['sq_auto_facebook'] == 1) ? '' : 'style="display:none"') ?>>
-                                    <div class="sq_fp_ogimage_close" <?php echo ((SQ_Tools::$options['sq_fp_ogimage'] <> '') ? '' : 'style="display:none;"') ?>>x</div>
-                                    <div class="sq_fp_ogimage"><?php echo ((SQ_Tools::$options['sq_fp_ogimage'] <> '') ? '<img src="'.SQ_Tools::$options['sq_fp_ogimage'] .'" />' : '') ?></div>
+                        <ul id="sq_settings_sq_use" class="sq_settings_info">
+                            <span><?php _e('First Page Optimization:', _SQ_PLUGIN_NAME_); ?></span>
+                            <li>
+                                <input id="sq_customize" type="hidden" name="sq_auto_seo"  value="0">
+                                <div id="sq_customize_settings">
+                                    <p class="withborder">
+                                        <span style="width: 65px;display: inline-block; vertical-align: top;"><?php _e('Title:', _SQ_PLUGIN_NAME_); ?></span><input type="text" name="sq_fp_title" value="<?php echo ((SQ_Tools::$options['sq_fp_title'] <> '') ? SQ_Tools::$options['sq_fp_title'] : '') ?>" size="75" /><span id="sq_title_info" />
+                                        <span id="sq_fp_title_length"></span><span class="sq_settings_info"><?php _e('Tips: Length 10-75 chars', _SQ_PLUGIN_NAME_); ?></span>
+                                    </p>
+                                    <p class="withborder">
+                                        <span style="width: 65px;display: inline-block; vertical-align: top;"><?php _e('Description:', _SQ_PLUGIN_NAME_); ?></span><textarea name="sq_fp_description" cols="70" rows="3" ><?php echo ((SQ_Tools::$options['sq_fp_description'] <> '') ? SQ_Tools::$options['sq_fp_description'] : '') ?></textarea><span id="sq_description_info" />
+                                        <span id="sq_fp_description_length"></span><span class="sq_settings_info"><?php _e('Tips: Length 70-165 chars', _SQ_PLUGIN_NAME_); ?></span>
+                                    </p>
+                                    <p class="withborder">
+                                        <span style="width: 65px;display: inline-block; vertical-align: top;"><?php _e('Keywords:', _SQ_PLUGIN_NAME_); ?></span><input type="text" name="sq_fp_keywords" value="<?php echo ((SQ_Tools::$options['sq_fp_keywords'] <> '') ? SQ_Tools::$options['sq_fp_keywords'] : '') ?>" size="70" />
+                                        <span id="sq_fp_keywords_length"></span><span class="sq_settings_info"><?php _e('Tips: 2-4 keywords', _SQ_PLUGIN_NAME_); ?></span>
+                                    </p>
+                                    <p class="withborder sq_select_ogimage" <?php   echo ((SQ_Tools::$options['sq_auto_facebook'] == 1) ? '' : 'style="display:none"') ?>>
+                                        <span style="width: 65px;display: inline-block; vertical-align: top;"><?php _e('OG Image:', _SQ_PLUGIN_NAME_); ?></span>
+                                        <strong><input type="text" name="sq_fp_ogimage" value="<?php echo ((SQ_Tools::$options['sq_fp_ogimage'] <> '') ? SQ_Tools::$options['sq_fp_ogimage'] : '') ?>" size="60" style="display:none;" /><input id="sq_fp_imageselect" type="button" class="sq_button" value="<?php echo __('Select Open Graph Image', _SQ_PLUGIN_NAME_) ?>"/></strong>
+                                    </p>
                                 </div>
-                                <li id="sq_snippet_title"></li>
-                                <li id="sq_snippet_url"></li>
-                                <li id="sq_snippet_description"></li>
-                            </ul>
+                            </li>
+                            <li>
+                                <span class="sq_option_info"><?php _e('First Page Preview (Title, Description, Keywords)', _SQ_PLUGIN_NAME_); ?></span>
+                                <div id="sq_snippet">
+                                    <div id="sq_snippet_name"><?php _e('Squirrly Snippet', _SQ_PLUGIN_NAME_) ?></div>
 
-                            <div id="sq_snippet_disclaimer" ><?php _e('If you don\'t see any changes in custom optimization, check if another SEO plugin affects Squirrly SEO', _SQ_PLUGIN_NAME_) ?></div>
-                        </div>
-                        <br />
-                        <span class="sq_option_info"><?php echo sprintf(__('To customize the Title and Description for all the Posts and Pages in your site use the %s<strong>Squirrly Snippet Tool</strong>%s while edit a Post/Page', _SQ_PLUGIN_NAME_), '<a href="http://howto.squirrly.co/sides/squirrly-snippet-tool/" target="_blank" >', '</a>'); ?></span>
+                                    <ul id="sq_snippet_ul">
+                                        <div class="sq_select_ogimage_preview" <?php   echo ((SQ_Tools::$options['sq_auto_facebook'] == 1) ? '' : 'style="display:none"') ?>>
+                                            <div class="sq_fp_ogimage_close" <?php echo ((SQ_Tools::$options['sq_fp_ogimage'] <> '') ? '' : 'style="display:none;"') ?>>x</div>
+                                            <div class="sq_fp_ogimage"><?php echo ((SQ_Tools::$options['sq_fp_ogimage'] <> '') ? '<img src="'.SQ_Tools::$options['sq_fp_ogimage'] .'" />' : '') ?></div>
+                                        </div>
+                                        <li id="sq_snippet_title"></li>
+                                        <li id="sq_snippet_url"></li>
+                                        <li id="sq_snippet_description"></li>
+                                    </ul>
 
+                                    <div id="sq_snippet_disclaimer" ><?php _e('If you don\'t see any changes in custom optimization, check if another SEO plugin affects Squirrly SEO', _SQ_PLUGIN_NAME_) ?></div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="sq_option_info"><?php echo sprintf(__('Use the %s<strong>Squirrly Snippet Tool</strong>%s while edit a Post/Page to customize the Title and Description for all the Posts and Pages', _SQ_PLUGIN_NAME_), '<a href="http://howto.squirrly.co/sides/squirrly-snippet-tool/" target="_blank" >', '</a>'); ?></span>
+
+                            </li>
+                        </ul>
                     </div>
                 </fieldset>
-                <fieldset id="sq_social_media" style="<?php echo ((SQ_Tools::$options['sq_use'] == 0) ? 'display:none;' : ''); ?>">
+                <fieldset id="sq_social_media" <?php echo ((SQ_Tools::$options['sq_use'] == 0) ? 'class="deactivated"' : ''); ?>>
                     <legend>
                         <span class="sq_legend_title"><?php _e('Social Media Options', _SQ_PLUGIN_NAME_); ?></span>
                        <p>
@@ -480,63 +486,14 @@
                         </ul>
                     </div>
                 </fieldset>
-                <fieldset id="sq_social_media_accounts" style="<?php echo ((SQ_Tools::$options['sq_use'] == 0) ? 'display:none;' : ''); ?>">
-                    <legend>
-                        <span class="sq_legend_title"><?php _e('Social Media Accounts', _SQ_PLUGIN_NAME_); ?></span>
-                        <span><?php echo sprintf(__('%sLink your Google+ profile to the content you create%s', _SQ_PLUGIN_NAME_), '<a href="https://developers.google.com/structured-data/" target="_blank">', '</a>'); ?></span>
-                        <span><?php echo sprintf(__('%sTwitter account is mandatory for <strong>Twitter Card Validation</strong>%s', _SQ_PLUGIN_NAME_), '<a href="https://dev.twitter.com/docs/cards/validation/validator" target="_blank">', '</a>'); ?></span>
-                        <span><?php echo sprintf(__('%sAdd all your social accounts for <strong>JSON-LD Semantic SEO</strong>%s', _SQ_PLUGIN_NAME_), '<a href="http://howto.squirrly.c%so/sides/squirrly-json-ld-structured-data/" target="_blank">', '</a>'); ?></span>
-                        <span><?php echo sprintf(__('%sSpecify your social profiles to Google%s', _SQ_PLUGIN_NAME_), '<a href="https://developers.google.com/structured-data/customize/social-profiles" target="_blank">', '</a>'); ?></span>
-                    </legend>
-
-                    <div>
-                        <ul id="sq_settings_sq_use" class="sq_settings_info">
-                            <li>
-                                <p class="withborder withcode">
-                                    <span class="sq_icon sq_icon_twitter"></span>
-                                    <?php _e('Your Twitter Account:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_twitter_account" value="<?php echo ((SQ_Tools::$options['sq_twitter_account'] <> '') ? SQ_Tools::$options['sq_twitter_account'] : '') ?>" size="60"  placeholder="https://twitter.com/" />  (e.g. https://twitter.com/XXXXXXXXXXXXXXXXXX)</strong>
-                                </p>
-                            </li>
-                            <li>
-                                <p class="withborder withcode">
-                                    <span class="sq_icon sq_icon_googleplus"></span>
-                                    <?php _e('Google Plus Profile:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_google_plus" value="<?php echo ((SQ_Tools::$options['sq_google_plus'] <> '') ? SQ_Tools::$options['sq_google_plus'] : '') ?>" size="60" placeholder="https://plus.google.com/" /> (e.g. https://plus.google.com/+XXXXXXXXXXXXXXXXXX)</strong>
-                                </p>
-                            </li>
-                            <li>
-                                <p class="withborder withcode">
-                                    <span class="sq_icon sq_icon_facebook"></span>
-                                    <?php _e('Facebook Profile:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_facebook_account" value="<?php echo ((SQ_Tools::$options['sq_facebook_account'] <> '') ? SQ_Tools::$options['sq_facebook_account'] : '') ?>" size="60" placeholder="https://www.facebook.com/" /> (e.g. https://www.facebook.com/XXXXXXXXXXXXXXXXXX)</strong>
-                                </p>
-                            </li>
-                            <li>
-                                <p class="withborder withcode">
-                                    <span class="sq_icon sq_icon_linkedin"></span>
-                                    <?php _e('Linkedin Profile:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_linkedin_account" value="<?php echo ((SQ_Tools::$options['sq_linkedin_account'] <> '') ? SQ_Tools::$options['sq_linkedin_account'] : '') ?>" size="60" placeholder="https://www.linkedin.com/" /> (e.g. https://www.linkedin.com/XXXX/XXXXXXXXXXXXXXXXXX)</strong>
-                                </p>
-                            </li>
-                            <li>
-                                <p class="withborder withcode">
-                                    <span class="sq_icon sq_icon_social_pinterest"></span>
-                                    <?php _e('Pinterest Profile:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_pinterest_account" value="<?php echo ((SQ_Tools::$options['sq_pinterest_account'] <> '') ? SQ_Tools::$options['sq_pinterest_account'] : '') ?>" size="60" placeholder="https://www.pinterest.com/" /> (e.g. https://www.pinterest.com/XXXXXXXXXXXXXXXXXX)</strong>
-                                </p>
-                            </li>
-                            <li>
-                                <p class="withborder withcode">
-                                    <span class="sq_icon sq_icon_social_instagram"></span>
-                                    <?php _e('Instagram Profile:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_instagram_account" value="<?php echo ((SQ_Tools::$options['sq_instagram_account'] <> '') ? SQ_Tools::$options['sq_instagram_account'] : '') ?>" size="60" placeholder="https://www.instagram.com/" /> (e.g. https://www.linkedin.com/XXXXXXXXXXXXXXXXXX)</strong>
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                </fieldset>
-                <fieldset id="sq_sitemap" style="<?php echo ((SQ_Tools::$options['sq_use'] == 0 || SQ_Tools::$options['sq_auto_sitemap'] == 0) ? 'display:none;' : ''); ?>">
+                <fieldset id="sq_sitemap" <?php echo ((SQ_Tools::$options['sq_use'] == 0 || SQ_Tools::$options['sq_auto_sitemap'] == 0) ? 'class="deactivated"' : ''); ?>>
                     <legend>
                         <span class="sq_legend_title"><?php _e('XML Sitemap for Google', _SQ_PLUGIN_NAME_); ?></span>
                         <span><?php echo __('Squirrly Sitemap is the fastest way to tell Google about your site links. <strong>Supports Multisites, Google News, Images, Videos, Custom Post Types, Custom Taxonomies and Ecommerce products</strong>', _SQ_PLUGIN_NAME_) ?></span>
                         <span><?php echo sprintf(__('%sHow to submit your sitemap.xml in Google Webmaster Tool%s', _SQ_PLUGIN_NAME_), '<a href="http://howto.squirrly.co/wordpress-seo/how-to-submit-your-sitemap-xml-in-google-sitemap/" target="_blank">', '</a>'); ?></span>
                         <span><?php echo sprintf(__('%s10 Vital To Dos to Feed Your SEO Content Machine After You Post Articles%s', _SQ_PLUGIN_NAME_), '<a href="http://www.squirrly.co/10_vital_to_dos_to_feed_your_seo_content_machine_after_you_post_articles-pagblog-article_id62194-html" target="_blank">', '</a>'); ?></span>
-                    </legend>
+                        <span><?php echo sprintf(__('For Google News Sitemap, ensure that your site is included in %sGoogle News%s', _SQ_PLUGIN_NAME_), '<a href="https://partnerdash.google.com/partnerdash/d/news" target="_blank">', '</a>'); ?></span>
+                     </legend>
 
                     <div>
                         <?php
@@ -560,7 +517,7 @@
                                 <p><?php _e('Build Sitemaps for', _SQ_PLUGIN_NAME_); ?>:</p>
                                 <ul  id="sq_sitemap_buid">
                                     <li class="sq_selectall"><input type="checkbox" id="sq_selectall"/>Select All</li>
-                                    <li><input type="checkbox" class="sq_sitemap" name="sq_sitemap[]"  value="sitemap-news" <?php echo ((SQ_Tools::$options['sq_sitemap']['sitemap-news'][1] == 1) ? 'checked="checked"' : ''); ?>><?php _e('Google News', _SQ_PLUGIN_NAME_); ?></li>
+                                    <li><input type="checkbox" class="sq_sitemap" name="sq_sitemap[]"  value="sitemap-news" <?php echo ((SQ_Tools::$options['sq_sitemap']['sitemap-news'][1] == 1) ? 'checked="checked"' : ''); ?>><?php _e('Google News', _SQ_PLUGIN_NAME_); ?> <a href="https://partnerdash.google.com/partnerdash/d/news" target="_blank">Read first!</a></li>
                                     <li><input type="checkbox" class="sq_sitemap" name="sq_sitemap[]" value="sitemap-category" <?php echo ((SQ_Tools::$options['sq_sitemap']['sitemap-category'][1] == 1) ? 'checked="checked"' : ''); ?>><?php _e('Categories', _SQ_PLUGIN_NAME_); ?></li>
                                     <?php if (SQ_ObjController::getModel('SQ_BlockSettingsSeo')->isEcommerce()) { //check for ecommerce product ?><li><input type="checkbox" class="sq_sitemap" name="sq_sitemap[]" value="sitemap-product" <?php echo ((SQ_Tools::$options['sq_sitemap']['sitemap-product'][1] == 1) ? 'checked="checked"' : ''); ?>><?php _e('Products', _SQ_PLUGIN_NAME_); ?></li><?php } ?>
                                     <li><input type="checkbox" class="sq_sitemap" name="sq_sitemap[]" value="sitemap-post" <?php echo ((SQ_Tools::$options['sq_sitemap']['sitemap-post'][1] == 1) ? 'checked="checked"' : ''); ?>><?php _e('Posts', _SQ_PLUGIN_NAME_); ?></li>
@@ -570,6 +527,8 @@
                                     <li><input type="checkbox" class="sq_sitemap" name="sq_sitemap[]" value="sitemap-custom-tax" <?php echo ((SQ_Tools::$options['sq_sitemap']['sitemap-custom-tax'][1] == 1) ? 'checked="checked"' : ''); ?>><?php _e('Custom Taxonomies', _SQ_PLUGIN_NAME_); ?></li>
                                     <li><input type="checkbox" class="sq_sitemap" name="sq_sitemap[]" value="sitemap-custom-post" <?php echo ((SQ_Tools::$options['sq_sitemap']['sitemap-custom-post'][1] == 1) ? 'checked="checked"' : ''); ?>><?php _e('Custom Posts', _SQ_PLUGIN_NAME_); ?></li>
                                 </ul>
+                                <span style="color: red; margin: 10px; line-height: 20px; display: block;"><?php echo sprintf(__('Select only the Post Types that have links in them. Your sitemap will be %s', _SQ_PLUGIN_NAME_),'<a href="' . SQ_ObjController::getController('SQ_Sitemaps')->getXmlUrl('sitemap') . '" target="_blank">' . SQ_ObjController::getController('SQ_Sitemaps')->getXmlUrl('sitemap') . '</a></strong>'); ?></span>
+
                             </li>
                             <li>
                                 <p><?php _e('Include in Sitemaps', _SQ_PLUGIN_NAME_); ?>:</p>
@@ -591,7 +550,7 @@
                     </div>
                 </fieldset>
                 <a name="sq_favicon_anchor"></a>
-                <fieldset id="sq_favicon" style="<?php echo ((SQ_Tools::$options['sq_use'] == 0 || SQ_Tools::$options['sq_auto_favicon'] == 0) ? 'display:none;' : ''); ?>">
+                <fieldset id="sq_favicon" <?php echo ((SQ_Tools::$options['sq_use'] == 0 || SQ_Tools::$options['sq_auto_favicon'] == 0) ? 'class="deactivated"' : ''); ?>>
                     <legend>
                         <span class="sq_legend_title"><?php _e('Change the Website Icon', _SQ_PLUGIN_NAME_); ?></span>
                         <span><?php _e('Now, even tablet & smartphone browsers make use of your icons. This makes having a good favicon even more important.', _SQ_PLUGIN_NAME_); ?> </span>
@@ -625,7 +584,7 @@
                     </div>
 
                 </fieldset>
-                <fieldset id="sq_jsonld" style="<?php echo ((SQ_Tools::$options['sq_use'] == 0 || SQ_Tools::$options['sq_auto_jsonld'] == 0) ? 'display:none;' : ''); ?>">
+                <fieldset id="sq_jsonld" <?php echo ((SQ_Tools::$options['sq_use'] == 0 || SQ_Tools::$options['sq_auto_jsonld'] == 0) ? 'class="deactivated"' : ''); ?>>
                     <legend>
                         <span class="sq_legend_title"><?php _e('JSON-LD for Semantic SEO', _SQ_PLUGIN_NAME_); ?></span>
                         <span><?php echo __('Squirrly will automatically add the JSON-LD Structured Data in your site.', _SQ_PLUGIN_NAME_) ?></span>
@@ -691,6 +650,56 @@
                         </ul>
                     </div>
                 </fieldset>
+                <fieldset id="sq_social_media_accounts" >
+                    <legend>
+                        <span class="sq_legend_title"><?php _e('Social Media Accounts', _SQ_PLUGIN_NAME_); ?></span>
+                        <span><?php echo sprintf(__('%sLink your Google+ profile to the content you create%s', _SQ_PLUGIN_NAME_), '<a href="https://developers.google.com/structured-data/" target="_blank">', '</a>'); ?></span>
+                        <span><?php echo sprintf(__('%sTwitter account is mandatory for <strong>Twitter Card Validation</strong>%s', _SQ_PLUGIN_NAME_), '<a href="https://dev.twitter.com/docs/cards/validation/validator" target="_blank">', '</a>'); ?></span>
+                        <span><?php echo sprintf(__('%sAdd all your social accounts for <strong>JSON-LD Semantic SEO</strong>%s', _SQ_PLUGIN_NAME_), '<a href="http://howto.squirrly.c%so/sides/squirrly-json-ld-structured-data/" target="_blank">', '</a>'); ?></span>
+                        <span><?php echo sprintf(__('%sSpecify your social profiles to Google%s', _SQ_PLUGIN_NAME_), '<a href="https://developers.google.com/structured-data/customize/social-profiles" target="_blank">', '</a>'); ?></span>
+                    </legend>
+
+                    <div>
+                        <ul id="sq_settings_sq_use" class="sq_settings_info">
+                            <li>
+                                <p class="withborder withcode">
+                                    <span class="sq_icon sq_icon_twitter"></span>
+                                    <?php _e('Your Twitter Account:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_twitter_account" value="<?php echo ((SQ_Tools::$options['sq_twitter_account'] <> '') ? SQ_Tools::$options['sq_twitter_account'] : '') ?>" size="60"  placeholder="https://twitter.com/" />  (e.g. https://twitter.com/XXXXXXXXXXXXXXXXXX)</strong>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="withborder withcode">
+                                    <span class="sq_icon sq_icon_googleplus"></span>
+                                    <?php _e('Google Plus Profile:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_google_plus" value="<?php echo ((SQ_Tools::$options['sq_google_plus'] <> '') ? SQ_Tools::$options['sq_google_plus'] : '') ?>" size="60" placeholder="https://plus.google.com/" /> (e.g. https://plus.google.com/+XXXXXXXXXXXXXXXXXX)</strong>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="withborder withcode">
+                                    <span class="sq_icon sq_icon_facebook"></span>
+                                    <?php _e('Facebook Profile:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_facebook_account" value="<?php echo ((SQ_Tools::$options['sq_facebook_account'] <> '') ? SQ_Tools::$options['sq_facebook_account'] : '') ?>" size="60" placeholder="https://www.facebook.com/" /> (e.g. https://www.facebook.com/XXXXXXXXXXXXXXXXXX)</strong>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="withborder withcode">
+                                    <span class="sq_icon sq_icon_linkedin"></span>
+                                    <?php _e('Linkedin Profile:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_linkedin_account" value="<?php echo ((SQ_Tools::$options['sq_linkedin_account'] <> '') ? SQ_Tools::$options['sq_linkedin_account'] : '') ?>" size="60" placeholder="https://www.linkedin.com/" /> (e.g. https://www.linkedin.com/XXXX/XXXXXXXXXXXXXXXXXX)</strong>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="withborder withcode">
+                                    <span class="sq_icon sq_icon_social_pinterest"></span>
+                                    <?php _e('Pinterest Profile:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_pinterest_account" value="<?php echo ((SQ_Tools::$options['sq_pinterest_account'] <> '') ? SQ_Tools::$options['sq_pinterest_account'] : '') ?>" size="60" placeholder="https://www.pinterest.com/" /> (e.g. https://www.pinterest.com/XXXXXXXXXXXXXXXXXX)</strong>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="withborder withcode">
+                                    <span class="sq_icon sq_icon_social_instagram"></span>
+                                    <?php _e('Instagram Profile:', _SQ_PLUGIN_NAME_); ?><br /><strong><input type="text" name="sq_instagram_account" value="<?php echo ((SQ_Tools::$options['sq_instagram_account'] <> '') ? SQ_Tools::$options['sq_instagram_account'] : '') ?>" size="60" placeholder="https://www.instagram.com/" /> (e.g. https://www.linkedin.com/XXXXXXXXXXXXXXXXXX)</strong>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </fieldset>
                 <fieldset id="sq_tracking" >
                     <legend>
                         <span class="sq_legend_title"><?php _e('Tracking Tools', _SQ_PLUGIN_NAME_); ?></span>
@@ -704,7 +713,7 @@
 
                         <p class="withborder withcode">
                             <span class="sq_icon sq_icon_googleanalytics"></span>
-                            <?php echo sprintf(__('Google  %sAnalytics ID%s:', _SQ_PLUGIN_NAME_), '<a href="http://maps.google.com/analytics/" target="_blank">', '</a>'); ?><br><strong><input type="text" name="sq_google_analytics" value="<?php echo ((SQ_Tools::$options['sq_google_analytics'] <> '') ? SQ_Tools::$options['sq_google_analytics'] : '') ?>" size="15" placeholder="UA-XXXXXXX-XX" /> (e.g. UA-XXXXXXX-XX)</strong>
+                            <?php echo sprintf(__('Google  %sAnalytics ID%s:', _SQ_PLUGIN_NAME_), '<a href="https://analytics.google.com/analytics/web/" target="_blank">', '</a>'); ?><br><strong><input type="text" name="sq_google_analytics" value="<?php echo ((SQ_Tools::$options['sq_google_analytics'] <> '') ? SQ_Tools::$options['sq_google_analytics'] : '') ?>" size="15" placeholder="UA-XXXXXXX-XX" /> (e.g. UA-XXXXXXX-XX)</strong>
                         </p>
                         <p class="withborder withcode" >
                             <span class="sq_icon sq_icon_facebookinsights"></span>

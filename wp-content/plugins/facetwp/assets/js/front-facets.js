@@ -11,7 +11,7 @@
         $('.facetwp-autocomplete').each(function() {
             var $this = $(this);
             $this.autocomplete({
-                serviceUrl: ajaxurl,
+                serviceUrl: FWP_JSON.ajaxurl,
                 type: 'POST',
                 minChars: 3,
                 deferRequestBy: 200,
@@ -46,14 +46,17 @@
     });
 
     wp.hooks.addFilter('facetwp/selections/checkboxes', function(output, params) {
-        var labels = [];
+        var choices = [];
         $.each(params.selected_values, function(idx, val) {
-            var label = params.el.find('.facetwp-checkbox[data-value="' + val + '"]').clone();
-            label.find('.facetwp-counter').remove();
-            label.find('.facetwp-expand').remove();
-            labels.push(label.text());
+            var choice = params.el.find('.facetwp-checkbox[data-value="' + val + '"]').clone();
+            choice.find('.facetwp-counter').remove();
+            choice.find('.facetwp-expand').remove();
+            choices.push({
+                value: val,
+                label: choice.text()
+            });
         });
-        return labels.join(' / ');
+        return choices;
     });
 
     $(document).on('click', '.facetwp-type-checkboxes .facetwp-expand', function(e) {
@@ -112,13 +115,16 @@
     });
 
     wp.hooks.addFilter('facetwp/selections/radio', function(output, params) {
-        var labels = [];
+        var choices = [];
         $.each(params.selected_values, function(idx, val) {
-            var label = params.el.find('.facetwp-radio[data-value="' + val + '"]').clone();
-            label.find('.facetwp-counter').remove();
-            labels.push(label.text());
+            var choice = params.el.find('.facetwp-radio[data-value="' + val + '"]').clone();
+            choice.find('.facetwp-counter').remove();
+            choices.push({
+                value: val,
+                label: choice.text()
+            });
         });
-        return labels.join(' / ');
+        return choices;
     });
 
     $(document).on('click', '.facetwp-type-radio .facetwp-radio:not(.disabled)', function() {
@@ -162,6 +168,7 @@
             altInput: true,
             altInputClass: 'flatpickr-alt',
             altFormat: 'Y-m-d',
+            disableMobile: true,
             locale: FWP_JSON.datepicker.locale,
             onChange: function() {
                 FWP.autoload();
@@ -179,14 +186,16 @@
         };
 
         $dates.each(function() {
-            var facet_name = $(this).closest('.facetwp-facet').attr('data-name');
+            var $this = $(this);
+            var facet_name = $this.closest('.facetwp-facet').attr('data-name');
             flatpickr_opts.altFormat = FWP.settings[facet_name].format;
 
             var opts = wp.hooks.applyFilters('facetwp/set_options/date_range', flatpickr_opts, {
-                'facet_name': facet_name
+                'facet_name': facet_name,
+                'element': $this
             });
             new Flatpickr(this, opts);
-            $(this).addClass('ready');
+            $this.addClass('ready');
         });
     });
 
@@ -284,8 +293,8 @@
         return params.selected_values[0] + ' - ' + params.selected_values[1];
     });
 
-    $(document).on('blur', '.facetwp-number-min, .facetwp-number-max', function() {
-        FWP.autoload();
+    $(document).on('click', '.facetwp-type-number_range .facetwp-submit', function() {
+        FWP.refresh();
     });
 
     /* ======== Proximity ======== */

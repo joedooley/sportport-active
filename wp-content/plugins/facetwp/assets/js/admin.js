@@ -112,7 +112,8 @@ var FWP = {
         // Is the indexer running?
         FWP.get_progress = function() {
             $.post(ajaxurl, {
-                'action': 'facetwp_heartbeat'
+                action: 'facetwp_heartbeat',
+                nonce: FWP.nonce
             }, function(response) {
 
                 // Remove extra spaces added by some themes
@@ -380,8 +381,9 @@ var FWP = {
             });
 
             $.post(ajaxurl, {
-                'action': 'facetwp_save',
-                'data': JSON.stringify(data)
+                action: 'facetwp_save',
+                nonce: FWP.nonce,
+                data: JSON.stringify(data)
             }, function(response) {
                 $('.facetwp-response').html(response);
             });
@@ -393,6 +395,7 @@ var FWP = {
                 $('.import-code').val(FWP.i18n['Loading'] + '...');
                 $.post(ajaxurl, {
                     action: 'facetwp_migrate',
+                    nonce: FWP.nonce,
                     action_type: 'export',
                     items: $('.export-items').val()
                 },
@@ -408,6 +411,7 @@ var FWP = {
             $('.facetwp-response').html(FWP.i18n['Importing'] + '...');
             $.post(ajaxurl, {
                 action: 'facetwp_migrate',
+                nonce: FWP.nonce,
                 action_type: 'import',
                 import_code: $('.import-code').val(),
                 overwrite: $('.import-overwrite').is(':checked') ? 1 : 0
@@ -429,7 +433,7 @@ var FWP = {
 
             FWP.is_indexing = true;
 
-            $.post(ajaxurl, { action: 'facetwp_rebuild_index' });
+            $.post(ajaxurl, { action: 'facetwp_rebuild_index', nonce: FWP.nonce });
             $('.facetwp-response').html(FWP.i18n['Indexing'] + '...');
             $('.facetwp-response').show();
             setTimeout(function() {
@@ -443,6 +447,7 @@ var FWP = {
             $('.facetwp-activation-status').html(FWP.i18n['Activating'] + '...');
             $.post(ajaxurl, {
                 action: 'facetwp_license',
+                nonce: FWP.nonce,
                 license: $('.facetwp-license').val()
             }, function(response) {
                 $('.facetwp-activation-status').html(response.message);

@@ -16,7 +16,7 @@ class SQ_Blockseo extends SQ_BlockController {
              var __snippetsavecancel = "' . __('Cancel', _SQ_PLUGIN_NAME_) . '";
              var __snippetreset = "' . __('Reset', _SQ_PLUGIN_NAME_) . '";
 
-             var __snippetcustomize = "' . __('Customize Meta', _SQ_PLUGIN_NAME_) . '";
+             var __snippetcustomize = "' . __('Edit Meta / Open Graph', _SQ_PLUGIN_NAME_) . '";
              var __snippetkeyword = "' . __('manage keywords', _SQ_PLUGIN_NAME_) . '";
              var __snippetshort = "' . __('Too short', _SQ_PLUGIN_NAME_) . '";
              var __snippetlong = "' . __('Too long', _SQ_PLUGIN_NAME_) . '";

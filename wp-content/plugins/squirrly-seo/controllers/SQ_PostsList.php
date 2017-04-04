@@ -267,7 +267,7 @@ class SQ_PostsList extends SQ_FrontController
                     $posts = SQ_Tools::getValue('posts');
                     $args['posts'] = join(',', $posts);
 
-                    $response = json_decode(SQ_Action::apiCall('sq/user-analytics/total', $args, 30));
+                    $response = json_decode(SQ_Action::apiCall('sq/user-analytics/total', $args, 20));
                 }
                 if (isset($response) && is_object($response)) {
                     $response = $this->model->getTotal($response);
@@ -297,7 +297,7 @@ class SQ_PostsList extends SQ_FrontController
                     }
                 }
 
-                $response = json_decode(SQ_Action::apiCall('sq/user-analytics/detail', $args, 30));
+                $response = json_decode(SQ_Action::apiCall('sq/user-analytics/detail', $args, 20));
 
                 if (!is_object($response)) {
                     exit(json_encode(array('error' => $response)));
@@ -309,7 +309,6 @@ class SQ_PostsList extends SQ_FrontController
                     $analytics->audit = $this->model->getAnalytics($response, $this->model->post_id);
 
                     $response = $analytics->init();
-                    SQ_Tools::dump($response);
                     if (SQ_Tools::getValue('sq_debug') === 'on') {
                         exit();
                     }

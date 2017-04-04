@@ -5,11 +5,21 @@
  */
 class SQ_Action extends SQ_FrontController {
 
-    /** @var array with all form and ajax actions  */
+    /** @var array with all form and ajax actions */
     var $actions = array();
 
     /** @var array from core config */
     private static $config;
+
+
+    private function _isAjax() {
+        $url = (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : false);
+        if ($url && (strpos($url, admin_url('admin-ajax.php', 'relative')) !== false || strpos(admin_url('admin-ajax.php', 'relative'), $url) !== false)) {
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * The hookAjax is loaded as custom hook in hookController class
@@ -19,7 +29,7 @@ class SQ_Action extends SQ_FrontController {
     public function hookInit() {
 
         /* Only if ajax */
-        if (isset($_SERVER['PHP_SELF']) && strpos($_SERVER['PHP_SELF'], '/admin-ajax.php') !== false) {
+        if ($this->_isAjax()) {
             $this->actions = array();
             $this->getActions(((isset($_GET['action']) ? $_GET['action'] : (isset($_POST['action']) ? $_POST['action'] : ''))));
         }
@@ -32,11 +42,10 @@ class SQ_Action extends SQ_FrontController {
      */
     public function hookMenu() {
         /* Only if post */
-        if (isset($_SERVER['PHP_SELF']) && strpos($_SERVER['PHP_SELF'], '/admin-ajax.php') !== false) {
-            return;
+        if (!$this->_isAjax()) {
+            $this->actions = array();
+            $this->getActions(((isset($_GET['action']) ? $_GET['action'] : (isset($_POST['action']) ? $_POST['action'] : ''))));
         }
-        $this->actions = array();
-        $this->getActions(((isset($_GET['action']) ? $_GET['action'] : (isset($_POST['action']) ? $_POST['action'] : ''))));
     }
 
     /**
@@ -55,9 +64,6 @@ class SQ_Action extends SQ_FrontController {
                     "adminlisturl": "' . admin_url('edit.php') . '",
                     "nonce": "' . wp_create_nonce(_SQ_NONCE_ID_) . '"
                   }
-
-                  if(parseInt(jQuery.fn.jquery.replace(/\./g,"")) < 162)
-                    google.load("jquery", "1.6.2");
               </script>';
     }
 
@@ -67,51 +73,51 @@ class SQ_Action extends SQ_FrontController {
      * @return void
      */
     public function getActions($cur_action) {
+        //Let only the logged users to access the actions
+        if (is_admin() || is_network_admin()) {
+            /* if config allready in cache */
+            if (!isset(self::$config)) {
+                $config_file = _SQ_CORE_DIR_ . 'config.xml';
+                if (!file_exists($config_file)) {
+                    return;
+                }
 
-        /* if config allready in cache */
-        if (!isset(self::$config)) {
-            $config_file = _SQ_CORE_DIR_ . 'config.xml';
-            if (!file_exists($config_file)) {
-                return;
+                /* load configuration blocks data from core config files */
+                $data = file_get_contents($config_file);
+                self::$config = json_decode(json_encode((array)simplexml_load_string($data)), 1);
             }
 
-            /* load configuration blocks data from core config files */
-            $data = file_get_contents($config_file);
-            self::$config = json_decode(json_encode((array) simplexml_load_string($data)), 1);
-        }
-
-        if (is_array(self::$config)) {
-            foreach (self::$config['block'] as $block) {
-                if ($block['active'] == 1) {
-                    /* if there is a single action */
-                    if (isset($block['actions']['action']))
-
-                    /* if there are more actions for the current block */ {
-                        if (!is_array($block['actions']['action'])) {
-                            /* add the action in the actions array */
-                            if ($block['actions']['action'] == $cur_action) {
-                                $this->actions[] = array('class' => $block['name'], 'path' => $block['path']);
-                            }
-                        } else {
-                            /* if there are more actions for the current block */
-                            foreach ($block['actions']['action'] as $action) {
-                                /* add the actions in the actions array */
-                                if ($action == $cur_action) {
+            if (is_array(self::$config)) {
+                foreach (self::$config['block'] as $block) {
+                    if ($block['active'] == 1) {
+                        /* if there is a single action */
+                        if (isset($block['actions']['action'])) /* if there are more actions for the current block */ {
+                            if (!is_array($block['actions']['action'])) {
+                                /* add the action in the actions array */
+                                if ($block['actions']['action'] == $cur_action) {
                                     $this->actions[] = array('class' => $block['name'], 'path' => $block['path']);
+                                }
+                            } else {
+                                /* if there are more actions for the current block */
+                                foreach ($block['actions']['action'] as $action) {
+                                    /* add the actions in the actions array */
+                                    if ($action == $cur_action) {
+                                        $this->actions[] = array('class' => $block['name'], 'path' => $block['path']);
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-        }
 
-        /* add the actions in WP */
-        foreach ($this->actions as $actions) {
-            if ($actions['path'] == 'core') {
-                SQ_ObjController::getBlock($actions['class'])->action();
-            } elseif ($actions['path'] == 'controllers') {
-                SQ_ObjController::getController($actions['class'])->action();
+            /* add the actions in WP */
+            foreach ($this->actions as $actions) {
+                if ($actions['path'] == 'core') {
+                    SQ_ObjController::getBlock($actions['class'])->action();
+                } elseif ($actions['path'] == 'controllers') {
+                    SQ_ObjController::getController($actions['class'])->action();
+                }
             }
         }
     }
@@ -122,8 +128,9 @@ class SQ_Action extends SQ_FrontController {
      * @param array $args
      * @return json | string
      */
-    public static function apiCall($module, $args = array(), $timeout = 90) {
+    public static function apiCall($module, $args = array(), $timeout = 10) {
         $parameters = "";
+        $scheme = "http:";
 
         if (SQ_Tools::$options['sq_api'] == '' && $module <> 'sq/login' && $module <> 'sq/register') {
             return false;
@@ -135,7 +142,6 @@ class SQ_Action extends SQ_FrontController {
             'verwp' => WP_VERSION_ID,
             'verphp' => PHP_VERSION_ID,
             'token' => SQ_Tools::$options['sq_api']);
-
 
 
         if (is_array($args)) {
@@ -160,8 +166,8 @@ class SQ_Action extends SQ_FrontController {
         if ($module <> "") {
             $module .= "/";
         }
-
-        $url = self::cleanUrl(_SQ_API_URL_ . $module . "?" . $parameters);
+        //call it with http to prevent curl issues with ssls
+        $url = self::cleanUrl($scheme . _SQ_API_URL_ . $module . "?" . $parameters);
         return SQ_Tools::sq_remote_get($url, array(), array('timeout' => $timeout));
     }
 

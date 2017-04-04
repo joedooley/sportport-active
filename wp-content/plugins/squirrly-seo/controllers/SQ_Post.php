@@ -209,26 +209,15 @@ class SQ_Post extends SQ_FrontController {
             SQ_Action::apiCall('sq/seo/post', $args, 10);
         } else {
             $process = array();
-            if (get_transient('sq_seopost') !== false) {
-                $process = json_decode(get_transient('sq_seopost'), true);
+            if (get_option('sq_seopost') !== false) {
+                $process = json_decode(get_option('sq_seopost'), true);
             }
-            //Add args at the beginning of the process
-            array_unshift($process, $args);
+
+            $process[] = $args;
 
             //save for later send to api
-            set_transient('sq_seopost', json_encode($process));
-
-            //prevent lost posts if there are not processed
-            if (count($process) > 5){
-                SQ_Tools::saveOptions('sq_force_savepost', 1);
-                SQ_Action::apiCall('sq/seo/post', $args, 10);
-            }
-
-            if (get_transient('sq_seopost') !== false) {
-                wp_schedule_single_event(time(), 'sq_processApi');
-            } else {
-                SQ_Action::apiCall('sq/seo/post', $args, 1);
-            }
+            update_option('sq_seopost', json_encode($process));
+            wp_schedule_single_event(time(), 'sq_processApi');
         }
 
         //Save the keyword for this post
@@ -331,7 +320,6 @@ class SQ_Post extends SQ_FrontController {
                 $meta[] = array('key' => '_sq_canonical',
                     'value' => SQ_Tools::getValue('sq_canonical'));
 
-            SQ_Tools::dump($meta);
             $this->model->saveAdvMeta($post_id, $meta);
 
             return $meta;
@@ -352,17 +340,19 @@ class SQ_Post extends SQ_FrontController {
         SQ_ObjController::getController('SQ_Tools', false);
         SQ_ObjController::getController('SQ_Action', false);
 
-        if (get_transient('sq_seopost') !== false) {
-            $process = json_decode(get_transient('sq_seopost'), true);
+        if (get_option('sq_seopost') !== false) {
+            $process = json_decode(get_option('sq_seopost'), true);
             foreach ($process as $key => $call) {
 
-                $response = json_decode(SQ_Action::apiCall('sq/seo/post', $call, 60));
+                if(!$response = json_decode(SQ_Action::apiCall('sq/seo/post', $call, 10))){
+                    break;
+                }
 
                 if (isset($response->saved) && $response->saved == true) {
                     unset($process[$key]);
                 }
             }
-            set_transient('sq_seopost', json_encode($process));
+            update_option('sq_seopost', json_encode($process));
         }
     }
 

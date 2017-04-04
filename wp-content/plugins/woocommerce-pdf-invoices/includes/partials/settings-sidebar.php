@@ -2,6 +2,8 @@
 	<h3><?php _e( 'WooCommerce PDF Invoices Premium', 'woocommerce-pdf-invoices' ); ?></h3>
 	<p>
 		<?php _e( 'This plugin offers a premium version which comes with the following features:', 'woocommerce-pdf-invoices' ); ?><br/>
+		- <?php _e( 'Bulk generate PDF invoices.', 'woocommerce-pdf-invoices' ); ?><br/>
+		- <?php _e( 'Bulk export and/or download PDF invoices.', 'woocommerce-pdf-invoices' ); ?><br/>
 		- <?php _e( 'Bill periodically by generating and sending global invoices.', 'woocommerce-pdf-invoices' ); ?><br/>
 		- <?php _e( 'Add additional PDF\'s to customer invoices.', 'woocommerce-pdf-invoices' ); ?><br/>
 		- <?php _e( 'Send customer invoices directly to suppliers and others.', 'woocommerce-pdf-invoices' ); ?><br/>
@@ -79,6 +81,5 @@
 		<li><a href="https://wordpress.org/plugins/woocommerce-pdf-invoices/faq/"><?php _e( 'Frequently Asked Questions', 'woocommerce-pdf-invoices' ); ?> </a></li>
 		<li><a href="https://wordpress.org/support/plugin/woocommerce-pdf-invoices"><?php _e( 'Support forum', 'woocommerce-pdf-invoices' ); ?></a></li>
 		<li><a href="https://wordpress.org/support/plugin/woocommerce-pdf-invoices"><?php _e( 'Request a feature', 'woocommerce-pdf-invoices' ); ?></a></li>
-		<li><a href="mailto:baselbers@hotmail.com"><?php _e( 'Email us', 'woocommerce-pdf-invoices' ); ?></a></li>
 	</ul>
 </aside>

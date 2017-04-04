@@ -1,3 +1,7 @@
+1.2.1 (2017-01-30)
+- Added support for WordPress version 4.7.2
+- Updated contributors
+
 1.2 (2016-10-16)
 - Added support for translations via load_plugin_textdomain()
 - Added conditionals to make sure plugin cannot be activated on

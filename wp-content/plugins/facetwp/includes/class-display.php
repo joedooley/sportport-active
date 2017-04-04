@@ -97,6 +97,12 @@ class FacetWP_Display
             $this->assets['front.js'] = FACETWP_URL . '/assets/js/front.js';
             $this->assets['front-facets.js'] = FACETWP_URL . '/assets/js/front-facets.js';
 
+            // Use the REST API?
+            $ajaxurl = admin_url( 'admin-ajax.php' );
+            if ( function_exists( 'get_rest_url' ) && apply_filters( 'facetwp_use_rest_api', true ) ) {
+                $ajaxurl = get_rest_url() . 'facetwp/v1/refresh';
+            }
+
             // Pass GET and URI params
             $http_params = array(
                 'get' => $_GET,
@@ -110,6 +116,8 @@ class FacetWP_Display
 
             // Set the loading animation
             $this->json['loading_animation'] = FWP()->helper->get_setting( 'loading_animation' );
+            $this->json['ajaxurl'] = $ajaxurl;
+            $this->json['nonce'] = wp_create_nonce( 'wp_rest' );
 
             ob_start();
 
@@ -142,7 +150,6 @@ class FacetWP_Display
 <script>
 var FWP_JSON = <?php echo json_encode( $this->json ); ?>;
 var FWP_HTTP = <?php echo json_encode( $http_params ); ?>;
-var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
 </script>
 <?php
         }

@@ -68,7 +68,7 @@ if ( ! class_exists( 'BEWPI_Template_Settings' ) ) {
 		 * @return array
 		 */
 		private function the_settings() {
-			$templates = $this->get_templates();
+			$company_logo = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'thumbnail' );
 
 			$settings = array(
 				array(
@@ -80,8 +80,8 @@ if ( ! class_exists( 'BEWPI_Template_Settings' ) ) {
 					'section'  => 'general',
 					'type'     => 'text',
 					'desc'     => '',
-					'options'  => $templates,
-					'default'  => $templates[0]['value'],
+					'options'  => $this->get_templates(),
+					'default'  => 'micro',
 				),
 				array(
 					'id'       => 'bewpi-color-theme',
@@ -118,7 +118,7 @@ if ( ! class_exists( 'BEWPI_Template_Settings' ) ) {
 					'section'  => 'general',
 					'type'     => 'text',
 					'desc'     => __( '<a href="http://php.net/manual/en/datetime.formats.date.php">Format</a> of invoice date and order date.', 'woocommerce-pdf-invoices' ),
-					'default'  => 'F j, Y',
+					'default'  => get_option( 'date_format' ),
 					'attrs'    => array( 'required' ),
 				),
 				array(
@@ -181,12 +181,12 @@ if ( ! class_exists( 'BEWPI_Template_Settings' ) ) {
 					'id'       => 'bewpi-company-logo',
 					'name'     => self::PREFIX . 'company_logo',
 					'title'    => __( 'Company logo', 'woocommerce-pdf-invoices' ),
-					'callback' => array( $this, 'logo_callback' ),
+					'callback' => array( $this, 'input_callback' ),
 					'page'     => self::SETTINGS_KEY,
 					'section'  => 'header',
-					'type'     => 'file',
-					'desc'     => __( 'Supported extensions are GIF, JPG/JPEG and PNG.<br/><b>Note:</b> JPG/JPEG are recommended for best performance.', 'woocommerce-pdf-invoices' ),
-					'default'  => '',
+					'type'     => 'text',
+					'desc'     => sprintf( __( 'Use the <a href="%1$s">Media Library</a> to <a href="%2$s">upload</a> or choose a .jpg, .jpeg, .gif or .png file and copy and paste the <a href="%3$s" target="_blank">URL</a>.', 'woocommerce-pdf-invoices' ), 'media-new.php', 'upload.php', 'https://codex.wordpress.org/Media_Library_Screen#Attachment_Details' ),
+					'default'  => ( is_array( $company_logo ) ) ? $company_logo[0] : '',
 				),
 				array(
 					'id'       => 'bewpi-company-address',
@@ -231,6 +231,18 @@ if ( ! class_exists( 'BEWPI_Template_Settings' ) ) {
 					'type'     => 'text',
 					'desc'     => __( 'Displayed in big colored bar directly after invoice total.', 'woocommerce-pdf-invoices' ),
 					'default'  => __( 'Thank you for your purchase!', 'woocommerce-pdf-invoices' ),
+				),
+				array(
+					'id'       => 'bewpi-show-ship-to',
+					'name'     => self::PREFIX . 'show_ship_to',
+					'title'    => '',
+					'callback' => array( $this, 'input_callback' ),
+					'page'     => self::SETTINGS_KEY,
+					'section'  => 'body',
+					'type'     => 'checkbox',
+					'desc'     => __( 'Show customers shipping address<br/><div class="bewpi-notes">Customers shipping address won\'t be displayed when order has only virtual products.</div>', 'woocommerce-pdf-invoices' ),
+					'class'    => 'bewpi-checkbox-option-title',
+					'default'  => 1,
 				),
 				array(
 					'id'       => 'bewpi-show-customer-notes',
@@ -319,10 +331,10 @@ if ( ! class_exists( 'BEWPI_Template_Settings' ) ) {
 					'page'     => self::SETTINGS_KEY,
 					'section'  => 'invoice_number',
 					'type'     => 'number',
-					'desc'     => __( 'Reset the invoice counter and start counting from given invoice number.<br/><b>Note:</b> Only available for Sequential numbering. All PDF invoices will be deleted and need to be manually created again! Value will be editable by selecting checkbox.', 'woocommerce-pdf-invoices' ),
+					'desc'     => __( 'Next invoice number when resetting counter.<br/><b>Note:</b> Only available for Sequential numbering. All PDF invoices with invoice number greater then next invoice number will be deleted.', 'woocommerce-pdf-invoices' ),
 					'default'  => 1,
 					'attrs'    => array(
-						'disabled',
+						'readonly',
 						'min="1"',
 					),
 				),
@@ -335,7 +347,7 @@ if ( ! class_exists( 'BEWPI_Template_Settings' ) ) {
 					'section'  => 'invoice_number',
 					'type'     => 'number',
 					'desc'     => '',
-					'default'  => 3,
+					'default'  => 5,
 					'attrs'    => array(
 						'min="3"',
 						'max="20"',
@@ -372,7 +384,7 @@ if ( ! class_exists( 'BEWPI_Template_Settings' ) ) {
 					'page'     => self::SETTINGS_KEY,
 					'section'  => 'invoice_number',
 					'type'     => 'text',
-					'desc'     => sprintf( __( 'Allowed placeholders: <code>%1$s</code> <code>%2$s</code> <code>%3$s</code> <code>%4$s</code> <code>%5$s</code> <code>%6$s</code>.<br/><b>Note:</b> <code>%3$s</code> is required and slashes aren\'t supported.', 'woocommerce-pdf-invoices' ), '[prefix]', '[suffix]', '[number]', '[m]', '[Y]', '[y]' ),
+					'desc'     => sprintf( __( 'Allowed placeholders: <code>%1$s</code> <code>%2$s</code> <code>%3$s</code> <code>%4$s</code> <code>%5$s</code> <code>%6$s</code><br/><b>Note:</b> <code>%3$s</code> is required and slashes aren\'t supported.', 'woocommerce-pdf-invoices' ), '[prefix]', '[suffix]', '[number]', '[order-number]', '[order-date]', '[m]', '[Y]', '[y]' ),
 					'default'  => '[number]-[Y]',
 					'attrs'    => array( 'required' ),
 				),
@@ -384,7 +396,10 @@ if ( ! class_exists( 'BEWPI_Template_Settings' ) ) {
 					'page'     => self::SETTINGS_KEY,
 					'section'  => 'invoice_number',
 					'type'     => 'checkbox',
-					'desc'     => __( 'Reset on 1st of january', 'woocommerce-pdf-invoices' ),
+					'desc'     => __( 'Reset yearly', 'woocommerce-pdf-invoices' )
+								. '<br/><div class="bewpi-notes">'
+								. __( 'Automatically reset invoice numbers on new year\'s day. <br/><b>Note</b>: You will have to generate all invoices again when changing option.', 'woocommerce-pdf-invoices' )
+								. '</div>',
 					'class'    => 'bewpi-checkbox-option-title',
 					'default'  => 1,
 				),
@@ -479,9 +494,17 @@ if ( ! class_exists( 'BEWPI_Template_Settings' ) ) {
 		 * Load (default) settings.
 		 */
 		public function load_settings() {
+			// merge defaults with options.
 			$defaults = $this->get_defaults();
 			$options  = (array) get_option( self::SETTINGS_KEY );
 			$options  = array_merge( $defaults, $options );
+
+			// check for deleted custom template.
+			$templates = wp_list_pluck( $this->get_templates(), 'value' );
+			if ( ! in_array( $options['bewpi_template_name'], $templates, true ) ) {
+				$options['bewpi_template_name'] = $defaults['bewpi_template_name'];
+			}
+
 			update_option( self::SETTINGS_KEY, $options );
 		}
 
@@ -559,64 +582,37 @@ if ( ! class_exists( 'BEWPI_Template_Settings' ) ) {
 		 * @return mixed|void
 		 */
 		public function validate_input( $input ) {
-			$output           = array();
-			$template_options = get_option( self::SETTINGS_KEY );
+			$output = array();
 
 			// strip strings.
 			foreach ( $input as $key => $value ) {
-				if ( isset( $input[ $key ] ) ) {
-					// strip all html and php tags and properly handle quoted strings.
-					$output[ $key ] = $this->strip_str( stripslashes( $input[ $key ] ) );
+				if ( ! isset( $input[ $key ] ) ) {
+					continue;
 				}
+
+				if ( 'bewpi_company_logo' === $key ) {
+					$output[ $key ] = '';
+					continue;
+				}
+
+				// strip all html and php tags and properly handle quoted strings.
+				$output[ $key ] = $this->strip_str( stripslashes( $input[ $key ] ) );
 			}
 
-			// company logo file upload.
-			if ( isset( $input['bewpi_company_logo'] ) ) {
-				$output['bewpi_company_logo'] = $input['bewpi_company_logo'];
-			}
-
-			if ( isset( $_FILES['bewpi_company_logo'] ) && 0 === $_FILES['bewpi_company_logo']['error'] ) { // Input var okay.
-				$file = wp_unslash( $_FILES['bewpi_company_logo'] );
-				if ( $file['size'] <= 2000000 ) {
-					$override           = array( 'test_form' => false );
-					$company_logo       = wp_handle_upload( $file, $override );
-					$validate_file_code = validate_file( $company_logo['url'] );
-					if ( 0 === $validate_file_code ) {
-						$output['bewpi_company_logo'] = $company_logo['url'];
-					} else {
-						switch ( $validate_file_code ) {
-							case 1:
-								add_settings_error(
-									esc_attr( self::SETTINGS_KEY ),
-									'file-invalid-2',
-									__( 'File is invalid and contains either \'..\' or \'./\'.', 'woocommerce-pdf-invoices' )
-								);
-								break;
-							case 2:
-								add_settings_error(
-									esc_attr( self::SETTINGS_KEY ),
-									'file-invalid-3',
-									__( 'File is invalid and contains \':\' after the first character.', 'woocommerce-pdf-invoices' )
-								);
-								break;
-						}
-					}
+			if ( isset( $input['bewpi_company_logo'] ) && ! empty( $input['bewpi_company_logo'] ) ) {
+				$image_url = $this->validate_image( $input['bewpi_company_logo'] );
+				if ( $image_url ) {
+					$output['bewpi_company_logo'] = $image_url;
 				} else {
 					add_settings_error(
 						esc_attr( self::SETTINGS_KEY ),
-						'file-invalid-1',
-						__( 'File should be less then 2MB.', 'woocommerce-pdf-invoices' )
+						'file-not-found',
+						__( 'Company logo not found. Upload the image to the Media Library and try again.', 'woocommerce-pdf-invoices' )
 					);
 				}
-			} elseif ( isset( $_POST['bewpi_company_logo'] ) && ! empty( $_POST['bewpi_company_logo'] ) ) { // Input var okay.
-				$output['bewpi_company_logo'] = $_POST['bewpi_company_logo'];
 			}
 
-			// invoice number.
-			if ( ! isset( $input['bewpi_next_invoice_number'] ) ) {
-				// reset the next invoice number so it's visible in the disabled input field.
-				$output['bewpi_next_invoice_number'] = $template_options['bewpi_next_invoice_number'];
-			}
+			$output['bewpi_next_invoice_number'] = intval( $input['bewpi_next_invoice_number'] );
 
 			// return the array processing any additional functions filtered by this action.
 			return apply_filters( 'validate_input', $output, $input );

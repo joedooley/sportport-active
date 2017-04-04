@@ -5,8 +5,6 @@ class FacetWP_Facet_fSelect
 
     function __construct() {
         $this->label = __( 'fSelect', 'fwp' );
-
-        add_filter( 'facetwp_store_unfiltered_post_ids', array( $this, 'store_unfiltered_post_ids' ) );
     }
 
 
@@ -305,17 +303,5 @@ class FacetWP_Facet_fSelect
             <td><input type="text" class="facet-count" value="10" /></td>
         </tr>
 <?php
-    }
-
-
-    /**
-     * Store unfiltered post IDs if a dropdown facet exists
-     */
-    function store_unfiltered_post_ids( $boolean ) {
-        if ( FWP()->helper->facet_setting_exists( 'type', 'fselect' ) ) {
-            return true;
-        }
-
-        return $boolean;
     }
 }
