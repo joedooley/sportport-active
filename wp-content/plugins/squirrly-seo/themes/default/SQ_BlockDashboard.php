@@ -26,7 +26,7 @@
 
     <div class="sq_helpcontent" style="display: none; clear: left; <?php echo (SQ_Tools::$options['sq_api'] == '') ? 'text-align: center;' : '' ?>">
         <div style="width: 700px; display: inline-block;">
-            <div style="font-size: 24px; margin: 30px 0; color: #999;">Learn About Squirrly's Features (click on the images):</div>
+            <div style="font-size: 24px; margin: 30px 0; color: #999;">Learn About Squirrly's Features (click on the presentations):</div>
             <ul class="sq_slidelist">
                 <li>
                     <a href="javascript:void(0);" rel="44987512" style="background-image: url('//image.slidesharecdn.com/kr-150222110827-conversion-gate01/95/squirrly-keyword-research-1-638.jpg?cb=1424624994')"></a>

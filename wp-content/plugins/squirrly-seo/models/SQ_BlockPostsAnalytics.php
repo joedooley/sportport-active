@@ -1,21 +1,18 @@
 <?php
 
-class Model_SQ_BlockPostsAnalytics extends WP_List_Table
-{
+class Model_SQ_BlockPostsAnalytics extends WP_List_Table {
 
     public $_column_headers;
     public $posts; //save post list for Squirrly call
     private $order_posts;
 
-    function __construct()
-    {
+    function __construct() {
         parent::__construct();
         $this->posts = array();
         $this->order_posts = array();
     }
 
-    function wp_edit_posts_query($q = false)
-    {
+    function wp_edit_posts_query($q = false) {
         global $current_user;
         $post__in = array(0);
         if (false === $q)
@@ -146,8 +143,7 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table
         return $avail_post_stati;
     }
 
-    function order_by_type($query)
-    {
+    function order_by_type($query) {
         global $wpdb;
         if (strpos($query, 'ORDER BY') !== false) {
             $query = str_replace("ORDER BY {$wpdb->posts}.post_date", "ORDER BY {$wpdb->posts}.post_type", $query);
@@ -157,8 +153,7 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table
         return $query;
     }
 
-    function order_by_rank($query)
-    {
+    function order_by_rank($query) {
         global $wpdb;
         if (!empty($this->order_posts)) {
             if (strpos($query, 'ORDER BY') !== false) {
@@ -171,8 +166,7 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table
         return $query;
     }
 
-    function prepare_items()
-    {
+    function prepare_items() {
         global $avail_post_stati, $wp_query, $per_page, $mode;
 
         $avail_post_stati = $this->wp_edit_posts_query();
@@ -193,8 +187,7 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table
         ));
     }
 
-    function get_column_info()
-    {
+    function get_column_info() {
         if (isset($this->_column_headers))
             return $this->_column_headers;
 
@@ -218,14 +211,13 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table
         return $this->_column_headers;
     }
 
-    function get_sortable_columns()
-    {
+    function get_sortable_columns() {
         $columns = array(
             'title' => 'title',
             'type' => 'type',
             'author' => 'author',
         );
-        if(SQ_Tools::$options['sq_google_ranksperhour'] > 0){
+        if (SQ_Tools::$options['sq_google_ranksperhour'] > 0) {
             $columns['rank'] = 'rank';
         }
 
@@ -234,8 +226,7 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table
         return $columns;
     }
 
-    function print_column_headers($with_id = true)
-    {
+    function print_column_headers($with_id = true) {
         $strcolumn = '';
 
         list($columns, $sortable) = $this->get_column_info();
@@ -290,8 +281,7 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table
         return $strcolumn;
     }
 
-    function get_columns()
-    {
+    function get_columns() {
         $post_type = 'post';
 
         $posts_columns = array();
@@ -307,21 +297,20 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table
         if (empty($post_type) || is_object_in_taxonomy($post_type, 'post_tag'))
             $posts_columns['keywords'] = __('Keywords');
 
-        if(SQ_Tools::$options['sq_google_ranksperhour'] > 0) {
-            $blog_ip = @gethostbyname(gethostname());
-            if (isset($blog_ip)) {
-                if (strpos($blog_ip, '192.') === false) {
-                    $posts_columns['rank'] = sprintf(__('Google.%s Position'), SQ_Tools::$options['sq_google_country']);
-                }
+        $blog_ip = @gethostbyname(gethostname());
+        if (isset($blog_ip)) {
+            if (!filter_var($blog_ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE)) {
+            } else {
+                $posts_columns['rank'] = sprintf(__('Google.%s Position'), SQ_Tools::$options['sq_google_country']);
             }
         }
+
         $posts_columns['traffic'] = '';
         $posts_columns['date'] = __('Date');
         return $posts_columns;
     }
 
-    function display_tablenav($which)
-    {
+    function display_tablenav($which) {
         if ('top' == $which)
             wp_nonce_field('bulk-' . $this->_args['plural']);
 
@@ -360,8 +349,7 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table
         return $strnav;
     }
 
-    function display_rows()
-    {
+    function display_rows() {
         global $wp_query, $post;
         static $alternate;
         $strrow = '';
@@ -382,8 +370,7 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table
         return $strrow;
     }
 
-    public function single_row($a_post)
-    {
+    public function single_row($a_post) {
         global $post;
 
         $strcolumn = '';
@@ -444,21 +431,25 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table
 
                     case 'rank':
                         $value = '';
-                        if (isset($json->rank)) {
-                            if ($json->rank == -2) {
-                                $value = __('Could not receive data from google (Err: blocked IP)');
-                            } elseif ($json->rank == -1) {
-                                $value = __('Not in top 100 for: <br /> "'.$json->keyword.'"');
-                            } elseif ($json->rank == 0) {
-                                $value = __('The URL is indexed');
-                            } elseif ($json->rank > 0) {
-                                $value = '<strong style="display:block; font-size: 120%; width: 100px; margin: 0 auto; text-align:right;">' . sprintf(__('%s'), $json->rank) . '</strong>' . ((isset($json->country)) ? ' (' . $json->country . ')' : '');
-                            }
-                            $value = sprintf('<a id="sq_rank_value' . $post->ID . '" href="%s" style="display:block; width: 120px; margin: 0 auto; text-align:right;">%s</a><span class="sq_rank_column_button_recheck sq_rank_column_button" onclick="sq_recheckRank(' . $post->ID . ')">%s</span>', esc_url(add_query_arg(array('page' => 'sq_posts', 'rank' => $json->rank), 'admin.php')), $value, __('Force recheck', _SQ_PLUGIN_NAME_));
-                        } else {
-                            $value = sprintf('<a id="sq_rank_value' . $post->ID . '" href="%s" style="display:block; width: 120px; margin: 0 auto; text-align:right;">%s</a><span class="sq_rank_column_button_recheck sq_rank_column_button" onclick="sq_recheckRank(' . $post->ID . ')">%s</span>', esc_url(add_query_arg(array('page' => 'sq_posts', 'rank' => false), 'admin.php')), __('Not yet verified'), __('Check now', _SQ_PLUGIN_NAME_));
-                        }
+                        if(SQ_Tools::$options['sq_google_ranksperhour'] > 0) {
 
+                            if (isset($json->rank)) {
+                                if ($json->rank == -2) {
+                                    $value = __('Could not receive data from google (Err: blocked IP)');
+                                } elseif ($json->rank == -1) {
+                                    $value = __('Not in top 100 for: <br /> "' . $json->keyword . '"');
+                                } elseif ($json->rank == 0) {
+                                    $value = __('The URL is indexed');
+                                } elseif ($json->rank > 0) {
+                                    $value = '<strong style="display:block; font-size: 120%; width: 100px; margin: 0 auto; text-align:right;">' . sprintf(__('%s'), $json->rank) . '</strong>' . ((isset($json->country)) ? ' (' . $json->country . ')' : '');
+                                }
+                                $value = sprintf('<a id="sq_rank_value' . $post->ID . '" href="%s" style="display:block; width: 120px; margin: 0 auto; text-align:right;">%s</a><span class="sq_rank_column_button_recheck sq_rank_column_button" onclick="sq_recheckRank(' . $post->ID . ')">%s</span>', esc_url(add_query_arg(array('page' => 'sq_posts', 'rank' => $json->rank), 'admin.php')), $value, __('Force recheck', _SQ_PLUGIN_NAME_));
+                            } else {
+                                $value = sprintf('<a id="sq_rank_value' . $post->ID . '" href="%s" style="display:block; width: 120px; margin: 0 auto; text-align:right;">%s</a><span class="sq_rank_column_button_recheck sq_rank_column_button" onclick="sq_recheckRank(' . $post->ID . ')">%s</span>', esc_url(add_query_arg(array('page' => 'sq_posts', 'rank' => false), 'admin.php')), __('Not yet verified'), __('Check now', _SQ_PLUGIN_NAME_));
+                            }
+                        }else{
+                            $value = sprintf(__('Enable Ranking in %sAdvanced Settings%s'),'<br /><a href="'.admin_url('admin.php?page=sq_settings').'">','</a>');
+                        }
                         break;
                     case 'traffic':
                         $value = '<div class="sq_rank_column_row sq_minloading" ref="' . $post->ID . '"></div>';
@@ -512,14 +503,12 @@ class Model_SQ_BlockPostsAnalytics extends WP_List_Table
         return $strcolumn;
     }
 
-    public function hookFooter()
-    {
+    public function hookFooter() {
         $this->postlist->setPosts($this->posts);
         $this->postlist->hookFooter();
     }
 
-    public function getScripts()
-    {
+    public function getScripts() {
         return $this->postlist->getScripts();
     }
 

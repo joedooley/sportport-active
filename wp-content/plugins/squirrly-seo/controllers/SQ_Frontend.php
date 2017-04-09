@@ -12,38 +12,34 @@ class SQ_Frontend extends SQ_FrontController {
 
         parent::__construct();
 
-        if (SQ_Tools::$options['sq_use'] == 1) {
-            /* Check if sitemap is on  */
-            if (SQ_Tools::$options['sq_auto_sitemap'] == 1) {
-                /* Load the Sitemap  */
-                add_filter('rewrite_rules_array', array($this, 'rewrite_rules'), 1, 1);
-                SQ_ObjController::getController('SQ_Sitemaps');
-            }
-
-            if (SQ_Tools::$options['sq_auto_feed'] == 1) {
-                /* Load the Feed Style  */
-                SQ_ObjController::getController('SQ_Feed');
-            }
-
-            //validate custom arguments for favicon and sitemap
-            add_filter('query_vars', array($this, 'validateParams'), 1, 1);
-
-            if (!$this->_isAjax()) {
-                add_filter('sq_title', array($this->model, 'clearTitle'));
-                add_filter('sq_description', array($this->model, 'clearDescription'));
-
-                add_action('plugins_loaded', array($this->model, 'startBuffer'));
-                add_action('template_redirect', array($this->model, 'checkHandles'));
-                //flush the header with the title and removing duplicates
-                add_action('wp_head', array($this->model, 'flushHeader'),99);
-                add_action('shutdown', array($this->model, 'flushHeader'));
-            }
-
-            if (SQ_Tools::$options['sq_url_fix'] == 1) {
-                add_action('the_content', array($this, 'fixFeedLinks'), 11);
-            }
-
+        /* Check if sitemap is on  */
+        if (SQ_Tools::$options['sq_auto_sitemap'] == 1) {
+            /* Load the Sitemap  */
+            add_filter('rewrite_rules_array', array($this, 'rewrite_rules'), 1, 1);
+            SQ_ObjController::getController('SQ_Sitemaps');
         }
+
+        if (SQ_Tools::$options['sq_auto_feed'] == 1) {
+            /* Load the Feed Style  */
+            SQ_ObjController::getController('SQ_Feed');
+        }
+
+        //validate custom arguments for favicon and sitemap
+        add_filter('query_vars', array($this, 'validateParams'), 1, 1);
+
+        add_filter('sq_title', array($this->model, 'clearTitle'));
+        add_filter('sq_description', array($this->model, 'clearDescription'));
+
+        add_action('plugins_loaded', array($this->model, 'startBuffer'));
+        add_action('template_redirect', array($this->model, 'checkHandles'));
+        //flush the header with the title and removing duplicates
+        //add_action('wp_head', array($this->model, 'flushHeader'),99);
+        add_action('shutdown', array($this->model, 'flushHeader'));
+
+        if (SQ_Tools::$options['sq_url_fix'] == 1) {
+            add_action('the_content', array($this, 'fixFeedLinks'), 11);
+        }
+
     }
 
     public function rewrite_rules($wp_rewrite) {
@@ -57,7 +53,7 @@ class SQ_Frontend extends SQ_FrontController {
 
     private function _isAjax() {
         $url = (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : false);
-        if ($url && (strpos($url, admin_url('admin-ajax.php', 'relative')) !== false || strpos(admin_url('admin-ajax.php', 'relative'), $url) !== false)) {
+        if ($url && (strpos($url, str_replace(get_bloginfo('url'),'',admin_url('admin-ajax.php', 'relative'))) !== false )) {
             return true;
         }
 
@@ -71,11 +67,16 @@ class SQ_Frontend extends SQ_FrontController {
 
         if (!$this->_isAjax()) {
             if (SQ_Tools::$options['sq_use'] == 1) {
+                if (SQ_Tools::$options['sq_auto_jsonld'] == 1) {
+                    //load the hooks for JsonLD
+                    SQ_ObjController::getModelService('JsonLD');
+                }
+
                 echo $this->model->setStartTag();
             }
 
             SQ_ObjController::getController('SQ_DisplayController', false)
-                    ->loadMedia(_SQ_THEME_URL_ . 'css/sq_frontend.css');
+                ->loadMedia(_SQ_THEME_URL_ . 'css/sq_frontend.css');
         }
     }
 
@@ -94,6 +95,8 @@ class SQ_Frontend extends SQ_FrontController {
             //check the action call
             $this->action();
         }
+
+
     }
 
     /**
@@ -178,7 +181,7 @@ class SQ_Frontend extends SQ_FrontController {
                     }
                     break;
                 case 'touchicon':
-                    $size = (int) get_query_var('sq_size');
+                    $size = (int)get_query_var('sq_size');
                     if (SQ_Tools::$options['favicon'] <> '') {
                         //show the favico file
                         SQ_Tools::setHeader('png');
@@ -199,7 +202,7 @@ class SQ_Frontend extends SQ_FrontController {
         }
     }
 
-    public function hookFrontfooter(){
+    public function hookFrontfooter() {
         echo $this->model->getGoogleAnalyticsAMPBody();
     }
 }

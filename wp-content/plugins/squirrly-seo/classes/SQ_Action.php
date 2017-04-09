@@ -14,7 +14,7 @@ class SQ_Action extends SQ_FrontController {
 
     private function _isAjax() {
         $url = (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : false);
-        if ($url && (strpos($url, admin_url('admin-ajax.php', 'relative')) !== false || strpos(admin_url('admin-ajax.php', 'relative'), $url) !== false)) {
+        if ($url && (strpos($url, str_replace(get_bloginfo('url'),'',admin_url('admin-ajax.php', 'relative'))) !== false )) {
             return true;
         }
 

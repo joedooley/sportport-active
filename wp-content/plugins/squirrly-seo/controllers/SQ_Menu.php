@@ -123,7 +123,36 @@ class SQ_Menu extends SQ_FrontController {
                 ));
             }
 
+            $this->model->addSubmenu(array('sq_dashboard',
+                ucfirst(_SQ_NAME_) . __(' Keyword Research', _SQ_PLUGIN_NAME_),
+                __('Keyword Research', _SQ_PLUGIN_NAME_),
+                'edit_posts',
+                'sq_keywordresearch',
+                array(SQ_ObjController::getBlock('SQ_BlockKeywordResearch'), 'init')
+            ));
 
+            $this->model->addSubmenu(array('sq_dashboard',
+                ucfirst(_SQ_NAME_) . __(' Live Assistant', _SQ_PLUGIN_NAME_),
+                __('Live Assistant', _SQ_PLUGIN_NAME_),
+                'edit_posts',
+                'sq_liveassistant',
+                array(SQ_ObjController::getBlock('SQ_BlockLiveAssistant'), 'init')
+            ));
+            $this->model->addSubmenu(array('sq_dashboard',
+                ucfirst(_SQ_NAME_) . __(' Copywriting Options', _SQ_PLUGIN_NAME_),
+                __('Copywriting Options', _SQ_PLUGIN_NAME_),
+                'edit_posts',
+                'sq_copyright',
+                array(SQ_ObjController::getBlock('SQ_BlockCopyright'), 'init')
+            ));
+
+            $this->model->addSubmenu(array('sq_dashboard',
+                ucfirst(_SQ_NAME_) . __(' SEO Audit', _SQ_PLUGIN_NAME_),
+                __('Audit Site', _SQ_PLUGIN_NAME_),
+                'edit_posts',
+                'sq_seoaudit',
+                array(SQ_ObjController::getBlock('SQ_BlockAudit'), 'init')
+            ));
 
             $this->model->addSubmenu(array('sq_dashboard',
                 ucfirst(_SQ_NAME_) . __(' SEO Settings', _SQ_PLUGIN_NAME_),
@@ -133,9 +162,10 @@ class SQ_Menu extends SQ_FrontController {
                 array(SQ_ObjController::getBlock('SQ_BlockSettingsSeo'), 'init')
             ));
 
+
             $this->model->addSubmenu(array('sq_dashboard',
                 ucfirst(_SQ_NAME_) . __(' Advanced Settings', _SQ_PLUGIN_NAME_),
-                __('Advanced', _SQ_PLUGIN_NAME_),
+                __('Advanced Settings', _SQ_PLUGIN_NAME_),
                 'manage_options',
                 'sq_settings',
                 array(SQ_ObjController::getBlock('SQ_BlockSettings'), 'init')
@@ -151,9 +181,17 @@ class SQ_Menu extends SQ_FrontController {
         }
 
         $this->model->addSubmenu(array('sq_dashboard',
+            ucfirst(_SQ_NAME_) . __(' Customer Service', _SQ_PLUGIN_NAME_),
+            __('Customer Service', _SQ_PLUGIN_NAME_),
+            'edit_posts',
+            'sq_customerservice',
+            array(SQ_ObjController::getBlock('SQ_BlockCustomerService'), 'init')
+        ));
+
+        $this->model->addSubmenu(array('sq_dashboard',
             __('Become an Affiliate with ', _SQ_PLUGIN_NAME_) . ucfirst(_SQ_NAME_),
-            __('Affiliate', _SQ_PLUGIN_NAME_),
-            'manage_options',
+            __('Become an Affiliate', _SQ_PLUGIN_NAME_),
+            'edit_posts',
             'sq_affiliate',
             array(SQ_ObjController::getBlock('SQ_BlockAffiliate'), 'init')
         ));

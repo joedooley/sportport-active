@@ -1,0 +1,15 @@
+.gvhg-filter-cue { display: inline !important; color: #F89E43 !important; font-weight: bold !important; cursor: help; }
+
+.gvhg-hook-cue { 
+	color: #F89E43;
+	display: block;
+	padding: 2px 5px;
+	margin: 10px;
+	border: 1px solid;
+	overflow: hidden;
+	word-wrap: break-word;
+}
+
+.gvhg-hook-cue[data-gvhg-hook-cue="genesis_after_content_sidebar_wrap"] {
+  clear: both;
+}

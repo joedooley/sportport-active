@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Menu Cart
 Plugin URI: www.wpovernight.com/plugins
 Description: Extension for WooCommerce that places a cart icon with number of items and total cost in the menu bar. Activate the plugin, set your options and you're ready to go! Will automatically conform to your theme styles.
-Version: 2.5.8.1
+Version: 2.6.0
 Author: Jeremiah Prummer, Ewout Fernhout
 Author URI: www.wpovernight.com/
 License: GPL2
@@ -56,7 +56,11 @@ class WpMenuCart {
 						if ( isset($this->options['builtin_ajax']) ) {
 							add_action("wp_enqueue_scripts", array( &$this, 'load_custom_ajax' ), 0 );
 						} else {
-							add_filter( 'add_to_cart_fragments', array( &$this, 'woocommerce_ajax_fragments' ) );
+							if ( defined('WOOCOMMERCE_VERSION') && version_compare( WOOCOMMERCE_VERSION, '2.7', '>=' ) ) {
+								add_filter( 'woocommerce_add_to_cart_fragments', array( $this, 'woocommerce_ajax_fragments' ) );
+							} else {
+								add_filter( 'add_to_cart_fragments', array( $this, 'woocommerce_ajax_fragments' ) );
+							}
 						}
 						break;
 					case 'jigoshop':
@@ -245,7 +249,7 @@ class WpMenuCart {
 			'wpmenucart',
 			plugins_url( '/javascript/wpmenucart.js' , __FILE__ ),
 			array( 'jquery' ),
-			'2.5.8',
+			'2.6.0',
 			true
 		);
 
@@ -410,6 +414,10 @@ class WpMenuCart {
 	 * Ajaxify Menu Cart
 	 */
 	public function woocommerce_ajax_fragments( $fragments ) {
+		if ( ! defined('WOOCOMMERCE_CART') ) {
+			define( 'WOOCOMMERCE_CART', true );
+		}
+
 		$fragments['a.wpmenucart-contents'] = $this->wpmenucart_menu_item();
 		return $fragments;
 	}

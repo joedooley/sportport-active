@@ -25,9 +25,11 @@
 
                 </li>
                 <hr />
-                <li><?php _e('Facebook:', _SQ_PLUGIN_NAME_) ?> <a href="<?php echo _SQ_SUPPORT_FACEBOOK_URL_ ?>" title="<?php _e('Send us a message', _SQ_PLUGIN_NAME_) ?>" target="_blank"><?php _e('Send us a message', _SQ_PLUGIN_NAME_) ?></a></li>
-                <li><?php _e('Google:', _SQ_PLUGIN_NAME_) ?> <a href="<?php echo _SQ_SUPPORT_GOOGLE_URL_ ?>" title="<?php _e('Join the support community', _SQ_PLUGIN_NAME_) ?>" target="_blank"><?php _e('Join the support community', _SQ_PLUGIN_NAME_) ?></a></li>
-                <li><?php _e('Contact:', _SQ_PLUGIN_NAME_) ?> <a href="<?php echo _SQ_SUPPORT_EMAIL_URL_ ?>" title="<?php _e('Write an email', _SQ_PLUGIN_NAME_) ?>" target="_blank"><?php _e('Write an email', _SQ_PLUGIN_NAME_) ?></a></li>
+                <li><?php _e('For more support:', _SQ_PLUGIN_NAME_) ?> </li>
+                <li> - <?php echo sprintf(__('10 AM to 4 PM (London Time): Mon-Fri %sby email%s.', _SQ_PLUGIN_NAME_),'<a href="mailto:'._SQ_SUPPORT_EMAIL_.'">','</a>') ?> </li>
+                <li> - <?php echo sprintf(__('%sLive Chat%s on Youtube. Thursday 4 PM.', _SQ_PLUGIN_NAME_),'<a href="https://www.youtube.com/c/GetGrowthTV/live" target="_blank">','</a>') ?> </li>
+                <li> - <?php echo sprintf(__('Google Plus %sSupport Community%s.', _SQ_PLUGIN_NAME_),'<a href="https://plus.google.com/communities/104196720668136264985" target="_blank">','</a>') ?> </li>
+                <li> - <?php echo sprintf(__('New Lessons Mon. and Tue. on %sTwitter%s.', _SQ_PLUGIN_NAME_),'<a href="https://twitter.com/squirrlyhq" target="_blank">','</a>') ?> </li>
 
             </ul>
         </li>
@@ -68,9 +70,12 @@
                         </p>
 
                     </li>
-                    <li style="margin-top: 10px;"><?php _e('Facebook:', _SQ_PLUGIN_NAME_) ?> <a href="<?php echo _SQ_SUPPORT_FACEBOOK_URL_ ?>" title="<?php _e('Send us a message', _SQ_PLUGIN_NAME_) ?>" target="_blank"><?php _e('Send us a message', _SQ_PLUGIN_NAME_) ?></a></li>
-                    <li><?php _e('Google:', _SQ_PLUGIN_NAME_) ?> <a href="<?php echo _SQ_SUPPORT_GOOGLE_URL_ ?>" title="<?php _e('Join the support community', _SQ_PLUGIN_NAME_) ?>" target="_blank"><?php _e('Join the support community', _SQ_PLUGIN_NAME_) ?></a></li>
-                    <li><?php _e('Contact:', _SQ_PLUGIN_NAME_) ?> <a href="<?php echo _SQ_SUPPORT_EMAIL_URL_ ?>" title="<?php _e('Write an email', _SQ_PLUGIN_NAME_) ?>" target="_blank"><?php _e('Write an email', _SQ_PLUGIN_NAME_) ?></a></li>
+                    <li style="margin-top: 10px;"><?php _e('For more support:', _SQ_PLUGIN_NAME_) ?> </li>
+                    <li> - <?php echo sprintf(__('10 AM to 4 PM (London Time): Mon-Fri %sby email%s.', _SQ_PLUGIN_NAME_),'<a href="mailto:'._SQ_SUPPORT_EMAIL_.'">','</a>') ?> </li>
+                    <li> - <?php echo sprintf(__('%sSupport button%s here in WordPress (^^)', _SQ_PLUGIN_NAME_),'<a href="javascript:void(0);" onclick="jQuery(\'#sq_options_support\').find(\'span\').trigger(\'click\')" target="_blank">','</a>') ?> </li>
+                    <li> - <?php echo sprintf(__('%sLive Chat%s on Youtube. Thursday 4 PM.', _SQ_PLUGIN_NAME_),'<a href="https://www.youtube.com/c/GetGrowthTV/live" target="_blank">','</a>') ?> </li>
+                    <li> - <?php echo sprintf(__('Google Plus %sSupport Community%s.', _SQ_PLUGIN_NAME_),'<a href="https://plus.google.com/communities/104196720668136264985" target="_blank">','</a>') ?> </li>
+                    <li> - <?php echo sprintf(__('New Lessons Mon. and Tue. on %sTwitter%s.', _SQ_PLUGIN_NAME_),'<a href="https://twitter.com/squirrlyhq" target="_blank">','</a>') ?> </li>
                 </ul>
             <?php } else { ?>
                 <ul class="sq_options_feedback_popup" style="display: none;">

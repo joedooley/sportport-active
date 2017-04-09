@@ -104,6 +104,7 @@ class Model_SQ_Sitemaps {
 
                 if (SQ_Tools::$options['sq_sitemap_show']['images'] == 1) {
                     if ($images = SQ_ObjController::getModel('SQ_Frontend')->getImagesFromContent($post->ID, true)) {
+
                         array_push($posts['contains'], 'image');
                         $xml['image:image'] = array();
                         foreach ($images as $image) {

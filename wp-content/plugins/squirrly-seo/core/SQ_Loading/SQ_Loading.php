@@ -3,16 +3,16 @@
 class SQ_Loading extends SQ_BlockController {
 
     public function hookHead() {
-        global $sq_postID;
-
         parent::hookHead();
-        $exists = false;
-        $browser = false;
+        $this->loadJsVars();
+    }
 
-
+    public function loadJsVars(){
+        global $sq_postID;
 
         /* Check the squirrly.js file if exists */
         $browser = SQ_Tools::getBrowserInfo();
+        $keyword = '';
 
         if ((isset($browser) && $browser != false && is_array($browser) && $browser['name'] == 'IE' && (int) $browser['version'] < 9 && (int) $browser['version'] > 0)) {
             echo '<script type="text/javascript">
@@ -23,7 +23,9 @@ class SQ_Loading extends SQ_BlockController {
                     jQuery("#sq_blocklogin").hide();
                   </script>';
         } else {
-            $keyword = SQ_ObjController::getModel('SQ_Post')->getKeywordsFromPost($sq_postID);
+            if (isset($sq_postID)) {
+                $keyword = SQ_ObjController::getModel('SQ_Post')->getKeywordsFromPost($sq_postID);
+            }
             echo '<script type="text/javascript">
                     var sq_use = "' . SQ_Tools::$options['sq_use'] . '";
                     var sq_baseurl = "' . _SQ_STATIC_API_URL_ . '";
@@ -36,6 +38,25 @@ class SQ_Loading extends SQ_BlockController {
                     var __noopt = "' . __('You haven`t used Squirrly SEO to optimize your article. Do you want to optimize for a keyword before publishing?', _SQ_PLUGIN_NAME_) . '";
                     var sq_keywordtag = "' . SQ_Tools::$options['sq_keywordtag'] . '";
                     var sq_frontend_css = "' . _SQ_THEME_URL_ . 'css/sq_frontend.css";
+                    var __date = "' . __('date', _SQ_PLUGIN_NAME_) . '"; 
+                    var __readit = "' . __('Read it!', _SQ_PLUGIN_NAME_) . '"; 
+                    var __insertit = "' . __('Insert it!', _SQ_PLUGIN_NAME_) . '"; 
+                    var __reference = "' . __('Reference', _SQ_PLUGIN_NAME_) . '"; 
+                    var __insertasbox = "' . __('Insert as box', _SQ_PLUGIN_NAME_) . '"; 
+                    var __notrelevant = "' . __('Not relevant?', _SQ_PLUGIN_NAME_) . '"; 
+                    var __insertparagraph = "' . __('Insert in your article', _SQ_PLUGIN_NAME_) . '"; 
+                    var __tinymceerror = "' . __('For Squirrly to work, you have to have tinymce editor installed!', _SQ_PLUGIN_NAME_) . '"; 
+                    var __ajaxerror = "' . __(':( I lost my squirrel. Please reload the page.', _SQ_PLUGIN_NAME_) . '"; 
+                    var __nofound = "' . __('No results found!', _SQ_PLUGIN_NAME_) . '";
+                    var __tinymceinactive = "' . __('Switch to Visual editor!', _SQ_PLUGIN_NAME_) . '"; 
+                    var __morewords = "' . __('Enter one more word to find relevant results', _SQ_PLUGIN_NAME_) . '"; 
+                    var __toolong = "' . __('Takes too long to check this keyword ...', _SQ_PLUGIN_NAME_) . '"; 
+                    var __doresearch = "' . __('Do a research!', _SQ_PLUGIN_NAME_) . '"; 
+                    var __morekeywords = "' . __('Do more research!', _SQ_PLUGIN_NAME_) . '"; 
+                    var __sq_photo_copyright = "' . __('[ ATTRIBUTE: Please check: %s to find out how to attribute this image ]', _SQ_PLUGIN_NAME_) . '"; 
+                    var __has_attributes = "' . __('Has creative commons attributes', _SQ_PLUGIN_NAME_) . '"; 
+                    var __no_attributes = "' . __('No known copyright restrictions', _SQ_PLUGIN_NAME_) . '";
+
                     ' . (($keyword <> '') ? 'var sq_keyword_from_post = "' . $keyword . '";' : '') . '
                     if (typeof sq_script === "undefined"){
                         var sq_script = document.createElement(\'script\');

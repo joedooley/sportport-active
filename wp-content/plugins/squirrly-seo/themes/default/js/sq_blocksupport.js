@@ -44,28 +44,18 @@ function sq_blocksupport() {
             jQuery('#sq_options_feedback').find('.sq_icon').removeClass('sq_label_feedback_' + i);
         jQuery('#sq_options_feedback').find('.sq_icon').addClass('sq_label_feedback_2');
 
-        if (jQuery("#sq_facebook_b").length === 0)
-            jQuery("#sq_options_feedback_error").after('<div id="sq_facebook_b"><span class="sq_facebook_title">We\'re also on facebook</span><span class="sq_facebook_image"><a href="http://www.facebook.com/Squirrly.co" target="_blank"><img src="http://static.api.squirrly.co/default/img/social/squirrly_facebook.png"></a></span> <span class="sq_facebook_frame">' + sq_facebook_b + '</span></div>');
-
     });
     jQuery("#sq_feedback_3").on('click', function () {
         jQuery("#sq_feedback_submit").trigger('click');
         for (i = 0; i < 5; i++)
             jQuery('#sq_options_feedback').find('.sq_icon').removeClass('sq_label_feedback_' + i);
         jQuery('#sq_options_feedback').find('.sq_icon').addClass('sq_label_feedback_3');
-
-        if (jQuery("#sq_facebook_b").length === 0)
-            jQuery("#sq_options_feedback_error").after('<div id="sq_facebook_b"><span class="sq_facebook_title">We\'re also on facebook</span><span class="sq_facebook_image"><a href="http://www.facebook.com/Squirrly.co" target="_blank"><img src="http://static.api.squirrly.co/default/img/social/squirrly_facebook.png"></a></span> <span class="sq_facebook_frame">' + sq_facebook_b + '</span></div>');
-
     });
     jQuery("#sq_feedback_4").on('click', function () {
         jQuery("#sq_feedback_submit").trigger('click');
         for (i = 0; i < 5; i++)
             jQuery('#sq_options_feedback').find('.sq_icon').removeClass('sq_label_feedback_' + i);
         jQuery('#sq_options_feedback').find('.sq_icon').addClass('sq_label_feedback_4');
-
-        if (jQuery("#sq_facebook_b").length === 0)
-            jQuery("#sq_options_feedback_error").after('<div id="sq_facebook_b"><span class="sq_facebook_title">We\'re also on facebook</span><span class="sq_facebook_image"><a href="http://www.facebook.com/Squirrly.co" target="_blank"><img src="http://static.api.squirrly.co/default/img/social/squirrly_facebook.png"></a></span> <span class="sq_facebook_frame">' + sq_facebook_b + '</span></div>');
 
     });
 

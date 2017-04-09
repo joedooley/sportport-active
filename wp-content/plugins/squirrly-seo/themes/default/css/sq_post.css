@@ -210,7 +210,7 @@
 
 #sq_options > ul > li{
     position: relative;
-    width: 100px;
+    width: 102px;
     float: right;
 
     color: #444444;
@@ -222,7 +222,7 @@
     cursor: pointer;
 }
 #sq_options li#sq_options_support{
-    margin-left: 27px;
+    margin-left: 15px;
     width: 105px;
 }
 #sq_options_support .sq_text,
@@ -253,7 +253,7 @@
     background: transparent url('../img/sprite.png') no-repeat;
 }
 #sq_options > ul > li#sq_options_feedback{
-    width: 30px;
+    width: 38px;
     margin-left: 2px;
 }
 #sq_options_feedback .sq_label_feedback_smiley{

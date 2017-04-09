@@ -278,6 +278,8 @@ noscript{
     position: absolute;
     z-index: 99;
 }
+
+
 /********************* SNIPPET *****************************/
 #sq_settings #sq_snippet{
     max-width: 550px;
@@ -462,9 +464,12 @@ noscript{
     color: red;
 }
 
+
 @media only screen and (max-width: 1024px){
     #sq_snippet #sq_snippet_ul #sq_snippet_title {
         clear: both;
     }
+
 }
 /**************************************************/
+

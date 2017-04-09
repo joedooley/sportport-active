@@ -8,7 +8,7 @@ define('_THEME_NAME_', 'default'); //THIS LINE WILL BE CHANGED WITH THE USER SET
 
 $scheme = (((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") || (defined('FORCE_SSL_ADMIN') && FORCE_SSL_ADMIN)) ? 'https:' : 'http:'); //CHECK IF SCURE
 defined('_SQ_DASH_URL_') || define('_SQ_DASH_URL_', 'https://my.squirrly.co/');
-defined('SQ_URI') || define('SQ_URI', (WP_VERSION_ID >= 3000) ? 'wp350' : 'wp2');
+defined('SQ_URI') || define('SQ_URI', (WP_VERSION_ID >= 4700) ? 'wp470' : 'wp350');
 defined('_SQ_API_URL_') || define('_SQ_API_URL_', '//api.squirrly.co/');
 
 defined('_SQ_STATIC_API_URL_') || define('_SQ_STATIC_API_URL_', '//storage.googleapis.com/squirrly/');
@@ -22,6 +22,7 @@ define('_SQ_ROOT_DIR_', realpath(dirname($currentDir)));
 define('_SQ_CLASSES_DIR_', _SQ_ROOT_DIR_ . '/classes/');
 define('_SQ_CONTROLLER_DIR_', _SQ_ROOT_DIR_ . '/controllers/');
 define('_SQ_MODEL_DIR_', _SQ_ROOT_DIR_ . '/models/');
+define('_SQ_SERVICE_DIR_', _SQ_MODEL_DIR_ . '/services/');
 define('_SQ_TRANSLATIONS_DIR_', _SQ_ROOT_DIR_ . '/translations/');
 define('_SQ_CORE_DIR_', _SQ_ROOT_DIR_ . '/core/');
 define('_SQ_ALL_THEMES_DIR_', _SQ_ROOT_DIR_ . '/themes/');

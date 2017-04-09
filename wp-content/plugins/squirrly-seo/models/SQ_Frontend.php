@@ -29,10 +29,10 @@ class Model_SQ_Frontend {
     private $custom_og_image = false;
 
     /** @var integer */
-    private $min_title_length = 10;
+    private $min_title_length = 20;
 
     /** @var integer */
-    private $max_title_length = 100;
+    private $max_title_length = 75;
 
     /** @var integer */
     private $max_description_length = 170;
@@ -67,7 +67,7 @@ class Model_SQ_Frontend {
     public function setStartTag() {
         $this->setPost();
         if ($this->is_squirrly()) {
-            SQ_Tools::dump('Show Squirrly', 'isHomePage: ' . $this->isHomePage(), 'is_single: ' . is_single(), 'is_preview: ' . is_preview(), 'is_page: ' . is_page(), 'is_archive: ' . is_archive(), 'is_author: ' . is_author(), 'is_category: ' . is_category(), 'is_tag: ' . is_tag(), 'is_search: ' . is_search(), 'in_array: ' . (!empty($this->post_types) && in_array($this->post_type, $this->post_types)));
+            //SQ_Tools::dump('Show Squirrly', 'isHomePage: ' . $this->isHomePage(), 'is_single: ' . is_single(), 'is_preview: ' . is_preview(), 'is_page: ' . is_page(), 'is_archive: ' . is_archive(), 'is_author: ' . is_author(), 'is_category: ' . is_category(), 'is_tag: ' . is_tag(), 'is_search: ' . is_search(), 'in_array: ' . (!empty($this->post_types) && in_array($this->post_type, $this->post_types)));
             return "<squirrly />";
         }
     }
@@ -132,6 +132,7 @@ class Model_SQ_Frontend {
      * @return type
      */
     public function startBuffer() {
+
         ob_start(array($this, 'getBuffer'));
     }
 
@@ -224,7 +225,6 @@ class Model_SQ_Frontend {
         }
 
         if ($this->is_squirrly()) {
-
             //update ... please monitor
             if (is_single() || is_page()) {
                 if (!isset($this->post->ID)) {
@@ -239,6 +239,10 @@ class Model_SQ_Frontend {
                 $this->url = $this->getCanonicalUrl();
                 //Get the title
                 $this->title = $this->getCustomTitle();
+                //Set the description and Keywords in case of default
+                $this->getCustomDescription();
+                $this->getCustomKeyword();
+
                 /* Get the thumb image from post */
                 $this->thumb_images = $this->getImagesFromContent();
 
@@ -284,11 +288,19 @@ class Model_SQ_Frontend {
                 return $buffer;
                 //
             }
+        } else {
+            global $sq_is_sitemap;
+            if (isset($sq_is_sitemap) && $sq_is_sitemap) {
+                $buffer = @preg_replace('/<\/sitemapindex>(.*)?/si', "</sitemapindex>", $buffer);
+                $buffer = @preg_replace('/<\/urlset>(.*)?/si', "</urlset>", $buffer);
+                $buffer = trim($buffer);
+            }
         }
 
         if (strpos($buffer, '<squirrly />') !== false) {
             $buffer = str_replace("<squirrly />", "", $buffer);
         }
+
         return $buffer;
     }
 
@@ -416,6 +428,11 @@ class Model_SQ_Frontend {
     public function getOpenGraph() {
         $meta = "\n";
         $image = '';
+
+        //Title and Description is required
+        if ($this->title == '' || $this->description == '') {
+            return;
+        }
 
         if (!isset($this->thumb_video) || $this->thumb_video == '') {
             $videos = $this->getVideosFromContent();
@@ -643,10 +660,6 @@ class Model_SQ_Frontend {
                 }
             }
 
-            //If title then clear it and truncate it
-            if ($this->title <> '') {
-                $this->title = $this->truncate($this->title, $this->min_title_length, $this->max_title_length);
-            }
         } elseif (SQ_Tools::$options ['sq_auto_title'] == 1) { /* Check if is a predefined Title for home page */
 
             //If the home page is a static page that has custom snippet
@@ -664,6 +677,8 @@ class Model_SQ_Frontend {
                     $this->title = get_the_title();
                 }
             }
+        } else {
+            $this->title = get_the_title();
         }
         return apply_filters('sq_title', $this->title);
     }
@@ -678,19 +693,20 @@ class Model_SQ_Frontend {
 
     /**
      * Get the image from content
-     * @global type $wp_query
+     * @global WP_Query $wp_query
      * @param integer $id Post ID
-     * @return type
+     * @return array
      */
     public function getImagesFromContent($id = null, $all = false) {
         $images = array();
-        if (isset($id)) {
-            $post = get_post($id);
-        } else {
-            $post = $this->post;
+        $post = $this->post;
+
+        if (isset($id) && !$post = get_post($id)) {
+            return $images;
         }
 
-        if (SQ_Tools::$options['sq_auto_description'] == 1) { //
+        //if not a specific post and description is sqitched on
+        if (!isset($id) && SQ_Tools::$options['sq_auto_description'] == 1) { //
             if (($this->isHomePage() && SQ_Tools::$options['sq_fp_ogimage'] <> '')) {
                 $images[] = array(
                     'src' => esc_url(SQ_Tools::$options['sq_fp_ogimage']),
@@ -909,20 +925,19 @@ class Model_SQ_Frontend {
                     }
                 }
             }
-        } else
-
+        } elseif (SQ_Tools::$options['sq_auto_description'] == 1) {
             /* Check if is a predefined TitleIn Snippet */
-            if (SQ_Tools::$options['sq_auto_description'] == 1) {
-
-                //If the home page is a static page that has custom snippet
-                if (is_page() && isset($this->post) && isset($this->post->ID) && $this->getAdvancedMeta($this->post->ID, 'description') <> '') {
-                    $description = $this->getAdvancedMeta($this->post->ID, 'description');
-                } elseif (SQ_Tools::$options ['sq_fp_description'] <> '') {
-                    $description = strip_tags(SQ_Tools::$options['sq_fp_description']);
-                } else {
-                    $description = $this->grabDescriptionFromPost();
-                }
+            //If the home page is a static page that has custom snippet
+            if (is_page() && isset($this->post) && isset($this->post->ID) && $this->getAdvancedMeta($this->post->ID, 'description') <> '') {
+                $description = $this->getAdvancedMeta($this->post->ID, 'description');
+            } elseif (SQ_Tools::$options ['sq_fp_description'] <> '') {
+                $description = strip_tags(SQ_Tools::$options['sq_fp_description']);
+            } else {
+                $description = $this->grabDescriptionFromPost();
             }
+        } else {
+            $description = get_bloginfo('description');
+        }
 
         $description = (($description <> '') ? $description : $this->title);
         if ($description <> '') {
@@ -1400,98 +1415,125 @@ class Model_SQ_Frontend {
     public function getJsonLD() {
         $meta = '';
         $sep = ",\n";
+        $jsonld = SQ_ObjController::getModelService('JsonLD');
+        $markup = array();
         if ($this->isHomePage()) {
             if (isset(SQ_Tools::$options['sq_jsonld'][SQ_Tools::$options['sq_jsonld_type']])) {
-                $meta .= '"@type":"' . SQ_Tools::$options['sq_jsonld_type'] . '"' . $sep;
-                $meta .= '"url": "' . $this->url . '"';
+                $markup['@type'] = SQ_Tools::$options['sq_jsonld_type'];
+                $markup['@id'] = $this->url;
+                $markup['url'] = $this->url;
+
                 foreach (SQ_Tools::$options['sq_jsonld'][SQ_Tools::$options['sq_jsonld_type']] as $key => $value) {
                     if ($value <> '') {
                         if (SQ_Tools::$options['sq_jsonld_type'] == 'Organization' && $key == 'contactType') {
                             continue;
                         }
                         if (SQ_Tools::$options['sq_jsonld_type'] == 'Organization' && $key == 'telephone') {
-                            $meta .= $sep . '"contactPoint": {"@type": "ContactPoint", "telephone": "' . $value . '", "contactType": "' . SQ_Tools::$options['sq_jsonld'][SQ_Tools::$options['sq_jsonld_type']]['contactType'] . '"}';
+                            $markup['contactPoint'] = array(
+                                '@type' => 'ContactPoint',
+                                'telephone' => $value,
+                                'contactType' => SQ_Tools::$options['sq_jsonld'][SQ_Tools::$options['sq_jsonld_type']]['contactType'],
+
+                            );
                         }
 
                         if ($key == 'logo') {
                             if (SQ_Tools::$options['sq_jsonld_type'] == 'Person') {
                                 $key = 'image';
                             }
-                            $value = '{"@type": "ImageObject","url": "' . $value . '"}';
+                            $markup[$key] = array(
+                                '@type' => 'ImageObject',
+                                'url' => $value,
+                            );
                         } else {
-                            $value = '"' . $value . '"';
+                            $markup[$key] = $value;
                         }
-                        $meta .= ($meta <> '' ? $sep : '') . '"' . $key . '":' . $value . '';
+
                     }
                 }
             }
-
-            if ($meta <> '') {
-                $social = '';
+            if (!empty($markup)) {
+                $socials = array();
                 if (SQ_Tools::$options['sq_twitter_account'] <> '') {
-                    $social .= ($social <> '' ? "," : '') . '"' . SQ_Tools::$options['sq_twitter_account'] . '"';
+                    $socials[] = SQ_Tools::$options['sq_twitter_account'];
                 }
                 if (SQ_Tools::$options['sq_facebook_account'] <> '') {
-                    $social .= ($social <> '' ? "," : '') . '"' . SQ_Tools::$options['sq_facebook_account'] . '"';
+                    $socials[] = SQ_Tools::$options['sq_facebook_account'];
                 }
                 if (SQ_Tools::$options['sq_google_plus'] <> '') {
-                    $social .= ($social <> '' ? "," : '') . '"' . SQ_Tools::$options['sq_google_plus'] . '"';
+                    $socials[] = SQ_Tools::$options['sq_google_plus'];
                 }
                 if (SQ_Tools::$options['sq_linkedin_account'] <> '') {
-                    $social .= ($social <> '' ? "," : '') . '"' . SQ_Tools::$options['sq_linkedin_account'] . '"';
+                    $socials[] = SQ_Tools::$options['sq_linkedin_account'];
                 }
                 if (SQ_Tools::$options['sq_pinterest_account'] <> '') {
-                    $social .= ($social <> '' ? "," : '') . '"' . SQ_Tools::$options['sq_pinterest_account'] . '"';
+                    $socials[] = SQ_Tools::$options['sq_pinterest_account'];
                 }
                 if (SQ_Tools::$options['sq_instagram_account'] <> '') {
-                    $social .= ($social <> '' ? "," : '') . '"' . SQ_Tools::$options['sq_instagram_account'] . '"';
+                    $socials[] = SQ_Tools::$options['sq_instagram_account'];
                 }
 
-                $search = $sep . '"potentialAction": { "@type": "SearchAction", "target": "' . get_bloginfo('url') . '?s={search_string}", "query-input": "required name=search_string" }';
+                $markup['potentialAction'] = array(
+                    '@type' => 'SearchAction',
+                    'target' => get_bloginfo('url') . '?s={search_string}',
+                    'query-input' => 'required name=search_string',
+                );
 
-                if ($social <> '') {
-                    $social = $sep . '"sameAs": [' . $social . ']';
+                if (!empty($socials)) {
+                    $markup['sameAs'] = $socials;
                 }
-
-                $meta = '{ "@context": "http://schema.org"' . $sep . $meta . $search . $social . '}';
             }
-        } elseif (is_single()) {
-            $meta .= '"@type": "Article"' . $sep;
+            //add current markup
+            $jsonld->set_data($markup);
+        } elseif ($this->post_type == 'post') {
+            $markup['@type'] = 'Article';
+            $markup['@id'] = $this->url;
+            $markup['url'] = $this->url;
             if (isset($this->title)) {
-                $meta .= '"name": "' . $this->title . '"' . $sep;
+                $markup['name'] = $this->truncate($this->title,$this->min_title_length,$this->max_title_length) ;
             }
             if (isset($this->description)) {
-                $meta .= '"headline": "' . $this->description . '"' . $sep;
+                $markup['headline'] = $this->truncate($this->description, $this->min_description_length, 110);
             }
-            $meta .= '"url": "' . $this->url . '"' . $sep;
-            $meta .= '"mainEntityOfPage": { "@type": "WebPage", "url": "' . $this->url . '" }' . $sep;
+            $markup['mainEntityOfPage'] = array(
+                '@type' => 'WebPage',
+                'url' =>$this->url
+            );
 
             if (!empty($this->thumb_images)) {
-                $meta .= '"thumbnailUrl": "' . $this->thumb_images[0]['src'] . '"' . $sep;
+                $markup['thumbnailUrl'] = $this->thumb_images[0]['src'];
             }
             if (isset($this->post->post_date)) {
-                $meta .= '"datePublished": "' . date('c', strtotime($this->post->post_date)) . '"' . $sep;
+                $markup['datePublished'] = date('c', strtotime($this->post->post_date));
             }
             if (isset($this->post->post_modified)) {
-                $meta .= '"dateModified": "' . date('c', strtotime($this->post->post_modified)) . '"' . $sep;
+                $markup['dateModified'] = date('c', strtotime($this->post->post_modified));
             }
             if (!empty($this->thumb_images)) {
                 foreach ($this->thumb_images as $image) {
-                    //$meta .= '"image": "' . $image['src'] . '"' . $sep;
-                    $meta .= '"image": {
-                                "@type": "ImageObject",
-                                "url": "' . $image['src'] . '",
-                                "height": ' . ((isset($image['height']) && $image['height'] <> '') ? (int)$image['height'] : 500) . ',
-                                "width": ' . ((isset($image['width']) && $image['width'] <> '') ? (int)$image['width'] : 700) . '
-                              }' . $sep;
+                    $markup['image'] = array(
+                        "@type"=> "ImageObject",
+                        "url"=> $image['src'],
+                        "height"=> ((isset($image['height']) && $image['height'] <> '') ? (int)$image['height'] : 500),
+                        "width"=> ((isset($image['width']) && $image['width'] <> '') ? (int)$image['width'] : 700),
+                    );
                     break;
                 }
             }
-            $meta .= '"author": {"@type": "Person", "url": "' . $this->getAuthor('user_url') . '", "name": "' . $this->getAuthor('display_name') . '"}' . $sep;
+            $markup['author'] = array(
+                "@type"=> "Person",
+                "url"=> $this->getAuthor('user_url'),
+                "name"=> $this->getAuthor('display_name'),
+            );
+
             if (SQ_Tools::$options['sq_jsonld_type'] == 'Organization' && isset(SQ_Tools::$options['sq_jsonld'][SQ_Tools::$options['sq_jsonld_type']])) {
-                $meta .= '"publisher": {';
-                $meta .= '"@type":"' . SQ_Tools::$options['sq_jsonld_type'] . '"' . $sep;
-                $meta .= '"url": "' . $this->url . '"';
+
+                $markup['publisher'] = array(
+                    "@type"=> SQ_Tools::$options['sq_jsonld_type'],
+                    "url"=> $this->url,
+                    "name"=> $this->getAuthor('display_name'),
+                );
+
                 foreach (SQ_Tools::$options['sq_jsonld'][SQ_Tools::$options['sq_jsonld_type']] as $key => $value) {
                     if ($value <> '') {
                         if ($key == 'contactType' || $key == 'telephone') {
@@ -1499,31 +1541,32 @@ class Model_SQ_Frontend {
                         }
 
                         if ($key == 'logo') {
-                            $value = '{"@type": "ImageObject","url": "' . $value . '"}';
+                            $markup['publisher']['logo'] = array(
+                                "@type"=> "ImageObject",
+                                "url"=> $value
+                            );
+
                         } else {
-                            $value = '"' . $value . '"';
+                            $markup['publisher'][$key] = $value;
                         }
-                        $meta .= ($meta <> '' ? $sep : '') . '"' . $key . '":' . $value . '';
                     }
                 }
-                $meta .= '}' . $sep;
             }
-            $meta .= '"keywords": ["' . str_replace(',', '","', $this->grabKeywordsFromPost()) . '"]';
+            $markup['keywords'] = str_replace(',', '","', $this->grabKeywordsFromPost());
 
-            $meta = '{ "@context": "http://schema.org"' . $sep . $meta . '}';
-        } elseif (is_author()) {
-            $meta .= '"@type": "Person"' . $sep;
-            $meta .= '"name": "' . $this->getAuthor('display_name') . '"' . $sep;
-            $meta .= '"url": "' . $this->getAuthor('user_url') . '"';
+            //add current markup
+            $jsonld->set_data($markup);
+        }  elseif (is_author()) {
+            $markup['@type'] = 'Person';
+            $markup['@id'] =  $this->getAuthor('user_url');
+            $markup['url'] =  $this->getAuthor('user_url');
+            $markup['name'] =  $this->getAuthor('display_name');
 
-            $meta = '{ "@context": "http://schema.org"' . $sep . $meta . '}';
+            //add current markup
+            $jsonld->set_data($markup);
         }
 
-        if ($meta <> '') {
-            $meta = "\n" . '<script type="application/ld+json">' . "\n" . $meta . "\n" . '</script>';
-        }
-
-        return apply_filters('sq_sjon_ld_meta', $meta);
+        return apply_filters('sq_json_ld_meta', $jsonld->getStructuredData());
     }
 
     /**
@@ -1598,7 +1641,7 @@ class Model_SQ_Frontend {
 
         if ($post) {
             if (!$this->isHomePage()) {
-                $description = $this->_truncate(SQ_Tools::i18n($post->post_excerpt), $this->min_description_length, $this->max_description_length);
+                $description = $this->truncate(SQ_Tools::i18n($post->post_excerpt), $this->min_description_length, $this->max_description_length);
                 if (!$description) {
                     $description = $this->truncate(SQ_Tools::i18n($post->post_content), $this->min_description_length, $this->max_description_length);
                 }
@@ -1928,15 +1971,6 @@ class Model_SQ_Frontend {
         return trim(stripcslashes($text));
     }
 
-    public function _truncate($text) {
-        if (function_exists('strip_tags'))
-            $text = strip_tags($text);
-        $text = str_replace(']]>', ']]&gt;', $text);
-        $text = @preg_replace('|\[(.+?)\](.+?\[/\\1\])?|s', '', $text);
-        $text = strip_tags($text);
-
-        return trim(stripcslashes($text));
-    }
 
     /**
      * Show just distinct keywords

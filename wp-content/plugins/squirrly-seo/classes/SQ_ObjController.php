@@ -84,6 +84,44 @@ class SQ_ObjController {
         return;
     }
 
+    private static function includeModelService($className) {
+
+        /* check if class is already defined */
+        if (file_exists(_SQ_SERVICE_DIR_ . $className . '.php'))
+            try {
+                include_once(_SQ_SERVICE_DIR_ . $className . '.php');
+            } catch (Exception $e) {
+                echo 'Model Service Error: ' . $e->getMessage();
+            }
+    }
+
+    /**
+     * Get the instance of the specified model service class
+     *
+     * @param string $className
+     *
+     * @return object of the class
+     */
+    public static function getModelService($className){
+        /* add Model_Service prefix */
+        $prefix = 'Model_Service_';
+
+        if (!isset(self::$instances[$prefix . $className])) {
+            /* if $core == true then call the class from core directory */
+            self::includeModelService($className);
+
+            //echo $className . '<br />';
+            if (class_exists($prefix . $className)) {
+                $classModel = $prefix . $className;
+                self::$instances[$prefix . $className] = new $classModel;
+                return self::$instances[$prefix . $className];
+            }
+        } else
+            return self::$instances[$prefix . $className];
+
+        return;
+    }
+
     private static function includeBlock($className) {
 
         /* check if class is already defined */

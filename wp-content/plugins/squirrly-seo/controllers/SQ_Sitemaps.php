@@ -19,13 +19,14 @@ class SQ_Sitemaps extends SQ_FrontController {
     }
 
     public function hookPreventRedirect() {
-        global $wp_query;
+        global $wp_query,$sq_is_sitemap;
         if (!empty($wp_query->query_vars["sq_feed"])) {
             $wp_query->is_404 = false;
             $wp_query->is_feed = true;
+            $sq_is_sitemap = true;
             $this->feedRequest($wp_query->query_vars);
             $this->showSitemap();
-            exit();
+            die();
         }
     }
 

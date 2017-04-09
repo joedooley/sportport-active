@@ -257,7 +257,7 @@ class SQ_Ranking extends SQ_FrontController
         }
 
         if (isset($_SERVER['SERVER_ADDR'])){
-            if (strpos($_SERVER['SERVER_ADDR'], '192.') === 0){
+            if ( ! filter_var($_SERVER['SERVER_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE) ){
                 return;
             }
         }

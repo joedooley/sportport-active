@@ -134,9 +134,31 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 7. Seo - Check your Weekly Site Audit and improve to get higher scores
 
 == Upgrade Notice ==
-Squirrly 6.2.8 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
+Squirrly 6.3.1 it's a stable version of Squirrly SEO and has all the SEO requirements by Search Engines
 
 == Changelog ==
+= 7.0.3 =
+* Updated the Json LD for Woocommerce 3.0
+* Fixed bugs from the New Keyword Research
+* Fixed Headline for Google Structured Tool
+* Fixed creating the new blogs on our server
+* Fixed the sitemap with the same image in case you set a front-end image
+
+= 7.0.1 =
+* Fixed the localhost verification for Performance Analytics
+* Remove sitemap comments and white spaces from cache plugins
+
+= 7.0.0 =
+* Includes the Squirrly 2017 features and updates
+* Updates in Keyword Research
+* Updates in Squirrly Live Assistant
+* Updates in SEO for 2017
+* Updates for Copyright Free Images
+* Updates in Squirrly SEO Advannced Settings
+* Updates in the Squirrly Admin Menu
+* Updates in https://my.squirrly.co  panel
+* Made all the Changes to G17 features. We announced them last week
+
 = 6.3.1 =
 * Inform users with multiple active subscriptions
 * Updated terms and contitions

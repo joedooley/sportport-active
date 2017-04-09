@@ -136,7 +136,7 @@ class SQ_PostsList extends SQ_FrontController
                         $description = SQ_Tools::$options['sq_fp_description'];
                 }
                 echo '<script type="text/javascript">
-                    jQuery(\'#post-' . $post_id . '\').find(\'.row-title\').before(\'' . (($description <> '') ? '<span class="sq_rank_custom_meta sq_rank_customdescription sq_rank_sprite" title="' . __('Custom description: ', _SQ_PLUGIN_NAME_) . ' ' . addslashes($description) . '"></span>' : '') . ' ' . (($title <> '') ? '<span class="sq_rank_custom_meta sq_rank_customtitle sq_rank_sprite" title="' . __('Custom title: ', _SQ_PLUGIN_NAME_) . ' ' . $title . '"></span>' : '') . '\');
+                    jQuery(\'#post-' . $post_id . '\').find(\'.row-title\').before(\'' . (($description <> '') ? '<span class="sq_rank_custom_meta sq_rank_customdescription sq_rank_sprite" title="' . __('Custom description: ', _SQ_PLUGIN_NAME_) . ' ' . addslashes($description) . '"></span>' : '') . ' ' . (($title <> '') ? '<span class="sq_rank_custom_meta sq_rank_customtitle sq_rank_sprite" title="' . __('Custom title: ', _SQ_PLUGIN_NAME_) . ' ' . addslashes($title) . '"></span>' : '') . '\');
                </script>';
             }
         }

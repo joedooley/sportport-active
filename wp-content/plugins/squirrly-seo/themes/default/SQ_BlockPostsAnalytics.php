@@ -2,7 +2,7 @@
 if (SQ_Tools::$options['sq_google_ranksperhour'] > 0) {
     $blog_ip = @gethostbyname(gethostname());
     if (isset($blog_ip)){
-        if (strpos($blog_ip, '192.') === 0){
+        if ( ! filter_var($blog_ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE) ){
             echo '<div class="notice sq_message"><p>';
             echo sprintf(__("You can't check the Google Rank from a local server. You need a shared or a dedicated hosting plan for this option.", _SQ_PLUGIN_NAME_));
             echo '</p></div>';

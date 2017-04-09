@@ -1,0 +1,50 @@
+#sq_settings .sq_settings_bigtitle{
+    font-size: 26px !important;
+    margin: 0;
+    padding: 5px 0;
+}
+
+#sq_settings .sq_settings_bigbutton{
+    margin-bottom:35px;
+    text-align: center;
+}
+#sq_settings .sq_settings_bigbutton a{
+    display: inline-block;
+    padding: 15px !important;
+    margin-top: 10px;
+    font-size: 18px !important;
+    cursor: pointer;
+    background-color: #035e92;
+    color: white;
+    text-decoration: none;
+    text-shadow: 1px 1px #333;
+}
+#sq_settings .sq_settings_bigbutton span{
+    display: block;
+    font-size: 18px;
+    color: #20bc49;
+    font-weight: bold;
+    margin: 20px 0 0 0;
+}
+
+#sq_settings .sq_audit_score{
+    font-size: 30px;
+    color: #035e92;
+    text-align: center;
+    padding-bottom: 0;
+}
+
+#sq_settings .sq_audit_score span{
+    font-weight: bold;
+}
+
+#sq_settings .sq_audit_date{
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    font-size: 14px;
+}
+
+#sq_settings .sq_audit_date span{
+    font-weight: bold;
+}

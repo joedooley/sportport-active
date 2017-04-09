@@ -1,0 +1,49 @@
+#sq_settings_body fieldset > div {
+    float: left;
+    background-color: #fcfcfc;
+    padding: 20px 0 0 20px;
+    min-height: 280px;
+    width: auto;
+}
+
+#sq_settings .sq_subtitles p{
+    margin: 5px 45px 40px 45px
+}
+#sq_settings_body fieldset > div{
+    padding: 20px 0;
+}
+
+#sq_settings_body fieldset{
+    width: 800px;
+}
+#sq_settings_body .sq_subtitles p{
+    margin-bottom: 0;
+    font-size: 20px;
+}
+
+#sq_settings_body .sq_subtitles p img{
+    max-width: 100%;
+}
+
+#sq_helpliveassistantcontent {
+    float: left;
+    width: 900px;
+}
+
+@media only screen and (max-width: 1024px){
+
+    #sq_helpliveassistantcontent {
+        width: 800px;
+    }
+}
+
+@media only screen and (max-width: 1320px) {
+    .sq_helpside {
+        clear: both;
+        float: left;
+        width: 808px;
+        height: 275px;
+        margin: 0;
+        padding: 0;
+    }
+}
