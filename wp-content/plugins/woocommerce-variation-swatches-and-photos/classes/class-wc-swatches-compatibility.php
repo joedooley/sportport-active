@@ -311,6 +311,17 @@ if ( !class_exists( 'WC_Swatches_Compatibility' ) ) :
 		}
 
 		/**
+		 * Returns true if the installed version of WooCommerce is 2.4 or greater.
+		 *
+		 * @since 4.10.2
+		 * @return boolean true if the installed version of WooCommerce is 2.7 or greater
+		 */
+		public static function is_wc_version_gte_2_7() {
+			$v = self::get_wc_version();
+			return $v && version_compare( $v , '2.7.0', '>=' );
+		}
+
+		/**
 		 * Returns true if the installed version of WooCommerce is greater than $version
 		 *
 		 * @since 1.0

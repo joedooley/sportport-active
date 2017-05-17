@@ -19,9 +19,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  * @todo We may want to remove their og tags from the main class:
  * remove_action( 'wp_head', array( 'YouTubePrefs', 'do_ogvideo' ) );
  *
- * @see http://wordpress.org/plugins/youtube-embed-plus/
+ * @see https://wordpress.org/plugins/youtube-embed-plus/
  *
- * @internal Last update: August 2014 based upon v 8.7
+ * {@internal Last update: August 2014 based upon v 8.7.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_Embed_Plus' ) ) {
 

@@ -16,9 +16,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Videopress plugin by Automattic (replaced by/also included in JetPack)
  *
- * @see http://wordpress.org/plugins/video/
+ * @see https://wordpress.org/plugins/video/
  *
- * @internal Last update: July 2014 based upon v 1.5.6
+ * {@internal Last update: July 2014 based upon v 1.5.6.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Videopress' ) ) {
 

@@ -91,6 +91,7 @@ var FWP = {
             // Hide the preloader
             $('.facetwp-loading').hide();
             $('.facetwp-header-nav a:first').click();
+            $('.facetwp-settings-nav a:first').click();
         }
 
 
@@ -173,9 +174,10 @@ var FWP = {
 
         // Conditionals based on facet source
         $(document).on('change', '.facet-source', function() {
+            var val = $(this).val();
             var $facet = $(this).closest('.facetwp-row');
             var facet_type = $facet.find('.facet-type').val();
-            var display = (-1 < $(this).val().indexOf('tax/')) ? 'table-row' : 'none';
+            var display = ('string' === typeof val && -1 < val.indexOf('tax/')) ? 'table-row' : 'none';
 
             if ('checkboxes' === facet_type || 'dropdown' === facet_type) {
                 $facet.find('.facet-parent-term').closest('tr').css({ 'display' : display });
@@ -339,6 +341,16 @@ var FWP = {
         });
 
 
+        // Tab click
+        $(document).on('click', '.facetwp-settings-nav a', function() {
+            var tab = $(this).attr('data-tab');
+            $('.facetwp-settings-nav a').removeClass('active');
+            $('.facetwp-settings-section').removeClass('active');
+            $('.facetwp-settings-nav a[data-tab=' + tab + ']').addClass('active');
+            $('.facetwp-settings-section[data-tab=' + tab + ']').addClass('active');
+        });
+
+
         // Save
         $(document).on('click', '.facetwp-save', function() {
             $('.facetwp-response').html(FWP.i18n['Saving'] + '...');
@@ -394,7 +406,7 @@ var FWP = {
         $(document).on('click', '.export-submit', function() {
                 $('.import-code').val(FWP.i18n['Loading'] + '...');
                 $.post(ajaxurl, {
-                    action: 'facetwp_migrate',
+                    action: 'facetwp_backup',
                     nonce: FWP.nonce,
                     action_type: 'export',
                     items: $('.export-items').val()
@@ -410,7 +422,7 @@ var FWP = {
             $('.facetwp-response').show();
             $('.facetwp-response').html(FWP.i18n['Importing'] + '...');
             $.post(ajaxurl, {
-                action: 'facetwp_migrate',
+                action: 'facetwp_backup',
                 nonce: FWP.nonce,
                 action_type: 'import',
                 import_code: $('.import-code').val(),

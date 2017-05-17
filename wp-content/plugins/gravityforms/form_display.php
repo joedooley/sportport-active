@@ -1022,7 +1022,7 @@ class GFFormDisplay {
 
 				if ( $use_anchor !== false ) {
 					$scroll_position['default']      = is_numeric( $use_anchor ) ? 'jQuery(document).scrollTop(' . intval( $use_anchor ) . ');' : "jQuery(document).scrollTop(jQuery('#gform_wrapper_{$form_id}').offset().top);";
-					$scroll_position['confirmation'] = is_numeric( $use_anchor ) ? 'jQuery(document).scrollTop(' . intval( $use_anchor ) . ');' : "jQuery(document).scrollTop(jQuery('#gforms_confirmation_message_{$form_id}').offset().top);";
+					$scroll_position['confirmation'] = is_numeric( $use_anchor ) ? 'jQuery(document).scrollTop(' . intval( $use_anchor ) . ');' : "jQuery(document).scrollTop(jQuery('#gf_{$form_id}').offset().top);";
 				}
 
 				$iframe_style = defined( 'GF_DEBUG' ) && GF_DEBUG ? 'display:block;width:600px;height:300px;border:1px solid #eee;' : 'display:none;width:0px;height:0px;';
@@ -1056,12 +1056,12 @@ class GFFormDisplay {
 								"window['gf_submitting_{$form_id}'] = false;" .
 							'}' .
 							'else if(!is_redirect){' .
-								"var confirmation_content = jQuery(this).contents().find('#gforms_confirmation_message_{$form_id}').html();" .
+								"var confirmation_content = jQuery(this).contents().find('.GF_AJAX_POSTBACK').html();" .
 								'if(!confirmation_content){' .
 									'confirmation_content = contents;' .
 								'}' .
 								'setTimeout(function(){' .
-									"jQuery('#gform_wrapper_{$form_id}').replaceWith('<' + 'div id=\'gforms_confirmation_message_{$form_id}\' class=\'gform_confirmation_message_{$form_id} gforms_confirmation_message\'' + '>' + confirmation_content + '<' + '/div' + '>');" .
+									"jQuery('#gform_wrapper_{$form_id}').replaceWith(confirmation_content);" .
 									"{$scroll_position['confirmation']}" .
 									"jQuery(document).trigger('gform_confirmation_loaded', [{$form_id}]);" .
 									"window['gf_submitting_{$form_id}'] = false;" .

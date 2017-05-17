@@ -1,5 +1,5 @@
-Pay with Amazon Developer Documentation
-=======================================
+Amazon Pay Developer Documentation
+==================================
 
 ## Resources
 
@@ -9,15 +9,15 @@ Pay with Amazon Developer Documentation
 
 ### API Documentation
 
-[Pay with Amazon API Reference Guide](https://payments.amazon.com/documentation/apireference/201751630#201751630)
+[Amazon Pay API Reference Guide](https://payments.amazon.com/documentation/apireference/201751630#201751630)
 
-[Login and Pay with Amazon Integration Guide](https://payments.amazon.com/documentation/lpwa/201749840#201749840)
+[Login with Amazon and Amazon Pay Integration Guide](https://payments.amazon.com/documentation/lpwa/201749840#201749840)
 
 ## Gotchas
 
 ### Subscriptions Support
 
-Currently, Amazon Payments Advanced supports all Subscriptions features **except** payment method changes.
+Currently, Amazon Pay supports all Subscriptions features **except** payment method changes.
 
 This decision is one of time management, and not of gateway capability. The plugin currently has too much of the payment widget rendering code outside of the `WC_Payment_Gateway` subclasses to easily use it for the "change payment method" form.
 
@@ -29,7 +29,7 @@ The recurring payments API limits total charges to a single billing agreement to
 
 According to [this documentation page](https://payments.amazon.com/documentation/automatic/201752090#201757640):
 
-> **Note**: Amazon imposes a $500 per calendar month limit on the amount of funds you can charge a buyer. If you expect to exceed this limit due to an upgrade or the buyer's usage, please contact Amazon Payments.
+> **Note**: Amazon imposes a $500 per calendar month limit on the amount of funds you can charge a buyer. If you expect to exceed this limit due to an upgrade or the buyer's usage, please contact Amazon.
 
 It is unclear if/how the limit will be altered should you contact Amazon.
 
@@ -53,24 +53,24 @@ This same tactic is used before the call to `CloseBillingAgreement`, but is susc
 
 ## Zero Total Checkout Logic
 
-When checking out with Amazon Payments, the billing and shipping address information is only available through the Amazon Payments API.
+When checking out with Amazon Pay, the billing and shipping address information is only available through the Amazon Pay API.
 
 Billing and shipping addresses are selected using Amazon-provided widgets that the gateway renders in place of the default checkout form fields.
 
 In most cases, payment gateways don't need to do anything when an order total is zero (WooCommerce doesn't even call the chosen gateway's `process_payment()` method). Typically this is fine, but in the case of Amazon, we only have access to billing and shipping address information if the integration is in "Login App" mode.
 
-Because of this, the gateway is not available for zero-total checkouts when not in "Login App" mode.
+Because of this, the gateway is not available for zero-total checkouts when not in "Login with Amazon App" mode.
 
-## WooCommerce Gateway Amazon Payments Advanced REST API
+## WooCommerce Gateway Amazon Pay REST API
 
 Since 1.6.0, this extension exposes some functionalities through REST API.
 
-The WooCommerce Gateway Amazon Payments Advanced REST API allows you to authorize, capture, and close authorization.
+The WooCommerce Gateway Amazon Pay REST API allows you to authorize, capture, and close authorization.
 The endpoint is `/wp-json/wc/v1/orders/<order_id>/amazon-payments-advanced/`.
 
-### List of orders paid via Amazon Payments
+### List of orders paid via Amazon Pay
 
-There's no custom endpoint to retrieve list of orders paid via Amazon Payments. The built-in orders point can be used with
+There's no custom endpoint to retrieve list of orders paid via Amazon Pay. The built-in orders point can be used with
 `_payment_method=amazon_payments_advanced` filter.
 
 ```
@@ -109,7 +109,7 @@ JSON response example:
 ]
 ```
 
-Orders paid via Amazon Payments will have `amazon_reference` on order item.
+Orders paid via Amazon Pay will have `amazon_reference` on order item.
 
 The `filter` parameter can be used with `status` parameter to retrieve list of orders that have been authorized but not captured yet.
 

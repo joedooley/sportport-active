@@ -4,166 +4,81 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3856327549794e0a94cd33a01d7683b9",
-    "content-hash": "415b4dd0f654679fd69c22efc60d0bc1",
-    "packages": [],
-    "packages-dev": [
+    "content-hash": "de3dbc368a05686d3d7da11f0824ba4f",
+    "packages": [
         {
-            "name": "squizlabs/php_codesniffer",
-            "version": "2.4.0",
+            "name": "a5hleyrich/wp-background-processing",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "32a879f4f35019d78d568db2885d7779ca084a33"
+                "url": "https://github.com/A5hleyRich/wp-background-processing.git",
+                "reference": "fbbc56f2480910d7959972ec9ec0819a13c6150a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/32a879f4f35019d78d568db2885d7779ca084a33",
-                "reference": "32a879f4f35019d78d568db2885d7779ca084a33",
+                "url": "https://api.github.com/repos/A5hleyRich/wp-background-processing/zipball/fbbc56f2480910d7959972ec9ec0819a13c6150a",
+                "reference": "fbbc56f2480910d7959972ec9ec0819a13c6150a",
                 "shasum": ""
             },
             "require": {
-                "ext-tokenizer": "*",
-                "ext-xmlwriter": "*",
-                "php": ">=5.1.2"
+                "php": ">=5.2"
             },
-            "bin": [
-                "scripts/phpcs",
-                "scripts/phpcbf"
-            ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
             "autoload": {
                 "classmap": [
-                    "CodeSniffer.php",
-                    "CodeSniffer/CLI.php",
-                    "CodeSniffer/Exception.php",
-                    "CodeSniffer/File.php",
-                    "CodeSniffer/Fixer.php",
-                    "CodeSniffer/Report.php",
-                    "CodeSniffer/Reporting.php",
-                    "CodeSniffer/Sniff.php",
-                    "CodeSniffer/Tokens.php",
-                    "CodeSniffer/Reports/",
-                    "CodeSniffer/Tokenizers/",
-                    "CodeSniffer/DocGenerators/",
-                    "CodeSniffer/Standards/AbstractPatternSniff.php",
-                    "CodeSniffer/Standards/AbstractScopeSniff.php",
-                    "CodeSniffer/Standards/AbstractVariableSniff.php",
-                    "CodeSniffer/Standards/IncorrectPatternException.php",
-                    "CodeSniffer/Standards/Generic/Sniffs/",
-                    "CodeSniffer/Standards/MySource/Sniffs/",
-                    "CodeSniffer/Standards/PEAR/Sniffs/",
-                    "CodeSniffer/Standards/PSR1/Sniffs/",
-                    "CodeSniffer/Standards/PSR2/Sniffs/",
-                    "CodeSniffer/Standards/Squiz/Sniffs/",
-                    "CodeSniffer/Standards/Zend/Sniffs/"
+                    "classes/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "GPLv2+"
             ],
             "authors": [
                 {
-                    "name": "Greg Sherwood",
-                    "role": "lead"
+                    "name": "Ashley Rich",
+                    "email": "hello@ashleyrich.com"
                 }
             ],
-            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
-            "homepage": "http://www.squizlabs.com/php-codesniffer",
-            "keywords": [
-                "phpcs",
-                "standards"
-            ],
-            "time": "2015-11-23 21:30:59"
+            "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks.",
+            "time": "2016-09-13T12:24:02+00:00"
         },
         {
-            "name": "stevegrunwell/wp-enforcer",
-            "version": "dev-master",
+            "name": "xrstf/composer-php52",
+            "version": "v1.0.20",
             "source": {
                 "type": "git",
-                "url": "https://github.com/stevegrunwell/wp-enforcer.git",
-                "reference": "0b3ec0bbe399ebe4d411bbf2acce3e8a42313a63"
+                "url": "https://github.com/composer-php52/composer-php52.git",
+                "reference": "bd41459d5e27df8d33057842b32377c39e97a5a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stevegrunwell/wp-enforcer/zipball/0b3ec0bbe399ebe4d411bbf2acce3e8a42313a63",
-                "reference": "0b3ec0bbe399ebe4d411bbf2acce3e8a42313a63",
+                "url": "https://api.github.com/repos/composer-php52/composer-php52/zipball/bd41459d5e27df8d33057842b32377c39e97a5a8",
+                "reference": "bd41459d5e27df8d33057842b32377c39e97a5a8",
                 "shasum": ""
             },
-            "require": {
-                "wp-coding-standards/wpcs": "0.8.0"
-            },
-            "bin": [
-                "bin/wp-enforcer"
-            ],
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-default": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "xrstf\\Composer52": "lib/"
+                }
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Steve Grunwell",
-                    "email": "steve@stevegrunwell.com",
-                    "homepage": "https://stevegrunwell.com"
-                }
-            ],
-            "description": "Git hooks to encourage well-written WordPress.",
-            "keywords": [
-                "coding standards",
-                "git hooks",
-                "php codesniffer",
-                "wordpress"
-            ],
-            "time": "2015-12-01 01:51:59"
-        },
-        {
-            "name": "wp-coding-standards/wpcs",
-            "version": "0.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git",
-                "reference": "b3d4d8eedd8b0b7f4fdf8764df1c8b23ff099334"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/WordPress-Coding-Standards/WordPress-Coding-Standards/zipball/b3d4d8eedd8b0b7f4fdf8764df1c8b23ff099334",
-                "reference": "b3d4d8eedd8b0b7f4fdf8764df1c8b23ff099334",
-                "shasum": ""
-            },
-            "require": {
-                "squizlabs/php_codesniffer": "~2.2"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/graphs/contributors"
-                }
-            ],
-            "description": "PHP_CodeSniffer rules (sniffs) to enforce WordPress coding conventions",
-            "keywords": [
-                "phpcs",
-                "standards",
-                "wordpress"
-            ],
-            "time": "2015-10-02 22:20:22"
+            "time": "2016-04-16T21:52:24+00:00"
         }
     ],
+    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "stevegrunwell/wp-enforcer": 20
+        "a5hleyrich/wp-background-processing": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

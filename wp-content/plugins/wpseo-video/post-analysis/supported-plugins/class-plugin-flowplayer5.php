@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Flowplayer HTML5 plugin
  *
- * @see      http://wordpress.org/plugins/flowplayer5/
+ * @see      https://wordpress.org/plugins/flowplayer5/
  *
- * @internal Last update: July 2014 based upon v 1.8.1
+ * {@internal Last update: July 2014 based upon v 1.8.1.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Flowplayer5' ) ) {
 
@@ -128,8 +128,8 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Flowplayer5' ) ) {
 				}
 
 				/*
-				 * @internal [JRF] I can't find the duration meta field being added anywhere in the plugin,
-				 * but this came from the code *they* provided..
+				 * {@internal [JRF] I can't find the duration meta field being added anywhere in the plugin,
+				 * but this came from the code *they* provided...}}
 				 */
 				$duration = get_post_meta( $post_id, 'fp5-duration', true );
 				if ( $duration !== '' && $duration > 0 ) {

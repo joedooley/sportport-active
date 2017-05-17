@@ -8,34 +8,34 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *
  * @class		Receiptful_Admin
  * @version		1.0.0
- * @author		Receiptful
+ * @author		Conversio
  */
 class Receiptful_Admin {
 
 
 	/**
-	 * URL for the store owner's Profile page in the Receiptful app.
+	 * URL for the store owner's Profile page in the Conversio app.
 	 * @var string
 	 */
 	public $receiptful_profile_url = 'https://app.conversio.com/profile';
 
 
 	/**
-	 * URL for the store owner's Template in the Receiptful app.
+	 * URL for the store owner's Template in the Conversio app.
 	 * @var string
 	 */
 	public $receiptful_template_url = 'https://app.conversio.com/template';
 
 
 	/**
-	 * URL for the store owner's Dashboard in the Receiptful app.
+	 * URL for the store owner's Dashboard in the Conversio app.
 	 * @var string
 	 */
 	public $receiptful_stats_url = 'https://app.conversio.com/dashboard';
 
 
 	/**
-	 * URL for the store owner's Dashboard in the Receiptful app.
+	 * URL for the store owner's Dashboard in the Conversio app.
 	 * @var string
 	 */
 	public $receiptful_recommendations_url = 'https://app.conversio.com/feedback/widgets';
@@ -90,7 +90,7 @@ class Receiptful_Admin {
 	/**
 	 * Settings tab.
 	 *
-	 * Add a WooCommerce settings tab for the Receiptful settings page.
+	 * Add a WooCommerce settings tab for the Conversio settings page.
 	 *
 	 * @since 1.0.0
 	 *
@@ -230,7 +230,7 @@ class Receiptful_Admin {
 	 * Add product re-sync tool.
 	 *
 	 * Add a product re-sync tool to the System -> tools page to
-	 * re-sync all products with Receiptful.
+	 * re-sync all products with Conversio.
 	 *
 	 * @since 1.1.12
 	 * @since 1.1.13 - Add Receipt (order) sync.
@@ -252,32 +252,32 @@ class Receiptful_Admin {
 		}
 
 		$tools['receiptful_product_sync'] = array(
-			'name'		=> __( 'Synchronize products with Receiptful', 'receiptful-for-woocommerce' ),
+			'name'		=> __( 'Synchronize products with Conversio', 'receiptful-for-woocommerce' ),
 			'button'	=> __( 'Synchronize', 'receiptful-for-woocommerce' ),
-			'desc'		=> $product_count_message . __( 'This will update all products in Receiptful with all its latest data', 'receiptful-for-woocommerce' ),
+			'desc'		=> $product_count_message . __( 'This will update all products in Conversio with all its latest data', 'receiptful-for-woocommerce' ),
 		);
 
 		$tools['receiptful_receipt_sync'] = array(
-			'name'		=> __( 'Synchronize receipts with Receiptful', 'receiptful-for-woocommerce' ),
+			'name'		=> __( 'Synchronize receipts with Conversio', 'receiptful-for-woocommerce' ),
 			'button'	=> __( 'Synchronize', 'receiptful-for-woocommerce' ),
-			'desc'		=> $order_count_message . __( 'This will update all orders in Receiptful with the latest data', 'receiptful-for-woocommerce' ),
+			'desc'		=> $order_count_message . __( 'This will update all orders in Conversio with the latest data', 'receiptful-for-woocommerce' ),
 		);
 
 		$tools['receiptful_clear_coupons'] = array(
-			'name'		=> __( 'Clear unused, expired coupons created by Receiptful', 'receiptful' ),
+			'name'		=> __( 'Clear unused, expired coupons created by Conversio', 'receiptful' ),
 			'button'	=> __( 'Trash expired coupons', 'receiptful' ),
 			'desc'		=> __( 'Only coupons that have been expired for more than 7 days will be trashed.', 'receiptful' ),
 		);
 
 		$tools['receiptful_clear_coupons'] = array(
-			'name'		=> __( 'Clear unused, expired coupons created by Receiptful', 'receiptful' ),
+			'name'		=> __( 'Clear unused, expired coupons created by Conversio', 'receiptful' ),
 			'button'	=> __( 'Trash expired coupons', 'receiptful' ),
 			'desc'		=> __( 'Only coupons that have been expired for more than 7 days will be trashed.', 'receiptful' ),
 		);
 		$tools['receiptful_clear_resend_queue'] = array(
 			'name'		=> __( 'Clear resend queue', 'receiptful' ),
 			'button'	=> __( 'Clear queue', 'receiptful' ),
-			'desc'		=> __( 'Clear all the receipts on the Receiptful resend queue.', 'receiptful' ),
+			'desc'		=> __( 'Clear all the receipts on the Conversio resend queue.', 'receiptful' ),
 		);
 
 		return $tools;
@@ -288,7 +288,7 @@ class Receiptful_Admin {
 	/**
 	 * Process re-sync action.
 	 *
-	 * Make sure that the status tool 'Receiptful re-sync' is working.
+	 * Make sure that the status tool 'Conversio re-sync' is working.
 	 *
 	 * @since 1.1.12
 	 * @since 1.1.13 - Add receipt sync handler.
@@ -382,7 +382,7 @@ class Receiptful_Admin {
 
 			?><div class="updated">
 			<p><?php
-				printf( __( '%1$sReceiptful has been activated.%2$s Please %3$sclick here%4$s to add your API key & supercharge your receipts.', 'receiptful' ), '<strong>', '</strong>', '<a href="' . esc_url( $admin_url ) . '">', '</a>' );
+				printf( __( '%1$sConversio has been activated.%2$s Please %3$sclick here%4$s to add your API key & supercharge your receipts.', 'receiptful' ), '<strong>', '</strong>', '<a href="' . esc_url( $admin_url ) . '">', '</a>' );
 				?></p>
 			</div><?php
 

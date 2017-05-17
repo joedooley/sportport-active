@@ -1,9 +1,9 @@
 # Plugin Name
 * __Contributors__: leewillis77
 * __Tags__: e-commerce, woocommerce, e-commerce
-* __Requires at least__: 3.2
-* __Tested up to__: 4.2
-* __Stable tag__: 6.7.8
+* __Requires at least__: 4.4
+* __Tested up to__: 4.7.1
+* __Stable tag__: 7.0.8
 * __License__: GPLv3
 
 ## Description

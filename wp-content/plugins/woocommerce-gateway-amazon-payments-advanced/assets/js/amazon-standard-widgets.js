@@ -48,6 +48,11 @@ jQuery( function( $ ) {
 
 	} );
 
+	// Reload button on any AJAX requests that triggers updated cart totals.
+	$( document.body ).on( 'updated_cart_totals', function() {
+		wcAmazonPaymentsButton();
+	});
+
 	/**
 	 *
 	 * The AJAX order review refresh causes some duplicate form fields to be created.
@@ -112,7 +117,7 @@ jQuery( function( $ ) {
 		wcAmazonMaybeTriggerReadyEvent();
 	}
 
-	// Only load widgets on the initial render if Amazon Payments is the chosen method
+	// Only load widgets on the initial render if Amazon Pay is the chosen method
 	if ( isAmazonCheckout() ) {
 
 		loadWidgets();

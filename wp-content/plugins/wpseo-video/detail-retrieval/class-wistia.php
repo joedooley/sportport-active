@@ -224,12 +224,13 @@ if ( ! class_exists( 'WPSEO_Video_Details_Wistia' ) ) {
 				}
 
 				if ( isset( $flv, $still, $account_key, $media_key, $this->vid['duration'] ) ) {
-					$url = 'https://wistia.sslcs.cdngc.net/flash/embed_player_v2.0.swf?videoUrl=' .
-						$flv . '&stillUrl=' . $still . '&controlsVisibleOnLoad=false' .
-						'&unbufferedSeek=true&autoLoad=false&autoPlay=true&endVideoBehavior=default' .
-						'&embedServiceURL=http://distillery.wistia.com/x&accountKey=' . $account_key .
-						'&mediaID=' . $media_key . '&mediaDuration=' . $this->vid['duration'] .
-						'&fullscreenDisabled=false';
+					$url = sprintf( 'https://wistia.sslcs.cdngc.net/flash/embed_player_v2.0.swf?videoUrl=%1$s&stillUrl=%2$s&controlsVisibleOnLoad=false&unbufferedSeek=true&autoLoad=false&autoPlay=true&endVideoBehavior=default&embedServiceURL=http://distillery.wistia.com/x&accountKey=%3$s&mediaID=%4$s&mediaDuration=%5$s&fullscreenDisabled=false',
+						$flv, // #1.
+						$still, // #2.
+						$account_key, // #3.
+						$media_key, // #4.
+						$this->vid['duration'] // #5.
+					);
 
 					$this->vid['player_loc'] = $this->url_encode( $url );
 				}

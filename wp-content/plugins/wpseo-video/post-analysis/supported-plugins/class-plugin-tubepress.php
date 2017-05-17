@@ -16,9 +16,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the TubePress plugin
  *
- * @see      http://wordpress.org/extend/plugins/tubepress/
+ * @see      https://wordpress.org/plugins/tubepress/
  *
- * @internal Last update: July 2014 based upon v 3.1.6
+ * {@internal Last update: July 2014 based upon v 3.1.6.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Tubepress' ) ) {
 

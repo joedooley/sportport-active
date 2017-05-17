@@ -69,7 +69,7 @@ function yoast_wpseo_upgrade_error() {
  * @since 1.7
  */
 function yoast_phpspl_missing_error() {
-	$message = esc_html__( 'The PHP SPL extension seem to be unavailable. Please ask your web host to enable it.', 'yoast-video-seo' );
+	$message = esc_html__( 'The PHP SPL extension seems to be unavailable. Please ask your web host to enable it.', 'yoast-video-seo' );
 	yoast_wpseo_video_seo_self_deactivate( $message );
 }
 
@@ -83,7 +83,7 @@ function yoast_wpseo_video_seo_init() {
 	if ( ! function_exists( 'spl_autoload_register' ) ) {
 		add_action( 'admin_init', 'yoast_phpspl_missing_error' );
 	}
-	elseif ( ! version_compare( $GLOBALS['wp_version'], '4.3', '>=' ) ) {
+	elseif ( ! version_compare( $GLOBALS['wp_version'], '4.4', '>=' ) ) {
 		add_action( 'admin_init', 'yoast_wordpress_upgrade_error' );
 	}
 	else {
@@ -106,7 +106,7 @@ function yoast_wpseo_video_seo_init() {
 
 
 /**
- * Initialize the video meta data class
+ * Initialize the video metadata class
  */
 function yoast_wpseo_video_seo_meta_init() {
 	WPSEO_Meta_Video::init();
@@ -164,10 +164,13 @@ EO_FUNCTION;
  * @since 3.8.0
  */
 function yoast_wpseo_video_clear_sitemap_cache() {
-	if ( class_exists( 'WPSEO_Sitemaps_Cache' ) && method_exists( 'WPSEO_Sitemaps_Cache', 'invalidate' ) ) {
-		$sitemap_instance = new WPSEO_Video_Sitemap();
-		WPSEO_Sitemaps_Cache::invalidate( $sitemap_instance->video_sitemap_basename() );
+	if ( ! defined( 'WPSEO_VERSION' ) ) {
+		return;
 	}
+	$sitemap_instance = new WPSEO_Video_Sitemap();
+	$sitemap_basename = $sitemap_instance->video_sitemap_basename();
+
+	WPSEO_Video_Wrappers::invalidate_sitemap( $sitemap_basename );
 }
 
 

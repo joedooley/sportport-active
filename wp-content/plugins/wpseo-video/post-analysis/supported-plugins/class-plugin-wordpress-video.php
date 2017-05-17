@@ -85,9 +85,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  * youreporter > http://www.youreporter.it/
  * youtube > http://www.youtube.com/embed/###ID###?wmode=transparent
  *
- * @see      http://wordpress.org/extend/plugins/wordpress-video-plugin/
+ * @see      https://wordpress.org/plugins/wordpress-video-plugin/
  *
- * @internal Last update: July 2014 based upon v 0.759
+ * {@internal Last update: July 2014 based upon v 0.759.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Wordpress_Video' ) ) {
 
@@ -99,8 +99,8 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Wordpress_Video' ) ) {
 		/**
 		 * @var array $shortcodes_to_add Shortcodes added by this plugin
 		 *
-		 * @internal This is the complete list of shortcodes they support. I've commented out the youtubeplaylist
-		 * one as this plugin does not support playlists.
+		 * {@internal This is the complete list of shortcodes they support. I've commented out the youtubeplaylist
+		 * one as this plugin does not support playlists.}}
 		 */
 		private $shortcodes_to_add = array(
 			'123videonl',
@@ -227,9 +227,9 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Wordpress_Video' ) ) {
 
 				case 'lastfm':
 					/**
-					 * @internal The plugin author treats the whole thing as an id including the 'embed='.
+					 * {@internal The plugin author treats the whole thing as an id including the 'embed='.
 					 * As we don't deal with lastfm as a service anyway, not something to worry too much about for now.
-					 * [lastfm embed=true&creator=Kettcar&title=Landungsbr%C3%BCcken+raus&uniqueName=Landungsbr%C3%BCcken+raus&albumArt=http://cdn.last.fm/coverart/130x130/1422004.jpg&album=Du+Und+Wieviel+Von+Deinen+Freunden&duration=257&image=http://panther3.last.fm/storable/videocap/15582/0/original.jpg&FSSupport=trueS]
+					 * [lastfm embed=true&creator=Kettcar&title=Landungsbr%C3%BCcken+raus&uniqueName=Landungsbr%C3%BCcken+raus&albumArt=http://cdn.last.fm/coverart/130x130/1422004.jpg&album=Du+Und+Wieviel+Von+Deinen+Freunden&duration=257&image=http://panther3.last.fm/storable/videocap/15582/0/original.jpg&FSSupport=trueS] }}
 					 */
 					if ( $id_or_url !== '' ) {
 						$vid['id'] = $id_or_url;

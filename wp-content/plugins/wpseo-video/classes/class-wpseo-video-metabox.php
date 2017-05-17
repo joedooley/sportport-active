@@ -29,8 +29,8 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 			add_action( 'wpseo_tab_content', array( $this, 'tab_content' ) );
 			add_filter( 'wpseo_save_metaboxes', array( $this, 'save_meta_boxes' ), 10, 1 );
 
-			add_filter( 'wpseo_do_meta_box_field_videositemap-duration', array( $this, 'do_number_field' ), 10, 3 );
-			add_filter( 'wpseo_do_meta_box_field_videositemap-rating', array( $this, 'do_number_field' ), 10, 3 );
+			add_filter( 'wpseo_do_meta_box_field_videositemap-duration', array( $this, 'do_number_field' ), 10, 4 );
+			add_filter( 'wpseo_do_meta_box_field_videositemap-rating', array( $this, 'do_number_field' ), 10, 4 );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		}
@@ -44,9 +44,11 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 		 */
 		public static function translate_meta_boxes() {
 			self::$meta_fields['video']['videositemap-disable']['title'] = __( 'Disable video', 'yoast-video-seo' );
+			/* translators: %s: post type name. */
 			self::$meta_fields['video']['videositemap-disable']['expl']  = __( 'Disable video for this %s', 'yoast-video-seo' );
 
 			self::$meta_fields['video']['videositemap-thumbnail']['title']       = __( 'Video Thumbnail', 'yoast-video-seo' );
+			/* translators: 1: link open tag; 2: link closing tag. */
 			self::$meta_fields['video']['videositemap-thumbnail']['description'] = __( 'Now set to %1$sthis image%2$s based on the embed code.', 'yoast-video-seo' );
 			self::$meta_fields['video']['videositemap-thumbnail']['placeholder'] = __( 'URL to thumbnail image (remember it\'ll be displayed as 16:9)', 'yoast-video-seo' );
 
@@ -62,10 +64,9 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 			self::$meta_fields['video']['videositemap-rating']['title']       = __( 'Rating', 'yoast-video-seo' );
 			self::$meta_fields['video']['videositemap-rating']['description'] = __( 'Set a rating between 0 and 5.', 'yoast-video-seo' );
 
-
-			// @todo check definition and improve description as title and description seem to contradict at the moment
 			self::$meta_fields['video']['videositemap-not-family-friendly']['title']       = __( 'Not Family-friendly', 'yoast-video-seo' );
-			self::$meta_fields['video']['videositemap-not-family-friendly']['description'] = __( 'If this video should only be available for safe search users, check this box.', 'yoast-video-seo' );
+			self::$meta_fields['video']['videositemap-not-family-friendly']['expl']        = __( 'Mark this video as not Family-friendly', 'yoast-video-seo' );
+			self::$meta_fields['video']['videositemap-not-family-friendly']['description'] = __( 'If this video should not be available for safe search users, check this box.', 'yoast-video-seo' );
 		}
 
 
@@ -141,11 +142,29 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 		 * @param  string $content      The current content of the metabox.
 		 * @param  mixed  $meta_value   The meta value to use for the form field.
 		 * @param  string $esc_form_key The pre-escaped key for the form field.
+		 * @param  array  $options      Contains the min and max value of the number field, if relevant.
 		 *
 		 * @return string
 		 */
-		public function do_number_field( $content, $meta_value, $esc_form_key ) {
-			$content .= '<input type="number" id="' . $esc_form_key . '" name="' . $esc_form_key . '" value="' . $meta_value . '" class="small-text" /><br />';
+		public function do_number_field( $content, $meta_value, $esc_form_key, $options = array() ) {
+			$options = $options['options'];
+			$minvalue = '';
+			$maxvalue = '';
+			$step = '';
+
+			if ( isset( $options['min_value'] ) ) {
+				$minvalue = ' min="' . $options['min_value'] . '" ';
+			}
+
+			if ( isset( $options['max_value'] ) ) {
+				$maxvalue = ' max="' . $options['max_value'] . '" ';
+			}
+
+			if ( isset( $options['step'] ) ) {
+				$step = ' step="' . $options['step'] . '" ';
+			}
+
+			$content .= '<input type="number" id="' . $esc_form_key . '" name="' . $esc_form_key . '" value="' . $meta_value . '"' . $minvalue . $maxvalue . $step . 'class="small-text" /><br />';
 
 			return $content;
 		}
@@ -165,16 +184,7 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 		 * @return bool
 		 */
 		private function should_show_metabox() {
-			$options              = get_option( 'wpseo_video' );
-			$supported_post_types = $options['videositemap_posttypes'];
-			$current_post_type    = get_post_type();
-			if ( is_array( $supported_post_types ) && ! empty( $supported_post_types ) ) {
-				if ( in_array( $current_post_type, $supported_post_types ) ) {
-					return true;
-				}
-			}
-
-			return false;
+			return WPSEO_Video_Sitemap::is_videoseo_active_for_posttype( get_post_type() );
 		}
 
 		/**
@@ -189,10 +199,8 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 				'video_title_ok'      => __( 'You should consider adding the word "video" in your title, to optimize your ability to be found by people searching for video.', 'yoast-video-seo' ),
 				'video_title_good'    => __( 'You\'re using the word "video" in your title, this optimizes your ability to be found by people searching for video.', 'yoast-video-seo' ),
 				'video_body_short'    => __( 'Your body copy is too short for Search Engines to understand the topic of your video, add some more content describing the contents of the video.', 'yoast-video-seo' ),
-				'video_body_good'     => __( 'Your body copy is optimal length for your video to be recognized by Search Engines.', 'yoast-video-seo' ),
-				/* translators 1: links to https://yoast.com/video-not-showing-search-results, 2: closing link tag */
-				'video_body_long'     => __( 'Your body copy is quite long, make sure that the video is the most important asset on the page, read %1$sthis post%2$s for more info.', 'yoast-video-seo' ),
-				'video_body_long_url' => '<a target="new" href="https://yoast.com/video-not-showing-search-results/">',
+				'video_body_good'     => __( 'Your body copy is at optimal length for your video to be recognized by Search Engines.', 'yoast-video-seo' ),
+				/* translators: 1: links to https://yoast.com/video-not-showing-search-results, 2: closing link tag */
 				'video_body_long'     => __( 'Your body copy is quite long, make sure that the video is the most important asset on the page, read %1$sthis post%2$s for more info.', 'yoast-video-seo' ),
 				'video_body_long_url' => '<a target="new" href="https://yoast.com/video-not-showing-search-results/">',
 			);
@@ -373,7 +381,7 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 			if ( $results['body_length']['raw'] > 150 && $results['body_length']['raw'] < 400 ) {
 				$results['body_length'] = array(
 					'val' => 9,
-					'msg' => __( 'Your body copy is optimal length for your video to be recognized by Search Engines.', 'yoast-video-seo' ),
+					'msg' => __( 'Your body copy is at optimal length for your video to be recognized by Search Engines.', 'yoast-video-seo' ),
 				);
 			}
 			elseif ( $results['body_length']['raw'] < 150 ) {
@@ -385,6 +393,7 @@ if ( ! class_exists( 'WPSEO_Video_Metabox' ) ) {
 			else {
 				$results['body_length'] = array(
 					'val' => 6,
+					/* translators: 1: links to https://yoast.com/video-not-showing-search-results, 2: closing link tag */
 					'msg' => sprintf( __( 'Your body copy is quite long, make sure that the video is the most important asset on the page, read %1$sthis post%2$s for more info.', 'yoast-video-seo' ), '<a href="https://yoast.com/video-not-showing-search-results/">', '</a>' ),
 				);
 			}

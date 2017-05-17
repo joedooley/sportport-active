@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the IFrame Embed for YouTube plugin
  *
- * @see http://wordpress.org/extend/plugins/iframe-embed-for-youtube/
+ * @see https://wordpress.org/plugins/iframe-embed-for-youtube/
  *
- * @internal Last update: July 2014 based upon v 1.1
+ * {@internal Last update: July 2014 based upon v 1.1.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Iframe_Embed_For_Youtube' ) ) {
 

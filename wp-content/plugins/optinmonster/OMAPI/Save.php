@@ -116,17 +116,71 @@ class OMAPI_Save {
 		    case 'api' :
 				// Create a new API instance to verify API credentials.
 				$option   = $this->base->get_option();
+                $apikey   = isset( $data['apikey'] ) ? $data['apikey'] : false;
 				$user     = isset( $data['user'] ) ? $data['user'] : false;
 				$key      = isset( $data['key'] ) ? $data['key'] : false;
 				$old_user = isset( $option['api']['user'] ) ? $option['api']['user'] : false;
 				$old_key  = isset( $option['api']['key'] ) ? $option['api']['key'] : false;
+                $old_apikey = isset( $option['api']['apikey'] ) ? $option['api']['apikey'] : false;
+
+
+				// Check for new single apikey and break early with only that data check
+                if ( $apikey ) {
+                    // Verify this new API Key works but posting to the Legacy route
+                    $api = new OMAPI_Api( 'verify', array( 'apikey' => $apikey ) );
+                    $ret = $api->request();
+
+                    if ( is_wp_error( $ret ) ) {
+                        $this->errors['error'] = $ret->get_error_message();
+                    } else {
+                        $option['api']['apikey'] = $apikey;
+
+                        // Go ahead and remove the old user and key so we get the 'new' user stuff
+                        $option['api']['user'] = '';
+                        $option['api']['key']  = '';
+
+                        // Remove any error messages.
+                        $option['is_invalid']  = false;
+                        $option['is_expired']  = false;
+                        $option['is_disabled'] = false;
+
+                        // Store the optin data.
+                        $this->store_optins( $ret );
+
+                        // Allow option to be filtered before saving.
+                        $option = apply_filters( 'optin_monster_api_save', $option, $data, $this->view );
+
+                        // Save the option.
+                        update_option( 'optin_monster_api', $option );
+
+                    }
+                    // End since we are working with the new apikey
+                    break;
+                }
+
+                // Catch apikey not set errors
+                if ( ! $apikey ) {
+
+                    // Did we used to have one and user is trying to remove it?
+                    if ( $old_apikey ) {
+                        $option['api']['apikey'] = '';
+
+                        // Save the option.
+                        update_option( 'optin_monster_api', $option );
+
+                        // Explicitly end here so we don't accidentally try grabbing the next round of checks on $user and $key
+                        break;
+                    }
+                }
 
 				// If one or both items are missing, fail.
 				if ( ! $user || ! $key ) {
+
 					// If it had been stored and it is now empty, reset the keys altogether.
 					if ( ! $user && $old_user || ! $key && $old_key ) {
 						$option['api']['user'] = '';
 						$option['api']['key']  = '';
+
 
 						// Allow option to be filtered before saving.
 						$option = apply_filters( 'optin_monster_api_save', $option, $data, $this->view );
@@ -134,7 +188,7 @@ class OMAPI_Save {
 						// Save the option.
 						update_option( 'optin_monster_api', $option );
 					} else {
-						$this->errors['error'] = __( 'You must provide a valid API Username and API Key to authenticate to OptinMonster.', 'optin-monster-api' );
+						$this->errors['error'] = __( 'You must provide a valid API Key to authenticate with OptinMonster.', 'optin-monster-api' );
 					}
 				} else {
 					$api = new OMAPI_Api( 'verify', array( 'user' => $user, 'key' => $key ) );

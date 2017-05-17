@@ -16,9 +16,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Video.js plugin
  *
- * @see http://wordpress.org/extend/plugins/videojs-html5-video-player-for-wordpress/
+ * @see https://wordpress.org/plugins/videojs-html5-video-player-for-wordpress/
  *
- * @internal Last update: July 2014 based upon v 4.5.0
+ * {@internal Last update: July 2014 based upon v 4.5.0.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Videojs' ) ) {
 

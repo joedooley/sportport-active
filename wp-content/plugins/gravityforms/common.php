@@ -2332,6 +2332,14 @@ Content-Type: text/html;
 		return in_array( $field_type, $product_fields );
 	}
 
+	/**
+	 * Returns all the plugin capabilities.
+	 *
+	 * @since 2.2.1.12 Added gravityforms_system_status.
+	 * @since unknown
+	 *
+	 * @return array
+	 */
 	public static function all_caps() {
 		return array(
 			'gravityforms_edit_forms',
@@ -2349,6 +2357,7 @@ Content-Type: text/html;
 			'gravityforms_view_updates',
 			'gravityforms_view_addons',
 			'gravityforms_preview_forms',
+			'gravityforms_system_status',
 		);
 	}
 
@@ -2486,7 +2495,7 @@ Content-Type: text/html;
 				'slug' => $slug,
 				'version' => $plugin['Version'],
 				'is_active' => $is_active,
-				);
+			);
 		}
 		$plugins = json_encode( $plugins );
 
@@ -3971,9 +3980,12 @@ Content-Type: text/html;
 	 *
 	 * @return bool If the logging plugin is active.
 	 */
-	public static function is_logging_plugin_active(){
+	public static function is_logging_plugin_active() {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
 
-		//In some scenarios, is_plugin_active() will return true when plugin file has been manually deleted.
+		// In some scenarios, is_plugin_active() will return true when plugin file has been manually deleted.
 		return is_plugin_active( 'gravityformslogging/logging.php' ) && file_exists( trailingslashit( WP_PLUGIN_DIR ) . 'gravityformslogging/logging.php' );
 
 	}
@@ -4362,8 +4374,8 @@ Content-Type: text/html;
 		$gf_vars['removeFieldFilter'] = esc_html__( 'Remove a condition', 'gravityforms' );
 		$gf_vars['filterAndAny']      = esc_html__( 'Include results if {0} match:', 'gravityforms' );
 
-		$gf_vars['customChoices'] = esc_html__( 'Custom Choices', 'gravityforms' );
-
+		$gf_vars['customChoices']     = esc_html__( 'Custom Choices', 'gravityforms' );
+		$gf_vars['predefinedChoices'] = esc_html__( 'Predefined Choices', 'gravityforms' );
 
 		if ( is_admin() && rgget( 'id' ) ) {
 
@@ -5503,23 +5515,38 @@ Content-Type: text/html;
 	}
 
 	/**
-	 * @param $message
-	 * @param $subject
+	 * Maybe wrap the notification message in html tags.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string $message The notification message. Merge tags have already been processed.
+	 * @param string $subject The notification subject line. Merge tags have already been processed.
 	 *
 	 * @return string
 	 */
 	private static function format_html_message( $message, $subject ) {
 		if ( ! preg_match( '/<html/i', $message ) ) {
-			$message =
+			$template =
 				"<html>
 	<head>
-		<title>{$subject}</title>
+		<title>{subject}</title>
 	</head>
 	<body>
-		{$message}
+		{message}
 	</body>
 </html>";
 
+			/**
+			 * Allow the template for the html formatted message to be overridden.
+			 *
+			 * @since 2.2.1.5
+			 *
+			 * @param string $template The template for the html formatted message. Use {message} and {subject} as placeholders.
+			 */
+			$template = apply_filters( 'gform_html_message_template_pre_send_email', $template );
+
+			$message = str_replace( '{message}', $message, $template );
+			$message = str_replace( '{subject}', $subject, $message );
 		}
 
 		return $message;

@@ -108,7 +108,7 @@ class Yoast_HelpScout_Beacon {
 			'noResultsLabel'            => __( 'No results found for', 'wordpress-seo-premium' ),
 			'contactLabel'              => __( 'Send a Message', 'wordpress-seo-premium' ),
 			'attachFileLabel'           => __( 'Attach a file', 'wordpress-seo-premium' ),
-			'attachFileError'           => __( 'The maximum file size is 10mb', 'wordpress-seo-premium' ),
+			'attachFileError'           => __( 'The maximum file size is 10 MB', 'wordpress-seo-premium' ),
 			'nameLabel'                 => __( 'Your Name', 'wordpress-seo-premium' ),
 			'nameError'                 => __( 'Please enter your name', 'wordpress-seo-premium' ),
 			'emailLabel'                => __( 'Email address', 'wordpress-seo-premium' ),

@@ -25,7 +25,7 @@ class FacetWP_Facet_Autocomplete
         $value = empty( $value ) ? '' : stripslashes( $value[0] );
         $placeholder = isset( $params['facet']['placeholder'] ) ? $params['facet']['placeholder'] : __( 'Start typing...', 'fwp' );
         $placeholder = facetwp_i18n( $placeholder );
-        $output .= '<input type="search" class="facetwp-autocomplete" value="' . $value . '" placeholder="' . esc_attr( $placeholder ) . '" />';
+        $output .= '<input type="search" class="facetwp-autocomplete" value="' . esc_attr( $value ) . '" placeholder="' . esc_attr( $placeholder ) . '" />';
         $output .= '<input type="button" class="facetwp-autocomplete-update" value="' . __( 'Update', 'fwp' ) . '" />';
         return $output;
     }
@@ -96,21 +96,24 @@ class FacetWP_Facet_Autocomplete
 
         $query = esc_sql( $wpdb->esc_like( $_POST['query'] ) );
         $facet_name = esc_sql( $_POST['facet_name'] );
-
-        $sql = "
-        SELECT DISTINCT facet_display_value
-        FROM {$wpdb->prefix}facetwp_index
-        WHERE facet_name = '$facet_name' AND facet_display_value LIKE '%$query%'
-        ORDER BY facet_display_value ASC
-        LIMIT 10";
-        $results = $wpdb->get_results( $sql );
-
         $output = array();
-        foreach ( $results as $result ) {
-            $output[] = array(
-                'value' => $result->facet_display_value,
-                'data' => $result->facet_display_value,
-            );
+
+        if ( ! empty( $query ) && ! empty( $facet_name ) ) {
+            $sql = "
+            SELECT DISTINCT facet_display_value
+            FROM {$wpdb->prefix}facetwp_index
+            WHERE facet_name = '$facet_name' AND facet_display_value LIKE '%$query%'
+            ORDER BY facet_display_value ASC
+            LIMIT 10";
+
+            $results = $wpdb->get_results( $sql );
+
+            foreach ( $results as $result ) {
+                $output[] = array(
+                    'value' => $result->facet_display_value,
+                    'data' => $result->facet_display_value,
+                );
+            }
         }
 
         echo json_encode( array( 'suggestions' => $output ) );

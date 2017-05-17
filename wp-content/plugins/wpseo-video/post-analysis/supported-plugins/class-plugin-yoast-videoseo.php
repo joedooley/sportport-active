@@ -18,7 +18,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *
  * @see      https://yoast.com/wordpress/plugins/video-seo/
  *
- * @internal Last update: August 2014 based upon v 1.8/2.0
+ * {@internal Last update: August 2014 based upon v 1.8/2.0.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Yoast_Videoseo' ) ) {
 

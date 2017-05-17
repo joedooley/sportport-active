@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Automatic YouTube Video Post plugin
  *
- * @see http://wordpress.org/plugins/automatic-youtube-video-posts/
+ * @see https://wordpress.org/plugins/automatic-youtube-video-posts/
  *
- * @internal Last update: August 2014 based upon v 3.2
+ * {@internal Last update: August 2014 based upon v 3.2.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Automatic_Youtube_Video_Post' ) ) {
 

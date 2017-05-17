@@ -56,7 +56,7 @@ class FacetWP_Facet
         foreach ( $params['facets'] as $f ) {
             $facet = FWP()->helper->get_facet_by_name( $f['facet_name'] );
             if ( false !== $facet ) {
-                $facet['selected_values'] = FWP()->helper->sanitize( $f['selected_values'] );
+                $facet['selected_values'] = esc_sql( $f['selected_values'] );
                 $this->facets[ $f['facet_name'] ] = $facet;
             }
         }

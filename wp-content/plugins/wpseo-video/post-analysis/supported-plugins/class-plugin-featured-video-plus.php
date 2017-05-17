@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  * Add support for ahoereth's Featured Video Plus plugin.
  *
  * @see      https://github.com/ahoereth/featured-video-plus
- * @see      https://wordpress.org/plugins/featured-video-plus
+ * @see      https://wordpress.org/plugins/featured-video-plus/
  *
- * @internal Last update: August 2016 based upon v2.3
+ * {@internal Last update: August 2016 based upon v2.3.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Featured_Video_Plus' ) ) {
 

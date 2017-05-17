@@ -16,9 +16,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Viper's Video Quicktags plugin
  *
- * @see      http://wordpress.org/extend/plugins/vipers-video-quicktags/
+ * @see      https://wordpress.org/plugins/vipers-video-quicktags/
  *
- * @internal Last update: July 2014 based upon v 6.5.2
+ * {@internal Last update: July 2014 based upon v 6.5.2.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Vipers_Video_Quicktags' ) ) {
 

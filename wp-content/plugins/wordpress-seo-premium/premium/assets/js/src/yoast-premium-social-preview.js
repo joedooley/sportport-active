@@ -6,7 +6,7 @@ var helpPanel = require( "./helpPanel" );
 var getTitlePlaceholder = require( "../../../../js/src/analysis/getTitlePlaceholder" );
 var getDescriptionPlaceholder = require( "../../../../js/src/analysis/getDescriptionPlaceholder" );
 
-var _debounce = require("lodash/debounce");
+var _debounce = require( "lodash/debounce" );
 var clone = require( "lodash/clone" );
 var forEach = require( "lodash/forEach" );
 var _has = require( "lodash/has" );
@@ -51,11 +51,13 @@ var socialPreviews = require( "yoast-social-previews" );
 	 * @returns {void}
 	 */
 	function bindUploadButtonEvents( imageUrl, imageButton, removeButton, onMediaSelect, imagePreviewElement ) {
+		/* eslint-disable camelcase */
 		var socialPreviewUploader = wp.media.frames.file_frame = wp.media( {
 			title: yoastSocialPreview.choose_image,
 			button: { text: yoastSocialPreview.choose_image },
 			multiple: false,
 		} );
+		/* eslint-enable camelcase */
 
 		socialPreviewUploader.on( "select", function() {
 			var attachment = socialPreviewUploader.state().get( "selection" ).first().toJSON();
@@ -195,7 +197,6 @@ var socialPreviews = require( "yoast-social-previews" );
 	 */
 	function createSocialPreviewContainer( socialPreviewholder, containerId ) {
 		socialPreviewholder.append( '<div id="' + containerId + '"></div>' );
-		socialPreviewholder.find( ".form-table" ).hide();
 	}
 
 	/**
@@ -289,8 +290,8 @@ var socialPreviews = require( "yoast-social-previews" );
 								description = facebookDescription;
 							}
 						}
-						if ( isUndefined( description ) ){
-							description = $( '#twitter-editor-description' ).attr( 'placeholder' );
+						if ( isUndefined( description ) ) {
+							description = $( "#twitter-editor-description" ).attr( 'placeholder' );
 						}
 					}
 
@@ -774,7 +775,7 @@ var socialPreviews = require( "yoast-social-previews" );
 			return imageFallBack.content;
 		}
 
-		if ( defaultImage !== undefined ) {
+		if ( typeof defaultImage !== "undefined" ) {
 			return defaultImage;
 		}
 
@@ -789,37 +790,37 @@ var socialPreviews = require( "yoast-social-previews" );
 	function addHelpPanels() {
 		var panels = [
 			{
-				beforeElement: "#facebook-editor-imageUrl",
+				beforeElement: "#facebook-editor-imageUrl__caret-hook",
 				buttonText: translations.helpButton.facebookImage,
 				descriptionText: translations.help.facebookImage,
 				id: "facebook-editor-image-help",
 			},
 			{
-				beforeElement: "#facebook-editor-title",
+				beforeElement: "#facebook-editor-title__caret-hook",
 				buttonText: translations.helpButton.facebookTitle,
 				descriptionText: translations.help.facebookTitle,
 				id: "facebook-editor-title-help",
 			},
 			{
-				beforeElement: "#facebook-editor-description",
+				beforeElement: "#facebook-editor-description__caret-hook",
 				buttonText: translations.helpButton.facebookDescription,
 				descriptionText: translations.help.facebookDescription,
 				id: "facebook-editor-description-help",
 			},
 			{
-				beforeElement: "#twitter-editor-imageUrl",
+				beforeElement: "#twitter-editor-imageUrl__caret-hook",
 				buttonText: translations.helpButton.twitterImage,
 				descriptionText: translations.help.twitterImage,
 				id: "twitter-editor-image-help",
 			},
 			{
-				beforeElement: "#twitter-editor-title",
+				beforeElement: "#twitter-editor-title__caret-hook",
 				buttonText: translations.helpButton.twitterTitle,
 				descriptionText: translations.help.twitterTitle,
 				id: "twitter-editor-title-help",
 			},
 			{
-				beforeElement: "#twitter-editor-description",
+				beforeElement: "#twitter-editor-description__caret-hook",
 				buttonText: translations.helpButton.twitterDescription,
 				descriptionText: translations.help.twitterDescription,
 				id: "twitter-editor-description-help",

@@ -21,8 +21,8 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 	/**
 	 * Add the VideoSEO metabox fields and associated validation to the WPSEO-meta management
 	 *
-	 * @internal WPSEO_Meta is a class with only static methods, so we will not extend it with
-	 * a child class, we will only add to it by hooking in
+	 * {@internal WPSEO_Meta is a class with only static methods, so we will not extend it with
+	 * a child class, we will only add to it by hooking in.}}
 	 */
 	class WPSEO_Meta_Video {
 
@@ -58,10 +58,10 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 		 *
 		 *        (optional)    'placeholder'  => (string) currently not used in this class
 		 *
-		 * @internal
+		 * {@internal
 		 * - Titles, help texts, description text and option labels are added via a translate_meta_boxes() method
 		 *   in the relevant child classes (WPSEO_Metabox and WPSEO_Social_admin) as they are only needed there.
-		 * - Beware: even though the meta keys are divided into subsets, they still have to be uniquely named!
+		 * - Beware: even though the meta keys are divided into subsets, they still have to be uniquely named!}}
 		 */
 		public static $meta_fields = array(
 				'video'    => array(
@@ -83,14 +83,19 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 								'title'         => '', // Translation added later.
 								'default_value' => '0',
 								'description'   => '', // Translation added later.
+								'options'       => array(
+									'min_value' => '0',
+									'max_value' => null,
+									'step'      => '1',
+								),
 						),
 
 						/*
-						 * @internal Not used directly anywhere except for storage and retrieval of the meta box
-						 *           form values. The real use is in the video_meta key which retrieves the value
-						 *           of this from $_POST.
-						 *           However removing this would cause the meta box field to go blank as the info
-						 *           can no longer be retrieved, so leaving it as is for now.
+						 * {@internal Not used directly anywhere except for storage and retrieval of the meta box
+						 *            form values. The real use is in the video_meta key which retrieves the value
+						 *            of this from $_POST.
+						 *            However removing this would cause the meta box field to go blank as the info
+						 *            can no longer be retrieved, so leaving it as is for now.}}
 						 */
 						'videositemap-tags'                => array(
 								'type'          => 'text',
@@ -100,11 +105,11 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 						),
 
 						/*
-						 * @internal Not used directly anywhere except for storage and retrieval of the meta box
-						 *           form values. The real use is in the video_meta key which retrieves the value
-						 *           of this from $_POST.
-						 *           However removing this would cause the meta box field to go blank as the info
-						 *           can no longer be retrieved, so leaving it as is for now.
+						 * {@internal Not used directly anywhere except for storage and retrieval of the meta box
+						 *            form values. The real use is in the video_meta key which retrieves the value
+						 *            of this from $_POST.
+						 *            However removing this would cause the meta box field to go blank as the info
+						 *            can no longer be retrieved, so leaving it as is for now.}}
 						 */
 						'videositemap-category'            => array(
 								'type'          => 'text',
@@ -117,12 +122,17 @@ if ( ! class_exists( 'WPSEO_Meta_Video' ) ) {
 								'title'         => '', // Translation added later.
 								'default_value' => 0,
 								'description'   => '', // Translation added later.
+								'options'       => array(
+									'min_value' => '0',
+									'max_value' => '5',
+									'step'      => '0.1',
+								),
 						),
-						// @todo check definition and improve description as title and description seem to contradict at the moment
 						'videositemap-not-family-friendly' => array(
 								'type'          => 'checkbox',
 								'title'         => '', // Translation added later.
 								'default_value' => 'off',
+								'expl'          => '', // Translation added later.
 								'description'   => '', // Translation added later.
 						),
 				),

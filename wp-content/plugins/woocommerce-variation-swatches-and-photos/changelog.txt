@@ -1,4 +1,42 @@
-*** WooCommerce Variation Swatches and Photos***
+*** WooCommerce Variation Swatches and Photos ***
+2017.04.05 - version 3.0.3
+    * Fix:  Fix fatal error when loading swatches via AJAX.
+
+2017.03.07 - version 3.0.2
+    * Update:  Render image alt text for image swatches.
+
+2017.02.06 - version 3.0.1
+    * Fix:  Rebind variation forms when part of a composite product and a new composite option is shown.
+
+2016.12.25 - version 3.0.0
+    * Update:   WC 2.7 Ready
+
+2017.01.10 - version 2.1.11
+    * Update:  Compatibility with WC 2.6.7 and greater for default attribute selections.
+
+2016.12.09 - version 2.1.10
+    * Update:   Adds small amount of padding around radio inputs.
+    * Update:   Tested to WP 4.7
+
+2016.11.02 - version 2.1.9
+    * Update:  Better Compatibility with WooCommerce Composite Products.  Fixes an issue where a composite product with multiple options would not allow you to select a swatch
+                after you had selected a product from the composite dropdown.
+
+2016.10.12 - version 2.1.8
+    * Fix:  Fix issue where the Crop setting on the Swatches Image Size would always be selected regardless of what the user actually configured.
+    * Fix:  Fix issue where swatch configuration would be lost if the product attribute slug was changed.
+
+2016.10.05 - version 2.1.7
+    * Update:  Use the WooCommerce Placeholder image from core using filters rather than hardcoded.
+
+2016.10.04 - version 2.1.6
+    * Update:  Correctly hide labels when clicking the clear / reset button.
+    * Update:  Correctly show label below swatches rather than to the right when the Below option is selected.
+    * Update:  Version bump for assets, tested to.
+
+2016.08.04 - version 2.1.5
+    * Update:  Added "Label Below" option.
+
 2016.04.14 - version 2.1.4
 	* Fix:  Compatibility with WooCommerce Quick View. 
 	

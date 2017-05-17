@@ -14,11 +14,11 @@
  *
  * Do not edit or add to this file if you wish to upgrade WooCommerce Authorize.Net AIM Gateway to newer
  * versions in the future. If you wish to customize WooCommerce Authorize.Net AIM Gateway for your
- * needs please refer to http://docs.woothemes.com/document/authorize-net-aim/
+ * needs please refer to http://docs.woocommerce.com/document/authorize-net-aim/
  *
  * @package   WC-Gateway-Authorize-Net-AIM/Gateway/Credit-Card
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2016, SkyVerge, Inc.
+ * @copyright Copyright (c) 2011-2017, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -68,6 +68,7 @@ class WC_Gateway_Authorize_Net_AIM_Credit_Card extends WC_Gateway_Authorize_Net_
 					self::FEATURE_CARD_TYPES,
 					self::FEATURE_PAYMENT_FORM,
 					self::FEATURE_CREDIT_CARD_CHARGE,
+					self::FEATURE_CREDIT_CARD_CHARGE_VIRTUAL,
 					self::FEATURE_CREDIT_CARD_AUTHORIZATION,
 					self::FEATURE_CREDIT_CARD_CAPTURE,
 					self::FEATURE_DETAILED_CUSTOMER_DECLINE_MESSAGES,
@@ -329,24 +330,6 @@ class WC_Gateway_Authorize_Net_AIM_Credit_Card extends WC_Gateway_Authorize_Net_
 
 
 	/**
-	 * Add original transaction ID for capturing a prior authorization
-	 *
-	 * @since 3.0
-	 * @see SV_WC_Payment_Gateway_Direct::get_order_for_capture()
-	 * @param WC_Order $order order object
-	 * @return WC_Order object with payment and transaction information attached
-	 */
-	protected function get_order_for_capture( $order ) {
-
-		$order = parent::get_order_for_capture( $order );
-
-		$order->auth_net_aim_ref_trans_id = $order->wc_authorize_net_aim_trans_id;
-
-		return $order;
-	}
-
-
-	/**
 	 * Add Authorize.Net AIM specific data to the order for performing a refund,
 	 * currently this is just the last 4 digits & expiration date of the credit
 	 * card on the original transaction
@@ -362,8 +345,8 @@ class WC_Gateway_Authorize_Net_AIM_Credit_Card extends WC_Gateway_Authorize_Net_
 
 		$order = parent::get_order_for_refund( $order, $amount, $reason );
 
-		$order->refund->account_four = $this->get_order_meta( $order->id, 'account_four' );
-		$order->refund->expiry_date = date( 'm-Y', strtotime( '20' . $this->get_order_meta( $order->id, 'card_expiry_date' ) ) );
+		$order->refund->account_four = $this->get_order_meta( $order, 'account_four' );
+		$order->refund->expiry_date = date( 'm-Y', strtotime( '20' . $this->get_order_meta( $order, 'card_expiry_date' ) ) );
 
 		if ( ! $order->refund->account_four ) {
 			return new WP_Error( 'wc_' . $this->get_id() . '_refund_error', __( '%s Refund error - order is missing credit card last four.', 'woocommerce-gateway-authorize-net-aim' ), $this->get_method_title() );

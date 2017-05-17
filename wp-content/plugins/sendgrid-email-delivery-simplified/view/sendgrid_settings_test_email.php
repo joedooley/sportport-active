@@ -1,5 +1,13 @@
 <?php if ( $active_tab == 'general' ): ?>
-  <?php if ( ! isset($status) or ( 'updated' == $status ) or ( 'valid_auth' == $status) or ( 'error' == $status and isset( $error_type ) and 'sending' == $error_type ) ): ?>
+  <?php if (
+              // No status is set
+              ! isset( $status ) or
+              // There is no error status
+              ( 'error' != $status and ! empty( $api_key ) ) or
+              // There is an error, but the error was from sending with the test form
+              ( 'error' == $status and isset( $error_type ) and 'sending' == $error_type )
+           ) :
+  ?>
     <form name="sendgrid_test" method="POST" action="<?php echo Sendgrid_Tools::get_form_action(); ?>">
       <table class="form-table">
         <tbody>
@@ -11,25 +19,25 @@
           <tr valign="top">
             <th scope="row"><?php _e("To: "); ?></th>
             <td>
-              <input type="text" name="sendgrid_to" required="true" value="<?php echo isset($success) ? '' : isset($to) ? $to : '' ; ?>" size="20" class="regular-text">
+              <input type="text" name="sendgrid_to" required="true" value="<?php echo isset( $success ) ? '' : isset( $to ) ? $to : '' ; ?>" size="20" class="regular-text">
             </td>
           </tr>
           <tr valign="top">
             <th scope="row"><?php _e("Subject: "); ?></th>
             <td>
-              <input type="text" name="sendgrid_subj" required="true" value="<?php echo isset($success) ? '' : isset($subject) ? $subject : '' ; ?>" size="20" class="regular-text">
+              <input type="text" name="sendgrid_subj" required="true" value="<?php echo isset( $success ) ? '' : isset( $subject ) ? $subject : '' ; ?>" size="20" class="regular-text">
             </td>
           </tr>
           <tr valign="top">
             <th scope="row"><?php _e("Body: "); ?></th>
             <td>
-              <textarea name="sendgrid_body" rows="5" class="large-text"><?php echo isset($success) ? '' : isset($body) ? $body : '' ; ?></textarea>
+              <textarea name="sendgrid_body" rows="5" class="large-text"><?php echo isset( $success ) ? '' : isset( $body ) ? $body : '' ; ?></textarea>
             </td>
           </tr>
           <tr valign="top">
             <th scope="row"><?php _e("Headers: "); ?></th>
             <td>
-              <textarea name="sendgrid_headers" rows="3" class="large-text"><?php echo isset($success) ? '' : isset($headers) ? $headers : ''; ?></textarea>
+              <textarea name="sendgrid_headers" rows="3" class="large-text"><?php echo isset( $success ) ? '' : isset( $headers ) ? $headers : ''; ?></textarea>
             </td>
           </tr>
         </table>

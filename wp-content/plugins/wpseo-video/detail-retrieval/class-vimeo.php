@@ -153,7 +153,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vimeo' ) ) {
 				$this->decoded_response = $response[0];
 			}
 			// Oembed response.
-			else if ( is_object( $response ) ) {
+			elseif ( is_object( $response ) ) {
 				$this->decoded_response = $response;
 			}
 		}

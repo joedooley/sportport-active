@@ -26,7 +26,6 @@ class WPSEO_Video_Beacon_Setting implements Yoast_HelpScout_Beacon_Setting {
 					// See: http://kb.yoast.com/article/18-why-doesnt-my-video-seo-plugin-create-a-sitemap.
 					'5375e2d2e4b0d833740d570d',
 				);
-				break;
 		}
 
 		return array();
@@ -43,7 +42,6 @@ class WPSEO_Video_Beacon_Setting implements Yoast_HelpScout_Beacon_Setting {
 		switch ( $page ) {
 			case 'wpseo_video':
 				return array( new Yoast_Product_WPSEO_Video() );
-				break;
 		}
 
 		return array();

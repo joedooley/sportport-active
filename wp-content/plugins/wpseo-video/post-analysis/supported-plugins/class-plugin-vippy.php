@@ -16,9 +16,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Vippy plugin
  *
- * @see      http://wordpress.org/extend/plugins/vippy/
+ * @see      https://wordpress.org/plugins/vippy/
  *
- * @internal Last update: July 2014 based upon v 1.2
+ * {@internal Last update: July 2014 based upon v 1.2.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Vippy' ) ) {
 

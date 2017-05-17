@@ -12,6 +12,8 @@ class KeywordSuggestions {
 	 * @param {ProminentWordStorage} prominentWordStorage The class that handles the focus keyword storage.
 	 * @param {bool} insightsEnabled Whether or not the insights UI is enabled.
 	 * @param {bool} contentEndpointsAvailable Whether or not the content endpoints are available.
+	 *
+	 * @returns {void}
 	 */
 	constructor( { prominentWordStorage, insightsEnabled, contentEndpointsAvailable = true } ) {
 		this._insightsEnabled = insightsEnabled;
@@ -19,8 +21,18 @@ class KeywordSuggestions {
 		this._contentEndpointsAvailable = contentEndpointsAvailable;
 		this.words = null;
 		this._prominentWordStorage = prominentWordStorage;
+		this._updateProminentWordsEvent = "YoastSEO:updateProminentWords";
 
-		jQuery( window ).on( "YoastSEO:numericScore", this.updateWords.bind( this ) );
+		jQuery( window ).on( this._updateProminentWordsEvent, this.updateWords.bind( this ) );
+		jQuery( window ).on( "YoastSEO:numericScore", KeywordSuggestions.triggerUpdateProminentWords.bind( this ) );
+	}
+
+	/**
+	 * Triggers the event to update prominent words
+	 * @returns {void}
+	 */
+	static triggerUpdateProminentWords() {
+		jQuery( window ).trigger( this._updateProminentWordsEvent );
 	}
 
 	/**
@@ -68,7 +80,6 @@ class KeywordSuggestions {
 		}
 	}
 
-
 	/**
 	 * Appends the suggestions div to the DOM.
 	 *
@@ -77,16 +88,9 @@ class KeywordSuggestions {
 	appendSuggestionsDiv() {
 		let contentDiv = jQuery( "#wpseo_content" );
 
-		let tbody = contentDiv.find( "tbody" );
-		let newRow = jQuery( "<tr><td></td></tr>");
-
-		tbody.append( newRow );
-
-		let td = newRow.find( "td" );
-
 		this.suggestionsDiv = document.createElement( "div" );
 
-		td.html( this.suggestionsDiv );
+		contentDiv.append( this.suggestionsDiv );
 	}
 
 	/**

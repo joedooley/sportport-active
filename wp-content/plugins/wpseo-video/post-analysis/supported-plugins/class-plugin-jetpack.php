@@ -16,10 +16,10 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Jetpack plugin
  *
- * @see      http://wordpress.org/plugins/jetpack/
- * @see      http://jetpack.me/support/shortcode-embeds/
+ * @see      https://wordpress.org/plugins/jetpack/
+ * @see      https://jetpack.com/support/shortcode-embeds/
  *
- * @internal Last update: July 2014 based upon v 3.0.2
+ * {@internal Last update: July 2014 based upon v 3.0.2.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Jetpack' ) ) {
 

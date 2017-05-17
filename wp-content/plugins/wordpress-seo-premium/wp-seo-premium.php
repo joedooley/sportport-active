@@ -5,7 +5,7 @@
 
 /**
  * Plugin Name: Yoast SEO Premium
- * Version: 4.0.2
+ * Version: 4.7.1
  * Plugin URI: https://yoast.com/wordpress/plugins/seo/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseoplugin
  * Description: The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more.
  * Author: Team Yoast
@@ -61,6 +61,7 @@ if ( ! is_admin() ) {
 function wpseo_premium_add_general_option_defaults( array $wpseo_defaults ) {
 	$premium_defaults = array(
 		'enable_metabox_insights' => true,
+		'enable_link_suggestions' => true,
 	);
 
 	return array_merge( $wpseo_defaults, $premium_defaults );

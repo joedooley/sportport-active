@@ -16,9 +16,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Sublime Video Official plugin
  *
- * @see http://wordpress.org/extend/plugins/sublimevideo-official/
+ * @see https://wordpress.org/plugins/sublimevideo-official/
  *
- * @internal Last update: July 2014 based upon v 1.8.2
+ * {@internal Last update: July 2014 based upon v 1.8.2.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Sublimevideo_Official' ) ) {
 

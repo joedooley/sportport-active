@@ -12,11 +12,11 @@
         $(document).on('click', '.woocommerce-pagination a', function(e) {
             e.preventDefault();
             var matches = $(this).attr('href').match(/\/page\/(\d+)/);
-            if (null != matches) {
+            if (null !== matches) {
                 FWP.paged = parseInt(matches[1]);
+                FWP.soft_refresh = true;
+                FWP.refresh();
             }
-            FWP.soft_refresh = true;
-            FWP.refresh();
         });
 
         // Disable sort handler

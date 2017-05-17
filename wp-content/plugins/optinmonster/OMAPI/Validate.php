@@ -103,7 +103,14 @@ class OMAPI_Validate {
     public function validate() {
 
 		$creds = $this->base->get_api_credentials();
-	    $api   = new OMAPI_Api( 'validate', array( 'user' => $creds['user'], 'key' => $creds['key'] ) );
+
+		// Check for new apikey and only use the old user/key if we don't have it
+		if ( ! $creds['apikey'] ) {
+            $api   = new OMAPI_Api( 'validate', array( 'user' => $creds['user'], 'key' => $creds['key'] ) );
+        } else {
+            $api   = new OMAPI_Api( 'verify', array( 'apikey' => $creds['apikey'] ) );
+        }
+
 		$ret   = $api->request();
 		if ( is_wp_error( $ret ) ) {
 			$option = $this->base->get_option();

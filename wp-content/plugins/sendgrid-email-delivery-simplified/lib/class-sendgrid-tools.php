@@ -10,7 +10,6 @@ class Sendgrid_Tools
 
   // used static variable because php 5.3 doesn't support array as constant
   public static $allowed_ports = array( Sendgrid_SMTP::TLS, Sendgrid_SMTP::TLS_ALTERNATIVE, Sendgrid_SMTP::SSL, Sendgrid_SMTP::TLS_ALTERNATIVE_2 );
-  public static $allowed_auth_methods = array( 'apikey', 'credentials' );
   public static $allowed_content_type = array( 'plaintext', 'html' );
 
   /**
@@ -80,7 +79,7 @@ class Sendgrid_Tools
     $url .= "api_user=" . urlencode( $username ) . "&api_key=" . urlencode( $password );
 
     $response = wp_remote_get( $url, array( 'decompress' => false ) );
-    
+
     if ( ! is_array( $response ) or ! isset( $response['body'] ) ) {
       return false;
     }
@@ -169,7 +168,7 @@ class Sendgrid_Tools
     if ( Sendgrid_Tools::check_api_key_scopes( $apikey, array( "asm.groups.read" ) ) ) {
       Sendgrid_Tools::set_asm_permission( 'true' );
     } else {
-      Sendgrid_Tools::set_asm_permission( 'false' ); 
+      Sendgrid_Tools::set_asm_permission( 'false' );
     }
 
     if ( ! Sendgrid_Tools::check_api_key_scopes( $apikey, array( "mail.send" ) ) ) {
@@ -196,12 +195,7 @@ class Sendgrid_Tools
 
     $url = 'v3/templates/' . $template;
 
-    $parameters['auth_method']    = Sendgrid_Tools::get_auth_method();
-    $parameters['api_username']   = Sendgrid_Tools::get_username();
-    $parameters['api_password']   = Sendgrid_Tools::get_password();
-    $parameters['apikey']         = Sendgrid_Tools::get_api_key();
-
-    $response = Sendgrid_Tools::do_request( $url, $parameters );
+    $response = Sendgrid_Tools::do_request( $url );
 
     if ( ! $response ) {
       return false;
@@ -225,30 +219,12 @@ class Sendgrid_Tools
    */
   public static function do_request( $api = 'v3/stats', $parameters = array() )
   {
-    $args = array();
-    if ( "credentials" == $parameters['auth_method'] ) {
-      $creds = base64_encode( $parameters['api_username'] . ':' . $parameters['api_password'] );
-
-      $args = array(
-        'headers' => array(
-          'Authorization' => 'Basic ' . $creds 
-        ),
-        'decompress' => false
-      );
-
-    } else {
-      $args = array(
-        'headers' => array(
-          'Authorization' => 'Bearer ' . $parameters['apikey'] 
-        ),
-        'decompress' => false
-      );
-    }
-
-    unset( $parameters['auth_method'] );
-    unset( $parameters['api_username'] );
-    unset( $parameters['api_password'] );
-    unset( $parameters['apikey'] );
+    $args = array(
+      'headers' => array(
+        'Authorization' => 'Bearer ' . self::get_api_key()
+      ),
+      'decompress' => false
+    );
 
     $data = urldecode( http_build_query( $parameters ) );
     $url = "https://api.sendgrid.com/$api?$data";
@@ -263,75 +239,6 @@ class Sendgrid_Tools
   }
 
   /**
-   * Return username from the database or global variable
-   *
-   * @return  mixed   username, false if the value is not found
-   */
-  public static function get_username()
-  {
-    if ( defined( 'SENDGRID_USERNAME' ) ) {
-      return SENDGRID_USERNAME;
-    } else {
-      $username = Sendgrid_Tools::get_sendgrid_option( 'user' );
-      if( $username ) {
-        Sendgrid_Tools::delete_sendgrid_option( 'user' );
-        Sendgrid_Tools::update_sendgrid_option( 'username', $username );
-      }
-
-      return Sendgrid_Tools::get_sendgrid_option( 'username' );
-    }
-  }
-
-  /**
-   * Sets username in the database
-   *
-   * @param   type  string  $username
-   *
-   * @return  bool
-   */
-  public static function set_username( $username )
-  {
-    if( ! isset( $username ) ) {
-      return Sendgrid_Tools::update_sendgrid_option( 'username', '' );
-    }
-
-    return Sendgrid_Tools::update_sendgrid_option( 'username', $username );
-  }
-
-  /**
-   * Return password from the database or global variable
-   *
-   * @return  mixed  password, false if the value is not found
-   */
-  public static function get_password()
-  {
-    if ( defined( 'SENDGRID_PASSWORD' ) ) {
-      return SENDGRID_PASSWORD;
-    } else {
-      $password     = Sendgrid_Tools::get_sendgrid_option( 'pwd' );
-      $new_password = Sendgrid_Tools::get_sendgrid_option( 'password' );
-      if ( $new_password and ! $password ) {
-        Sendgrid_Tools::update_sendgrid_option( 'pwd', self::decrypt( $new_password, AUTH_KEY ) );
-        Sendgrid_Tools::delete_sendgrid_option( 'password' );
-      }
-
-      return Sendgrid_Tools::get_sendgrid_option( 'pwd' );
-    }
-  }
-
-  /**
-   * Sets password in the database
-   *
-   * @param   type  string  $password
-   *
-   * @return  bool
-   */
-  public static function set_password( $password )
-  {
-    return Sendgrid_Tools::update_sendgrid_option( 'pwd', $password );
-  }
-
-  /**
    * Return api_key from the database or global variable
    *
    * @return  mixed   api key, false if the value is not found
@@ -341,15 +248,7 @@ class Sendgrid_Tools
     if ( defined( 'SENDGRID_API_KEY' ) ) {
       return SENDGRID_API_KEY;
     } else {
-      $apikey     = Sendgrid_Tools::get_sendgrid_option( 'api_key' );
-      $new_apikey = Sendgrid_Tools::get_sendgrid_option( 'apikey' );
-      if ( $new_apikey and ! $apikey ) {
-        Sendgrid_Tools::update_sendgrid_option( 'api_key', self::decrypt( $new_apikey, AUTH_KEY ) );
-        Sendgrid_Tools::delete_sendgrid_option( 'apikey' );
-      }
-
-      $apikey = Sendgrid_Tools::get_sendgrid_option( 'api_key' );
-      return $apikey;
+      return Sendgrid_Tools::get_sendgrid_option( 'api_key' );
     }
   }
 
@@ -698,44 +597,6 @@ class Sendgrid_Tools
   }
 
   /**
-   * Return auth method from the database or global variable
-   *
-   * @return  string  auth_method
-   */
-  public static function get_auth_method()
-  {
-    if ( defined( 'SENDGRID_AUTH_METHOD' ) ) {
-      return SENDGRID_AUTH_METHOD;
-    } elseif ( Sendgrid_Tools::get_sendgrid_option( 'auth_method', false ) ) {
-      $auth_method = Sendgrid_Tools::get_sendgrid_option( 'auth_method' );
-      if ( 'username' == $auth_method ) {
-        $auth_method = 'credentials';
-        Sendgrid_Tools::update_sendgrid_option( 'auth_method', $auth_method );
-      }
-
-      return $auth_method;
-    } elseif ( Sendgrid_Tools::get_api_key() ) {
-      return 'apikey';
-    } elseif ( Sendgrid_Tools::get_username() and Sendgrid_Tools::get_password() ) {
-      return 'credentials';
-    } else {
-      return 'apikey';
-    }
-  }
-
-  /**
-   * Sets the send method in the database
-   *
-   * @param   type  string  $method
-   *
-   * @return  bool
-   */
-  public static function set_auth_method( $method )
-  {
-    return Sendgrid_Tools::update_sendgrid_option( 'auth_method', $method );
-  }
-
-  /**
    * Return port from the database or global variable
    *
    * @return  mixed   port, false if the value is not found
@@ -1002,16 +863,11 @@ class Sendgrid_Tools
   {
     $url = 'v3/asm/groups';
 
-    $parameters['auth_method']    = Sendgrid_Tools::get_auth_method();
-    $parameters['api_username']   = Sendgrid_Tools::get_username();
-    $parameters['api_password']   = Sendgrid_Tools::get_password();
-    $parameters['apikey']         = Sendgrid_Tools::get_api_key();
-
-    if ( ( 'apikey' == $parameters['auth_method'] ) and ( 'true' != self::get_asm_permission() ) ) {
-      return false;  
+    if ( 'true' != self::get_asm_permission() ) {
+      return false;
     }
 
-    $response = Sendgrid_Tools::do_request( $url, $parameters );
+    $response = Sendgrid_Tools::do_request( $url );
 
     if ( ! $response ) {
       return false;
@@ -1183,7 +1039,7 @@ class Sendgrid_Tools
   /**
    * Return input padding by position from the database
    *
-   * @param   string    $position       position   
+   * @param   string    $position       position
    * @return  integer                   padding value
    */
   public static function get_mc_input_padding_by_position( $position )
@@ -1247,7 +1103,7 @@ class Sendgrid_Tools
   /**
    * Return button padding by position from the database
    *
-   * @param   string    $position   position   
+   * @param   string    $position   position
    * @return  integer               padding value
    */
   public static function get_mc_button_padding_by_position( $position )
@@ -1268,40 +1124,6 @@ class Sendgrid_Tools
     }
 
     return $padding[$position];
-  }
-
-  /**
-   * Returns decrypted string using the key or empty string in case of error
-   *
-   * @return  string
-   */
-  private static function decrypt( $encrypted_input_string, $key ) {
-    if ( ! extension_loaded( 'mcrypt' ) ) {
-      return '';
-    }
-
-    $iv_size = mcrypt_get_iv_size( MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB );
-    if( false === $iv_size ) {
-      return '';
-    }
-
-    $iv = mcrypt_create_iv( $iv_size, MCRYPT_RAND );
-    if( false === $iv ) {
-      return '';
-    }
-
-    $h_key = hash( 'sha256', $key, TRUE );
-    $decoded = base64_decode( $encrypted_input_string );
-    if( false === $decoded ) {
-      return '';
-    }
-
-    $decrypted = mcrypt_decrypt( MCRYPT_RIJNDAEL_256, $h_key, $decoded, MCRYPT_MODE_ECB, $iv );
-    if( false === $decrypted ) {
-      return '';
-    }
-
-    return trim( $decrypted );
   }
 
   /**
@@ -1502,7 +1324,7 @@ class Sendgrid_Tools
   public static function get_transient_sendgrid( $transient ) {
     $old_cache_value = wp_using_ext_object_cache();
     wp_using_ext_object_cache( false );
-    
+
     if ( ! is_multisite() || ( is_multisite() and ! is_main_site() and get_option( 'sendgrid_can_manage_subsite' ) ) ) {
       $value = get_transient( $transient );
     } else {
@@ -1551,6 +1373,56 @@ class Sendgrid_Tools
     // This might be redundant, but certain online url encoders omit the ~ character when encoding
     $request_uri = str_replace( '%7E', '~', $request_uri );
     return $request_uri;
+  }
+
+   /**
+   * Function that returns an array of data used on the multisite pagination,
+   *  The array will contain the total number of pages, the current page and
+   *  HTML for the previous and next buttons.
+   *
+   * @param   type  int     $offset
+   * @param   type  int     $limit
+   *
+   * @return array  data used by the multisite view
+   */
+  public static function get_multisite_pagination( $offset, $limit ) {
+    $pagination = array();
+
+    // Fetch sites based on pagination
+    $total_site_count = get_blog_count();
+    $sites_remaining  = $total_site_count - $offset - $limit;
+
+    $total_page_count = 1;
+    $current_page     = 1;
+
+    if ( $limit != 0 ) {
+        $total_page_count = ceil( $total_site_count / $limit );
+        $current_page     = ceil( $offset / $limit ) + 1;
+    }
+
+    // Create previous button HTML code
+    $previous_button = '';
+    if ( $offset != 0 and $limit != 0 ) {
+        $previous_offset = ( $offset - $limit < 0 ? 0 : $offset - $limit );
+        $previous_button .= '<a href="?page=sendgrid-settings&tab=multisite&offset=' . $previous_offset;
+        $previous_button .= '&limit=' . $limit . '" class="sendgrid-multisite-button button button-secondary">';
+        $previous_button .= translate( 'Previous' ) . '</a>';
+    }
+
+    $next_button = '';
+    if ( $sites_remaining > 0 and $limit != 0 ) {
+        $next_offset = $offset + $limit;
+        $next_button .= '<a href="?page=sendgrid-settings&tab=multisite&offset=' . $next_offset;
+        $next_button .= '&limit=' . $limit . '" class="sendgrid-multisite-button button button-secondary">';
+        $next_button .= translate( 'Next' ) . '</a>';
+    }
+
+    $pagination['total_pages']      = $total_page_count;
+    $pagination['current_page']     = $current_page;
+    $pagination['previous_button']  = $previous_button;
+    $pagination['next_button']      = $next_button;
+
+    return $pagination;
   }
 }
 

@@ -14,4 +14,5 @@ return array(
     'Yoast_Product_WPSEO_WooCommerce' => $baseDir . '/classes/class-product-wpseo-woocommerce.php',
     'xrstf\\Composer52\\AutoloadGenerator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
     'xrstf\\Composer52\\Generator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
+    'yoast_i18n' => $vendorDir . '/yoast/i18n-module/i18n-module.php',
 );

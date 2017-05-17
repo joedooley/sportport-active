@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *
  * @class		Receiptful_Reviews
  * @version		1.3.3
- * @author		Receiptful
+ * @author		Conversio
  * @since		1.3.3
  */
 class Receiptful_Reviews {

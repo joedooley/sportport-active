@@ -97,7 +97,7 @@ class FacetWP_Facet_fSelect
         $label_any = facetwp_i18n( $label_any );
 
         $output .= '<select class="facetwp-dropdown"' . $multiple . '>';
-        $output .= '<option value="">' . esc_attr( $label_any ) . '</option>';
+        $output .= '<option value="">' . esc_html( $label_any ) . '</option>';
 
         foreach ( $values as $result ) {
             $selected = in_array( $result['facet_value'], $selected_values ) ? ' selected' : '';
@@ -108,14 +108,14 @@ class FacetWP_Facet_fSelect
             }
 
             // Determine whether to show counts
-            $display_value .= $result['facet_display_value'];
+            $display_value .= esc_html( $result['facet_display_value'] );
             $show_counts = apply_filters( 'facetwp_facet_dropdown_show_counts', true, array( 'facet' => $facet ) );
 
             if ( $show_counts ) {
                 $display_value .= ' (' . $result['counter'] . ')';
             }
 
-            $output .= '<option value="' . $result['facet_value'] . '"' . $selected . '>' . $display_value . '</option>';
+            $output .= '<option value="' . esc_attr( $result['facet_value'] ) . '"' . $selected . '>' . $display_value . '</option>';
         }
 
         $output .= '</select>';

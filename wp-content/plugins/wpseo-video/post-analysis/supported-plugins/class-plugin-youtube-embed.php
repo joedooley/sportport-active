@@ -16,9 +16,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the YouTube Embed plugin
  *
- * @see http://wordpress.org/extend/plugins/youtube-embed/
+ * @see https://wordpress.org/plugins/youtube-embed/
  *
- * @internal Last update: July 2014 based upon v 3.2.1
+ * {@internal Last update: July 2014 based upon v 3.2.1.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_Embed' ) ) {
 

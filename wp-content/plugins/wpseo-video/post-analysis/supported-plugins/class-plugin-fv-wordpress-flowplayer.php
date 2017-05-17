@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the FV WordPress Flowplayer plugin
  *
- * @see http://wordpress.org/extend/plugins/fv-wordpress-flowplayer/
+ * @see https://wordpress.org/plugins/fv-wordpress-flowplayer/
  *
- * @internal Last update: July 2014 based upon v 2.2.18
+ * {@internal Last update: July 2014 based upon v 2.2.18.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_FV_Wordpress_Flowplayer' ) ) {
 

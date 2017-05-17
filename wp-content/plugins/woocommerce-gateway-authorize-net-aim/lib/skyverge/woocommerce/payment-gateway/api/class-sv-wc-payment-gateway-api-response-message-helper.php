@@ -18,7 +18,7 @@
  *
  * @package   SkyVerge/WooCommerce/Payment-Gateway/API
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2016, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2017, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -69,7 +69,9 @@ class SV_WC_Payment_Gateway_API_Response_Message_Helper {
 			$messages[] = $this->get_user_message( $message_id );
 		}
 
-		return implode( ' ', $messages );
+		$messages = implode( ' ', $messages );
+
+		return trim( $messages );
 	}
 
 

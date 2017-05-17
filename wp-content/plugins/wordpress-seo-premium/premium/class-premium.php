@@ -23,7 +23,7 @@ class WPSEO_Premium {
 
 	const OPTION_CURRENT_VERSION = 'wpseo_current_version';
 
-	const PLUGIN_VERSION_NAME = '4.0.2';
+	const PLUGIN_VERSION_NAME = '4.7.1';
 	const PLUGIN_VERSION_CODE = '16';
 	const PLUGIN_AUTHOR = 'Yoast';
 	const EDD_STORE_URL = 'http://my.yoast.com';
@@ -51,6 +51,11 @@ class WPSEO_Premium {
 		WPSEO_Redirect_File_Util::create_upload_dir();
 
 		WPSEO_Premium::activate_license();
+
+		// Make sure the notice will be given at install.
+		require_once( WPSEO_PREMIUM_PATH . 'classes/class-premium-prominent-words-recalculation-notifier.php' );
+		$recalculation_notifier = new WPSEO_Premium_Prominent_Words_Recalculation_Notifier();
+		$recalculation_notifier->manage_notification();
 	}
 
 	/**
@@ -79,8 +84,14 @@ class WPSEO_Premium {
 			'prominent-words-registration' => new WPSEO_Premium_Prominent_Words_Registration(),
 			'prominent-words-endpoint' => new WPSEO_Premium_Prominent_Words_Endpoint( new WPSEO_Premium_Prominent_Words_Service() ),
 			'prominent-words-recalculation' => new WPSEO_Premium_Prominent_Words_Recalculation(),
+			'prominent-words-recalculation-link' => new WPSEO_Premium_Prominent_Words_Link_Endpoint( new WPSEO_Premium_Prominent_Words_Link_Service() ),
+			'prominent-words-recalculation-notifier' => new WPSEO_Premium_Prominent_Words_Recalculation_Notifier(),
+			'prominent-words-recalculation-endpoint' => new WPSEO_Premium_Prominent_Words_Recalculation_Endpoint( new WPSEO_Premium_Prominent_Words_Recalculation_Service() ),
+			'prominent-words-version' => new WPSEO_Premium_Prominent_Words_Versioning(),
 			'link-suggestions' => new WPSEO_Metabox_Link_Suggestions(),
 			'link-suggestions-endpoint' => new WPSEO_Premium_Link_Suggestions_Endpoint( $link_suggestions_service ),
+			'premium-search-console' => new WPSEO_Premium_GSC(),
+			'redirects-endpoint'    => new WPSEO_Premium_Redirect_EndPoint( new WPSEO_Premium_Redirect_Service() ),
 		);
 
 		$this->setup();
@@ -96,11 +107,18 @@ class WPSEO_Premium {
 	public function add_feature_toggles( array $feature_toggles ) {
 		$language = WPSEO_Utils::get_language( get_locale() );
 
-		if ( $language === 'en' ) {
+		$language_support = new WPSEO_Premium_Prominent_Words_Language_Support();
+
+		if ( $language_support->is_language_supported( $language ) ) {
 			$feature_toggles[] = (object) array(
 				'name'    => __( 'Metabox insights', 'wordpress-seo-premium' ),
 				'setting' => 'enable_metabox_insights',
 				'label'   => __( 'The metabox insights section contains insights about your content, like an overview of the most prominent words in your text.', 'wordpress-seo-premium' ),
+			);
+			$feature_toggles[] = (object) array(
+				'name'    => __( 'Link suggestions', 'wordpress-seo-premium' ),
+				'setting' => 'enable_link_suggestions',
+				'label'   => __( 'The link suggestions section contains a list of posts on your blog with similar content that might be interesting to link to.', 'wordpress-seo-premium' ),
 			);
 		}
 
@@ -231,7 +249,7 @@ class WPSEO_Premium {
 	 * @link https://github.com/Yoast/i18n-module
 	 */
 	private function register_i18n_promo_class() {
-		new yoast_i18n(
+		new Yoast_I18n_v2(
 			array(
 				'textdomain'     => 'wordpress-seo-premium',
 				'project_slug'   => 'wordpress-seo-premium',
@@ -240,7 +258,7 @@ class WPSEO_Premium {
 				'glotpress_url'  => 'http://translate.yoast.com/gp/',
 				'glotpress_name' => 'Yoast Translate',
 				'glotpress_logo' => 'https://translate.yoast.com/gp-templates/images/Yoast_Translate.svg',
-				'register_url'   => 'https://translate.yoast.com/gp/projects#utm_source=plugin&utm_medium=promo-box&utm_campaign=wpseo-i18n-promo',
+				'register_url'   => 'https://yoa.st/translate',
 			)
 		);
 	}
@@ -291,13 +309,8 @@ class WPSEO_Premium {
 	public function enqueue_social_previews() {
 		global $pagenow;
 
-		$metabox_pages = array(
-			'post-new.php',
-			'post.php',
-			'edit.php',
-		);
 		$social_previews = new WPSEO_Social_Previews();
-		if ( in_array( $pagenow , $metabox_pages, true ) || WPSEO_Taxonomy::is_term_edit( $pagenow ) ) {
+		if ( WPSEO_Metabox::is_post_edit( $pagenow ) || WPSEO_Taxonomy::is_term_edit( $pagenow ) ) {
 			$social_previews->set_hooks();
 		}
 		$social_previews->set_ajax_hooks();
@@ -312,19 +325,20 @@ class WPSEO_Premium {
 	 * @return string
 	 */
 	function redirect_canonical_fix( $redirect_url, $requested_url ) {
-		$redirects = apply_filters( 'wpseo_premium_get_redirects', get_option( 'wpseo-premium-redirects', array() ) );
+		$redirects = new WPSEO_Redirect_Option( false );
 		$path      = parse_url( $requested_url, PHP_URL_PATH );
-		if ( isset( $redirects[ $path ] ) ) {
-			$redirect_url = $redirects[ $path ]['url'];
-			if ( '/' === substr( $redirect_url, 0, 1 ) ) {
-				$redirect_url = home_url( $redirect_url );
-			}
-
-			wp_redirect( $redirect_url, $redirects[ $path ]['type'] );
-			exit;
+		$redirect     = $redirects->get( $path );
+		if ( $redirect === false ) {
+			return $redirect_url;
 		}
 
-		return $redirect_url;
+		$redirect_url = $redirect->get_origin();
+		if ( '/' === substr( $redirect_url, 0, 1 ) ) {
+			$redirect_url = home_url( $redirect_url );
+		}
+
+		wp_redirect( $redirect_url, $redirect->get_type() );
+		exit;
 	}
 
 	/**
@@ -496,10 +510,12 @@ class WPSEO_Premium {
 	 */
 	public function init_helpscout_support() {
 		$query_var = ( $page = filter_input( INPUT_GET, 'page' ) ) ? $page : '';
+		$is_beacon_page = in_array( strtolower( $query_var ), $this->get_beacon_pages(), true );
 
 		// Only add the helpscout beacon on Yoast SEO pages.
-		if ( in_array( $query_var, $this->get_beacon_pages() ) ) {
+		if ( WPSEO_Metabox::is_post_edit( $GLOBALS['pagenow'] )|| $is_beacon_page ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_contact_support' ) );
+
 			$beacon = yoast_get_helpscout_beacon( $query_var, 'no_search' );
 			$beacon->add_setting( new WPSEO_Premium_Beacon_Setting() );
 			$beacon->register_hooks();
@@ -528,6 +544,9 @@ class WPSEO_Premium {
 	 * Add the Yoast contact support assets
 	 */
 	public function enqueue_contact_support() {
-		wp_enqueue_script( 'yoast-contact-support', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/js/dist/wpseo-premium-contact-support-370' . WPSEO_CSSJS_SUFFIX . '.js', array( 'jquery' ), WPSEO_VERSION );
+		$asset_manager = new WPSEO_Admin_Asset_Manager();
+		$version = $asset_manager->flatten_version( WPSEO_VERSION );
+
+		wp_enqueue_script( 'yoast-contact-support', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/js/dist/wpseo-premium-contact-support-' . $version . WPSEO_CSSJS_SUFFIX . '.js', array( 'jquery' ), WPSEO_VERSION );
 	}
 }

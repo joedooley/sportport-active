@@ -16,10 +16,10 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for WP Core video functionality
  *
- * @see      http://codex.wordpress.org/Video_Shortcode
- * @see      http://codex.wordpress.org/Embed_Shortcode
+ * @see      https://codex.wordpress.org/Video_Shortcode
+ * @see      https://codex.wordpress.org/Embed_Shortcode
  *
- * @internal Last update: August 2014 based upon v 3.9.2
+ * {@internal Last update: August 2014 based upon v 3.9.2.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Support_Core' ) ) {
 

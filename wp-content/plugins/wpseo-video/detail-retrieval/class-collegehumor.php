@@ -48,7 +48,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Collegehumor' ) ) {
 
 		/**
 		 * @var	string	Sprintf template to create a url from an id
-		 * @internal Set to embed as it gives better retrieval results compared to video!
+		 * {@internal Set to embed as it gives better retrieval results compared to video!}}
 		 */
 		protected $url_template = 'http://www.collegehumor.com/embed/%s/';
 

@@ -1,26 +1,27 @@
 === Plugin Name ===
 Contributors: baaaaas
 Donate link: 
-Tags: woocommerce pdf invoices, invoice, generate, pdf, woocommerce, attachment, email, completed order, customer invoice, processing order, attach, automatic, vat, rate, sequential, number
+Tags: woocommerce pdf invoices, invoice, packing slips, delivery note, packing list, shipping list, generate, pdf, woocommerce, attachment, email, customer invoice, processing, vat, tax, sequential, number, dropbox, google drive, onedrive, egnyte, cloud, storage
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 2.6.4
+Stable tag: 2.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Automatically generate and attach customizable PDF Invoices to WooCommerce emails and connect with Dropbox, Google Drive, OneDrive or Egnyte.
+Automatically generate and attach customizable PDF Invoices and PDF Packing Slips for WooCommerce emails and directly send to Dropbox, Google Drive, OneDrive or Egnyte.
 
 == Description ==
 *Invoicing can be time consuming. Well, not anymore! WooCommerce PDF Invoices automates the invoicing process by generating and sending it to your customers.*
 
-This WooCommerce plugin generates PDF invoices, attaches it to WooCommerce email types of your choice and sends invoices to your customers and Dropbox, Google Drive, OneDrive or Egnyte. The clean and customizable template will definitely suit your needs.
+This WooCommerce plugin generates PDF invoices and PDF packing slips, attaches it to WooCommerce email types of your choice and sends invoices to your customers' Dropbox, Google Drive, OneDrive or Egnyte. Choose between multiple clean and customizable templates.
 
 = Main features =
 - Automatic PDF invoice generation and attachment.
 - Manually create or delete PDF invoice.
 - Attach PDF invoice to multiple WooCommerce email types of your choice.
+- Generate PDF packing slips.
 - Connect with Google Drive, Egnyte, Dropbox or OneDrive.
-- Clean PDF Invoice template with with many customization options.
+- Multiple clean and highly customizable PDF Invoice templates.
 - WooCommerce order numbering or built-in sequential invoice numbering.
 - Many invoice and date format customization options.
 - Advanced items table with refunds, discounts, different item tax rates columns and more.
@@ -29,10 +30,12 @@ This WooCommerce plugin generates PDF invoices, attaches it to WooCommerce email
 
 > **WooCommerce PDF Invoices Premium**<br /><br />
 > This plugin offers a premium version which comes with the following features:<br /><br />
+> - Design PDF invoices with custom fonts.<br />
+> - Multilingual PDF invoices with WPML and Polylang<br />
 > - Bulk generate PDF invoices<br />
 > - Bulk export and/or download PDF invoices<br />
 > - Periodically bill by generating and sending global invoices<br />
-> - Add additional PDF files to customer invoices.<br />
+> - Add additional PDF files to PDF invoices.<br />
 > - Send customer invoices directly to multiple recipients like suppliers.<br />
 > - Compatible with [WooCommerce Subscriptions](http://www.woothemes.com/products/woocommerce-subscriptions) plugin emails.<br /><br />
 > [Upgrade to WooCommerce PDF Invoices Premium >>](http://wcpdfinvoices.com)
@@ -57,7 +60,8 @@ Contribute a translation on [GitHub](https://github.com/baselbers/woocommerce-pd
 4. Create new invoice from the order page.
 5. View invoice from the shop order page.
 6. Download invoice from account.
-6. Nice and clean template with refunds, different tax rates, the ability to change the color and more!
+7. Nice and clean template called 'Micro'.
+8. Nice and clean template called 'Minimal'.
 
 == Installation ==
 
@@ -76,7 +80,9 @@ The manual installation method involves downloading our plugin and uploading it 
 == Frequently Asked Questions ==
 
 #### How to add your custom template?
-To getting started, copy the default template files (including folder) called `plugins/woocommerce-pdf-invoices/includes/templates/invoices/simple/micro` to `uploads/bewpi-templates/invoices/simple` and rename the template folder `micro`. The plugin will now detect the template and makes it available for selection within the template settings tab. Now go ahead en start making some changes to the template files! :)
+Copy the default template files (including folder) you'll find in `plugins/woocommerce-pdf-invoices/includes/templates/invoice/simple` to `uploads/woocommerce-pdf-invoices/templates/invoice/simple`. The plugin will automatically detect the template and makes it available for selection within the Template Settings. Now go ahead and start making some changes to the template files! :)
+
+Important: Before you update the plugin, always have a look at the Changelog if their have been any changes to the template files. There will be updates that require updating your custom template!
 
 #### How to add a fee to the invoice?
 To add a fee to WooCommerce and your invoice, simply add the following action to your themes `functions.php`.
@@ -142,20 +148,21 @@ add_filter( 'bewpi_mpdf_options', 'custom_bewpi_mpdf_options' );
 To fully customize the PDF, use below code. This filter gives you full control over the mPDF library. Check the mPDF [manual](https://www.dropbox.com/s/h44f7v5anvcmmvl/mpdfmanual.pdf?dl=0) for more info.
 
 `
-function bewpi_mpdf( $mpdf ) {
+function bewpi_mpdf( $mpdf, $document ) {
     // change the direction of the invoice to RTL
     $mpdf->SetDirectionality( 'rtl' );
 
     return $mpdf;
 }
-add_filter( 'bewpi_mpdf', 'bewpi_mpdf' );
+add_filter( 'bewpi_mpdf', 'bewpi_mpdf', 10, 2 );
 `
 
 #### How to display invoice download button on specific template files?
 Add below code for example to your "thankyou" page or "customer-completed-order" email template.
 
 `
-echo do_shortcode( '[bewpi-download-invoice title="Download (PDF) Invoice {formatted_invoice_number}" order_id="' . $order->id . '"]' );
+$order_id = method_exists( 'WC_Order', 'get_id' ) ? $this->order->get_id() : $this->order->id;
+echo do_shortcode( '[bewpi-download-invoice title="Download (PDF) Invoice {formatted_invoice_number}" order_id="' . $order_id . '"]' );
 `
 
 For use in WordPress editor use below shortcode. This will only work if you replace "{ORDER_ID}" with an actual order id.
@@ -166,20 +173,6 @@ For use in WordPress editor use below shortcode. This will only work if you repl
 
 Note: Download button will only be displayed when PDF exists and order has been paid.
 
-#### Logo image shows a red cross?
-By default the relative path is used for better performance, try to base64 the image. Also read the sticky topic on the support forum for more solutions!
-
-`
-function convert_company_logo_to_base64( $company_logo_path ) {
-    $company_logo_url = str_replace( '..', get_site_url(), $company_logo_path );
-    $type = pathinfo( $company_logo_url, PATHINFO_EXTENSION );
-    $data = wp_remote_fopen( $company_logo_url );
-    $base64 = 'data:image/' . $type . ';base64,' . base64_encode( $data );
-    return $base64;
-}
-add_filter( 'bewpi_company_logo_url', 'convert_company_logo_to_base64' );
-`
-
 #### How to skip invoice generation based on specific payment methods?
 Add the name of the payment method to the array.
 
@@ -188,6 +181,18 @@ function bewpi_attach_invoice_excluded_payment_methods( $payment_methods ) {
     return array( 'bacs', 'cod', 'cheque', 'paypal' );
 }
 add_filter( 'bewpi_attach_invoice_excluded_payment_methods', 'bewpi_attach_invoice_excluded_payment_methods', 10, 2 );
+`
+
+#### How to skip invoice generation in general?
+Add below function to your themes 'functions.php' file.
+
+`
+function bewpi_skip_invoice_generation( $skip, $status, $order ) {
+    // Do your stuff based on the order.
+
+    return true; // True to skip.
+}
+add_filter( 'bewpi_skip_invoice_generation', 'bewpi_skip_invoice_generation', 10, 3 );
 `
 
 #### How to allow specific roles to download invoice?
@@ -204,27 +209,106 @@ add_filter( 'bewpi_allowed_roles_to_download_invoice', 'bewpi_allowed_roles_to_d
 `
 
 ### How to alter formatted invoice number? ###
-Add following filter function to your functions.php within your theme.
+Add following filter function to your 'functions.php' within your theme.
 
 `
-function alter_formatted_invoice_number( $formatted_invoice_number, $invoice_type ) {
-   if ( $invoice_type === 'global' ) { // simple or global.
+function alter_formatted_invoice_number( $formatted_invoice_number, $document_type ) {
+   if ( $document_type === 'invoice/global' ) { // 'simple' or 'global'.
       // add M for global invoices.
       return 'M' . $formatted_invoice_number;
    }
+
    return $formatted_invoice_number;
 }
 add_filter( 'bewpi_formatted_invoice_number', 'alter_formatted_invoice_number', 10, 2 );
 `
 
 ### How to add custom fields/meta-data to the PDF invoice template? ###
-To add custom fields to the PDF invoice, a custom template is required. See FAQ on how to create a custom template. Use below code to display the meta-data. Replace META_KEY with the actual name of the custom field. Ask the author of the third party plugin if you don't know the name of the custom field.
+Use below code to display meta-data. Replace `{META_KEY}` with the actual key. If you use another plugin, just ask the key from the author of that plugin.
 
 `
-<?php echo get_post_meta( $this->order->id, 'META_KEY', true ); ?>
+<?php echo BEWPI()->templater()->get_meta( '{META_KEY}' ); ?>
 `
+
+Important: A custom template is required to add a custom field to the PDF invoice.
 
 == Changelog ==
+
+= 2.9.0 - May 15, 2017 =
+
+- Improved: Spanish translation files thanks to [Jorge Fuentes](www.jorgefuentes.net).
+- Improved: Settings classes with a complete refactor.
+- Improved: File names by removing unnecessary prefixes.
+- Improved: PDF invoice generation by skipping unnecessary PDF invoice update for same request.
+- Improved: Deactivation notice by only checking for notice on plugins.php page.
+- Fixed: Facebook share button.
+- Fixed: Download from my account page not working.
+- Fixed: Item meta and download item meta not displayed inline within table cells by stripping `<p>` and `<br>` tags. Update custom template needed!
+- Removed: Unused CSS and JS.
+
+= 2.8.1 - April 21, 2017 =
+
+- Added: Option to disable Packing Slips.
+- Added: Composer (PHP 5.2 compatible) classmap autoloading.
+- Added: Custom `get_order_item_totals()` method to be able to override and did some backporting.
+- Improved: JavaScript by only running code on correct page.
+- Improved: Plugin size by using forked mpdf repo and removed a lot of default fonts to keep only [fonts that cover most languages/characters](https://mpdf.github.io/fonts-languages/fonts-language-cover-v5-x.html).
+- Improved: Font by switching from 'Arial' to 'dejavusanscondensed' for best character coverage.
+- Improved: WooCommerce compatibility.
+- Improved: Prefix and suffix by removing unnecessary '[prefix]' and '[suffix]' placeholders.s
+- Improved: Language files.
+- Improved: Admin notices hooks only loading on admin.
+- Improved: 'bewpi_mpdf' filter by moving it directly before document write and added document object as argument.
+- Fixed: Template specific settings not always showing. Make sure your custom template contains template name in order to get template specific settings.
+- Fixed: 'PHP Warning:  copy(): The first argument to copy() function cannot be a directory' when moving PDF invoices to new uploads directory.
+- Removed: Refunds in totals on 'Minimal' invoice template.
+
+= 2.8.0 - April 19, 2017 =
+
+- Added: Packing Slip PDF document (for 'Minimal' template, not 'Micro').
+- Fixed: 'Warning: ReflectionProperty::getValue() expects exactly 1 parameter, 0 given'.
+
+= 2.7.3 - April 18, 2017 =
+
+- Improved: `setup_directories()` running on every (admin) request by only running when `WPI_UPLOADS_DIR` does not exists.
+- Fixed: 'Call to undefined function bewpi_get_id()' by dumping Composer autoloading.
+- Fixed: `GLOB_BRACE` unsupported on some systems.
+
+= 2.7.2 - April 18, 2017 =
+
+- Added: Filter 'bewpi_my_account_pdf_name' to change the name of the PDF button on My Account page.
+- Fixed: 'Fatal error: Call to a member function get_id() on null' by checking object type in method `add_emailitin_as_recipient()`.
+
+= 2.7.1 - April 14, 2017 =
+
+- Fixed: 'PHP Fatal error:  Call to undefined method WC_Order::get_id()'.
+
+= 2.7.0 - April 13, 2017 =
+
+- Added: A brand new template inspired by [NextStepWebs](https://github.com/NextStepWebs/simple-html-invoice-template) called 'Minimal' that makes use of the new `BEWPI()->templater()` class. Important: 'Micro' template is deprecated and will no longer be supported. We've created a petition [#162](https://github.com/baselbers/woocommerce-pdf-invoices/issues/162) where you can leave a vote to keep the 'Micro' template.
+- Added: 'composer.json' file, requiring mPDF and using autoloading.
+- Added: Class `BEWPI_Template` which serves all template data. Your custom template needs an update!
+- Added: 'bewpi_skip_invoice_generation' filter to skip invoice based on order data like products, categories etc.
+- Improved: Uploads directory by moving all files (templates, invoices and fonts) to new 'uploads/woocommerce-pdf-invoices' directory! Do not use the old uploads/bewpi-invoices and uploads/bewpi-templates anymore!
+- Improved: `load_plugin_textdomain` method by using locale filter.
+- Improved: File structure by moving partials to includes/admin/views.
+- Improved: Invoice number reset by using transient instead of updating complete template options.
+- Improved: Template by using `printf()` for better readability and added html escaping.
+- Improved: Template by checking for company logo url to display logo.
+- Improved: `get_template()` method by moving it to `BEWPI_Abstract_Document` class so child classes can use it.
+- Improved: 'bewpi_before_document_generation' action by changing arguments array into separate variables.
+- Improved: Invoice `type` variable by using relative paths (invoice/simple and invoice/global), so renamed 'invoices' directory to singular 'invoice'.
+- Improved: `templater()` by setting `$order` object as a class variable, so the class methods can make use of it instead of using `$order_id` as param.
+- Improved: Settings descriptions due to new template.
+- Improved: Settings page by not showing related settings based on selected template.
+- Fixed: PDF invoice url by changing order of filter arguments.
+- Fixed: 'Invoice No.' column not always before 'Actions' column on Shop Order page.
+- Fixed: '_bewpi_pdf_invoice_path' postmeta only created when option 'Reset yearly' is enabled.
+- Fixed: WooCommerce 3.x.x+ compatibility.
+- Removed: Unused and unnecessary actions 'bewpi_before_output_template_to_buffer' and 'bewpi_after_output_template_to_buffer'.
+- Removed: 'bewpi_lang_dir' filter, because WordPress made update-safe directory 'wp-content/languages/plugins'.
+- Removed: `get_template_dir()` method. Using `BEWPI()->templater->get_template()` instead.
+- Removed: Open Sans font and replaced it with Arial due to the use of composer. We load all fonts from mPDF library now.
 
 = 2.6.4 - March 6, 2017 =
 

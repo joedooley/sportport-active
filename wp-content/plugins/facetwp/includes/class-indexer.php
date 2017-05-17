@@ -17,12 +17,36 @@ class FacetWP_Indexer
 
 
     function __construct() {
+        if ( apply_filters( 'facetwp_indexer_is_enabled', true ) ) {
+            $this->run_hooks();
+            $this->run_cron();
+        }
+    }
+
+
+    /**
+     * Event listeners
+     * @since 2.8.4
+     */
+    function run_hooks() {
         add_action( 'save_post',                array( $this, 'save_post' ) );
         add_action( 'delete_post',              array( $this, 'delete_post' ) );
         add_action( 'edited_term',              array( $this, 'edit_term' ), 10, 3 );
         add_action( 'delete_term',              array( $this, 'delete_term' ), 10, 4 );
         add_action( 'set_object_terms',         array( $this, 'set_object_terms' ) );
+        add_action( 'facetwp_indexer_cron',     array( $this, 'get_progress' ) );
         add_filter( 'wp_insert_post_parent',    array( $this, 'is_wp_insert_post' ) );
+    }
+
+
+    /**
+     * Cron task
+     * @since 2.8.5
+     */
+    function run_cron() {
+        if ( ! wp_next_scheduled( 'facetwp_indexer_cron' ) ) {
+            wp_schedule_single_event( time() + 300, 'facetwp_indexer_cron' );
+        }
     }
 
 

@@ -28,8 +28,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_Archiveorg' ) ) {
 	/**
 	 * Class WPSEO_Video_Details_Archiveorg
 	 *
-	 * @internal - no $id_regex has been set as both plugins which support archive.org should return an id anyway
-	 * If this changes, this may need looking into.
+	 * {@internal No $id_regex has been set as both plugins which support archive.org should return an id anyway.
+	 * If this changes, this may need looking into.}}
 	 */
 	class WPSEO_Video_Details_Archiveorg extends WPSEO_Video_Details {
 

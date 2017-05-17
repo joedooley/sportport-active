@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @class		Receiptful_Front_End
  * @since		1.1.4
  * @version		1.1.6
- * @author		Receiptful
+ * @author		Conversio
  */
 class Receiptful_Front_End {
 
@@ -24,7 +24,7 @@ class Receiptful_Front_End {
 		// Track pageviews
 		add_action( 'wp_footer', array( $this, 'page_tracking' ) );
 
-		// Receiptful search
+		// Conversio search
 		if ( get_option( 'receiptful_enable_search' ) == 'yes' ) {
 			add_action( 'wp_footer', array( $this, 'receiptful_search' ) );
 		}
@@ -89,7 +89,7 @@ class Receiptful_Front_End {
 	/**
 	 * Search.
 	 *
-	 * Initialize the Receiptful search feature.
+	 * Initialize the Conversio search feature.
 	 *
 	 * @since 1.2.3
 	 */

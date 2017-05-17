@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @class		Receiptful_Abandoned_Cart
  * @since		1.2.0
  * @version		1.2.0
- * @author		Receiptful
+ * @author		Conversio
  */
 class Receiptful_Abandoned_Cart {
 
@@ -44,7 +44,7 @@ class Receiptful_Abandoned_Cart {
 	/**
 	 * Cart update.
 	 *
-	 * Send a cart update to Receiptful when a product is added, removed, changed or restored.
+	 * Send a cart update to Conversio when a product is added, removed, changed or restored.
 	 *
 	 * @since 1.2.0
 	 */
@@ -92,20 +92,22 @@ class Receiptful_Abandoned_Cart {
 		$cart_items_args = array();
 		foreach ( $cart_items as $cart_item_key => $cart_item ) {
 
-			$price = $cart_item['data']->get_price();
+			/** @var WC_Product $product */
+			$product = $cart_item['data'];
+			$price = $product->get_price();
 			// Taxable
-			if ( $cart_item['data']->is_taxable() ) {
+			if ( $product->is_taxable() ) {
 				if ( get_option( 'woocommerce_tax_display_cart' ) == 'excl' ) {
-					$price = $cart_item['data']->get_price_excluding_tax();
+					$price = function_exists( 'wc_get_price_excluding_tax' ) ? wc_get_price_excluding_tax( $product ) : $product->get_price_excluding_tax();
 				} else {
-					$price = $cart_item['data']->get_price_including_tax();
+					$price = function_exists( 'wc_get_price_including_tax' ) ? wc_get_price_including_tax( $product ) : $product->get_price_including_tax();
 				}
 			}
 
 			$cart_items_args[] = array(
 				'reference'   => $cart_item['product_id'],
 				'variant'     => $cart_item['variation_id'],
-				'description' => $cart_item['data']->get_title(),
+				'description' => $product->get_title(),
 				'quantity'    => $cart_item['quantity'],
 				'amount'      => $price,
 				'attributes'  => $this->prep_cart_item_attributes( $cart_item )

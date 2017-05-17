@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the YouTube Shortcode plugin
  *
- * @see http://wordpress.org/extend/plugins/youtube-shortcode/
+ * @see https://wordpress.org/plugins/youtube-shortcode/
  *
- * @internal Last update: July 2014 based upon v 1.8.5
+ * {@internal Last update: July 2014 based upon v 1.8.5.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_Shortcode' ) ) {
 

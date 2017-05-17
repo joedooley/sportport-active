@@ -1,26 +1,30 @@
-# Copyright (C) 2016 WooThemes / SkyVerge
+# Copyright (C) 2017 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Authorize.Net AIM Gateway 3.9.2\n"
-"Report-Msgid-Bugs-To: https://support.woothemes.com/hc/\n"
+"Project-Id-Version: WooCommerce Authorize.Net AIM Gateway 3.11.1\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/tickets/\n"
 "POT-Creation-Date: 2014-06-15 22:41:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: includes/api/class-wc-authorize-net-aim-api-request.php:322
+#: includes/api/class-wc-authorize-net-aim-api-request.php:320
+msgid "Fee"
+msgstr ""
+
+#: includes/api/class-wc-authorize-net-aim-api-request.php:321
 msgid "Order Fee"
 msgstr ""
 
-#: includes/api/class-wc-authorize-net-aim-api-request.php:357
+#: includes/api/class-wc-authorize-net-aim-api-request.php:356
 msgid "Order Taxes"
 msgstr ""
 
-#: includes/api/class-wc-authorize-net-aim-api-request.php:380
+#: includes/api/class-wc-authorize-net-aim-api-request.php:379
 msgid "Order Shipping"
 msgstr ""
 
@@ -82,47 +86,47 @@ msgid ""
 "AIM."
 msgstr ""
 
-#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:78
+#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:79
 #: includes/class-wc-gateway-authorize-net-aim-echeck.php:57
 #: includes/class-wc-gateway-authorize-net-aim-emulation.php:80
 msgid "Production"
 msgstr ""
 
-#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:78
+#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:79
 #: includes/class-wc-gateway-authorize-net-aim-echeck.php:57
 #: includes/class-wc-gateway-authorize-net-aim-emulation.php:81
 msgid "Test"
 msgstr ""
 
-#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:110
-#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:125
+#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:111
+#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:126
 msgid "Accept.js"
 msgstr ""
 
-#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:113
-#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:128
+#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:114
+#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:129
 msgid ""
 "Enable Accept.js to minimize PCI compliance and send credit card details "
 "directly to Authorize.Net"
 msgstr ""
 
-#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:115
-#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:130
+#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:116
+#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:131
 msgid ""
 "You must obtain a Client Key to use Accept.js at checkout. %1$sLearn more "
 "&raquo;%2$s"
 msgstr ""
 
-#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:119
-#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:134
+#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:120
+#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:135
 msgid "Client Key"
 msgstr ""
 
-#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:215
+#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:216
 msgid "An error occurred, please try again or try an alternate form of payment."
 msgstr ""
 
-#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:369
+#: includes/class-wc-gateway-authorize-net-aim-credit-card.php:352
 msgid "%s Refund error - order is missing credit card last four."
 msgstr ""
 
@@ -210,44 +214,68 @@ msgstr ""
 msgid "WooCommerce Authorize.Net AIM Gateway"
 msgstr ""
 
-#: woocommerce-gateway-authorize-net-aim.php:313
-msgid "Disable Emulation Gateway"
+#: woocommerce-gateway-authorize-net-aim.php:300
+msgid "Province"
+msgstr ""
+
+#: woocommerce-gateway-authorize-net-aim.php:305
+msgid "Island"
+msgstr ""
+
+#: woocommerce-gateway-authorize-net-aim.php:309
+msgid "State"
 msgstr ""
 
 #: woocommerce-gateway-authorize-net-aim.php:314
+msgid "County"
+msgstr ""
+
+#: woocommerce-gateway-authorize-net-aim.php:320
+msgid "District"
+msgstr ""
+
+#: woocommerce-gateway-authorize-net-aim.php:324
+msgid "Region"
+msgstr ""
+
+#: woocommerce-gateway-authorize-net-aim.php:355
+msgid "Disable Emulation Gateway"
+msgstr ""
+
+#: woocommerce-gateway-authorize-net-aim.php:356
 msgid "Enable Emulation Gateway"
 msgstr ""
 
-#: woocommerce-gateway-authorize-net-aim.php:336
+#: woocommerce-gateway-authorize-net-aim.php:378
 msgid "Configure Emulator"
 msgstr ""
 
-#: woocommerce-gateway-authorize-net-aim.php:340
+#: woocommerce-gateway-authorize-net-aim.php:382
 msgid "Configure eChecks"
 msgstr ""
 
-#: woocommerce-gateway-authorize-net-aim.php:344
+#: woocommerce-gateway-authorize-net-aim.php:386
 msgid "Configure Credit Cards"
 msgstr ""
 
-#: woocommerce-gateway-authorize-net-aim.php:402
+#: woocommerce-gateway-authorize-net-aim.php:444
 msgid "%s: A valid Client Key is required to use Accept.js at checkout."
 msgstr ""
 
-#: woocommerce-gateway-authorize-net-aim.php:404
+#: woocommerce-gateway-authorize-net-aim.php:446
 msgid "%s: SSL is required to use Accept.js at checkout."
 msgstr ""
 
-#: woocommerce-gateway-authorize-net-aim.php:419
+#: woocommerce-gateway-authorize-net-aim.php:461
 msgid "Authorize.Net AIM Emulation Gateway is now enabled."
 msgstr ""
 
-#: woocommerce-gateway-authorize-net-aim.php:420
+#: woocommerce-gateway-authorize-net-aim.php:462
 msgid "Authorize.Net AIM Emulation Gateway is now disabled."
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "http://www.woothemes.com/products/authorize-net-aim/"
+msgid "http://www.woocommerce.com/products/authorize-net-aim/"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -257,11 +285,11 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "WooThemes / SkyVerge"
+msgid "SkyVerge"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://www.woothemes.com"
+msgid "http://www.woocommerce.com"
 msgstr ""
 
 #: includes/api/class-wc-authorize-net-aim-api-request.php:163

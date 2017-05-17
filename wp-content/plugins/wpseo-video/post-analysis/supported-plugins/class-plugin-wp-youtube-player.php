@@ -16,9 +16,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the WP YouTube Player plugin
  *
- * @see      http://wordpress.org/extend/plugins/wp-youtube-player/
+ * @see      https://wordpress.org/plugins/wp-youtube-player/
  *
- * @internal Last update: July 2014 based upon v 1.7
+ * {@internal Last update: July 2014 based upon v 1.7.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_WP_Youtube_Player' ) ) {
 

@@ -1,5 +1,58 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2017.05.09 - version 7.1.1
+* Fix issue where some files missing from packaged release
+* Add basic support for bundle products
+
+2017.05.03 - version 7.1.0
+* Fix issue where Composite products weren't included
+* Fix issue where External products were incorrectly included
+* Fix issue where definition of constant could conflict with other plugins
+* Introduce render cache for feeds, disabled by default pending testing, see https://docs.woocommerce.com/document/google-product-feed-feed-item-caching/ for information on how to test this
+
+2017.04.25 - version 7.0.8
+* Fix issue where variation ID not passed to woocommerce_gpf_elements filters
+* Fix issue where incorrect product ID passed to woocommerce_gpf_elements filters
+* Fix issue where is_bundle checkbox could not be unticked on a product edit screen
+* Fix issue where sale price effective dates weren't output correctly on WooCommerce 3.x
+* Fix warning shown generated when products have sale prices on WooCommerce 3.x
+* Update identifier_exists logic. Identifiers are now required for all countries
+
+2017.03.30 - version 7.0.7
+* Fix issue with "identifier exists" option not showing selected value correctly on settings form
+* Change mime-type of bing feed to fix issues when running behind CloudFlare
+* Fix issues where variation options were missing from variation titles in the feed
+
+2017.03.06 - version 7.0.6
+* Fix issue where descriptions weren't always passed through the_content filter
+* Fix issue where URL-based category filtering didn't work with permalink-style feed URLs
+* Remove some unused code
+
+2017.03.06 - version 7.0.5
+* Further compatibility changes in preparation for WooCommerce 2.7
+
+2017.02.27 - version 7.0.4
+* Fix error triggered on PHP releases < 5.4.
+
+2017.02.20 - version 7.0.3
+* Fix issue where incorrect variation price was picked when not including all variations in the feed
+* Update Bing feed to apply tax in relevant countries
+* Remove shipping dimension attributes from Google Inventory feed
+
+2017.02.06 - version 7.0.2
+* Fix issue where PHP warning could be generated.
+
+2017.01.20 - version 7.0.1
+* Fix issue where partial (chunked) feed settings were not always applied.
+
+2017.01.17 - version 7.0.0
+* Internal rewrites, including some performance improvements
+* Allow the shipping dimension unit types to be overridden
+* Allow feed to be generated for a specific category / set of categories via URL string
+Avoid warnings if taxonomies are removed after being set to be used for preopulation
+* WooCommerce 2.7 related updates. Take advantage of new APIs for fetching products if available.
+* Adds on-page structured data when running on WooCommerce 2.7+ (sku, itemCondition, gtin and mpn)
+
 2016.10.31 - version 6.8.1
 * Change plugin URL to WooCommerce domain
 * Ensure plugin links always go to WooCommerce, not WordPress.org

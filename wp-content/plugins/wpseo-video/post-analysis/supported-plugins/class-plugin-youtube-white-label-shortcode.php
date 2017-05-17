@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the YouTube White Label Shortcode plugin
  *
- * @see      http://wordpress.org/extend/plugins/youtube-white-label-shortcode/
+ * @see      https://wordpress.org/plugins/youtube-white-label-shortcode/
  *
- * @internal Last update: July 2014 based upon v 0.3
+ * {@internal Last update: July 2014 based upon v 0.3.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_White_Label_Shortcode' ) ) {
 

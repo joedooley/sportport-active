@@ -18,7 +18,7 @@
  *
  * @package   SkyVerge/WooCommerce/Payment-Gateway/Payment-Tokens
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2016, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2017, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -543,15 +543,6 @@ class SV_WC_Payment_Gateway_Payment_Tokens_Handler {
 
 		if ( is_object( $token ) ) {
 			$token = $token->get_id();
-		}
-
-		// this is sort of a weird edge case: verifying a token exists for a guest customer
-		//  using an API that doesn't support a tokenized payment method query operation.
-		//  We will neither have a user record in the db, nor can we query the API endpoint,
-		//  so just return true
-		// Sample case: Guest pre-order transaction using FirstData
-		if ( ! $this->get_gateway()->get_api()->supports_get_tokenized_payment_methods() && ! $user_id ) {
-			return true;
 		}
 
 		// token exists?

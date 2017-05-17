@@ -1,0 +1,632 @@
+# Translation of WooCommerce - WooCommerce Pay With Amazon - 1.6.1 in Italian
+# This file is distributed under the same license as the WooCommerce - WooCommerce Pay With Amazon - 1.6.1 package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2016-11-04 17:45:03+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.0-alpha\n"
+"Language: it\n"
+"Project-Id-Version: WooCommerce - WooCommerce Pay With Amazon - 1.6.1\n"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:686
+msgid "You have not selected a shipping address from your Amazon account. Please choose a shipping address for this order."
+msgstr "Non hai selezionato un indirizzo di spedizione dall'account Amazon. Scegli un indirizzo di spedizione per questo ordine."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:684
+msgid "There has been a problem with the selected payment method from your Amazon account. Please update the payment method or choose another one."
+msgstr "Si è verificato un problema con il metodo di pagamento selezionato dall'account Amazon. Aggiorna il metodo di pagamento o scegline un altro."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:681
+msgid "You have not selected a payment method from your Amazon account. Please choose a payment method for this order."
+msgstr "Non hai selezionato un metodo di pagamento dall'account Amazon. Scegli un metodo di pagamento per questo ordine."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:678
+msgid "You cannot shop on your own store."
+msgstr "Non puoi effettuare acquisti nel tuo negozio."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:621
+msgid "Unable to refund order %s. Order does not have Amazon capture reference. Make sure order has been captured."
+msgstr "Impossibile rimborsare l'ordine %s. L'ordine non presenta il riferimento di acquisizione Amazon. Assicurati che l'ordine sia stato acquisito."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:415
+msgid "Error: MWS responded with a RequestExpired error. This is typically caused by a system time issue. Please make sure your system time is correct and try again. (Current system time: %s)"
+msgstr "Errore: MWS ha risposto con l'errore RequestExpired. Di solito ciò si verifica a causa di un problema relativo all'ora di sistema. Assicurati che l'ora di sistema sia corretta e riprova. (Ora di sistema attuale: %s)"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:362
+msgid "This will hides Amazon buttons on cart and checkout pages so the gateway looks not available to the customers. The buttons are hidden via CSS. Only enable this when troubleshooting your integration."
+msgstr "Tramite questa operazione verranno nascosti i pulsanti Amazon nelle pagine del carrello e del pagamento e ai clienti il gateway sembrerà non disponibile. I pulsanti vengono nascosti tramite CSS. Attiva questa modalità solo durante la risoluzione dei problemi relativi all'integrazione."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:361
+msgid "Enable hide button mode"
+msgstr "Attiva la modalità Nascondi i pulsanti"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:360
+msgid "Hide Button Mode"
+msgstr "Modalità Nascondi i pulsanti"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:338
+msgid "Spain's Spanish"
+msgstr "Spagnolo della Spagna"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:337
+msgid "Italy's Italian"
+msgstr "Italiano dell'Italia"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:336
+msgid "France's French"
+msgstr "Francese della Francia"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:335
+msgid "Germany's German"
+msgstr "Tedesco delle Germania"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:334
+msgid "UK English"
+msgstr "Inglese della Gran Bretagna"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:333
+msgid "Detect from buyer's browser"
+msgstr "Rileva dal browser dell'acquirente"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:328
+msgid "Language to use in Login with Amazon or a Pay with Amazon button. Only used when Amazon Login App is enabled."
+msgstr "La lingua da usare per il pulsante Accedi con Amazon o Pagare con Amazon. Usato solamente quando è attivata l'app di accesso ad Amazon."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:327
+msgid "Button language"
+msgstr "Lingua del pulsante"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:203
+msgid "Amazon Payments"
+msgstr "Amazon Payments"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:25
+msgid "Login &amp; Pay with Amazon"
+msgstr "Accedi e paga con Amazon"
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:481
+msgid "Specified resource does not have Amazon capture ID"
+msgstr "Le risorse specificate non presentano un ID di acquisizione Amazon"
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:407
+msgid "Refund amount must be greater than zero."
+msgstr "Il rimborso deve essere superiore a zero."
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:92
+msgid "Reason for refund."
+msgstr "Motivo per il rimborso."
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:87
+msgid "Refund amount."
+msgstr "Importo del rimborso."
+
+#. Author URI of the plugin/theme
+msgid "http://woothemes.com"
+msgstr "http://woothemes.com"
+
+#. Author of the plugin/theme
+msgid "WooThemes"
+msgstr "WooThemes"
+
+#. Description of the plugin/theme
+msgid "Amazon Payments Advanced is embedded directly into your existing web site, and all the buyer interactions with Amazon Payments Advanced take place in embedded widgets so that the buyer never leaves your site. Buyers can log in using their Amazon account, select a shipping address and payment method, and then confirm their order. Requires an Amazon Seller account with the Amazon Payments Advanced service provisioned. Supports DE, UK, and US."
+msgstr "Amazon Payments Advanced è integrato direttamente nel tuo sito web esistente e le interazioni di tutti gli acquirenti con Amazon Payments Advanced avvengono nei widget integrati, in questo modo gli acquirenti non lasciano mai il tuo sito. Gli acquirenti possono accedere usando il loro account Amazon, selezionare un indirizzo di spedizione e un metodo di pagamento e in seguito confermare il loro ordine. Richiede un account venditore Amazon con il servizio Amazon Payments Advanced. Supporta DE, UK e US."
+
+#. Plugin URI of the plugin/theme
+msgid "http://woothemes.com/woocommerce"
+msgstr "http://woothemes.com/woocommerce"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Amazon Payments Advanced Gateway"
+msgstr "Gateway WooCommerce Amazon Payments Advanced"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:601
+msgid "Error:"
+msgstr "Errore:"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:417
+msgid "Error: MWS keys you provided are not valid. Please double-check that you entered them correctly and try again."
+msgstr "Errore: le chiavi MWS fornite non sono valide. Verifica di averle inserite correttamente e riprova."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:405
+msgid "Error: You must enter MWS Secret Key."
+msgstr "Errore: devi inserire la chiave MWS segreta."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:355
+msgid "Sends debug messages to the WooCommerce System Status log."
+msgstr "Invia i messaggi di debug al registro dello stato di sistema di WooCommerce."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:353
+msgid "Enable debugging messages"
+msgstr "Attiva messaggi di debug"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:352
+msgid "Debug"
+msgstr "Debug"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:348
+msgid "Miscellaneous"
+msgstr "Varie"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:344
+msgid "Hide standard checkout button on cart page"
+msgstr "Nascondi il pulsante di pagamento standard nella pagina del carrello"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:342
+msgid "Standard checkout button"
+msgstr "Pulsante di pagamento standard"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:323
+msgid "Dark gray"
+msgstr "Grigio scuro"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:322
+msgid "Light gray"
+msgstr "Grigio chiaro"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:321
+msgid "Gold"
+msgstr "Oro"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:316
+msgid "Button color to display on cart and checkout pages. Only used when Amazon Login App is enabled."
+msgstr "Il colore del pulsante visualizzato nelle pagine del carrello e del pagamento. Usato solamente quando è attivata l'app di accesso ad Amazon."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:315
+msgid "Button color"
+msgstr "Colore del pulsante"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:311
+msgid "X-Large"
+msgstr "Molto grande"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:310
+msgid "Large"
+msgstr "Grande"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:309
+msgid "Medium"
+msgstr "Medio"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:308
+msgid "Small"
+msgstr "Piccolo"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:303
+msgid "Button size to display on cart and checkout pages. Only used when Amazon Login App is enabled."
+msgstr "La dimensione del pulsante visualizzato nelle pagine del carrello e del pagamento. Usato solamente quando è attivata l'app di accesso ad Amazon."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:302
+msgid "Button size"
+msgstr "Dimensioni del pulsante"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:298
+msgid "Button with Amazon Payments logo"
+msgstr "Pulsante con il logo Amazon Payments"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:297
+msgid "Button with text Pay"
+msgstr "Pulsante con il testo Paga"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:296
+msgid "Button with text Pay with Amazon"
+msgstr "Pulsante con il testo Pagare con Amazon"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:295
+msgid "Button with text Login"
+msgstr "Pulsante con il testo Accedi"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:294
+msgid "Button with text Login with Amazon"
+msgstr "Pulsante con il testo Accedi con Amazon"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:289
+msgid "Type of button image to display on cart and checkout pages. Only used when Amazon Login App is enabled."
+msgstr "Il tipo di pulsante visualizzato nelle pagine del carrello e del pagamento. Usato solamente quando è attivata l'app di accesso ad Amazon."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:288
+msgid "Button type"
+msgstr "Tipo di pulsante"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:282
+msgid "Disabled"
+msgstr "Disattivato"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:281
+msgid "Banner"
+msgstr "Banner"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:280
+msgid "Button"
+msgstr "Pulsante"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:277
+msgid "How the login with Amazon button gets displayed on the cart page. This requires cart page served via HTTPS. If HTTPS is not available in cart page, please select disabled."
+msgstr "Come viene visualizzato il pulsante Accedi con Amazon nella pagina del carrello. La pagina del carrello deve essere elaborata tramite HTTPS. Se HTTPS non è disponibile nella pagina del carrello, seleziona l'opzione per la disattivazione."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:276
+msgid "Cart login button display"
+msgstr "Visualizzazione del pulsante di accesso al carrello"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:272
+msgid "Customize the appearance of Amazon widgets."
+msgstr "Personalizza l'aspetto dei widget di Amazon."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:271
+msgid "Display options"
+msgstr "Opzioni di visualizzazione"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:267
+msgid "Don’t Authorize the payment when the order is placed (i.e. for pre-orders)."
+msgstr "Non autorizzo il pagamento al momento dell'ordine (ad esempio, per i preordini)."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:266
+msgid "Authorize the payment when the order is placed."
+msgstr "Autorizzo il pagamento al momento dell'ordine."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:265
+msgid "Authorize and Capture the payment when the order is placed."
+msgstr "Autorizzo e acquisisco il pagamento al momento dell'ordine."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:260
+msgid "Payment Capture"
+msgstr "Acquisizione del pagamento"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:254
+msgid "Enable sandbox mode during testing and development - live payments will not be taken if enabled."
+msgstr "Attiva la modalità sandbox durante il test e lo sviluppo. I pagamenti in tempo reale non verranno accettati quando è attivata tale modalità."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:253
+msgid "Use Sandbox"
+msgstr "Usa la sandbox"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:246
+msgid "App Client Secret"
+msgstr "Chiave segreta del client dell'app"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:239
+msgid "App Client ID"
+msgstr "ID del client dell'app"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:232
+msgid "Use Amazon Login App"
+msgstr "Usa l'app di accesso ad Amazon"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:225
+msgid "MWS Secret Key"
+msgstr "Chiave segreta MWS"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:220
+#: includes/class-wc-gateway-amazon-payments-advanced.php:227
+msgid "Obtained from your Amazon account. You can get these keys by logging into Seller Central and viewing the MWS Access Key section under the Integration tab."
+msgstr "Ottenuta dall'account Amazon. Puoi ottenere queste chiavi accedendo a Seller Central e visualizzando la sezione MWS Access Key nella scheda Integration."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:218
+msgid "MWS Access Key"
+msgstr "MWS Access Key"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:213
+msgid "Obtained from your Amazon account. Also known as the \"Merchant ID\". Usually found under Settings > Integrations after logging into your merchant account."
+msgstr "Ottenuta dall'account Amazon. Nota anche come \"ID venditore\". Di solito disponibile in Impostazioni > Integrazioni dopo aver effettuato l'accesso all'account venditore."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:211
+msgid "Seller ID"
+msgstr "ID venditore"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:207
+msgid "Amazon account details"
+msgstr "Dettagli dell'account Amazon"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:202
+msgid "Payment method title that the customer will see on your website."
+msgstr "Il titolo del metodo di pagamento visualizzato dai clienti sul tuo sito web."
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:200
+msgid "Title"
+msgstr "Titolo"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:194
+msgid "Enable Amazon Payments Advanced"
+msgstr "Attiva Amazon Payments Advanced"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:193
+msgid "Enable/Disable"
+msgstr "Attiva/disattiva"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:187
+msgid "This option makes the plugin to work with the latest API from Amazon, this will enable support for Subscriptions and make transactions more securely. <a href=\"%s\" target=\"_blank\">You must create an Amazon Login App to be able to use this option.</a>"
+msgstr "Questa opzione permette il funzionamento del plugin con le API più recenti di Amazon, consentendo il supporto per le iscrizioni e rendendo più sicure le transazioni. <a href=\"%s\" target=\"_blank\">Per poter usare questa opzione, devi creare un'app di accesso ad Amazon.</a>"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:157
+msgid "Signup now"
+msgstr "Iscriviti ora"
+
+#: includes/class-wc-gateway-amazon-payments-advanced.php:155
+msgid "Need an Amazon Payments Advanced account?"
+msgstr "Desideri un account Amazon Payments Advanced?"
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:584
+msgid "Exception encountered in 'CloseBillingAgreement': %s"
+msgstr "Eccezione rilevata in \"CloseBillingAgreement\": %s"
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:491
+msgid "Amazon subscription renewal failed - %s"
+msgstr "Rinnovo dell'iscrizione ad Amazon non riuscita - %s"
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:458
+msgid "An Amazon Billing Agreement ID was not found."
+msgstr "L'ID di accordo di fatturazione Amazon non è stato trovato."
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:401
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:423
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:483
+#: includes/class-wc-gateway-amazon-payments-advanced.php:561
+#: includes/class-wc-gateway-amazon-payments-advanced.php:583
+msgid "Could not authorize Amazon payment."
+msgstr "Impossibile autorizzare il pagamento Amazon."
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:375
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:392
+#: includes/class-wc-gateway-amazon-payments-advanced.php:539
+#: includes/class-wc-gateway-amazon-payments-advanced.php:554
+msgid "Amazon order opened. Use the \"Amazon Payments Advanced\" box to authorize and/or capture payment. Authorized payments must be captured within 7 days."
+msgstr "Ordine Amazon aperto. Usa la casella \"Amazon Payments Advanced\" per autorizzare e/o acquisire il pagamento. I pagamenti autorizzati possono essere acquisiti entro 7 giorni."
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:287
+msgid "Subscription(s): %s."
+msgstr "Iscrizione/i: %s."
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:286
+#: includes/class-wc-gateway-amazon-payments-advanced.php:650
+msgid "Order %s from %s."
+msgstr "Ordina %s da %s."
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:259
+msgid "Error: %s"
+msgstr "Errore: %s"
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:183
+#: includes/class-wc-gateway-amazon-payments-advanced.php:505
+msgid "An Amazon payment method was not chosen."
+msgstr "Non è stato scelto un metodo di pagamento Amazon."
+
+#: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:45
+msgid "Recurring payments via Pay with Amazon is currently not supported in Germany and United Kingdom. Please adjust your base country, or try <a href=\"%s\" target=\"_blank\">contact Amazon</a>."
+msgstr "Al momento non sono supportati i pagamenti ricorrenti con Pagare con Amazon in Germania e Regno Unito. Modifica il tuo Paese di residenza o prova a <a href=\"%s\" target=\"_blank\">contattare Amazon</a>."
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:459
+msgid "Specified resource does not have Amazon authorization ID"
+msgstr "Le risorse specificate non presentano un ID di autorizzazione Amazon"
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:437
+msgid "Specified resource does not have Amazon order reference ID"
+msgstr "Le risorse specificate non presentano un ID di riferimento dell'ordine Amazon"
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:192
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:432
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:454
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:476
+msgid "Invalid order ID."
+msgstr "ID ordine non valido"
+
+#: includes/class-wc-amazon-payments-advanced-rest-api-controller.php:174
+msgid "Sorry, you cannot %s this resource."
+msgstr "Non è possibile %s questa risorsa."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:317
+msgid "The reference has been cancelled/closed. No authorizations can be made."
+msgstr "Il riferimento è stato annullato/chiuso. Non è possibile effettuare autorizzazioni."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:311
+msgid "The reference has been suspended. Another form of payment is required."
+msgstr "Il riferimento è stato sospeso. È richiesto un altro metodo di pagamento."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:305
+msgid "Authorize &amp; Capture"
+msgstr "Autorizzazione e acquisizione"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:300
+msgid "Authorize"
+msgstr "Autorizza"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:292
+msgid "Order Reference %s is <strong>%s</strong>."
+msgstr "Il riferimento dell'ordine %s è <strong>%s</strong>."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:282
+msgid "Authorize again"
+msgstr "Autorizza di nuovo"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:272
+msgid "You cannot capture funds whilst the authorization is pending. Try again later."
+msgstr "Non è possibile acquisire fondi finché l'autorizzazione è in sospeso. Riprova più tardi."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:266
+msgid "Close Authorization"
+msgstr "Chiudi autorizzazione"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:261
+msgid "Capture funds"
+msgstr "Acquisisci fondi"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:253
+msgid "Auth Reference %s is <strong>%s</strong>."
+msgstr "Il riferimento dell'autorizzazione %s è <strong>%s</strong>."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:217
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:231
+msgid "Refund %s of %s is <strong>%s</strong> (%s)."
+msgstr "Il rimborso %s di %s è <strong>%s</strong> (%s)."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:195
+msgid "Refund"
+msgstr "Rimborso"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:194
+msgid "Add a note about this refund"
+msgstr "Aggiungi una nota su questo rimborso"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:188
+msgid "Make a refund?"
+msgstr "Effettuare un rimborso?"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:182
+msgid "Re-authorize?"
+msgstr "Autorizzare di nuovo?"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:177
+msgid "The capture was declined."
+msgstr "L'acquisizione è stata rifiutata."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:169
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:188
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:204
+msgid "Capture Reference %s is <strong>%s</strong>."
+msgstr "Il riferimento dell'acquisizione %s è <strong>%s</strong>."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:139
+msgid "Amazon Payments Advanced"
+msgstr "Amazon Payments Advanced"
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:112
+msgid "Refresh Amazon transaction status."
+msgstr "Aggiorna lo stato della transazione Amazon."
+
+#: includes/class-wc-amazon-payments-advanced-order-admin.php:111
+msgid "Refresh"
+msgstr "Aggiorna"
+
+#. Translators: 1: refund amount, 2: refund note
+#: includes/class-wc-amazon-payments-advanced-api.php:1097
+msgid "Refunded %1$s (%2$s)"
+msgstr "Rimborso pari a %1$s (%2$s)"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:1071
+msgid "Refund amount is greater than the max refund amount."
+msgstr "L'importo del rimborso è superiore all'importo rimborsabile massimo."
+
+#: includes/class-wc-amazon-payments-advanced-api.php:1067
+msgid "Refund amount is greater than order total."
+msgstr "L'importo del rimborso è superiore al totale dell'ordine."
+
+#: includes/class-wc-amazon-payments-advanced-api.php:1067
+#: includes/class-wc-amazon-payments-advanced-api.php:1071
+#: includes/class-wc-amazon-payments-advanced-api.php:1087
+#: includes/class-wc-amazon-payments-advanced-api.php:1091
+msgid "Unable to refund funds via Amazon: %s"
+msgstr "Impossibile rimborsare fondi tramite Amazon: %s"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:1041
+msgid "Capture Attempted (Capture ID: %s)"
+msgstr "Tentativo di acquisizione (ID di acquisizione: %s)"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:1017
+msgid "Error: Unable to capture funds with Amazon. Reason: %s"
+msgstr "Errore: impossibile acquisire fondi tramite Amazon. Motivo: %s"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:956
+msgid "Order missing Amazon authorization ID"
+msgstr "L'ordine non presenta l'ID di autorizzazione Amazon"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:915
+msgid "Authorization closed (Auth ID: %s)"
+msgstr "Autorizzazione chiusa (ID di autorizzazione: %s)"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:882
+msgid "Order reference %s closed "
+msgstr "Riferimento dell'ordine %s chiuso "
+
+#: includes/class-wc-amazon-payments-advanced-api.php:864
+msgid "Order missing Amazon reference ID"
+msgstr "L'ordine non presenta l'ID di riferimento Amazon"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:837
+msgid "Authorized (Auth ID: %s)"
+msgstr "Autorizzato (ID di autorizzazione: %s)"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:835
+msgid "Captured (Auth ID: %s)"
+msgstr "Acquisito (ID di autorizzazione: %s)"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:827
+msgid "Order Declined with reason code: %s"
+msgstr "L'ordine è stato rifiutato con il codice motivo: %s"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:666
+msgid "Error: Unable to authorize funds with Amazon. Reason: %s"
+msgstr "Errore: impossibile autorizzare fondi tramite Amazon. Motivo: %s"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:580
+msgid "Order missing Amazon billing agreement ID"
+msgstr "L'ordine non presenta l'ID di accordo di fatturazione Amazon"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:512
+msgid "Order missing Amazon order reference ID"
+msgstr "L'ordine non presenta l'ID di riferimento dell'ordine Amazon"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:500
+#: includes/class-wc-amazon-payments-advanced-api.php:568
+#: includes/class-wc-amazon-payments-advanced-api.php:859
+#: includes/class-wc-amazon-payments-advanced-api.php:919
+#: includes/class-wc-amazon-payments-advanced-api.php:944
+msgid "Order is not paid via Amazon Payments"
+msgstr "L'ordine non viene pagato tramite Amazon Payments"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:496
+#: includes/class-wc-amazon-payments-advanced-api.php:564
+#: includes/class-wc-amazon-payments-advanced-api.php:855
+#: includes/class-wc-amazon-payments-advanced-api.php:940
+msgid "Invalid order ID"
+msgstr "ID ordine non valido"
+
+#: includes/class-wc-amazon-payments-advanced-api.php:72
+msgid "Amazon"
+msgstr "Amazon"
+
+#: amazon-payments-advanced.php:608
+msgid "Create an account by entering the information below. If you are a returning customer please login at the top of the page."
+msgstr "Crea un account inserendo le seguenti informazioni. Se sei un cliente abituale, accedi nella parte superiore della pagina."
+
+#: amazon-payments-advanced.php:607
+msgid "Create Account"
+msgstr "Crea account"
+
+#: amazon-payments-advanced.php:596
+msgid "Create an account?"
+msgstr "Creare un account?"
+
+#: amazon-payments-advanced.php:580
+msgid "Payment Method"
+msgstr "Metodo di pagamento"
+
+#: amazon-payments-advanced.php:560
+msgid "Your Address"
+msgstr "Il tuo indirizzo"
+
+#: amazon-payments-advanced.php:558
+msgid "Shipping Address"
+msgstr "Indirizzo di spedizione"
+
+#: amazon-payments-advanced.php:440
+msgid "Log out &raquo;"
+msgstr "Esci »"
+
+#: amazon-payments-advanced.php:440
+msgid "You're logged in with your Amazon Account."
+msgstr "Hai effettuato l'accesso con il tuo account Amazon."
+
+#: amazon-payments-advanced.php:437
+#: includes/class-wc-gateway-amazon-payments-advanced.php:126
+msgid "Have an Amazon account?"
+msgstr "Hai un account Amazon?"
+
+#: amazon-payments-advanced.php:184
+msgid "Docs"
+msgstr "Documentazione"
+
+#: amazon-payments-advanced.php:183
+msgid "Support"
+msgstr "Supporto"

@@ -46,7 +46,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Animoto' ) ) {
 	/**
 	 * Class WPSEO_Video_Details_Animoto
 	 *
-	 * @internal Animoto doesn't provide duration in the oembed API, unfortunately.
+	 * {@internal Animoto doesn't provide duration in the oembed API, unfortunately.}}
 	 */
 	class WPSEO_Video_Details_Animoto extends WPSEO_Video_Details_Oembed {
 

@@ -18,7 +18,7 @@
  *
  * @package   SkyVerge/WooCommerce/Payment-Gateway/Classes
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2016, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2017, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -66,9 +66,18 @@ class SV_WC_Payment_Gateway_Payment_Token {
 	 */
 	public function __construct( $id, $data ) {
 
-		// get the payment type from the account number if not provided
-		if ( isset( $data['type'] ) && 'credit_card' == $data['type'] && ( ! isset( $data['card_type'] ) || ! $data['card_type'] ) && isset( $data['account_number'] ) ) {
-			$data['card_type'] = SV_WC_Payment_Gateway_Helper::card_type_from_account_number( $data['account_number'] );
+		if ( isset( $data['type'] ) && 'credit_card' == $data['type'] ) {
+
+			// normalize the provided card type to adjust for possible abbreviations if set
+			if ( isset( $data['card_type'] ) && $data['card_type'] ) {
+
+				$data['card_type'] = SV_WC_Payment_Gateway_Helper::normalize_card_type( $data['card_type'] );
+
+			// otherwise, get the payment type from the account number
+			} elseif ( isset( $data['account_number'] ) ) {
+
+				$data['card_type'] = SV_WC_Payment_Gateway_Helper::card_type_from_account_number( $data['account_number'] );
+			}
 		}
 
 		// remove account number so it's not saved to the token

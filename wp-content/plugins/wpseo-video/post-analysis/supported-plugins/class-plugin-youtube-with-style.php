@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the YouTube with Style plugin
  *
- * @see http://wordpress.org/extend/plugins/youtube-with-style/
+ * @see https://wordpress.org/plugins/youtube-with-style/
  *
- * @internal Last update: July 2014 based upon v 10.0
+ * {@internal Last update: July 2014 based upon v 10.0.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_With_Style' ) ) {
 

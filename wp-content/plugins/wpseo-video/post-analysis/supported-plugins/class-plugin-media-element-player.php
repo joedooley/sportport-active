@@ -18,9 +18,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *
  * @todo     - we may want to remove the support for this plugin as the functionality has been included in core since WP3.6
  *
- * @see      http://wordpress.org/extend/plugins/media-element-html5-video-and-audio-player/
+ * @see      https://wordpress.org/plugins/media-element-html5-video-and-audio-player/
  *
- * @internal Last update: July 2014 based upon v 2.10.3
+ * {@internal Last update: July 2014 based upon v 2.10.3.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Media_Element_Player' ) ) {
 

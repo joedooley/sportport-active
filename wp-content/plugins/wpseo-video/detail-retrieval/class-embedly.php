@@ -115,7 +115,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Embedly' ) ) {
 		 */
 		protected function get_remote_video_info() {
 			$response = parent::get_remote_video_info();
-			if ( ! isset( $this->remote_response ) && wp_remote_retrieve_response_code( $response ) == 403 ) {
+			if ( ! isset( $this->remote_response ) && intval( wp_remote_retrieve_response_code( $response ) ) === 403 ) {
 				// User has been cut off, prevent further calls from this class instance and other instances.
 				self::$functional = false;
 			}

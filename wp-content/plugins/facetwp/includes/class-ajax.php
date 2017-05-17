@@ -22,7 +22,7 @@ class FacetWP_Ajax
                 add_action( 'wp_ajax_facetwp_rebuild_index', array( $this, 'rebuild_index' ) );
                 add_action( 'wp_ajax_facetwp_heartbeat', array( $this, 'heartbeat' ) );
                 add_action( 'wp_ajax_facetwp_license', array( $this, 'license' ) );
-                add_action( 'wp_ajax_facetwp_migrate', array( $this, 'migrate' ) );
+                add_action( 'wp_ajax_facetwp_backup', array( $this, 'backup' ) );
             }
         }
 
@@ -292,7 +292,7 @@ class FacetWP_Ajax
     /**
      * Import / export functionality
      */
-    function migrate() {
+    function backup() {
         $action_type = $_POST['action_type'];
         $output = array();
 

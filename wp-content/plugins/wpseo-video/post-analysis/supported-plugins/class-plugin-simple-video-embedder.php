@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Simple Video Embedder plugin
  *
- * @see      http://wordpress.org/plugins/simple-video-embedder/
+ * @see      https://wordpress.org/plugins/simple-video-embedder/
  *
- * @internal Last update: August 2014 based upon v 2.2
+ * {@internal Last update: August 2014 based upon v 2.2.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Simple_Video_Embedder' ) ) {
 

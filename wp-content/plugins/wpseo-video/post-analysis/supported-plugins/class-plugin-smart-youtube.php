@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Smart YouTube plugin
  *
- * @see http://wordpress.org/extend/plugins/smart-youtube/
+ * @see https://wordpress.org/plugins/smart-youtube/
  *
- * @internal Last update: July 2014 based upon v 4.2.5
+ * {@internal Last update: July 2014 based upon v 4.2.5.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Smart_Youtube' ) ) {
 
@@ -54,7 +54,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Smart_Youtube' ) ) {
 		/**
 		 * Analyse a video shortcode from the plugin for usable video information
 		 *
-		 * @internal - This method is 100% the same as the YouTube one in JetPack, so made this an extending class
+		 * {@internal This method is 100% the same as the YouTube one in JetPack, so made this an extending class.}}
 		 *
 		 * @param  string $full_shortcode  Full shortcode as found in the post content.
 		 * @param  string $sc              Shortcode found.

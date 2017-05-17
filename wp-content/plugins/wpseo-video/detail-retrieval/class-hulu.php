@@ -17,9 +17,10 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Hulu Video SEO Details
  *
- * @internal Hulu apparently has a hidden API, but this may disappear at any time.
+ * {@internal Hulu apparently has a hidden API, but this may disappear at any time.
  * Also, I haven't been able to figure out how to reliably get info on a specific video via
- * the API. Anyways, oembed actually give plenty of info, so we're ok.
+ * the API. Anyways, oembed actually give plenty of info, so we're ok.}}
+ *
  * @see http://adammagana.com/2012/09/hulu-hidden-api/
  *
  * JSON response format [2014/7/22]:

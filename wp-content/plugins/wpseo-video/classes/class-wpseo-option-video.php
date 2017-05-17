@@ -15,7 +15,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
 
 /**
  *****************************************************************
- * Option: wpseo_woo
+ * Option: wpseo_video
  */
 if ( ! class_exists( 'WPSEO_Option_Video' ) ) {
 
@@ -52,7 +52,7 @@ if ( ! class_exists( 'WPSEO_Option_Video' ) ) {
 			'cloak_sitemap'           => false,
 			'disable_rss'             => false,
 			'custom_fields'           => '',
-			'facebook_embed'          => true,
+			'facebook_embed'          => true, // N.B.: The name of this property is outdated, should be `allow_external_embeds`.
 			'fitvids'                 => false,
 			'content_width'           => '',
 			'vzaar_domain'            => '',

@@ -24,10 +24,21 @@ class FacetWP_Init
         include( FACETWP_DIR . '/includes/api/fetch.php' );
         include( FACETWP_DIR . '/includes/api/refresh.php' );
 
-        // classes
-        foreach ( array( 'helper', 'ajax', 'facet', 'indexer', 'display', 'overrides', 'upgrade' ) as $f ) {
-            include( FACETWP_DIR . "/includes/class-{$f}.php" );
+        // update checks
+        if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
+            include( FACETWP_DIR . '/includes/class-updater.php' );
+            include( FACETWP_DIR . '/includes/libraries/github-updater.php' );
         }
+
+        // core
+        include( FACETWP_DIR . '/includes/class-helper.php' );
+        include( FACETWP_DIR . '/includes/class-ajax.php' );
+        include( FACETWP_DIR . '/includes/class-facet.php' );
+        include( FACETWP_DIR . '/includes/class-indexer.php' );
+        include( FACETWP_DIR . '/includes/class-display.php' );
+        include( FACETWP_DIR . '/includes/class-overrides.php' );
+        include( FACETWP_DIR . '/includes/class-upgrade.php' );
+        include( FACETWP_DIR . '/includes/functions.php' );
 
         new FacetWP_Upgrade();
         new FacetWP_Overrides();
@@ -40,12 +51,10 @@ class FacetWP_Init
         FWP()->ajax         = new FacetWP_Ajax();
 
         // integrations
-        foreach ( array( 'searchwp', 'woocommerce', 'edd', 'acf' ) as $f ) {
-            include( FACETWP_DIR . "/includes/integrations/{$f}/{$f}.php" );
-        }
-
-        include( FACETWP_DIR . '/includes/libraries/github-updater.php' );
-        include( FACETWP_DIR . '/includes/functions.php' );
+        include( FACETWP_DIR . '/includes/integrations/searchwp/searchwp.php' );
+        include( FACETWP_DIR . '/includes/integrations/woocommerce/woocommerce.php' );
+        include( FACETWP_DIR . '/includes/integrations/edd/edd.php' );
+        include( FACETWP_DIR . '/includes/integrations/acf/acf.php' );
 
         // hooks
         add_action( 'admin_menu', array( $this, 'admin_menu' ) );

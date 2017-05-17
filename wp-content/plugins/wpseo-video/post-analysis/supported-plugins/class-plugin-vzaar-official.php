@@ -16,9 +16,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Vzaar Official plugin
  *
- * @see http://wordpress.org/extend/plugins/vzaar-official-plugin/
+ * @see https://wordpress.org/plugins/vzaar-official-plugin/
  *
- * @internal Last update: July 2014 based upon v 1.5.28042014
+ * {@internal Last update: July 2014 based upon v 1.5.28042014.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Vzaar_Official' ) ) {
 

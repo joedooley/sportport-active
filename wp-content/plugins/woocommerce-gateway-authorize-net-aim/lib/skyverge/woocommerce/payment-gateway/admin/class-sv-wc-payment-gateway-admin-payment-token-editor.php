@@ -18,7 +18,7 @@
  *
  * @package   SkyVerge/WooCommerce/Payment-Gateway/Admin
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2016, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2017, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -584,14 +584,9 @@ class SV_WC_Payment_Gateway_Admin_Payment_Token_Editor {
 
 		foreach ( $card_types as $card_type ) {
 
-			// TODO: the gateway card types setting for Discover (`DISC`) doesn't match what most gateway
-			// implementations will use as the token card type (`discover`), so manually add
-			// it for now, until we improve our consistency here @MR 2016-03-31
-			if ( 'DISC' === $card_type ) {
-				$card_type = 'discover';
-			}
+			$card_type = SV_WC_Payment_Gateway_Helper::normalize_card_type( $card_type );
 
-			$options[ strtolower( $card_type ) ] = SV_WC_Payment_Gateway_Helper::payment_type_to_name( $card_type );
+			$options[ $card_type ] = SV_WC_Payment_Gateway_Helper::payment_type_to_name( $card_type );
 		}
 
 		return $options;

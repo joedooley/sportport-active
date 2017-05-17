@@ -17,9 +17,9 @@ class FacetWP_Facet_Number_Range
         $value = $params['selected_values'];
         $value = empty( $value ) ? array( '', '', ) : $value;
         $output .= '<label>' . __( 'Min', 'fwp' ) . '</label>';
-        $output .= '<input type="text" class="facetwp-number facetwp-number-min" value="' . $value[0] . '" />';
+        $output .= '<input type="text" class="facetwp-number facetwp-number-min" value="' . esc_attr( $value[0] ) . '" />';
         $output .= '<label>' . __( 'Max', 'fwp' ) . '</label>';
-        $output .= '<input type="text" class="facetwp-number facetwp-number-max" value="' . $value[1] . '" />';
+        $output .= '<input type="text" class="facetwp-number facetwp-number-max" value="' . esc_attr( $value[1] ) . '" />';
         $output .= '<input type="button" class="facetwp-submit" value="' . __( 'OK', 'fwp' ) . '" />';
         return $output;
     }

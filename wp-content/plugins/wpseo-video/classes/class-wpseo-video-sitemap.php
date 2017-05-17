@@ -2,7 +2,7 @@
 /**
  * All functionality for fetching video data and creating an XML video sitemap with it.
  *
- * @link       http://codex.wordpress.org/oEmbed oEmbed Codex Article
+ * @link       https://codex.wordpress.org/oEmbed oEmbed Codex Article
  * @link       http://oembed.com/ oEmbed Homepage
  *
  * @package    WordPress SEO
@@ -96,7 +96,7 @@ class WPSEO_Video_Sitemap {
 					'edit.php',
 					'post.php',
 					'post-new.php',
-				) ) || apply_filters( 'wpseo_always_register_metaboxes_on_admin', false )
+				), true ) || apply_filters( 'wpseo_always_register_metaboxes_on_admin', false )
 			) {
 				$this->metabox_tab = new WPSEO_Video_Metabox();
 			}
@@ -130,6 +130,7 @@ class WPSEO_Video_Sitemap {
 			add_action( 'wpseo_opengraph', array( $this, 'opengraph' ) );
 			add_filter( 'wpseo_opengraph_type', array( $this, 'opengraph_type' ), 10, 1 );
 			add_filter( 'wpseo_opengraph_image', array( $this, 'opengraph_image' ), 5, 1 );
+			add_filter( 'wpseo_html_namespaces', array( $this, 'add_video_namespaces' ) );
 
 			// XML Sitemap Index addition.
 			add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
@@ -196,7 +197,11 @@ class WPSEO_Video_Sitemap {
 			return;
 		}
 
-		wpseo_invalidate_sitemap_cache( $this->video_sitemap_basename() );
+		if ( ! self::is_videoseo_active_for_posttype( get_post_type( $post_id ) ) ) {
+			return;
+		}
+
+		WPSEO_Video_Wrappers::invalidate_sitemap( $this->video_sitemap_basename() );
 	}
 
 
@@ -247,27 +252,6 @@ class WPSEO_Video_Sitemap {
 
 
 	/**
-	 * Add more video extensions to the list of allowed video extensions and make sure the wp list
-	 * and the internally used list are in line with each other.
-	 *
-	 * @internal / @todo Not yet in use - uncomment the add_filter above to implement
-	 *
-	 * @internal WP default list as of v3.9.2 is array( 'mp4', 'm4v', 'webm', 'ogv', 'wmv', 'flv' );
-	 *
-	 * @param  array $exts Current list of extensions.
-	 *
-	 * @return array        Extended list
-	 */
-	public function filter_video_extensions( $exts ) {
-		$more_exts               = explode( '|', self::$video_ext_pattern );
-		$exts                    = array_unique( array_merge( $exts, $more_exts ) );
-		self::$video_ext_pattern = implode( '|', $exts );
-
-		return $exts;
-	}
-
-
-	/**
 	 * Adds the fitvids JavaScript to the output if there's a video on the page that's supported by this script.
 	 * Prevents fitvids being added when the JWPlayer plugin is active as they are incompatible.
 	 *
@@ -283,6 +267,10 @@ class WPSEO_Video_Sitemap {
 
 		global $post;
 
+		if ( self::is_videoseo_active_for_posttype( $post->post_type ) === false ) {
+			return;
+		}
+
 		$video = WPSEO_Meta::get_value( 'video_meta', $post->ID );
 
 		if ( ! is_array( $video ) || $video === array() ) {
@@ -290,7 +278,7 @@ class WPSEO_Video_Sitemap {
 		}
 
 		// Check if the current post contains a YouTube, Vimeo, Blip.tv or Viddler video, if it does, add the fitvids code.
-		if ( in_array( $video['type'], array( 'youtube', 'vimeo', 'blip.tv', 'viddler', 'wistia' ) ) ) {
+		if ( in_array( $video['type'], array( 'youtube', 'vimeo', 'blip.tv', 'viddler', 'wistia' ), true ) ) {
 			if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				wp_enqueue_script( 'fitvids', plugins_url( 'js/jquery.fitvids.js', WPSEO_VIDEO_FILE ), array( 'jquery' ) );
 			}
@@ -376,7 +364,8 @@ class WPSEO_Video_Sitemap {
 	 * Initializes the HelpScout beacon
 	 */
 	private function init_beacon() {
-		$query_var = ( $page = filter_input( INPUT_GET, 'page' ) ) ? $page : '';
+		$page      = filter_input( INPUT_GET, 'page' );
+		$query_var = ( $page ) ? $page : '';
 
 		// Only add the helpscout beacon on Yoast SEO pages.
 		if ( $query_var === 'wpseo_video' ) {
@@ -411,7 +400,7 @@ class WPSEO_Video_Sitemap {
 			$wp_admin_bar->add_menu(
 				array(
 					'parent' => 'wpseo-settings',
-					'id'     => 'wpseo-licenses',
+					'id'     => 'wpseo-video',
 					'title'  => __( 'Video SEO', 'yoast-video-seo' ),
 					'href'   => admin_url( 'admin.php?page=wpseo_video' ),
 				)
@@ -429,19 +418,12 @@ class WPSEO_Video_Sitemap {
 		$basename = $this->video_sitemap_basename();
 
 		// Register the sitemap.
-		if ( isset( $GLOBALS['wpseo_sitemaps'] ) && is_object( $GLOBALS['wpseo_sitemaps'] ) ) {
-			$GLOBALS['wpseo_sitemaps']->register_sitemap( $basename, array( $this, 'build_video_sitemap' ) );
-
-			if ( method_exists( $GLOBALS['wpseo_sitemaps'], 'register_xsl' ) ) {
-				$GLOBALS['wpseo_sitemaps']->register_xsl( 'video', array( $this, 'build_video_sitemap_xsl' ) );
-			}
-		}
+		WPSEO_Video_Wrappers::register_sitemap( $basename, array( $this, 'build_video_sitemap' ) );
+		WPSEO_Video_Wrappers::register_xsl( 'video', array( $this, 'build_video_sitemap_xsl' ) );
 
 		if ( is_admin() ) {
 			// Setting action for removing the transient on update options.
-			if ( method_exists( 'WPSEO_Utils', 'register_cache_clear_option' ) ) {
-				WPSEO_Utils::register_cache_clear_option( 'wpseo_video', $basename );
-			}
+			WPSEO_Video_Wrappers::register_cache_clear_option( 'wpseo_video', $basename );
 		}
 		else {
 			// Setting stylesheet for cached sitemap.
@@ -514,18 +496,20 @@ class WPSEO_Video_Sitemap {
 			return;
 		}
 
-		echo '<div class="error" id="videoseo-reindex">' .
-			'<p style="float: right;"><a href="javascript:videoseo_setIgnore(\'recommend_reindex\',\'videoseo-reindex\',\'' .
-			esc_js( wp_create_nonce( 'videoseo-ignore' ) ) . '\');" class="button fixit">' .
-			__( 'Ignore.', 'yoast-video-seo' ) .
-			'</a></p><p>' .
+		printf( '
+	<div class="error" id="videoseo-reindex">
+		<p style="float: right;"><a href="javascript:videoseo_setIgnore(\'recommend_reindex\',\'videoseo-reindex\',\'%1$s\');" class="button fixit">%2$s</a></p>
+		<p>%3$s</p>
+	</div>',
+			esc_js( wp_create_nonce( 'videoseo-ignore' ) ), // #1.
+			__( 'Ignore.', 'yoast-video-seo' ), // #2.
 			sprintf(
 				/* translators: 1: link open tag, 2: link close tag. */
 				__( 'The VideoSEO upgrade which was just applied contains a lot of improvements. It is strongly recommended that you %1$sre-index the video content on your website%2$s with the \'force reindex\' option checked.', 'yoast-video-seo' ),
 				'<a href="' . admin_url( 'admin.php?page=wpseo_video' ) . '">',
 				'</a>'
-			) .
-			'</p></div>';
+			) // #3.
+		);
 	}
 
 	/**
@@ -613,6 +597,27 @@ class WPSEO_Video_Sitemap {
 		exit;
 	}
 
+
+	/**
+	 * Check whether VideoSEO is active for a specific post type.
+	 *
+	 * @since 4.1
+	 *
+	 * @param string $post_type The post type to check for.
+	 *
+	 * @return bool True if active, false if inactive.
+	 */
+	public static function is_videoseo_active_for_posttype( $post_type ) {
+		$options = get_option( 'wpseo_video' );
+
+		if ( ! is_array( $options['videositemap_posttypes'] ) || $options['videositemap_posttypes'] === array() ) {
+			return false;
+		}
+
+		return in_array( $post_type, $options['videositemap_posttypes'], true );
+	}
+
+
 	/**
 	 * Returns the basename of the video-sitemap, the first portion of the name of the sitemap "file".
 	 *
@@ -648,14 +653,9 @@ class WPSEO_Video_Sitemap {
 	 * @return string The URL to the video Sitemap.
 	 */
 	public function sitemap_url( $extra = '' ) {
-		$sitemap = $this->video_sitemap_basename() . '-sitemap' . $extra. '.xml';
+		$sitemap = $this->video_sitemap_basename() . '-sitemap' . $extra . '.xml';
 
-		// WPSEO 3.2+.
-		if ( method_exists( 'WPSEO_Sitemaps_Router', 'get_base_url' ) ) {
-			return WPSEO_Sitemaps_Router::get_base_url( $sitemap );
-		}
-
-		return wpseo_xml_sitemaps_base_url( $sitemap );
+		return WPSEO_Video_Wrappers::xml_sitemaps_base_url( $sitemap );
 	}
 
 
@@ -695,7 +695,7 @@ class WPSEO_Video_Sitemap {
 				for ( $i = 0; $i < $n; $i ++ ) {
 					$count = ( $n > 1 ) ? ( $i + 1 ) : '';
 
-					if ( empty( $count ) || $count == $n ) {
+					if ( empty( $count ) || $count === $n ) {
 						$date_args['fields']         = 'all';
 						$date_args['posts_per_page'] = 1;
 						$date_args['offset']         = 0;
@@ -837,7 +837,8 @@ class WPSEO_Video_Sitemap {
 		$images = 0;
 		if ( preg_match_all( '`<img ([^>]+)>`', $content, $matches ) ) {
 			foreach ( $matches[1] as $attrs ) {
-				$item = $img = array();
+				$item = array();
+				$img  = array();
 				// Construct $img array from <img> attributes.
 				$attributes = wp_kses_hair( $attrs, array( 'http' ) );
 				foreach ( $attributes as $attr ) {
@@ -867,7 +868,7 @@ class WPSEO_Video_Sitemap {
 						$img['src'] = $src[0];
 					}
 					$thumbnail = wp_get_attachment_image_src( $id, 'thumbnail' );
-					if ( ! empty( $thumbnail[0] ) && $thumbnail[0] != $img['src'] ) {
+					if ( ! empty( $thumbnail[0] ) && $thumbnail[0] !== $img['src'] ) {
 						$img['thumbnail'] = $thumbnail[0];
 					}
 					$title = get_the_title( $id );
@@ -879,7 +880,7 @@ class WPSEO_Video_Sitemap {
 					}
 				}
 				// If this is the first image in the markup, make it the post thumbnail.
-				if ( ++ $images == 1 ) {
+				if ( ++$images === 1 ) {
 					if ( isset( $img['thumbnail'] ) ) {
 						$media[]['thumbnail']['attr']['url'] = $img['thumbnail'];
 					}
@@ -1015,6 +1016,10 @@ class WPSEO_Video_Sitemap {
 	public function mrss_add_video( $media ) {
 		global $post;
 
+		if ( self::is_videoseo_active_for_posttype( $post->post_type ) === false ) {
+			return $media;
+		}
+
 		$video = WPSEO_Meta::get_value( 'video_meta', $post->ID );
 
 		if ( ! is_array( $video ) || $video === array() ) {
@@ -1079,7 +1084,7 @@ class WPSEO_Video_Sitemap {
 			return false;
 		}
 
-		if ( ! in_array( $term->taxonomy, $options['videositemap_taxonomies'] ) ) {
+		if ( ! in_array( $term->taxonomy, $options['videositemap_taxonomies'], true ) ) {
 			return false;
 		}
 
@@ -1122,7 +1127,7 @@ class WPSEO_Video_Sitemap {
 
 		$vid = $this->index_content( $content, $vid, $old_vid, null );
 
-		if ( $vid != 'none' ) {
+		if ( $vid !== 'none' ) {
 			$tax_meta[ $term->taxonomy ]['_video'][ $term->term_id ] = $vid;
 			// Don't bother with the complete tax meta validation.
 			$tax_meta['wpseo_already_validated'] = true;
@@ -1141,15 +1146,15 @@ class WPSEO_Video_Sitemap {
 
 
 	/**
-	 * (Don't) validate the _video taxonomy meta data array
+	 * (Don't) validate the _video taxonomy metadata array
 	 * Doesn't actually validate it atm, but having this function hooked in *does* make sure that the
-	 * _video taxonomy meta data is not removed as it otherwise would be (by the normal taxonomy meta validation).
+	 * _video taxonomy metadata is not removed as it otherwise would be (by the normal taxonomy meta validation).
 	 *
 	 * @since 1.6
 	 *
-	 * @param  array $tax_meta_data Received _video tax meta data.
+	 * @param  array $tax_meta_data Received _video tax metadata.
 	 *
-	 * @return array  Validated _video tax meta data
+	 * @return array  Validated _video tax metadata
 	 */
 	public function validate_video_tax_meta( $tax_meta_data ) {
 		return $tax_meta_data;
@@ -1164,33 +1169,29 @@ class WPSEO_Video_Sitemap {
 	 *            added to be in line with the parameters received from the hook this
 	 *            method is tied to.
 	 *
-	 * @param int      $post_ID The post ID to check and possibly update the video details for.
+	 * @param int      $post_id The post ID to check and possibly update the video details for.
 	 * @param \WP_Post $post    The post object.
 	 * @param boolean  $update  Whether this is an existing post being updated or not.
 	 *
 	 * @return mixed $vid The video array that was just stored, string "none" if nothing was stored
 	 *                    or false if not applicable.
 	 */
-	public function update_video_post_meta( $post_ID, $post = null, $update = null ) {
+	public function update_video_post_meta( $post_id, $post = null, $update = null ) {
 		global $wp_query;
 
-		if ( ( ! isset( $post ) || ! ( $post instanceof WP_Post ) ) && is_numeric( $post_ID ) ) {
-			$post = get_post( $post_ID );
+		if ( ( ! isset( $post ) || ! ( $post instanceof WP_Post ) ) && is_numeric( $post_id ) ) {
+			$post = get_post( $post_id );
 		}
 
 		if ( isset( $post ) && ( ! ( $post instanceof WP_Post ) || ! isset( $post->ID ) ) ) {
 			return false;
 		}
 
+		if ( self::is_videoseo_active_for_posttype( $post->post_type ) === false ) {
+			return false;
+		}
+
 		$options = array_merge( WPSEO_Options::get_all(), get_option( 'wpseo_video' ) );
-
-		if ( ! is_array( $options['videositemap_posttypes'] ) || $options['videositemap_posttypes'] === array() ) {
-			return false;
-		}
-
-		if ( ! in_array( $post->post_type, $options['videositemap_posttypes'] ) ) {
-			return false;
-		}
 
 		$old_vid = array();
 		if ( ! isset( $_POST['force'] ) ) {
@@ -1214,7 +1215,7 @@ class WPSEO_Video_Sitemap {
 		$vid = array();
 
 		// @todo [JRF->Yoast] Verify if this is really what we want. What about non-hierarchical custom post types ? and are we adjusting the main query output now ? could this cause bugs for others ?
-		if ( $post->post_type == 'post' ) {
+		if ( $post->post_type === 'post' ) {
 			$wp_query->is_single = true;
 			$wp_query->is_page   = false;
 		}
@@ -1256,7 +1257,7 @@ class WPSEO_Video_Sitemap {
 				}
 			}
 
-			// Grab the meta data from the post.
+			// Grab the metadata from the post.
 			if ( isset( $_POST['yoast_wpseo_videositemap-category'] ) && ! empty( $_POST['yoast_wpseo_videositemap-category'] ) ) {
 				$vid['category'] = sanitize_text_field( $_POST['yoast_wpseo_videositemap-category'] );
 			}
@@ -1291,8 +1292,7 @@ class WPSEO_Video_Sitemap {
 			}
 			$vid['tag'] = $tag;
 
-			// WPSEO_Utils::is_development_mode() is WPSEO 3.0+.
-			if ( method_exists( 'WPSEO_Utils', 'is_development_mode' ) && WPSEO_Utils::is_development_mode() ) {
+			if ( WPSEO_Video_Wrappers::is_development_mode() ) {
 				error_log( 'Updated [' . esc_html( $post->post_title ) . '](' . esc_url( add_query_arg( array( 'p' => $post->ID ), home_url() ) ) . ') - ' . esc_html( $vid['type'] ) );
 			}
 		}
@@ -1308,7 +1308,7 @@ class WPSEO_Video_Sitemap {
 	 *
 	 * @todo     [JRF -> Yoast] Why not use the WP native strip_shortcodes function ?
 	 *
-	 * @internal adjusted to prevent stripping of escaped shortcodes which are meant to be displayed literally
+	 * {@internal Adjusted to prevent stripping of escaped shortcodes which are meant to be displayed literally.}}
 	 *
 	 * @since    1.3.3
 	 *
@@ -1336,8 +1336,8 @@ class WPSEO_Video_Sitemap {
 			$hostname = gethostbyaddr( sanitize_text_field( $_SERVER['REMOTE_ADDR'] ) );
 
 			if (
-				( $match[1] === 'Google' && preg_match( '`googlebot\.com$`', $hostname ) && gethostbyname( $hostname ) == $_SERVER['REMOTE_ADDR'] ) ||
-				( $match[1] === 'bing' && preg_match( '`search\.msn\.com$`', $hostname ) && gethostbyname( $hostname ) == $_SERVER['REMOTE_ADDR'] )
+				( $match[1] === 'Google' && preg_match( '`googlebot\.com$`', $hostname ) && gethostbyname( $hostname ) === $_SERVER['REMOTE_ADDR'] ) ||
+				( $match[1] === 'bing' && preg_match( '`search\.msn\.com$`', $hostname ) && gethostbyname( $hostname ) === $_SERVER['REMOTE_ADDR'] )
 			) {
 				return true;
 			}
@@ -1367,14 +1367,27 @@ class WPSEO_Video_Sitemap {
 
 
 	/**
+	 * Get the server protocol.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @return string
+	 */
+	protected function get_server_protocol() {
+		$protocol = 'HTTP/1.1';
+		if ( isset( $_SERVER['SERVER_PROTOCOL'] ) && $_SERVER['SERVER_PROTOCOL'] !== '' ) {
+			$protocol = sanitize_text_field( wp_unslash( $_SERVER['SERVER_PROTOCOL'] ) );
+		}
+
+		return $protocol;
+	}
+
+
+	/**
 	 * Outputs the XSL file
 	 */
 	public function build_video_sitemap_xsl() {
-
-		$protocol = 'HTTP/1.1';
-		if ( isset( $_SERVER['SERVER_PROTOCOL'] ) && $_SERVER['SERVER_PROTOCOL'] !== '' ) {
-			$protocol = sanitize_text_field( $_SERVER['SERVER_PROTOCOL'] );
-		}
+		$protocol = $this->get_server_protocol();
 
 		// Force a 200 header and replace other status codes.
 		header( $protocol . ' 200 OK', true, 200 );
@@ -1401,12 +1414,8 @@ class WPSEO_Video_Sitemap {
 	 * @since 0.1
 	 */
 	public function build_video_sitemap() {
-		$options = get_option( 'wpseo_video' );
-
-		$protocol = 'HTTP/1.1';
-		if ( isset( $_SERVER['SERVER_PROTOCOL'] ) && $_SERVER['SERVER_PROTOCOL'] !== '' ) {
-			$protocol = sanitize_text_field( $_SERVER['SERVER_PROTOCOL'] );
-		}
+		$options  = get_option( 'wpseo_video' );
+		$protocol = $this->get_server_protocol();
 
 		// Restrict access to the video sitemap to admins and valid bots.
 		if ( $options['cloak_sitemap'] === true && ( ! current_user_can( 'manage_options' ) && ! $this->is_valid_bot() ) ) {
@@ -1449,18 +1458,19 @@ class WPSEO_Video_Sitemap {
 			*/
 
 			// Add entries to the sitemap until the total is hit (rounded up by nearest $steps).
-			while ( ( $total > $offset ) && ( $items = get_posts( $args ) ) ) {
+			$items = get_posts( $args );
+			while ( ( $total > $offset ) && $items ) {
 
 				if ( is_array( $items ) && $items !== array() ) {
 					foreach ( $items as $item ) {
-						if ( ! is_object( $item ) || in_array( $item->ID, $printed_post_ids ) ) {
+						if ( ! is_object( $item ) || in_array( $item->ID, $printed_post_ids, true ) ) {
 							continue;
 						}
 						else {
 							$printed_post_ids[] = $item->ID;
 						}
 
-						if ( WPSEO_Meta::get_value( 'meta-robots-noindex', $item->ID ) == '1' ) {
+						if ( WPSEO_Meta::get_value( 'meta-robots-noindex', $item->ID ) === '1' ) {
 							continue;
 						}
 
@@ -1492,23 +1502,21 @@ class WPSEO_Video_Sitemap {
 							$video['rating'] = number_format( $rating, 1 );
 						}
 
-						$not_family_friendly = apply_filters( 'wpseo_video_family_friendly', WPSEO_Meta::get_value( 'videositemap-not-family-friendly', $item->ID ), $item->ID );
-						if ( is_string( $not_family_friendly ) && $not_family_friendly === 'on' ) {
+						$video['family_friendly'] = 'yes';
+						if ( $this->is_video_family_friendly( $item->ID ) === false ) {
 							$video['family_friendly'] = 'no';
-						}
-						else {
-							$video['family_friendly'] = 'yes';
 						}
 
 						$video['author'] = $item->post_author;
 
-						$output .= $this->print_sitemap_line( $video );
+						$output .= $this->print_sitemap_line( $video, $item );
 					}
 				}
 
 				// Update these args for the next iteration.
-				$offset = ( $offset + $steps );
+				$offset          = ( $offset + $steps );
 				$args['offset'] += $steps;
+				$items           = get_posts( $args );
 			}
 		}
 
@@ -1527,15 +1535,16 @@ class WPSEO_Video_Sitemap {
 					if ( is_array( $video ) ) {
 						$video['permalink'] = get_term_link( $term, $term->taxonomy );
 						$video['category']  = $term->name;
-						$output .= $this->print_sitemap_line( $video );
+						$output .= $this->print_sitemap_line( $video, $term );
 					}
 				}
 			}
 		}
 
 		$output .= '</urlset>';
-		$GLOBALS['wpseo_sitemaps']->set_sitemap( $output );
-		$GLOBALS['wpseo_sitemaps']->set_stylesheet( $this->get_stylesheet_line() );
+
+		WPSEO_Video_Wrappers::set_sitemap( $output );
+		WPSEO_Video_Wrappers::set_stylesheet( $this->get_stylesheet_line() );
 	}
 
 
@@ -1544,11 +1553,12 @@ class WPSEO_Video_Sitemap {
 	 *
 	 * @since 1.3
 	 *
-	 * @param array $video The video object to print out.
+	 * @param array  $video  The video object to print out.
+	 * @param object $object The post/tax object this video relates to.
 	 *
 	 * @return string The output generated
 	 */
-	public function print_sitemap_line( $video ) {
+	public function print_sitemap_line( $video, $object ) {
 		if ( ! is_array( $video ) || $video === array() ) {
 			return '';
 		}
@@ -1558,12 +1568,12 @@ class WPSEO_Video_Sitemap {
 		$output .= "\t\t<video:video>\n";
 
 
-		if ( empty( $video['publication_date'] ) || $this->is_valid_datetime( $video['publication_date'] ) === false ) {
-			$post = get_post( $video['post_id'] );
-			if ( is_object( $post ) && $post->post_date_gmt !== '0000-00-00 00:00:00' && $this->is_valid_datetime( $post->post_date_gmt ) ) {
+		if ( empty( $video['publication_date'] ) || WPSEO_Video_Wrappers::is_valid_datetime( $video['publication_date'] ) === false ) {
+			$post = $object;
+			if ( is_object( $post ) && $post->post_date_gmt !== '0000-00-00 00:00:00' && WPSEO_Video_Wrappers::is_valid_datetime( $post->post_date_gmt ) ) {
 				$video['publication_date'] = mysql2date( 'Y-m-d\TH:i:s+00:00', $post->post_date_gmt );
 			}
-			elseif ( is_object( $post ) && $post->post_date !== '0000-00-00 00:00:00' && $this->is_valid_datetime( $post->post_date ) ) {
+			elseif ( is_object( $post ) && $post->post_date !== '0000-00-00 00:00:00' && WPSEO_Video_Wrappers::is_valid_datetime( $post->post_date ) ) {
 				$video['publication_date'] = date( 'Y-m-d\TH:i:s+00:00', get_gmt_from_date( $post->post_date ) );
 			}
 			else {
@@ -1585,26 +1595,26 @@ class WPSEO_Video_Sitemap {
 				'attachment_id',
 				'file_path',
 				'file_url',
-			) ) ) {
+			), true ) ) {
 				continue;
 			}
 
-			if ( $key == 'author' ) {
+			if ( $key === 'author' ) {
 				$output .= "\t\t\t<video:uploader info='" . get_author_posts_url( $val ) . "'>" . ent2ncr( esc_html( get_the_author_meta( 'display_name', $val ) ) ) . "</video:uploader>\n";
 				continue;
 			}
 
 			$xtra = '';
-			if ( $key == 'player_loc' ) {
+			if ( $key === 'player_loc' ) {
 				$xtra = ' allow_embed="yes"';
 			}
 
-			if ( $key == 'description' && empty( $val ) ) {
+			if ( $key === 'description' && empty( $val ) ) {
 				$val = $video['title'];
 			}
 
 			if ( is_scalar( $val ) && ! empty( $val ) ) {
-				$prepare_sitemap_line = $this->get_single_sitemap_line( $val, $key, $xtra );
+				$prepare_sitemap_line = $this->get_single_sitemap_line( $val, $key, $xtra, $object );
 
 				if ( ! is_null( $prepare_sitemap_line ) ) {
 					$output .= $prepare_sitemap_line;
@@ -1614,10 +1624,10 @@ class WPSEO_Video_Sitemap {
 				$i = 1;
 				foreach ( $val as $v ) {
 					// Only 32 tags are allowed.
-					if ( $key == 'tag' && $i > 32 ) {
+					if ( $key === 'tag' && $i > 32 ) {
 						break;
 					}
-					$prepare_sitemap_line = $this->get_single_sitemap_line( $v, $key, $xtra );
+					$prepare_sitemap_line = $this->get_single_sitemap_line( $v, $key, $xtra, $object );
 
 					if ( ! is_null( $prepare_sitemap_line ) ) {
 						$output .= $prepare_sitemap_line;
@@ -1671,7 +1681,7 @@ class WPSEO_Video_Sitemap {
 				else {
 					$clean = substr( $out, 0, $entity_start );
 					$subst = substr( $out, ( $entity_start + 1 ), 1 );
-					$clean .= ( $subst != '#' ) ? $subst : '_';
+					$clean .= ( $subst !== '#' ) ? $subst : '_';
 					$clean .= substr( $out, ( $entity_end + 1 ) );
 					$out = $this->clean_string( $clean, ( $entity_start + 1 ) );
 				}
@@ -1746,7 +1756,7 @@ class WPSEO_Video_Sitemap {
 
 				if ( is_array( $options['videositemap_posttypes'] ) && $options['videositemap_posttypes'] !== array() ) {
 					// Use fields => ids to limit the overhead of fetching entire post objects, fetch only an array of ids instead to count.
-					$args          = array(
+					$args       = array(
 						'post_type'      => $options['videositemap_posttypes'],
 						'post_status'    => 'publish',
 						'posts_per_page' => -1,
@@ -1755,15 +1765,15 @@ class WPSEO_Video_Sitemap {
 						'meta_value'     => 'none',
 						'fields'         => 'ids',
 					);
-					$video_ids     = get_posts( $args );
-					$count         = count( $video_ids );
-					$n             = ( $count > $this->max_entries ) ? (int) ceil( $count / $this->max_entries ) : '';
-					$video_lastest = $this->sitemap_url( $n );
+					$video_ids  = get_posts( $args );
+					$count      = count( $video_ids );
+					$n          = ( $count > $this->max_entries ) ? (int) ceil( $count / $this->max_entries ) : '';
+					$video_last = $this->sitemap_url( $n );
 
-					echo '<p>' . esc_html__( 'Please find your video sitemap here:', 'yoast-video-seo' ) . ' <a target="_blank" href="' . esc_url( $video_lastest ) . '">' . esc_html__( 'XML Video Sitemap', 'yoast-video-seo' ) . '</a></p>';
+					echo '<p>' . esc_html__( 'Please find your video sitemap here:', 'yoast-video-seo' ) . ' <a target="_blank" href="' . esc_url( $video_last ) . '">' . esc_html__( 'XML Video Sitemap', 'yoast-video-seo' ) . '</a></p>';
 				}
 				else {
-					echo '<p>' . esc_html__( 'Select at least one post type to enable the video sitemap', 'yoast-video-seo' ) . '</p>';
+					echo '<div class="notice notice-warning"><p>' . esc_html__( 'Select at least one post type to enable the video sitemap.', 'yoast-video-seo' ) . '</p></div>';
 
 				}
 
@@ -1775,12 +1785,13 @@ class WPSEO_Video_Sitemap {
 				echo WPSEO_Video_Wrappers::textinput( 'custom_fields', esc_html__( 'Custom fields', 'yoast-video-seo' ) );
 				echo '<p class="clear description desc label">' . esc_html__( 'Custom fields the plugin should check for video content (comma separated)', 'yoast-video-seo' ) . '</p>';
 				echo WPSEO_Video_Wrappers::textinput( 'embedly_api_key', esc_html__( '(Optional) Embedly API Key', 'yoast-video-seo' ) );
+				/* translators: 1,3: link open tag; 2: link close tag. */
 				echo '<p class="clear description desc label">' . sprintf( esc_html__( 'The video SEO plugin provides where possible enriched information about your videos. A lot of %1$svideo services%2$s are supported by default. For those services which aren\'t supported, we can try to retrieve enriched video information using %3$sEmbedly%2$s. If you want to use this option, you\'ll need to sign up for a (free) %3$sEmbedly%2$s account and provide the API key you receive.', 'yoast-video-seo' ), '<a href="http://kb.yoast.com/article/95-supported-video-hosting-platforms-for-video-seo-plugin">', '</a>', '<a href="http://embed.ly/">' ) . '</p>';
 
 
 				echo '<h2>' . esc_html__( 'Embed Settings', 'yoast-video-seo' ) . '</h2>';
 
-				echo WPSEO_Video_Wrappers::checkbox( 'facebook_embed', esc_html__( 'Allow videos to be played directly on Facebook.', 'yoast-video-seo' ) );
+				echo WPSEO_Video_Wrappers::checkbox( 'facebook_embed', esc_html__( 'Allow videos to be played directly on other websites, such as Facebook or Twitter?', 'yoast-video-seo' ) );
 				/* translators: 1: link open tag, 2: link close tag. */
 				echo WPSEO_Video_Wrappers::checkbox( 'fitvids', sprintf( esc_html__( 'Try to make videos responsive using %1$sFitVids.js%2$s?', 'yoast-video-seo' ), '<a href="http://fitvidsjs.com/">', '</a>' ) );
 				echo '<br class="clear"/>';
@@ -1794,19 +1805,22 @@ class WPSEO_Video_Sitemap {
 				echo '<p class="clear description desc label">' . esc_html__( 'If you use Wistia in combination with a custom domain, set this to the domain name you use for your Wistia videos, no http: or slashes needed.', 'yoast-video-seo' ) . '</p>';
 
 
-				echo '<h2>' . esc_html__( 'Post Types to include in XML Video Sitemap', 'yoast-video-seo' ) . '</h2>';
+				echo '<h2>' . esc_html__( 'Post Types for which to enable the Video SEO plugin', 'yoast-video-seo' ) . '</h2>';
 				echo '<p>' . esc_html__( 'Determine which post types on your site might contain video.', 'yoast-video-seo' ) . '</p>';
 
 				$post_types = get_post_types( array( 'public' => true ), 'objects' );
 				if ( is_array( $post_types ) && $post_types !== array() ) {
 					foreach ( $post_types as $posttype ) {
 						$sel = '';
-						if ( is_array( $options['videositemap_posttypes'] ) && in_array( $posttype->name, $options['videositemap_posttypes'] ) ) {
+						if ( self::is_videoseo_active_for_posttype( $posttype->name ) ) {
 							$sel = 'checked="checked" ';
 						}
-						echo '<input class="checkbox double" id="' . esc_attr( 'include' . $posttype->name ) . '" type="checkbox" '
-						     . 'name="wpseo_video[videositemap_posttypes][' . esc_attr( $posttype->name ) . ']" ' . $sel . 'value="' . esc_attr( $posttype->name ) . '"/> '
-						     . '<label class="checkbox" for="' . esc_attr( 'include' . $posttype->name ) . '">' . esc_html( $posttype->labels->name ) . '</label><br class="clear">';
+						printf( '<input class="checkbox double" id="%1$s" type="checkbox" name="wpseo_video[videositemap_posttypes][%2$s]" %3$s value="%2$s"/><label class="checkbox" for="%1$s">%4$s</label><br class="clear">',
+							esc_attr( 'include-' . $posttype->name ), // #1.
+							esc_attr( $posttype->name ), // #2.
+							$sel, // #3.
+							esc_html( $posttype->labels->name ) // #4.
+						);
 					}
 				}
 				unset( $post_types );
@@ -1819,12 +1833,15 @@ class WPSEO_Video_Sitemap {
 				if ( is_array( $taxonomies ) && $taxonomies !== array() ) {
 					foreach ( $taxonomies as $tax ) {
 						$sel = '';
-						if ( is_array( $options['videositemap_taxonomies'] ) && in_array( $tax->name, $options['videositemap_taxonomies'] ) ) {
+						if ( is_array( $options['videositemap_taxonomies'] ) && in_array( $tax->name, $options['videositemap_taxonomies'], true ) ) {
 							$sel = 'checked="checked" ';
 						}
-						echo '<input class="checkbox double" id="' . esc_attr( 'include' . $tax->name ) . '" type="checkbox" '
-						     . 'name="wpseo_video[videositemap_taxonomies][' . esc_attr( $tax->name ) . ']" ' . $sel . 'value="' . esc_attr( $tax->name ) . '"/> '
-						     . '<label class="checkbox" for="' . esc_attr( 'include' . $tax->name ) . '">' . esc_html( $tax->labels->name ) . '</label><br class="clear">';
+						printf( '<input class="checkbox double" id="%1$s" type="checkbox" name="wpseo_video[videositemap_taxonomies][%2$s]" %3$s value="%2$s"/><label class="checkbox" for="%1$s">%4$s</label><br class="clear">',
+						     esc_attr( 'include-' . $tax->name ), // #1.
+						     esc_attr( $tax->name ), // #2.
+						     $sel, // #3.
+						     esc_html( $tax->labels->name ) // #4.
+						);
 					}
 				}
 				unset( $taxonomies );
@@ -1833,14 +1850,14 @@ class WPSEO_Video_Sitemap {
 			?>
 
 			<div class="submit">
-				<input type="submit" class="button-primary" name="submit"
+				<input type="submit" class="button button-primary" name="submit"
 				       value="<?php esc_attr_e( 'Save Settings', 'yoast-video-seo' ); ?>" />
 			</div>
 			</form>
 
 			<h2><?php esc_html_e( 'Indexation of videos in your content', 'yoast-video-seo' ); ?></h2>
 
-			<p style="max-width: 600px;"><?php esc_html_e( 'This process goes through all the post types specified by you, as well as the terms of each taxonomy, to check for videos in the content. If the plugin finds a video, it updates the meta data for that piece of content, so it can add that meta data and content to the XML Video Sitemap.', 'yoast-video-seo' ); ?></p>
+			<p style="max-width: 600px;"><?php esc_html_e( 'This process goes through all the post types specified by you, as well as the terms of each taxonomy, to check for videos in the content. If the plugin finds a video, it updates the metadata for that piece of content, so it can add that metadata and content to the XML Video Sitemap.', 'yoast-video-seo' ); ?></p>
 
 			<p style="max-width: 600px;"><?php esc_html_e( 'By default the plugin only checks content that hasn\'t been checked yet. However, if you check \'Force Re-Index\', it will re-check all content. This is particularly interesting if you want to check for a video embed code that wasn\'t supported before, or if you want to update thumbnail images en masse.', 'yoast-video-seo' ); ?></p>
 
@@ -1887,6 +1904,10 @@ class WPSEO_Video_Sitemap {
 			return $content;
 		}
 
+		if ( self::is_videoseo_active_for_posttype( $post->post_type ) === false ) {
+			return $content;
+		}
+
 		$video = WPSEO_Meta::get_value( 'video_meta', $post->ID );
 
 		if ( ! is_array( $video ) || $video === array() ) {
@@ -1927,29 +1948,88 @@ class WPSEO_Video_Sitemap {
 
 		$content .= "\n\n";
 		$content .= '<span itemprop="video" itemscope itemtype="http://schema.org/VideoObject">';
-		$content .= '<meta itemprop="name" content="' . esc_attr( $stripped_title ) . '">';
-		$content .= '<meta itemprop="thumbnailURL" content="' . esc_attr( $video['thumbnail_loc'] ) . '">';
-		$content .= '<meta itemprop="description" content="' . esc_attr( $desc ) . '">';
-		$content .= '<meta itemprop="uploadDate" content="' . date( 'c', strtotime( $post->post_date ) ) . '">';
+		$content .= '<meta itemprop="name" content="' . esc_attr( $stripped_title ) . '" />';
+		$content .= '<meta itemprop="thumbnailUrl" content="' . esc_url( $video['thumbnail_loc'] ) . '" />';
+		$content .= '<meta itemprop="description" content="' . esc_attr( $desc ) . '" />';
+		$content .= '<meta itemprop="uploadDate" content="' . date( 'c', strtotime( $post->post_date ) ) . '" />';
 
 		if ( isset( $video['player_loc'] ) ) {
-			$content .= '<meta itemprop="embedURL" content="' . $video['player_loc'] . '">';
+			$content .= '<meta itemprop="embedUrl" content="' . esc_url( $video['player_loc'] ) . '" />';
 		}
 		if ( isset( $video['content_loc'] ) ) {
-			$content .= '<meta itemprop="contentURL" content="' . $video['content_loc'] . '">';
+			$content .= '<meta itemprop="contentUrl" content="' . esc_url( $video['content_loc'] ) . '" />';
 		}
 
-		$video_duration = WPSEO_Meta::get_value( 'videositemap-duration', $post->ID );
-		if ( $video_duration == 0 && isset( $video['duration'] ) ) {
-			$video_duration = $video['duration'];
+		$video_duration = $this->get_video_duration( $video, $post->ID );
+		if ( $video_duration !== 0 ) {
+			$content .= '<meta itemprop="duration" content="' . esc_attr( $this->iso_8601_duration( $video_duration ) ) . '" />';
 		}
 
-		if ( $video_duration ) {
-			$content .= '<meta itemprop="duration" content="' . $this->iso_8601_duration( $video_duration ) . '">';
+		$not_family_friendly = 'false';
+		if ( $this->is_video_family_friendly( $post->ID ) === false ) {
+			$not_family_friendly = 'true';
 		}
+		$content .= '<meta itemprop="isFamilyFriendly" content="' . $not_family_friendly . '" />';
+
+		/**
+		 * Allow for adding additional meta item property tags to a video object wrapper.
+		 *
+		 * @since 4.1.0
+		 *
+		 * @param string        HTML string for the additional meta tags. Defaults to empty string.
+		 * @param array  $video Array with information about this video.
+		 * @param object $post  The current post object.
+		 */
+		$additional = apply_filters( 'wpseo_video_object_meta_content', '', $video, $post );
+		// The span should not contain any new lines as otherwise <br> tags will be inserted.
+		$content .= str_replace( array( "\r", "\n" ), '', $additional );
+
 		$content .= '</span>';
 
 		return $content;
+	}
+
+
+	/**
+	 * Retrieve the duration of a video.
+	 *
+	 * Use a user provided duration if available, fall back to the available video data
+	 * as previously retrieved through an API call.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param array $video   Data about the video being evaluated.
+	 * @param int   $post_id Optional. Post ID.
+	 *
+	 * @return int Duration in seconds or 0 if no duration could be determined.
+	 */
+	public function get_video_duration( $video, $post_id = null ) {
+		$video_duration = 0;
+
+		if ( isset( $post_id ) ) {
+			$video_duration = (int) WPSEO_Meta::get_value( 'videositemap-duration', $post_id );
+		}
+
+		if ( $video_duration === 0 && isset( $video['duration'] ) ) {
+			$video_duration = (int) $video['duration'];
+		}
+
+		return $video_duration;
+	}
+
+
+	/**
+	 * Determine whether a video is family friendly or not.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param int $post_id Post ID.
+	 *
+	 * @return bool True if family friendly, false if not.
+	 */
+	public function is_video_family_friendly( $post_id ) {
+		$not_family_friendly = apply_filters( 'wpseo_video_family_friendly', WPSEO_Meta::get_value( 'videositemap-not-family-friendly', $post_id ), $post_id );
+		return ( false === ( is_string( $not_family_friendly ) && $not_family_friendly === 'on' ) );
 	}
 
 
@@ -2015,6 +2095,37 @@ class WPSEO_Video_Sitemap {
 
 
 	/**
+	 * Add the video and yandex namespaces to the namespaces in the html prefix attribute.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @link http://ogp.me/#type_video
+	 * @link https://yandex.com/support/webmaster/video/open-graph.xml
+	 *
+	 * @param array $namespaces Currently registered namespaces.
+	 *
+	 * @return array
+	 */
+	public function add_video_namespaces( $namespaces ) {
+		$namespaces[] = 'video: http://ogp.me/ns/video#';
+
+		/**
+		 * Allow for turning off Yandex support.
+		 *
+		 * @since 4.1.0
+		 *
+		 * @param bool Whether or not to support (add) Yandex specific video SEO
+		 *             meta tags. Defaults to `true`.
+		 *             Return `false` to disable Yandex support.
+		 */
+		if ( apply_filters( 'wpseo_video_yandex_support', true ) === true ) {
+			$namespaces[] = 'ya: http://webmaster.yandex.ru/vocabularies/';
+		}
+		return $namespaces;
+	}
+
+
+	/**
 	 * Filter the OpenGraph type for the post and sets it to 'video'
 	 *
 	 * @since 0.1
@@ -2024,6 +2135,10 @@ class WPSEO_Video_Sitemap {
 	 * @return string $type Value 'video'
 	 */
 	public function opengraph_type( $type ) {
+		if ( self::is_videoseo_active_for_posttype( get_post_type() ) === false ) {
+			return $type;
+		}
+
 		$options = get_option( 'wpseo_video' );
 
 		if ( $options['facebook_embed'] !== true ) {
@@ -2037,7 +2152,7 @@ class WPSEO_Video_Sitemap {
 	/**
 	 * Switch the Twitter card type to player if needed.
 	 *
-	 * @internal [JRF] This method does not seem to be hooked in anywhere
+	 * {@internal [JRF] This method does not seem to be hooked in anywhere.}}
 	 *
 	 * @param string $type The Twitter card type.
 	 *
@@ -2061,6 +2176,10 @@ class WPSEO_Video_Sitemap {
 
 		if ( is_singular() ) {
 			if ( is_object( $post ) ) {
+				if ( self::is_videoseo_active_for_posttype( $post->post_type ) === false ) {
+					return $type;
+				}
+
 				$video = WPSEO_Meta::get_value( 'video_meta', $post->ID );
 
 				if ( ! is_array( $video ) || $video === array() ) {
@@ -2082,7 +2201,7 @@ class WPSEO_Video_Sitemap {
 				$options = get_option( 'wpseo_video' );
 				$term    = get_queried_object();
 
-				if ( is_array( $options['videositemap_taxonomies'] ) && in_array( $term->taxonomy, $options['videositemap_taxonomies'] ) ) {
+				if ( is_array( $options['videositemap_taxonomies'] ) && in_array( $term->taxonomy, $options['videositemap_taxonomies'], true ) ) {
 					$tax_meta = get_option( 'wpseo_taxonomy_meta' );
 					if ( isset( $tax_meta[ $term->taxonomy ]['_video'][ $term->term_id ] ) ) {
 						return $video_output;
@@ -2113,6 +2232,10 @@ class WPSEO_Video_Sitemap {
 			global $post;
 
 			if ( is_object( $post ) ) {
+				if ( self::is_videoseo_active_for_posttype( $post->post_type ) === false ) {
+					return $image;
+				}
+
 				$video = WPSEO_Meta::get_value( 'video_meta', $post->ID );
 
 				if ( ! is_array( $video ) || $video === array() ) {
@@ -2133,7 +2256,7 @@ class WPSEO_Video_Sitemap {
 
 				$term = get_queried_object();
 
-				if ( is_array( $options['videositemap_taxonomies'] ) && in_array( $term->taxonomy, $options['videositemap_taxonomies'] ) ) {
+				if ( is_array( $options['videositemap_taxonomies'] ) && in_array( $term->taxonomy, $options['videositemap_taxonomies'], true ) ) {
 					$tax_meta = get_option( 'wpseo_taxonomy_meta' );
 					if ( isset( $tax_meta[ $term->taxonomy ]['_video'][ $term->term_id ] ) ) {
 						$video = $tax_meta[ $term->taxonomy ]['_video'][ $term->term_id ];
@@ -2160,10 +2283,15 @@ class WPSEO_Video_Sitemap {
 			return false;
 		}
 
+		$video_duration = 0;
 		if ( is_singular() ) {
 			global $post;
 
 			if ( is_object( $post ) ) {
+				if ( self::is_videoseo_active_for_posttype( $post->post_type ) === false ) {
+					return false;
+				}
+
 				$disable = WPSEO_Meta::get_value( 'videositemap-disable', $post->ID );
 				if ( $disable === 'on' ) {
 					return false;
@@ -2174,6 +2302,8 @@ class WPSEO_Video_Sitemap {
 				if ( is_array( $video ) && $video !== array() ) {
 					$video = $this->get_video_image( $post->ID, $video );
 				}
+
+				$video_duration = $this->get_video_duration( $video, $post->ID );
 			}
 		}
 		else {
@@ -2181,10 +2311,17 @@ class WPSEO_Video_Sitemap {
 
 				$term = get_queried_object();
 
-				if ( is_array( $options['videositemap_taxonomies'] ) && in_array( $term->taxonomy, $options['videositemap_taxonomies'] ) ) {
+				if ( is_array( $options['videositemap_taxonomies'] ) && in_array( $term->taxonomy, $options['videositemap_taxonomies'], true ) ) {
 					$tax_meta = get_option( 'wpseo_taxonomy_meta' );
 					if ( isset( $tax_meta[ $term->taxonomy ]['_video'][ $term->term_id ] ) ) {
 						$video = $tax_meta[ $term->taxonomy ]['_video'][ $term->term_id ];
+					}
+
+					if ( isset( $video ) ) {
+						$video_duration = $this->get_video_duration( $video );
+					}
+					else {
+						$video_duration = $this->get_video_duration( array() );
 					}
 				}
 			}
@@ -2194,13 +2331,38 @@ class WPSEO_Video_Sitemap {
 			return false;
 		}
 
-		echo '<meta property="og:video" content="' . esc_attr( $video['player_loc'] ) . '" />' . "\n";
+		echo '<meta property="og:video" content="' . esc_url( $video['player_loc'] ) . '" />' . "\n";
+
+		if ( strpos( $video['player_loc'], 'https://' ) === 0 ) {
+			echo '<meta property="og:video:secure_url" content="' . esc_url( $video['player_loc'] ) . '" />' . "\n";
+		}
+
 		echo '<meta property="og:video:type" content="text/html" />' . "\n";
 		if ( isset( $video['width'] ) && isset( $video['height'] ) ) {
 			echo '<meta property="og:video:width" content="' . esc_attr( $video['width'] ) . '" />' . "\n";
 			echo '<meta property="og:video:height" content="' . esc_attr( $video['height'] ) . '" />' . "\n";
 		}
-		$GLOBALS['wpseo_og']->image_output( $video['thumbnail_loc'] );
+
+		if ( $video_duration !== 0 ) {
+			echo '<meta property="video:duration" content="' . intval( $video_duration ) . '" />' . "\n";
+		}
+
+		// This filter is documented in the `add_yandex_namespace()` method above.
+		if ( apply_filters( 'wpseo_video_yandex_support', true ) === true ) {
+			if ( isset( $post, $post->post_date, $post->ID ) ) {
+				echo '<meta property="ya:ovs:upload_date" content="' . date( 'c', strtotime( $post->post_date ) ) . '" />' . "\n";
+
+				$not_family_friendly = 'false';
+				if ( $this->is_video_family_friendly( $post->ID ) === false ) {
+					$not_family_friendly = 'true';
+				}
+				echo '<meta property="ya:ovs:adult" content="', $not_family_friendly, '" />', "\n";
+			}
+
+			echo '<meta property="ya:ovs:allow_embed" content="true" />' . "\n";
+		}
+
+		WPSEO_Video_Wrappers::og_image_output( $video['thumbnail_loc'] );
 	}
 
 
@@ -2248,40 +2410,29 @@ class WPSEO_Video_Sitemap {
 	private function is_video_page( $page ) {
 		$video_pages = array( 'wpseo_video' );
 
-		return in_array( $page, $video_pages );
-	}
-
-	/**
-	 * Wrapper function to check if we have a valid datetime (Uses a new util in WPSEO)
-	 *
-	 * @param string $datetime Date Time.
-	 *
-	 * @return bool
-	 */
-	private function is_valid_datetime( $datetime ) {
-		if ( method_exists( 'WPSEO_Utils', 'is_valid_datetime' ) ) {
-			return WPSEO_Utils::is_valid_datetime( $datetime );
-		}
-
-		return true;
+		return in_array( $page, $video_pages, true );
 	}
 
 	/**
 	 * Get a single sitemap line to output in the xml sitemap
 	 *
-	 * @param string $val  Value.
-	 * @param string $key  Key.
-	 * @param string $xtra Extra.
+	 * @param string $val    Value.
+	 * @param string $key    Key.
+	 * @param string $xtra   Extra.
+	 * @param object $object The post/tax object this value relates to.
 	 *
 	 * @return null|string
 	 */
-	private function get_single_sitemap_line( $val, $key, $xtra ) {
+	private function get_single_sitemap_line( $val, $key, $xtra, $object ) {
 		$val = $this->clean_string( $val );
-		if ( in_array( $key, array( 'description', 'category', 'tag', 'title' ) ) ) {
+		if ( in_array( $key, array( 'description', 'category', 'tag', 'title' ), true ) ) {
 			$val = ent2ncr( esc_html( $val ) );
 		}
 		if ( ! empty( $val ) ) {
-			return "\t\t\t<video:" . $key . $xtra . '>' . wpseo_replace_vars( $val, array() ) . '</video:' . $key . ">\n";
+			$val = wpseo_replace_vars( $val, $object );
+			$val = _wp_specialchars( html_entity_decode( $val, ENT_QUOTES, 'UTF-8' ) );
+
+			return "\t\t\t<video:" . $key . $xtra . '>' . $val . '</video:' . $key . ">\n";
 		}
 
 		return null;
@@ -2358,17 +2509,43 @@ class WPSEO_Video_Sitemap {
 
 			// As this is used from within an AJAX call, we don't queue the cache clearing,
 			// but do a hard reset.
-			if ( method_exists( 'WPSEO_Sitemaps_Cache_Validator', 'invalidate_storage' ) ) {
-				WPSEO_Sitemaps_Cache_Validator::invalidate_storage( $this->video_sitemap_basename() );
-			}
+			WPSEO_Video_Wrappers::invalidate_cache_storage( $this->video_sitemap_basename() );
 
 			// Ping the search engines with our updated XML sitemap, we ping with the index sitemap because
 			// we don't know which video sitemap, or sitemaps, have been updated / added.
-			wpseo_ping_search_engines();
+			WPSEO_Video_Wrappers::ping_search_engines();
 
 			// Remove the admin notice.
 			delete_transient( 'video_seo_recommend_reindex' );
 		}
+	}
+
+
+	/**
+	 * Get the license manager
+	 *
+	 * @return Yoast_Plugin_License_Manager|null
+	 */
+	private function get_license_manager() {
+		// We only need this on admin pages.
+		// We don't need this in AJAX requests.
+		if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			return null;
+		}
+
+		if ( ! class_exists( 'Yoast_Plugin_License_Manager' ) ) {
+			return null;
+		}
+
+		$license_manager = new Yoast_Plugin_License_Manager( new Yoast_Product_WPSEO_Video() );
+
+		// Setup constant name.
+		$license_manager->set_license_constant_name( 'WPSEO_VIDEO_LICENSE' );
+
+		// Setup hooks.
+		$license_manager->setup_hooks();
+
+		return $license_manager;
 	}
 
 
@@ -3159,32 +3336,5 @@ class WPSEO_Video_Sitemap {
 	 */
 	public function grab_embeddable_urls_xpath( $content ) {
 		_deprecated_function( __METHOD__, 'Video SEO 1.8.0', 'WPSEO_Video_Analyse_Post::get_vid_info()' );
-	}
-
-	/**
-	 * Get the license manager
-	 *
-	 * @return Yoast_Plugin_License_Manager|null
-	 */
-	private function get_license_manager() {
-		// We only need this on admin pages.
-		// We don't need this in AJAX requests.
-		if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-			return null;
-		}
-
-		if ( ! class_exists( 'Yoast_Plugin_License_Manager' ) ) {
-			return null;
-		}
-
-		$license_manager = new Yoast_Plugin_License_Manager( new Yoast_Product_WPSEO_Video() );
-
-		// Setup constant name.
-		$license_manager->set_license_constant_name( 'WPSEO_VIDEO_LICENSE' );
-
-		// Setup hooks.
-		$license_manager->setup_hooks();
-
-		return $license_manager;
 	}
 } /* End of class WPSEO_Video_Sitemap */

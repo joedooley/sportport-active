@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name: WooCommerce Authorize.Net AIM Gateway
- * Plugin URI: http://www.woothemes.com/products/authorize-net-aim/
+ * Plugin URI: http://www.woocommerce.com/products/authorize-net-aim/
  * Description: Accept Credit Cards and eChecks via Authorize.Net AIM in your WooCommerce store
- * Author: WooThemes / SkyVerge
- * Author URI: http://www.woothemes.com
- * Version: 3.9.2
+ * Author: SkyVerge
+ * Author URI: http://www.woocommerce.com
+ * Version: 3.11.1
  * Text Domain: woocommerce-gateway-authorize-net-aim
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2011-2016 SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2011-2017, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -17,7 +17,7 @@
  * @package   WC-Gateway-Authorize-Net-AIM
  * @author    SkyVerge
  * @category  Gateway
- * @copyright Copyright (c) 2011-2016, SkyVerge, Inc.
+ * @copyright Copyright (c) 2011-2017, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -41,11 +41,11 @@ if ( ! class_exists( 'SV_WC_Framework_Bootstrap' ) ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'lib/skyverge/woocommerce/class-sv-wc-framework-bootstrap.php' );
 }
 
-SV_WC_Framework_Bootstrap::instance()->register_plugin( '4.4.1', __( 'WooCommerce Authorize.Net AIM Gateway', 'woocommerce-gateway-authorize-net-aim' ), __FILE__, 'init_woocommerce_gateway_authorize_net_aim', array(
+SV_WC_Framework_Bootstrap::instance()->register_plugin( '4.6.0', __( 'WooCommerce Authorize.Net AIM Gateway', 'woocommerce-gateway-authorize-net-aim' ), __FILE__, 'init_woocommerce_gateway_authorize_net_aim', array(
 	'is_payment_gateway'   => true,
-	'minimum_wc_version'   => '2.4.13',
+	'minimum_wc_version'   => '2.5.5',
 	'minimum_wp_version'   => '4.1',
-	'backwards_compatible' => '4.4.0',
+	'backwards_compatible' => '4.4',
 ) );
 
 function init_woocommerce_gateway_authorize_net_aim() {
@@ -113,7 +113,7 @@ class WC_Authorize_Net_AIM extends SV_WC_Payment_Gateway_Plugin {
 
 
 	/** string version number */
-	const VERSION = '3.9.2';
+	const VERSION = '3.11.1';
 
 	/** @var WC_Authorize_Net_AIM single instance of this plugin */
 	protected static $instance;
@@ -151,6 +151,7 @@ class WC_Authorize_Net_AIM extends SV_WC_Payment_Gateway_Plugin {
 			self::PLUGIN_ID,
 			self::VERSION,
 			array(
+				'text_domain'  => 'woocommerce-gateway-authorize-net-aim',
 				'gateways'     => $this->get_enabled_gateways(),
 				'dependencies' => array( 'SimpleXML', 'xmlwriter', 'dom' ),
 				'require_ssl'  => true,
@@ -168,18 +169,6 @@ class WC_Authorize_Net_AIM extends SV_WC_Payment_Gateway_Plugin {
 			// handle activating/deactivating emulation gateway
 			add_action( 'admin_action_wc_authorize_net_aim_emulation', array( $this, 'toggle_emulation' ) );
 		}
-	}
-
-
-	/**
-	 * Load plugin text domain.
-	 *
-	 * @since 3.0
-	 * @see SV_WC_Payment_Gateway_Plugin::load_translation()
-	 */
-	public function load_translation() {
-
-		load_plugin_textdomain( 'woocommerce-gateway-authorize-net-aim', false, dirname( plugin_basename( $this->get_file() ) ) . '/i18n/languages' );
 	}
 
 
@@ -279,10 +268,63 @@ class WC_Authorize_Net_AIM extends SV_WC_Payment_Gateway_Plugin {
 
 			if ( isset( $locales[ $country_code ]['state']['required'] ) ) {
 				$locales[ $country_code ]['state']['required'] = true;
+				$locales[ $country_code ]['state']['label']    = $this->get_state_label( $country_code );
 			}
 		}
 
 		return $locales;
+	}
+
+
+	/**
+	 * Gets a label for states that don't have one set by WooCommerce.
+	 *
+	 * @since 3.11.1
+	 *
+	 * @param string $country_code the 2-letter country code for the billing country
+	 * @return string the label for the "billing state" field at checkout
+	 */
+	protected function get_state_label( $country_code ) {
+
+		switch( $country_code ) {
+
+			case 'AF':
+			case 'AT':
+			case 'BI':
+			case 'KR':
+			case 'PL':
+			case 'PT':
+			case 'LK':
+			case 'SE':
+			case 'VN':
+				$label = __( 'Province', 'woocommerce-gateway-authorize-net-cim' );
+			break;
+
+			case 'AX':
+			case 'YT':
+				$label = __( 'Island', 'woocommerce-gateway-authorize-net-cim' );
+			break;
+
+			case 'DE':
+				$label = __( 'State', 'woocommerce-gateway-authorize-net-cim' );
+			break;
+
+			case 'EE':
+			case 'NO':
+				$label = __( 'County', 'woocommerce-gateway-authorize-net-cim' );
+			break;
+
+			case 'FI':
+			case 'IL':
+			case 'LB':
+				$label = __( 'District', 'woocommerce-gateway-authorize-net-cim' );
+			break;
+
+			default:
+				$label = __( 'Region', 'woocommerce-gateway-authorize-net-cim' );
+		}
+
+		return $label;
 	}
 
 
@@ -400,7 +442,7 @@ class WC_Authorize_Net_AIM extends SV_WC_Payment_Gateway_Plugin {
 
 			if ( ! $credit_card_gateway->get_client_key() ) {
 				$message = sprintf( __( "%s: A valid Client Key is required to use Accept.js at checkout.", 'woocommerce-gateway-authorize-net-aim' ), '<strong>' . $this->get_plugin_name() . '</strong>' );
-			} elseif ( ! SV_WC_Plugin_Compatibility::wc_checkout_is_https() ) {
+			} elseif ( ! wc_checkout_is_https() ) {
 				$message = sprintf( __( "%s: SSL is required to use Accept.js at checkout.", 'woocommerce-gateway-authorize-net-aim' ), '<strong>' . $this->get_plugin_name() . '</strong>' );
 			}
 
@@ -499,7 +541,7 @@ class WC_Authorize_Net_AIM extends SV_WC_Payment_Gateway_Plugin {
 	 * @return string
 	 */
 	public function get_documentation_url() {
-		return 'http://docs.woothemes.com/document/authorize-net-aim/';
+		return 'http://docs.woocommerce.com/document/authorize-net-aim/';
 	}
 
 
@@ -511,7 +553,8 @@ class WC_Authorize_Net_AIM extends SV_WC_Payment_Gateway_Plugin {
 	 * @return string
 	 */
 	public function get_support_url() {
-		return 'https://support.woothemes.com/';
+
+		return 'https://woocommerce.com/my-account/tickets/';
 	}
 
 

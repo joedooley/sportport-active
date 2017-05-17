@@ -41,10 +41,10 @@ if ( ! class_exists( 'WPSEO_Video_Details_Blip' ) ) {
 	/**
 	 * Class WPSEO_Video_Details_Blip
 	 *
-	 * @internal
+	 * {@internal
 	 * Blip videos have an embedLookup in the format 'gbk7g5S1HwI' and a numeric id.
 	 * These two have no discernable relation to each other. Detail lookup can be done via two distinct
-	 * methods, for one the embedLookup is usable, for the other the id...
+	 * methods, for one the embedLookup is usable, for the other the id... }}
 	 */
 	class WPSEO_Video_Details_Blip extends WPSEO_Video_Details_Oembed {
 

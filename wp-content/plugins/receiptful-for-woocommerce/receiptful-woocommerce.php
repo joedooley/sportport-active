@@ -5,7 +5,7 @@
  * Description: 	Conversio is the all-in-one marketing dashboard for your WooCommerce store.
  * Author: 			Receiptful
  * Author URI: 		https://conversio.com
- * Version: 		1.3.4
+ * Version: 		1.3.5
  * Text Domain: 	receiptful-for-woocommerce
  * Domain Path: 	/languages/
  *
@@ -35,7 +35,7 @@ class Receiptful_WooCommerce {
 	 * @since 1.0.1
 	 * @var string $version Plugin version number.
 	 */
-	public $version = '1.3.4';
+	public $version = '1.3.5';
 
 
 	/**

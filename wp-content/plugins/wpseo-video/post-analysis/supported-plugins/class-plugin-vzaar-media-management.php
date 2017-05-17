@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Vzaar Media Management plugin
  *
- * @see http://wordpress.org/extend/plugins/vzaar-media-management/
+ * @see https://wordpress.org/plugins/vzaar-media-management/
  *
- * @internal Last update: July 2014 based upon v 1.2
+ * {@internal Last update: July 2014 based upon v 1.2.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Vzaar_Media_Management' ) ) {
 

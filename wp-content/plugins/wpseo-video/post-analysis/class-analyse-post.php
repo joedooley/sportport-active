@@ -30,10 +30,10 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 	 * @todo       [JRF -> Yoast] This currently stops at the first video (=old behaviour). Is this correct
 	 * and as intended ? What about adding the potential secondary videos to the sitemap as well ?
 	 * and what about wrapping them in schema.org info in the content ?
-	 * This would impact the saving of meta data, how the meta data is presented to the user in the metabox
+	 * This would impact the saving of metadata, how the metadata is presented to the user in the metabox
 	 * as the user should be able to edit info on all videos (should they get a choice which is the main
 	 * video to use for header info ? ), how the schema.org data is added and how the sitemap is generated.
-	 * Adding the 'matched' string to the saved meta data would help with the schema.org data
+	 * Adding the 'matched' string to the saved metadata would help with the schema.org data
 	 * (str_replace on the correct video)
 	 *
 	 * @todo       figure out how to deal with weaver theme for static set up
@@ -49,16 +49,16 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 		 * @var  array   Array of supported plugins to take into account when analysing a post
 		 *               Format: key = class name suffix, value = plugin basename
 		 *
-		 * @internal Changing the order of this array will change the priority with which the plugin is treated
-		 *           The current order is based on the number of plugin downloads as stated in the
-		 *           WP repository per 2014-07-25.
+		 * {@internal Changing the order of this array will change the priority with which the plugin is treated
+		 *            The current order is based on the number of plugin downloads as stated in the
+		 *            WP repository per 2014-07-25.}}
 		 *
-		 * @internal To add (or remove) support for a plugin:
-		 *           - Create a class file in the supported-plugins folder (see other files and template for examples)
-		 *           - Add the plugin to the below list
-		 *           - Add the class file to the autoload list in video-seo.php
-		 *           - Add one of more unit test file(s) for the features supported by the plugin
-		 *           - Add the plugin to travis.yml for download via git/svn
+		 * {@internal To add (or remove) support for a plugin:
+		 *            - Create a class file in the supported-plugins folder (see other files and template for examples).
+		 *            - Add the plugin to the below list.
+		 *            - Add the class file to the autoload list in video-seo.php.
+		 *            - Add one of more unit test file(s) for the features supported by the plugin.
+		 *            - Add the plugin to travis.yml for download via git/svn.}}
 		 */
 		public static $supported_plugins = array(
 			'Jetpack'                            => 'jetpack/jetpack.php',
@@ -332,8 +332,8 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 					$video_autoembeds = $instance->get_video_autoembeds();
 					if ( is_array( $video_autoembeds ) && $video_autoembeds !== array() ) {
 						/*
-						 * @internal merge order reversed, if there is a handler name conflict between plugins,
-						 * defer to the the more popular plugin which will have been added first.
+						 * {@internal Merge order reversed, if there is a handler name conflict between plugins,
+						 * defer to the more popular plugin which will have been added first.}}
 						 */
 						self::$video_autoembeds = array_unique( array_merge( $video_autoembeds, self::$video_autoembeds ) );
 					}
@@ -344,8 +344,8 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 					$video_oembeds = $instance->get_video_oembeds();
 					if ( is_array( $video_oembeds ) && $video_oembeds !== array() ) {
 						/*
-						 * @internal merge order reversed, if there is a handler name conflict between plugins,
-						 * defer to the the more popular plugin which will have been added first.
+						 * {@internal Merge order reversed, if there is a handler name conflict between plugins,
+						 * defer to the more popular plugin which will have been added first.}}
 						 */
 						self::$video_oembeds = array_unique( array_merge( $video_oembeds, self::$video_oembeds ) );
 					}
@@ -592,7 +592,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 			if ( false !== strpos( $this->content, '[' ) && is_array( self::$shortcodes ) && self::$shortcodes !== array() ) {
 
 				$old_shortcode_tags        = $GLOBALS['shortcode_tags'];
-				$GLOBALS['shortcode_tags'] = self::$shortcodes;
+				$GLOBALS['shortcode_tags'] = self::$shortcodes; // WPCS: override ok.
 
 				/**
 				 * 1 - An extra [ to allow for escaping shortcodes with double [[]]
@@ -657,7 +657,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 					}
 				}
 
-				$GLOBALS['shortcode_tags'] = $old_shortcode_tags;
+				$GLOBALS['shortcode_tags'] = $old_shortcode_tags; // WPCS: override ok.
 			}
 
 			return $vid;
@@ -744,7 +744,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 		/**
 		 * Parse the content of a post or term description.
 		 *
-		 * @internal stripped version of the old function
+		 * {@internal Stripped version of the old function.}}
 		 *
 		 * @since    1.3
 		 *
@@ -860,7 +860,7 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 		/**
 		 * Checks whether there are oembed URLs in the post that should be included in the video sitemap.
 		 *
-		 * @internal Look at WP native function get_media_embedded_in_content( $content, $types = null )
+		 * {@internal Look at WP native function `get_media_embedded_in_content( $content, $types = null )`.}}
 		 *
 		 * @since    0.1
 		 *
@@ -1545,13 +1545,13 @@ if ( ! class_exists( 'WPSEO_Video_Analyse_Post' ) ) {
 		/**
 		 * Parse a URL and find the host name and more.
 		 *
-		 * @internal Used to be regex based, but the regex was buggy in a few places, most notably it
+		 * {@internal Used to be regex based, but the regex was buggy in a few places, most notably it
 		 * failed on:
 		 * - protocol independent urls
 		 * - arguments in array syntax
 		 * - query starting with & not ?
 		 * This version deals with all those cases too and is compatible with the expected array return elements
-		 * from both the old function as well as the php native parse_url function.
+		 * from both the old function as well as the php native parse_url function.}}
 		 *
 		 * @since    1.1
 		 *

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @class		Receiptful_Order
  * @since		1.1.6
  * @version		1.1.6
- * @author		Receiptful
+ * @author		Conversio
  */
 class Receiptful_Order {
 
@@ -21,7 +21,7 @@ class Receiptful_Order {
 	 */
 	public function __construct() {
 
-		// Save Receiptful user token on checkout
+		// Save Conversio user token on checkout
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'order_save_user_token' ), 10, 2 );
 
 		// Check product stock, if empty update product
@@ -33,7 +33,7 @@ class Receiptful_Order {
 	/**
 	 * Save user token.
 	 *
-	 * Save the user token from the receiptful cookie at checkout.
+	 * Save the user token from the Conversio cookie at checkout.
 	 * After save it will immediately be deleted. When deleted it will
 	 * automatically re-generate a new one to track the new purchase flow.
 	 *
@@ -54,8 +54,8 @@ class Receiptful_Order {
 	/**
 	 * Update products.
 	 *
-	 * Maybe send a update to Receiptful. Check if the product is out-of-stock,
-	 * when it is, a update will be send to Receiptful to make sure the product
+	 * Maybe send a update to Conversio. Check if the product is out-of-stock,
+	 * when it is, a update will be send to Conversio to make sure the product
 	 * is set to 'hidden'.
 	 *
 	 * @since 1.1.9
@@ -71,7 +71,7 @@ class Receiptful_Order {
 
 				if ( $_product && $_product->exists() && $_product->managing_stock() ) {
 					if ( ! $_product->is_in_stock() ) {
-						Receiptful()->products->update_product( $_product->id );
+						Receiptful()->products->update_product( $_product->get_id() );
 					}
 				}
 

@@ -6,13 +6,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *
  * @class		Receiptful_Api
  * @version		1.0.0
- * @author		Receiptful
+ * @author		Conversio
  */
 class Receiptful_Api {
 
 
 	/**
-	 * Receiptful API key.
+	 * Conversio API key.
 	 *
 	 * @since 1.0.0
 	 * @var $api_key
@@ -21,7 +21,7 @@ class Receiptful_Api {
 
 
 	/**
-	 * URL for Receiptful.
+	 * URL for Conversio.
 	 *
 	 * @since 1.0.0
 	 * @var $url
@@ -42,7 +42,7 @@ class Receiptful_Api {
 	/**
 	 * Send receipt.
 	 *
-	 * Send the Receiptful receipt based on $args.
+	 * Send the Conversio receipt based on $args.
 	 *
 	 * @since 1.0.0
 	 *
@@ -61,11 +61,11 @@ class Receiptful_Api {
 	/**
 	 * Resend receipt.
 	 *
-	 * Resend the previously send Receiptful receipt.
+	 * Resend the previously send Conversio receipt.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param	int				$receipt_id		Receiptful receipt ID, as retrieved from original API call.
+	 * @param	int				$receipt_id		Conversio receipt ID, as retrieved from original API call.
 	 * @return	array|WP_Error					WP_Error when the API call fails, otherwise the API response.
 	 */
 	public function resend_receipt( $receipt_id ) {
@@ -80,11 +80,11 @@ class Receiptful_Api {
 	/**
 	 * Update product.
 	 *
-	 * When a product is created/updated, send it to the Receiptful API.
+	 * When a product is created/updated, send it to the Conversio API.
 	 *
 	 * @since 1.1.1
 	 *
-	 * @param	int				$product_id		Product ID to update in Receiptful.
+	 * @param	int				$product_id		Product ID to update in Conversio.
 	 * @param	array			$args			Product arguments to update.
 	 * @return	array|WP_Error					WP_Error when the API call fails, otherwise the API response.
 	 */
@@ -100,7 +100,7 @@ class Receiptful_Api {
 	/**
 	 * Update products.
 	 *
-	 * When a product is created/updated, send it to the Receiptful API.
+	 * When a product is created/updated, send it to the Conversio API.
 	 *
 	 * @since 1.1.1
 	 *
@@ -119,11 +119,11 @@ class Receiptful_Api {
 	/**
 	 * Delete product.
 	 *
-	 * When a product is delete, also delete is from Receiptful.
+	 * When a product is delete, also delete is from Conversio.
 	 *
 	 * @since 1.1.1
 	 *
-	 * @param	int				$product_id		Product ID to delete from Receiptful.
+	 * @param	int				$product_id		Product ID to delete from Conversio.
 	 * @return	array|WP_Error					WP_Error when the API call fails, otherwise the API response.
 	 */
 	public function delete_product( $product_id ) {
@@ -138,7 +138,7 @@ class Receiptful_Api {
 	/**
 	 * Upload receipts.
 	 *
-	 * Bulk upload old receipts to sync with Receiptful. This ensures
+	 * Bulk upload old receipts to sync with Conversio. This ensures
 	 * better quality recommendations for similar products.
 	 *
 	 * @since 1.1.2
@@ -158,7 +158,7 @@ class Receiptful_Api {
 	/**
 	 * Update cart.
 	 *
-	 * Send a update of the cart. When the cart is abandoned, Receiptful will be able
+	 * Send a update of the cart. When the cart is abandoned, Conversio will be able
 	 * to send a cart abandoned email.
 	 *
 	 * @since 1.2.0
@@ -178,7 +178,7 @@ class Receiptful_Api {
 	/**
 	 * Get abandoned cart arguments.
 	 *
-	 * Get the abandoned cart arguments from the Receiptful API (contains cart items).
+	 * Get the abandoned cart arguments from the Conversio API (contains cart items).
 	 *
 	 * @since 1.2.0
 	 *
@@ -237,7 +237,7 @@ class Receiptful_Api {
 	/**
 	 * API GET.
 	 *
-	 * Send a GET request to the Receiptful API call.
+	 * Send a GET request to the Conversio API call.
 	 *
 	 * @since 1.1.4
 	 * @since 1.2.0 Add $request_args param.
@@ -276,7 +276,7 @@ class Receiptful_Api {
 	/**
 	 * API Call.
 	 *
-	 * Send a Receiptful API call based on method and arguments.
+	 * Send a Conversio API call based on method and arguments.
 	 *
 	 * @since 1.0.0
 	 * @since 1.2.0 Add $request_args param.
@@ -316,7 +316,7 @@ class Receiptful_Api {
 	/**
 	 * API PUT.
 	 *
-	 * Send a Receiptful PUT API call based on method and arguments.
+	 * Send a Conversio PUT API call based on method and arguments.
 	 *
 	 * @since 1.1.1
 	 * @since 1.2.0 Add $request_args param.
@@ -356,7 +356,7 @@ class Receiptful_Api {
 	/**
 	 * API DELETE.
 	 *
-	 * Send a Receiptful DELETE API call based on method and arguments.
+	 * Send a Conversio DELETE API call based on method and arguments.
 	 *
 	 * @since 1.1.1
 	 * @since 1.2.0 Add $request_args param.

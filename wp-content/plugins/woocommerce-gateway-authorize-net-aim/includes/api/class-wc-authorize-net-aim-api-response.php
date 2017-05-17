@@ -14,11 +14,11 @@
  *
  * Do not edit or add to this file if you wish to upgrade WooCommerce Authorize.Net AIM Gateway to newer
  * versions in the future. If you wish to customize WooCommerce Authorize.Net AIM Gateway for your
- * needs please refer to http://docs.woothemes.com/document/authorize-net-aim/
+ * needs please refer to http://docs.woocommerce.com/document/authorize-net-aim/
  *
  * @package   WC-Gateway-Authorize-Net-AIM/API/Response
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2016, SkyVerge, Inc.
+ * @copyright Copyright (c) 2011-2017, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 

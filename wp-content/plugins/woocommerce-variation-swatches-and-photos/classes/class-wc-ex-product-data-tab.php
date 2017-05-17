@@ -30,48 +30,22 @@ if ( !class_exists( 'WC_EX_Product_Data_Tab_Swatches' ) ) {
 			add_action( 'admin_head', array(&$this, 'on_admin_head') );
 
 			add_action( 'woocommerce_product_write_panel_tabs', array(&$this, 'product_write_panel_tabs'), 99 );
-			add_action( 'woocommerce_product_write_panels', array(&$this, 'product_data_panel_wrap'), 99 );
+			add_action( 'woocommerce_product_data_panels', array(&$this, 'product_data_panel_wrap'), 99 );
 			add_action( 'woocommerce_process_product_meta', array(&$this, 'process_meta_box'), 1, 2 );
 		}
 
 		public function on_woocommerce_init() {
-			global $woocommerce;
 			if ( empty( $this->tab_icon ) ) {
-				$wc_default_icons = $woocommerce->plugin_url() . '/assets/images/icons/wc-tab-icons.png';
+				$wc_default_icons = WC()->plugin_url() . '/assets/images/icons/wc-tab-icons.png';
 				$this->tab_icon = $wc_default_icons;
 			}
 		}
 
 		public function on_admin_head() {
-
-			if ( WC_Swatches_Compatibility::is_wc_version_gte_2_3() ) {
 				echo '<style type="text/css">';
 				echo '#' . $this->tab_id . ' { padding:10px; }';
 				echo '</style>';
 				return;
-			}
-
-			if ( !function_exists( 'get_product' ) ) {
-				echo '<style type="text/css">';
-				echo '#woocommerce-product-data ul.product_data_tabs li.' . $this->tab_class . ' a {padding:9px 9px 9px 34px;line-height:16px;border-bottom:1px solid #d5d5d5;text-shadow:0 1px 1px #fff;color:#555;background:#ececec url(' . $this->tab_icon . ') no-repeat 9px 9px;}';
-				echo '#woocommerce-product-data ul.product_data_tabs li.' . $this->tab_class . '.active a{background-color:#f8f8f8;border-bottom:1px solid #f8f8f8;}';
-				echo '#' . $this->tab_id . ' { padding:10px; }';
-				echo '</style>';
-			} else {
-
-				echo '<style type="text/css">';
-				if ( WC_Swatches_Compatibility::is_wc_version_gte_2_1() ) {
-					echo '#woocommerce-product-data ul.product_data_tabs li.' . $this->tab_class . ' a {padding: 5px 5px 5px 20px;background:#F1F1F1 url(' . $this->tab_icon . ') no-repeat 5px 5px;}';
-				} else {
-					echo '#woocommerce-product-data ul.product_data_tabs li.' . $this->tab_class . ' a {padding: 5px 5px 5px 28px;background:#F1F1F1 url(' . $this->tab_icon . ') no-repeat 5px 5px;}';
-				}
-				echo '#woocommerce-product-data ul.product_data_tabs li.' . $this->tab_class . '.active a{ border-color: #DFDFDF;position: relative;background-color: #F8F8F8;color: #555;margin: 0 -1px 0 0;width: 113px;}';
-				echo '#woocommerce-product-data ul.product_data_tabs li.' . $this->tab_class . ' a:before { content:""; }';
-
-				echo '#' . $this->tab_id . ' { padding:10px; }';
-				echo '#swatches {width:99% !important;};';
-				echo '</style>';
-			}
 		}
 
 		public function product_write_panel_tabs() {

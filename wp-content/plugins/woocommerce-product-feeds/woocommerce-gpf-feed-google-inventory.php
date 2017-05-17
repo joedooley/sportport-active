@@ -64,12 +64,13 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 	function render_item( $feed_item ) {
 		// Google do not allow free items in the feed.
 		if ( empty ( $feed_item->price_inc_tax ) ) {
-			return false;
+			return '';
 		}
-		echo "    <item>\n";
-		echo '      <guid>' . $feed_item->guid . "</guid>\n";
+		$output = '';
+		$output .= "    <item>\n";
+		$output .= '      <guid>' . $feed_item->guid . "</guid>\n";
 
-		$this->render_prices( $feed_item );
+		$output .= $this->render_prices( $feed_item );
 
 		if ( count( $feed_item->additional_elements ) ) {
 			foreach ( $feed_item->additional_elements as $element_name => $element_values ) {
@@ -88,7 +89,7 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 					if ( 'identifier_exists' == $element_name ) {
 						if ( 'included' == $element_value ) {
 							if ( ! $this->has_identifier( $feed_item ) ) {
-								echo ' <g:identifier_exists>FALSE</g:identifier_exists>';
+								$output .= ' <g:identifier_exists>FALSE</g:identifier_exists>';
 							}
 							continue;
 						} else {
@@ -101,16 +102,15 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 							$element_value .= 'T00:00:00' . sprintf( '%+03d', $tz_offset ) . '00';
 						}
 					}
-					echo '      <g:' . $element_name . '>';
-					echo '<![CDATA[' . $element_value . ']]>';
-					echo '</g:' . $element_name . ">\n";
-
+					$output .= '      <g:' . $element_name . '>';
+					$output .= '<![CDATA[' . $element_value . ']]>';
+					$output .= '</g:' . $element_name . ">\n";
 				}
 			}
 		}
 
-		echo "    </item>\n";
-		return true;
+		$output .= "    </item>\n";
+		return $output;
 	}
 
 	/**
@@ -128,11 +128,11 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 			// Others have to be submitted including tax
 			$price = number_format( $feed_item->regular_price_inc_tax, 2, '.', '' );
 		}
-		echo '      <g:price>' . $price . ' ' . $this->store_info->currency . "</g:price>\n";
+		$output = '      <g:price>' . $price . ' ' . $this->store_info->currency . "</g:price>\n";
 
 		// If there's no sale price, then we're done.
 		if ( empty( $feed_item->sale_price_inc_tax ) ) {
-			return;
+			return $output;
 		}
 
 		// Otherwise, include the sale_price tag.
@@ -141,7 +141,7 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 		} else {
 			$sale_price = number_format( $feed_item->sale_price_inc_tax, 2, '.', '' );
 		}
-		echo '      <g:sale_price>' . $sale_price . ' ' . $this->store_info->currency . "</g:sale_price>\n";
+		$output .= '      <g:sale_price>' . $sale_price . ' ' . $this->store_info->currency . "</g:sale_price>\n";
 
 		// Include start / end dates if provided.
 		if ( ! empty( $feed_item->sale_price_start_date ) &&
@@ -153,10 +153,11 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 			$effective_date = date( 'Y-m-d\TH:i', $feed_item->sale_price_start_date ) . $offset_string;
 			$effective_date .= '/';
 			$effective_date .= date( 'Y-m-d\TH:i', $feed_item->sale_price_end_date ) . $offset_string;
-			echo '      <g:sale_price_effective_date>' . $effective_date . '</g:sale_price_effective_date>';
+			$output .= '      <g:sale_price_effective_date>' . $effective_date . '</g:sale_price_effective_date>';
 		} else {
-			echo '      <g:sale_price_effective_date />';
+			$output .= '      <g:sale_price_effective_date />';
 		}
+		return $output;
 	}
 
 	/**

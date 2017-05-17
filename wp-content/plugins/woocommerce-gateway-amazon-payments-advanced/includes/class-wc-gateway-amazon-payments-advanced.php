@@ -1,6 +1,12 @@
 <?php
 /**
- * WC_Gateway_Amazon_Payments_Advanced
+ * Gateway class.
+ *
+ * @package WC_Gateway_Amazon_Pay
+ */
+
+/**
+ * Implement payment method for Amazon Pay.
  */
 class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 
@@ -12,7 +18,7 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 	protected $reference_id;
 
 	/**
-	 * Amazon Payments Access Token ("login app" mode checkout)
+	 * Amazon Pay Access Token ("login app" mode checkout)
 	 *
 	 * @var string
 	 */
@@ -22,7 +28,7 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->method_title = __( 'Login &amp; Pay with Amazon', 'woocommerce-gateway-amazon-payments-advanced' );
+		$this->method_title = __( 'Amazon Pay &amp; Login with Amazon', 'woocommerce-gateway-amazon-payments-advanced' );
 		$this->id           = 'amazon_payments_advanced';
 		$this->icon         = apply_filters( 'woocommerce_amazon_pa_logo', plugins_url( 'assets/images/amazon-payments.gif', plugin_dir_path( __FILE__ ) ) );
 		$this->debug        = ( 'yes' === $this->get_option( 'debug' ) );
@@ -34,20 +40,20 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 			'refunds',
 		);
 
-		// Load the form fields
+		// Load the form fields.
 		$this->init_form_fields();
 
-		// Load the settings
+		// Load the settings.
 		$this->init_settings();
 
 		// Load saved settings.
 		$this->load_settings();
 
-		// Get Order Refererence ID and/or Access Token
+		// Get Order Refererence ID and/or Access Token.
 		$this->reference_id = WC_Amazon_Payments_Advanced_API::get_reference_id();
 		$this->access_token = WC_Amazon_Payments_Advanced_API::get_access_token();
 
-		// Handling for the review page of the German Market Plugin
+		// Handling for the review page of the German Market Plugin.
 		if ( empty( $this->reference_id ) ) {
 			if ( isset( $_SESSION['first_checkout_post_array']['amazon_reference_id'] ) ) {
 				$this->reference_id = $_SESSION['first_checkout_post_array']['amazon_reference_id'];
@@ -57,7 +63,7 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'validate_api_keys' ) );
 		add_action( 'woocommerce_checkout_update_order_review', array( $this, 'store_shipping_info_in_session' ) );
-
+		add_action( 'woocommerce_after_checkout_validation', array( $this, 'check_customer_coupons' ) );
 	}
 
 	/**
@@ -85,7 +91,9 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Amazon Payments Advanced is available if the following conditions are met (on top of WC_Payment_Gateway::is_available)
+	 * Amazon Pay is available if the following conditions are met (on top of
+	 * WC_Payment_Gateway::is_available).
+	 *
 	 * 1) Login App mode is enabled and we have an access token from Amazon
 	 * 2) Login App mode is *not* enabled and we have an order reference id
 	 * 3) In checkout pay page.
@@ -102,7 +110,6 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 		$login_app_mode_ok  = ( $login_app_enabled && ! empty( $this->access_token ) );
 
 		return ( parent::is_available() && ( $standard_mode_ok || $login_app_mode_ok ) );
-
 	}
 
 	/**
@@ -125,7 +132,7 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 					<div id="pay_with_amazon"></div>
 					<?php echo apply_filters( 'woocommerce_amazon_pa_checkout_message', __( 'Have an Amazon account?', 'woocommerce-gateway-amazon-payments-advanced' ) ); ?>
 				</div>
-			<?php else: ?>
+			<?php else : ?>
 				<div class="wc-amazon-payments-advanced-order-day-widgets">
 					<div id="amazon_wallet_widget"></div>
 					<div id="amazon_consent_widget"></div>
@@ -152,7 +159,7 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 
 		<?php if ( ! $this->seller_id ) : ?>
 			<div class="updated woocommerce-message"><div class="squeezer">
-				<h4><?php _e( 'Need an Amazon Payments Advanced account?', 'woocommerce-gateway-amazon-payments-advanced' ); ?></h4>
+				<h4><?php _e( 'Need an Amazon Pay merchant account?', 'woocommerce-gateway-amazon-payments-advanced' ); ?></h4>
 				<p class="submit">
 					<a class="button button-primary" href="<?php echo esc_url( WC_Amazon_Payments_Advanced_API::get_register_url() ); ?>"><?php _e( 'Signup now', 'woocommerce-gateway-amazon-payments-advanced' ); ?></a>
 				</p>
@@ -184,14 +191,14 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 	public function init_form_fields() {
 
 		$login_app_setup_url    = WC_Amazon_Payments_Advanced_API::get_client_id_instructions_url();
-		$label_format           = __( 'This option makes the plugin to work with the latest API from Amazon, this will enable support for Subscriptions and make transactions more securely. <a href="%s" target="_blank">You must create an Amazon Login App to be able to use this option.</a>', 'woocommerce-gateway-amazon-payments-advanced' );
+		$label_format           = __( 'This option makes the plugin to work with the latest API from Amazon, this will enable support for Subscriptions and make transactions more securely. <a href="%s" target="_blank">You must create a Login with Amazon App to be able to use this option.</a>', 'woocommerce-gateway-amazon-payments-advanced' );
 		$label_format           = wp_kses( $label_format, array( 'a' => array( 'href' => array(), 'target' => array() ) ) );
 		$enable_login_app_label = sprintf( $label_format, $login_app_setup_url );
 
 		$this->form_fields = array(
 			'enabled' => array(
 				'title'       => __( 'Enable/Disable', 'woocommerce-gateway-amazon-payments-advanced' ),
-				'label'       => __( 'Enable Amazon Payments Advanced', 'woocommerce-gateway-amazon-payments-advanced' ),
+				'label'       => __( 'Enable Amazon Pay &amp; Login with Amazon', 'woocommerce-gateway-amazon-payments-advanced' ),
 				'type'        => 'checkbox',
 				'description' => '',
 				'default'     => 'no',
@@ -200,7 +207,7 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 				'title'       => __( 'Title', 'woocommerce-gateway-amazon-payments-advanced' ),
 				'type'        => 'text',
 				'description' => __( 'Payment method title that the customer will see on your website.', 'woocommerce-gateway-amazon-payments-advanced' ),
-				'default'     => __( 'Amazon Payments', 'woocommerce-gateway-amazon-payments-advanced' ),
+				'default'     => __( 'Amazon Pay', 'woocommerce-gateway-amazon-payments-advanced' ),
 				'desc_tip'    => true,
 			),
 			'account_details' => array(
@@ -228,8 +235,15 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 				'default'     => '',
 				'desc_tip'    => true,
 			),
+			'payment_region' => array(
+				'title'       => __( 'Payment Region', 'woocommerce-gateway-amazon-payments-advanced' ),
+				'type'        => 'select',
+				'description' => '',
+				'default'     => WC_Amazon_Payments_Advanced_API::get_payment_region_from_country( WC()->countries->get_base_country() ),
+				'options'     => WC_Amazon_Payments_Advanced_API::get_payment_regions(),
+			),
 			'enable_login_app' => array(
-				'title'       => __( 'Use Amazon Login App', 'woocommerce-gateway-amazon-payments-advanced' ),
+				'title'       => __( 'Use Login with Amazon App', 'woocommerce-gateway-amazon-payments-advanced' ),
 				'label'       => $enable_login_app_label,
 				'type'        => 'checkbox',
 				'description' => '',
@@ -293,14 +307,14 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 				'options'     => array(
 					'LwA'   => __( 'Button with text Login with Amazon', 'woocommerce-gateway-amazon-payments-advanced' ),
 					'Login' => __( 'Button with text Login', 'woocommerce-gateway-amazon-payments-advanced' ),
-					'PwA'   => __( 'Button with text Pay with Amazon', 'woocommerce-gateway-amazon-payments-advanced' ),
+					'PwA'   => __( 'Button with text Amazon Pay', 'woocommerce-gateway-amazon-payments-advanced' ),
 					'Pay'   => __( 'Button with text Pay', 'woocommerce-gateway-amazon-payments-advanced' ),
-					'A'     => __( 'Button with Amazon Payments logo', 'woocommerce-gateway-amazon-payments-advanced' ),
+					'A'     => __( 'Button with Amazon Pay logo', 'woocommerce-gateway-amazon-payments-advanced' ),
 				),
 			),
 			'button_size' => array(
 				'title'       => __( 'Button size', 'woocommerce-gateway-amazon-payments-advanced' ),
-				'description' => __( 'Button size to display on cart and checkout pages. Only used when Amazon Login App is enabled.', 'woocommerce-gateway-amazon-payments-advanced' ),
+				'description' => __( 'Button size to display on cart and checkout pages. Only used when Login with Amazon App is enabled.', 'woocommerce-gateway-amazon-payments-advanced' ),
 				'desc_tip'    => true,
 				'type'        => 'select',
 				'default'     => 'medium',
@@ -313,7 +327,7 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 			),
 			'button_color' => array(
 				'title'       => __( 'Button color', 'woocommerce-gateway-amazon-payments-advanced' ),
-				'description' => __( 'Button color to display on cart and checkout pages. Only used when Amazon Login App is enabled.', 'woocommerce-gateway-amazon-payments-advanced' ),
+				'description' => __( 'Button color to display on cart and checkout pages. Only used when Login with Amazon App is enabled.', 'woocommerce-gateway-amazon-payments-advanced' ),
 				'desc_tip'    => true,
 				'type'        => 'select',
 				'default'     => 'Gold',
@@ -325,7 +339,7 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 			),
 			'button_language' => array(
 				'title'       => __( 'Button language', 'woocommerce-gateway-amazon-payments-advanced' ),
-				'description' => __( 'Language to use in Login with Amazon or a Pay with Amazon button. Only used when Amazon Login App is enabled.', 'woocommerce-gateway-amazon-payments-advanced' ),
+				'description' => __( 'Language to use in Login with Amazon or a Amazon Pay button. Only used when Login with Amazon App is enabled.', 'woocommerce-gateway-amazon-payments-advanced' ),
 				'desc_tip'    => true,
 				'type'        => 'select',
 				'default'     => '',
@@ -364,11 +378,11 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 				'type'        => 'checkbox',
 				'default'     => 'no',
 			),
-	   );
+		);
 	}
 
 	/**
-	 * Define user set variables
+	 * Define user set variables.
 	 */
 	public function load_settings() {
 		$settings = WC_Amazon_Payments_Advanced_API::get_settings();
@@ -410,6 +424,7 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 				'AmazonOrderReferenceId' => 'S00-0000000-0000000',
 			) );
 
+			// @codingStandardsIgnoreStart
 			if ( ! is_wp_error( $response ) && isset( $response->Error->Code ) && 'InvalidOrderReferenceId' !== (string) $response->Error->Code ) {
 				if ( 'RequestExpired' === (string) $response->Error->Code ) {
 					$message = sprintf( __( 'Error: MWS responded with a RequestExpired error. This is typically caused by a system time issue. Please make sure your system time is correct and try again. (Current system time: %s)', 'woocommerce-gateway-amazon-payments-advanced' ), date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), current_time( 'timestamp' ) ) );
@@ -425,8 +440,8 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 		} catch ( Exception $e ) {
 
 			WC_Admin_Settings::add_error( $e->getMessage() );
-
 		}
+		// @codingStandardsIgnoreEnd
 
 		return $ret;
 	}
@@ -437,91 +452,176 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 	 * This makes tax/shipping rate calculation possible on AddressBook Widget selection.
 	 */
 	public function store_shipping_info_in_session() {
-
 		if ( ! $this->reference_id ) {
 			return;
 		}
 
 		$order_details = $this->get_amazon_order_details( $this->reference_id );
 
+		// @codingStandardsIgnoreStart
 		if ( ! $order_details || ! isset( $order_details->Destination->PhysicalDestination ) ) {
 			return;
 		}
 
 		$address = (array) $order_details->Destination->PhysicalDestination;
+		// @codingStandardsIgnoreEnd
 
 		if ( ! empty( $address['CountryCode'] ) ) {
-			WC()->customer->set_country( $address['CountryCode'] );
-			WC()->customer->set_shipping_country( $address['CountryCode'] );
+			$this->set_customer_info( 'country', $address['CountryCode'] );
+			$this->set_customer_info( 'shipping_country', $address['CountryCode'] );
 		}
 
 		if ( ! empty( $address['StateOrRegion'] ) ) {
-			WC()->customer->set_state( $address['StateOrRegion'] );
-			WC()->customer->set_shipping_state( $address['StateOrRegion'] );
+			$this->set_customer_info( 'state', $address['StateOrRegion'] );
+			$this->set_customer_info( 'shipping_state', $address['StateOrRegion'] );
 		}
 
 		if ( ! empty( $address['PostalCode'] ) ) {
-
 			$postal_code  = $address['PostalCode'];
 			$country_code = empty( $address['CountryCode'] ) ? '' : $address['CountryCode'];
 
 			if ( 'US' === $country_code ) {
-
-				/*
-				 * US postal codes comes back as a ZIP+4 when in "login app" mode.
+				/**
+				 * US postal codes comes back as a ZIP+4 when in "Login with Amazon App" mode.
 				 *
 				 * This is too specific for the local delivery shipping method,
 				 * and causes the zip not to match, so we remove the +4.
 				 */
 				$code_parts  = explode( '-', $postal_code );
 				$postal_code = $code_parts[0];
-
 			}
 
-			WC()->customer->set_postcode( $postal_code );
-			WC()->customer->set_shipping_postcode( $postal_code );
+			$this->set_customer_info( 'postcode', $postal_code );
+			$this->set_customer_info( 'shipping_postcode', $postal_code );
 		}
 
 		if ( ! empty( $address['City'] ) ) {
-			WC()->customer->set_city( $address['City'] );
-			WC()->customer->set_shipping_city( $address['City'] );
+			$this->set_customer_info( 'city', $address['City'] );
+			$this->set_customer_info( 'shipping_city', $address['City'] );
+		}
+	}
+
+	/**
+	 * Set customer info.
+	 *
+	 * WC 3.0.0 deprecates some methods in customer setter, especially for billing
+	 * related address. This method provides compatibility to set customer billing
+	 * info.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param string $setter_suffix Setter suffix.
+	 * @param mixed  $value         Value to set.
+	 */
+	private function set_customer_info( $setter_suffix, $value ) {
+		$setter             = array( WC()->customer, 'set_' . $setter_suffix );
+		$is_shipping_setter = strpos( $setter_suffix, 'shipping_' ) !== false;
+
+		if ( version_compare( WC_VERSION, '3.0', '>=' ) && ! $is_shipping_setter ) {
+			$setter = array( WC()->customer, 'set_billing_' . $setter_suffix );
 		}
 
+		call_user_func( $setter, $value );
+	}
+
+	/**
+	 * Check customer coupons after checkout validation.
+	 *
+	 * Since the checkout fields were hijacked and billing_email is not present,
+	 * we need to call WC()->cart->check_customer_coupons again.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param array $posted Posted data.
+	 */
+	public function check_customer_coupons( $posted ) {
+		if ( ! $this->reference_id ) {
+			return;
+		}
+
+		$order_details = $this->get_amazon_order_details( $this->reference_id );
+		// @codingStandardsIgnoreStart
+		if ( ! $order_details || ! isset( $order_details->Buyer->Email ) ) {
+			return;
+		}
+
+		if ( $this->id === $posted['payment_method'] ) {
+			$posted['billing_email'] = empty( $posted['billing_email'] )
+				? (string) $order_details->Buyer->Email
+				: $posted['billing_email'];
+
+			WC()->cart->check_customer_coupons( $posted );
+		}
+		// @codingStandardsIgnoreEnd
 	}
 
 	/**
 	 * Process payment.
 	 *
-	 * @param int $order_id
+	 * @version 1.7.1
+	 *
+	 * @param int $order_id Order ID.
 	 */
 	public function process_payment( $order_id ) {
-		$order = new WC_Order( $order_id );
-
+		$order               = wc_get_order( $order_id );
 		$amazon_reference_id = isset( $_POST['amazon_reference_id'] ) ? wc_clean( $_POST['amazon_reference_id'] ) : '';
 
 		try {
+			if ( ! $order ) {
+				throw new Exception( __( 'Invalid order.', 'woocommerce-gateway-amazon-payments-advanced' ) );
+			}
 
 			if ( ! $amazon_reference_id ) {
-				throw new Exception( __( 'An Amazon payment method was not chosen.', 'woocommerce-gateway-amazon-payments-advanced' ) );
+				throw new Exception( __( 'An Amazon Pay payment method was not chosen.', 'woocommerce-gateway-amazon-payments-advanced' ) );
 			}
 
 			$order_total = $order->get_total();
+			$currency    = wc_apa_get_order_prop( $order, 'order_currency' );
 
-			wc_apa()->log( __METHOD__, "Info: Beginning processing of payment for order {$order_id} for the amount of {$order_total} {$order->get_order_currency()}. Amazon reference ID: {$amazon_reference_id}." );
+			wc_apa()->log( __METHOD__, "Info: Beginning processing of payment for order {$order_id} for the amount of {$order_total} {$currency}. Amazon reference ID: {$amazon_reference_id}." );
 
-			// Update order reference with amounts
-			$this->set_order_reference_details( $order, $amazon_reference_id );
-
-			// Confirm order reference
-			$this->confirm_order_reference( $amazon_reference_id );
-
-			// Get FULL address details and save them to the order
+			// Get order details and save them to the order later.
 			$order_details = $this->get_amazon_order_details( $amazon_reference_id );
 
+			/**
+			 * Only set order reference details if state is 'Draft'.
+			 *
+			 * @link https://pay.amazon.com/de/developer/documentation/lpwa/201953810
+			 * @see https://github.com/woocommerce/woocommerce-gateway-amazon-payments-advanced/issues/214
+			 */
+			// @codingStandardsIgnoreStart
+			$state = isset( $order_details->OrderReferenceStatus->State )
+				? (string) $order_details->OrderReferenceStatus->State
+				: 'unknown';
+			// @codingStandardsIgnoreEnd
+
+			if ( 'Draft' === $state ) {
+				// Update order reference with amounts.
+				$this->set_order_reference_details( $order, $amazon_reference_id );
+			}
+
+			// Confirm order reference.
+			$this->confirm_order_reference( $amazon_reference_id );
+
+			/**
+			 * If retrieved order details missing `Name`, additional API
+			 * request is needed after `ConfirmOrderReference` action to retrieve
+			 * more information about `Destination` and `Buyer`.
+			 *
+			 * This happens when access token is not set in the request or merchants
+			 * have **Use Amazon Login App** disabled.
+			 *
+			 * @see https://github.com/woocommerce/woocommerce-gateway-amazon-payments-advanced/issues/234
+			 */
+			// @codingStandardsIgnoreStart
+			if ( ! isset( $order_details->Destination->PhysicalDestination->Name ) || ! isset( $order_details->Buyer->Name ) ) {
+				$order_details = $this->get_amazon_order_details( $amazon_reference_id );
+			}
+			// @codingStandardsIgnoreEnd
+
+			// Store buyer address in order.
 			if ( $order_details ) {
-
-				$this->store_order_address_details( $order_id, $order_details );
-
+				$this->store_order_address_details( $order, $order_details );
 			}
 
 			// Store reference ID in the order.
@@ -532,75 +632,169 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 
 			switch ( $this->payment_capture ) {
 				case 'manual' :
-
-					wc_apa()->log( __METHOD__, 'Info: No Authorize or Capture call.' );
-
-					// Mark as on-hold
-					$order->update_status( 'on-hold', __( 'Amazon order opened. Use the "Amazon Payments Advanced" box to authorize and/or capture payment. Authorized payments must be captured within 7 days.', 'woocommerce-gateway-amazon-payments-advanced' ) );
-
-					// Reduce stock levels
-					$order->reduce_order_stock();
-
-				break;
+					$this->process_payment_with_manual( $order, $amazon_reference_id );
+					break;
 				case 'authorize' :
-
-					wc_apa()->log( __METHOD__, 'Info: Trying to authorize payment in order reference ' . $amazon_reference_id );
-
-					// Authorize only
-					$result = WC_Amazon_Payments_Advanced_API::authorize_payment( $order_id, $amazon_reference_id, false );
-
-					if ( $result ) {
-						// Mark as on-hold
-						$order->update_status( 'on-hold', __( 'Amazon order opened. Use the "Amazon Payments Advanced" box to authorize and/or capture payment. Authorized payments must be captured within 7 days.', 'woocommerce-gateway-amazon-payments-advanced' ) );
-
-						// Reduce stock levels
-						$order->reduce_order_stock();
-
-						wc_apa()->log( __METHOD__, 'Info: Successfully authorized in order reference ' . $amazon_reference_id );
-					} else {
-						$order->update_status( 'failed', __( 'Could not authorize Amazon payment.', 'woocommerce-gateway-amazon-payments-advanced' ) );
-
-						wc_apa()->log( __METHOD__, 'Error: Failed to authorize in order reference ' . $amazon_reference_id );
-					}
-
-				break;
+					$this->process_payment_with_authorize( $order, $amazon_reference_id );
+					break;
 				default :
-
-					wc_apa()->log( __METHOD__, 'Info: Trying to capture payment in order reference ' . $amazon_reference_id );
-					// Capture
-					$result = WC_Amazon_Payments_Advanced_API::authorize_payment( $order_id, $amazon_reference_id, true );
-
-					if ( $result ) {
-						// Payment complete.
-						$order->payment_complete();
-
-						// Close order reference.
-						WC_Amazon_Payments_Advanced_API::close_order_reference( $order_id );
-
-						wc_apa()->log( __METHOD__, 'Info: Successfully captured in order reference ' . $amazon_reference_id );
-
-					} else {
-						$order->update_status( 'failed', __( 'Could not authorize Amazon payment.', 'woocommerce-gateway-amazon-payments-advanced' ) );
-
-						wc_apa()->log( __METHOD__, 'Error: Failed to capture in order reference ' . $amazon_reference_id );
-					}
-
-				break;
+					$this->process_payment_with_capture( $order, $amazon_reference_id );
 			}
 
-			// Remove cart
+			// Remove cart.
 			WC()->cart->empty_cart();
 
-			// Return thank you page redirect
+			// Return thank you page redirect.
 			return array(
-				'result' 	=> 'success',
-				'redirect'	=> $this->get_return_url( $order )
+				'result'   => 'success',
+				'redirect' => $this->get_return_url( $order ),
 			);
 
-		} catch( Exception $e ) {
+		} catch ( Exception $e ) {
 			wc_add_notice( __( 'Error:', 'woocommerce-gateway-amazon-payments-advanced' ) . ' ' . $e->getMessage(), 'error' );
+		}
+	}
+
+	/**
+	 * Process payment without authorizing and capturing the payment.
+	 *
+	 * This means store doesn't authorize and capture the payment when an order
+	 * is placed. Store owner will manually authorize and capture the payment
+	 * via edit order screen.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param WC_Order $order               WC Order object.
+	 * @param string   $amazon_reference_id Amazon Order Reference ID.
+	 */
+	protected function process_payment_with_manual( $order, $amazon_reference_id ) {
+		wc_apa()->log( __METHOD__, 'Info: No Authorize or Capture call.' );
+
+		// Mark as on-hold.
+		$order->update_status( 'on-hold', __( 'Amazon order opened. Use the "Amazon Pay" box to authorize and/or capture payment. Authorized payments must be captured within 7 days.', 'woocommerce-gateway-amazon-payments-advanced' ) );
+
+		// Reduce stock levels.
+
+		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
+			$order->reduce_order_stock();
+		} else {
+			wc_reduce_stock_levels( $order->get_id() );
+		}
+	}
+
+	/**
+	 * Process payment with authorizing the payment.
+	 *
+	 * Store owner will capture manually the payment via edit order screen.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param WC_Order $order               WC Order object.
+	 * @param string   $amazon_reference_id Amazon Order Reference ID.
+	 */
+	protected function process_payment_with_authorize( $order, $amazon_reference_id ) {
+		wc_apa()->log( __METHOD__, 'Info: Trying to authorize payment in order reference ' . $amazon_reference_id );
+
+		// Authorize only.
+		$authorize_args = array(
+			'amazon_reference_id' => $amazon_reference_id,
+			'capture_now'         => false,
+		);
+
+		$order_id = wc_apa_get_order_prop( $order, 'id' );
+
+		$result = WC_Amazon_Payments_Advanced_API::authorize( $order_id, $authorize_args );
+		if ( is_wp_error( $result ) ) {
+			$this->process_payment_check_declined_error( $order_id, $result );
+		}
+
+		$result = WC_Amazon_Payments_Advanced_API::handle_payment_authorization_response( $result, $order_id, false );
+		if ( $result ) {
+			// Mark as on-hold.
+			$order->update_status( 'on-hold', __( 'Amazon order opened. Use the "Amazon Pay" box to authorize and/or capture payment. Authorized payments must be captured within 7 days.', 'woocommerce-gateway-amazon-payments-advanced' ) );
+
+			// Reduce stock levels.
+			if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
+				$order->reduce_order_stock();
+			} else {
+				wc_reduce_stock_levels( $order->get_id() );
+			}
+
+			wc_apa()->log( __METHOD__, 'Info: Successfully authorized in order reference ' . $amazon_reference_id );
+		} else {
+			$order->update_status( 'failed', __( 'Could not authorize Amazon payment.', 'woocommerce-gateway-amazon-payments-advanced' ) );
+
+			wc_apa()->log( __METHOD__, 'Error: Failed to authorize in order reference ' . $amazon_reference_id );
+		}
+	}
+
+	/**
+	 * Process payment with authorizing and capturing.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param WC_Order $order               WC Order object.
+	 * @param string   $amazon_reference_id Amazon Order Reference ID.
+	 */
+	protected function process_payment_with_capture( $order, $amazon_reference_id ) {
+		wc_apa()->log( __METHOD__, 'Info: Trying to capture payment in order reference ' . $amazon_reference_id );
+
+		// Authorize and capture.
+		$authorize_args = array(
+			'amazon_reference_id' => $amazon_reference_id,
+			'capture_now'         => true,
+		);
+
+		$order_id = wc_apa_get_order_prop( $order, 'id' );
+
+		$result = WC_Amazon_Payments_Advanced_API::authorize( $order_id, $authorize_args );
+		if ( is_wp_error( $result ) ) {
+			$this->process_payment_check_declined_error( $order_id, $result );
+		}
+
+		$result = WC_Amazon_Payments_Advanced_API::handle_payment_authorization_response( $result, $order_id, true );
+		if ( $result ) {
+			// Payment complete.
+			$order->payment_complete();
+
+			// Close order reference.
+			WC_Amazon_Payments_Advanced_API::close_order_reference( $order_id );
+
+			wc_apa()->log( __METHOD__, 'Info: Successfully captured in order reference ' . $amazon_reference_id );
+
+		} else {
+			$order->update_status( 'failed', __( 'Could not authorize Amazon payment.', 'woocommerce-gateway-amazon-payments-advanced' ) );
+
+			wc_apa()->log( __METHOD__, 'Error: Failed to capture in order reference ' . $amazon_reference_id );
+		}
+	}
+
+	/**
+	 * Check authorize result for a declined error.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @throws Exception Declined transaction.
+	 *
+	 * @param int    $order_id Order ID.
+	 * @param object $result   Return value from WC_Amazon_Payments_Advanced_API::request().
+	 */
+	protected function process_payment_check_declined_error( $order_id, $result ) {
+		if ( ! is_wp_error( $result ) ) {
 			return;
 		}
+
+		WC()->session->set( 'reload_checkout', true );
+
+		$code = $result->get_error_code();
+		WC()->session->set( 'amazon_declined_code', $code );
+
+		if ( in_array( $code, array( 'AmazonRejected', 'ProcessingFailure', 'TransactionTimedOut' ) ) ) {
+			WC()->session->set( 'amazon_declined_order_id', $order_id );
+			WC()->session->set( 'amazon_declined_with_cancel_order', true );
+		}
+
+		throw new Exception( $result->get_error_message() );
 	}
 
 	/**
@@ -608,9 +802,10 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 	 *
 	 * @since 1.6.0
 	 *
-	 * @param  int $order_id    Order ID
-	 * @param  float $amount    Amount to refund
-	 * @param  string $reason   Reason to refund
+	 * @param  int    $order_id      Order ID.
+	 * @param  float  $refund_amount Amount to refund.
+	 * @param  string $reason        Reason to refund.
+	 *
 	 * @return WP_Error|boolean True or false based on success, or a WP_Error object.
 	 */
 	public function process_refund( $order_id, $refund_amount = null, $reason = '' ) {
@@ -631,38 +826,46 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 	 *
 	 * By default, use data from the WC_Order and WooCommerce / Site settings, but offer the ability to override.
 	 *
-	 * @param WC_Order $order
-	 * @param string   $amazon_reference_id
-	 * @param array    $overrides Optional. Override values sent to the Amazon Payments API for the 'SetOrderReferenceDetails' request.
+	 * @throws Exception Error from API request.
+	 *
+	 * @param WC_Order $order               Order object.
+	 * @param string   $amazon_reference_id Reference ID.
+	 * @param array    $overrides           Optional. Override values sent to
+	 *                                      the Amazon Pay API for the
+	 *                                      SetOrderReferenceDetails request.
 	 *
 	 * @return WP_Error|array WP_Error or parsed response array
-	 * @throws Exception
 	 */
 	public function set_order_reference_details( $order, $amazon_reference_id, $overrides = array() ) {
 
 		$site_name = WC_Amazon_Payments_Advanced::get_site_name();
+
+		/* translators: Order number and site's name */
+		$seller_note = sprintf( __( 'Order %1$s from %2$s.', 'woocommerce-gateway-amazon-payments-advanced' ), $order->get_order_number(), urlencode( $site_name ) );
 
 		$request_args = array_merge( array(
 			'Action'                                                       => 'SetOrderReferenceDetails',
 			'AmazonOrderReferenceId'                                       => $amazon_reference_id,
 			'OrderReferenceAttributes.OrderTotal.Amount'                   => $order->get_total(),
 			'OrderReferenceAttributes.OrderTotal.CurrencyCode'             => strtoupper( get_woocommerce_currency() ),
-			'OrderReferenceAttributes.SellerNote'                          => sprintf( __( 'Order %s from %s.', 'woocommerce-gateway-amazon-payments-advanced' ), $order->get_order_number(), urlencode( $site_name ) ),
+			'OrderReferenceAttributes.SellerNote'                          => $seller_note,
 			'OrderReferenceAttributes.SellerOrderAttributes.SellerOrderId' => $order->get_order_number(),
 			'OrderReferenceAttributes.SellerOrderAttributes.StoreName'     => $site_name,
-			'OrderReferenceAttributes.PlatformId'                          => 'A1BVJDFFHQ7US4'
+			'OrderReferenceAttributes.PlatformId'                          => 'A1BVJDFFHQ7US4',
 		), $overrides );
 
-		// Update order reference with amounts
+		// Update order reference with amounts.
 		$response = WC_Amazon_Payments_Advanced_API::request( $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			throw new Exception( $response->get_error_message() );
 		}
 
+		// @codingStandardsIgnoreStart
 		if ( isset( $response->Error->Message ) ) {
 			throw new Exception( (string) $response->Error->Message );
 		}
+		// @codingStandardsIgnoreEnd
 
 		/**
 		 * Check for constraints. Should bailed early on checkout and prompt
@@ -670,8 +873,10 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 		 *
 		 * @see https://payments.amazon.com/developer/documentation/apireference/201752890
 		 */
+		// @codingStandardsIgnoreStart
 		if ( isset( $response->SetOrderReferenceDetailsResult->OrderReferenceDetails->Constraints->Constraint->ConstraintID ) ) {
 			$constraint = (string) $response->SetOrderReferenceDetailsResult->OrderReferenceDetails->Constraints->Constraint->ConstraintID;
+			// @codingStandardsIgnoreEnd
 
 			switch ( $constraint ) {
 				case 'BuyerEqualSeller':
@@ -693,27 +898,30 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Helper method to call 'ConfirmOrderReference' API action
+	 * Helper method to call 'ConfirmOrderReference' API action.
 	 *
-	 * @param string $amazon_reference_id
+	 * @throws Exception Error from API request.
+	 *
+	 * @param string $amazon_reference_id Reference ID.
 	 *
 	 * @return WP_Error|array WP_Error or parsed response array
-	 * @throws Exception
 	 */
 	public function confirm_order_reference( $amazon_reference_id ) {
 
 		$response = WC_Amazon_Payments_Advanced_API::request( array(
 			'Action'                 => 'ConfirmOrderReference',
-			'AmazonOrderReferenceId' => $amazon_reference_id
+			'AmazonOrderReferenceId' => $amazon_reference_id,
 		) );
 
 		if ( is_wp_error( $response ) ) {
 			throw new Exception( $response->get_error_message() );
 		}
 
+		// @codingStandardsIgnoreStart
 		if ( isset( $response->Error->Message ) ) {
 			throw new Exception( (string) $response->Error->Message );
 		}
+		// @codingStandardsIgnoreEnd
 
 		return $response;
 
@@ -722,7 +930,7 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 	/**
 	 * Retrieve full details from the order using 'GetOrderReferenceDetails'.
 	 *
-	 * @param string $amazon_reference_id
+	 * @param string $amazon_reference_id Reference ID.
 	 *
 	 * @return bool|object Boolean false on failure, object of OrderReferenceDetails on success.
 	 */
@@ -730,41 +938,42 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 
 		$request_args = array(
 			'Action'                 => 'GetOrderReferenceDetails',
-			'AmazonOrderReferenceId' => $amazon_reference_id
+			'AmazonOrderReferenceId' => $amazon_reference_id,
 		);
 
-		// Full address information is available to the 'GetOrderReferenceDetails' call when we're in
-		// "login app" mode and we pass the AddressConsentToken to the API
-		// See the "Getting the Shipping Address" section here: https://payments.amazon.com/documentation/lpwa/201749990
+		/**
+		 * Full address information is available to the 'GetOrderReferenceDetails' call when we're in
+		 * "login app" mode and we pass the AddressConsentToken to the API.
+		 *
+		 * @see the "Getting the Shipping Address" section here: https://payments.amazon.com/documentation/lpwa/201749990
+		 */
 		$settings = WC_Amazon_Payments_Advanced_API::get_settings();
-
 		if ( 'yes' == $settings['enable_login_app'] ) {
-
 			$request_args['AddressConsentToken'] = $this->access_token;
-
 		}
 
 		$response = WC_Amazon_Payments_Advanced_API::request( $request_args );
 
+		// @codingStandardsIgnoreStart
 		if ( ! is_wp_error( $response ) && isset( $response->GetOrderReferenceDetailsResult->OrderReferenceDetails ) ) {
-
 			return $response->GetOrderReferenceDetailsResult->OrderReferenceDetails;
-
 		}
+		// @codingStandardsIgnoreEnd
 
 		return false;
 
 	}
 
 	/**
-	 * Format an Amazon Payments Address DataType for WooCommerce
-	 * See: https://payments.amazon.com/documentation/apireference/201752430
+	 * Format an Amazon Pay Address DataType for WooCommerce.
+	 *
+	 * @see https://payments.amazon.com/documentation/apireference/201752430
 	 *
 	 * @deprecated
 	 *
-	 * @param array $address Address object from Amazon Payments API
+	 * @param array $address Address object from Amazon Pay API.
 	 *
-	 * @return array Address formatted for WooCommerce
+	 * @return array Address formatted for WooCommerce.
 	 */
 	public function format_address( $address ) {
 		_deprecated_function( 'WC_Gateway_Amazon_Payments_Advanced::format_address', '1.6.0', 'WC_Amazon_Payments_Advanced_API::format_address' );
@@ -773,31 +982,34 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Parse the OrderReferenceDetails object and store billing/shipping addresses in order meta.
+	 * Parse the OrderReferenceDetails object and store billing/shipping addresses
+	 * in order meta.
 	 *
-	 * @param int $order_id
-	 * @param object $order_reference_details Amazon API OrderReferenceDetails or compatible object
+	 * @version 1.7.1
+	 *
+	 * @param int|WC_order $order                   Order ID or order instance.
+	 * @param object       $order_reference_details Amazon API OrderReferenceDetails.
 	 */
-	public function store_order_address_details( $order_id, $order_reference_details ) {
+	public function store_order_address_details( $order, $order_reference_details ) {
+		if ( ! is_a( $order, 'WC_Order' ) ) {
+			$order = wc_get_order( $order );
+		}
 
+		// @codingStandardsIgnoreStart
 		$buyer         = $order_reference_details->Buyer;
 		$destination   = $order_reference_details->Destination->PhysicalDestination;
 		$shipping_info = WC_Amazon_Payments_Advanced_API::format_address( $destination );
-
-		$order = wc_get_order( $order_id );
+		// @codingStandardsIgnoreEnd
 
 		$order->set_address( $shipping_info, 'shipping' );
 
 		// Some market API endpoint return billing address information, parse it if present.
+		// @codingStandardsIgnoreStart
 		if ( isset( $order_reference_details->BillingAddress->PhysicalAddress ) ) {
-
 			$billing_address = WC_Amazon_Payments_Advanced_API::format_address( $order_reference_details->BillingAddress->PhysicalAddress );
-
 		} elseif ( apply_filters( 'woocommerce_amazon_pa_billing_address_fallback_to_shipping_address', true ) ) {
-
 			// Reuse the shipping address information if no bespoke billing info.
 			$billing_address = $shipping_info;
-
 		} else {
 			$name = explode( ' ', (string) $buyer->Name );
 
@@ -809,9 +1021,9 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 
 		$billing_address['email'] = (string) $buyer->Email;
 		$billing_address['phone'] = isset( $billing_address['phone'] ) ? $billing_address['phone'] : (string) $buyer->Phone;
+		// @codingStandardsIgnoreEnd
 
 		$order->set_address( $billing_address, 'billing' );
-
 	}
 
 	/**
@@ -819,8 +1031,8 @@ class WC_Gateway_Amazon_Payments_Advanced extends WC_Payment_Gateway {
 	 *
 	 * @deprecated
 	 *
-	 * @param string $context
-	 * @param string $message
+	 * @param string $context Context.
+	 * @param string $message Message to log.
 	 */
 	public function log( $context, $message ) {
 		_deprecated_function( 'WC_Gateway_Amazon_Payments_Advanced::log', '1.6.0', 'wc_apa()->log()' );

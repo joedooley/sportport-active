@@ -57,8 +57,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 	/**
 	 * Class WPSEO_Video_Details_Local_File
 	 *
-	 * @internal This class works slightly different from the other detail retrieval service classes
-	 * in that no remote call is done, but that the details are retrieved are file meta data.
+	 * {@internal This class works slightly different from the other detail retrieval service classes
+	 * in that no remote call is done, but that the details are retrieved are file metadata.
 	 *
 	 * This also means that this class uses a few extra $vid keys to a) pass things to this class and
 	 * b) retain the information found.
@@ -72,7 +72,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 	 * The 'file_path' (string) key is used to remember the path to the file we determined exists.
 	 *
 	 * The local property file_url always *has* to be set, of the local properties file_path and
-	 * attachment_id only one or the other is expected.
+	 * attachment_id only one or the other is expected.}}
 	 */
 	class WPSEO_Video_Details_Localfile extends WPSEO_Video_Details {
 
@@ -222,8 +222,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 						}
 						elseif ( $ext === false ) {
 							/*
-							 * @internal At some point in the future we may want to switch this over to the
-							 * attachment_url_to_postid( $url ) function which is introduced in WP 4.0
+							 * {@internal At some point in the future we may want to switch this over to the
+							 * attachment_url_to_postid( $url ) function which is introduced in WP 4.0.}}
 							 */
 							$path_parts = explode( '/', trim( $parsed_url['path'], '\/' ) );
 							$last_bit   = array_pop( $path_parts );
@@ -418,8 +418,9 @@ if ( ! class_exists( 'WPSEO_Video_Details_Localfile' ) ) {
 		/**
 		 * Set the video duration
 		 *
-		 * @internal In some rare cases this may result in a video time * 1000. This is a GetID3 bug.
-		 * The value will in that case be a string, which is why we use length_formatted in that case.
+		 * {@internal In some rare cases this may result in a video time * 1000. This is a GetID3 bug.
+		 * The value will in that case be a string, which is why we use length_formatted in that case.}}
+		 *
 		 * @see https://core.trac.wordpress.org/ticket/29176
 		 */
 		protected function set_duration() {

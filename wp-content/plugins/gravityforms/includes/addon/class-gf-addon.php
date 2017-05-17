@@ -2816,12 +2816,14 @@ abstract class GFAddOn {
 		 */
 		$fields = apply_filters( 'gform_addon_field_map_choices', $fields, $form_id, $field_type, $exclude_field_types );
 
-		$callable = array( get_called_class(), 'get_instance' );
-		if ( is_callable( $callable ) ) {
-			$addon = call_user_func( $callable );
-			$slug  = $addon->get_slug();
+		if ( function_exists( 'get_called_class' ) ) {
+			$callable = array( get_called_class(), 'get_instance' );
+			if ( is_callable( $callable ) ) {
+				$add_on = call_user_func( $callable );
+				$slug   = $add_on->get_slug();
 
-			$fields = apply_filters( "gform_{$slug}_field_map_choices", $fields, $form_id, $field_type, $exclude_field_types );
+				$fields = apply_filters( "gform_{$slug}_field_map_choices", $fields, $form_id, $field_type, $exclude_field_types );
+			}
 		}
 
  		return $fields;

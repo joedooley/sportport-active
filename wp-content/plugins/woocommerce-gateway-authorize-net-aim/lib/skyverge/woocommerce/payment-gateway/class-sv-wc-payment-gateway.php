@@ -18,7 +18,7 @@
  *
  * @package   SkyVerge/WooCommerce/Payment-Gateway/Classes
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2016, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2017, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -91,6 +91,9 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 	/** Credit Card authorization transaction feature */
 	const FEATURE_CREDIT_CARD_AUTHORIZATION = 'authorization';
 
+	/** Credit Card charge virtual-only orders feature */
+	const FEATURE_CREDIT_CARD_CHARGE_VIRTUAL = 'charge-virtual';
+
 	/** Credit Card capture charge transaction feature */
 	const FEATURE_CREDIT_CARD_CAPTURE = 'capture_charge';
 
@@ -129,6 +132,9 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 
 	/** @var string configuration option: the type of transaction, whether purchase or authorization, defaults to 'charge' */
 	private $transaction_type;
+
+	/** @var string configuration option: whether transactions should always be charged if the order is virtual-only, defaults to 'no' */
+	private $charge_virtual_orders;
 
 	/** @var array configuration option: card types to show images for */
 	private $card_types;
@@ -279,31 +285,46 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 	 */
 	protected function load_settings() {
 
-		// Define user set variables
+		// define user set variables
 		foreach ( $this->settings as $setting_key => $setting ) {
 			$this->$setting_key = $setting;
 		}
 
 		// inherit settings from sibling gateway(s)
 		if ( $this->inherit_settings() ) {
+			$this->load_shared_settings();
+		}
+	}
 
-			// get any other sibling gateways
-			$other_gateway_ids = array_diff( $this->get_plugin()->get_gateway_ids(), array( $this->get_id() ) );
 
-			// determine if any sibling gateways have any configured shared settings
-			foreach ( $other_gateway_ids as $other_gateway_id ) {
+	/**
+	 * Loads any shared settings from sibling gateways.
+	 *
+	 * @since 4.5.0
+	 */
+	protected function load_shared_settings() {
 
-				$other_gateway_settings = $this->get_plugin()->get_gateway_settings( $other_gateway_id );
+		// get any other sibling gateways
+		$other_gateway_ids = array_diff( $this->get_plugin()->get_gateway_ids(), array( $this->get_id() ) );
 
-				// if the other gateway isn't also trying to inherit settings...
-				if ( ! isset( $other_gateway_settings['inherit_settings'] ) || 'no' == $other_gateway_settings['inherit_settings'] ) {
+		// determine if any sibling gateways have any configured shared settings
+		foreach ( $other_gateway_ids as $other_gateway_id ) {
 
-					// load the other gateway so we can access the shared settings properly
-					$other_gateway = $this->get_plugin()->get_gateway( $other_gateway_id );
+			$other_gateway_settings = $this->get_plugin()->get_gateway_settings( $other_gateway_id );
 
-					foreach ( $this->shared_settings as $setting_key ) {
-						$this->$setting_key = $other_gateway->$setting_key;
-					}
+			// if the other gateway isn't also trying to inherit settings...
+			if ( ! isset( $other_gateway_settings['inherit_settings'] ) || 'no' === $other_gateway_settings['inherit_settings'] ) {
+
+				// load the other gateway so we can access the shared settings properly
+				$other_gateway = $this->get_plugin()->get_gateway( $other_gateway_id );
+
+				// skip this gateway if it isn't meant to share its settings
+				if ( ! $other_gateway->share_settings() ) {
+					continue;
+				}
+
+				foreach ( $this->shared_settings as $setting_key ) {
+					$this->$setting_key = $other_gateway->$setting_key;
 				}
 			}
 		}
@@ -547,7 +568,7 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 			if ( $order_id ) {
 				$order = wc_get_order( $order_id );
 
-				return $order->payment_method == $this->get_id();
+				return SV_WC_Order_Compatibility::get_prop( $order, 'payment_method' ) === $this->get_id();
 			}
 
 		}
@@ -955,13 +976,36 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 		<style type="text/css">.nowrap { white-space: nowrap; }</style>
 		<?php
 
+		// if transaction types are supported, show/hide the "charge virtual-only" setting
+		if ( isset( $this->form_fields['transaction_type'] ) ) {
+
+			// add inline javascript
+			ob_start();
+			?>
+				$( '#woocommerce_<?php echo esc_js( $this->get_id() ); ?>_transaction_type' ).change( function() {
+
+					var transaction_type = $( this ).val();
+					var hidden_setting   = $( '#woocommerce_<?php echo $this->get_id(); ?>_charge_virtual_orders' ).closest( 'tr' );
+
+					if ( '<?php echo esc_js( self::TRANSACTION_TYPE_AUTHORIZATION ); ?>' === transaction_type ) {
+						$( hidden_setting ).show();
+					} else {
+						$( hidden_setting ).hide();
+					}
+
+				} ).change();
+			<?php
+
+			wc_enqueue_js( ob_get_clean() );
+		}
+
 		// if there's more than one environment include the environment settings switcher code
 		if ( count( $this->get_environments() ) > 1 ) {
 
 			// add inline javascript
 			ob_start();
 			?>
-				$( '#woocommerce_<?php echo $this->get_id(); ?>_environment' ).change( function() {
+				$( '#woocommerce_<?php echo esc_js( $this->get_id() ); ?>_environment' ).change( function() {
 
 					// inherit settings from other gateway?
 					var inheritSettings = $( '#woocommerce_<?php echo $this->get_id(); ?>_inherit_settings' ).is( ':checked' );
@@ -1039,7 +1083,7 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 		}
 
 		// all plugin dependencies met
-		if ( count( $this->get_plugin()->get_missing_dependencies() ) > 0 ) {
+		if ( count( $this->get_plugin()->get_missing_extension_dependencies() ) > 0 ) {
 			$is_available = false;
 		}
 
@@ -1102,8 +1146,10 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 			// display icons for the selected card types
 			foreach ( $this->get_card_types() as $card_type ) {
 
+				$card_type = SV_WC_Payment_Gateway_Helper::normalize_card_type( $card_type );
+
 				if ( $url = $this->get_payment_method_image_url( $card_type ) ) {
-					$icon .= sprintf( '<img src="%s" alt="%s" class="sv-wc-payment-gateway-icon wc-%s-payment-gateway-icon" width="40" height="25" style="width: 40px; height: 25px;" />', esc_url( $url ), esc_attr( strtolower( $card_type ) ), esc_attr( $this->get_id_dasherized() ) );
+					$icon .= sprintf( '<img src="%s" alt="%s" class="sv-wc-payment-gateway-icon wc-%s-payment-gateway-icon" width="40" height="25" style="width: 40px; height: 25px;" />', esc_url( $url ), esc_attr( $card_type ), esc_attr( $this->get_id_dasherized() ) );
 				}
 			}
 		}
@@ -1135,45 +1181,8 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 
 		$image_type = strtolower( $type );
 
-		// translate card name to type as needed
-		switch( $image_type ) {
-
-			case 'american express':
-				$image_type = 'amex';
-			break;
-
-			case 'discover':
-				$image_type = 'disc';
-			break;
-
-			case 'mastercard':
-				$image_type = 'mc';
-			break;
-
-			case 'paypal':
-				$image_type = 'paypal';
-			break;
-
-			case 'visa debit':
-				$image_type = 'visa-debit';
-			break;
-
-			case 'visa electron':
-				$image_type = 'visa-electron';
-			break;
-
-			case 'card':
-				$image_type = 'cc-plain';
-			break;
-
-			// default: accept $type as is
-		}
-
-		// use plain card image if type is not known
-		if ( ! $image_type ) {
-			if ( $this->is_credit_card_gateway() ) {
-				$image_type = 'cc-plain';
-			}
+		if ( 'card' === $type ) {
+			$image_type = 'cc-plain';
 		}
 
 		/**
@@ -1230,6 +1239,8 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 		// set payment total here so it can be modified for later by add-ons like subscriptions which may need to charge an amount different than the get_total()
 		$order->payment_total = number_format( $order->get_total(), 2, '.', '' );
 
+		$order->customer_id = '';
+
 		// logged in customer?
 		if ( 0 != $order->get_user_id() && false !== ( $customer_id = $this->get_customer_id( $order->get_user_id(), array( 'order' => $order ) ) ) ) {
 			$order->customer_id = $customer_id;
@@ -1242,7 +1253,7 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 		$order->payment->type = str_replace( '-', '_', $this->get_payment_type() );
 
 		/* translators: Placeholders: %1$s - site title, %2$s - order number */
-		$order->description = sprintf( esc_html__( '%1$s - Order %2$s', 'woocommerce-plugin-framework' ), wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ), $order->get_order_number() );
+		$order->description = sprintf( esc_html__( '%1$s - Order %2$s', 'woocommerce-plugin-framework' ), wp_specialchars_decode( SV_WC_Helper::get_site_name(), ENT_QUOTES ), $order->get_order_number() );
 
 		$order = $this->get_order_with_unique_transaction_ref( $order );
 
@@ -1258,6 +1269,160 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 		 */
 		return apply_filters( 'wc_payment_gateway_' . $this->get_id() . '_get_order_base', $order, $this );
 	}
+
+
+	/** Capture feature *******************************************************/
+
+
+	/**
+	 * Perform a credit card capture for an order.
+	 *
+	 * @since 4.5.0
+	 * @param \WC_Order $order the order object
+	 * @return \SV_WC_Payment_Gateway_API_Response|null
+	 */
+	public function do_credit_card_capture( $order ) {
+
+		$order = $this->get_order_for_capture( $order );
+
+		try {
+
+			$response = $this->get_api()->credit_card_capture( $order );
+
+			if ( $response->transaction_approved() ) {
+
+				$message = sprintf(
+					/* translators: Placeholders: %1$s - payment gateway title (such as Authorize.net, Braintree, etc), %2$s - transaction amount. Definitions: Capture, as in capture funds from a credit card. */
+					esc_html__( '%1$s Capture of %2$s Approved', 'woocommerce-plugin-framework' ),
+					$this->get_method_title(),
+					get_woocommerce_currency_symbol() . wc_format_decimal( $order->capture_total )
+				);
+
+				// adds the transaction id (if any) to the order note
+				if ( $response->get_transaction_id() ) {
+					$message .= ' ' . sprintf( esc_html__( '(Transaction ID %s)', 'woocommerce-plugin-framework' ), $response->get_transaction_id() );
+				}
+
+				$order->add_order_note( $message );
+
+				// prevent stock from being reduced when payment is completed as this is done when the charge was authorized
+				add_filter( 'woocommerce_payment_complete_reduce_order_stock', '__return_false', 100 );
+
+				// complete the order
+				$order->payment_complete();
+
+				// add the standard capture data to the order
+				$this->add_capture_data( $order, $response );
+
+				// let payment gateway implementations add their own data
+				$this->add_payment_gateway_capture_data( $order, $response );
+
+			} else {
+
+				$message = sprintf(
+					/* translators: Placeholders: %1$s - payment gateway title (such as Authorize.net, Braintree, etc), %2$s - transaction amount, %3$s - transaction status message. Definitions: Capture, as in capture funds from a credit card. */
+					esc_html__( '%1$s Capture Failed: %2$s - %3$s', 'woocommerce-plugin-framework' ),
+					$this->get_method_title(),
+					$response->get_status_code(),
+					$response->get_status_message()
+				);
+
+				$order->add_order_note( $message );
+
+			}
+
+			return $response;
+
+		} catch ( SV_WC_Plugin_Exception $e ) {
+
+			$message = sprintf(
+				/* translators: Placeholders: %1$s - payment gateway title (such as Authorize.net, Braintree, etc), %2$s - failure message. Definitions: "capture" as in capturing funds from a credit card. */
+				esc_html__( '%1$s Capture Failed: %2$s', 'woocommerce-plugin-framework' ),
+				$this->get_method_title(),
+				$e->getMessage()
+			);
+
+			$order->add_order_note( $message );
+
+			return null;
+		}
+	}
+
+
+	/**
+	 * Gets an order object with payment data added for use in credit card
+	 * capture transactions. Standard information can include:
+	 *
+	 * $order->capture->amount      - amount to capture (partial captures are not supported by the framework yet)
+	 * $order->capture->description - capture description
+	 * $order->capture->trans_id    - transaction ID for the order being captured
+	 *
+	 * included for backwards compat (4.1 and earlier)
+	 *
+	 * $order->capture_total
+	 * $order->description
+	 *
+	 * @since 4.5.0
+	 * @param \WC_Order|int $order the order being processed
+	 * @return \WC_Order
+	 */
+	protected function get_order_for_capture( $order ) {
+
+		if ( is_numeric( $order ) ) {
+			$order = wc_get_order( $order );
+		}
+
+		// add capture info
+		$order->capture = new stdClass();
+		$order->capture->amount = SV_WC_Helper::number_format( $order->get_total() );
+		/* translators: Placeholders: %1$s - site title, %2$s - order number. Definitions: Capture as in capture funds from a credit card. */
+		$order->capture->description = sprintf( esc_html__( '%1$s - Capture for Order %2$s', 'woocommerce-plugin-framework' ), wp_specialchars_decode( SV_WC_Helper::get_site_name() ), $order->get_order_number() );
+		$order->capture->trans_id = $this->get_order_meta( SV_WC_Order_Compatibility::get_prop( $order, 'id' ), 'trans_id' );
+
+		// backwards compat for 4.1 and earlier
+		$order->capture_total = $order->capture->amount;
+		$order->description   = $order->capture->description;
+
+		/**
+		 * Direct Gateway Capture Get Order Filter.
+		 *
+		 * Allow actors to modify the order object used for performing charge captures.
+		 *
+		 * @since 2.0.0
+		 * @param \WC_Order $order order object
+		 * @param \SV_WC_Payment_Gateway_Direct $this instance
+		 */
+		return apply_filters( 'wc_payment_gateway_' . $this->get_id() . '_get_order_for_capture', $order, $this );
+	}
+
+
+	/**
+	 * Adds the standard capture data to an order.
+	 *
+	 * @since 4.5.0
+	 * @param \WC_Order $order the order object
+	 * @param \SV_WC_Payment_Gateway_API_Response $response the transaction response
+	 */
+	protected function add_capture_data( $order, $response ) {
+
+		// mark the order as captured
+		$this->update_order_meta( $order, 'charge_captured', 'yes' );
+
+		// add capture transaction ID
+		if ( $response && $response->get_transaction_id() ) {
+			$this->update_order_meta( $order, 'capture_trans_id', $response->get_transaction_id() );
+		}
+	}
+
+
+	/**
+	 * Adds any gateway-specific data to the order after a capture is performed.
+	 *
+	 * @since 4.5.0
+	 * @param \WC_Order $order the order object
+	 * @param \SV_WC_Payment_Gateway_API_Response $response the transaction response
+	 */
+	protected function add_payment_gateway_capture_data( $order, $response ) { }
 
 
 	/** Refund feature ********************************************************/
@@ -1375,10 +1540,10 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 		$order->refund->amount = number_format( $amount, 2, '.', '' );
 
 		/* translators: Placeholders: %1$s - site title, %2$s - order number */
-		$order->refund->reason = $reason ? $reason : sprintf( esc_html__( '%1$s - Refund for Order %2$s', 'woocommerce-plugin-framework' ), esc_html( get_bloginfo( 'name' ) ), $order->get_order_number() );
+		$order->refund->reason = $reason ? $reason : sprintf( esc_html__( '%1$s - Refund for Order %2$s', 'woocommerce-plugin-framework' ), esc_html( SV_WC_Helper::get_site_name() ), $order->get_order_number() );
 
 		// almost all gateways require the original transaction ID, so include it by default
-		$order->refund->trans_id = $this->get_order_meta( $order->id, 'trans_id' );
+		$order->refund->trans_id = $this->get_order_meta( SV_WC_Order_Compatibility::get_prop( $order, 'id' ), 'trans_id' );
 
 		/**
 		 * Payment Gateway Get Order For Refund Filter.
@@ -1406,11 +1571,11 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 	protected function add_refund_data( WC_Order $order, $response ) {
 
 		// indicate the order was refunded along with the refund amount
-		$this->add_order_meta( $order->id, 'refund_amount', $order->refund->amount );
+		$this->add_order_meta( $order, 'refund_amount', $order->refund->amount );
 
 		// add refund transaction ID
 		if ( $response && $response->get_transaction_id() ) {
-			$this->add_order_meta( $order->id, 'refund_trans_id', $response->get_transaction_id() );
+			$this->add_order_meta( $order, 'refund_trans_id', $response->get_transaction_id() );
 		}
 	}
 
@@ -1440,7 +1605,7 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 			/* translators: Placeholders: %1$s - payment gateway title (such as Authorize.net, Braintree, etc), %2$s - a monetary amount */
 			esc_html__( '%1$s Refund in the amount of %2$s approved.', 'woocommerce-plugin-framework' ),
 			$this->get_method_title(),
-			wc_price( $order->refund->amount, array( 'currency' => $order->get_order_currency() ) )
+			wc_price( $order->refund->amount, array( 'currency' => SV_WC_Order_Compatibility::get_prop( $order, 'currency', 'view' ) ) )
 		);
 
 		// adds the transaction id (if any) to the order note
@@ -1546,7 +1711,7 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 
 		// partial voids are not supported
 		if ( $order->refund->amount != $order->get_total() ) {
-			return new WP_Error( 'wc_' . $this->get_id() . '_void_error', esc_html__( 'Oops, you cannot partially void this order. Please use the full order amount.', 'woocommerce-plugin-framework' ) );
+			return new WP_Error( 'wc_' . $this->get_id() . '_void_error', esc_html__( 'Oops, you cannot partially void this order. Please use the full order amount.', 'woocommerce-plugin-framework' ), 500 );
 		}
 
 		try {
@@ -1596,11 +1761,11 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 	protected function add_void_data( WC_Order $order, $response ) {
 
 		// indicate the order was voided along with the amount
-		$this->update_order_meta( $order->id, 'void_amount', $order->refund->amount );
+		$this->update_order_meta( $order, 'void_amount', $order->refund->amount );
 
 		// add refund transaction ID
 		if ( $response && $response->get_transaction_id() ) {
-			$this->add_order_meta( $order->id, 'void_trans_id', $response->get_transaction_id() );
+			$this->add_order_meta( $order, 'void_trans_id', $response->get_transaction_id() );
 		}
 	}
 
@@ -1661,7 +1826,7 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 			/* translators: Placeholders: %1$s - payment gateway title, %2$s - a monetary amount. Void as in to void an order. */
 			esc_html__( '%1$s Void in the amount of %2$s approved.', 'woocommerce-plugin-framework' ),
 			$this->get_method_title(),
-			wc_price( $order->refund->amount, array( 'currency' => $order->get_order_currency() ) )
+			wc_price( $order->refund->amount, array( 'currency' => SV_WC_Order_Compatibility::get_prop( $order, 'currency', 'view' ) ) )
 		);
 
 		// adds the transaction id (if any) to the order note
@@ -1718,9 +1883,11 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 	 */
 	protected function get_order_with_unique_transaction_ref( $order ) {
 
+		$order_id = SV_WC_Order_Compatibility::get_prop( $order, 'id' );
+
 		// generate a unique retry count
-		if ( is_numeric( $this->get_order_meta( $order->id, 'retry_count' ) ) ) {
-			$retry_count = $this->get_order_meta( $order->id, 'retry_count' );
+		if ( is_numeric( $this->get_order_meta( $order_id, 'retry_count' ) ) ) {
+			$retry_count = $this->get_order_meta( $order_id, 'retry_count' );
 
 			$retry_count++;
 		} else {
@@ -1728,7 +1895,7 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 		}
 
 		// keep track of the retry count
-		$this->update_order_meta( $order->id, 'retry_count', $retry_count );
+		$this->update_order_meta( $order, 'retry_count', $retry_count );
 
 		// generate a unique transaction ref based on the order number and retry count, for gateways that require a unique identifier for every transaction request
 		$order->unique_transaction_ref = ltrim( $order->get_order_number(),  esc_html_x( '#', 'hash before order number', 'woocommerce-plugin-framework' ) ) . ( $retry_count > 0 ? '-' . $retry_count : '' );
@@ -1783,18 +1950,18 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 
 		// transaction id if available
 		if ( $response && $response->get_transaction_id() ) {
-			$this->update_order_meta( $order->id, 'trans_id', $response->get_transaction_id() );
 
-			// set transaction ID for WC core - remove this and use WC_Order::payment_complete() to add transaction ID after 2.2+ can be required
-			update_post_meta( $order->id, '_transaction_id', $response->get_transaction_id() );
+			$this->update_order_meta( $order, 'trans_id', $response->get_transaction_id() );
+
+			update_post_meta( SV_WC_Order_Compatibility::get_prop( $order, 'id' ), '_transaction_id', $response->get_transaction_id() );
 		}
 
 		// transaction date
-		$this->update_order_meta( $order->id, 'trans_date', current_time( 'mysql' ) );
+		$this->update_order_meta( $order, 'trans_date', current_time( 'mysql' ) );
 
 		// if there's more than one environment
 		if ( count( $this->get_environments() ) > 1 ) {
-			$this->update_order_meta( $order->id, 'environment', $this->get_environment() );
+			$this->update_order_meta( $order, 'environment', $this->get_environment() );
 		}
 
 		// customer data
@@ -1853,7 +2020,7 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 
 		// update the order with the customer ID, note environment is not appended here because it's already available
 		// on the `environment` order meta
-		$this->update_order_meta( $order->id, 'customer_id', $customer_id );
+		$this->update_order_meta( $order, 'customer_id', $customer_id );
 
 		// update the user
 		if ( 0 != $user_id ) {
@@ -1904,7 +2071,7 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 			$user_message = $response->get_user_message();
 		}
 
-		if ( ! $user_message || ( $this->supports_credit_card_authorization() && $this->perform_credit_card_authorization() ) ) {
+		if ( ! $user_message || ( $this->supports_credit_card_authorization() && $this->perform_credit_card_authorization( $order ) ) ) {
 			$user_message = esc_html__( 'Your order has been received and is being reviewed. Thank you for your business.', 'woocommerce-plugin-framework' );
 		}
 
@@ -2039,12 +2206,14 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 
 		if ( ! $customer_id && $args['autocreate'] ) {
 
+			$billing_email = ( $args['order'] ) ? SV_WC_Order_Compatibility::get_prop( $args['order'], 'billing_email' ) : '';
+
 			// generate a new customer id.  We try to use 'wc-<hash of billing email>'
 			//  if an order is available, on the theory that it will avoid clashing of
 			//  accounts if a customer uses the same merchant account on multiple independent
 			//  shops.  Otherwise, we use 'wc-<user_id>-<random>'
-			if ( $args['order'] && isset( $args['order']->billing_email ) && $args['order']->billing_email ) {
-				$customer_id = 'wc-' . md5( $args['order']->billing_email );
+			if ( $billing_email ) {
+				$customer_id = 'wc-' . md5( $billing_email );
 			} else {
 				$customer_id = uniqid( 'wc-' . $user_id . '-' );
 			}
@@ -2111,14 +2280,14 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 	public function get_guest_customer_id( WC_Order $order ) {
 
 		// is there a customer id already tied to this order?
-		$customer_id = $this->get_order_meta( $order->id, 'customer_id' );
+		$customer_id = $this->get_order_meta( SV_WC_Order_Compatibility::get_prop( $order, 'id' ), 'customer_id' );
 
 		if ( $customer_id ) {
 			return $customer_id;
 		}
 
 		// default
-		return 'wc-guest-' . $order->id;
+		return 'wc-guest-' . SV_WC_Order_Compatibility::get_prop( $order, 'id' );
 	}
 
 
@@ -2180,6 +2349,17 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 
 
 	/**
+	 * Determines if this is a credit card gateway that supports charging virtual-only orders.
+	 *
+	 * @since 4.5.0
+	 * @return bool
+	 */
+	public function supports_credit_card_charge_virtual() {
+		return $this->is_credit_card_gateway() && $this->supports( self::FEATURE_CREDIT_CARD_CHARGE_VIRTUAL );
+	}
+
+
+	/**
 	 * Returns true if the gateway supports capturing a charge
 	 *
 	 * @since 3.1.0
@@ -2213,6 +2393,16 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 			),
 		);
 
+		if ( $this->supports_credit_card_charge_virtual() ) {
+
+			$form_fields['charge_virtual_orders'] = array(
+				'label'       => esc_html__( 'Charge Virtual-Only Orders', 'woocommerce-plugin-framework' ),
+				'type'        => 'checkbox',
+				'description' => esc_html__( 'If the order contains exclusively virtual items, enable this to immediately charge, rather than authorize, the transaction.', 'woocommerce-plugin-framework' ),
+				'default'     => 'no',
+			);
+		}
+
 		return $form_fields;
 	}
 
@@ -2226,15 +2416,17 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 	 */
 	public function authorization_valid_for_capture( $order ) {
 
+		$order_id = SV_WC_Order_Compatibility::get_prop( $order, 'id' );
+
 		// check whether the charge has already been captured by this gateway
-		$charge_captured = $this->get_order_meta( $order->id, 'charge_captured' );
+		$charge_captured = $this->get_order_meta( $order_id, 'charge_captured' );
 
 		if ( 'yes' == $charge_captured ) {
 			return false;
 		}
 
 		// if for any reason the authorization can not be captured
-		$auth_can_be_captured = $this->get_order_meta( $order->id, 'auth_can_be_captured' );
+		$auth_can_be_captured = $this->get_order_meta( $order_id, 'auth_can_be_captured' );
 
 		if ( 'no' == $auth_can_be_captured ) {
 			return false;
@@ -2254,7 +2446,7 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 	 */
 	public function has_authorization_expired( $order ) {
 
-		$transaction_time = strtotime( $this->get_order_meta( $order->id, 'trans_date' ) );
+		$transaction_time = strtotime( $this->get_order_meta( SV_WC_Order_Compatibility::get_prop( $order, 'id' ), 'trans_date' ) );
 
 		return floor( ( time() - $transaction_time ) / 3600 ) > $this->get_authorization_time_window();
 	}
@@ -2277,34 +2469,58 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 
 
 	/**
-	 * Returns true if a credit card charge should be performed, false if an
-	 * authorization should be
+	 * Determines if a credit card transaction should result in a charge.
 	 *
 	 * @since 1.0.0
+	 * @param \WC_Order $order Optional. The order being charged
 	 * @throws Exception
-	 * @return boolean true if a charge should be performed
+	 * @return bool
 	 */
-	public function perform_credit_card_charge() {
+	public function perform_credit_card_charge( WC_Order $order = null ) {
 
 		assert( $this->supports_credit_card_charge() );
 
-		return self::TRANSACTION_TYPE_CHARGE == $this->transaction_type;
+		$perform = self::TRANSACTION_TYPE_CHARGE === $this->transaction_type;
+
+		if ( ! $perform && $order && $this->supports_credit_card_charge_virtual() && 'yes' === $this->charge_virtual_orders ) {
+			$perform = SV_WC_Helper::is_order_virtual( $order );
+		}
+
+		/**
+		 * Filters whether a credit card transaction should result in a charge.
+		 *
+		 * @since 4.5.0
+		 * @param bool $perform whether the transaction should result in a charge
+		 * @param \WC_Order|null $order the order being charged
+		 * @param \SV_WC_Payment_Gateway $gateway the gateway object
+		 */
+		return apply_filters( 'wc_' . $this->get_id() . '_perform_credit_card_charge', $perform, $order, $this );
 	}
 
 
 	/**
-	 * Returns true if a credit card authorization should be performed, false if aa
-	 * charge should be
+	 * Determines if a credit card transaction should result in an authorization.
 	 *
 	 * @since 1.0.0
+	 * @param \WC_Order $order Optional. The order being authorized
 	 * @throws Exception
-	 * @return boolean true if an authorization should be performed
+	 * @return bool
 	 */
-	public function perform_credit_card_authorization() {
+	public function perform_credit_card_authorization( WC_Order $order = null ) {
 
 		assert( $this->supports_credit_card_authorization() );
 
-		return self::TRANSACTION_TYPE_AUTHORIZATION == $this->transaction_type;
+		$perform = self::TRANSACTION_TYPE_AUTHORIZATION === $this->transaction_type && ! $this->perform_credit_card_charge( $order );
+
+		/**
+		 * Filters whether a credit card transaction should result in an authorization.
+		 *
+		 * @since 4.5.0
+		 * @param bool $perform whether the transaction should result in an authorization
+		 * @param \WC_Order|null $order the order being authorized
+		 * @param \SV_WC_Payment_Gateway $gateway the gateway object
+		 */
+		return apply_filters( 'wc_' . $this->get_id() . '_perform_credit_card_authorization', $perform, $order, $this );
 	}
 
 
@@ -2582,7 +2798,7 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 		if ( $order_id ) {
 
 			$order    = wc_get_order( $order_id );
-			$currency = $order->get_order_currency();
+			$currency = SV_WC_Order_Compatibility::get_prop( $order, 'currency', 'view' );
 		}
 
 		return $currency;
@@ -2645,62 +2861,95 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 
 
 	/**
-	 * Add order meta
+	 * Adds order meta data.
 	 *
 	 * @since 2.2.0
-	 * @param int|string $order_id ID for order to add meta to
+	 * @param \WC_Order|int the order to add meta to
 	 * @param string $key meta key (already prefixed with gateway ID)
 	 * @param mixed $value meta value
-	 * @param bool $unique
+	 * @param bool $unique whether the meta value should be unique
 	 * @return bool|int
 	 */
-	public function add_order_meta( $order_id, $key, $value, $unique = false ) {
+	public function add_order_meta( $order, $key, $value, $unique = false ) {
 
-		return add_post_meta( $order_id, $this->get_order_meta_prefix() . $key, $value, $unique );
+		if ( is_numeric( $order ) ) {
+			$order = wc_get_order( $order );
+		}
+
+		if ( ! $order instanceof WC_Order ) {
+			return false;
+		}
+
+		return SV_WC_Order_Compatibility::add_meta_data( $order, $this->get_order_meta_prefix() . $key, $value, $unique );
 	}
 
 
 	/**
-	 * Get order meta
+	 * Gets order meta data.
 	 *
-	 * Note this is hardcoded to return a single value for the get_post_meta() call
+	 * Note this is hardcoded to return a single value for the get_post_meta() call.
 	 *
 	 * @since 2.2.0
-	 * @param int|string $order_id ID for order to get meta for
+	 * @param \WC_Order|int the order to get meta for
 	 * @param string $key meta key
 	 * @return mixed
 	 */
-	public function get_order_meta( $order_id, $key ) {
+	public function get_order_meta( $order, $key ) {
 
-		return get_post_meta( $order_id, $this->get_order_meta_prefix() . $key, true );
+		if ( is_numeric( $order ) ) {
+			$order = wc_get_order( $order );
+		}
+
+		if ( ! $order instanceof WC_Order ) {
+			return false;
+		}
+
+		return SV_WC_Order_Compatibility::get_meta( $order, $this->get_order_meta_prefix() . $key, true );
 	}
 
 
 	/**
-	 * Update order meta
+	 * Updates order meta data.
 	 *
 	 * @since 2.2.0
-	 * @param int|string $order_id ID for order to update meta for
+	 * @param \WC_Order|int the order to update meta for
 	 * @param string $key meta key
 	 * @param mixed $value meta value
 	 * @return bool|int
 	 */
-	public function update_order_meta( $order_id, $key, $value ) {
+	public function update_order_meta( $order, $key, $value ) {
 
-		return update_post_meta( $order_id, $this->get_order_meta_prefix() . $key, $value );
+		if ( is_numeric( $order ) ) {
+			$order = wc_get_order( $order );
+		}
+
+		if ( ! $order instanceof WC_Order ) {
+			return false;
+		}
+
+		return SV_WC_Order_Compatibility::update_meta_data( $order, $this->get_order_meta_prefix() . $key, $value );
 	}
 
 
 	/**
-	 * Delete order meta
+	 * Delete order meta data.
 	 *
 	 * @since 2.2.0
-	 * @param int|string $order_id ID for order to delete meta for
+	 * @param \WC_Order|int the order to delete meta for
 	 * @param string $key meta key
 	 * @return bool
 	 */
-	public function delete_order_meta( $order_id, $key ) {
-		return delete_post_meta( $order_id, $this->get_order_meta_prefix() . $key );
+	public function delete_order_meta( $order, $key ) {
+
+		if ( is_numeric( $order ) ) {
+			$order = wc_get_order( $order );
+		}
+
+		if ( ! $order instanceof WC_Order ) {
+			return false;
+		}
+
+		return SV_WC_Order_Compatibility::delete_meta_data( $order, $this->get_order_meta_prefix() . $key );
 	}
 
 
@@ -2769,24 +3018,46 @@ abstract class SV_WC_Payment_Gateway extends WC_Payment_Gateway {
 
 
 	/**
-	 * Returns true if the Card Security Code (CVV) field should be used on checkout
+	 * Determines if the Card Security Code (CVV) field should be used at checkout.
 	 *
 	 * @since 1.0.0
-	 * @return boolean true if the Card Security Code field should be used on checkout
+	 * @return bool
 	 */
 	public function csc_enabled() {
-		return 'yes' == $this->enable_csc;
+		return 'yes' === $this->enable_csc;
 	}
 
 
 	/**
-	 * Returns true if settings should be inherited for this gateway
+	 * Determines if the Card Security Code (CVV) field should be required at checkout.
+	 *
+	 * @since 4.5.0
+	 * @return bool
+	 */
+	public function csc_required() {
+		return $this->csc_enabled();
+	}
+
+
+	/**
+	 * Determines if the gateway supports sharing settings with sibling gateways.
+	 *
+	 * @since 4.5.0
+	 * @return bool
+	 */
+	public function share_settings() {
+		return true;
+	}
+
+
+	/**
+	 * Determines if settings should be inherited for this gateway.
 	 *
 	 * @since 1.0.0
-	 * @return boolean true if settings should be inherited for this gateway
+	 * @return bool
 	 */
 	public function inherit_settings() {
-		return 'yes' == $this->inherit_settings;
+		return 'yes' === $this->inherit_settings;
 	}
 
 

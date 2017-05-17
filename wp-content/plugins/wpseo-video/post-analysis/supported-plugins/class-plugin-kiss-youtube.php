@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the KISS YouTube plugin
  *
- * @see http://wordpress.org/extend/plugins/kiss-youtube/
+ * @see https://wordpress.org/plugins/kiss-youtube/
  *
- * @internal Last update: July 2014 based upon v 1.0
+ * {@internal Last update: July 2014 based upon v 1.0.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Kiss_Youtube' ) ) {
 

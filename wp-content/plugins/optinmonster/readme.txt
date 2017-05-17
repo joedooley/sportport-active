@@ -1,9 +1,9 @@
-=== OptinMonster - Best WordPress Popup and Lead Generation Plugin ===
-Contributors: griffinjt, smub
+=== Popups by OptinMonster - Best WordPress Lead Generation Plugin ===
+Contributors: optinmonster, griffinjt, smub
 Tags: wordpress popup, popup, lightbox popup, mailchimp, aweber, campaign monitor, constant contact, exit-intent, madmimi, infusionsoft, getresponse, hubspot, marketo, activecampaign, pardot, totalsend, emma, icontact, mailerlite, mailpoet, google analytics, pop over, optin forms, email list, subscribers, wordpress popup form, lightbox, wordpress popups, popups, lightbox popups, optin form, wordpress optin form, sidebar optin form, sidebar optin, sidebar form, wordpress overlay popup, wordpress popup plugin, popup plugin, wordpress lightbox optin, wordpress lightbox optin form, after post optin form, wordpress after post optin form, after post optin form plugin, lightbox popup plugin, wordpress popup solution, exit intent, exit-intent, optinmonster, optin monster, optin-monster, mobile popup, mobile popups, mobile optin forms, mobile optins, lightbox optins, wordpress mobile popup, wordpress mobile popups, wordpress mobile optin forms, wordpress lightbox optins, lead gen, lead generation, wordpress lead generation, lead generation wordpress, wordpress lead gen, fullscreen, welcome gate, interstitial
 Requires at least: 3.5.1
-Tested up to: 4.7
-Stable tag: trunk
+Tested up to: 4.7.4
+Stable tag: 1.1.9
 License: GNU General Public License v2.0 or later
 
 OptinMonster helps you grow your email list by converting visitors into subscribers and customers. Get more email subscribers now!
@@ -159,6 +159,16 @@ OptinMonster is the <a href="http://optinmonster.com" rel="friend" title="OptinM
 > Chris Lema - CTO Crowd Favorite
 
 == Changelog ==
+
+= 1.1.9 =
+* Updated version numbers to prevent possible asset caching errors
+
+= 1.1.8 =
+* Fixed possible undefined errors for API credentials
+
+= 1.1.7 =
+* Updated the API script domain for adblock.
+* Added new authentication method for the new OptinMonster REST API.
 
 = 1.1.6.2 =
 * Fixed undefined index errors when API responses returned an error.

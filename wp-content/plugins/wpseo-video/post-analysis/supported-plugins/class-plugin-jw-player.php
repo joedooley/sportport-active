@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the JW Player plugin
  *
- * @see http://wordpress.org/extend/plugins/jw-player-plugin-for-wordpress/
+ * @see https://wordpress.org/plugins/jw-player-plugin-for-wordpress/
  *
- * @internal Last update: July 2014 based upon v 2.1.5
+ * {@internal Last update: July 2014 based upon v 2.1.5.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_JW_Player' ) ) {
 

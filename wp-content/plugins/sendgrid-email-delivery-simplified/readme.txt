@@ -2,9 +2,9 @@
 Contributors: team-rs
 Donate link: http://sendgrid.com/
 Tags: email, email reliability, email templates, sendgrid, smtp, transactional email, wp_mail,email infrastructure, email marketing, marketing email, deliverability, email deliverability, email delivery, email server, mail server, email integration, cloud email
-Requires at least: 4.2
+Requires at least: 4.6
 Tested up to: 4.7
-Stable tag: 1.10.8
+Stable tag: 1.11.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,7 +28,7 @@ SendGrid’s WordPress Subscription Widget makes it easy for people visiting you
 
 For more details, consult the official documentation for the Subscription Widget here : https://sendgrid.com/docs/Integrate/Tutorials/WordPress/subscription_widget.html
 
-= Multisite (Beta) =
+= Multisite =
 
 If you are using the SendGrid plugin in a Multisite environment, you need to Network Activate it. You can then access the settings page on the network dashboard and the configure settings will be used for all sites.
 
@@ -42,7 +42,8 @@ If you already had the plugin installed in a Multisite environment and you updat
 
 Requirements:
 
-1. PHP version >= 5.3.0
+1. PHP version >= 5.6 and <= 7.1. Installing this plugin on PHP versions 5.3 and earlier will cause your website to break.
+Installation on PHP versions 5.4 and 5.5 will work but it is not recommended.
 2. To send emails through SMTP you need to also install the 'Swift Mailer' plugin. ( https://wordpress.org/plugins/swift-mailer/ )
 3. If wp_mail() function has been declared by another plugin that you have installed, you won't be able to use the SendGrid plugin
 
@@ -50,7 +51,7 @@ To upload the SendGrid Plugin .ZIP file:
 
 1. Upload the WordPress SendGrid Plugin to the /wp-contents/plugins/ folder.
 2. Activate the plugin from the "Plugins" menu in WordPress.
-3. Create a SendGrid account at <a href="http://sendgrid.com/partner/wordpress" target="_blank">http://sendgrid.com/partner/wordpress</a>  
+3. Create a SendGrid account at <a href="http://sendgrid.com/partner/wordpress" target="_blank">http://sendgrid.com/partner/wordpress</a>
 4. Navigate to "Settings" -> "SendGrid Settings" and enter your SendGrid credentials
 
 To auto install the SendGrid Plugin from the WordPress admin:
@@ -75,10 +76,7 @@ For Multisite:
 
 SendGrid settings can optionally be defined as global variables (wp-config.php):
 
-1. Set credentials (You can use credentials or API key. If using credentials, both need to be set in order to get credentials from variables and not from the database. If using API key you need to make sure you set the Mail Send permissions to FULL ACCESS, Stats to READ ACCESS and Template Engine to READ or FULL ACCESS when you created the api key on SendGrid side, so you can send emails and see statistics on wordpress):
-    * Auth method ('apikey' or 'credentials'): define('SENDGRID_AUTH_METHOD', 'apikey');
-    * Username: define('SENDGRID_USERNAME', 'sendgrid_username');
-    * Password: define('SENDGRID_PASSWORD', 'sendgrid_password');
+1. Set the API key. You need to make sure you set the Mail Send permissions to FULL ACCESS, Stats to READ ACCESS and Template Engine to READ or FULL ACCESS when you created the api key on SendGrid side, so you can send emails and see statistics on wordpress):
     * API key:  define('SENDGRID_API_KEY', 'sendgrid_api_key');
 
 2. Set email related settings:
@@ -108,13 +106,13 @@ Use HTML content type for a single email:
 
 `add_filter('wp_mail_content_type', 'set_html_content_type');
 
-// Send the email 
+// Send the email
 
 remove_filter('wp_mail_content_type', 'set_html_content_type');`
 
 Change the email contents for all emails before they are sent:
 
-`function change_content( $message, $content_type ) {   
+`function change_content( $message, $content_type ) {
     if ( 'text/plain' == $content_type ) {
       $message = $message . ' will be sent as text ' ;
     } else {
@@ -150,6 +148,12 @@ Note that all HTML emails sent through our plugin also contain the HTML body in 
 
 Yes. You can find it here : https://sendgrid.com/docs/Integrate/Tutorials/WordPress/index.html
 
+= What PHP versions are supported ? =
+
+Plugin versions 1.11.x were tested and confirmed to work on PHP 5.4, 5.5, 5.6, 7.0, 7.1. It DOES NOT work on PHP 5.3 and earlier.
+
+Plugin versions 1.10.x were tested and confirmed to work on PHP 5.3, 5.4, 5.5 and 5.6. It DOES NOT work on PHP 7.0 and later.
+
 = What credentials do I need to add on settings page ? =
 
 Create a SendGrid account at <a href="http://sendgrid.com/partner/wordpress" target="_blank">https://sendgrid.com/partner/wordpress</a> and generate a new API key on <https://app.sendgrid.com/settings/api_keys>.
@@ -162,7 +166,7 @@ Add it into your wp-config.php file. Example: `define('SENDGRID_API_KEY', 'your_
 
 If you have WP Better Emails plugin installed and you want to use the template defined here instead of the SendGrid template you can add the following code in your functions.php file from your theme:
 
-`function use_wpbe_template( $message, $content_type ) {   
+`function use_wpbe_template( $message, $content_type ) {
     global $wp_better_emails;
     if ( 'text/plain' == $content_type ) {
       $message = $wp_better_emails->process_email_text( $message );
@@ -178,7 +182,7 @@ Using the default templates from WP Better Emails will cause all emails to be se
 
 = Why are my emails sent as HTML instead of plain text ? =
 
-For a detailed explanation see this page: https://support.sendgrid.com/hc/en-us/articles/200181418-Plain-text-emails-converted-to-HTML
+For a detailed explanation see this page: https://sendgrid.com/docs/Classroom/Build/Format_Content/plain_text_emails_converted_to_html.html
 
 = Will contacts from the widget be uploaded to Marketing Campaigns or Legacy Newsletter ? =
 
@@ -186,8 +190,13 @@ The contacts will only be uploaded to Marketing Campaigns.
 
 = What permissions should my API keys have ? =
 
-For the API Key used for sending emails, that is entered on the General tab, the key needs to have Full Access to Mail Send and Read Access to Stats.
-For the API Key used for contact upload, that is entered on the Subscription Widget tab, the key needs to have Full Access to Marketings Campaigns.
+For the API Key used for sending emails (the General tab):
+ - Full Access to Mail Send.
+ - Read Access to Stats.
+ - Read Access to Supressions > Unsubscribe Groups.
+ - Read Access to Template Engine.
+For the API Key used for contact upload (the Subscription Widget tab):
+ - Full Access to Marketing Campaigns.
 
 = Can I disable the opt-in email ? =
 
@@ -235,29 +244,56 @@ You need to enable the use of the First Name and Last Name fields from the setti
 
 = Does this plugin support Multisite? =
 
-Yes. This plugin has basic Multisite support. You need to Network Activate this plugin. 
+Yes. This plugin has basic Multisite support. You need to Network Activate this plugin.
 
 The settings for all sites in the network can be configured only by the Network Admin in the Network Admin Dashboard.
 
+Since 1.10.5 the Network Admin can delegate the configuration for each subsite to their respective owners. This will allow any subsite to use it's own SendGrid Plugin configuration.
+
 == Screenshots ==
 
-1. Go to Admin Panel, section Plugins and activate the SendGrid plugin. If you want to send emails through SMTP you need to install also the 'Swift Mailer' plugin. 
-2. After activation "Settings" link will appear. 
-3. Go to settings page and provide your SendGrid credentials by choosing the authentication method which default is Api Key. On this page you can set also the default "Name", "Sending Address" and "Reply Address". 
-4. If you want to use your username and password for authentication, switch to Username&Password authentication method.
-5. If you provide valid credentials, a form which can be used to send test emails will appear. Here you can test the plugin sending some emails. 
-6. Header provided in the send test email form. 
-7. If you click in the right corner from the top of the page on the "Help" button, a popup window with more information will appear. 
-8. Select the time interval for which you want to see SendGrid statistics and charts.
-9. You can configure the port number when using SMTP method.
-10. You can configure categories for which you would like to see your stats. 
-11. You can use substitutions for emails using X-SMTPAPI headers.
-12. You can configure the subscription widget.
+1. Go to Admin Panel, section Plugins and activate the SendGrid plugin. If you want to send emails through SMTP you need to install also the 'Swift Mailer' plugin.
+2. After activation "Settings" link will appear.
+3. Go to settings page and provide your SendGrid API Key. On this page you can set also the default "Name", "Sending Address" and "Reply Address".
+4. If you provide valid credentials, a form which can be used to send test emails will appear. Here you can test the plugin sending some emails.
+5. Header provided in the send test email form.
+6. If you click in the right corner from the top of the page on the "Help" button, a popup window with more information will appear.
+7. Select the time interval for which you want to see SendGrid statistics and charts.
+8. You can configure the port number when using SMTP method.
+9. You can configure categories for which you would like to see your stats.
+10. You can use substitutions for emails using X-SMTPAPI headers.
+11. You can configure the subscription widget.
 
 == Changelog ==
 
+= 1.11.3 =
+* Fixed an issue where the send test form was displayed when no API key was set
+* Fixed an issue where the subscription test form was not displayed for the default contact list
+* Fixed an issue where the virtual pages for Subscription errors was not displayed
+* Fixed an issue where there was no notification for option update on the Multisite settings page
+* Fixed an issue where there was no notification when an API key was not set on the General tab when there was one on the Subscription Widget tab
+= 1.11.2 =
+* Relaxed PHP requirement to at least version 5.4.
+= 1.11.1 =
+* Confirmed compatibility with PHP 7 and 7.1
+* Removed some legacy code that caused warnings in PHP 7
+* Fixed issue where the statistics page would show up in menu even if the API key did not have stats permissions
+= 1.11.0 =
+* BREAKING CHANGE: DO NOT UPGRADE IF YOU USE PHP <= 5.3. Only PHP 5.4 and later versions are supported.
+* BREAKING CHANGE: Username & Password is no longer supported. Change your settings to use an API Key before updating
+* API Mail Send was changed to use the V3 SendGrid API
+* Emails sent with the V2 Email Object will now be translated to V3
+* BREAKING CHANGE: The date parameter on the V2 object is no longer supported
+* BREAKING CHANGE: When using the V2 object with SMTPAPI Tos, the BCC and CCs will only be applied to the first address
+= 1.10.9 =
+* Added pagination on multisite settings page
+* Fixed an FAQ link
+* Changed a class method to protected for extensibility (user contribution)
+* Added some CSS classes for subscription widget (user contribution)
+* Added warning when API Key doesn't have statistics permissions
+* The statistics page will not show up in menu or dashboard when API key does not have stats permissions
 = 1.10.8 =
-* Fixed an XSS vulnerability in the settings forms that would allow other admins to inject scripts.
+* Fixed an XSS vulnerability in the settings forms that would allow other admins to inject scripts
 = 1.10.7 =
 * Add port 2525 for SMTP
 * Use cache for stats widget on dashboard
@@ -326,7 +362,7 @@ The settings for all sites in the network can be configured only by the Network 
 = 1.7.1 =
 * BREAKING CHANGE: Don't make update if you don't have mcrypt php library enabled
 * Fixed a timeout issue from version 1.7.0
-= 1.7.0 = 
+= 1.7.0 =
 * BREAKING CHANGE : wp_mail() now returns only true/false to mirror the return values of the original wp_mail(). If you have written something custom in your function.php that depends on the old behavior of the wp_mail() you should check your code to make sure it will still work right with boolean as return value instead of array
 * BREAKING CHANGE: Don't make update if you don't have mcrypt php library enabled
 * Added the possibility of setting the api key or username/password empty
@@ -352,7 +388,7 @@ The settings for all sites in the network can be configured only by the Network 
 = 1.6.2 =
 * Add Api Keys for authentication, use the last version of Sendgrid library: https://github.com/sendgrid/sendgrid-php/releases/tag/v3.2.0
 = 1.6.1 =
-* Add unique arguments 
+* Add unique arguments
 = 1.6 =
 * Fix setTo method in SMTP option, update documentation, add link to SendGrid portal
 = 1.5.4 =
@@ -379,9 +415,9 @@ The settings for all sites in the network can be configured only by the Network 
 * Added support to set additional categories
 = 1.4 =
 * Fix warnings for static method, add notice for php version < 5.3.0, refactor plugin code
-= 1.3.2 = 
+= 1.3.2 =
 * Fix URL for loading image
-= 1.3.1 = 
+= 1.3.1 =
 * Fixed reply-to to accept: "name <email@example.com>"
 = 1.3 =
 * Added support for WordPress 3.8, fixed visual issues for WordPress 3.7
@@ -396,14 +432,40 @@ The settings for all sites in the network can be configured only by the Network 
 = 1.1.1 =
 * Added default category on sending
 = 1.1 =
-* Added SendGrid Statistics 
+* Added SendGrid Statistics
 = 1.0 =
 * Fixed issue: Add error message when PHP-curl extension is not enabled.
 
 == Upgrade notice ==
 
+= 1.11.3 =
+* Fixed an issue where the send test form was displayed when no API key was set
+* Fixed an issue where the subscription test form was not displayed for the default contact list
+* Fixed an issue where the virtual pages for Subscription errors was not displayed
+* Fixed an issue where there was no notification for option update on the Multisite settings page
+* Fixed an issue where there was no notification when an API key was not set on the General tab when there was one on the Subscription Widget tab
+= 1.11.2 =
+* Relaxed PHP requirement to at least version 5.4.
+= 1.11.1 =
+* Confirmed compatibility with PHP 7 and 7.1
+* Removed some legacy code that caused warnings in PHP 7
+* Fixed issue where the statistics page would show up in menu even if the API key did not have stats permissions
+= 1.11.0 =
+* BREAKING CHANGE: DO NOT UPGRADE IF YOU USE PHP <= 5.3. Only PHP 5.4 and later versions are supported.
+* BREAKING CHANGE: Username & Password is no longer supported. Change your settings to use an API Key before updating
+* API Mail Send was changed to use the V3 SendGrid API
+* Emails sent with the V2 Email Object will now be translated to V3
+* BREAKING CHANGE: The date parameter on the V2 object is no longer supported
+* BREAKING CHANGE: When using the V2 object with SMTPAPI Tos, the BCC and CCs will only be applied to the first address
+= 1.10.9 =
+* Added pagination on multisite settings page
+* Fixed an FAQ link
+* Changed a class method to protected for extensibility (user contribution)
+* Added some CSS classes for subscription widget (user contribution)
+* Added warning when API Key doesn't have statistics permissions
+* The statistics page will not show up in menu or dashboard when API key does not have stats permissions
 = 1.10.8 =
-* Fixed an XSS vulnerability in the settings forms that would allow other admins to inject scripts.
+* Fixed an XSS vulnerability in the settings forms that would allow other admins to inject scripts
 = 1.10.7 =
 * Add port 2525 for SMTP
 * Use cache for stats widget on dashboard
@@ -472,7 +534,7 @@ The settings for all sites in the network can be configured only by the Network 
 = 1.7.1 =
 * BREAKING CHANGE: Don't make update if you don't have mcrypt php library enabled
 * Fixed a timeout issue from version 1.7.0
-= 1.7.0 = 
+= 1.7.0 =
 * BREAKING CHANGE : wp_mail() now returns only true/false to mirror the return values of the original wp_mail(). If you have written something custom in your function.php that depends on the old behavior of the wp_mail() you should check your code to make sure it will still work right with boolean as return value instead of array
 * BREAKING CHANGE: Don't make update if you don't have mcrypt php library enabled
 * Added the possibility of setting the api key or username/password empty
@@ -498,7 +560,7 @@ The settings for all sites in the network can be configured only by the Network 
 = 1.6.2 =
 * Add Api Keys for authentication, use the last version of Sendgrid library: https://github.com/sendgrid/sendgrid-php/releases/tag/v3.2.0
 = 1.6.1 =
-* Add unique arguments 
+* Add unique arguments
 = 1.6 =
 * Fix setTo method in SMTP option, update documentation, add link to SendGrid portal
 = 1.5.4 =

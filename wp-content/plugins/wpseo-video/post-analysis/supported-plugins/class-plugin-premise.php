@@ -19,13 +19,12 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *
  * @see ....
  *
- * @internal As no copy of the Premise plugin is available and in the original (old) code the
+ * {@internal As no copy of the Premise plugin is available and in the original (old) code the
  * post meta values were handled in the same way as the VideoSEO custom fields post meta,
  * we're just extending the VideoSEO class to let that handle the post meta fields.
- * No other features identified which come specifically from Premise, so this should be fine.
+ * No other features identified which come specifically from Premise, so this should be fine.}}
  *
- * @internal Last update: Never
- * //@internal Last update: August 2014 based upon v x.x
+ * {@internal Last update: Never.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Premise' ) ) {
 

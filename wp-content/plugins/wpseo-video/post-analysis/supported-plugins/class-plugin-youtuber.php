@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the YouTuber plugin
  *
- * @see      http://wordpress.org/extend/plugins/youtuber/
+ * @see      https://wordpress.org/plugins/youtuber/
  *
- * @internal Last update: July 2014 based upon v 1.8.2
+ * {@internal Last update: July 2014 based upon v 1.8.2.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Youtuber' ) ) {
 

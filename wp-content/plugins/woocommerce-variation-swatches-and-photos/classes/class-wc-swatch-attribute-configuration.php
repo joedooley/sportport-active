@@ -12,7 +12,7 @@ class WC_Swatches_Attribute_Configuration_Object {
 	 * @param string $attribute The name of the attribute. 
 	 */
 	public function __construct( $product, $attribute ) {
-		$swatch_options = maybe_unserialize( get_post_meta( $product->id, '_swatch_type_options', true ) );
+		$swatch_options = maybe_unserialize( $product->get_meta('_swatch_type_options', true ) );
 
 		if ( !empty( $swatch_options ) ) {
 
@@ -31,7 +31,7 @@ class WC_Swatches_Attribute_Configuration_Object {
 			$size = 'swatches_image_size';
 			//If the post has a default size configured for it.  
 			//This was done for CSV import suite, there is no UI for selecting this on the post directly. 
-			$product_configured_size = get_post_meta( $product->id, '_swatch_size', true );
+			$product_configured_size = $product->get_meta('_swatch_size', true );
 			if ( $product_configured_size ) {
 				$size = 'swatches_image_size';
 			}
@@ -54,7 +54,7 @@ class WC_Swatches_Attribute_Configuration_Object {
 	}
 
 	public function get_size() {
-		$size = apply_filters( 'woocommerce_swatches_size_for_product', $this->sg( 'size' ), $this->_product->id, $this->_attribute_name );
+		$size = apply_filters( 'woocommerce_swatches_size_for_product', $this->sg( 'size' ), $this->_product->get_id(), $this->_attribute_name );
 		return $size;
 	}
 

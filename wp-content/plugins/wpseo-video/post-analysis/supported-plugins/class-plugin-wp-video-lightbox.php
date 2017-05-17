@@ -16,9 +16,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the WP Video Lightbox plugin
  *
- * @see http://wordpress.org/extend/plugins/wp-video-lightbox/
+ * @see https://wordpress.org/plugins/wp-video-lightbox/
  *
- * @internal Last update: July 2014 based upon v 1.6.8
+ * {@internal Last update: July 2014 based upon v 1.6.8.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_WP_Video_Lightbox' ) ) {
 

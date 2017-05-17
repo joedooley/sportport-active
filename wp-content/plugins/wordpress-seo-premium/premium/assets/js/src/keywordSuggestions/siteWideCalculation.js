@@ -1,3 +1,5 @@
+/* global wpseoAdminL10n */
+
 import { getRelevantWords } from "yoastseo/js/stringProcessing/relevantWords";
 import ProminentWordStorage from "./ProminentWordStorage";
 import ProminentWordCache from "./ProminentWordCache";
@@ -63,10 +65,11 @@ class SiteWideCalculation extends EventEmitter {
 	 */
 	calculate() {
 		let data = {
-			page: this._currentPage,
-			// eslint-disable-next-line camelcase
+			/* eslint-disable camelcase */
 			per_page: this._perPage,
 			status: postStatuses,
+			yst_prominent_words_is_unindexed: true,
+			/* eslint-enable camelcase */
 		};
 
 		if ( ! this._recalculateAll ) {
@@ -96,10 +99,20 @@ class SiteWideCalculation extends EventEmitter {
 		let processPromises = response.reduce( ( previousPromise, post ) => {
 			return previousPromise.then( () => {
 				return this.processPost( post );
+			} ).catch( ( err ) => {
+				// eslint-disable-next-line
+				window.console && console.log( err );
+
+				return this.saveProminentWords( post, [] );
 			} );
 		}, Promise.resolve() );
 
-		processPromises.then( this.continueProcessing ).catch( this.continueProcessing );
+		processPromises.then( this.continueProcessing ).catch( ( err ) => {
+			// eslint-disable-next-line
+			window.console && console.log( err );
+
+			this.continueProcessing();
+		} );
 	}
 
 	/**
@@ -127,14 +140,24 @@ class SiteWideCalculation extends EventEmitter {
 	processPost( post ) {
 		let content = post.content.rendered;
 
-		let prominentWords = getRelevantWords( content );
+		let prominentWords = getRelevantWords( content, wpseoAdminL10n.contentLocale );
 
+		return this.saveProminentWords( post, prominentWords );
+	}
+
+	/**
+	 * Saves the prominent words.
+	 *
+	 * @param {Object} post A post object with rendered content.
+	 * @param {Array} prominentWords The prominent words to save.
+	 * @returns {Promise} Resolves when the prominent words are saved for the post.
+	 */
+	saveProminentWords( post, prominentWords ) {
 		let prominentWordStorage = new ProminentWordStorage( {
 			postID: post.id,
 			rootUrl: this._rootUrl,
 			nonce: this._nonce,
 			cache: this._prominentWordCache,
-			postSaveEndpoint: post._links.self[0].href,
 		} );
 
 		return prominentWordStorage.saveProminentWords( prominentWords ).then( this.incrementProcessedPosts, this.incrementProcessedPosts );

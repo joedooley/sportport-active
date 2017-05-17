@@ -21,7 +21,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vippy' ) ) {
 	/**
 	 * Class WPSEO_Video_Details_Vippy
 	 *
-	 * Requires the Vippy plugin http://wordpress.org/extend/plugins/vippy/
+	 * Requires the Vippy plugin https://wordpress.org/plugins/vippy/
 	 *
 	 * @todo - find out what the player_loc should be - this method is set by every other video class, so why not
 	 * in this one ?

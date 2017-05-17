@@ -60,7 +60,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Ustudio' ) ) {
 		 * @return array   An array with the usable information found or else an empty array
 		 */
 		public function get_info_from_post_meta( $meta_value, $meta_key, $post_id ) {
-			if ( $meta_key == '_ustudio_featured_video_shortcode' ) {
+			if ( $meta_key === '_ustudio_featured_video_shortcode' ) {
 				$atts = shortcode_parse_atts( $meta_value );
 				return $this->get_vid_from_atts( $atts );
 			}

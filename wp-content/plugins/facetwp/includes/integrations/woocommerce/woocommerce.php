@@ -15,7 +15,9 @@ class FacetWP_Integration_WooCommerce
         add_filter( 'facetwp_indexer_post_facet', array( $this, 'index_woo_values' ), 10, 2 );
 
         // Support WooCommerce product variations
-        if ( apply_filters( 'facetwp_enable_product_variations', false ) ) {
+        $is_enabled = ( 'yes' === FWP()->helper->get_setting( 'wc_enable_variations', 'no' ) );
+
+        if ( apply_filters( 'facetwp_enable_product_variations', $is_enabled ) ) {
             add_filter( 'facetwp_indexer_post_facet_defaults', array( $this, 'force_taxonomy' ), 10, 2 );
             add_filter( 'facetwp_indexer_query_args', array( $this, 'index_variations' ) );
             add_filter( 'facetwp_index_row', array( $this, 'attribute_variations' ), 1 );
@@ -262,8 +264,8 @@ class FacetWP_Integration_WooCommerce
 
     /**
      * Calculate variation IDs
-     * @param mixed $facet_name A facet name to ignore, or FALSE
-     * @return array Associative array of product IDs and variation IDs
+     * @param mixed $facet_name Facet name to ignore, or FALSE
+     * @return array Associative array of product IDs + variation IDs
      * @since 2.8
      */
     function calculate_variations( $facet_name = false ) {
@@ -336,7 +338,9 @@ class FacetWP_Integration_WooCommerce
         $post_type = get_post_type( $post_id );
 
         // Index out of stock products?
-        $index_all = apply_filters( 'facetwp_index_all_products', false );
+        $index_all = ( 'yes' === FWP()->helper->get_setting( 'wc_index_all', 'no' ) );
+        $index_all = apply_filters( 'facetwp_index_all_products', $index_all );
+
         if ( ! $index_all && ( 'product' == $post_type || 'product_variation' == $post_type ) ) {
             $product = wc_get_product( $post_id );
             if ( ! $product || ! $product->is_in_stock() ) {

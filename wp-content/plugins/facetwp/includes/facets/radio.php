@@ -132,8 +132,8 @@ class FacetWP_Facet_Radio_Core
         foreach ( $values as $key => $result ) {
             $selected = in_array( $result['facet_value'], $selected_values ) ? ' checked' : '';
             $selected .= ( 0 == $result['counter'] && '' == $selected ) ? ' disabled' : '';
-            $output .= '<div class="facetwp-radio' . $selected . '" data-value="' . $result['facet_value'] . '">';
-            $output .= $result['facet_display_value'] . ' <span class="facetwp-counter">(' . $result['counter'] . ')</span>';
+            $output .= '<div class="facetwp-radio' . $selected . '" data-value="' . esc_attr( $result['facet_value'] ) . '">';
+            $output .= esc_html( $result['facet_display_value'] ) . ' <span class="facetwp-counter">(' . $result['counter'] . ')</span>';
             $output .= '</div>';
         }
 

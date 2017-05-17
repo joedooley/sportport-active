@@ -16,9 +16,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the WP OS FLV plugin
  *
- * @see http://wordpress.org/plugins/wp-os-flv/
+ * @see https://wordpress.org/plugins/wp-os-flv/
  *
- * @internal Last update: July 2014 based upon v 1.1.9
+ * {@internal Last update: July 2014 based upon v 1.1.9.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_WP_OS_Flv' ) ) {
 

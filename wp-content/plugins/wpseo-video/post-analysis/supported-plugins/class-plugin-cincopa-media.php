@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Cincopa Media plugin
  *
- * @see http://wordpress.org/plugins/video-playlist-and-gallery-plugin/
+ * @see https://wordpress.org/plugins/video-playlist-and-gallery-plugin/
  *
- * @internal Last update: July 2014 based upon v 1.133
+ * {@internal Last update: July 2014 based upon v 1.133.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Cincopa_Media' ) ) {
 

@@ -18,7 +18,7 @@ class WC_Swatches_Product_Attribute_Images {
 	 *
 	 * @param string $attribute_image_key a meta key to store the custom image for
 	 * @param string $image_size a registered image size to use for this product attribute image
-	 * 
+	 *
 	 * @return WC_Product_Attribute_Images
 	 */
 	public function __construct( $attribute_image_key = 'thumbnail_id', $image_size = 'shop_thumb' ) {
@@ -32,16 +32,19 @@ class WC_Swatches_Product_Attribute_Images {
 			add_action( 'created_term', array(&$this, 'woocommerce_attribute_thumbnail_field_save'), 10, 3 );
 			add_action( 'edit_term', array(&$this, 'woocommerce_attribute_thumbnail_field_save'), 10, 3 );
 		}
-		
+
 		add_action( 'admin_init', array($this, 'on_admin_init') );
+
+		//Hook for when the actual product attribute itself is modified.
+		add_action('woocommerce_attribute_updated', array($this, 'on_woocommerce_attribute_updated'), 10, 3);
 	}
-	
+
 	public function on_admin_init() {
-		
+
 		if (isset($_REQUEST['taxonomy'])){
 			$this->taxonomy = $_REQUEST['taxonomy'];
 		}
-		
+
 		$attribute_taxonomies = WC_Swatches_Compatibility::wc_get_attribute_taxonomies();
 		if ( $attribute_taxonomies ) {
 			foreach ( $attribute_taxonomies as $tax ) {
@@ -57,7 +60,6 @@ class WC_Swatches_Product_Attribute_Images {
 
 	//Enqueue the scripts if on a product attribute page
 	public function on_admin_scripts() {
-		global $woocommerce_swatches;
 		$screen = get_current_screen();
 		if ( strpos( $screen->id, 'pa_' ) !== false ) :
 			wp_enqueue_media();
@@ -72,11 +74,11 @@ class WC_Swatches_Product_Attribute_Images {
 
 	//Initalize the actions for all product attribute taxonomoies
 	public function init_attribute_image_selector() {
-		global $woocommerce, $_wp_additional_image_sizes;
+		global $_wp_additional_image_sizes;
 		$screen = get_current_screen();
 
 		if ( strpos( $screen->id, 'pa_' ) !== false ) :
-			
+
 			if ( taxonomy_exists( $_REQUEST['taxonomy'] ) ) {
 				$term_id = term_exists( isset( $_REQUEST['tag_ID'] ) ? $_REQUEST['tag_ID'] : 0, $_REQUEST['taxonomy'] );
 				$term = 0;
@@ -105,7 +107,6 @@ class WC_Swatches_Product_Attribute_Images {
 
 	//The field used when adding a new term to an attribute taxonomy
 	public function woocommerce_add_attribute_thumbnail_field() {
-		global $woocommerce;
 		?>
 		<div class="form-field ">
 			<label for="product_attribute_swatchtype_<?php echo $this->meta_key; ?>">Swatch Type</label>
@@ -132,26 +133,26 @@ class WC_Swatches_Product_Attribute_Images {
 			<div id="swatch-color" class="<?php echo sanitize_title( $this->meta_key ); ?>-color">
 				<label><?php _e( 'Color', 'wc_swatches_and_photos' ); ?></label>
 				<div id="product_attribute_color_<?php echo $this->meta_key; ?>_picker" class="colorSelector"><div></div></div>
-				<input class="woo-color" 
-				       id="product_attribute_color_<?php echo $this->meta_key; ?>" 
-				       type="text" class="text" 
+				<input class="woo-color"
+				       id="product_attribute_color_<?php echo $this->meta_key; ?>"
+				       type="text" class="text"
 				       name="product_attribute_meta[<?php echo $this->meta_key; ?>][color]"
 				       value="#FFFFFF" />
 			</div>
 		</div>
-		
+
 		<div class="sub_field form-field swatch-field swatch-field-photo" style="overflow:visible;display:none;">
 			<div id="swatch-photo" class="<?php echo sanitize_title( $this->meta_key ); ?>-photo">
 				<label><?php _e( 'Thumbnail', 'woocommerce' ); ?></label>
 				<div id="product_attribute_thumbnail_<?php echo $this->meta_key; ?>" style="float:left;margin-right:10px;">
-					<img src="<?php echo $woocommerce->plugin_url() . '/assets/images/placeholder.png' ?>" width="<?php echo $this->image_width; ?>px" height="<?php echo $this->image_height; ?>px" />
+					<img src="<?php echo apply_filters( 'woocommerce_placeholder_img_src', WC()->plugin_url() . '/assets/images/placeholder.png' ); ?>" width="<?php echo $this->image_width; ?>px" height="<?php echo $this->image_height; ?>px" />
 				</div>
 				<div style="line-height:60px;">
 					<input type="hidden"  class="upload_image_id" id="product_attribute_<?php echo $this->meta_key; ?>" name="product_attribute_meta[<?php echo $this->meta_key; ?>][photo]" />
 					<button type="submit" class="upload_swatch_image_button button"><?php _e( 'Upload/Add image', 'woocommerce' ); ?></button>
 					<button type="submit" class="remove_swatch_image_button button"><?php _e( 'Remove image', 'woocommerce' ); ?></button>
 				</div>
-				
+
 				<div class="clear"></div>
 			</div>
 		</div>
@@ -160,10 +161,7 @@ class WC_Swatches_Product_Attribute_Images {
 
 	//The field used when editing an existing proeuct attribute taxonomy term
 	public function woocommerce_edit_attributre_thumbnail_field( $term, $taxonomy ) {
-		global $woocommerce;
-
 		$swatch_term = new WC_Swatch_Term( $this->meta_key, $term->term_id, $taxonomy, false, $this->image_size );
-		$image = '';
 		?>
 
 		<tr class="form-field ">
@@ -197,9 +195,9 @@ class WC_Swatches_Product_Attribute_Images {
 				<div id="swatch-color" class="<?php echo sanitize_title( $this->meta_key ); ?>-color">
 
 					<div id="product_attribute_color_<?php echo $this->meta_key; ?>_picker" class="colorSelector"><div></div></div>
-					<input class="woo-color" 
+					<input class="woo-color"
 					       id="product_attribute_color_<?php echo $this->meta_key; ?>"
-					       type="text" class="text" 
+					       type="text" class="text"
 					       name="product_attribute_meta[<?php echo $this->meta_key; ?>][color]"
 					       value="<?php echo $swatch_term->get_color(); ?>" />
 				</div>
@@ -219,7 +217,7 @@ class WC_Swatches_Product_Attribute_Images {
 					<button type="submit" class="upload_swatch_image_button button"><?php _e( 'Upload/Add image', 'woocommerce' ); ?></button>
 					<button type="submit" class="remove_swatch_image_button button"><?php _e( 'Remove image', 'woocommerce' ); ?></button>
 				</div>
-				
+
 				<div class="clear"></div>
 			</td>
 		</tr>
@@ -263,6 +261,50 @@ class WC_Swatches_Product_Attribute_Images {
 			$columns .= $swatch_term->get_output();
 		endif;
 		return $columns;
+	}
+
+
+	/**
+	 * When someone updates the actual product attribute itself.  Need to rename our hashes.
+	 * @param $attribute_id
+	 * @param $attribute
+	 * @param $old_attribute_name
+	 */
+	public function on_woocommerce_attribute_updated($attribute_id, $attribute, $old_attribute_name){
+		global $wpdb;
+
+		$old_key =  md5( sanitize_title( 'pa_' . $old_attribute_name ) );
+		$new_key = md5( sanitize_title( 'pa_' . $attribute['attribute_name'] ) );
+
+		if ($old_key == $new_key){
+			return;
+		}
+
+		$posts_to_update = $wpdb->get_col("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_swatch_type' AND meta_value = 'pickers'");
+
+		if ($posts_to_update && !is_wp_error($posts_to_update)){
+			foreach($posts_to_update as $post_id){
+			    $product = wc_get_product($post_id);
+				$swatch_type_options = $product->get_meta('_swatch_type_options', true );
+				if (isset($swatch_type_options[$old_key])){
+					$swatch_type_options[$new_key] = $swatch_type_options[$old_key];
+					unset($swatch_type_options[$old_key]);
+					$product->update_meta_data('_swatch_type_options', $swatch_type_options);
+					$product->save_meta_data();
+				}
+			}
+		}
+
+		//Update term meta next:
+		$old_meta_key = 'pa_' . $old_attribute_name . '_';
+		$new_meta_key = 'pa_' . $attribute['attribute_name'] . '_';
+
+		$sql = $wpdb->prepare("UPDATE $wpdb->termmeta SET meta_key = %s WHERE meta_key = %s", $new_meta_key . 'swatches_id_type', $old_meta_key . 'swatches_id_type');
+		$wpdb->query($sql);
+		$wpdb->query($wpdb->prepare("UPDATE $wpdb->termmeta SET meta_key = %s WHERE meta_key = %s", $new_meta_key . 'swatches_id_photo', $old_meta_key . 'swatches_id_photo'));
+		$wpdb->query($wpdb->prepare("UPDATE $wpdb->termmeta SET meta_key = %s WHERE meta_key = %s", $new_meta_key . 'swatches_id_color', $old_meta_key . 'swatches_id_color'));
+
+		return;
 	}
 
 }

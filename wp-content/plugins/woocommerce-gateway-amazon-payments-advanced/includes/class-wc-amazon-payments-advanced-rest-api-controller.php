@@ -1,9 +1,15 @@
 <?php
 /**
- * Amazon Payments Advanced REST API class.
+ * Main class WooCommerce Amazon Pat REST API.
+ *
+ * @package WC_Gateway_Amazon_Pay
+ */
+
+/**
+ * WooCommerce Amazon Pay REST API class.
  *
  * Expose additional functionalities to WP REST API for order paid with
- * Amazon Payments Advanced.
+ * Amazon Pay.
  *
  * @since 1.6.0
  */
@@ -91,7 +97,7 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 					'reason' => array(
 						'description' => __( 'Reason for refund.', 'woocommerce-gateway-amazon-payments-advanced' ),
 						'type'        => 'string',
-					)
+					),
 				),
 			),
 		) );
@@ -145,7 +151,8 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 	/**
 	 * Check whether a given request has permission to perform action at the resource.
 	 *
-	 * @param  WP_REST_Request $request Full details about the request.
+	 * @param WP_REST_Request $request Full details about the request.
+	 * @param string          $action Action (create, read, edit, or delete).
 	 *
 	 * @return WP_Error|boolean
 	 */
@@ -171,17 +178,48 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 		if ( ! $has_permission ) {
 			return new WP_Error(
 				sprintf( 'woocommerce_rest_cannot_%s', $action ),
-				sprintf( __( 'Sorry, you cannot %s this resource.', 'woocommerce-gateway-amazon-payments-advanced' ), $action ),
-				array( 'status' => rest_authorization_required_code() ) );
+				$this->get_permissions_check_error_message( $action ),
+				array( 'status' => rest_authorization_required_code() )
+			);
 		}
 
 		return true;
 	}
 
 	/**
+	 * Get error message for insufficient permission accessing or modifying the
+	 * resource.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param string $action Action (create, read, edit, or delete).
+	 *
+	 * @return string Error message.
+	 */
+	protected function get_permissions_check_error_message( $action ) {
+		$message = __( 'Sorry, you don\'t have permission to access this resource.', 'woocommerce-gateway-amazon-payments-advanced' );
+		switch ( $action ) {
+			case 'read':
+				$message = __( 'Sorry, you cannot view this resource.', 'woocommerce-gateway-amazon-payments-advanced' );
+				break;
+			case 'create':
+				$message = __( 'Sorry, you cannot create this resource.', 'woocommerce-gateway-amazon-payments-advanced' );
+				break;
+			case 'delete':
+				$message = __( 'Sorry, you cannot delete this resource.', 'woocommerce-gateway-amazon-payments-advanced' );
+				break;
+			case 'edit':
+				$message = __( 'Sorry, you cannot edit this resource.', 'woocommerce-gateway-amazon-payments-advanced' );
+				break;
+		}
+
+		return $message;
+	}
+
+	/**
 	 * Get reference state.
 	 *
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request Request instance.
 	 *
 	 * @return array
 	 */
@@ -208,19 +246,19 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 			'amazon_capture_state'       => WC_Amazon_Payments_Advanced_API::get_order_ref_state( $order_post->ID, 'amazon_capture_state' ),
 			'amazon_capture_id'          => get_post_meta( $order_post->ID, 'amazon_capture_id', true ),
 		);
-		
+
 		return rest_ensure_response( $ref_detail );
 	}
 
 	/**
 	 * Authorize specified order.
 	 *
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request WP HTTP request.
 	 *
 	 * @return WP_Error|WP_HTTP_Response WP_Error if response generated an error,
 	 *                                   WP_HTTP_Response if response is already
 	 *                                   an instance, otherwise returns a new
-	 *                                   WP_REST_Response instance
+	 *                                   WP_REST_Response instance.
 	 */
 	public function authorize( $request ) {
 		$error = $this->get_missing_reference_id_request_error( $request );
@@ -234,12 +272,12 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 	/**
 	 * Authorize and capture specified order.
 	 *
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request WP HTTP request.
 	 *
 	 * @return WP_Error|WP_HTTP_Response WP_Error if response generated an error,
 	 *                                   WP_HTTP_Response if response is already
 	 *                                   an instance, otherwise returns a new
-	 *                                   WP_REST_Response instance
+	 *                                   WP_REST_Response instance.
 	 */
 	public function authorize_and_capture( $request ) {
 		$error = $this->get_missing_reference_id_request_error( $request );
@@ -253,13 +291,13 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 	/**
 	 * Authorize specified order.
 	 *
-	 * @param WP_REST_Request $request        WP HTTP request
-	 * @param array           $authorize_args Optional args to WC_Amazon_Payments_Advanced_API::authorize
+	 * @param int   $order_id       Order Id.
+	 * @param array $authorize_args Optional args to WC_Amazon_Payments_Advanced_API::authorize.
 	 *
 	 * @return WP_Error|WP_HTTP_Response WP_Error if response generated an error,
 	 *                                   WP_HTTP_Response if response is already
 	 *                                   an instance, otherwise returns a new
-	 *                                   WP_REST_Response instance
+	 *                                   WP_REST_Response instance.
 	 */
 	protected function authorize_order( $order_id, $authorize_args = array() ) {
 		$authorize_args = wp_parse_args( $authorize_args, array( 'capture_now' => false ) );
@@ -267,7 +305,7 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 		$resp = WC_Amazon_Payments_Advanced_API::authorize( $order_id, $authorize_args );
 		if ( is_wp_error( $resp ) ) {
 			return $resp;
-		} 
+		}
 
 		$result = WC_Amazon_Payments_Advanced_API::handle_payment_authorization_response( $resp, $order_id, $authorize_args['capture_now'] );
 
@@ -292,12 +330,12 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 	/**
 	 * Close the authorization of specified order.
 	 *
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request WP HTTP request.
 	 *
 	 * @return WP_Error|WP_HTTP_Response WP_Error if response generated an error,
 	 *                                   WP_HTTP_Response if response is already
 	 *                                   an instance, otherwise returns a new
-	 *                                   WP_REST_Response instance
+	 *                                   WP_REST_Response instance.
 	 */
 	public function close_authorization( $request ) {
 		$error = $this->get_missing_authorization_id_request_error( $request );
@@ -310,7 +348,7 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 		$resp     = WC_Amazon_Payments_Advanced_API::close_authorization( $order_id, $auth_id );
 		if ( is_wp_error( $resp ) ) {
 			return $resp;
-		} 
+		}
 
 		$ret = array(
 			'authorization_closed' => $resp,
@@ -322,12 +360,12 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 	/**
 	 * Capture specified order.
 	 *
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request WP HTTP request.
 	 *
 	 * @return WP_Error|WP_HTTP_Response WP_Error if response generated an error,
 	 *                                   WP_HTTP_Response if response is already
 	 *                                   an instance, otherwise returns a new
-	 *                                   WP_REST_Response instance
+	 *                                   WP_REST_Response instance.
 	 */
 	public function capture( $request ) {
 		$error = $this->get_missing_authorization_id_request_error( $request );
@@ -341,18 +379,18 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 	/**
 	 * Capture the order.
 	 *
-	 * @param int $order_id Order ID
+	 * @param int $order_id Order ID.
 	 *
 	 * @return WP_Error|WP_HTTP_Response WP_Error if response generated an error,
 	 *                                   WP_HTTP_Response if response is already
 	 *                                   an instance, otherwise returns a new
-	 *                                   WP_REST_Response instance
+	 *                                   WP_REST_Response instance.
 	 */
 	protected function capture_order( $order_id ) {
 		$resp = WC_Amazon_Payments_Advanced_API::capture( $order_id );
 		if ( is_wp_error( $resp ) ) {
 			return $resp;
-		} 
+		}
 
 		$result = WC_Amazon_Payments_Advanced_API::handle_payment_capture_response( $resp, $order_id );
 		if ( $result ) {
@@ -372,12 +410,12 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 	/**
 	 * Refund specified order.
 	 *
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request WP HTTP request.
 	 *
 	 * @return WP_Error|WP_HTTP_Response WP_Error if response generated an error,
 	 *                                   WP_HTTP_Response if response is already
 	 *                                   an instance, otherwise returns a new
-	 *                                   WP_REST_Response instance
+	 *                                   WP_REST_Response instance.
 	 */
 	public function refund( $request ) {
 		$error = $this->get_missing_capture_id_request_error( $request );
@@ -393,14 +431,14 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 	/**
 	 * Refund the order.
 	 *
-	 * @param int    $order_id Order ID
-	 * @param string $amount   Amount to refund
-	 * @param string $reason   Reason for refund
+	 * @param int    $order_id Order ID.
+	 * @param string $amount   Amount to refund.
+	 * @param string $reason   Reason for refund.
 	 *
 	 * @return WP_Error|WP_HTTP_Response WP_Error if response generated an error,
 	 *                                   WP_HTTP_Response if response is already
 	 *                                   an instance, otherwise returns a new
-	 *                                   WP_REST_Response instance
+	 *                                   WP_REST_Response instance.
 	 */
 	protected function refund_order( $order_id, $amount, $reason = null ) {
 		if ( 0 > $amount ) {
@@ -421,9 +459,9 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 	/**
 	 * Get error from request when no reference_id from specified order.
 	 *
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request WP HTTP request.
 	 *
-	 * @return null|WP_Error Null if there's no error in the request
+	 * @return null|WP_Error Null if there's no error in the request.
 	 */
 	protected function get_missing_reference_id_request_error( $request ) {
 		$order_post = get_post( (int) $request['order_id'] );
@@ -443,9 +481,9 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 	/**
 	 * Get error from request when no authorization_id from specified order.
 	 *
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request WP HTTP request.
 	 *
-	 * @return null|WP_Error Null if there's no error in the request
+	 * @return null|WP_Error Null if there's no error in the request.
 	 */
 	protected function get_missing_authorization_id_request_error( $request ) {
 		$order_post = get_post( (int) $request['order_id'] );
@@ -465,9 +503,9 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 	/**
 	 * Get error from request when no capture_id from specified order.
 	 *
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request WP HTTP request.
 	 *
-	 * @return null|WP_Error Null if there's no error in the request
+	 * @return null|WP_Error Null if there's no error in the request.
 	 */
 	protected function get_missing_capture_id_request_error( $request ) {
 		$order_post = get_post( (int) $request['order_id'] );
@@ -487,9 +525,9 @@ class WC_Amazon_Payments_Advanced_REST_API_Controller extends WC_REST_Controller
 	/**
 	 * Check whether order is valid to proceed.
 	 *
-	 * @param WP_Post $order_post Order post object
+	 * @param WP_Post $order_post Order post object.
 	 *
-	 * @return bool True if it's valid request
+	 * @return bool True if it's valid request.
 	 */
 	protected function is_valid_order( $order_post ) {
 		if ( empty( $order_post->post_type ) || $this->post_type !== $order_post->post_type ) {

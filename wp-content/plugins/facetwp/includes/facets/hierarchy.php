@@ -122,7 +122,7 @@ class FacetWP_Facet_Hierarchy
             foreach ( $values as $data ) {
                 $last_depth = isset( $last_depth ) ? $last_depth : $data['depth'];
 
-                $label = $data['facet_display_value'];
+                $label = esc_html( $data['facet_display_value'] );
                 $is_checked = ( ! empty( $selected_values ) && $data['facet_value'] == $selected_values[0] );
                 $class = $is_checked ? ' checked' : '';
 
@@ -143,7 +143,7 @@ class FacetWP_Facet_Hierarchy
                     }
                 }
 
-                $output .= '<div class="facetwp-link' . $class . '" data-value="' . $data['facet_value'] . '">' . $label . '</div>';
+                $output .= '<div class="facetwp-link' . $class . '" data-value="' . esc_attr( $data['facet_value'] ) . '">' . $label . '</div>';
 
                 if ( isset( $data['is_choice'] ) ) {
                     $num++;

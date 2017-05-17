@@ -28,16 +28,16 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 	 * This abstract class and it's concrete classes implement the retrieval of details about videos
 	 * from various video hosting services.
 	 *
-	 * @internal Variable testing before passing values to $this->vid is currently done with empty().
+	 * {@internal Variable testing before passing values to $this->vid is currently done with empty().
 	 * This is fine as long as the defaults in the $vid array are all either empty strings,
 	 * 0 integers or null values. If at any point those defaults would change, checking with empty()
-	 * will start to cause serious issues and all those checks will need to be rewritten
+	 * will start to cause serious issues and all those checks will need to be rewritten.}}
 	 *
-	 * @internal If you add a service, don't forget to add the class to the autoload list and
+	 * {@internal If you add a service, don't forget to add the class to the autoload list and
 	 * the associated urls to the verify_service_type() method in class-analyse-post.php.
-	 * Oh, and adding some tests would not go amiss either ;-)
+	 * Oh, and adding some tests would not go amiss either ;-) }}
 	 *
-	 * @internal If you remove a service, make sure you check that no other services where extending its class.
+	 * {@internal If you remove a service, make sure you check that no other services where extending its class.}}
 	 */
 	abstract class WPSEO_Video_Details {
 
@@ -289,7 +289,7 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 				( ( is_string( $this->vid[ $this->remote_url['replace_key'] ] ) || is_int( $this->vid[ $this->remote_url['replace_key'] ] ) ) && ! empty( $this->vid[ $this->remote_url['replace_key'] ] ) ) ) {
 
 				$replace_key = $this->vid[ $this->remote_url['replace_key'] ];
-				// Fix protocol-less urls in parameters as the remote get call most ofter will not work with them.
+				// Fix protocol-less urls in parameters as the remote get call most often will not work with them.
 				if ( $this->remote_url['replace_key'] === 'url' && strpos( $this->vid['url'], '//' ) === 0 ) {
 					$replace_key = 'http:' . $this->vid['url'];
 				}
@@ -427,7 +427,7 @@ if ( ! class_exists( 'WPSEO_Video_Details' ) ) {
 		 * @return void
 		 */
 		protected function put_video_details() {
-			// @internal: keep set_id() first, if it does need changing, it needs to be done before anything else.
+			// {@internal: keep set_id() first, if it does need changing, it needs to be done before anything else.}}
 			if ( method_exists( $this, 'set_id' ) ) {
 				$this->set_id();
 			}

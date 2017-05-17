@@ -105,7 +105,7 @@ class Yoast_HelpScout_Beacon_Identifier {
 				break;
 			case 'name':
 			default:
-				$out = $current_user->user_firstname . ' ' . $current_user->user_lastname;
+				$out = trim( $current_user->user_firstname . ' ' . $current_user->user_lastname );
 				break;
 		}
 

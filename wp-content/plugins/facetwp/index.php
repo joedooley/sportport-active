@@ -2,7 +2,7 @@
 /*
 Plugin Name: FacetWP
 Description: Advanced Filtering for WordPress
-Version: 2.8.3
+Version: 2.8.5
 Author: FacetWP, LLC
 Author URI: https://facetwp.com/
 
@@ -44,13 +44,12 @@ class FacetWP
         }
 
         // setup variables
-        define( 'FACETWP_VERSION', '2.8.3' );
+        define( 'FACETWP_VERSION', '2.8.5' );
         define( 'FACETWP_DIR', dirname( __FILE__ ) );
         define( 'FACETWP_URL', plugins_url( '', __FILE__ ) );
         define( 'FACETWP_BASENAME', plugin_basename( __FILE__ ) );
 
         // get the gears turning
-        include( FACETWP_DIR . '/includes/class-updater.php' );
         include( FACETWP_DIR . '/includes/class-init.php' );
     }
 

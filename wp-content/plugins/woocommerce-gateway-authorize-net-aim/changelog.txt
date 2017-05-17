@@ -1,5 +1,22 @@
 *** WooCommerce Authorize.Net AIM Gateway Changelog ***
 
+2017.04.11 - version 3.11.1
+ * Fix - Set a relevant "Billing State" label at checkout when requiring billing state for EU payment processors
+
+2017.03.28 - version 3.11.0
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+
+2017.01.11 - version 3.10.1
+ * Fix - Ensure Curaçao country code is properly formatted to avoid invalid country errors
+
+2016.11.09 - version 3.10.0
+ * Feature - Orders with only virtual items can now force a charge instead of authorization
+ * Feature - Enhanced payment form is now mobile-friendly (well, friendlier!) with `tel` type inputs
+ * Tweak - Update Mastercard payment icon and add BIN 2 series support
+ * Fix - Fixes transaction failures on orders with $0 fees
+ * Misc - Update SkyVerge plugin framework to 4.5
+
 2016.08.31 - version 3.9.2
  * Fix - Prevent errors for certain transactions with empty code values
 

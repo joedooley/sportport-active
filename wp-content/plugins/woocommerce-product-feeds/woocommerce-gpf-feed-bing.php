@@ -20,6 +20,20 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 		$this->old_locale = get_locale();
 	}
 
+	/**
+	 * Determine if prices should include, or exclude taxes.
+	 *
+	 * Country list from: https://help.bingads.microsoft.com/#apex/3/en/56731/1
+	 */
+	private function include_tax() {
+		if ( in_array(
+			$this->store_info->base_country,
+			array( 'GB', 'AU', 'DE', 'FR' )
+		) ) {
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * Render the feed header information
@@ -36,6 +50,7 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 		} else {
 			header( 'Content-Disposition: inline; filename="E-Commerce_Product_List.txt"' );
 		}
+		header( 'Content-Type: text/csv' );
 
 		// Mandatory fields
 		echo "id\ttitle\tlink\tprice\tdescription\timage_link";
@@ -78,28 +93,28 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 
 	}
 
-
-
 	/**
 	 * Helper function used to output a value in a warnings-safe way
 	 *
 	 * @access public
 	 * @param  object $feed_item The information about the item
 	 * @param  string $key       The particular attribute to output
+	 *
+	 * @return                   The output for this element.
 	 */
 	private function output_element( &$feed_item, $key ) {
+		$output = '';
 		if ( isset( $this->settings['product_fields'][ $key ] ) ) {
 			if ( isset( $feed_item->additional_elements[ $key ] ) ) {
 				foreach ( $feed_item->additional_elements[ $key ] as $data ) {
-					echo "\t" . $this->tsvescape( $data );
+					$output .= "\t" . $this->tsvescape( $data );
 				}
 			} else {
-				echo "\t";
+				$output .= "\t";
 			}
 		}
+		return $output;
 	}
-
-
 
 	/**
 	 * Generate the output for an individual item
@@ -110,37 +125,42 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 	function render_item( $feed_item ) {
 
 		if ( empty( $feed_item->price_inc_tax ) ) {
-			return false;
+			return '';
 		}
 
+		$output = '';
 		// id
-		echo $this->tsvescape( $feed_item->guid ) . "\t";
+		$output .= $this->tsvescape( $feed_item->guid ) . "\t";
 
 		// title
-		echo $this->tsvescape( substr( $feed_item->title, 0, 255 ) ) . "\t";
+		$output .= $this->tsvescape( substr( $feed_item->title, 0, 255 ) ) . "\t";
 
 		// link
-		echo $this->tsvescape( $feed_item->purchase_link ) . "\t";
+		$output .= $this->tsvescape( $feed_item->purchase_link ) . "\t";
 
 		// price
-		$price = number_format( $feed_item->price_ex_tax, 2, '.', '' );
-		echo $this->tsvescape( $price )."\t";
+		if ( $this->include_tax() ) {
+			$price = number_format( $feed_item->price_inc_tax, 2, '.', '' );
+		} else {
+			$price = number_format( $feed_item->price_ex_tax, 2, '.', '' );
+		}
+		$output .= $this->tsvescape( $price )."\t";
 
 		// description
 		// Bing doesn't allow HTML in descriptions.
 		$description = wp_filter_nohtml_kses( $feed_item->description );
 		$description = substr( $description, 0, 5000 );
-		echo $this->tsvescape( $description ) . "\t";
+		$output .= $this->tsvescape( $description ) . "\t";
 
 		// image_link
 		if ( ! empty( $feed_item->image_link ) ) {
-			echo $this->tsvescape( $feed_item->image_link );
+			$output .= $this->tsvescape( $feed_item->image_link );
 		}
 
-		$this->output_element( $feed_item, 'bing_category' );
-		$this->output_element( $feed_item, 'brand' );
-		$this->output_element( $feed_item, 'mpn' );
-		$this->output_element( $feed_item, 'gtin' );
+		$output .= $this->output_element( $feed_item, 'bing_category' );
+		$output .= $this->output_element( $feed_item, 'brand' );
+		$output .= $this->output_element( $feed_item, 'mpn' );
+		$output .= $this->output_element( $feed_item, 'gtin' );
 
 		if ( isset( $this->settings['product_fields']['availability'] ) ) {
 			if ( $feed_item->is_in_stock ) {
@@ -148,26 +168,26 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 					//  Out of Stock; Pre-Order; Back-Order
 					switch ( $feed_item->additional_elements['availability'][0] ) {
 						case 'out of stock':
-							echo "\tOut Of Stock";
+							$output .= "\tOut Of Stock";
 							break;
 						case 'preorder':
-							echo "\tPre-Order";
+							$output .= "\tPre-Order";
 							break;
 						case 'available for order':
-							echo "\tBack-Order";
+							$output .= "\tBack-Order";
 							break;
 						case 'in stock':
-							echo "\tIn Stock";
+							$output .= "\tIn Stock";
 							break;
 						default:
-							echo "\tIn Stock";
+							$output .= "\tIn Stock";
 							break;
 					}
 				} else {
-					echo "\tIn Stock";
+					$output .= "\tIn Stock";
 				}
 			} else {
-				echo "\tOut Of Stock";
+				$output .= "\tOut Of Stock";
 			}
 		}
 
@@ -175,28 +195,28 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 			if ( isset( $feed_item->additional_elements['condition'][0] ) ) {
 				switch ( $feed_item->additional_elements['condition'][0] ) {
 					case 'new':
-						echo "\t" . $this->tsvescape( 'New' );
+						$output .= "\t" . $this->tsvescape( 'New' );
 						break;
 					case 'refurbished':
-						echo "\t" . $this->tsvescape( 'Refurbished' );
+						$output .= "\t" . $this->tsvescape( 'Refurbished' );
 						break;
 					case 'used':
-						echo "\t" . $this->tsvescape( 'Used' );
+						$output .= "\t" . $this->tsvescape( 'Used' );
 						break;
 				}
 			} else {
-				echo "\t";
+				$output .= "\t";
 			}
 		}
 
-		$this->output_element( $feed_item, 'custom_label_0' );
-		$this->output_element( $feed_item, 'custom_label_1' );
-		$this->output_element( $feed_item, 'custom_label_2' );
-		$this->output_element( $feed_item, 'custom_label_3' );
-		$this->output_element( $feed_item, 'custom_label_4' );
+		$output .= $this->output_element( $feed_item, 'custom_label_0' );
+		$output .= $this->output_element( $feed_item, 'custom_label_1' );
+		$output .= $this->output_element( $feed_item, 'custom_label_2' );
+		$output .= $this->output_element( $feed_item, 'custom_label_3' );
+		$output .= $this->output_element( $feed_item, 'custom_label_4' );
 
-		echo "\r\n";
-		return true;
+		$output .=  "\r\n";
+		return $output;
 	}
 
 	/**

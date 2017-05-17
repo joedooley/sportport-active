@@ -17,7 +17,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Revision3 Video SEO Details
  *
- * @internal [JRF] We can get much better information (duration, thumbnail, content_loc from the author RSS feeds,
+ * {@internal [JRF] We can get much better information (duration, thumbnail, content_loc from the author RSS feeds,
  * but then we'd need to know the author in advance and the individual item rss address which I currently
  * haven't been able to figure out.
  * Even if we just had the author and episode nr, we'd be better off as we could construct the thumbnail and
@@ -25,7 +25,7 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *
  * For future reference:
  * Content_loc: http://videos.revision3.com/revision3/web/[author handle]/[Episodenr - 4 digits]/[author handle]--[Episodenr]--[Episode title]--large.h264.mp4
- * Thumbnail_loc: http://videos.revision3.com/revision3/images/shows/[author handle]/[Episodenr - 4 digits]/[author handle]--[Episodenr]--[Episode title]--large.thumb.jpg
+ * Thumbnail_loc: http://videos.revision3.com/revision3/images/shows/[author handle]/[Episodenr - 4 digits]/[author handle]--[Episodenr]--[Episode title]--large.thumb.jpg }}
  *
  * @see http://revision3.com/anyhoo/feed/mp4-large For an example of an author RSS feed (not individual video)
  *

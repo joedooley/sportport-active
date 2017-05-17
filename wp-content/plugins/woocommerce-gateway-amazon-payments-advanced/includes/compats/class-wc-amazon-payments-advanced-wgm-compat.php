@@ -1,4 +1,9 @@
 <?php
+/**
+ * Main class to handle compatbility with woocommerce-german-market extension.
+ *
+ * @package WC_Gateway_Amazon_Pay\Compats
+ */
 
 /**
  * WooCommerce APA compatibility with WooCommerce German Market extension.
@@ -49,7 +54,7 @@ class WC_Amazon_Payments_Advanced_WGM_Compat {
 		if ( ! is_callable( array( 'WGM_Session', 'is_set' ) ) ) {
 			return false;
 		}
-		
+
 		if ( ! class_exists( 'WGM_Helper' ) ) {
 			return false;
 		}
@@ -132,6 +137,7 @@ class WC_Amazon_Payments_Advanced_WGM_Compat {
 			return;
 		}
 
+		// @codingStandardsIgnoreStart
 		$buyer         = $order_reference_details->Buyer;
 		$destination   = $order_reference_details->Destination->PhysicalDestination;
 		$shipping_info = WC_Amazon_Payments_Advanced_API::format_address( $destination );
@@ -159,15 +165,18 @@ class WC_Amazon_Payments_Advanced_WGM_Compat {
 
 		$billing_address['email'] = (string) $buyer->Email;
 		$billing_address['phone'] = isset( $billing_address['phone'] ) ? $billing_address['phone'] : (string) $buyer->Phone;
+		// @codingStandardsIgnoreEnd
 
 		$this->set_address_in_wgm( $billing_address, 'billing' );
-
 	}
 
 	/**
 	 * Set address details of given type in WGM Session.
 	 *
 	 * @since 1.6.0
+	 *
+	 * @param array  $address Address details.
+	 * @param string $type    Address type ('billing' or 'shipping').
 	 */
 	public function set_address_in_wgm( $address, $type = 'billing' ) {
 		$checkout = WC_Checkout::instance();
@@ -191,9 +200,13 @@ class WC_Amazon_Payments_Advanced_WGM_Compat {
 			'AmazonOrderReferenceId' => $this->get_amazon_reference_id(),
 		);
 
-		// Full address information is available to the 'GetOrderReferenceDetails' call when we're in
-		// "login app" mode and we pass the AddressConsentToken to the API
-		// See the "Getting the Shipping Address" section here: https://payments.amazon.com/documentation/lpwa/201749990
+		/**
+		 * Full address information is available to the 'GetOrderReferenceDetails'
+		 * call when we're in "login app" mode and we pass the AddressConsentToken
+		 * to the API.
+		 *
+		 * @see "Getting the Shipping Address" section here: https://payments.amazon.com/documentation/lpwa/201749990
+		 */
 		$settings = WC_Amazon_Payments_Advanced_API::get_settings();
 
 		if ( 'yes' == $settings['enable_login_app'] ) {
@@ -201,9 +214,11 @@ class WC_Amazon_Payments_Advanced_WGM_Compat {
 		}
 
 		$response = WC_Amazon_Payments_Advanced_API::request( $request_args );
+		// @codingStandardsIgnoreStart
 		if ( ! is_wp_error( $response ) && isset( $response->GetOrderReferenceDetailsResult->OrderReferenceDetails ) ) {
 			return $response->GetOrderReferenceDetailsResult->OrderReferenceDetails;
 		}
+		// @codingStandardsIgnoreEnd
 
 		return false;
 	}

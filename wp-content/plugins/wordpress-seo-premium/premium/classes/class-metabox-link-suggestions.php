@@ -37,7 +37,7 @@ class WPSEO_Metabox_Link_Suggestions implements WPSEO_WordPress_Integration {
 			$suggestions = false;
 		}
 
-		return $suggestions;
+		return $service->add_is_cornerstone( $suggestions );
 	}
 
 	/**
@@ -85,14 +85,24 @@ class WPSEO_Metabox_Link_Suggestions implements WPSEO_WordPress_Integration {
 	}
 
 	/**
-	 * Whether the current content language is supported, this is explicitly not the user language.
+	 * Returns whether or not the Link Suggestions are enabled.
 	 *
-	 * @return boolean Whether the current content language is supported.
+	 * @return bool Whether or not the link suggestions are enabled.
 	 */
-	protected function is_content_language_supported() {
-		$language = WPSEO_Utils::get_language( get_locale() );
+	public function is_enabled() {
+		$options = WPSEO_Options::get_option( 'wpseo' );
+		return ( isset( $options['enable_link_suggestions'] ) && $options['enable_link_suggestions'] );
+	}
 
-		return $language === 'en';
+	/**
+	 * Returns whether or not we need to index more posts for correct link suggestion functionality
+	 *
+	 * @return bool Whether or not we need to index more posts.
+	 */
+	public function is_site_unindexed() {
+		$recalculation_notifier = new WPSEO_Premium_Prominent_Words_Recalculation_Notifier();
+
+		return $recalculation_notifier->has_notification();
 	}
 
 	/**
@@ -101,11 +111,13 @@ class WPSEO_Metabox_Link_Suggestions implements WPSEO_WordPress_Integration {
 	 * @param string $post_type The post type to add a meta box for.
 	 */
 	protected function add_meta_box( $post_type ) {
-		if ( ! $this->is_available( $post_type ) ) {
+		if ( ! $this->is_available( $post_type ) || ! $this->is_enabled() ) {
 			return;
 		}
 
-		if ( ! $this->is_content_language_supported() ) {
+		$language_support = new WPSEO_Premium_Prominent_Words_Language_Support();
+
+		if ( ! $language_support->is_language_supported( WPSEO_Utils::get_language( get_locale() ) ) ) {
 			return;
 		}
 

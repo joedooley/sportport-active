@@ -72,7 +72,7 @@ if ( ! function_exists( 'wc_get_random_products' ) ) {
 /************************************************
  * Compatibility functions.
  *
- * @author		Receiptful
+ * @author		Conversio
  * @version		1.0.0
  * @since		1.0.1
  ***********************************************/
@@ -138,7 +138,7 @@ if ( ! function_exists( 'wc_tax_enabled' ) ) {
 /**
  * Clear unused, expired coupons.
  *
- * Clear the *Receiptful* coupons that are expired / unused for at least
+ * Clear the *Conversio* coupons that are expired / unused for at least
  *
  * @since 1.2.2
  */
@@ -177,10 +177,10 @@ function receiptful_clear_unused_coupons() {
 
 
 /**
- * Add Receiptful version endpoint.
+ * Add Conversio version endpoint.
  *
- * Adds a simple Receiptful version check endpoint, allowing
- * to check if Receiptful is active and which version.
+ * Adds a simple Conversio version check endpoint, allowing
+ * to check if Conversio is active and which version.
  *
  * @since 1.2.5
  */

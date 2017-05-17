@@ -1,11 +1,11 @@
-Pay with Amazon User Documentation
-==================================
+Amazon Pay User Documentation
+=============================
 
-[Pay with Amazon](http://woocommerce.com/products/pay-with-amazon/?_ga=1.37349536.1089344366.1467581921) (also called Amazon Payments Advanced) extends WooCommerce, allowing you to take payments via a special checkout page in your store powered by Amazon widgets. This offers a convenient way for Amazon users to pay using existing payment and address details.
+[Amazon Pay](http://woocommerce.com/products/pay-with-amazon/?_ga=1.37349536.1089344366.1467581921) extends WooCommerce, allowing you to take payments via a special checkout page in your store powered by Amazon widgets. This offers a convenient way for Amazon users to pay using existing payment and address details.
 
 This extension works for stores based in US, Europe, and Japan. Recurring payments with WooCommerce Subscriptions is supported, except for Germany and UK in which merchants need to [contact Amazon](https://payments.amazon.com/contact) and enable it via filter.
 
-> **Note**: An [SSL certificate](http://docs.woocommerce.com/document/ssl-and-https/) is required for Pay with Amazon. Please contact your hosting provider to purchase and install on your site.
+> **Note**: An [SSL certificate](http://docs.woocommerce.com/document/ssl-and-https/) is required for Amazon Pay. Please contact your hosting provider to purchase and install on your site.
 
 ## Table of Contents
 
@@ -20,7 +20,7 @@ This extension works for stores based in US, Europe, and Japan. Recurring paymen
   * [Amazon Checkout Page](#amazon-checkout-page)
 * [Admin Order Fulfillment Flow](#admin-order-fulfillment-flow)
 * [REST API](#rest-api)
-  * [List of orders paid via Amazon Payments](#list-of-orders-paid-via-amazon-payments)
+  * [List of orders paid via Amazon Pay](#list-of-orders-paid-via-amazon-payments)
   * [Authorize the order](#authorize-the-order)
   * [Close authorization](#close-authorization)
   * [Capture the order](#capture-the-order)
@@ -28,9 +28,9 @@ This extension works for stores based in US, Europe, and Japan. Recurring paymen
   * [Refund the order](#refund-the-order)
 * [FAQ](#faq)
   * [Will this gateway work with X extension that modifies the WooCommerce checkout page?](#will-this-gateway-work-with-x-extension-that-modifies-the-woocommerce-checkout-page)
-  * [Can I use Pay with Amazon/Amazon Payments Advanced with WooCommerce Subscriptions?](#can-i-use-pay-with-amazonamazon-payments-advanced-with-woocommerce-subscriptions)
+  * [Can I use Pay with WooCommerce Subscriptions?](#can-i-use-pay-with-amazonamazon-payments-advanced-with-woocommerce-subscriptions)
   * [Where should I go to view my Amazon account balance?](#where-should-i-go-to-view-my-amazon-account-balance)
-  * [My Amazon payments widgets look stretched or distorted on my mobile device. How do I resolve this?](#my-amazon-payments-widgets-look-stretched-or-distorted-on-my-mobile-device-how-do-i-resolve-this)
+  * [My Amazon Pay widgets look stretched or distorted on my mobile device. How do I resolve this?](#my-amazon-payments-widgets-look-stretched-or-distorted-on-my-mobile-device-how-do-i-resolve-this)
 * [Troubleshooting](#troubleshooting)
   * [Shipping costs are missing](#shipping-costs-are-missing)
 
@@ -53,9 +53,9 @@ You need to register for a Pay with Amazon Merchant account at the following lin
 
 ## Setup and Configuration
 
-![Pay with Amazon checkout settings](images/checkout-settings.png)
+![Amazon Pay checkout settings](images/checkout-settings.png)
 
-1. **Go to: WooCommerce > Settings > Checkout > Pay with Amazon**.
+1. **Go to: WooCommerce > Settings > Checkout > Amazon Pay**.
 1. **Tick** the box to Enable.
 1. **Enter** Merchant account details provided by Amazon after signup:
   1. **Seller ID**
@@ -95,13 +95,13 @@ To pay using Pay with Amazon, customers need to first sign in with their Amazon 
 
 ### Cart sign-in widget
 
-On the cart page, customers see a ‘Pay with Amazon’ button next to the regular checkout button:
+On the cart page, customers see a Amazon Pay button next to the regular checkout button:
 
 ![Cart sign-in widget](images/sign-in-from-cart-page.png)
 
 ### Checkout sign-in widget
 
-On the regular checkout page, customers see a banner asking if they want to Pay with Amazon:
+On the regular checkout page, customers see a banner asking if they want to use Amazon Pay:
 
 ![Checkout sign-in widget](images/sign-in-from-checkout-page.png)
 
@@ -109,7 +109,7 @@ On the regular checkout page, customers see a banner asking if they want to Pay 
 
 Both buttons trigger a sign-in window that opens and looks similar to this:
 
-![Amazon Payments Sign-in window](images/amazon-payments-sign-in.png)
+![Login with Amazon Sign-in window](images/amazon-payments-sign-in.png)
 
 After signing in, the customer is redirected to a special version of the checkout that shows Amazon widgets.
 
@@ -139,7 +139,7 @@ This widget allows you to perform the following actions:
 
 After each action, an order note is created, noting the status.
 
-To view your Amazon Payments Seller account balance, visit:
+To view your Amazon Pay merchant account balance, visit:
 
 * US: https://sellercentral.amazon.com
 * EU: https://sellercentral-europe.amazon.com
@@ -152,9 +152,9 @@ Since 1.6.0, Pay with Amazon exposes some functionalities through REST API.
 The Pay with Amazon REST API allows you to authorize, capture, and close authorization.
 The endpoint is `/wp-json/wc/v1/orders/<order_id>/amazon-payments-advanced/`.
 
-### List of orders paid via Amazon Payments
+### List of orders paid via Amazon Pay
 
-There's no custom endpoint to retrieve list of orders paid via Amazon Payments. The built-in orders point can be used with
+There's no custom endpoint to retrieve list of orders paid via Amazon Pay. The built-in orders point can be used with
 `_payment_method=amazon_payments_advanced` filter.
 
 ```
@@ -193,7 +193,7 @@ JSON response example:
 ]
 ```
 
-Orders paid via Amazon Payments will have `amazon_reference` on order item.
+Orders paid via Amazon Pay will have `amazon_reference` on order item.
 
 The `filter` parameter can be used with `status` parameter to retrieve list of orders that have been authorized but not captured yet.
 
@@ -356,15 +356,15 @@ JSON response example:
 
 ### Will this gateway work with X extension that modifies the WooCommerce checkout page?
 
-Generally, no. Pay with Amazon uses its own forms for payment and shipping, so plugins that add or modify WC checkout may not work in these cases. Since 1.6.0, compatibilities with extensions that modify checkout page has been added. Those are extensions are:
+Generally, no. Amazon Pay uses its own forms for payment and shipping, so plugins that add or modify WC checkout may not work in these cases. Since 1.6.0, compatibilities with extensions that modify checkout page has been added. Those are extensions are:
 
 * [WooCommerce Drip](https://woocommerce.com/products/woocommerce-drip/)
 * [WooCommerce Dynamic Pricing](https://woocommerce.com/products/dynamic-pricing/)
 * WooCommerce German Market
 
-### Can I use Pay with Amazon/Amazon Payments Advanced with WooCommerce Subscriptions?
+### Can I use Pay with Amazon Pay with WooCommerce Subscriptions?
 
-Yes, this Amazon integration supports recurring payments with [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/?_ga=1.101887745.1089344366.1467581921) (separate purchase). More info at: [Subscription Payment Methods & Gateways](https://docs.woocommerce.com/document/subscriptions/payment-gateways/). By default, subscription is disabled when store base location is set to Germany or UK. Notice will displayed in such case:
+Yes, this Amazon Pay integration supports recurring payments with [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/?_ga=1.101887745.1089344366.1467581921) (separate purchase). More info at: [Subscription Payment Methods & Gateways](https://docs.woocommerce.com/document/subscriptions/payment-gateways/). By default, subscription is disabled when store base location is set to Germany or UK. Notice will displayed in such case:
 
 
 Merchant needs to [contact Amazon](https://payments.amazon.com/contact) first. A filter `woocommerce_amazon_pa_seller_supports_recurring_payment` available to bypass that:
@@ -375,11 +375,11 @@ add_filter( 'woocommerce_amazon_pa_seller_supports_recurring_payment', '__return
 
 ### Where should I go to view my Amazon account balance?
 
-To view your Amazon Payments Seller account balance, visit http://sellercentral.amazon.com for the US; or https://sellercentral-europe.amazon.com) for Europe; or https://sellercentral-japan.amazon.com/ for Japan. Not payments.amazon.com, payments.amazon.co.uk or payments.amazon.de or payments.amazon.co.jp
+To view your Amazon Pay merchant account balance, visit http://sellercentral.amazon.com for the US; or https://sellercentral-europe.amazon.com) for Europe; or https://sellercentral-japan.amazon.com/ for Japan. Not payments.amazon.com, payments.amazon.co.uk or payments.amazon.de or payments.amazon.co.jp
 
-### My Amazon payments widgets look stretched or distorted on my mobile device. How do I resolve this?
+### My Amazon Pay widgets look stretched or distorted on my mobile device. How do I resolve this?
 
-Stretching or distortion of Amazon payments widgets when viewing your website on a mobile device is largely due to the WordPress theme you’re using. It may add padding around the widgets, causing the irregular display.
+Stretching or distortion of Amazon Pay widgets when viewing your website on a mobile device is largely due to the WordPress theme you’re using. It may add padding around the widgets, causing the irregular display.
 
 To fix, add the following CSS code to “style.css” in your child theme; or the “style.css” file in your parent theme if you’re not yet using a child theme:
 

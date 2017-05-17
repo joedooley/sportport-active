@@ -14,11 +14,11 @@
  *
  * Do not edit or add to this file if you wish to upgrade WooCommerce Authorize.Net AIM Gateway to newer
  * versions in the future. If you wish to customize WooCommerce Authorize.Net AIM Gateway for your
- * needs please refer to http://docs.woothemes.com/document/authorize-net-aim/
+ * needs please refer to http://docs.woocommerce.com/document/authorize-net-aim/
  *
  * @package   WC-Gateway-Authorize-Net-AIM/API/Request
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2016, SkyVerge, Inc.
+ * @copyright Copyright (c) 2011-2017, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -117,8 +117,8 @@ class WC_Authorize_Net_AIM_API_Request extends SV_WC_API_XML_Request implements 
 		$this->request_data = array(
 			'transactionRequest' => array(
 				'transactionType' => self::PRIOR_AUTH_CAPTURE,
-				'amount'          => $order->capture_total,
-				'refTransId'      => $order->auth_net_aim_ref_trans_id,
+				'amount'          => $order->capture->amount,
+				'refTransId'      => $order->capture->trans_id,
 			),
 		);
 	}
@@ -148,7 +148,7 @@ class WC_Authorize_Net_AIM_API_Request extends SV_WC_API_XML_Request implements 
 		$this->order = $order;
 
 		$this->request_data = array(
-			'refId'              => $order->id,
+			'refId'              => SV_WC_Order_Compatibility::get_prop( $order, 'id' ),
 			'transactionRequest' => array(
 				'transactionType' => self::REFUND,
 				'amount'          => $order->refund->amount,
@@ -178,7 +178,7 @@ class WC_Authorize_Net_AIM_API_Request extends SV_WC_API_XML_Request implements 
 		$this->order = $order;
 
 		$this->request_data = array(
-			'refId'              => $order->id,
+			'refId'              => SV_WC_Order_Compatibility::get_prop( $order, 'id' ),
 			'transactionRequest' => array(
 				'transactionType' => self::VOID,
 				'refTransId'      => $order->refund->trans_id,
@@ -203,11 +203,11 @@ class WC_Authorize_Net_AIM_API_Request extends SV_WC_API_XML_Request implements 
 	private function create_transaction( $type ) {
 
 		$this->request_data = array(
-			'refId'              => $this->order->id,
+			'refId'              => SV_WC_Order_Compatibility::get_prop( $this->order, 'id' ),
 			'transactionRequest' => array(
 				'transactionType'     => $type,
 				'amount'              => $this->order->payment_total,
-				'currencyCode'        => $this->order->get_order_currency(),
+				'currencyCode'        => SV_WC_Order_Compatibility::get_prop( $this->order, 'currency', 'view' ),
 				'payment'             => $this->get_payment(),
 				'solution'            => array(
 					'id' => 'A1000065',
@@ -219,11 +219,10 @@ class WC_Authorize_Net_AIM_API_Request extends SV_WC_API_XML_Request implements 
 				'lineItems'           => $this->get_line_items(),
 				'tax'                 => $this->get_taxes(),
 				'shipping'            => $this->get_shipping(),
-				'poNumber'            => SV_WC_Helper::str_truncate( preg_replace( '/\W/', '', $this->order->po_number ), 25 ),
 				'customer'            => $this->get_customer(),
 				'billTo'              => $this->get_address( 'billing' ),
 				'shipTo'              => $this->get_address( 'shipping' ),
-				'customerIP'          => $this->order->customer_ip_address,
+				'customerIP'          => SV_WC_Order_Compatibility::get_prop( $this->order, 'customer_ip_address' ),
 				'transactionSettings' => $this->get_transaction_settings(),
 			),
 		);
@@ -318,7 +317,7 @@ class WC_Authorize_Net_AIM_API_Request extends SV_WC_API_XML_Request implements 
 
 				$line_items[] = array(
 					'itemId'      => $fee_id,
-					'name'        => SV_WC_Helper::str_truncate( htmlentities( $fee['name'], ENT_QUOTES, 'UTF-8', false ), 31 ),
+					'name'        => ! empty( $fee['name'] ) ? SV_WC_Helper::str_truncate( htmlentities( $fee['name'], ENT_QUOTES, 'UTF-8', false ), 31 ) : __( 'Fee', 'woocommerce-gateway-authorize-net-aim' ),
 					'description' => __( 'Order Fee', 'woocommerce-gateway-authorize-net-aim' ),
 					'quantity'    => 1,
 					'unitPrice'   => SV_WC_Helper::number_format( $this->order->get_item_total( $fee ) ),
@@ -400,8 +399,8 @@ class WC_Authorize_Net_AIM_API_Request extends SV_WC_API_XML_Request implements 
 			'id' => $this->order->get_user_id(),
 		);
 
-		if ( is_email( $this->order->billing_email ) ) {
-			$customer['email'] = $this->order->billing_email;
+		if ( is_email( SV_WC_Order_Compatibility::get_prop( $this->order, 'billing_email' ) ) ) {
+			$customer['email'] = SV_WC_Order_Compatibility::get_prop( $this->order, 'billing_email' );
 		}
 
 		return $customer;
@@ -420,25 +419,25 @@ class WC_Authorize_Net_AIM_API_Request extends SV_WC_API_XML_Request implements 
 		// address fields
 		$fields = array(
 			'billing'  => array(
-				'firstName'   => array( 'value' => $this->order->billing_first_name,                                        'limit' => 50 ),
-				'lastName'    => array( 'value' => $this->order->billing_last_name,                                         'limit' => 50 ),
-				'company'     => array( 'value' => $this->order->billing_company,                                           'limit' => 50 ),
-				'address'     => array( 'value' => $this->order->billing_address_1 . ( ! empty( $this->order->billing_address_2 ) ? ' ' . $this->order->billing_address_2 : '' ), 'limit' => 60 ),
-				'city'        => array( 'value' => $this->order->billing_city,                                              'limit' => 40 ),
-				'state'       => array( 'value' => $this->order->billing_state,                                             'limit' => 40 ),
-				'zip'         => array( 'value' => $this->order->billing_postcode,                                          'limit' => 20 ),
-				'country'     => array( 'value' => SV_WC_Helper::convert_country_code( $this->order->billing_country ),     'limit' => 60 ),
-				'phoneNumber' => array( 'value' => $this->order->billing_phone,                                             'limit' => 25 ),
+				'firstName'   => array( 'value' => SV_WC_Order_Compatibility::get_prop( $this->order, 'billing_first_name' ),                                        'limit' => 50 ),
+				'lastName'    => array( 'value' => SV_WC_Order_Compatibility::get_prop( $this->order, 'billing_last_name' ),                                         'limit' => 50 ),
+				'company'     => array( 'value' => SV_WC_Order_Compatibility::get_prop( $this->order, 'billing_company' ),                                           'limit' => 50 ),
+				'address'     => array( 'value' => trim( SV_WC_Order_Compatibility::get_prop( $this->order, 'billing_address_1' ) . ' ' . SV_WC_Order_Compatibility::get_prop( $this->order, 'billing_address_2' ) ), 'limit' => 60 ),
+				'city'        => array( 'value' => SV_WC_Order_Compatibility::get_prop( $this->order, 'billing_city' ),                                              'limit' => 40 ),
+				'state'       => array( 'value' => SV_WC_Order_Compatibility::get_prop( $this->order, 'billing_state' ),                                             'limit' => 40 ),
+				'zip'         => array( 'value' => SV_WC_Order_Compatibility::get_prop( $this->order, 'billing_postcode' ),                                          'limit' => 20 ),
+				'country'     => array( 'value' => SV_WC_Helper::convert_country_code( SV_WC_Order_Compatibility::get_prop( $this->order, 'billing_country' ) ),     'limit' => 60 ),
+				'phoneNumber' => array( 'value' => SV_WC_Order_Compatibility::get_prop( $this->order, 'billing_phone' ),                                             'limit' => 25 ),
 			),
 			'shipping' => array(
-				'firstName' => array( 'value' => $this->order->shipping_first_name,                                         'limit' => 50 ),
-				'lastName'  => array( 'value' => $this->order->shipping_last_name,                                          'limit' => 50 ),
-				'company'   => array( 'value' => $this->order->shipping_company,                                            'limit' => 50 ),
-				'address'   => array( 'value' => $this->order->shipping_address_1 . ( ! empty( $this->order->shipping_address_2 ) ? ' ' . $this->order->shipping_address_2 : '' ), 'limit' => 60 ),
-				'city'      => array( 'value' => $this->order->shipping_city,                                               'limit' => 40 ),
-				'state'     => array( 'value' => $this->order->shipping_state,                                              'limit' => 40 ),
-				'zip'       => array( 'value' => $this->order->shipping_postcode,                                           'limit' => 20 ),
-				'country'   => array( 'value' => SV_WC_Helper::convert_country_code($this->order->shipping_country ),       'limit' => 60 ),
+				'firstName' => array( 'value' => SV_WC_Order_Compatibility::get_prop( $this->order, 'shipping_first_name' ),                                         'limit' => 50 ),
+				'lastName'  => array( 'value' => SV_WC_Order_Compatibility::get_prop( $this->order, 'shipping_last_name' ),                                          'limit' => 50 ),
+				'company'   => array( 'value' => SV_WC_Order_Compatibility::get_prop( $this->order, 'shipping_company' ),                                            'limit' => 50 ),
+				'address'   => array( 'value' => trim( SV_WC_Order_Compatibility::get_prop( $this->order, 'shipping_address_1' ) . ' ' . SV_WC_Order_Compatibility::get_prop( $this->order, 'shipping_address_2' ) ), 'limit' => 60 ),
+				'city'      => array( 'value' => SV_WC_Order_Compatibility::get_prop( $this->order, 'shipping_city' ),                                               'limit' => 40 ),
+				'state'     => array( 'value' => SV_WC_Order_Compatibility::get_prop( $this->order, 'shipping_state' ),                                              'limit' => 40 ),
+				'zip'       => array( 'value' => SV_WC_Order_Compatibility::get_prop( $this->order, 'shipping_postcode' ),                                           'limit' => 20 ),
+				'country'   => array( 'value' => SV_WC_Helper::convert_country_code( SV_WC_Order_Compatibility::get_prop( $this->order, 'shipping_country' ) ),      'limit' => 60 ),
 			),
 		);
 

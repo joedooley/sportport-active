@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *
  * @class		Receiptful_Email
  * @version		1.0.0
- * @author		Receiptful
+ * @author		Conversio
  */
 class Receiptful_Email {
 
@@ -41,7 +41,7 @@ class Receiptful_Email {
 		add_action( 'woocommerce_order_status_on-hold_to_processing', array( $this, 'send_transactional_email' ) );
 		add_action( 'woocommerce_order_status_pending_to_completed', array( $this, 'send_transactional_email' ) );
 
-		// Add coupon if the Receiptful API returns an upsell
+		// Add coupon if the Conversio API returns an upsell
 		add_action( 'receiptful_add_upsell', array( $this, 'create_coupon' ), 10, 2 );
 
 		// Add 'View Receipt' button to the My Account page
@@ -60,7 +60,7 @@ class Receiptful_Email {
 	 * WC Emails.
 	 *
 	 * Remove the WooCommerce Completed Order and New Order emails and add
-	 * Receiptful email in their place.
+	 * Conversio email in their place.
 	 *
 	 * @since 1.0.0
 	 *
@@ -80,7 +80,7 @@ class Receiptful_Email {
 		// Remove WC_Email_Customer_Completed_Order
 		unset( $emails['WC_Email_Customer_Completed_Order'] );
 
-		// Add the Receiptful Completed Order email
+		// Add the Conversio Completed Order email
 		$emails['WC_Email_Customer_Completed_Order'] = include plugin_dir_path( __FILE__ ) . 'emails/class-receiptful-email-customer-new-order.php';
 
 		return $emails;
@@ -107,11 +107,11 @@ class Receiptful_Email {
 	/**
 	 * Create coupon.
 	 *
-	 * Create a coupon when upsell data returned from Receiptful API.
+	 * Create a coupon when upsell data returned from Conversio API.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param	array	$data		List of data returned by the Receiptful API.
+	 * @param	array	$data		List of data returned by the Conversio API.
 	 * @param	int		$order_id	ID of the order being processed.
 	 * @return  int     $id         ID of new coupon
 	 */
@@ -154,6 +154,7 @@ class Receiptful_Email {
 
 		}
 
+		$billing_email = method_exists( $order, 'get_billing_email' ) ? $order->get_billing_email() : $order->billing_email;
 		$coupon_data = apply_filters( 'receiptful_coupon_data', array(
 			'discount_type'					=> $discount_type,
 			'coupon_amount'					=> wc_format_decimal( isset( $data['amount'] ) ? wc_clean( $data['amount'] ) : '' ),
@@ -172,7 +173,7 @@ class Receiptful_Email {
 			'exclude_sale_items'			=> 'no',
 			'minimum_amount'				=> '',
 			'maximum_amount'				=> '',
-			'customer_email'				=> ! empty( $data['emailLimit'] ) ? array( sanitize_email( $order->billing_email ) ) : array(),
+			'customer_email'				=> ! empty( $data['emailLimit'] ) ? array( sanitize_email( $billing_email ) ) : array(),
 			'receiptful_coupon'				=> 'yes',
 			'receiptful_coupon_order'		=> $order_id,
 		), $order_id, $data );
@@ -210,11 +211,12 @@ class Receiptful_Email {
 	 */
 	public function view_receipt_button( $actions, $order ) {
 
-		$receipt_id				= get_post_meta( $order->id, '_receiptful_receipt_id', true );
-		$receiptful_web_link	= get_post_meta( $order->id, '_receiptful_web_link', true );
+		$order_id				= method_exists( $order, 'get_id' ) ? $order->get_id() : $order->id;
+		$receipt_id				= get_post_meta( $order_id, '_receiptful_receipt_id', true );
+		$receiptful_web_link	= get_post_meta( $order_id, '_receiptful_web_link', true );
 
 		if ( $receipt_id && $receiptful_web_link ){
-			// Id exists so remove old View button and add Receiptful button
+			// Id exists so remove old View button and add Conversio button
 			unset( $actions['view'] );
 
 			$actions['receipt'] = array(
@@ -264,7 +266,7 @@ class Receiptful_Email {
 	/**
 	 * Order actions.
 	 *
-	 * Display the Receiptful action in the Order Actions meta box drop down.
+	 * Display the Conversio action in the Order Actions meta box drop down.
 	 *
 	 * @since 1.0.0
 	 *

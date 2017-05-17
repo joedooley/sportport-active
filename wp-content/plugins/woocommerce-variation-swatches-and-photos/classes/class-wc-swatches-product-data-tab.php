@@ -7,33 +7,27 @@ class WC_Swatches_Product_Data_Tab extends WC_EX_Product_Data_Tab_Swatches {
 	}
 
 	public function on_admin_head() {
-		global $woocommerce_swatches;
 		parent::on_admin_head();
 	}
 
 	public function render_product_tab_content() {
-		global $woocommerce, $post;
+		global $post;
 		global $_wp_additional_image_sizes;
 
 		add_filter( 'woocommerce_variation_is_visible', array($this, 'return_true') );
 
 		$post_id = $post->ID;
-
-		if ( function_exists( 'get_product' ) ) {
-			$product = get_product( $post->ID );
-		} else {
-			$product = new WC_Product( $post->ID );
-		}
+        $product = wc_get_product( $post->ID );
 
 		$product_type_array = array('variable', 'variable-subscription');
 
-		if ( !in_array( $product->product_type, $product_type_array ) ) {
+		if ( !in_array( $product->get_type(), $product_type_array ) ) {
 			return;
 		}
 
-		$swatch_type_options = get_post_meta( $post_id, '_swatch_type_options', true );
-		$swatch_type = get_post_meta( $post_id, '_swatch_type', true );
-		$swatch_size = get_post_meta( $post_id, '_swatch_size', true );
+		$swatch_type_options = $product->get_meta('_swatch_type_options', true);
+		$swatch_type = $product->get_meta('_swatch_type', true );
+		$swatch_size = $product->get_meta('_swatch_size', true );
 
 
 		if ( !$swatch_type_options ) {
@@ -66,10 +60,10 @@ class WC_Swatches_Product_Data_Tab extends WC_EX_Product_Data_Tab_Swatches {
 		<div class="fields">
 
 			<?php
-			$woocommerce_taxonomies = WC_Swatches_Compatibility::wc_get_attribute_taxonomies();
+			$woocommerce_taxonomies = wc_get_attribute_taxonomies();
 			$woocommerce_taxonomy_infos = array();
 			foreach ( $woocommerce_taxonomies as $tax ) {
-				$woocommerce_taxonomy_infos[WC_Swatches_Compatibility::wc_attribute_taxonomy_name( $tax->attribute_name )] = $tax;
+				$woocommerce_taxonomy_infos[wc_attribute_taxonomy_name( $tax->attribute_name )] = $tax;
 			}
 			$tax = null;
 
@@ -164,7 +158,7 @@ class WC_Swatches_Product_Data_Tab extends WC_EX_Product_Data_Tab_Swatches {
 									<tbody>
 										<tr class="attribute_swatch_type">
 											<td class="label">
-												<label for="_swatch_type_options_<?php echo $key_attr; ?>_type">Type</label>
+												<label for="_swatch_type_options_<?php echo $key_attr; ?>_type"><?php _e('Type', 'wc_swatches_and_photos'); ?></label>
 											</td>
 											<td>
 												<select class="_swatch_type_options_type" id="_swatch_type_options_<?php echo $key_attr; ?>_type" name="_swatch_type_options[<?php echo $key; ?>][type]">
@@ -181,10 +175,10 @@ class WC_Swatches_Product_Data_Tab extends WC_EX_Product_Data_Tab_Swatches {
 
 										<tr class="field_option field_option_product_custom field_option_term_options" style="<?php echo $current_type != 'product_custom' && $current_type != 'term_options' ? 'display:none;' : ''; ?>">
 											<td class="label">
-												<label for="_swatch_type_options_<?php echo $key_attr; ?>_layout">Layout</label>
+												<label for="_swatch_type_options_<?php echo $key_attr; ?>_layout"><?php _e('Layout', 'wc_swatches_and_photos'); ?></label>
 											</td>
 											<td>
-												<?php $layouts = array('default' => __( 'No Label', 'wc_swatches_and_photos' ), 'label_above' => __( 'Show label above', 'wc_swatches_and_photos' )); ?>
+												<?php $layouts = array('default' => __( 'No Label', 'wc_swatches_and_photos' ), 'label_above' => __( 'Show label above', 'wc_swatches_and_photos' ), 'label_below' => __('Show label below')); ?>
 												<select name="_swatch_type_options[<?php echo $key; ?>][layout]">
 													<?php foreach ( $layouts as $layout => $layout_name ) : ?>
 														<option <?php selected( $current_layout, $layout ); ?> value="<?php echo $layout; ?>"><?php echo $layout_name; ?></option>
@@ -195,7 +189,7 @@ class WC_Swatches_Product_Data_Tab extends WC_EX_Product_Data_Tab_Swatches {
 
 										<tr class="field_option field_option_product_custom" style="<?php echo $current_type != 'product_custom' ? 'display:none;' : ''; ?>">
 											<td class="label">
-												<label for="_swatch_type_options_<?php echo $key_attr; ?>_size">Size</label>
+												<label for="_swatch_type_options_<?php echo $key_attr; ?>_size"><?php _e('Size', 'wc_swatches_and_photos'); ?></label>
 											</td>
 											<td>
 												<?php $image_sizes = get_intermediate_image_sizes(); ?>
@@ -232,7 +226,7 @@ class WC_Swatches_Product_Data_Tab extends WC_EX_Product_Data_Tab_Swatches {
 										<tr class="field_option field_option_product_custom" style="<?php echo $current_type != 'product_custom' ? 'display:none;' : ''; ?>">
 
 											<td class="label">
-												<label>Attribute Configuration</label>
+												<label><?php _e('Attribute Configuration', 'wc_swatches_and_photos'); ?></label>
 											</td>
 											<td>
 												<div class="product_custom">
@@ -326,8 +320,8 @@ class WC_Swatches_Product_Data_Tab extends WC_EX_Product_Data_Tab_Swatches {
 																					</td>
 																					<td>
 																						<select class="_swatch_type_options_attribute_type" id="_swatch_type_options_<?php echo $key_attr; ?>_<?php echo esc_attr( $attribute_term['id'] ); ?>_type" name="_swatch_type_options[<?php echo $key; ?>][attributes][<?php echo esc_attr( $attribute_term['id'] ); ?>][type]">
-																							<option <?php selected( $current_attribute_type, 'color' ); ?> value="color">Color</option>
-																							<option <?php selected( $current_attribute_type, 'image' ); ?> value="image">Image</option>
+																							<option <?php selected( $current_attribute_type, 'color' ); ?> value="color"><?php _e('Color', 'wc_swatches_and_photos'); ?></option>
+																							<option <?php selected( $current_attribute_type, 'image' ); ?> value="image"><?php _e('Image', 'wc_swatches_and_photos'); ?></option>
 																						</select>
 																					</td>
 																				</tr>
@@ -412,6 +406,7 @@ class WC_Swatches_Product_Data_Tab extends WC_EX_Product_Data_Tab_Swatches {
 	public function process_meta_box( $post_id, $post ) {
 		parent::process_meta_box( $post_id, $post );
 
+        $product = wc_get_product($post_id);
 
 		$swatch_type_options = isset( $_POST['_swatch_type_options'] ) ? $_POST['_swatch_type_options'] : false;
 		$swatch_type = 'default';
@@ -424,10 +419,11 @@ class WC_Swatches_Product_Data_Tab extends WC_EX_Product_Data_Tab_Swatches {
 				}
 			}
 
-			update_post_meta( $post_id, '_swatch_type_options', $swatch_type_options );
+			$product->update_meta_data('_swatch_type_options', $swatch_type_options );
 		}
 
-		update_post_meta( $post_id, '_swatch_type', $swatch_type );
+		$product->update_meta_data('_swatch_type', $swatch_type );
+		$product->save_meta_data();
 	}
 
 	public function return_true() {

@@ -17,11 +17,11 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		parent::__construct();
 		$this->store_info->feed_url = add_query_arg( 'woocommerce_gpf', 'google', $this->store_info->feed_url_base );
 		if ( ! empty( $this->store_info->base_country ) ) {
-			if ( 'US' == substr( $this->store_info->base_country, 0, 2 ) ||
-			     'CA' == substr( $this->store_info->base_country, 0, 2 ) ||
-			     'IN' == substr( $this->store_info->base_country, 0, 2 ) ) {
+			if ( 'US' === substr( $this->store_info->base_country, 0, 2 ) ||
+			     'CA' === substr( $this->store_info->base_country, 0, 2 ) ||
+			     'IN' === substr( $this->store_info->base_country, 0, 2 ) ) {
 				$this->tax_excluded = true;
-				if ( 'US' == substr( $this->store_info->base_country, 0, 2 ) ) {
+				if ( 'US' === substr( $this->store_info->base_country, 0, 2 ) ) {
 					$this->tax_attribute = true;
 				}
 			}
@@ -31,6 +31,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 
 	/**
 	 * Generate a simple list of field and max length from the field config array.
+	 *
 	 * @return array  Array of max lengths, keyed on field name.
 	 */
 	private function get_field_max_lengths() {
@@ -72,69 +73,20 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	}
 
 	/**
-	 * Figure out which & how many product identifiers are required. Return a boolean
-	 * indicating if the product needs an identifier. Also adds info to the item indicating
-	 * which identifiers are required.
-	 * @param  object $item The item being rendered.
-	 * @return boolean      True if the item needs an identifier. False if not.
-	 */
-	private function needs_identifier( &$item ) {
-		if ( ! $this->country_requires_unique_identifiers() ) {
-			return false;
-		}
-		$item->requires[] = 'brand-plus-gtin-or-mpn';
-		return true;
-	}
-
-	/**
-	 * Determine if the current country required unique product identifiers.
-	 * https://support.google.com/merchants/answer/160161?hl=en-GB#include
-	 */
-	private function country_requires_unique_identifiers() {
-		switch ( $this->store_info->base_country ) {
-			case 'AU':
-			case 'BR':
-			case 'CZ':
-			case 'FR':
-			case 'DE':
-			case 'IT':
-			case 'JP':
-			case 'NL':
-			case 'ES':
-			case 'CH':
-			case 'GB':
-			case 'US':
-				return true;
-				break;
-			default:
-				return false;
-		}
-	}
-
-
-	/**
 	 * Figure out if the item has the identifiers it requires
+	 *
 	 * @param  object  $item The item being rendered
+	 *
 	 * @return boolean       True if the item doens't need identifiers, or has the required
 	 *                       identifiers. False if not.
 	 */
-	private function has_identifier( &$item ) {
-		if ( ! $this->needs_identifier( $item ) || empty( $item->requires ) ) {
-			return true;
+	private function has_identifier( $item ) {
+		if ( empty( $item->additional_elements['brand'] ) ) {
+			return false;
 		}
-		// Iterate all requirements, return false if we fail any requirements
-		foreach ( $item->requires as $requirement ) {
-			switch ( $requirement ) {
-				case 'brand-plus-gtin-or-mpn':
-					if ( empty( $item->additional_elements['brand'] ) ) {
-						return false;
-					}
-					if ( empty( $item->additional_elements['gtin'] ) &&
-						 empty( $item->additional_elements['mpn'] ) ) {
-						return false;
-					}
-					break;
-			}
+		if ( empty( $item->additional_elements['gtin'] ) &&
+			 empty( $item->additional_elements['mpn'] ) ) {
+			return false;
 		}
 		return true;
 	}
@@ -148,7 +100,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	function render_header() {
 
 		header( 'Content-Type: application/xml; charset=UTF-8' );
-		if ( isset ( $_REQUEST['feeddownload'] ) ) {
+		if ( isset( $_REQUEST['feeddownload'] ) ) {
 			header( 'Content-Disposition: attachment; filename="E-Commerce_Product_List.xml"' );
 		} else {
 			header( 'Content-Disposition: inline; filename="E-Commerce_Product_List.xml"' );
@@ -162,21 +114,23 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		echo '    <link>' . $this->store_info->site_url . "</link>\n";
 		echo "    <description>This is the WooCommerce Product List RSS feed</description>\n";
 		echo "    <generator>WooCommerce Google Product Feed Plugin (http://plugins.leewillis.co.uk/store/plugins/woocommerce-google-product-feed/)</generator>\n";
-		echo "    <atom:link href='" . esc_url( $this->store_info->feed_url )."' rel='self' type='application/rss+xml' />\n";
+		echo "    <atom:link href='" . esc_url( $this->store_info->feed_url ) . "' rel='self' type='application/rss+xml' />\n";
 
 	}
 
 
 	/**
-	 * Generate the output for an individual item
+	 * Generate the output for an individual item, and return it
 	 *
 	 * @access public
-	 * @param  object $feed_item The information about the item
+	 * @param  object $feed_item  The information about the item.
+	 *
+	 *@return  string             The rendered output for this item.
 	 */
 	function render_item( $feed_item ) {
 		// Google do not allow free items in the feed.
 		if ( empty ( $feed_item->price_inc_tax ) ) {
-			return false;
+			return '';
 		}
 		// Remove non-printable UTF-8 / CDATA escaping
 		$title    = preg_replace(
@@ -193,30 +147,27 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		$product_description = str_replace( ']]>', ']]]]><![CDATA[>', $product_description );
 		$escaped_url = apply_filters( 'woocommerce_gpf_feed_item_escaped_url', esc_url( $feed_item->purchase_link ), $feed_item );
 
-		// This is basically a hack since we're avoiding using the PHP DOM functions
-		// so we don't have to hold the whole doc in memory
-
-		echo "    <item>\n";
-		echo '      <title><![CDATA[' . $title . "]]></title>\n";
-		echo '      <link>' . $escaped_url . "</link>\n";
-		echo '      <g:ID>' . $feed_item->guid . "</g:ID>\n";
-		echo '      <description><![CDATA[' . $product_description . "]]></description>\n";
-
+		$output = '';
+		$output .= "    <item>\n";
+		$output .= '      <title><![CDATA[' . $title . "]]></title>\n";
+		$output .= '      <link>' . $escaped_url . "</link>\n";
+		$output .= '      <g:ID>' . $feed_item->guid . "</g:ID>\n";
+		$output .= '      <description><![CDATA[' . $product_description . "]]></description>\n";
 
 		if ( ! empty( $feed_item->image_link ) ) {
-			echo '      <g:image_link><![CDATA[' . $feed_item->image_link . "]]></g:image_link>\n";
+			$output .= '      <g:image_link><![CDATA[' . $feed_item->image_link . "]]></g:image_link>\n";
 		}
 
-		$this->render_prices( $feed_item );
+		$output .= $this->render_prices( $feed_item );
 
 		$cnt = 0;
 		if ( apply_filters( 'woocommerce_gpf_google_additional_images', true ) ) {
 			foreach ( $feed_item->additional_images as $image_url ) {
 				// Google limit the number of additional images to 10
-				if ( $cnt == 10 ) {
+				if ( 10 == $cnt ) {
 					break;
 				}
-				echo '      <g:additional_image_link><![CDATA[' . $image_url . "]]></g:additional_image_link>\n";
+				$output .= '      <g:additional_image_link><![CDATA[' . $image_url . "]]></g:additional_image_link>\n";
 				$cnt++;
 			}
 		}
@@ -227,10 +178,10 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		if ( count( $feed_item->additional_elements ) ) {
 			foreach ( $feed_item->additional_elements as $element_name => $element_values ) {
 				foreach ( $element_values as $element_value ) {
-					if ( 'availability' == $element_name ) {
+					if ( 'availability' === $element_name ) {
 						// Google no longer supports "available for order". Mapped this to "in stock" as per
 						// specification update September 2014.
-						if ( 'available for order' == $element_value ) {
+						if ( 'available for order' === $element_value ) {
 							$element_value = 'in stock';
 						}
 						// Only send the value if the product is in stock, otherwise force to
@@ -239,61 +190,61 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 							$element_value = 'out of stock';
 						}
 					}
-					if ( 'identifier_exists' == $element_name ) {
-						if ( 'included' == $element_value ) {
+					if ( 'identifier_exists' === $element_name ) {
+						if ( 'included' === $element_value ) {
 							if ( ! $this->has_identifier( $feed_item ) ) {
-								echo ' <g:identifier_exists>FALSE</g:identifier_exists>';
+								$output .= ' <g:identifier_exists>FALSE</g:identifier_exists>';
 							}
 							continue;
 						} else {
 							continue;
 						}
 					}
-					if ( 'availability_date' == $element_name ) {
-						if ( strlen( $element_value ) == 10 ) {
+					if ( 'availability_date' === $element_name ) {
+						if ( strlen( $element_value ) === 10 ) {
 							$tz_offset = get_option( 'gmt_offset' );
 							$element_value .= 'T00:00:00' . sprintf( '%+03d', $tz_offset ) . '00';
 						}
 					}
-					if ( 'is_bundle' == $element_name ) {
-						if ( 'on' == $element_value ) {
-							echo ' <g:is_bundle>TRUE</g:is_bundle>';
+					if ( 'is_bundle' === $element_name ) {
+						if ( 'on' === $element_value ) {
+							$output .= " <g:is_bundle>TRUE</g:is_bundle>\n";
 						}
 						continue;
 					}
-					echo '      <g:' . $element_name . '>';
-					echo '<![CDATA[' . $element_value . ']]>';
-					echo '</g:' . $element_name . ">\n";
+					$output .= '      <g:' . $element_name . '>';
+					$output .= '<![CDATA[' . $element_value . ']]>';
+					$output .= '</g:' . $element_name . ">\n";
 
 				}
 
-				if ( 'shipping_weight' == $element_name ) {
+				if ( 'shipping_weight' === $element_name ) {
 					$done_weight = true;
 				}
 
-				if ( 'condition' == $element_name ) {
+				if ( 'condition' === $element_name ) {
 					$done_condition = true;
 				}
 			}
 		}
 
 		if ( ! $done_condition ) {
-			echo "      <g:condition>new</g:condition>\n";
+			$output .= "      <g:condition>new</g:condition>\n";
 		}
 
 		if ( ! $done_weight ) {
 			$weight = apply_filters( 'woocommerce_gpf_shipping_weight', $feed_item->shipping_weight, $feed_item->ID );
-			if ( 'lbs' == $this->store_info->weight_units ) {
+			if ( 'lbs' === $this->store_info->weight_units ) {
 				$weight_units = 'lb';
 			} else {
 				$weight_units = $this->store_info->weight_units;
 			}
 			if ( $weight && is_numeric( $weight ) && $weight > 0 ) {
-				echo "      <g:shipping_weight>$weight $weight_units</g:shipping_weight>";
+				$output .= "      <g:shipping_weight>$weight $weight_units</g:shipping_weight>\n";
 			}
 		}
-		echo "    </item>\n";
-		return true;
+		$output .= "    </item>\n";
+		return $output;
 	}
 
 	/**
@@ -311,11 +262,11 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 			// Non-US prices have to be submitted including tax
 			$price = number_format( $feed_item->regular_price_inc_tax, 2, '.', '' );
 		}
-		echo '      <g:price>' . $price . ' ' . $this->store_info->currency . "</g:price>\n";
+		$output = '      <g:price>' . $price . ' ' . $this->store_info->currency . "</g:price>\n";
 
 		// If there's no sale price, then we're done.
 		if ( empty( $feed_item->sale_price_inc_tax ) ) {
-			return;
+			return $output;
 		}
 
 		// Otherwise, include the sale_price tag.
@@ -325,21 +276,28 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		} else {
 			$sale_price = number_format( $feed_item->sale_price_inc_tax, 2, '.', '' );
 		}
-		echo '      <g:sale_price>' . $sale_price . ' ' . $this->store_info->currency . "</g:sale_price>\n";
+		$output .= '      <g:sale_price>' . $sale_price . ' ' . $this->store_info->currency . "</g:sale_price>\n";
 
 		// Include start / end dates if provided.
-		if ( !empty( $feed_item->sale_price_start_date ) &&
-			 !empty( $feed_item->sale_price_end_date ) ) {
-			$offset = get_option('gmt_offset');
-			$offset_string = sprintf( "%+03d", $offset );
-			$offset_string .= sprintf( "%02d", ( $offset - floor( $offset ) ) * 60 );
-
-			$effective_date = date( 'Y-m-d\TH:i', $feed_item->sale_price_start_date ) . $offset_string;
-			$effective_date .= '/';
-			$effective_date .= date( 'Y-m-d\TH:i', $feed_item->sale_price_end_date ) . $offset_string;
-			echo '      <g:sale_price_effective_date>' . $effective_date . '</g:sale_price_effective_date>';
+		if ( ! empty( $feed_item->sale_price_start_date ) &&
+			 ! empty( $feed_item->sale_price_end_date ) ) {
+			if ( is_object( $feed_item->sale_price_start_date ) ) {
+				// WC >= 3.0
+				$effective_date = (string) $feed_item->sale_price_start_date;
+				$effective_date .= '/';
+				$effective_date .= (string) $feed_item->sale_price_end_date;
+			} else {
+				// WC < 3.0
+				$offset = get_option( 'gmt_offset' );
+				$offset_string = sprintf( '%+03d', $offset );
+				$offset_string .= sprintf( '%02d', ( $offset - floor( $offset ) ) * 60 );
+				$effective_date = date( 'Y-m-d\TH:i', $feed_item->sale_price_start_date ) . $offset_string;
+				$effective_date .= '/';
+				$effective_date .= date( 'Y-m-d\TH:i', $feed_item->sale_price_end_date ) . $offset_string;
+			}
+			$output .= '      <g:sale_price_effective_date>' . $effective_date . '</g:sale_price_effective_date>';
 		}
-
+		return $output;
 	}
 
 	/**
@@ -352,5 +310,4 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		echo '</rss>';
 		exit();
 	}
-
 }

@@ -371,7 +371,12 @@ class OMAPI_Menu {
 				        foreach ( $this->get_panels() as $id => $panel ) :
 				        $active = $id == $this->view ? ' omapi-content-active' : '';
 				    ?>
-			        <div class="omapi-content omapi-content-<?php echo sanitize_html_class( $id ); ?><?php echo $active; ?>"><?php do_action( 'optin_monster_api_content_before', $id, $panel, $this ); do_action( 'optin_monster_api_content_' . $id, $panel, $this ); do_action( 'optin_monster_api_content_after', $id, $panel, $this ); ?></div>
+			        <div class="omapi-content omapi-content-<?php echo sanitize_html_class( $id ); ?><?php echo $active; ?>">
+                        <?php
+                        do_action( 'optin_monster_api_content_before', $id, $panel, $this );
+                        do_action( 'optin_monster_api_content_' . $id, $panel, $this );
+                        do_action( 'optin_monster_api_content_after', $id, $panel, $this ); ?>
+                    </div>
 			        <?php endforeach; ?>
 		        </div>
 	        </div>
@@ -440,12 +445,16 @@ class OMAPI_Menu {
 		    case 'api' :
 		    	switch ( $setting ) {
 				    case 'user' :
-				    	$ret = $this->get_password_field( $setting, $value, $id, __( 'API Username', 'optin-monster-api' ), __( 'The API Username found in your OptinMonster Settings area.', 'optin-monster-api' ), __( 'Enter your API Username here...', 'optin-monster-api' ) );
+				    	$ret = $this->get_password_field( $setting, $value, $id, __( 'Legacy API Username', 'optin-monster-api' ), __( 'The Legacy API Username found in your OptinMonster Account API area.', 'optin-monster-api' ), __( 'Enter your Legacy API Username here...', 'optin-monster-api' ) );
 				    break 2;
 
 				    case 'key' :
-				    	$ret = $this->get_password_field( $setting, $value, $id, __( 'API Key', 'optin-monster-api' ), __( 'The API Key found in your OptinMonster Settings area.', 'optin-monster-api' ), __( 'Enter your API Key here...', 'optin-monster-api' ) );
+				    	$ret = $this->get_password_field( $setting, $value, $id, __( 'Legacy API Key', 'optin-monster-api' ), __( 'The Legacy API Key found in your OptinMonster Account API area.', 'optin-monster-api' ), __( 'Enter your Legacy API Key here...', 'optin-monster-api' ) );
 				    break 2;
+
+                    case 'apikey' :
+                        $ret = $this->get_password_field( $setting, $value, $id, __( 'API Key', 'optin-monster-api'), __( 'A single API Key found in your OptinMonster Account API area.', 'optin-monster-api'), __( 'Enter your API Key here...', 'optin-monster-api') );
+                    break 2;
 				}
 			break;
 
@@ -1232,7 +1241,7 @@ class OMAPI_Menu {
 			$html .= '<li><a target="_blank" href="' . esc_url_raw( 'https://optinmonster.com/docs/' ) . '">' . __('Need Help?', 'optin-monster-api') . '</a></li>';
 			$html .= '<li><a href="' . esc_url_raw( 'https://optinmonster.com/contact-us/' ) . '" target="_blank">' .  __('Send Us Feedback', 'optin-monster-api') . '</a></li>';
 			if( $screen->id === 'toplevel_page_optin-monster-api-settings' ) {
-				$html .= '<li class="omapi-menu-button"><a id="omapi-create-new-optin-button" href="https://app.optinmonster.com/account/create/" class="button button-secondary omapi-new-optin" title="' . __( 'Create New Optin', 'optin-monster-api' ) . '" target="_blank">' . __( 'Create New Optin', 'optin-monster-api' ) . '</a></li>';
+				$html .= '<li class="omapi-menu-button"><a id="omapi-create-new-optin-button" href="https://app.optinmonster.com/campaigns/new/" class="button button-secondary omapi-new-optin" title="' . __( 'Create New Optin', 'optin-monster-api' ) . '" target="_blank">' . __( 'Create New Optin', 'optin-monster-api' ) . '</a></li>';
 			}
 			$html .= '</ul></div>';
 		$html .= '</div>';

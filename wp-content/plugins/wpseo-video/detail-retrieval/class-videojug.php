@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Videojug Video SEO Details
  *
- * @internal The video id has no relation to the 'normal' urls. Normal urls can be used to retrieve oembed
+ * {@internal The video id has no relation to the 'normal' urls. Normal urls can be used to retrieve oembed
  * information, however if all we have is a video id, we're lost as oembed does not return any info in that
- * case - no matter how the url is build up (tried with /embed/#id#, &id=, &embedid= etc)
+ * case - no matter how the url is build up (tried with /embed/#id#, &id=, &embedid= etc) }}
  *
  * JSON response format [2014/7/22]:
  * {

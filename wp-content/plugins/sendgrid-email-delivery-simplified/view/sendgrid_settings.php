@@ -2,15 +2,8 @@
   <a href="http://sendgrid.com" target="_blank">
     <img src="<?php echo plugins_url( '/images/logo.png', __FILE__ ) ?>" width="100" alt="" />
   </a>
-  <?php if ( isset( $status ) and ( 'updated' == $status or 'error' == $status ) ): ?>
-    <div id="message" class="<?php echo $status ?>">
-      <p>
-        <strong><?php echo $message ?></strong>
-      </p>
-    </div>
-  <?php endif; ?>
 
-  <?php 
+  <?php
     $tabs = array( 'general' => 'General', 'marketing' => 'Subscription Widget' );
 
     // If network settings display settings for subsites
@@ -27,6 +20,24 @@
     }
   ?>
 
+  <?php if ( isset( $status ) and ( 'updated' == $status or 'error' == $status or 'notice notice-warning' == $status ) ): ?>
+    <div id="message" class="<?php echo $status ?>">
+      <p>
+        <strong><?php echo $message ?></strong>
+      </p>
+    </div>
+  <?php endif; ?>
+
+   <?php if ( isset( $warning_status ) and isset( $warning_message ) ): ?>
+    <?php if ( ! isset( $warning_exclude_tab ) or $warning_exclude_tab != $active_tab ): ?>
+      <div id="message" class="<?php echo $warning_status ?>">
+        <p>
+          <strong><?php echo $warning_message ?></strong>
+        </p>
+      </div>
+    <?php endif; ?>
+  <?php endif; ?>
+
   <?php
     require_once plugin_dir_path( __FILE__ ) . 'sendgrid_settings_nav.php';
     require_once plugin_dir_path( __FILE__ ) . 'sendgrid_settings_general.php';
@@ -35,4 +46,4 @@
     require_once plugin_dir_path( __FILE__ ) . 'sendgrid_settings_test_contact.php';
     require_once plugin_dir_path( __FILE__ ) . 'sendgrid_settings_multisite.php';
   ?>
-</div>  
+</div>

@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Embedplus for WordPress plugin
  *
- * @see http://wordpress.org/extend/plugins/embedplus-for-wordpress/
+ * @see https://wordpress.org/plugins/embedplus-for-wordpress/
  *
- * @internal Last update: July 2014 based upon v 5.1
+ * {@internal Last update: July 2014 based upon v 5.1.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Embedplus_For_Wordpress' ) ) {
 

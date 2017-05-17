@@ -43,10 +43,36 @@ if ( ! class_exists( 'WPSEO_Video_Details_Ustudio' ) ) {
 			'response_type' => 'json',
 		);
 
+		/**
+		 * @var array|false First video in the response.
+		 */
+		private $first_video;
+
+		/**
+		 * @var array|false Information on the largest transcode.
+		 */
+		private $transcode;
 
 
 		/**
-		 * Set the player location
+		 * Set video details to their new values
+		 *
+		 * The actual setting is done via methods in the concrete classes.
+		 *
+		 * @return void
+		 */
+		protected function put_video_details() {
+			$this->first_video = $this->get_decoded_video();
+
+			if ( is_array( $this->first_video ) ) {
+				$this->transcode = $this->get_transcode();
+				parent::put_video_details();
+			}
+		}
+
+
+		/**
+		 * Set the player location.
 		 */
 		protected function set_player_loc() {
 			if ( ! empty( $this->vid['id'] ) ) {
@@ -55,7 +81,9 @@ if ( ! class_exists( 'WPSEO_Video_Details_Ustudio' ) ) {
 		}
 
 		/**
-		 * Pull the first video from the details, if exists
+		 * Pull the first video from the details, if exists.
+		 *
+		 * @return array|false
 		 */
 		protected function get_decoded_video() {
 			if ( ! empty( $this->decoded_response->videos ) ) {
@@ -65,27 +93,27 @@ if ( ! class_exists( 'WPSEO_Video_Details_Ustudio' ) ) {
 		}
 
 		/**
-		 * Pull the largest (widest) transcode, preferably mp4
+		 * Pull the largest (widest) transcode, preferably mp4.
+		 *
+		 * @return array|false
 		 */
 		protected function get_transcode() {
 			$transcode = false;
-			if ( $video = $this->get_decoded_video() ) {
-				if ( ! empty( $video->transcodes ) ) {
-					foreach ( $video->transcodes as $format => $items ) {
-						foreach ( $items as $item ) {
-							$item->format = $format;
-							if ( ! $transcode ) {
-								// For starters, use the first transcode we find.
-								$transcode = $item;
-							}
-							elseif ( $format == 'mp4' && $transcode->format != 'mp4' ) {
-								// If item is mp4 and best transcode isn't, use the mp4.
-								$transcode = $item;
-							}
-							elseif ( $item->width > $transcode->width ) {
-								// If item is wider, use it.
-								$transcode = $item;
-							}
+			if ( ! empty( $this->first_video->transcodes ) ) {
+				foreach ( $this->first_video->transcodes as $format => $items ) {
+					foreach ( $items as $item ) {
+						$item->format = $format;
+						if ( ! $transcode ) {
+							// For starters, use the first transcode we find.
+							$transcode = $item;
+						}
+						elseif ( $format === 'mp4' && $transcode->format !== 'mp4' ) {
+							// If item is mp4 and best transcode isn't, use the mp4.
+							$transcode = $item;
+						}
+						elseif ( $item->width > $transcode->width ) {
+							// If item is wider, use it.
+							$transcode = $item;
 						}
 					}
 				}
@@ -97,15 +125,13 @@ if ( ! class_exists( 'WPSEO_Video_Details_Ustudio' ) ) {
 		 * Set the thumbnail location
 		 */
 		protected function set_thumbnail_loc() {
-			if ( $video = $this->get_decoded_video() ) {
-				if ( ! empty( $video->images ) ) {
-					foreach ( $video->images as $image ) {
-						if ( $image->type == 'poster' ) {
-							$local_img = $this->make_image_local( $image->image_url );
-							if ( is_string( $local_img ) && $local_img !== '' ) {
-								$this->vid['thumbnail_loc'] = $local_img;
-								return;
-							}
+			if ( ! empty( $this->first_video->images ) ) {
+				foreach ( $this->first_video->images as $image ) {
+					if ( $image->type === 'poster' ) {
+						$local_img = $this->make_image_local( $image->image_url );
+						if ( is_string( $local_img ) && $local_img !== '' ) {
+							$this->vid['thumbnail_loc'] = $local_img;
+							return;
 						}
 					}
 				}
@@ -116,10 +142,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_Ustudio' ) ) {
 		 * Set the duration
 		 */
 		protected function set_duration() {
-			if ( $video = $this->get_decoded_video() ) {
-				if ( ! empty( $video->duration ) && is_numeric( $video->duration ) ) {
-					$this->vid['duration'] = $video->duration;
-				}
+			if ( ! empty( $this->first_video->duration ) && is_numeric( $this->first_video->duration ) ) {
+				$this->vid['duration'] = $this->first_video->duration;
 			}
 		}
 
@@ -127,10 +151,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_Ustudio' ) ) {
 		 * Set the video height
 		 */
 		protected function set_height() {
-			if ( $transcode = $this->get_transcode() ) {
-				if ( ! empty( $transcode->height ) && is_numeric( $transcode->height ) ) {
-					$this->vid['height'] = $transcode->height;
-				}
+			if ( ! empty( $this->transcode->height ) && is_numeric( $this->transcode->height ) ) {
+				$this->vid['height'] = $this->transcode->height;
 			}
 		}
 
@@ -138,10 +160,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_Ustudio' ) ) {
 		 * Set the video width
 		 */
 		protected function set_width() {
-			if ( $transcode = $this->get_transcode() ) {
-				if ( ! empty( $transcode->width ) && is_numeric( $transcode->width ) ) {
-					$this->vid['width'] = $transcode->width;
-				}
+			if ( ! empty( $this->transcode->width ) && is_numeric( $this->transcode->width ) ) {
+				$this->vid['width'] = $this->transcode->width;
 			}
 		}
 
@@ -149,10 +169,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_Ustudio' ) ) {
 		 * Set the location of the content
 		 */
 		protected function set_content_loc() {
-			if ( $transcode = $this->get_transcode() ) {
-				if ( ! empty( $transcode->url ) ) {
-					$this->vid['content_loc'] = $transcode->url;
-				}
+			if ( ! empty( $this->transcode->url ) ) {
+				$this->vid['content_loc'] = $this->transcode->url;
 			}
 		}
 	} /* End of class */

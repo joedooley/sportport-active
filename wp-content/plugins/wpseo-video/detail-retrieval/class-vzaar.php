@@ -51,7 +51,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vzaar' ) ) {
 	/**
 	 * Class WPSEO_Video_Details_Vzaar
 	 *
-	 * @internal We don't strictly need a response, funnily enough, though we lack the duration when we don't get it.
+	 * {@internal We don't strictly need a response, funnily enough, though we lack the duration when we don't get it.}}
 	 */
 	class WPSEO_Video_Details_Vzaar extends WPSEO_Video_Details {
 
@@ -156,7 +156,7 @@ if ( ! class_exists( 'WPSEO_Video_Details_Vzaar' ) ) {
 		 * @return bool
 		 */
 		protected function is_video_response() {
-			return ( ! empty( $this->decoded_response ) && ( ( isset( $this->decoded_response->type ) && $this->decoded_response->type === 'video' ) && ( isset( $this->decoded_response->video_status_id ) && in_array( $this->decoded_response->video_status_id, $this->ok_states ) ) ) );
+			return ( ! empty( $this->decoded_response ) && ( ( isset( $this->decoded_response->type ) && $this->decoded_response->type === 'video' ) && ( isset( $this->decoded_response->video_status_id ) && in_array( (string) $this->decoded_response->video_status_id, $this->ok_states, true ) ) ) );
 		}
 
 

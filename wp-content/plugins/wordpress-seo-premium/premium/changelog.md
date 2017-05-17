@@ -1,3 +1,57 @@
+### 4.7.1: May 9th, 2017
+* Includes every change in Yoast SEO core 4.7.1, see the [core changelog](https://wordpress.org/plugins/wordpress-seo/changelog/).
+
+### 4.7.0: May 2nd, 2017
+* Fixes a bug where 410 redirects could not be imported from `.htaccess`.
+* Fixes a bug where the 'email support tab' did not work on the edit post page.
+* Adds the slug of a deleted post to the redirect notification.
+* Includes every change in Yoast SEO core 4.7.0, see the [core changelog](https://wordpress.org/plugins/wordpress-seo/changelog/).
+
+### 4.6.0: April 11th, 2017
+* Adds the ability to mark a post as cornerstone content and display this in the link suggestions box.
+* Fixes a bug where the post_modified was updated whenever the prominent words were calculated.
+* Fixes a bug where a JavaScript error was thrown when creating a new taxonomy with a custom field plugin active.
+* Fixes a bug where websites ran into timeouts due to a big query when calculating the prominent words.
+* Includes every change in Yoast SEO core 4.6.0, see the [core changelog](https://wordpress.org/plugins/wordpress-seo/changelog/).
+
+### 4.5.0: March 21st, 2017
+* Fixes a bug where the SEO score wouldn’t be saved correctly, resulting in gray bullets on the post overview screen.
+* Includes every change in Yoast SEO core 4.5.0, see the [core changelog](https://wordpress.org/plugins/wordpress-seo/changelog/).
+
+### 4.4.0: February 28th, 2017
+* Adds redirect types in the Search Console settings page.
+* Checks for links that are already used in the text when suggesting links.
+* Change links to shortlinks in premium translation promo box.
+* Includes every change in Yoast SEO core 4.4.0, see the [core changelog](https://wordpress.org/plugins/wordpress-seo/changelog/).
+
+### 4.3.2: February 16th, 2017
+* Fixes a bug where CSS & JavaScript would be loaded with incorrect version numbers.
+
+### 4.3.1: February 16th, 2017
+* Fixes a bug where a slow query would be run on every page of the admin.
+
+### 4.3.0: February 14th, 2017
+* Adds link suggestions and insights for Spanish.
+* Adds variable that indicates the recalculation is running already to prevent double executed recalculations.
+* Adds a warning when there are posts or pages that need to be analyzed for link suggestions.
+* Improves the site wide calculation of the prominent words for the link suggestions. 
+* Fixes a bug where the rendering of the columns in the post overview was incorrect. 
+* Includes every change in Yoast SEO core 4.3.0, see the [core changelog](https://wordpress.org/plugins/wordpress-seo/changelog/).
+
+### 4.2.1: February 2nd, 2017
+* Includes every change in Yoast SEO core 4.2.1, see the [core changelog](https://wordpress.org/plugins/wordpress-seo/changelog/).
+
+### 4.2.0: January 31st, 2017
+* Adds link suggestions and insights for Dutch.
+* Includes every change in Yoast SEO core 4.2.0, see the [core changelog](https://wordpress.org/plugins/wordpress-seo/changelog/).
+
+### 4.1.0: January 17th, 2017
+* Adds a feature toggle to disable link suggestions (site wide).
+* Allows contributors to also use the prominent words that link suggestions depend on, these generated a 403. 
+* Adds German support for Yoast internal linking. 
+* Improves the user interface for the prominent word recalculation.
+* Includes every change in Yoast SEO core 4.1.0, see the [core changelog](https://wordpress.org/plugins/wordpress-seo/changelog/).
+
 ### 4.0.2: December 20th, 2016
 * Adds site wide calculation of prominent words for pages.
 * Fixes a notice that would be thrown on custom post types: "Undefined property: WP_Post_Type::$rest_base".

@@ -13,9 +13,7 @@ class FacetWP_Facet_Slider
      */
     function render( $params ) {
 
-        $output = '';
-        $value = $params['selected_values'];
-        $output .= '<div class="facetwp-slider-wrap">';
+        $output = '<div class="facetwp-slider-wrap">';
         $output .= '<div class="facetwp-slider"></div>';
         $output .= '</div>';
         $output .= '<span class="facetwp-slider-label"></span>';

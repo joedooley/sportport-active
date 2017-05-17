@@ -4,13 +4,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Class Receiptful_Products.
  *
- * Class to sync products with the Receiptful API.
- * Products are synchronised with Receiptful to give customers
+ * Class to sync products with the Conversio API.
+ * Products are synchronised with Conversio to give customers
  * really good 'similar products' recommendations.
  *
  * @class		Receiptful_Products
  * @version		1.0.0
- * @author		Receiptful
+ * @author		Conversio
  * @since		1.1.1
  */
 class Receiptful_Products {
@@ -40,7 +40,7 @@ class Receiptful_Products {
 	 * Update product.
 	 *
 	 * Update a product when its being saved/published. When a download gets
-	 * updated, the data will be send to Receiptful to keep the data synced.
+	 * updated, the data will be send to Conversio to keep the data synced.
 	 *
 	 * @since 1.1.1
 	 *
@@ -74,11 +74,11 @@ class Receiptful_Products {
 	 * Update products.
 	 *
 	 * Update multiple products at once. A product update
-	 * will send data to Receiptful to keep in sync.
+	 * will send data to Conversio to keep in sync.
 	 *
 	 * @since 1.1.1
 	 *
-	 * @param 	array 			$product_ids 	List of product IDs to sync with Receiptful.
+	 * @param 	array 			$product_ids 	List of product IDs to sync with Conversio.
 	 * @return	array|WP_Error					Returns the API response, or WP_Error when API call fails.
 	 */
 	public function update_products( $product_ids = array() ) {
@@ -125,13 +125,13 @@ class Receiptful_Products {
 	/**
 	 * Formatted product.
 	 *
-	 * Get the formatted product arguments for the Receiptful API
+	 * Get the formatted product arguments for the Conversio API
 	 * to update the product.
 	 *
 	 * @since 1.1.1
 	 *
 	 * @param	int		$product_id	ID of the product to update.
-	 * @return	array				Formatted array according Receiptful standards with product data.
+	 * @return	array				Formatted array according Conversio standards with product data.
 	 */
 	public function get_formatted_product( $product_id ) {
 
@@ -146,10 +146,10 @@ class Receiptful_Products {
 		}
 
 		$product 	= wc_get_product( $product_id );
-		$images 	= $this->get_formatted_images( $product->id );
-		$categories	= $this->get_formatted_categories( $product->id );
-		$tags		= wp_get_post_terms( $product->id, 'product_tag', array( 'fields' => 'names' ) );
-		$variants	= $this->get_formatted_variants( $product->id );
+		$images 	= $this->get_formatted_images( $product->get_id() );
+		$categories	= $this->get_formatted_categories( $product->get_id() );
+		$tags		= wp_get_post_terms( $product->get_id(), 'product_tag', array( 'fields' => 'names' ) );
+		$variants	= $this->get_formatted_variants( $product->get_id() );
 
 		if ( 'publish' != $product->post->post_status ) :
 			$hidden = true;
@@ -164,16 +164,16 @@ class Receiptful_Products {
 		endif;
 
 		$args = apply_filters( 'receiptful_update_product_args', array(
-			'product_id'	=> (string) $product->id,
+			'product_id'	=> (string) $product->get_id(),
 			'title'			=> $product->get_title(),
 			'description'	=> strip_shortcodes( $product->post->post_content ),
 			'hidden'		=> $hidden,
-			'url'			=> get_permalink( $product->id ),
+			'url'			=> get_permalink( $product->get_id() ),
 			'images'		=> $images,
 			'tags'			=> $tags,
 			'categories'	=> $categories,
 			'variants'		=> $variants,
-		), $product->id );
+		), $product->get_id() );
 
 		return $args;
 
@@ -184,12 +184,12 @@ class Receiptful_Products {
 	 * Formatted categories.
 	 *
 	 * Get the formatted categories array. The return values
-	 * will be according the Receiptful API endpoint specs.
+	 * will be according the Conversio API endpoint specs.
 	 *
 	 * @since 1.1.1
 	 *
 	 * @param 	int 	$product_id 	ID of the product currently processing.
-	 * @return 	array					List of product categories formatted according Receiptful specs.
+	 * @return 	array					List of product categories formatted according Conversio specs.
 	 */
 	public function get_formatted_categories( $product_id ) {
 
@@ -216,21 +216,21 @@ class Receiptful_Products {
 	 * Formatted images.
 	 *
 	 * Get the formatted images array. The return value
-	 * will be according the Receiptful API endpoint specs.
+	 * will be according the Conversio API endpoint specs.
 	 *
 	 * This method gets the featured image + all the gallery images.
 	 *
 	 * @since 1.1.1
 	 *
 	 * @param 	int 	$product_id 	ID of the product currently processing.
-	 * @return 	array					List of product images formatted according Receiptful specs.
+	 * @return 	array					List of product images formatted according Conversio specs.
 	 */
 	public function get_formatted_images( $product_id ) {
 
 		$images 		= array();
 		$product 		= wc_get_product( $product_id );
 		$featured_id	= $product->get_image_id();
-		$image_ids 		= $product->get_gallery_attachment_ids();
+		$image_ids 		= method_exists( $product, 'get_gallery_image_ids' ) ? $product->get_gallery_image_ids() : $product->get_gallery_attachment_ids();
 
 		// Featured image
 		if ( ! empty( $featured_id ) && 0 !== $featured_id && wp_get_attachment_url( $featured_id ) ) {
@@ -262,13 +262,13 @@ class Receiptful_Products {
 	/**
 	 * Formatted variants.
 	 *
-	 * Get the formatted variants array. Variants in Receiptful
+	 * Get the formatted variants array. Variants in Conversio
 	 * are the prices.
 	 *
 	 * @since 1.1.1
 	 *
 	 * @param 	int 	$product_id 	ID of the product currently processing.
-	 * @return 	array					List of product prices formatted according Receiptful specs.
+	 * @return 	array					List of product prices formatted according Conversio specs.
 	 */
 	public function get_formatted_variants( $product_id )  {
 
@@ -303,7 +303,7 @@ class Receiptful_Products {
 	/**
 	 * Delete product.
 	 *
-	 * Delete the product from Receiptful when its deleted in the shop.
+	 * Delete the product from Conversio when its deleted in the shop.
 	 *
 	 * @since 1.1.1
 	 *
@@ -368,7 +368,7 @@ class Receiptful_Products {
 	/**
 	 * Update on sale change.
 	 *
-	 * Send a product update to Receiptful when a product goes
+	 * Send a product update to Conversio when a product goes
 	 * into or out of a sale period (automatically via a event).
 	 *
 	 * @since 1.1.11

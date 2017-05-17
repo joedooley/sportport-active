@@ -33,28 +33,28 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		/**
 		 * @var array  Array of supported shortcodes
 		 *
-		 * @internal   Should be set from the class constructor!
+		 * {@internal   Should be set from the class constructor!}}
 		 */
 		protected $shortcodes = array();
 
 		/**
 		 * @var array  Array of (additional) video post types
 		 *
-		 * @internal   Should be set from the class constructor!
+		 * {@internal   Should be set from the class constructor!}}
 		 */
 		protected $post_types = array();
 
 		/**
 		 * @var array  Array of meta_keys which contain video information
 		 *
-		 * @internal   Should be set from the class constructor!
+		 * {@internal   Should be set from the class constructor!}}
 		 */
 		protected $meta_keys = array();
 
 		/**
 		 * @var array  Array of supported alternative url protocol schemes
 		 *
-		 * @internal   Should be set from the class constructor!
+		 * {@internal   Should be set from the class constructor!}}
 		 */
 		protected $alt_protocols = array();
 
@@ -63,7 +63,7 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		 *             Array key   = name of the embed handler
 		 *             Array value = video service type or empty if the verify_type_from_url method should determine it
 		 *
-		 * @internal   Should be set from the class constructor!
+		 * {@internal   Should be set from the class constructor!}}
 		 */
 		protected $video_autoembeds = array();
 
@@ -72,7 +72,7 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 		 *             Array key   = first part of the oembed url used
 		 *             Array value = video service type or empty if the verify_type_from_url method should determine it
 		 *
-		 * @internal   Should be set from the class constructor!
+		 * {@internal   Should be set from the class constructor!}}
 		 */
 		protected $video_oembeds = array();
 
@@ -319,7 +319,7 @@ if ( ! class_exists( 'WPSEO_Video_Supported_Plugin' ) ) {
 			elseif ( isset( $vid['url'] ) && preg_match( '`(?:[/-])([0-9]+)$`i', $vid['url'], $match ) ) {
 				$vid['id'] = $match[1];
 			}
-			elseif (  $check_this !== '' && preg_match( '`(?:^|[\?/=])([A-Za-z0-9-]{5,})(?:$|[&%\./])`', $check_this, $match ) ) {
+			elseif ( $check_this !== '' && preg_match( '`(?:^|[\?/=])([A-Za-z0-9-]{5,})(?:$|[&%\./])`', $check_this, $match ) ) {
 				$vid['embedlookup'] = $match[1];
 			}
 			return $vid;

@@ -39,8 +39,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_Wordpresstv' ) ) {
 		/**
 		 * @var	string	Regular expression to retrieve a video id from a known video url
 		 *
-		 * @internal Is used in a slightly different way than in the other classes - uses a remote call first
-		 * to get the url to use this against.
+		 * {@internal Is used in a slightly different way than in the other classes - uses a remote call first
+		 * to get the url to use this against.}}
 		 */
 		protected $id_regex = '`v\.wordpress\.com/([^"]+)`i';
 

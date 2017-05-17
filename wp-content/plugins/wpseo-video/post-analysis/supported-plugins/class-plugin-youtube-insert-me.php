@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the YouTube Insert Me plugin
  *
- * @see http://wordpress.org/extend/plugins/youtube-insert-me/
+ * @see https://wordpress.org/plugins/youtube-insert-me/
  *
- * @internal Last update: July 2014 based upon v 1.0
+ * {@internal Last update: July 2014 based upon v 1.0.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Youtube_Insert_Me' ) ) {
 

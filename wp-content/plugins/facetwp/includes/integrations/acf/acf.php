@@ -11,11 +11,9 @@ class FacetWP_Integration_ACF
     function __construct() {
         $this->acf_version = acf()->settings['version'];
 
-        if ( version_compare( $this->acf_version, '4.0', '>=' ) ) {
-            add_filter( 'facetwp_facet_sources', array( $this, 'facet_sources' ) );
-            add_filter( 'facetwp_indexer_post_facet', array( $this, 'indexer_post_facet' ), 1, 2 );
-            add_filter( 'facetwp_acf_display_value', array( $this, 'index_source_other' ), 1, 2 );
-        }
+        add_filter( 'facetwp_facet_sources', array( $this, 'facet_sources' ) );
+        add_filter( 'facetwp_indexer_post_facet', array( $this, 'indexer_post_facet' ), 1, 2 );
+        add_filter( 'facetwp_acf_display_value', array( $this, 'index_source_other' ), 1, 2 );
     }
 
 

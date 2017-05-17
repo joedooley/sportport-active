@@ -1,9 +1,9 @@
 === Conversio for WooCommerce ===
 Contributors: conversio
 Tags: conversio, conversio woocommerce, receipt, receipts, invoice, email, order confirmation, order mail, ecommerce mail, receiptful, receiptful woocommerce
-Requires at least: 3.7.0
-Tested up to: 4.7.2
-Stable tag: 1.3.4
+Requires at least: 4.0.0
+Tested up to: 4.7.3
+Stable tag: 1.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,11 @@ Yes, Conversio works with any theme - whether free, commercial or custom. You do
 
 
 == Changelog ==
+
+= 1.3.5 - 13/04/2017 =
+
+* [Improvement] - Additional rebranding from Receiptful > Conversio
+* [Add] - WC 3.0 compatibility changes
 
 = 1.3.4 - 15/02/2017 =
 

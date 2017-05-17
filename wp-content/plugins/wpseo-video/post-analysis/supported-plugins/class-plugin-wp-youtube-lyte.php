@@ -16,9 +16,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the WP YouTube Lyte plugin
  *
- * @see http://wordpress.org/extend/plugins/wp-youtube-lyte/
+ * @see https://wordpress.org/plugins/wp-youtube-lyte/
  *
- * @internal Last update: July 2014 based upon v 1.4.2
+ * {@internal Last update: July 2014 based upon v 1.4.2.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_WP_Youtube_Lyte' ) ) {
 

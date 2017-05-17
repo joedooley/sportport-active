@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Weaver theme (not plugin)
  *
- * @see http://wordpress.org/extend/themes/weaver
+ * @see https://wordpress.org/themes/weaver
  *
- * @internal Last update: August 2014 based upon old code as plugin/theme not available
+ * {@internal Last update: August 2014 based upon old code as plugin/theme not available.}}
  */
 if ( ! class_exists( 'WPSEO_Video_Plugin_Weaver' ) ) {
 

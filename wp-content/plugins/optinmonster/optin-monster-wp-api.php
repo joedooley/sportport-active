@@ -3,9 +3,9 @@
  * Plugin Name: OptinMonster API
  * Plugin URI:	http://optinmonster.com
  * Description: OptinMonster API plugin to connect your WordPress site to your OptinMonster forms.
- * Author:		Thomas Griffin
- * Author URI:	https://thomasgriffin.io
- * Version:		1.1.6.2
+ * Author:		OptinMonster Team
+ * Author URI:	https://optinmonster.com
+ * Version:		1.1.9
  * Text Domain: optin-monster-api
  * Domain Path: languages
  *
@@ -60,7 +60,7 @@ class OMAPI {
 	 *
 	 * @var string
 	 */
-	public $version = '1.1.6.2';
+	public $version = '1.1.9';
 
 	/**
 	 * The name of the plugin.
@@ -142,7 +142,7 @@ class OMAPI {
 	public function init() {
 
 		// Define necessary plugin constants.
-		define( 'OPTINMONSTER_API', '//a.optnmnstr.com/app/js/api.min.js' );
+		define( 'OPTINMONSTER_API', '//a.optnmstr.com/app/js/api.min.js' );
 
 		// Load our global option.
 		$this->load_option();
@@ -298,7 +298,7 @@ class OMAPI {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return array $creds The user's API creds for OptinMonster.
+	 * @return array|bool $creds The user's API creds for OptinMonster.
 	 */
 	public function get_api_credentials() {
 
@@ -306,8 +306,19 @@ class OMAPI {
 		$option = $this->get_option();
 		$key	= false;
 		$user   = false;
+		$apikey = false;
 
-		// Attempt to grab the API key and API user.
+
+		// Attempt to grab the new API Key
+        if ( empty( $option['api']['apikey'] ) ) {
+            if ( defined( 'OPTINMONSTER_REST_API_LICENSE_KEY' ) ) {
+                $apikey = OPTINMONSTER_REST_API_LICENSE_KEY;
+            }
+        } else {
+            $apikey = $option['api']['apikey'];
+        }
+
+		// Attempt to grab the Legacy API key and API user.
 		if ( empty( $option['api']['key'] ) ) {
 			if ( defined( 'OPTINMONSTER_API_LICENSE_KEY' ) ) {
 				$key = OPTINMONSTER_API_LICENSE_KEY;
@@ -324,16 +335,21 @@ class OMAPI {
 			$user = $option['api']['user'];
 		}
 
-		// If either the $key or $user is false, return false.
-		if ( ! $key || ! $user ) {
-			return false;
-		}
+		// Check if we have any of the authentication data
+		if ( ! $apikey ) {
+            // Do we at least have Legacy API Key and User
+            if ( ! $key || ! $user ) {
+                return false;
+            }
+        }
+
 
 		// Return the API credentials.
 		return apply_filters( 'optin_monster_api_creds',
 			array(
 				'key'  => $key,
-				'user' => $user
+				'user' => $user,
+                'apikey' => $apikey,
 			)
 		);
 

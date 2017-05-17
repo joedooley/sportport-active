@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPSEO_Video_Sitemap' ) ) {
  *****************************************************************
  * Add support for the Advanced Responsive Video Embedder plugin
  *
- * @see      http://wordpress.org/plugins/advanced-responsive-video-embedder/
+ * @see      https://wordpress.org/plugins/advanced-responsive-video-embedder/
  *
- * @internal Last update: October 2016 based upon v 7.5.1
+ * {@internal Last update: October 2016 based upon v 7.5.1.}}
  *
  * Shortcode list from plugin:
  *   'shortcodes'            => array(
@@ -103,7 +103,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Advanced_Responsive_Video_Embedder' ) )
 				if ( method_exists( 'Advanced_Responsive_Video_Embedder_Shared', 'get_options' ) ) {
 					$arve_options = Advanced_Responsive_Video_Embedder_Shared::get_options();
 				}
-				else if ( function_exists( 'arve_get_options' ) ) {
+				elseif ( function_exists( 'arve_get_options' ) ) {
 					$arve_options = arve_get_options();
 				}
 
@@ -125,7 +125,7 @@ if ( ! class_exists( 'WPSEO_Video_Plugin_Advanced_Responsive_Video_Embedder' ) )
 				if ( method_exists( 'Advanced_Responsive_Video_Embedder_Shared', 'get_properties' ) ) {
 					$arve_properties = Advanced_Responsive_Video_Embedder_Shared::get_properties();
 				}
-				else if ( function_exists( 'arve_get_host_properties' ) ) {
+				elseif ( function_exists( 'arve_get_host_properties' ) ) {
 					$arve_properties = arve_get_host_properties();
 				}
 

@@ -20,7 +20,6 @@ class WoocommerceGpfCommon {
 
 		$this->settings = get_option( 'woocommerce_gpf_config' );
 		$this->product_fields = array(
-
 			'availability' => array(
 				'desc'        => __( 'Availability', 'woocommerce_gpf' ),
 				'full_desc'   => __( 'What status to send for in stock items. Out of stock products will always show as "Out of stock" irrespective of this setting.', 'woocommerce_gpf' ),
@@ -302,7 +301,7 @@ class WoocommerceGpfCommon {
 	 * @access public
 	 * @param array $array The list of fields to be filtered
 	 * @param string $feed_format The feed format that should have its fields maintained
-	 * @return array The list of fields filtered to only contain elements that apply to the selectedd $feed_format
+	 * @return array The list of fields filtered to only contain elements that apply to the selected $feed_format
 	 */
 	private function remove_other_feeds( $array, $feed_format ) {
 		if ( empty( $array ) || ! is_array( $array ) ) {
@@ -341,7 +340,7 @@ class WoocommerceGpfCommon {
 			$product_settings = $this->remove_blanks( $product_settings );
 			$values = array_merge( $values, $product_settings );
 		}
-		if ( 'all' != $feed_format ) {
+		if ( 'all' !== $feed_format ) {
 			$values = $this->remove_other_feeds( $values, $feed_format );
 		}
 		$values = $this->limit_max_values( $values );
@@ -366,13 +365,12 @@ class WoocommerceGpfCommon {
 			return false;
 		}
 
-		// Get Store defaults
+		// Get Store defaults.
 		if ( ! isset( $this->settings['product_defaults'] ) ) {
 			$this->settings['product_defaults'] = array();
 		}
 		$settings = $this->remove_blanks( $this->settings['product_defaults'] );
-
-		// Merge category settings
+		// Merge category settings.
 		$categories = get_the_terms( $product_id, 'product_cat' );
 		if ( false === $categories ) {
 			$categories = array();
@@ -381,7 +379,7 @@ class WoocommerceGpfCommon {
 			$category_id = $category->term_id;
 			$category_settings = $this->get_values_for_category( $category_id );
 			$category_settings = $this->remove_blanks( $category_settings );
-			if ( 'all' != $feed_format ) {
+			if ( 'all' !== $feed_format ) {
 				$category_settings = $this->remove_other_feeds( $category_settings, $feed_format );
 			}
 			if ( $category_settings ) {
@@ -399,7 +397,6 @@ class WoocommerceGpfCommon {
 			$prepopulated_values = $this->remove_blanks( $prepopulated_values );
 			$settings            = array_merge( $settings, $prepopulated_values );
 		}
-
 		// Merge per-product settings.
 		$product_settings = get_post_meta( $product_id, '_woocommerce_gpf_data', true );
 		if ( $product_settings ) {
@@ -407,7 +404,7 @@ class WoocommerceGpfCommon {
 			$settings = array_merge( $settings, $product_settings );
 		}
 
-		if ( 'all' != $feed_format ) {
+		if ( 'all' !== $feed_format ) {
 			$settings = $this->remove_other_feeds( $settings, $feed_format );
 		}
 		$settings = $this->limit_max_values( $settings );
@@ -465,6 +462,7 @@ class WoocommerceGpfCommon {
 	private function get_values_to_prepopulate( $product_id = null ) {
 		$results = array();
 		foreach ( $this->settings['product_prepopulate'] as $gpf_key => $prepopulate ) {
+
 			if ( empty( $prepopulate ) ) {
 				continue;
 			}
@@ -513,12 +511,18 @@ class WoocommerceGpfCommon {
 		global $woocommerce_gpf_frontend;
 
 		$result = array();
-		$product = $woocommerce_gpf_frontend->load_product( $product_id );
-		if ( $product->product_type == 'variation' ) {
+		$product = wc_get_product( $product_id );
+
+		if ( is_callable( array( $product, 'get_type' ) ) ) {
+			$product_type = $product->get_type();
+		} else {
+			$product_type = $product->product_type;
+		}
+		if ( 'variation' === $product_type ) {
 			// Get the attributes.
 			$attributes = $product->get_variation_attributes();
 			// If the requested taxonomy is used as an attribute, grab it's value for this variation.
-			if ( isset( $attributes[ 'attribute_' . $value ] ) ) {
+			if ( ! empty( $attributes[ 'attribute_' . $value ] ) ) {
 				$terms = get_terms( array(
 					'taxonomy' => $value,
 					'slug'     => $attributes[ 'attribute_' . $value ],
@@ -531,12 +535,16 @@ class WoocommerceGpfCommon {
 			} else {
 				// Otherwise grab the values to use direct from the term relationships.
 				$terms = get_the_terms( $product_id, $value );
-				if ( ! empty( $terms ) ) {
+				if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 					$result = wp_list_pluck( $terms, 'name' );
-				} elseif ( ! empty( $product->parent->id ) ) {
+				} else {
 					// Couldn't find it against the variation - grab the parent product value.
-					$terms = get_the_terms( $product->parent->id, $value );
-					if ( ! empty( $terms ) ) {
+					if ( is_callable( array( $product, 'get_parent_id' ) ) ) {
+						$terms = get_the_terms( $product->get_parent_id(), $value );
+					} else {
+						$terms = get_the_terms( $product->parent->id, $value );
+					}
+					if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 						$result = wp_list_pluck( $terms, 'name' );
 					}
 				}
@@ -544,7 +552,7 @@ class WoocommerceGpfCommon {
 		} else {
 			// Get the term(s) tagged against the main product.
 			$terms = get_the_terms( $product_id, $value );
-			if ( ! empty( $terms ) ) {
+			if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 				$result = wp_list_pluck( $terms, 'name' );
 			}
 		}
@@ -563,7 +571,7 @@ class WoocommerceGpfCommon {
 
 		global $woocommerce_gpf_frontend;
 
-		$product = $woocommerce_gpf_frontend->load_product( $product_id );
+		$product = wc_get_product( $product_id );
 		if ( ! $product ) {
 			return array();
 		}

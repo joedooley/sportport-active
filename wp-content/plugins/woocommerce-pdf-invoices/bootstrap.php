@@ -3,7 +3,7 @@
  * Plugin Name:       WooCommerce PDF Invoices
  * Plugin URI:        https://wordpress.org/plugins/woocommerce-pdf-invoices
  * Description:       Automatically generate and attach customizable PDF Invoices to WooCommerce emails and connect with Dropbox, Google Drive, OneDrive or Egnyte.
- * Version:           2.6.4
+ * Version:           2.9.0
  * Author:            Bas Elbers
  * Author URI:        http://wcpdfinvoices.com
  * License:           GPL-2.0+
@@ -12,22 +12,61 @@
  * Domain Path:       /lang
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) or exit;
 
-define( 'BEWPI_VERSION', '2.6.4' );
+/**
+ * @deprecated instead use WPI_VERSION.
+ */
+define( 'BEWPI_VERSION', '2.9.0' );
+
+define( 'WPI_VERSION', '2.9.0' );
 
 /**
  * Load WooCommerce PDF Invoices plugin.
  */
 function _bewpi_load_plugin() {
 
-	define( 'BEWPI_FILE', __FILE__ );
-	define( 'BEWPI_DIR', plugin_dir_path( __FILE__ ) );
-	define( 'BEWPI_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+	/**
+	 * @deprecated instead use `WPI_FILE`.
+	 */
+	if ( ! defined( 'BEWPI_FILE' ) ) {
+		define( 'BEWPI_FILE', __FILE__ );
+	}
 
-	require_once BEWPI_DIR . 'includes/be-woocommerce-pdf-invoices.php';
+	/**
+	 * @deprecated instead use `WPI_DIR`.
+	 */
+	if ( ! defined( 'BEWPI_DIR' ) ) {
+		define( 'BEWPI_DIR', plugin_dir_path( __FILE__ ) );
+	}
+
+	/**
+	 * @deprecated instead use `plugin_basename( WPI_FILE )`.
+	 */
+	if ( ! defined( 'BEWPI_PLUGIN_BASENAME' ) ) {
+		define( 'BEWPI_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+	}
+
+	if ( ! defined( 'WPI_FILE' ) ) {
+		define( 'WPI_FILE', __FILE__ );
+	}
+
+	if ( ! defined( 'WPI_DIR' ) ) {
+		define( 'WPI_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
+	}
+
+	require_once WPI_DIR . '/vendor/autoload.php';
+
+	/**
+	 * Main instance of BE_WooCommerce_PDF_Invoices.
+	 *
+	 * @since  2.5.0
+	 * @return BE_WooCommerce_PDF_Invoices
+	 */
+	function BEWPI() {
+		return BE_WooCommerce_PDF_Invoices::instance();
+	}
+	BEWPI();
 
 	_bewpi_on_plugin_update();
 }
@@ -40,23 +79,35 @@ add_action( 'plugins_loaded', '_bewpi_load_plugin', 10 );
  */
 function _bewpi_on_plugin_update() {
 	$current_version = get_site_option( 'bewpi_version' );
-	if ( BEWPI_VERSION !== $current_version ) {
+	if ( WPI_VERSION !== $current_version ) {
+
+		// temporary change max execution time to higher value to prevent internal server errors.
+		$max_execution_time = (int) ini_get( 'max_execution_time' );
+		if ( 0 !== $max_execution_time ) {
+			set_time_limit( 360 );
+		}
 
 		// version 2.6.1- need to be updated with new email options and postmeta.
 		if ( version_compare( $current_version, '2.6.1' ) <= 0 ) {
-			// temporary change max execution time to higher value to prevent internal server errors.
-			$max_execution_time = (int) ini_get( 'max_execution_time' );
-			if ( 0 !== $max_execution_time ) {
-				set_time_limit( 360 );
-			}
-
 			update_email_type_options();
 			update_postmeta();
-
-			set_time_limit( $max_execution_time );
 		}
 
-		update_site_option( 'bewpi_version', BEWPI_VERSION );
+		// version 2.7.0- uploads folder changed to uploads/woocommerce-pdf-invoices.
+		if ( version_compare( $current_version, '2.7.0' ) <= 0 ) {
+			BEWPI()->setup_directories();
+
+			// Move invoice from uploads/bewpi-invoices to uploads/woocommerce-pdf-invoices/attachments.
+			move_pdf_invoices();
+
+			// Rename uploads/bewpi-templates/invoices to uploads/bewpi-templates/invoice.
+			$upload_dir = wp_upload_dir();
+			rename( BEWPI_CUSTOM_TEMPLATES_INVOICES_DIR, $upload_dir['basedir'] . '/bewpi-templates/invoice' );
+		}
+
+		set_time_limit( $max_execution_time );
+
+		update_site_option( 'bewpi_version', WPI_VERSION );
 	}
 }
 
@@ -112,10 +163,10 @@ function update_postmeta() {
 	}
 
 	foreach ( $posts as $post_id ) {
-		// create pdf path postmeta for all shop orders.
+		// Create pdf path postmeta for all shop orders.
 		create_pdf_path_postmeta( $post_id, $template_options );
 
-		// format date postmeta to mysql date.
+		// Format date postmeta to mysql date.
 		update_date_format_postmeta( $post_id, $date_format );
 	}
 }
@@ -139,14 +190,16 @@ function create_pdf_path_postmeta( $post_id, $template_options ) {
 		return;
 	}
 
-	// one folder for all invoices.
+	// One folder for all invoices.
 	$new_pdf_path = $formatted_invoice_number . '.pdf';
 	if ( (bool) $template_options['bewpi_reset_counter_yearly'] ) {
-		// yearly sub-folders.
+		// Yearly sub-folders.
 		$invoice_year = get_post_meta( $post_id, '_bewpi_invoice_year', true );
 		if ( $invoice_year ) {
 			$new_pdf_path = $invoice_year . '/' . $formatted_invoice_number . '.pdf';
 		}
+	} else {
+		$new_pdf_path = $formatted_invoice_number . '.pdf';
 	}
 
 	if ( file_exists( BEWPI_INVOICES_DIR . $new_pdf_path ) ) {
@@ -177,6 +230,31 @@ function update_date_format_postmeta( $post_id, $date_format ) {
 }
 
 /**
+ * Move all invoices to new uploads dir.
+ */
+function move_pdf_invoices() {
+	$files = glob( BEWPI_INVOICES_DIR . '/*' );
+	foreach ( $files as $file ) {
+
+		if ( is_dir( $file ) ) {
+			wp_mkdir_p( WPI_ATTACHMENTS_DIR . '/' . basename( $file ) );
+
+			$files_year = glob( $file . '/*' );
+			foreach ( $files_year as $file_year ) {
+				if ( is_file( $file_year ) ) {
+					$pdf_path = str_replace( BEWPI_INVOICES_DIR . '/', '', $file_year );
+					copy( $file_year, WPI_ATTACHMENTS_DIR . '/' . $pdf_path );
+				}
+			}
+
+			continue;
+		}
+
+		copy( $file, WPI_ATTACHMENTS_DIR . '/' . basename( $file ) );
+	}
+}
+
+/**
  * Save install date, plugin version to db and set transient to show activation notice.
  *
  * @since 2.5.0
@@ -188,8 +266,6 @@ function _bewpi_on_plugin_activation() {
 	// use transient to display activation admin notice.
 	set_transient( 'bewpi-admin-notice-activation', true, 30 );
 
-	// save plugin version for update function.
-	update_site_option( 'bewpi_version', BEWPI_VERSION );
+	update_site_option( 'bewpi_version', WPI_VERSION );
 }
-
 register_activation_hook( __FILE__, '_bewpi_on_plugin_activation' );

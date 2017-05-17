@@ -173,8 +173,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_23video' ) ) {
 		/**
 		 * Set the content location
 		 *
-		 * @internal -> if this is changed to another property, the width/height properties need to change too
-		 * Alternative set could be video_medium_download / video_medium_width / video_medium_height
+		 * {@internal If this is changed to another property, the width/height properties need to change too.
+		 * Alternative set could be video_medium_download / video_medium_width / video_medium_height.}}
 		 */
 		protected function set_content_loc() {
 			if ( ! empty( $this->decoded_response->photo->standard_download ) && ! empty( $this->vid['subdomain'] ) ) {
@@ -217,9 +217,9 @@ if ( ! class_exists( 'WPSEO_Video_Details_23video' ) ) {
 		/**
 		 * Set the player location
 		 *
-		 * @internal Alternative options:
+		 * {@internal Alternative options:
 		 * https://[subdomain].23video.com/v.swf?photo_id=[photo->photo_id]&autoPlay=1
-		 * https://[subdomain].23video.com/[photo->tree_id].ihtml?photo_id=[photo->photo_id]&token=[photo->token]&autoPlay=1&defaultQuality=high
+		 * https://[subdomain].23video.com/[photo->tree_id].ihtml?photo_id=[photo->photo_id]&token=[photo->token]&autoPlay=1&defaultQuality=high }}
 		 */
 		protected function set_player_loc() {
 			if ( ! empty( $this->vid['id'] ) && ! empty( $this->vid['subdomain'] ) ) {
@@ -241,8 +241,8 @@ if ( ! class_exists( 'WPSEO_Video_Details_23video' ) ) {
 		/**
 		 * Set the thumbnail location
 		 *
-		 * @internal Possible alternative:
-		 * https://[subdomain].23video.com/[photo->tree_id]/[photo->photo_id]/[photo->token]/large
+		 * {@internal Possible alternative:
+		 * https://[subdomain].23video.com/[photo->tree_id]/[photo->photo_id]/[photo->token]/large }}
 		 */
 		protected function set_thumbnail_loc() {
 			if ( isset( $this->decoded_response->photo->video_frames_download ) && ( is_string( $this->decoded_response->photo->video_frames_download ) && $this->decoded_response->photo->video_frames_download !== '' ) && ! empty( $this->vid['subdomain'] ) ) {
