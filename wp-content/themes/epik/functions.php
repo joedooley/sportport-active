@@ -53,12 +53,6 @@ define( 'CHILD_VENDOR_JS_DIR', get_stylesheet_directory_uri() . '/dist/js/vendor
 
 
 /**
- * Enable WooCommerce support.
- */
-add_theme_support( 'genesis-connect-woocommerce' );
-
-
-/**
  * Enable WooCommerce FacetWP variations
  */
 add_filter( 'facetwp_enable_product_variations', '__return_true' );
