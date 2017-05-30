@@ -4,7 +4,7 @@
  * Plugin URI: https://www.woocommerce.com/products/google-product-feed/
  * Description: WooCommerce extension that allows you to more easily populate advanced attributes into the Google Merchant Centre feed
  * Author: Lee Willis
- * Version: 7.1.1
+ * Version: 7.1.2
  * Author URI: http://www.leewillis.co.uk/
  * License: GPLv3
  *
