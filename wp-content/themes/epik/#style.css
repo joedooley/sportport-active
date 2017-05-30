@@ -325,7 +325,6 @@ body.gallery .grey-boxed {
 .envirabox-skin { padding: 1px !important; } /* Controls amount of white border on pop-up */
 
 .envira-gallery-wrap .envira-gallery-public.envira-gallery-css-animations .envira-gallery-item img {
-   -webkit-transition:all .2s ease-in-out;
    transition: all .2s ease-in-out;
 }
 .envira-gallery-wrap .envira-gallery-public.envira-gallery-css-animations .envira-gallery-item:hover img {
@@ -1417,7 +1416,6 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-	-webkit-transition: all 0.1s ease-in-out;
 	transition:         all 0.1s ease-in-out;
 }
 
@@ -2426,7 +2424,6 @@ Widgets
 }
 
 #genesis-responsive-slider li a {
-	-webkit-transition: none;
 	transition: none;
 }
 
@@ -2636,7 +2633,6 @@ Home Feature BG
 .home-feature-bg .featuredpage img:hover,
 .home-feature-bg .featuredpost img:hover {
 	opacity: .7;
-	-webkit-transition:all .5s ease;
 	transition:all .5s ease;
 }
 
@@ -2691,7 +2687,6 @@ Home Feature BG Alt
 .home-feature-bg-alt .featuredpage img:hover,
 .home-feature-bg-alt .featuredpost img:hover {
 	opacity: .7;
-	-webkit-transition:all .5s ease;
 	transition:all .5s ease;
 }
 
@@ -2755,7 +2750,6 @@ Home Feature BG Dark
 .home-feature-bg-dark .featuredpage img:hover,
 .home-feature-bg-dark .featuredpost img:hover {
 	opacity: .7;
-	-webkit-transition:all .5s ease;
 	transition:all .5s ease;
 }
 
@@ -3143,7 +3137,6 @@ Plugins
 
 .enews-widget input:hover[type="submit"] {
 	opacity: .7;
-	-webkit-transition:all .5s ease;
 	transition: all .5s ease;
 }
 
@@ -3151,7 +3144,6 @@ Plugins
 	background: #48B;
 	box-shadow: none;
 	opacity: 10;
-	-webkit-transition:0;
 	transition: 0; }
 
 .widget-wrap .enews input {  /*---PK---*/
@@ -3373,7 +3365,6 @@ Site Navigation
 	opacity: 0;
 	padding: 0;
 	position: absolute;
-	-webkit-transition: opacity .4s ease-in-out;
 	transition:         opacity .4s ease-in-out;
 	width: 202px;
 	z-index: 99;
@@ -3864,7 +3855,6 @@ Portfolio
 }
 
 .portfolio .post-image:hover {
-	-webkit-transition:all .5s ease;
 	transition:all .5s ease;
 	opacity: 0.6;
 }
@@ -5575,7 +5565,6 @@ body.home .woocommerce ul.product_list_widget li img { width: 90px; }
 		left: auto;
 		opacity: 1;
 		position: relative;
-		-webkit-transition: opacity .4s ease-in-out;
 		transition:         opacity .4s ease-in-out;
 		width: 100%;
 		z-index: 99;
