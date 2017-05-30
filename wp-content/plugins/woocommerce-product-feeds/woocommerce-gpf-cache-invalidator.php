@@ -23,6 +23,11 @@ class WoocommerceGpfCacheInvalidator {
 	 * Hook all the events we are interested in.
 	 */
 	public function __construct( $cache ) {
+
+		if ( ! $cache->is_enabled() ) {
+			return;
+		}
+
 		// Store the cache instance.
 		$this->cache = $cache;
 

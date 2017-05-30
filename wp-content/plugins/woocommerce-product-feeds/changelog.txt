@@ -1,5 +1,8 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2017.05.17 - version 7.1.2
+* Fix issue where saving a variation caused on error on WooCommerce 2.6.x
+
 2017.05.09 - version 7.1.1
 * Fix issue where some files missing from packaged release
 * Add basic support for bundle products
