@@ -13,15 +13,13 @@
 
 add_filter( 'genesis_markup_open', 'genesis_markup_open_xhtml', 10, 2 );
 /**
- * Replace `open` html5 markup with xhtml equivalent.
+ * Replace HTML5 opening markup with XHTML equivalent.
  *
  * @since 2.4.0
  *
- * @param string $open Open markup.
- *
- * @param array $args Markup arguments.
- *
- * @return string Xhtml open markup.
+ * @param string $open Opening markup.
+ * @param array  $args Markup arguments.
+ * @return string XHTML opening markup.
  */
 function genesis_markup_open_xhtml( $open, $args ) {
 
@@ -29,7 +27,11 @@ function genesis_markup_open_xhtml( $open, $args ) {
 		return $open;
 	}
 
-	if ( substr( $args['context'], 0, 4 ) == 'nav-' ) {
+	if ( substr( $args['context'], 0, 4 ) === 'nav-' ) {
+
+		if ( 'nav-link-wrap' === $args['context'] ) {
+			return '';
+		}
 
 		$xhtml_id = isset( $args['params'] ) && ! empty( $args['params']['theme_location'] ) ? $args['params']['theme_location'] : '';
 		if ( 'primary' === $xhtml_id ) {
@@ -68,6 +70,10 @@ function genesis_markup_open_xhtml( $open, $args ) {
 
 		case 'content-sidebar-wrap':
 			$open = '<div id="content-sidebar-wrap">';
+			break;
+
+		case 'default-widget-content-wrap':
+			$open = '<div class="widget widget_text">';
 			break;
 
 		case 'entry':
@@ -161,6 +167,10 @@ function genesis_markup_open_xhtml( $open, $args ) {
 			$open = '';
 			break;
 
+		case 'widget-area-wrap':
+			$open = '<div class="widget-area">';
+			break;
+
 		case 'widget-entry-title':
 			$open = genesis_a11y( 'headings' ) ? '<h4>' : '<h2>';
 			break;
@@ -181,15 +191,13 @@ function genesis_markup_open_xhtml( $open, $args ) {
 
 add_filter( 'genesis_markup_close', 'genesis_markup_close_xhtml', 10, 2 );
 /**
- * Replace `close` html5 markup with xhtml equivalent.
+ * Replace HTML5 closing markup with XHTML equivalent.
  *
  * @since 2.4.0
  *
- * @param string $close Close markup.
- *
- * @param array $args Markup arguments.
- *
- * @return string Xhtml close markup.
+ * @param string $close Closing markup.
+ * @param array  $args  Markup arguments.
+ * @return string XHTML closing markup.
  */
 function genesis_markup_close_xhtml( $close, $args ) {
 
@@ -198,7 +206,7 @@ function genesis_markup_close_xhtml( $close, $args ) {
 	}
 
 	if ( substr( $args['context'], 0, 4 ) == 'nav-' ) {
-		return '</div>';
+		return 'nav-link-wrap' == $args['context'] ? '' : '</div>';
 	}
 
 	if ( 'entry-content' == $args['context'] && ! is_main_query() && ! genesis_is_blog_template() ) {
@@ -207,6 +215,7 @@ function genesis_markup_close_xhtml( $close, $args ) {
 
 	switch( $args['context'] ) {
 
+		case 'default-widget-content-wrap':
 		case 'entry':
 		case 'content-sidebar-wrap':
 		case 'content':
@@ -217,6 +226,7 @@ function genesis_markup_close_xhtml( $close, $args ) {
 		case 'sidebar-secondary':
 		case 'site-footer':
 		case 'site-header':
+		case 'widget-area-wrap':
 			$close = '</div>';
 			break;
 
@@ -266,8 +276,9 @@ function _genesis_builtin_sidebar_params() {
 
 	foreach ( $wp_registered_sidebars as $id => $params ) {
 
-		if ( ! isset( $params['_genesis_builtin'] ) && '<section id="%1$s" class="widget %2$s"><div class="widget-wrap">' != $wp_registered_sidebars[ $id ]['before_widget'] )
+		if ( ! isset( $params['_genesis_builtin'] ) && '<section id="%1$s" class="widget %2$s"><div class="widget-wrap">' != $wp_registered_sidebars[ $id ]['before_widget'] ) {
 			continue;
+		}
 
 		$wp_registered_sidebars[ $id ]['before_widget'] = '<div id="%1$s" class="widget %2$s"><div class="widget-wrap">';
 		$wp_registered_sidebars[ $id ]['after_widget']  = '</div></div>';

@@ -30,13 +30,6 @@ function genesis_use_child_theme_notice() {
 		),
 	);
 
-	echo '<div class="error"><p><strong>';
-	esc_html_e( 'Please Activate a Genesis Child Theme:', 'genesis' );
-	echo '</strong> ';
-	esc_html_e( 'We\'ve noticed you are using the Genesis Framework parent theme alone. We strongly recommend you run a Genesis child theme with it (we even have a free theme you can use). ', 'genesis' );
-	printf(
-		wp_kses( __( 'For more information, see our article at <a href="%1$s">%1$s</a>', 'genesis' ), $allowed_html ),
-		esc_url( __( 'https://www.studiopress.com/genesis-always-use-child-theme/', 'genesis' ) )
-	);
-	echo '</p></div>';
+	include( GENESIS_VIEWS_DIR . '/misc/use-child-theme-notice.php' );
+
 }

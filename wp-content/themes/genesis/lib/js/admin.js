@@ -206,7 +206,7 @@ window[ 'genesis' ] = {
 	},
 
 	/**
-	 * Have all form fields in Genesis metaboxes set a dirty flag when changed.
+	 * Have all form fields in Genesis meta boxes set a dirty flag when changed.
 	 *
 	 * @since 2.0.0
 	 *
@@ -277,7 +277,7 @@ window[ 'genesis' ] = {
 	 * Generally ordered with stuff that inserts new elements into the DOM first,
 	 * then stuff that triggers an event on existing DOM elements when ready,
 	 * followed by stuff that triggers an event only on user interaction. This
-	 * keeps any screen jumping from occuring later on.
+	 * keeps any screen jumping from occurring later on.
 	 *
 	 * @since 1.8.0
 	 *

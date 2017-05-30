@@ -52,7 +52,11 @@ function genesis_do_sidebar_alt() {
  */
 function genesis_default_widget_area_content( $name ) {
 
-	echo genesis_html5() ? '<section class="widget widget_text">' : '<div class="widget widget_text">';
+	genesis_markup( array(
+		'open'    => '<section class="widget widget_text">',
+		'context' => 'default-widget-content-wrap',
+	) );
+
 	echo '<div class="widget-wrap">';
 
 		$heading = ( genesis_a11y( 'headings' ) ? 'h3' : 'h4' );
@@ -65,6 +69,10 @@ function genesis_default_widget_area_content( $name ) {
 		echo '</p></div>';
 
 	echo '</div>';
-	echo genesis_html5() ? '</section>' : '</div>';
+
+	genesis_markup( array(
+		'close'   => '</section>',
+		'context' => 'default-widget-content-wrap',
+	) );
 
 }

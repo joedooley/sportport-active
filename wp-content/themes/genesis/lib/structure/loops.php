@@ -62,7 +62,7 @@ function genesis_do_loop() {
  *
  * @since 1.1.0
  *
- * @return null Return early after legacy loop if not supporting HTML5.
+ * @return void Return early after legacy loop if not supporting HTML5.
  */
 function genesis_standard_loop() {
 
@@ -79,7 +79,10 @@ function genesis_standard_loop() {
 
 			do_action( 'genesis_before_entry' );
 
-			printf( '<article %s>', genesis_attr( 'entry' ) );
+			genesis_markup( array(
+				'open'    => '<article %s>',
+				'context' => 'entry',
+			) );
 
 				do_action( 'genesis_entry_header' );
 
@@ -93,7 +96,10 @@ function genesis_standard_loop() {
 
 				do_action( 'genesis_entry_footer' );
 
-			echo '</article>';
+			genesis_markup( array(
+				'close'   => '</article>',
+				'context' => 'entry',
+			) );
 
 			do_action( 'genesis_after_entry' );
 
@@ -144,7 +150,7 @@ function genesis_legacy_loop() {
 
 		do_action( 'genesis_before_post' );
 
-		printf( '<div class="%s">', join( ' ', get_post_class() ) );
+		printf( '<div class="%s">', implode( ' ', get_post_class() ) );
 
 			do_action( 'genesis_before_post_title' );
 			do_action( 'genesis_post_title' );
@@ -255,8 +261,9 @@ function genesis_grid_loop( $args = array() ) {
 	$paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 
 	// Potentially remove features on page 2+.
-	if ( ! $args['features_on_all'] && $paged > 1 )
+	if ( $paged > 1  && ! $args['features_on_all'] ) {
 		$args['features'] = 0;
+	}
 
 	// Set global loop args.
 	$_genesis_loop_args = $args;
@@ -296,6 +303,8 @@ function genesis_grid_loop( $args = array() ) {
  * Based on the grid loop args and the loop counter.
  *
  * Applies the `genesis_grid_loop_post_class` filter.
+ *
+ * The `&1` is a test to see if it is odd. `2&1 = 0` (even), `3&1 = 1` (odd).
  *
  * @since 1.5.0
  *
@@ -356,10 +365,11 @@ function genesis_grid_loop_content() {
 
 		}
 
-		if ( $_genesis_loop_args['feature_content_limit'] )
+		if ( $_genesis_loop_args['feature_content_limit'] ) {
 			the_content_limit( (int) $_genesis_loop_args['feature_content_limit'], genesis_a11y_more_link( esc_html( $_genesis_loop_args['more'] ) ) );
-		else
+		} else {
 			the_content( genesis_a11y_more_link( esc_html( $_genesis_loop_args['more'] ) ) );
+		}
 
 	}
 

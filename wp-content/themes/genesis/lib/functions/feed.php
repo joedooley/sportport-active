@@ -48,17 +48,19 @@ add_action( 'template_redirect', 'genesis_feed_redirect' );
  *
  * @since 1.3.0
  *
- * @return null Return early if is feed user agent is set and matches Feedblitz,
+ * @return void Return early if is feed user agent is set and matches Feedblitz,
  *              Feedburner or Feedvalidator. Redirects and exits on success.
  */
 function genesis_feed_redirect() {
 
-	if ( ! is_feed() || ( isset( $_SERVER['HTTP_USER_AGENT'] ) && preg_match( '/feed(blitz|burner|validator)/i', $_SERVER['HTTP_USER_AGENT'] ) ) )
+	if ( ! is_feed() || ( isset( $_SERVER['HTTP_USER_AGENT'] ) && preg_match( '/feed(blitz|burner|validator)/i', $_SERVER['HTTP_USER_AGENT'] ) ) ) {
 		return;
+	}
 
 	// Don't redirect if viewing archive, search, or post comments feed.
-	if ( is_archive() || is_search() || is_singular() )
+	if ( is_archive() || is_search() || is_singular() ) {
 		return;
+	}
 
 	$feed_uri = genesis_get_option( 'feed_uri' );
 	$comments_feed_uri = genesis_get_option( 'comments_feed_uri' );

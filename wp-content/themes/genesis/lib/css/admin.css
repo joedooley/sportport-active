@@ -69,7 +69,7 @@ hr.div {
 }
 
 
-/* # Fix notice placment on our admin pages
+/* # Fix notice placement on our admin pages
 ----------- */
 
 .genesis-form div.error,
@@ -80,17 +80,13 @@ hr.div {
 }
 
 
-/* # Genesis metabox styles
+/* # Genesis meta box styles
 ----------- */
 
 .genesis-metaboxes {
 	box-sizing: border-box;
 
 	padding-bottom: 20px;
-}
-
-.genesis-metaboxes h1 {
-	float: left;
 }
 
 .genesis-metaboxes .bottom-buttons .button-primary {
@@ -157,7 +153,7 @@ hr.div {
 }
 
 
-/* ## Inpost layout box */
+/* ## In-post layout box */
 
 #genesis_inpost_layout_box .inside input#default-layout {
 	margin-left: 5px;
@@ -225,4 +221,3 @@ hr.div {
 .widget-control-actions {
 	clear: both;
 }
-

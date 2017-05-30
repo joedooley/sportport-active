@@ -32,18 +32,19 @@ function genesis_cpt_archive_settings_link( $wp_admin_bar ) {
 	// Get the post type we're viewing.
 	$post_type = get_post_type();
 	// Bail if we didn't get a valid post type.
-	if ( ! $post_type ) {
+	if ( ! $post_type  || ! current_user_can( apply_filters( 'genesis_cpt_archive_settings_capability_' . $post_type, 'manage_options' ) ) ) {
 		return $wp_admin_bar;
 	}
 	// Add our toolbar link.
 	$args = array(
 		'id'    => 'cpt-archive-settings',
-		'title' => __('Edit Archive Settings', 'genesis'),
-		'href'  => admin_url("edit.php?post_type={$post_type}&page=genesis-cpt-archive-{$post_type}"),
+		'title' => __( 'Edit Archive Settings', 'genesis' ),
+		'href'  => admin_url( "edit.php?post_type={$post_type}&page=genesis-cpt-archive-{$post_type}" ),
 		'meta'  => array( 'class' => '' ),
 	);
 	$wp_admin_bar->add_node( $args );
 
+	return $wp_admin_bar;
 }
 
 add_action( 'wp_head', 'genesis_cpt_archive_settings_toolbar_styles' );

@@ -152,15 +152,16 @@ function _genesis_register_default_widget_areas_cb() {
  *
  * @since 1.6.0
  *
- * @return null Return early if there is no theme support for `genesis-footer-widgets`
+ * @return void Return early if there is no theme support for `genesis-footer-widgets`
  *              or the number of widgets given is not set or not numeric.
  */
 function genesis_register_footer_widget_areas() {
 
 	$footer_widgets = get_theme_support( 'genesis-footer-widgets' );
 
-	if ( ! $footer_widgets || ! isset( $footer_widgets[0] ) || ! is_numeric( $footer_widgets[0] ) )
+	if ( ! $footer_widgets || ! isset( $footer_widgets[0] ) || ! is_numeric( $footer_widgets[0] ) ) {
 		return;
+	}
 
 	$footer_widgets = (int) $footer_widgets[0];
 
@@ -186,12 +187,13 @@ function genesis_register_footer_widget_areas() {
  *
  * @since 2.1.0
  *
- * @return null Return early if there is no theme support for `genesis-after-entry-widget-area`.
+ * @return void Return early if there is no theme support for `genesis-after-entry-widget-area`.
  */
 function genesis_register_after_entry_widget_area() {
 
-	if ( ! current_theme_supports( 'genesis-after-entry-widget-area' ) )
+	if ( ! current_theme_supports( 'genesis-after-entry-widget-area' ) ) {
 		return;
+	}
 
 	genesis_register_widget_area(
 		array(
@@ -227,12 +229,24 @@ function genesis_register_after_entry_widget_area() {
  */
 function genesis_widget_area( $id, $args = array() ) {
 
-	if ( ! $id )
+	if ( ! $id ) {
 		return false;
+	}
 
 	$defaults = apply_filters( 'genesis_widget_area_defaults', array(
-		'before'              => genesis_html5() ? '<aside class="widget-area">' . genesis_sidebar_title( $id ) : '<div class="widget-area">',
-		'after'               => genesis_html5() ? '</aside>' : '</div>',
+		'before'              => genesis_markup( array(
+						'open'    => '<aside class="widget-area">' . genesis_sidebar_title( $id ),
+						'context' => 'widget-area-wrap',
+						'echo'    => false,
+						'params'  => array(
+							'id' => $id,
+						),
+				) ),
+		'after'               => genesis_markup( array(
+						'close'   => '</aside>',
+						'context' => 'widget-area-wrap',
+						'echo'    => false,
+				) ),
 		'default'             => '',
 		'show_inactive'       => 0,
 		'before_sidebar_hook' => 'genesis_before_' . $id . '_widget_area',
@@ -241,22 +255,26 @@ function genesis_widget_area( $id, $args = array() ) {
 
 	$args = wp_parse_args( $args, $defaults );
 
-	if ( ! is_active_sidebar( $id ) && ! $args['show_inactive'] )
+	if ( ! $args['show_inactive'] && ! is_active_sidebar( $id ) ) {
 		return false;
+	}
 
 	// Opening markup.
 	echo $args['before'];
 
 	// Before hook.
-	if ( $args['before_sidebar_hook'] )
+	if ( $args['before_sidebar_hook'] ) {
 			do_action( $args['before_sidebar_hook'] );
+	}
 
-	if ( ! dynamic_sidebar( $id ) )
+	if ( ! dynamic_sidebar( $id ) ) {
 		echo $args['default'];
+	}
 
 	// After hook.
-	if( $args['after_sidebar_hook'] )
+	if( $args['after_sidebar_hook'] ) {
 			do_action( $args['after_sidebar_hook'] );
+	}
 
 	// Closing markup.
 	echo $args['after'];
@@ -296,25 +314,27 @@ function genesis_a11y_register_sidebar_defaults( $args ) {
  * @global array $wp_registered_sidebars
  *
  * @param string $id Sidebar ID, as per when it was registered.
- * @return string Widget area heading, or `null` if `headings` are not enabled for
- *                Genesis accessibility, or `$id` is not registered as a widget area ID.
+ * @return string|null Widget area heading, or `null` if `headings` are not enabled for
+ *                     Genesis accessibility, or `$id` is not registered as a widget area ID.
  */
 function genesis_sidebar_title( $id ) {
 
-	if ( genesis_a11y( 'headings' ) && $id ) {
+	if ( $id && genesis_a11y( 'headings' ) ) {
 
 		global $wp_registered_sidebars;
 
+		$name = $id;
+
 		if ( array_key_exists( $id, $wp_registered_sidebars ) ) {
 			$name = $wp_registered_sidebars[$id]['name'];
-		} else {
-			$name = $id;
 		}
 
 		$heading = '<h2 class="genesis-sidebar-title screen-reader-text">' . $name . '</h2>';
 
 		return apply_filters( 'genesis_sidebar_title_output', $heading, $id );
 	}
+
+	return null;
 
 }
 

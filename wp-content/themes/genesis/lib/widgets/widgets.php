@@ -11,11 +11,6 @@
  * @link    http://my.studiopress.com/themes/genesis/
  */
 
-// Include widget class files.
-require_once( GENESIS_WIDGETS_DIR . '/user-profile-widget.php' );
-require_once( GENESIS_WIDGETS_DIR . '/featured-post-widget.php' );
-require_once( GENESIS_WIDGETS_DIR . '/featured-page-widget.php' );
-
 add_action( 'widgets_init', 'genesis_load_widgets' );
 /**
  * Register widgets for use in the Genesis theme.
@@ -46,13 +41,14 @@ add_action( 'load-themes.php', 'genesis_remove_default_widgets_from_header_right
  *
  * @since 1.8.0
  *
- * @return null Return early if not just switched to a new theme.
+ * @return void Return early if not just switched to a new theme.
  */
 function genesis_remove_default_widgets_from_header_right() {
 
 	// Some tomfoolery for a faux activation hook.
-	if ( ! isset( $_REQUEST['activated'] ) || 'true' !== $_REQUEST['activated'] )
+	if ( ! isset( $_REQUEST['activated'] ) || 'true' !== $_REQUEST['activated'] ) {
 		return;
+	}
 
 	$widgets  = get_option( 'sidebars_widgets' );
 	$defaults = array( 0 => 'search-2', 1 => 'recent-posts-2', 2 => 'recent-comments-2', 3 => 'archives-2', 4 => 'categories-2', 5 => 'meta-2', );

@@ -22,10 +22,11 @@ function genesis_enable_author_box( $args = array() ) {
 
 	$args = wp_parse_args( $args, array( 'type' => 'single' ) );
 
-	if ( 'single' === $args['type'] )
+	if ( 'single' === $args['type'] ) {
 		add_filter( 'get_the_author_genesis_author_box_single', '__return_true' );
-	elseif ( 'archive' === $args['type'] )
+	} elseif ( 'archive' === $args['type'] ) {
 		add_filter( 'get_the_author_genesis_author_box_archive', '__return_true' );
+	}
 
 }
 
@@ -36,12 +37,13 @@ function genesis_enable_author_box( $args = array() ) {
  *
  * @param string $page       Menu slug.
  * @param array  $query_args Optional. Associative array of query string arguments (key => value). Default is an empty array.
- * @return null Return early if first argument, `$page`, is falsy.
+ * @return void Return early if first argument, `$page`, is falsy.
  */
 function genesis_admin_redirect( $page, array $query_args = array() ) {
 
-	if ( ! $page )
+	if ( ! $page ) {
 		return;
+	}
 
 	$url = html_entity_decode( menu_page_url( $page, 0 ) );
 
@@ -63,18 +65,18 @@ add_action( 'template_redirect', 'genesis_custom_field_redirect', 20 );
  *
  * @since 2.0.0
  *
- * @return null Return early if not a singular entry.
+ * @return void Return early if not a singular entry.
  */
 function genesis_custom_field_redirect() {
 
-	if ( ! is_singular() )
+	if ( ! is_singular() ) {
 		return;
+	}
 
-	if ( $url = genesis_get_custom_field( 'redirect' ) ) {
-
+	$url = genesis_get_custom_field( 'redirect' );
+	if ( $url ) {
 		wp_redirect( esc_url_raw( $url ), 301 );
 		exit;
-
 	}
 
 }
@@ -131,24 +133,27 @@ function genesis_detect_plugin( array $plugins ) {
 	// Check for classes.
 	if ( isset( $plugins['classes'] ) ) {
 		foreach ( $plugins['classes'] as $name ) {
-			if ( class_exists( $name ) )
+			if ( class_exists( $name ) ) {
 				return true;
+			}
 		}
 	}
 
 	// Check for functions.
 	if ( isset( $plugins['functions'] ) ) {
 		foreach ( $plugins['functions'] as $name ) {
-			if ( function_exists( $name ) )
+			if ( function_exists( $name ) ) {
 				return true;
+			}
 		}
 	}
 
 	// Check for constants.
 	if ( isset( $plugins['constants'] ) ) {
 		foreach ( $plugins['constants'] as $name ) {
-			if ( defined( $name ) )
+			if ( defined( $name ) ) {
 				return true;
+			}
 		}
 	}
 
@@ -174,12 +179,14 @@ function genesis_is_menu_page( $pagehook = '' ) {
 
 	global $page_hook;
 
-	if ( isset( $page_hook ) && $page_hook === $pagehook )
+	if ( isset( $page_hook ) && $page_hook === $pagehook ) {
 		return true;
+	}
 
 	// May be too early for $page_hook.
-	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === $pagehook )
+	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === $pagehook ) {
 		return true;
+	}
 
 	return false;
 
@@ -272,8 +279,9 @@ function genesis_get_global_post_type_name( $post_type_name = '' ) {
 function genesis_get_cpt_archive_types() {
 
 	static $genesis_cpt_archive_types;
-	if ( $genesis_cpt_archive_types )
+	if ( $genesis_cpt_archive_types ) {
 		return $genesis_cpt_archive_types;
+	}
 
 	$args = apply_filters(
 		'genesis_cpt_archives_args',
@@ -302,8 +310,9 @@ function genesis_get_cpt_archive_types() {
 function genesis_get_cpt_archive_types_names() {
 
 	$post_type_names = array();
-	foreach ( genesis_get_cpt_archive_types() as $post_type )
+	foreach ( genesis_get_cpt_archive_types() as $post_type ) {
 		$post_type_names[] = $post_type->name;
+	}
 
 	return $post_type_names;
 
@@ -344,7 +353,7 @@ function genesis_html5() {
  * Assumes the presence of a screen-reader-text class in the stylesheet (required generated class as from WordPress 4.2)
  *
  * Adds screen-reader-text by default.
- * Skip links to primary navigation, main contant, sidebars and footer, semantic headings and a keyboard accessible drop-down-menu
+ * Skip links to primary navigation, main content, sidebars and footer, semantic headings and a keyboard accessible dropdown menu
  * can be added as extra features as: 'skip-links', 'headings', 'drop-down-menu'
  *
  * @since 2.2.0
@@ -382,6 +391,8 @@ function genesis_a11y( $arg = 'screen-reader-text' ) {
 		return true;
 	}
 
+	return false;
+
 }
 
 /**
@@ -414,7 +425,6 @@ function genesis_sitemap( $heading = 'h2' ) {
  * @since 2.4.0
  *
  * @param string $heading Optional. Heading element. Default is `h2`.
- *
  * @return string $heading Sitemap content.
  */
 function genesis_get_sitemap( $heading = 'h2' ) {
@@ -489,11 +499,7 @@ function genesis_plugin_install_link( $plugin_slug = '', $text = '' ) {
  */
 function genesis_is_root_page() {
 
-	if ( is_front_page() || ( is_home() && get_option( 'page_for_posts' ) && ! get_option( 'page_on_front' ) && ! get_queried_object() ) ) {
-		return true;
-	}
-
-	return false;
+	return is_front_page() || ( is_home() && get_option( 'page_for_posts' ) && ! get_option( 'page_on_front' ) && ! get_queried_object() );
 
 }
 
@@ -510,8 +516,8 @@ function genesis_canonical_url() {
 
 	$canonical = '';
 
-	$paged = intval( get_query_var( 'paged' ) );
-	$page  = intval( get_query_var( 'page' ) );
+	$paged = (int) get_query_var( 'paged' );
+	$page  = (int) get_query_var( 'page' );
 
 	if ( is_front_page() ) {
 
@@ -528,7 +534,7 @@ function genesis_canonical_url() {
 		$numpages = substr_count( $wp_query->post->post_content, '<!--nextpage-->' ) + 1;
 
 		if ( ! $id = $wp_query->get_queried_object_id() ) {
-			return;
+			return null;
 		}
 
 		$cf = genesis_get_custom_field( '_genesis_canonical_uri' );
@@ -545,8 +551,9 @@ function genesis_canonical_url() {
 
 	if ( is_category() || is_tag() || is_tax() ) {
 
-		if ( ! $id = $wp_query->get_queried_object_id() )
-			return;
+		if ( ! $id = $wp_query->get_queried_object_id() ) {
+			return null;
+		}
 
 		$taxonomy = $wp_query->queried_object->taxonomy;
 
@@ -556,8 +563,9 @@ function genesis_canonical_url() {
 
 	if ( is_author() ) {
 
-		if ( ! $id = $wp_query->get_queried_object_id() )
-			return;
+		if ( ! $id = $wp_query->get_queried_object_id() ) {
+			return null;
+		}
 
 		$canonical = $paged ? get_pagenum_link( $paged ) : get_author_posts_url( $id );
 
@@ -568,235 +576,5 @@ function genesis_canonical_url() {
 	}
 
 	return apply_filters( 'genesis_canonical_url', $canonical );
-
-}
-
-/**
- * A list of Genesis contributors for the current development cycle.
- *
- * @since 2.0.0
- *
- * @return array List of contributors.
- */
-function genesis_contributors() {
-
-	return array(
-		/*
-		array(
-			'name'     => 'Jared Atchison',
-			'url'      => 'https://twitter.com/jaredatch',
-			'gravatar' => 'https://0.gravatar.com/avatar/e341eca9e1a85dcae7127044301b4363?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Jen Baumann',
-			'url'      => 'https://twitter.com/dreamwhisper',
-			'gravatar' => 'https://0.gravatar.com/avatar/eb9c6d91d77db908473131160e71ef6f?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Brian Bourn',
-			'url'      => 'https://twitter.com/brianbourn',
-			'gravatar' => 'https://0.gravatar.com/avatar/fd5093291ce465911f8a2d5aa2045de6?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Chris Cochran',
-			'url'      => 'https://twitter.com/tweetsfromchris',
-			'gravatar' => 'https://0.gravatar.com/avatar/aa0bea067ea6bfb854387d73f595aa1c?s=120',
-		),
-		/**/
-		//*
-		array(
-			'name'     => 'Nick Cernis',
-			'url'      => 'https://twitter.com/NickCernis',
-			'gravatar' => 'https://0.gravatar.com/avatar/459313f5f8b00775ef71be0e5191ff62?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Calvin Koepke',
-			'url'      => 'https://twitter.com/cjkoepke',
-			'gravatar' => 'https://0.gravatar.com/avatar/c4e7524abdec288e00e23dc1d15f91d7?s=120',
-		),
-		/**/
-		//*
-		array(
-			'name'     => 'Robin Cornett',
-			'url'      => 'https://twitter.com/robincornett',
-			'gravatar' => 'https://0.gravatar.com/avatar/92f90103972341af5dcf421661209729?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Nick Croft',
-			'url'      => 'https://twitter.com/nick_thegeek',
-			'gravatar' => 'https://0.gravatar.com/avatar/3241d4eab93215b5487e162b87569e42?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'David Decker',
-			'url'      => 'https://twitter.com/deckerweb',
-			'gravatar' => 'https://0.gravatar.com/avatar/28d02f8d09fc32fccc0282efdc23a4e5?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Remkus de Vries',
-			'url'      => 'https://twitter.com/DeFries',
-			'gravatar' => 'https://0.gravatar.com/avatar/e15799da17422f3fa7a6157339501e2c?s=120',
-		),
-		/**/
-		//*
-		array(
-			'name'     => 'Nick Diego',
-			'url'      => 'https://twitter.com/nickmdiego',
-			'gravatar' => 'https://0.gravatar.com/avatar/c3afde87f4857c9c1e41ae8d72fa04f5?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Carrie Dils',
-			'url'      => 'https://twitter.com/cdils',
-			'gravatar' => 'https://0.gravatar.com/avatar/312a558dc3619f40b429d60b6fde9ee1?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Josh Eaton',
-			'url'      => 'https://twitter.com/jjeaton',
-			'gravatar' => 'https://0.gravatar.com/avatar/d32c3546dfa39bda008b07a91826df1d?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Bill Erickson',
-			'url'      => 'https://twitter.com/billerickson',
-			'gravatar' => 'https://0.gravatar.com/avatar/ae510affa31e5b946623bda4ff969b67?s=120',
-		),
-		/**/
-		//*
-		array(
-			'name'     => 'Sal Ferrarello',
-			'url'      => 'https://twitter.com/salcode',
-			'gravatar' => 'https://0.gravatar.com/avatar/f7bea39ff77df472cc4e3c29e40d3e46?s=120'
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Thomas Griffin',
-			'url'      => 'https://twitter.com/jthomasgriffin',
-			'gravatar' => 'https://0.gravatar.com/avatar/fe4225114bfd1f8993c6d20d32227537?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Mike Hemberger',
-			'url'      => 'https://twitter.com/jivedig',
-			'gravatar' => 'https://0.gravatar.com/avatar/371c8693fa81eb43dadc28eaaba367f8?s=120',
-		),
-		/*
-		array(
-			'name'     => 'Mark Jaquith',
-			'url'      => 'https://twitter.com/markjaquith',
-			'gravatar' => 'https://0.gravatar.com/avatar/682b7a49f9ed567186c4d1f707fe4523?s=120',
-		),
-		/**/
-		//*
-		array(
-			'name'     => 'Gary Jones',
-			'url'      => 'https://twitter.com/garyj',
-			'gravatar' => 'https://0.gravatar.com/avatar/e70d4086e89c2e1e081870865be68485?s=120',
-		),
-		/**/
-		//*
-		array(
-			'name'     => 'Sridhar Katakam',
-			'url'      => 'https://twitter.com/srikat',
-			'gravatar' => 'https://0.gravatar.com/avatar/0e1ab0231a04ca6c9cccd3579d5d2c0f?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Brandon Kraft',
-			'url'      => 'https://twitter.com/kraft',
-			'gravatar' => 'https://0.gravatar.com/avatar/fa4976cfd706b9be00f6494df9aa99d9?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Lauren Mancke',
-			'url'      => 'https://twitter.com/laurenmancke',
-			'gravatar' => 'https://0.gravatar.com/avatar/f7478b09179c624a91ba6c45422fbf4e?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Carlo Manf',
-			'url'      => 'https://twitter.com/manfcarlo',
-			'gravatar' => 'https://0.gravatar.com/avatar/495aa472007b999d2489201fdb17aa35?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Andrew Norcross',
-			'url'      => 'https://twitter.com/norcross',
-			'gravatar' => 'https://0.gravatar.com/avatar/26ab8f9b2c86b10e7968b882403b3bf8?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Travis Northcutt',
-			'url'      => 'https://twitter.com/tnorthcutt',
-			'gravatar' => 'https://0.gravatar.com/avatar/a3b6222854e90883765f5f30375718bf?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Jeremy Pry',
-			'url'      => 'https://twitter.com/JPry',
-			'gravatar' => 'https://0.gravatar.com/avatar/84552f74b71a1a3e6aae380aa9ab3bd3?s=120',
-		),
-		/**/
-		//*
-		array(
-			'name'     => 'Ron Rennick',
-			'url'      => 'https://twitter.com/sillygrampy',
-			'gravatar' => 'https://0.gravatar.com/avatar/7b8ff059b9a4504dfbaebd4dd190466e?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Greg Rickaby',
-			'url'      => 'https://twitter.com/GregRickaby',
-			'gravatar' => 'https://0.gravatar.com/avatar/28af3e39c0a1fe4c31367c7e9a8bcac3?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Rian Rietveld',
-			'url'      => 'https://twitter.com/RianRietveld',
-			'gravatar' => 'https://0.gravatar.com/avatar/54b6a8a47f9d6f1a93f33be5909c59a5?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Travis Smith',
-			'url'      => 'https://twitter.com/wp_smith',
-			'gravatar' => 'https://0.gravatar.com/avatar/7e673cdf99e6d7448f3cbaf1424c999c?s=120',
-		),
-		/**/
-		/*
-		array(
-			'name'     => 'Rafal Tomal',
-			'url'      => 'https://twitter.com/rafaltomal',
-			'gravatar' => 'https://0.gravatar.com/avatar/c9f7b936cd19bd5aba8831ddea21f05d?s=120',
-		),
-		/**/
-	);
 
 }

@@ -34,7 +34,7 @@ function genesis_get_seo_meta_description() {
 	}
 
 	// If we're on a single post / page / attachment.
-	if ( is_singular() || null !== $post_id ) {
+	if ( null !== $post_id || is_singular() ) {
 		if ( genesis_get_custom_field( '_genesis_description', $post_id ) ) {
 			// Description is set via custom field.
 			$description = genesis_get_custom_field( '_genesis_description', $post_id );
@@ -96,7 +96,7 @@ function genesis_get_seo_meta_keywords() {
 		$post_id = get_option( 'page_for_posts' );
 	}
 
-	if ( is_singular() || null !== $post_id ) {
+	if ( null !== $post_id || is_singular() ) {
 		if ( genesis_get_custom_field( '_genesis_keywords', $post_id ) ) {
 			// Keywords are set via custom field.
 			$keywords = genesis_get_custom_field( '_genesis_keywords', $post_id );
@@ -166,7 +166,7 @@ function genesis_get_robots_meta_content() {
 		$post_id = get_option( 'page_for_posts' );
 	}
 
-	if ( is_singular() || null !== $post_id ) {
+	if ( null !== $post_id || is_singular() ) {
 		$directives['noindex']   = genesis_get_custom_field( '_genesis_noindex', $post_id ) ? 'noindex' : $directives['noindex'];
 		$directives['nofollow']  = genesis_get_custom_field( '_genesis_nofollow', $post_id ) ? 'nofollow' : $directives['nofollow'];
 		$directives['noarchive'] = genesis_get_custom_field( '_genesis_noarchive', $post_id ) ? 'noarchive' : $directives['noarchive'];
@@ -252,7 +252,7 @@ function genesis_get_favicon_url() {
 	} elseif ( file_exists( CHILD_DIR . '/images/favicon.jpg' ) ) {
 		$favicon = CHILD_URL . '/images/favicon.jpg';
 	} else {
-		$favicon = PARENT_URL . '/images/favicon.ico';
+		$favicon = GENESIS_IMAGES_URL . '/favicon.ico';
 	}
 
 	/**

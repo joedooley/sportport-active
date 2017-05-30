@@ -30,8 +30,17 @@
  *
  * @since 1.9.0
  *
- * @param array $args Array of arguments.
- * @return string Markup.
+ * @param array $args {
+ *     Contains markup arguments.
+ *     @type string html5   Legacy HTML5 markup.
+ *     @type string xhtml   Legacy XHTML markup.
+ *     @type string context Markup context.
+ *     @type string open    Opening HTML markup.
+ *     @type string close   Closing HTML markup.
+ *     @type string content Content to be placed between open and close HTML markup.
+ *     @type bool   echo    Flag indicating whether to echo or return the resultant string.
+ * }
+ * @return string|null Markup.
  */
 function genesis_markup( $args = array() ) {
 
@@ -43,11 +52,21 @@ function genesis_markup( $args = array() ) {
 		'close'   => '',
 		'content' => '',
 		'echo'    => true,
+		'params'  => array(),
 	);
 
 	$args = wp_parse_args( $args, $defaults );
 
-	// Short circuit filter.
+	/**
+	 * Filter to short circuit the markup API.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param bool  false Flag indicating short curcuit content.
+	 * @param array $args Array with markup arguments.
+	 *
+	 * @see genesis_markup $args Array.
+	 */
 	$pre = apply_filters( "genesis_markup_{$args['context']}", false, $args );
 	if ( false !== $pre ) {
 
@@ -56,7 +75,7 @@ function genesis_markup( $args = array() ) {
 		}
 
 		echo $pre;
-		return;
+		return null;
 
 	}
 
@@ -69,7 +88,16 @@ function genesis_markup( $args = array() ) {
 			$tag = $args['xhtml'];
 		}
 
-		// Contextual filter.
+		/**
+		 * Legacy contextual filter to modify 'xhtml' or 'html5' output markup.
+		 *
+		 * @since 1.9.0
+		 *
+		 * @param string $tag  HTML tag being processed by the API.
+		 * @param array  $args Array with markup arguments.
+		 *
+		 * @see genesis_markup $args Array.
+		 */
 		$tag = $args['context'] ? apply_filters( "genesis_markup_{$args['context']}_output", $tag, $args ) : $tag;
 
 		if ( ! $args['echo'] ) {
@@ -77,15 +105,36 @@ function genesis_markup( $args = array() ) {
 		}
 
 		echo $tag;
-		return;
+		return null;
 
 	}
 
 	// Add attributes to open tag.
 	if ( $args['context'] ) {
 
-		$open = sprintf( $args['open'], genesis_attr( $args['context'] ) );
+		$open = sprintf( $args['open'], genesis_attr( $args['context'], array(), $args ) );
+
+		/**
+		 * Contextual filter to modify 'open' markup.
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param string $open HTML tag being processed by the API.
+		 * @param array  $args Array with markup arguments.
+		 *
+		 * @see genesis_markup $args Array.
+		 */
 		$open = apply_filters( "genesis_markup_{$args['context']}_open", $open, $args );
+		/**
+		 * Contextual filter to modify 'close' markup.
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param string $close HTML tag being processed by the API.
+		 * @param array  $args  Array with markup arguments.
+		 *
+		 * @see genesis_markup $args Array.
+		 */
 		$close = apply_filters( "genesis_markup_{$args['context']}_close", $args['close'], $args );
 
 	} else {
@@ -95,16 +144,38 @@ function genesis_markup( $args = array() ) {
 
 	}
 
-	if ( $args['content'] || $open ) {
+	if ( $open || $args['content'] ) {
+		/**
+		 * Non-contextual filter to modify 'open' markup.
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param string $open HTML tag being processed by the API.
+		 * @param array  $args Array with markup arguments.
+		 *
+		 * @see genesis_markup $args Array.
+		 */
 		$open = apply_filters( 'genesis_markup_open', $open, $args );
 	}
 
-	if ( $args['content'] || $close ) {
+	if ( $close || $args['content'] ) {
+		/**
+		 * Non-contextual filter to modify 'close' markup.
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param string $open HTML tag being processed by the API.
+		 * @param array  $args Array with markup arguments.
+		 *
+		 * @see genesis_markup $args Array.
+		 */
 		$close = apply_filters( 'genesis_markup_close', $close, $args );
 	}
 
 	if ( $args['echo'] ) {
 		echo $open . $args['content'] . $close;
+
+		return null;
 	} else {
 		return $open . $args['content'] . $close;
 	}
@@ -113,7 +184,7 @@ function genesis_markup( $args = array() ) {
 
 add_action( 'after_setup_theme', 'genesis_xhtml_check' );
 /**
- * Conditionally load xhtml markup.
+ * Conditionally load XHTML markup.
  *
  * @since 2.4.0
  */
@@ -136,9 +207,10 @@ function genesis_xhtml_check() {
  *
  * @param string $context    The context, to build filter name.
  * @param array  $attributes Optional. Extra attributes to merge with defaults.
+ * @param array  $args       Optional. Custom data to pass to filter.
  * @return array Merged and filtered attributes.
  */
-function genesis_parse_attr( $context, $attributes = array() ) {
+function genesis_parse_attr( $context, $attributes = array(), $args = array() ) {
 
     $defaults = array(
         'class' => sanitize_html_class( $context ),
@@ -147,7 +219,7 @@ function genesis_parse_attr( $context, $attributes = array() ) {
     $attributes = wp_parse_args( $attributes, $defaults );
 
     // Contextual filter.
-    return apply_filters( "genesis_attr_{$context}", $attributes, $context );
+    return apply_filters( "genesis_attr_{$context}", $attributes, $context, $args );
 
 }
 
@@ -160,16 +232,17 @@ function genesis_parse_attr( $context, $attributes = array() ) {
  *
  * @param string $context    The context, to build filter name.
  * @param array  $attributes Optional. Extra attributes to merge with defaults.
+ * @param array  $args       Optional. Custom data to pass to filter.
  * @return string String of HTML attributes and values.
  */
-function genesis_attr( $context, $attributes = array() ) {
+function genesis_attr( $context, $attributes = array(), $args = array() ) {
 
-	$attributes = genesis_parse_attr( $context, $attributes );
+	$attributes = genesis_parse_attr( $context, $attributes, $args );
 
 	$output = '';
 
 	// Cycle through attributes, build tag attribute string.
-    foreach ( $attributes as $key => $value ) {
+	foreach ( $attributes as $key => $value ) {
 
 		if ( ! $value ) {
 			continue;
@@ -181,11 +254,11 @@ function genesis_attr( $context, $attributes = array() ) {
 			$output .= sprintf( '%s="%s" ', esc_html( $key ), esc_attr( $value ) );
 		}
 
-    }
+	}
 
-    $output = apply_filters( "genesis_attr_{$context}_output", $output, $attributes, $context );
+	$output = apply_filters( "genesis_attr_{$context}_output", $output, $attributes, $context, $args );
 
-    return trim( $output );
+	return trim( $output );
 
 }
 
@@ -240,7 +313,7 @@ add_filter( 'genesis_attr_head', 'genesis_attributes_head' );
 	}
 
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/WebSite';
+	$attributes['itemtype']  = 'https://schema.org/WebSite';
 
 	return $attributes;
 
@@ -257,13 +330,13 @@ add_filter( 'genesis_attr_body', 'genesis_attributes_body' );
  */
 function genesis_attributes_body( $attributes ) {
 
-	$attributes['class']     = join( ' ', get_body_class() );
+	$attributes['class']     = implode( ' ', get_body_class() );
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/WebPage';
+	$attributes['itemtype']  = 'https://schema.org/WebPage';
 
 	// Search results pages.
 	if ( is_search() ) {
-		$attributes['itemtype'] = 'http://schema.org/SearchResultsPage';
+		$attributes['itemtype'] = 'https://schema.org/SearchResultsPage';
 	}
 
 	return $attributes;
@@ -282,7 +355,7 @@ add_filter( 'genesis_attr_site-header', 'genesis_attributes_header' );
 function genesis_attributes_header( $attributes ) {
 
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/WPHeader';
+	$attributes['itemtype']  = 'https://schema.org/WPHeader';
 
 	return $attributes;
 
@@ -352,7 +425,7 @@ function genesis_attributes_breadcrumb( $attributes ) {
 
 	$attributes['itemprop']  = 'breadcrumb';
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/BreadcrumbList';
+	$attributes['itemtype']  = 'https://schema.org/BreadcrumbList';
 
 	// Breadcrumb itemprop not valid on blog.
 	if ( is_singular( 'post' ) || is_archive() || is_home() || is_page_template( 'page_blog.php' ) ) {
@@ -376,7 +449,7 @@ function genesis_attributes_breadcrumb_link_wrap( $attributes ) {
 
 	$attributes['itemprop']  = 'itemListElement';
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/ListItem';
+	$attributes['itemtype']  = 'https://schema.org/ListItem';
 
 	return $attributes;
 
@@ -395,7 +468,7 @@ function genesis_attributes_search_form( $attributes ) {
 
 	$attributes['itemprop']  = 'potentialAction';
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/SearchAction';
+	$attributes['itemtype']  = 'https://schema.org/SearchAction';
 	$attributes['method']    = 'get';
 	$attributes['action']    = home_url( '/' );
 	$attributes['role']      = 'search';
@@ -420,7 +493,7 @@ add_filter( 'genesis_attr_nav-header', 'genesis_attributes_nav' );
 function genesis_attributes_nav( $attributes ) {
 
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/SiteNavigationElement';
+	$attributes['itemtype']  = 'https://schema.org/SiteNavigationElement';
 
 	return $attributes;
 
@@ -613,14 +686,14 @@ add_filter( 'genesis_attr_entry', 'genesis_attributes_entry' );
  */
 function genesis_attributes_entry( $attributes ) {
 
-	$attributes['class'] = join( ' ', get_post_class() );
+	$attributes['class'] = implode( ' ', get_post_class() );
 
 	if ( ! is_main_query() && ! genesis_is_blog_template() ) {
 		return $attributes;
 	}
 
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/CreativeWork';
+	$attributes['itemtype']  = 'https://schema.org/CreativeWork';
 
 	return $attributes;
 
@@ -711,7 +784,7 @@ function genesis_attributes_entry_author( $attributes ) {
 
 	$attributes['itemprop']  = 'author';
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/Person';
+	$attributes['itemtype']  = 'https://schema.org/Person';
 
 	return $attributes;
 
@@ -895,7 +968,7 @@ function genesis_attributes_comment( $attributes ) {
 	$attributes['class']     = '';
 	$attributes['itemprop']  = 'comment';
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/Comment';
+	$attributes['itemtype']  = 'https://schema.org/Comment';
 
 	return $attributes;
 
@@ -914,7 +987,7 @@ function genesis_attributes_comment_author( $attributes ) {
 
 	$attributes['itemprop']  = 'author';
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/Person';
+	$attributes['itemtype']  = 'https://schema.org/Person';
 
 	return $attributes;
 
@@ -1003,7 +1076,7 @@ function genesis_attributes_author_box( $attributes ) {
 
 	$attributes['itemprop']  = 'author';
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/Person';
+	$attributes['itemtype']  = 'https://schema.org/Person';
 
 	return $attributes;
 
@@ -1024,7 +1097,7 @@ function genesis_attributes_sidebar_primary( $attributes ) {
 	$attributes['role']      = 'complementary';
 	$attributes['aria-label']  = __( 'Primary Sidebar', 'genesis' );
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/WPSideBar';
+	$attributes['itemtype']  = 'https://schema.org/WPSideBar';
 
 	return $attributes;
 
@@ -1045,7 +1118,7 @@ function genesis_attributes_sidebar_secondary( $attributes ) {
 	$attributes['role']      = 'complementary';
 	$attributes['aria-label']  = __( 'Secondary Sidebar', 'genesis' );
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/WPSideBar';
+	$attributes['itemtype']  = 'https://schema.org/WPSideBar';
 
 	return $attributes;
 
@@ -1063,7 +1136,27 @@ add_filter( 'genesis_attr_site-footer', 'genesis_attributes_site_footer' );
 function genesis_attributes_site_footer( $attributes ) {
 
 	$attributes['itemscope'] = true;
-	$attributes['itemtype']  = 'http://schema.org/WPFooter';
+	$attributes['itemtype']  = 'https://schema.org/WPFooter';
+
+	return $attributes;
+
+}
+
+add_filter( 'genesis_attr_footer-widget-area', 'genesis_attributes_footer_widget_area', 10, 3 );
+/**
+ * Add attributes for footer widget area wrapper elements.
+ *
+ * @since 2.5.0
+ *
+ * @param array  $attributes Existing attributes for footer widget area wrapper elements.
+ * @param string $context    Not used. Markup context (ie. `footer-widget-area`).
+ * @param array  $args       Markup arguments.
+ * @return array Amended attributes for footer widget area wrapper elements.
+ */
+function genesis_attributes_footer_widget_area( $attributes, $context, $args ) {
+
+	$column = ! empty( $args['params'] ) && ! empty( $args['params']['column'] ) ? $args['params']['column'] : 0;
+	$attributes['class'] = sprintf( 'widget-area footer-widgets-%d ', $column ) . $attributes['class'];
 
 	return $attributes;
 
@@ -1095,9 +1188,12 @@ function genesis_skiplinks_markup() {
  * @return array Amended attributes for primary navigation element.
  */
 function genesis_skiplinks_attr_nav_primary( $attributes ) {
-	$attributes['id'] = 'genesis-nav-primary';
-	$attributes['aria-label'] = __( 'Main navigation', 'genesis' );
+
+	$attributes['id']         = 'genesis-nav-primary';
+	$attributes['aria-label'] = esc_html__( 'Main navigation', 'genesis' );
+
 	return $attributes;
+
 }
 
 /**
@@ -1109,8 +1205,11 @@ function genesis_skiplinks_attr_nav_primary( $attributes ) {
  * @return array Amended attributes for `main` element.
  */
 function genesis_skiplinks_attr_content( $attributes ) {
+
 	$attributes['id'] = 'genesis-content';
+
 	return $attributes;
+
 }
 
 /**
@@ -1122,8 +1221,11 @@ function genesis_skiplinks_attr_content( $attributes ) {
  * @return array Amended attributes for primary sidebar element.
  */
 function genesis_skiplinks_attr_sidebar_primary( $attributes ) {
+
 	$attributes['id'] = 'genesis-sidebar-primary';
+
 	return $attributes;
+
 }
 
 /**
@@ -1135,8 +1237,11 @@ function genesis_skiplinks_attr_sidebar_primary( $attributes ) {
  * @return array Amended attributes for secondary sidebar element.
  */
 function genesis_skiplinks_attr_sidebar_secondary( $attributes ) {
+
 	$attributes['id'] = 'genesis-sidebar-secondary';
+
 	return $attributes;
+
 }
 
 /**
@@ -1148,6 +1253,9 @@ function genesis_skiplinks_attr_sidebar_secondary( $attributes ) {
  * @return array Amended attributes for footer widget area element.
  */
 function genesis_skiplinks_attr_footer_widgets( $attributes ) {
+
 	$attributes['id'] = 'genesis-footer-widgets';
+
 	return $attributes;
+
 }

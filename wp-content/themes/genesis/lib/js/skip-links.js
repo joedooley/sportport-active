@@ -17,9 +17,9 @@ function ga_skiplinks() {
     var element = document.getElementById( location.hash.substring( 1 ) );
 
     if ( element ) {
-        if ( ! /^(?:a|select|input|button|textarea)$/i.test( element.tagName ) ) {
-            element.tabIndex = -1;
-        }
+		if ( ! /^(?:a|select|input|button|textarea)$/i.test( element.tagName ) ) {
+ 			element.tabIndex = -1;
+ 		}
         element.focus();
     }
 }
@@ -27,5 +27,5 @@ function ga_skiplinks() {
 if ( window.addEventListener ) {
     window.addEventListener( 'hashchange', ga_skiplinks, false );
 } else { // IE8 and earlier.
-    window.attachEvent( 'onhashchange', ga_skiplinks, false );
+    window.attachEvent( 'onhashchange', ga_skiplinks );
 }

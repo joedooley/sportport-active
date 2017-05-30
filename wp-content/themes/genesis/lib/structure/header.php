@@ -26,10 +26,11 @@ add_action( 'genesis_doctype', 'genesis_do_doctype' );
  */
 function genesis_do_doctype() {
 
-	if ( genesis_html5() )
+	if ( genesis_html5() ) {
 		genesis_html5_doctype();
-	else
+	} else {
 		genesis_xhtml_doctype();
+	}
 
 }
 
@@ -95,11 +96,11 @@ add_filter( 'wp_title', 'genesis_default_title', 10, 3 );
  * @global WP_Query $wp_query Query object.
  *
  * @param string $title       Existing page title.
- * @param string $sep         Separator character(s). Default is `–` if not set.
- * @param string $seplocation Separator location - "left" or "right". Default is "right" if not set.
+ * @param string $sep         Optional. Separator character(s). Default is `–` if not set.
+ * @param string $seplocation Optional. Separator location - "left" or "right". Default is "right" if not set.
  * @return string Page title, formatted depending on context.
  */
-function genesis_default_title( $title, $sep, $seplocation ) {
+function genesis_default_title( $title, $sep = '&raquo;', $seplocation = '' ) {
 
 	global $wp_query;
 	$post_id = null;
@@ -126,25 +127,31 @@ function genesis_default_title( $title, $sep, $seplocation ) {
 	}
 
 	// if viewing a post / page / attachment.
-	if ( is_singular() || null !== $post_id ) {
+	if ( null !== $post_id || is_singular() ) {
 		// The User Defined Title (Genesis).
-		if ( genesis_get_custom_field( '_genesis_title', $post_id ) )
+		if ( genesis_get_custom_field( '_genesis_title', $post_id ) ) {
 			$title = genesis_get_custom_field( '_genesis_title', $post_id );
+		}
 		// All-in-One SEO Pack Title (latest, vestigial).
-		elseif ( genesis_get_custom_field( '_aioseop_title', $post_id ) )
+		elseif ( genesis_get_custom_field( '_aioseop_title', $post_id ) ) {
 			$title = genesis_get_custom_field( '_aioseop_title', $post_id );
+		}
 		// Headspace Title (vestigial).
-		elseif ( genesis_get_custom_field( '_headspace_page_title', $post_id ) )
+		elseif ( genesis_get_custom_field( '_headspace_page_title', $post_id ) ) {
 			$title = genesis_get_custom_field( '_headspace_page_title', $post_id );
+		}
 		// Thesis Title (vestigial).
-		elseif ( genesis_get_custom_field( 'thesis_title', $post_id ) )
+		elseif ( genesis_get_custom_field( 'thesis_title', $post_id ) ) {
 			$title = genesis_get_custom_field( 'thesis_title', $post_id );
+		}
 		// SEO Title Tag (vestigial).
-		elseif ( genesis_get_custom_field( 'title_tag', $post_id ) )
+		elseif ( genesis_get_custom_field( 'title_tag', $post_id ) ) {
 			$title = genesis_get_custom_field( 'title_tag', $post_id );
+		}
 		// All-in-One SEO Pack Title (old, vestigial).
-		elseif ( genesis_get_custom_field( 'title', $post_id ) )
+		elseif ( genesis_get_custom_field( 'title', $post_id ) ) {
 			$title = genesis_get_custom_field( 'title', $post_id );
+		}
 	}
 
 	if ( is_category() || is_tag() || is_tax() ) {
@@ -163,8 +170,9 @@ function genesis_default_title( $title, $sep, $seplocation ) {
 	}
 
 	// If we don't want site name appended, or if we're on the home page.
-	if ( ! genesis_get_seo_option( 'append_site_title' ) || is_front_page() )
+	if ( ! genesis_get_seo_option( 'append_site_title' ) || is_front_page() ) {
 		return esc_html( trim( $title ) );
+	}
 
 	// Else append the site name.
 	$title = 'right' === $seplocation ? $title . " $sep " . get_bloginfo( 'name' ) : get_bloginfo( 'name' ) . " $sep " . $title;
@@ -182,20 +190,25 @@ function genesis_doc_head_control() {
 
 	remove_action( 'wp_head', 'wp_generator' );
 
-	if ( ! genesis_get_seo_option( 'head_adjacent_posts_rel_link' ) )
+	if ( ! genesis_get_seo_option( 'head_adjacent_posts_rel_link' ) ) {
 		remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
+	}
 
-	if ( ! genesis_get_seo_option( 'head_wlwmanifest_link' ) )
+	if ( ! genesis_get_seo_option( 'head_wlwmanifest_link' ) ) {
 		remove_action( 'wp_head', 'wlwmanifest_link' );
+	}
 
-	if ( ! genesis_get_seo_option( 'head_shortlink' ) )
+	if ( ! genesis_get_seo_option( 'head_shortlink' ) ) {
 		remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
+	}
 
-	if ( is_single() && ! genesis_get_option( 'comments_posts' ) )
+	if ( is_single() && ! genesis_get_option( 'comments_posts' ) ) {
 		remove_action( 'wp_head', 'feed_links_extra', 3 );
+	}
 
-	if ( is_page() && ! genesis_get_option( 'comments_pages' ) )
+	if ( is_page() && ! genesis_get_option( 'comments_pages' ) ) {
 		remove_action( 'wp_head', 'feed_links_extra', 3 );
+	}
 
 }
 
@@ -250,7 +263,7 @@ add_action( 'genesis_meta', 'genesis_robots_meta' );
  *
  * @see genesis_get_robots_meta_content()
  *
- * @return null Return early if blog is not public.
+ * @return void Return early if blog is not public.
  */
 function genesis_robots_meta() {
 
@@ -280,12 +293,13 @@ add_action( 'genesis_meta', 'genesis_responsive_viewport' );
  *
  * @since 1.9.0
  *
- * @return null Return early if child theme does not support `genesis-responsive-viewport`.
+ * @return void Return early if child theme does not support `genesis-responsive-viewport`.
  */
 function genesis_responsive_viewport() {
 
-	if ( ! current_theme_supports( 'genesis-responsive-viewport' ) )
+	if ( ! current_theme_supports( 'genesis-responsive-viewport' ) ) {
 		return;
+	}
 
 	/**
 	 * Filter the viewport meta tag value.
@@ -312,7 +326,7 @@ add_action( 'wp_head', 'genesis_load_favicon' );
  *
  * @see genesis_get_favicon_url()
  *
- * @return null Return early if WP Site Icon is used.
+ * @return void Return early if WP Site Icon is used.
  */
 function genesis_load_favicon() {
 
@@ -337,8 +351,9 @@ add_action( 'wp_head', 'genesis_do_meta_pingback' );
  */
 function genesis_do_meta_pingback() {
 
-	if ( 'open' === get_option( 'default_ping_status' ) )
+	if ( 'open' === get_option( 'default_ping_status' ) ) {
 		echo '<link rel="pingback" href="' . get_bloginfo( 'pingback_url' ) . '" />' . "\n";
+	}
 
 }
 
@@ -349,6 +364,8 @@ add_action( 'wp_head', 'genesis_paged_rel' );
  * @link  http://googlewebmastercentral.blogspot.com/2011/09/pagination-with-relnext-and-relprev.html
  *
  * @since 2.2.0
+ *
+ * @return void Return early if doing a Customizer preview.
  */
 function genesis_paged_rel() {
 
@@ -356,8 +373,8 @@ function genesis_paged_rel() {
 
 	$prev = $next = '';
 
-	$paged = intval( get_query_var( 'paged' ) );
-	$page  = intval( get_query_var( 'page' ) );
+	$paged = (int) get_query_var( 'paged' );
+	$page  = (int) get_query_var( 'page' );
 
 	if ( ! is_singular() ) {
 
@@ -368,7 +385,7 @@ function genesis_paged_rel() {
 
 		// No need for this on previews.
 		if ( is_preview() ) {
-			return '';
+			return;
 		}
 
 		$numpages = substr_count( $wp_query->post->post_content, '<!--nextpage-->' ) + 1;
@@ -402,6 +419,8 @@ add_action( 'wp_head', 'genesis_meta_name' );
  * Output meta tag for site name.
  *
  * @since 2.2.0
+ *
+ * @return void Return early if not HTML5 or not front page.
  */
 function genesis_meta_name() {
 
@@ -418,6 +437,8 @@ add_action( 'wp_head', 'genesis_meta_url' );
  * Output meta tag for site URL.
  *
  * @since 2.2.0
+ *
+ * @return void Return early if not HTML5 or not front page.
  */
 function genesis_meta_url() {
 
@@ -469,8 +490,29 @@ function genesis_header_scripts() {
 	echo apply_filters( 'genesis_header_scripts', genesis_get_option( 'header_scripts' ) );
 
 	// If singular, echo scripts from custom field.
-	if ( is_singular() )
+	if ( is_singular() ) {
 		genesis_custom_field( '_genesis_scripts' );
+	}
+
+}
+
+add_action( 'genesis_before', 'genesis_page_specific_body_scripts' );
+/**
+ * Output page-specific body scripts if their position is set to 'top'.
+ *
+ * If the position is 'bottom' or null, output occurs in genesis_footer_scripts() instead.
+ *
+ * @since 2.5.0
+ */
+function genesis_page_specific_body_scripts() {
+
+	if ( ! is_singular() ) {
+		return;
+	}
+
+	if ( 'top' === genesis_get_custom_field( '_genesis_scripts_body_position' ) ) {
+		genesis_custom_field( '_genesis_scripts_body' );
+	}
 
 }
 
@@ -484,23 +526,26 @@ add_action( 'after_setup_theme', 'genesis_custom_header' );
  *
  * @since 1.6.0
  *
- * @return null Return early if `custom-header` or `genesis-custom-header` are not supported in the theme.
+ * @return void Return early if `custom-header` or `genesis-custom-header` are not supported in the theme.
  */
 function genesis_custom_header() {
 
-	$genesis_custom_header = get_theme_support( 'genesis-custom-header' );
 	$wp_custom_header = get_theme_support( 'custom-header' );
 
-	// If not active (Genesis or WP custom header), do nothing.
-	if ( ! $genesis_custom_header && ! $wp_custom_header )
+	// If WP custom header is active, no need to continue.
+	if ( $wp_custom_header ) {
 		return;
+	}
+
+	$genesis_custom_header = get_theme_support( 'genesis-custom-header' );
+
+	// If Genesis custom is not active, do nothing.
+	if ( ! $genesis_custom_header ) {
+		return;
+	}
 
 	// Blog title option is obsolete when custom header is active.
 	add_filter( 'genesis_pre_get_option_blog_title', '__return_empty_array' );
-
-	// If WP custom header is active, no need to continue.
-	if ( $wp_custom_header )
-		return;
 
 	// Cast, if necessary.
 	$genesis_custom_header = isset( $genesis_custom_header[0] ) && is_array( $genesis_custom_header[0] ) ? $genesis_custom_header[0] : array();
@@ -545,17 +590,19 @@ add_action( 'wp_head', 'genesis_custom_header_style' );
  *
  * @since 1.6.0
  *
- * @return null Return early if `custom-header` not supported, user specified own callback, or no options set.
+ * @return void Return early if `custom-header` not supported, user specified own callback, or no options set.
  */
 function genesis_custom_header_style() {
 
 	// Do nothing if custom header not supported.
-	if ( ! current_theme_supports( 'custom-header' ) )
+	if ( ! current_theme_supports( 'custom-header' ) ) {
 		return;
+	}
 
 	// Do nothing if user specifies their own callback.
-	if ( get_theme_support( 'custom-header', 'wp-head-callback' ) )
+	if ( get_theme_support( 'custom-header', 'wp-head-callback' ) ) {
 		return;
+	}
 
 	$output = '';
 
@@ -563,27 +610,32 @@ function genesis_custom_header_style() {
 	$text_color   = get_header_textcolor();
 
 	// If no options set, don't waste the output. Do nothing.
-	if ( empty( $header_image ) && ! display_header_text() && $text_color === get_theme_support( 'custom-header', 'default-text-color' ) )
+	if ( empty( $header_image ) && ! display_header_text() && $text_color === get_theme_support( 'custom-header', 'default-text-color' ) ) {
 		return;
+	}
 
 	$header_selector = get_theme_support( 'custom-header', 'header-selector' );
 	$title_selector  = genesis_html5() ? '.custom-header .site-title'       : '.custom-header #title';
 	$desc_selector   = genesis_html5() ? '.custom-header .site-description' : '.custom-header #description';
 
 	// Header selector fallback.
-	if ( ! $header_selector )
+	if ( ! $header_selector ) {
 		$header_selector = genesis_html5() ? '.custom-header .site-header' : '.custom-header #header';
+	}
 
 	// Header image CSS, if exists.
-	if ( $header_image )
+	if ( $header_image ) {
 		$output .= sprintf( '%s { background: url(%s) no-repeat !important; }', $header_selector, esc_url( $header_image ) );
+	}
 
 	// Header text color CSS, if showing text.
-	if ( display_header_text() && $text_color !== get_theme_support( 'custom-header', 'default-text-color' ) )
+	if ( display_header_text() && $text_color !== get_theme_support( 'custom-header', 'default-text-color' ) ) {
 		$output .= sprintf( '%2$s a, %2$s a:hover, %3$s { color: #%1$s !important; }', esc_html( $text_color ), esc_html( $title_selector ), esc_html( $desc_selector ) );
+	}
 
-	if ( $output )
+	if ( $output ) {
 		printf( '<style type="text/css">%s</style>' . "\n", $output );
+	}
 
 }
 
@@ -647,7 +699,7 @@ function genesis_do_header() {
 		'context' => 'title-area',
 	) );
 
-	if ( ( isset( $wp_registered_sidebars['header-right'] ) && is_active_sidebar( 'header-right' ) ) || has_action( 'genesis_header_right' ) ) {
+	if ( has_action( 'genesis_header_right' ) || ( isset( $wp_registered_sidebars['header-right'] ) && is_active_sidebar( 'header-right' ) ) ) {
 
 		genesis_markup( array(
 			'open'    => '<div %s>' . genesis_sidebar_title( 'header-right' ),
@@ -824,7 +876,7 @@ add_action ( 'genesis_before_header', 'genesis_skip_links', 5 );
  *
  * @since  2.2.0
  *
- * @return null Return early if skip links are not supported.
+ * @return void Return early if skip links are not supported.
  */
 function genesis_skip_links() {
 
@@ -854,10 +906,8 @@ function genesis_skip_links() {
 
 	if ( current_theme_supports( 'genesis-footer-widgets' ) ) {
 		$footer_widgets = get_theme_support( 'genesis-footer-widgets' );
-		if ( isset( $footer_widgets[0] ) && is_numeric( $footer_widgets[0] ) ) {
-			if ( is_active_sidebar( 'footer-1' ) ) {
-				$links['genesis-footer-widgets'] = __( 'Skip to footer', 'genesis' );
-			}
+		if ( isset( $footer_widgets[0] ) && is_numeric( $footer_widgets[0] ) && is_active_sidebar( 'footer-1' ) ) {
+			$links['genesis-footer-widgets'] = __( 'Skip to footer', 'genesis' );
 		}
 	}
 
@@ -873,20 +923,18 @@ function genesis_skip_links() {
 	 *     @type string Anchor text.
 	 * }
 	 */
-	$links = apply_filters( 'genesis_skip_links_output', $links );
+	$links = (array) apply_filters( 'genesis_skip_links_output', $links );
 
-	// Write HTML, skiplinks in a list with a heading.
-	$skiplinks  =  '<section>';
-	$skiplinks .=  '<h2 class="screen-reader-text">'. __( 'Skip links', 'genesis' ) .'</h2>';
-	$skiplinks .=  '<ul class="genesis-skip-link">';
+	// Write HTML, skiplinks in a list.
+	$skiplinks = '<ul class="genesis-skip-link">';
 
 	// Add markup for each skiplink.
 	foreach ($links as $key => $value) {
 		$skiplinks .=  '<li><a href="' . esc_url( '#' . $key ) . '" class="screen-reader-shortcut"> ' . $value . '</a></li>';
 	}
 
-	$skiplinks .=  '</ul>';
-	$skiplinks .=  '</section>' . "\n";
+	$skiplinks .= '</ul>';
 
 	echo $skiplinks;
+
 }

@@ -23,22 +23,25 @@ add_action( 'after_setup_theme', 'genesis_add_admin_menu' );
  * @global \Genesis_Admin_Settings _genesis_admin_settings          Theme Settings page object.
  * @global string                  _genesis_theme_settings_pagehook Old backwards-compatible pagehook.
  *
- * @return null Return early if not viewing WP admin, Genesis menu is disabled, or disabled for current user.
+ * @return void Return early if not viewing WP admin, Genesis menu is disabled, or disabled for current user.
  */
 function genesis_add_admin_menu() {
 
-	if ( ! is_admin() )
+	if ( ! is_admin() ) {
 		return;
+	}
 
 	global $_genesis_admin_settings;
 
-	if ( ! current_theme_supports( 'genesis-admin-menu' ) )
+	if ( ! current_theme_supports( 'genesis-admin-menu' ) ) {
 		return;
+	}
 
 	// Don't add menu item if disabled for current user.
 	$user = wp_get_current_user();
-	if ( ! get_the_author_meta( 'genesis_admin_menu', $user->ID ) )
+	if ( ! get_the_author_meta( 'genesis_admin_menu', $user->ID ) ) {
 		return;
+	}
 
 	$_genesis_admin_settings = new Genesis_Admin_Settings;
 
@@ -63,18 +66,20 @@ add_action( 'genesis_admin_menu', 'genesis_add_admin_submenus' );
  * @global string $_genesis_admin_seo_settings
  * @global string $_genesis_admin_import_export
  *
- * @return null Return early if not viewing WP admin, or if Genesis menu is not supported.
+ * @return void Return early if not viewing WP admin, or if Genesis menu is not supported.
  */
 function genesis_add_admin_submenus() {
 
-	if ( ! is_admin() )
+	if ( ! is_admin() ) {
 		return;
+	}
 
 	global $_genesis_admin_seo_settings, $_genesis_admin_import_export;
 
 	// Don't add submenu items if Genesis menu is disabled.
-	if( ! current_theme_supports( 'genesis-admin-menu' ) )
+	if( ! current_theme_supports( 'genesis-admin-menu' ) ) {
 		return;
+	}
 
 	$user = wp_get_current_user();
 
@@ -88,8 +93,9 @@ function genesis_add_admin_submenus() {
 	}
 
 	// Add "Import/Export" submenu item.
-	if ( current_theme_supports( 'genesis-import-export-menu' ) && get_the_author_meta( 'genesis_import_export_menu', $user->ID ) )
+	if ( current_theme_supports( 'genesis-import-export-menu' ) && get_the_author_meta( 'genesis_import_export_menu', $user->ID ) ) {
 		$_genesis_admin_import_export = new Genesis_Admin_Import_Export;
+	}
 
 	// Add the upgraded page (no menu).
 	new Genesis_Admin_Upgraded;

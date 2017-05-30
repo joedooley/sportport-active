@@ -35,6 +35,8 @@ class Genesis_Admin_Import_Export extends Genesis_Admin_Basic {
 	 */
 	public function __construct() {
 
+		$this->help_base = GENESIS_VIEWS_DIR . '/help/import-export-';
+
 		$page_id = 'genesis-import-export';
 
 		$menu_ops = array(
@@ -59,46 +61,12 @@ class Genesis_Admin_Import_Export extends Genesis_Admin_Basic {
 	 */
 	public function help() {
 
-		$screen = get_current_screen();
-
-		$general_settings_help =
-			'<h3>' . __( 'Import/Export', 'genesis' ) . '</h3>' .
-			'<p>'  . __( 'This allows you to import or export Genesis Settings.', 'genesis' ) . '</p>' .
-			'<p>'  . __( 'This is specific to Genesis settings and does not includes posts, pages, or images, which is what the built-in WordPress import/export menu does.', 'genesis' ) . '</p>' .
-			'<p>'  . __( 'It also does not include other settings for plugins, widgets, or post/page/term/user specific settings.', 'genesis' ) . '</p>';
-
-		$import_settings_help =
-			'<h3>' . __( 'Import', 'genesis' ) . '</h3>' .
-			'<p>'  . sprintf( __( 'You can import a file you\'ve previously exported. The file name will start with %s followed by one or more strings indicating which settings it contains, finally followed by the date and time it was exported.', 'genesis' ), genesis_code( 'genesis-' ) ) . '</p>' .
-			'<p>' . __( 'Once you upload an import file, it will automatically overwrite your existing settings.', 'genesis' ) . ' <strong>' . __( 'This cannot be undone', 'genesis' ) . '</strong>.</p>';
-
-		$export_settings_help =
-			'<h3>' . __( 'Export', 'genesis' ) . '</h3>' .
-			'<p>'  . sprintf( __( 'You can export your Genesis-related settings to back them up, or copy them to another site. Child themes and plugins may add their own checkboxes to the list. The settings are exported in %s format.', 'genesis' ), '<abbr title="' . __( 'JavaScript Object Notation', 'genesis' ) . '">' . __( 'JSON', 'genesis' ) . '</abbr>' ) . '</p>';
-
-		$screen->add_help_tab( array(
-			'id'      => $this->pagehook . '-general-settings',
-			'title'   => __( 'Import/Export', 'genesis' ),
-			'content' => $general_settings_help,
-		) );
-		$screen->add_help_tab( array(
-			'id'      => $this->pagehook . '-import',
-			'title'   => __( 'Import', 'genesis' ),
-			'content' => $import_settings_help,
-		) );
-		$screen->add_help_tab( array(
-			'id'      => $this->pagehook . '-export',
-			'title'   => __( 'Export', 'genesis' ),
-			'content' => $export_settings_help,
-		) );
+		$this->add_help_tab( 'general', __( 'Import/Export', 'genesis' ) );
+		$this->add_help_tab( 'import',  __( 'Import', 'genesis' ) );
+		$this->add_help_tab( 'export',  __( 'Export', 'genesis' ) );
 
 		// Add help sidebar.
-		$screen->set_help_sidebar(
-			'<p><strong>' . __( 'For more information:', 'genesis' ) . '</strong></p>' .
-			'<p><a href="http://my.studiopress.com/help/" target="_blank">' . __( 'Get Support', 'genesis' ) . '<span class="screen-reader-text">. ' . __( 'Link opens in a new window.', 'genesis' ) . '</span></a></p>' .
-			'<p><a href="http://my.studiopress.com/snippets/" target="_blank">' . __( 'Genesis Snippets', 'genesis' ) . '<span class="screen-reader-text">. ' . __( 'Link opens in a new window.', 'genesis' ) . '</span></a></p>' .
-			'<p><a href="http://my.studiopress.com/tutorials/" target="_blank">' . __( 'Genesis Tutorials', 'genesis' ) . '<span class="screen-reader-text">. ' . __( 'Link opens in a new window.', 'genesis' ) . '</span></a></p>'
-		);
+		$this->set_help_sidebar();
 
 	}
 
@@ -111,57 +79,7 @@ class Genesis_Admin_Import_Export extends Genesis_Admin_Basic {
 	 */
 	public function admin() {
 
-		?>
-		<div class="wrap">
-			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-
-			<table class="form-table">
-				<tbody>
-
-					<tr>
-						<th scope="row"><strong><?php _e( 'Import Genesis Settings File', 'genesis' ); ?></strong></th>
-						<td>
-							<p><?php printf( __( 'Upload the data file (%s) from your computer and we\'ll import your settings.', 'genesis' ), genesis_code( '.json' ) ); ?></p>
-							<p><?php _e( 'Choose the file from your computer and click "Upload file and Import"', 'genesis' ); ?></p>
-
-								<form enctype="multipart/form-data" method="post" action="<?php echo menu_page_url( 'genesis-import-export', 0 ); ?>">
-									<?php wp_nonce_field( 'genesis-import', 'genesis-import-nonce' ); ?>
-									<input type="hidden" name="genesis-import" value="1" />
-									<label for="genesis-import-upload"><?php printf( __( 'Upload File (Maximum Size: %s): ', 'genesis' ), ini_get( 'post_max_size' ) ); ?></label>
-									<input type="file" id="genesis-import-upload" name="genesis-import-upload" />
-									<?php
-									submit_button( __( 'Upload File and Import', 'genesis' ), 'primary', 'upload' );
-									?>
-								</form>
-
-						</td>
-					</tr>
-
-					<tr>
-						<th scope="row"><strong><?php _e( 'Export Genesis Settings File', 'genesis' ); ?></strong></th>
-						<td>
-							<p><?php printf( __( 'When you click the button below, Genesis will generate a data file (%s) for you to save to your computer.', 'genesis' ), genesis_code( '.json' ) ); ?></p>
-							<p><?php _e( 'Once you have saved the download file, you can use the import function on another site to import this data.', 'genesis' ); ?></p>
-
-								<form method="post" action="<?php echo menu_page_url( 'genesis-import-export', 0 ); ?>">
-									<?php
-									wp_nonce_field( 'genesis-export', 'genesis-export-nonce' );
-									$this->export_checkboxes();
-									if ( $this->get_export_options() )
-										submit_button( __( 'Download Export File', 'genesis' ), 'primary', 'download' );
-									?>
-								</form>
-
-						</td>
-					</tr>
-
-					<?php do_action( 'genesis_import_export_form' ); ?>
-
-				</tbody>
-			</table>
-
-		</div>
-		<?php
+		include( GENESIS_VIEWS_DIR . '/pages/genesis-admin-import-export.php' );
 
 	}
 
@@ -170,17 +88,19 @@ class Genesis_Admin_Import_Export extends Genesis_Admin_Basic {
 	 *
 	 * @since 1.4.0
 	 *
-	 * @return null Return early if not on the correct admin page.
+	 * @return void Return early if not on the correct admin page.
 	 */
 	public function notices() {
 
-		if ( ! genesis_is_menu_page( 'genesis-import-export' ) )
+		if ( ! genesis_is_menu_page( 'genesis-import-export' ) ) {
 			return;
+		}
 
-		if ( isset( $_REQUEST['imported'] ) && 'true' === $_REQUEST['imported'] )
+		if ( isset( $_REQUEST['imported'] ) && 'true' === $_REQUEST['imported'] ) {
 			echo '<div id="message" class="updated" role="alert"><p><strong>' . __( 'Settings successfully imported.', 'genesis' ) . '</strong></p></div>';
-		elseif ( isset( $_REQUEST['error'] ) && 'true' === $_REQUEST['error'] )
+		} elseif ( isset( $_REQUEST['error'] ) && 'true' === $_REQUEST['error'] ) {
 			echo '<div id="message" class="error" role="alert"><p><strong>' . __( 'There was a problem importing your settings. Please try again.', 'genesis' ) . '</strong></p></div>';
+		}
 
 	}
 
@@ -216,7 +136,7 @@ class Genesis_Admin_Import_Export extends Genesis_Admin_Basic {
 	 *
 	 * @since 1.6.0
 	 *
-	 * @return null Null if there are no options to export.
+	 * @return void Return early if there are no options to export.
 	 */
 	protected function export_checkboxes() {
 
@@ -228,8 +148,9 @@ class Genesis_Admin_Import_Export extends Genesis_Admin_Basic {
 
 		foreach ( $options as $name => $args ) {
 			// Ensure option item has an array key, and that label and settings-field appear populated.
-			if ( is_int( $name ) || ! isset( $args['label'] ) || ! isset( $args['settings-field'] ) || '' === $args['label'] || '' === $args['settings-field'] )
+			if ( is_int( $name ) || ! isset( $args['label'], $args['settings-field'] ) || '' === $args['label'] || '' === $args['settings-field'] ) {
 				return;
+			}
 
 			printf( '<p><label for="genesis-export-%1$s"><input id="genesis-export-%1$s" name="genesis-export[%1$s]" type="checkbox" value="1" /> %2$s</label></p>', esc_attr( $name ), esc_html( $args['label'] ) );
 
@@ -256,11 +177,13 @@ class Genesis_Admin_Import_Export extends Genesis_Admin_Basic {
 	 */
 	public function export() {
 
-		if ( ! genesis_is_menu_page( 'genesis-import-export' ) )
+		if ( ! genesis_is_menu_page( 'genesis-import-export' ) ) {
 			return;
+		}
 
-		if ( empty( $_REQUEST['genesis-export'] ) )
+		if ( empty( $_REQUEST['genesis-export'] ) ) {
 			return;
+		}
 
 		check_admin_referer( 'genesis-export', 'genesis-export-nonce' );
 
@@ -285,23 +208,24 @@ class Genesis_Admin_Import_Export extends Genesis_Admin_Basic {
 			$prefix[] = $export;
 		}
 
-		if ( ! $settings )
+		if ( ! $settings ) {
 			return;
+		}
 
 		// Complete the export file name by joining parts together.
-		$prefix = join( '-', $prefix );
+		$prefix = implode( '-', $prefix );
 
-	    $output = wp_json_encode( (array) $settings );
+		$output = wp_json_encode( (array) $settings );
 
 		// Prepare and send the export file to the browser.
-	    header( 'Content-Description: File Transfer' );
-	    header( 'Cache-Control: public, must-revalidate' );
-	    header( 'Pragma: hack' );
-	    header( 'Content-Type: text/plain' );
-	    header( 'Content-Disposition: attachment; filename="' . $prefix . '-' . date( 'Ymd-His' ) . '.json"' );
-	    header( 'Content-Length: ' . mb_strlen( $output ) );
-	    echo $output;
-	    exit;
+		header( 'Content-Description: File Transfer' );
+		header( 'Cache-Control: public, must-revalidate' );
+		header( 'Pragma: hack' );
+		header( 'Content-Type: text/plain' );
+		header( 'Content-Disposition: attachment; filename="' . $prefix . '-' . date( 'Ymd-His' ) . '.json"' );
+		header( 'Content-Length: ' . mb_strlen( $output ) );
+		echo $output;
+		exit;
 
 	}
 
@@ -323,11 +247,13 @@ class Genesis_Admin_Import_Export extends Genesis_Admin_Basic {
 	 */
 	public function import() {
 
-		if ( ! genesis_is_menu_page( 'genesis-import-export' ) )
+		if ( ! genesis_is_menu_page( 'genesis-import-export' ) ) {
 			return;
+		}
 
-		if ( empty( $_REQUEST['genesis-import'] ) )
+		if ( empty( $_REQUEST['genesis-import'] ) ) {
 			return;
+		}
 
 		check_admin_referer( 'genesis-import', 'genesis-import-nonce' );
 
@@ -352,8 +278,9 @@ class Genesis_Admin_Import_Export extends Genesis_Admin_Basic {
 
 		// Cycle through data, import Genesis settings.
 		foreach ( (array) $options as $key => $settings ) {
-			if ( in_array( $key, $importable_keys ) )
+			if ( in_array( $key, $importable_keys ) ) {
 				update_option( $key, $settings );
+			}
 		}
 
 		// Redirect, add success flag to the URI.

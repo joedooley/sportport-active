@@ -66,28 +66,7 @@ function genesis_add_taxonomy_archive_options() {
  */
 function genesis_taxonomy_archive_options( $tag, $taxonomy ) {
 
-	$tax = get_taxonomy( $taxonomy );
-	?>
-	<h3><?php echo esc_html( $tax->labels->singular_name ) . ' ' . __( 'Archive Settings', 'genesis' ); ?></h3>
-	<table class="form-table">
-		<tbody>
-			<tr class="form-field">
-				<th scope="row"><label for="genesis-meta[headline]"><?php _e( 'Archive Headline', 'genesis' ); ?></label></th>
-				<td>
-					<input name="genesis-meta[headline]" id="genesis-meta[headline]" type="text" value="<?php echo esc_attr( get_term_meta( $tag->term_id, 'headline', true ) ); ?>" size="40" />
-					<p class="description"><?php _e( 'Leave empty if you do not want to display a headline.', 'genesis' ); ?></p>
-				</td>
-			</tr>
-			<tr class="form-field">
-				<th scope="row"><label for="genesis-meta-intro-text"><?php _e( 'Archive Intro Text', 'genesis' ); ?></label></th>
-				<td>
-					<?php wp_editor( get_term_meta( $tag->term_id, 'intro_text', true ), "genesis-meta-intro-text", array( 'textarea_name' => 'genesis-meta[intro_text]' ) ); ?>
-					<p class="description"><?php _e( 'Leave empty if you do not want to display any intro text.', 'genesis' ); ?></p>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<?php
+	genesis_meta_boxes()->show_meta_box( 'genesis-term-meta-settings', $tag );
 
 }
 
@@ -101,8 +80,9 @@ add_action( 'admin_init', 'genesis_add_taxonomy_seo_options' );
  */
 function genesis_add_taxonomy_seo_options() {
 
-	foreach ( get_taxonomies( array( 'public' => true ) ) as $tax_name )
+	foreach ( get_taxonomies( array( 'public' => true ) ) as $tax_name ) {
 		add_action( $tax_name . '_edit_form', 'genesis_taxonomy_seo_options', 10, 2 );
+	}
 
 }
 
@@ -120,48 +100,7 @@ function genesis_add_taxonomy_seo_options() {
  */
 function genesis_taxonomy_seo_options( $tag, $taxonomy ) {
 
-	?>
-	<h3><?php _e( 'Theme SEO Settings', 'genesis' ); ?></h3>
-	<table class="form-table">
-		<tbody>
-			<tr class="form-field">
-				<th scope="row"><label for="genesis-meta[doctitle]"><?php _e( 'Custom Document Title', 'genesis' ); ?></label></th>
-				<td>
-					<input name="genesis-meta[doctitle]" id="genesis-meta[doctitle]" type="text" value="<?php echo esc_attr( get_term_meta( $tag->term_id, 'doctitle', true ) ); ?>" size="40" />
-				</td>
-			</tr>
-
-			<tr class="form-field">
-				<th scope="row"><label for="genesis-meta[description]"><?php _e( 'Meta Description', 'genesis' ); ?></label></th>
-				<td>
-					<textarea name="genesis-meta[description]" id="genesis-meta[description]" rows="5" cols="50" class="large-text"><?php echo esc_html( get_term_meta( $tag->term_id, 'description', true ) ); ?></textarea>
-				</td>
-			</tr>
-
-			<tr class="form-field">
-				<th scope="row"><label for="genesis-meta[keywords]"><?php _e( 'Meta Keywords', 'genesis' ); ?></label></th>
-				<td>
-					<input name="genesis-meta[keywords]" id="genesis-meta[keywords]" type="text" value="<?php echo esc_attr( get_term_meta( $tag->term_id, 'keywords', true ) ); ?>" size="40" />
-					<p class="description"><?php _e( 'Comma separated list', 'genesis' ); ?></p>
-				</td>
-			</tr>
-
-			<tr>
-				<th scope="row"><?php _e( 'Robots Meta', 'genesis' ); ?></th>
-				<td>
-					<label for="genesis-meta[noindex]"><input name="genesis-meta[noindex]" id="genesis-meta[noindex]" type="checkbox" value="1" <?php checked( get_term_meta( $tag->term_id, 'noindex', true ) ); ?> />
-					<?php printf( __( 'Apply %s to this archive?', 'genesis' ), genesis_code( 'noindex' ) ); ?></label><br />
-
-					<label for="genesis-meta[nofollow]"><input name="genesis-meta[nofollow]" id="genesis-meta[nofollow]" type="checkbox" value="1" <?php checked( get_term_meta( $tag->term_id, 'nofollow', true ) ); ?> />
-					<?php printf( __( 'Apply %s to this archive?', 'genesis' ), genesis_code( 'nofollow' ) ); ?></label><br />
-
-					<label for="genesis-meta[noarchive]"><input name="genesis-meta[noarchive]" id="genesis-meta[noarchive]" type="checkbox" value="1" <?php checked( get_term_meta( $tag->term_id, 'noarchive', true ) ); ?> />
-					<?php printf( __( 'Apply %s to this archive?', 'genesis' ), genesis_code( 'noarchive' ) ); ?></label>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<?php
+	genesis_meta_boxes()->show_meta_box( 'genesis-term-meta-seo', $tag );
 
 }
 
@@ -201,26 +140,7 @@ function genesis_add_taxonomy_layout_options() {
  */
 function genesis_taxonomy_layout_options( $tag, $taxonomy ) {
 
-	?>
-	<h3><?php _e( 'Layout Settings', 'genesis' ); ?></h3>
-
-	<table class="form-table">
-		<tbody>
-			<tr>
-				<th scope="row"><?php _e( 'Choose Layout', 'genesis' ); ?></th>
-				<td>
-					<fieldset class="genesis-layout-selector">
-						<legend class="screen-reader-text"><?php _e( 'Choose Layout', 'genesis' ); ?></legend>
-
-						<p><input type="radio" class="default-layout" name="genesis-meta[layout]" id="default-layout" value="" <?php checked( get_term_meta( $tag->term_id, 'layout', true ), '' ); ?> /> <label for="default-layout" class="default"><?php printf( __( 'Default Layout set in <a href="%s">Theme Settings</a>', 'genesis' ), menu_page_url( 'genesis', 0 ) ); ?></label></p>
-						<?php genesis_layout_selector( array( 'name' => 'genesis-meta[layout]', 'selected' => get_term_meta( $tag->term_id, 'layout', true ), 'type' => 'site' ) ); ?>
-
-					</fieldset>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<?php
+	genesis_meta_boxes()->show_meta_box( 'genesis-term-meta-layout', $tag );
 
 }
 
@@ -267,8 +187,8 @@ add_filter( 'get_terms', 'genesis_get_terms_filter', 10, 2 );
  */
 function genesis_get_terms_filter( array $terms, $taxonomy ) {
 
-	foreach( $terms as $term ) {
-		$term = genesis_get_term_filter( $term, $taxonomy );
+	foreach( $terms as $key => $term ) {
+		$terms[ $key ] = genesis_get_term_filter( $term, $taxonomy );
 	}
 
 	return $terms;
@@ -314,8 +234,9 @@ function genesis_term_meta_save( $term_id, $tt_id ) {
 
 	$values = wp_parse_args( $values, genesis_term_meta_defaults() );
 
-	if ( ! current_user_can( 'unfiltered_html' ) && isset( $values['archive_description'] ) )
+	if ( isset( $values['archive_description'] ) && ! current_user_can( 'unfiltered_html' ) ) {
 		$values['archive_description'] = genesis_formatting_kses( $values['archive_description'] );
+	}
 
 	foreach ( $values as $key => $value ) {
 		update_term_meta( $term_id, $key, $value );

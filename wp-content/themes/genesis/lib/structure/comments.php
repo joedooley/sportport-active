@@ -20,12 +20,13 @@ add_action( 'genesis_after_entry', 'genesis_get_comments_template' );
  *
  * @since 1.1.0
  *
- * @return null Return early if post type does not support `comments`.
+ * @return void Return early if post type does not support `comments`.
  */
 function genesis_get_comments_template() {
 
-	if ( ! post_type_supports( get_post_type(), 'comments' ) )
+	if ( ! post_type_supports( get_post_type(), 'comments' ) ) {
 		return;
+	}
 
 	if ( is_singular() && ! in_array( get_post_type(), array( 'post', 'page' ) ) ) {
 		comments_template( '', true );
@@ -50,17 +51,18 @@ add_action( 'genesis_comments', 'genesis_do_comments' );
  *
  * @global WP_Query $wp_query Query object.
  *
- * @return null Return early if on a page with Genesis page comments off, or on a post with Genesis post comments off.
+ * @return void Return early if on a page with Genesis page comments off, or on a post with Genesis post comments off.
  */
 function genesis_do_comments() {
 
 	global $wp_query;
 
 	// Bail if comments are off for this post type.
-	if ( ( is_page() && ! genesis_get_option( 'comments_pages' ) ) || ( is_single() && ! genesis_get_option( 'comments_posts' ) ) )
+	if ( ( is_page() && ! genesis_get_option( 'comments_pages' ) ) || ( is_single() && ! genesis_get_option( 'comments_posts' ) ) ) {
 		return;
+	}
 
-	if ( have_comments() && ! empty( $wp_query->comments_by_type['comment'] ) ) {
+	if ( ! empty( $wp_query->comments_by_type['comment'] ) && have_comments() ) {
 
 		genesis_markup( array(
 			'open'   => '<div %s>',
@@ -98,16 +100,18 @@ function genesis_do_comments() {
 	}
 	// No comments so far.
 	elseif ( 'open' === get_post()->comment_status && $no_comments_text = apply_filters( 'genesis_no_comments_text', '' ) ) {
-		if ( genesis_html5() )
+		if ( genesis_html5() ) {
 			echo sprintf( '<div %s>', genesis_attr( 'entry-comments' ) ) . $no_comments_text . '</div>';
-		else
+		} else {
 			echo '<div id="comments">' . $no_comments_text . '</div>';
+		}
 	}
 	elseif ( $comments_closed_text = apply_filters( 'genesis_comments_closed_text', '' ) ) {
-		if ( genesis_html5() )
+		if ( genesis_html5() ) {
 			echo sprintf( '<div %s>', genesis_attr( 'entry-comments' ) ) . $comments_closed_text . '</div>';
-		else
+		} else {
 			echo '<div id="comments">' . $comments_closed_text . '</div>';
+		}
 	}
 
 }
@@ -124,7 +128,7 @@ add_action( 'genesis_pings', 'genesis_do_pings' );
  *
  * @global WP_Query $wp_query Query object.
  *
- * @return null Return early if on a page with Genesis page trackbacks off, or on a
+ * @return void Return early if on a page with Genesis page trackbacks off, or on a
  *              post with Genesis post trackbacks off.
  */
 function genesis_do_pings() {
@@ -132,11 +136,12 @@ function genesis_do_pings() {
 	global $wp_query;
 
 	// Bail if trackbacks are off for this post type.
-	if ( ( is_page() && ! genesis_get_option( 'trackbacks_pages' ) ) || ( is_single() && ! genesis_get_option( 'trackbacks_posts' ) ) )
+	if ( ( is_page() && ! genesis_get_option( 'trackbacks_pages' ) ) || ( is_single() && ! genesis_get_option( 'trackbacks_posts' ) ) ) {
 		return;
+	}
 
 	// If have pings.
-	if ( have_comments() && !empty( $wp_query->comments_by_type['pings'] ) ) {
+	if ( ! empty( $wp_query->comments_by_type['pings'] ) && have_comments() ) {
 
 		genesis_markup( array(
 			'open'    => '<div %s>',
@@ -371,17 +376,18 @@ add_action( 'genesis_comment_form', 'genesis_do_comment_form' );
  * Optionally show the comment form.
  *
  * Genesis asks WP for the HTML5 version of the comment form - it uses {@link genesis_comment_form_args()} to revert to
- * XHTML form fields when child theme doesn't support HTML5.
+ * XHTML form fields when child theme does not support HTML5.
  *
  * @since 1.0.0
  *
- * @return null Return early if comments are closed via Genesis for this page or post.
+ * @return void Return early if comments are closed via Genesis for this page or post.
  */
 function genesis_do_comment_form() {
 
 	// Bail if comments are closed for this post type.
-	if ( ( is_page() && ! genesis_get_option( 'comments_pages' ) ) || ( is_single() && ! genesis_get_option( 'comments_posts' ) ) )
+	if ( ( is_page() && ! genesis_get_option( 'comments_pages' ) ) || ( is_single() && ! genesis_get_option( 'comments_posts' ) ) ) {
 		return;
+	}
 
 	comment_form( array( 'format' => 'html5' ) );
 
@@ -405,8 +411,9 @@ add_filter( 'comment_form_defaults', 'genesis_comment_form_args' );
 function genesis_comment_form_args( array $defaults ) {
 
 	// Use WordPress default HTML5 comment form if themes supports HTML5.
-	if ( genesis_html5() )
+	if ( genesis_html5() ) {
 		return $defaults;
+	}
 
 	global $user_identity;
 
@@ -467,8 +474,9 @@ add_filter( 'get_comments_link', 'genesis_comments_link_filter', 10, 2 );
  */
 function genesis_comments_link_filter( $link, $post_id ) {
 
-	if ( 0 == get_comments_number() )
+	if ( 0 == get_comments_number() ) {
 		return get_permalink( $post_id ) . '#respond';
+	}
 
 	return $link;
 

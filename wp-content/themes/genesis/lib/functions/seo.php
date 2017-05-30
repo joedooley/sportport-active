@@ -66,8 +66,9 @@ function genesis_disable_seo() {
  */
 function genesis_seo_disabled() {
 
-	if ( defined( 'GENESIS_SEO_DISABLED' ) && GENESIS_SEO_DISABLED )
+	if ( defined( 'GENESIS_SEO_DISABLED' ) && GENESIS_SEO_DISABLED ) {
 		return true;
+	}
 
 	return false;
 
@@ -86,8 +87,9 @@ add_action( 'after_setup_theme', 'genesis_seo_compatibility_check' );
  */
 function genesis_seo_compatibility_check() {
 
-	if ( genesis_detect_seo_plugins() )
+	if ( genesis_detect_seo_plugins() ) {
 		genesis_disable_seo();
+	}
 
 	// Disable Genesis <title> generation if SEO Title Tag is active.
 	if ( function_exists( 'seo_title_tag' ) ) {
@@ -111,11 +113,13 @@ add_action( 'admin_init', 'genesis_disable_scribe_nag' );
  */
 function genesis_disable_scribe_nag() {
 
-	if ( ! genesis_is_menu_page( 'seo-settings' ) )
+	if ( ! genesis_is_menu_page( 'seo-settings' ) ) {
 		return;
+	}
 
-	if ( ! isset( $_REQUEST['dismiss-scribe'] ) || 'true' !== $_REQUEST['dismiss-scribe'] )
+	if ( ! isset( $_REQUEST['dismiss-scribe'] ) || 'true' !== $_REQUEST['dismiss-scribe'] ) {
 		return;
+	}
 
 	update_option( 'genesis-scribe-nag-disabled', 1 );
 
@@ -127,7 +131,7 @@ function genesis_disable_scribe_nag() {
 /**
  * Detect some SEO Plugin that add constants, classes or functions.
  *
- * Applies `genesis_detect_seo_plugins` filter to allow third party manpulation of SEO plugin list.
+ * Applies `genesis_detect_seo_plugins` filter to allow third party manipulation of SEO plugin list.
  *
  * @since 1.6.0
  *

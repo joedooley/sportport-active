@@ -21,13 +21,15 @@
  */
 function genesis_nav_menu_supported( $menu ) {
 
-	if ( ! current_theme_supports( 'genesis-menus' ) )
+	if ( ! current_theme_supports( 'genesis-menus' ) ) {
 		return false;
+	}
 
 	$menus = get_theme_support( 'genesis-menus' );
 
-	if ( array_key_exists( $menu, (array) $menus[0] ) )
+	if ( array_key_exists( $menu, (array) $menus[0] ) ) {
 		return true;
+	}
 
 	return false;
 
@@ -67,14 +69,22 @@ function genesis_get_nav_menu( $args = array() ) {
 		'theme_location' => '',
 		'container'      => '',
 		'menu_class'     => 'menu genesis-nav-menu',
-		'link_before'    => genesis_html5() ? sprintf( '<span %s>', genesis_attr( 'nav-link-wrap' ) ) : '',
-		'link_after'     => genesis_html5() ? '</span>' : '',
+		'link_before'    => genesis_markup( array( 
+					'open'    => '<span %s>',
+					'context' => 'nav-link-wrap',
+					'echo'    => false,
+				) ),
+		'link_after'     => genesis_markup( array( 
+					'close'   => '</span>',
+					'context' => 'nav-link-wrap',
+					'echo'    => false,
+				) ),
 		'echo'           => 0,
 	) );
 
 	// If a menu is not assigned to theme location, abort.
 	if ( ! has_nav_menu( $args['theme_location'] ) ) {
-		return;
+		return null;
 	}
 
 	// If genesis-accessibility for 'drop-down-menu' is enabled and the menu doesn't already have the superfish class, add it.
@@ -88,7 +98,7 @@ function genesis_get_nav_menu( $args = array() ) {
 
 	// Do nothing if there is nothing to show.
 	if ( ! $nav ) {
-		return;
+		return null;
 	}
 
 	$nav_markup_open = genesis_structural_wrap( 'menu-' . $sanitized_location, 'open', 0 );

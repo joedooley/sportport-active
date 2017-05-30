@@ -47,7 +47,7 @@ function genesis_search_form() {
 				$label = apply_filters( 'genesis_search_text', __( 'Search this website', 'genesis' ) );
 			}
 
-			$form_id = uniqid( 'searchform-' );
+			$form_id = uniqid( 'searchform-', true );
 
 			$form .= sprintf(
 				'<meta itemprop="target" content="%s"/><label class="search-form-label screen-reader-text" for="%s">%s</label><input itemprop="query-input" type="search" name="s" id="%s" %s="%s" /><input type="submit" value="%s" /></form>',
