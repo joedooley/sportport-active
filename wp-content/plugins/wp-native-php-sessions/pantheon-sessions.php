@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Native PHP Sessions for WordPress
-Version: 0.6.0
+Version: 0.6.1
 Description: Offload PHP's native sessions to your database for multi-server compatibility.
 Author: Pantheon
 Author URI: https://www.pantheon.io/
@@ -131,7 +131,7 @@ class Pantheon_Sessions {
 	private function initialize_session_override() {
 		session_set_save_handler( '_pantheon_session_open', '_pantheon_session_close', '_pantheon_session_read', '_pantheon_session_write', '_pantheon_session_destroy', '_pantheon_session_garbage_collection' );
 		// Close the session before $wpdb destructs itself
-		add_action( 'shutdown', 'session_write_close', 999 );
+		add_action( 'shutdown', 'session_write_close', 999, 0 );
 		require_once dirname( __FILE__ ) . '/inc/class-session.php';
 	}
 

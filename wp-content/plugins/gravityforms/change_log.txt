@@ -1,4 +1,18 @@
 ------------------------------------------------------------------------------------------------------------------
+Version 2.2.3
+    - Added security enhancements. Credit: Gennady Kovshenin.
+    - Added support for Mastercard 2-series number.
+    - Fixed an issue which could prevent the gravityhelp.com support forms being successfully submitted when including the System Report from some sites.
+	- Fixed an issue with the ID attribute of the accepted file types message container when multiple File Upload fields are present on the page.
+	- Fixed an issue where a new field could be assigned the same id as a field to be deleted resulting in the new field being lost when the original field is deleted on save.
+	- Fixed an issue with File Upload field URLs in text format notifications containing escaped ampersands.
+	- Fixed missing confirmation message anchor for AJAX enabled single page forms.
+	- Fixed an issue where the urls of deleted files could remain in the multi-file enabled upload field entry value when editing the entry, if a new file was added at the same time.
+	- AF: Added "description" settings field property to display description below settings field.
+	- AF: Added "no_choices" select settings field property to display message when no choice are available for field.
+	- API: Fixed a database error in gform_get_meta_values_for_entries() when searching for meta keys with special characters e.g. hyphens.
+
+------------------------------------------------------------------------------------------------------------------
 Version 2.2.2
 	- Added 'gform_multifile_upload_field' filter to allow field object to be filtered.
 	- Added 'gform_duplicate_field' javascript filter to allow duplicated field to be changed.

@@ -189,6 +189,8 @@ class GF_System_Report {
 
 		}
 
+		$system_report_text = str_replace( '()', '', $system_report_text );
+
 		return $system_report_text;
 
 	}

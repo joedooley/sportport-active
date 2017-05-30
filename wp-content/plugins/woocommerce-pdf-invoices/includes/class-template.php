@@ -115,7 +115,7 @@ class BEWPI_Template {
 		}
 
 		if ( count( $template ) === 0 ) {
-			BEWPI()->logger()->error( sprintf( 'PDF generation aborted. Template not found in %1$s:%2$s', __FILE__,  __LINE__ ) );
+			WPI()->logger()->error( sprintf( 'PDF generation aborted. Template not found in %1$s:%2$s', __FILE__,  __LINE__ ) );
 		}
 
 		return $template;
@@ -286,7 +286,7 @@ class BEWPI_Template {
 	public function get_meta( $meta_key ) {
 		$order_id = BEWPI_WC_Order_Compatibility::get_id( $this->order );
 
-		return (string) get_post_meta( $order_id, $meta_key, true );
+		return get_post_meta( $order_id, $meta_key, true );
 	}
 
 	/**

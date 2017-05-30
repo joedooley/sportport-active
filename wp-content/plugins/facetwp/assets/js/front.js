@@ -366,7 +366,8 @@ var FWP = FWP || {};
             var inject = false;
         }
         else if ('wp' === FWP.template) {
-            var inject = $(response.template).find('.facetwp-template').html();
+            var tpl = $(response.template).find('.facetwp-template');
+            var inject = (0 < tpl.length) ? tpl.html() : response.template;
         }
         else {
             var inject = response.template;

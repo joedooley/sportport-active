@@ -45,24 +45,44 @@ class FacetWP_Facet_Date_Range
         $end = empty( $values[1] ) ? false : $values[1];
 
         $is_dual = ! empty( $facet['source_other'] );
-        $is_intersect = FWP()->helper->facet_is( $facet, 'compare_type', 'intersect' );
+        $compare_type = isset( $facet['compare_type'] ) ? $facet['compare_type'] : '';
 
-        /**
-         * Intersect compare
-         * @link http://stackoverflow.com/a/325964
-         */
-        if ( $is_dual && $is_intersect ) {
+        if ( $is_dual ) {
             $start = ( false !== $start ) ? $start : '0000-00-00';
             $end = ( false !== $end ) ? $end : '3000-12-31';
 
-            $where .= " AND (LEFT(facet_value, 10) <= '$end')";
-            $where .= " AND (LEFT(facet_display_value, 10) >= '$start')";
+            /**
+             * Intersect compare
+             * @link http://stackoverflow.com/a/325964
+             */
+            if ( 'intersect' == $compare_type ) {
+                $where .= " AND (LEFT(facet_value, 10) <= '$end')";
+                $where .= " AND (LEFT(facet_display_value, 10) >= '$start')";
+            }
+
+            /**
+             * Enclose compare
+             * The post's range must fully enclose the user-defined range
+             */
+            elseif ( 'enclose' == $compare_type ) {
+                $where .= " AND LEFT(facet_value, 10) <= '$start'";
+                $where .= " AND LEFT(facet_display_value, 10) >= '$end'";
+            }
         }
+
+        /**
+         * Exact match
+         */
         elseif ( 'exact' == $facet['fields'] ) {
             if ( $start ) {
                 $where .= " AND LEFT(facet_value, 10) = '$start'";
             }
         }
+
+        /**
+         * Basic compare
+         * The post's range must be fully inside the user-defined range
+         */
         else {
             if ( $start ) {
                 $where .= " AND LEFT(facet_value, 10) >= '$start'";
@@ -164,6 +184,7 @@ class FacetWP_Facet_Date_Range
             <td>
                 <select class="facet-compare-type">
                     <option value=""><?php _e( 'Basic', 'fwp' ); ?></option>
+                    <option value="enclose"><?php _e( 'Enclose', 'fwp' ); ?></option>
                     <option value="intersect"><?php _e( 'Intersect', 'fwp' ); ?></option>
                 </select>
             </td>
@@ -184,7 +205,7 @@ class FacetWP_Facet_Date_Range
                 <?php _e('Display format', 'fwp'); ?>:
                 <div class="facetwp-tooltip">
                     <span class="icon-question">?</span>
-                    <div class="facetwp-tooltip-content">See available <a href="https://chmln.github.io/flatpickr/#dateformat" target="_blank">format characters</a></div>
+                    <div class="facetwp-tooltip-content">See available <a href="https://chmln.github.io/flatpickr/formatting/" target="_blank">formatting tokens</a></div>
                 </div>
             </td>
             <td><input type="text" class="facet-format" value="" placeholder="Y-m-d" /></td>

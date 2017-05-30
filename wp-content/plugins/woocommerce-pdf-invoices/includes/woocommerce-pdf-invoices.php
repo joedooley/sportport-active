@@ -35,13 +35,6 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 		public $settings = array();
 
 		/**
-		 * All settings merged.
-		 *
-		 * @var array.
-		 */
-		public static $options = array();
-
-		/**
 		 * Main BE_WooCommerce_PDF_Invoices instance.
 		 *
 		 * @return BE_WooCommerce_PDF_Invoices
@@ -156,6 +149,8 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 				$this->frontend_init_hooks();
 			}
 
+			add_action( 'woocommerce_checkout_order_processed', array( __CLASS__, 'set_order' ), 10, 3 );
+
 			// @todo Move to BEWPI_Invoice class.
 			add_filter( 'woocommerce_email_headers', array( $this, 'add_emailitin_as_recipient' ), 10, 3 );
 			add_filter( 'woocommerce_email_attachments', array( $this, 'attach_invoice_to_email' ), 99, 3 );
@@ -168,8 +163,6 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 		 * @since 2.5.0
 		 */
 		public function admin_init_hooks() {
-			add_action( 'admin_init', array( $this, 'load_settings' ) );
-			add_action( 'admin_init', array( $this, 'setup_directories' ) );
 			add_action( 'admin_init', array( $this, 'admin_pdf_callback' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_scripts' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename( WPI_FILE ), array( $this, 'add_plugin_action_links' ) );
@@ -196,28 +189,9 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 		}
 
 		/**
-		 * Initialize settings.
-		 */
-		public function load_settings() {
-			$this->settings[] = new BEWPI_General_Settings();
-			$this->settings[] = new BEWPI_Template_Settings();
-			$this->settings = apply_filters( 'bewpi_settings', $this->settings );
-
-			foreach ( $this->settings as $setting ) {
-				self::$options = array_merge( self::$options, get_option( $setting->settings_key ) );
-			}
-
-			self::$options = apply_filters( 'bewpi_options', self::$options );
-		}
-
-		/**
 		 * Creates invoices dir in uploads folder.
 		 */
 		public static function setup_directories() {
-			if ( file_exists( WPI_UPLOADS_DIR ) ) {
-				return;
-			}
-
 			$current_year       = date_i18n( 'Y', current_time( 'timestamp' ) );
 			$directories        = apply_filters( 'bewpi_uploads_directories', array(
 				WPI_UPLOADS_DIR . '/attachments/' => array(
@@ -229,6 +203,10 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 					'index.php',
 				),
 				WPI_UPLOADS_DIR . '/fonts/' => array(
+					'.htaccess',
+					'index.php',
+				),
+				WPI_UPLOADS_DIR . '/mpdf/ttfontdata/' => array(
 					'.htaccess',
 					'index.php',
 				),
@@ -355,8 +333,9 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 					BEWPI_Invoice::view( $full_path );
 					break;
 				case 'view_packing_slip':
+					$view_mode = 'download' === WPI()->get_option( 'general', 'view_pdf' ) ? 'D' : 'I';
 					$packing_slip = new BEWPI_Packing_Slip( $order_id );
-					$packing_slip->generate( 'D' );
+					$packing_slip->generate( $view_mode );
 					break;
 				case 'cancel':
 					BEWPI_Invoice::delete( $order_id );
@@ -727,18 +706,41 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 		}
 
 		/**
-		 * Get option.
+		 * Set order for templater directly after creation to fetch order data.
 		 *
-		 * @param string $name Option name.
+		 * @param int      $order_id WC_Order ID.
+		 * @param string   $posted_data WC_Order posted data.
+		 * @param WC_Order $order WC_Order object.
+		 */
+		public static function set_order( $order_id, $posted_data, $order ) {
+			BEWPI()->templater()->set_order( $order );
+		}
+
+		/**
+		 * Get option by group and name.
+		 *
+		 * @param string $group Option group name (without 'bewpi_' prefix and '_settings' suffix). Available groups are: 'general', 'template' and 'premium'.
+		 * @param string $name Option name (without 'bewpi_' prefix).
 		 *
 		 * @return bool|mixed
 		 */
-		public static function get_option( $name ) {
-			if ( ! isset( self::$options[ $name ] ) ) {
+		public static function get_option( $group, $name = '' ) {
+			$option = apply_filters( 'bewpi_option', false, $group, $name );
+			if ( $option !== false ) {
+				return $option;
+			}
+
+			$options = get_option( 'bewpi_' . $group . '_settings' );
+			if ( $options === false ) {
 				return false;
 			}
 
-			return self::$options[ $name ];
+			$name = 'bewpi_' . $name;
+			if ( ! isset( $options[ $name ] ) ) {
+				return false;
+			}
+
+			return $options[ $name ];
 		}
 
 		/**

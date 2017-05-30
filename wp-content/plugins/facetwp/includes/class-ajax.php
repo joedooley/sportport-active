@@ -173,11 +173,18 @@ class FacetWP_Ajax
     function inject_template() {
         $html = ob_get_clean();
 
-        // We only want the <body>
-        preg_match( "/<body(.*?)>(.*?)<\/body>/s", $html, $matches );
+        // Throw an error
+        if ( empty( $this->output['settings'] ) ) {
+            $html = __( 'FacetWP was unable to auto-detect the post listing', 'fwp' );
+        }
+        else {
 
-        if ( ! empty( $matches ) ) {
-            $html = trim( $matches[2] );
+            // We only want the <body>
+            preg_match( "/<body(.*?)>(.*?)<\/body>/s", $html, $matches );
+
+            if ( ! empty( $matches ) ) {
+                $html = trim( $matches[2] );
+            }
         }
 
         $this->output['template'] = $html;

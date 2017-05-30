@@ -58,9 +58,11 @@ if ( ! empty( $activation ) ) {
     }
 }
 
+// Settings
+$settings = FWP()->helper->settings;
+
 // Export feature
 $export = array();
-$settings = FWP()->helper->settings;
 
 foreach ( $settings['facets'] as $facet ) {
     $export['facet-' . $facet['name']] = 'Facet - ' . $facet['label'];
@@ -72,9 +74,6 @@ foreach ( $settings['templates'] as $template ) {
 
 // Data sources
 $sources = FWP()->helper->get_data_sources();
-
-// Settings
-$settings = FWP()->helper->settings;
 
 ?>
 
@@ -203,13 +202,28 @@ FWP.builder = {
                     <tr>
                         <td><?php _e( 'License Key', 'fwp' ); ?></td>
                         <td>
-                            <input type="text" class="facetwp-license" style="width:280px" value="<?php echo get_option( 'facetwp_license' ); ?>" />
+                            <input type="text" class="facetwp-license" style="width:300px" value="<?php echo get_option( 'facetwp_license' ); ?>" />
                             <input type="button" class="button button-small facetwp-activate" value="<?php _e( 'Activate', 'fwp' ); ?>" />
                             <div class="facetwp-activation-status field-notes"><?php echo $message; ?></div>
                         </td>
                     </tr>
                 </table>
                 <table>
+                    <tr>
+                        <td>
+                            <?php _e( 'Google Maps API Key', 'fwp' ); ?>
+                            <div class="facetwp-tooltip">
+                                <span class="icon-question">?</span>
+                                <div class="facetwp-tooltip-content">
+                                    An API key is required for Proximity facets
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" class="facetwp-setting" data-name="gmaps_api_key" style="width:300px" />
+                            <a href="https://developers.google.com/maps/documentation/javascript/get-api-key#step-1-get-an-api-key-from-the-google-api-console" target="_blank">Get an API key</a>
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             <?php _e( 'Separators', 'fwp' ); ?>
