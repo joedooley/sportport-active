@@ -62,7 +62,7 @@
     $(document).on('click', '.facetwp-type-checkboxes .facetwp-expand', function(e) {
         $wrap = $(this).parent('.facetwp-checkbox').next('.facetwp-depth');
         $wrap.toggleClass('visible');
-        var content = $wrap.hasClass('visible') ? '[-]' : '[+]';
+        var content = $wrap.hasClass('visible') ? FWP_JSON['collapse'] : FWP_JSON['expand'];
         $(this).text(content);
         e.stopPropagation();
     });
@@ -91,13 +91,13 @@
         if (show_toggles && 1 > $('.facetwp-type-checkboxes .facetwp-expand').length) {
             $('.facetwp-type-checkboxes .facetwp-depth').each(function() {
                 var $parent = $(this).prev('.facetwp-checkbox');
-                $parent.append(' <span class="facetwp-expand">[+]</span>');
+                $parent.append(' <span class="facetwp-expand">' + FWP_JSON['expand'] + '</span>');
             });
 
             // un-hide groups with selected items
             $('.facetwp-type-checkboxes .facetwp-checkbox.checked').each(function() {
                 $(this).parents('.facetwp-depth').each(function() {
-                    $(this).prev('.facetwp-checkbox').find('.facetwp-expand').text('[-]');
+                    $(this).prev('.facetwp-checkbox').find('.facetwp-expand').text(FWP_JSON['collapse']);
                     $(this).addClass('visible');
                 });
             });

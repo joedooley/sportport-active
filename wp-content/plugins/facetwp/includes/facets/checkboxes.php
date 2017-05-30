@@ -280,11 +280,18 @@ class FacetWP_Facet_Checkboxes
         var display = ('yes' == $(this).val()) ? 'table-row' : 'none';
         $facet.find('.facet-preserve-ghosts').closest('tr').css({ 'display' : display });
     });
-
-
 })(jQuery);
 </script>
 <?php
+    }
+
+
+    /**
+     * Output any front-end scripts
+     */
+    function front_scripts() {
+        FWP()->display->json['expand'] = '[+]';
+        FWP()->display->json['collapse'] = '[-]';
     }
 
 

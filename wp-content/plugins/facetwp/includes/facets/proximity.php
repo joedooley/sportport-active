@@ -149,8 +149,17 @@ class FacetWP_Facet_Proximity_Core
      */
     function front_scripts() {
         if ( apply_filters( 'facetwp_proximity_load_js', true ) ) {
+
+            // hard-coded
             $api_key = defined( 'GMAPS_API_KEY' ) ? GMAPS_API_KEY : '';
+
+            // admin ui
+            $tmp_key = FWP()->helper->get_setting( 'gmaps_api_key' );
+            $api_key = empty( $tmp_key ) ? $api_key : $tmp_key;
+
+            // hook
             $api_key = apply_filters( 'facetwp_gmaps_api_key', $api_key );
+
             FWP()->display->assets['gmaps'] = '//maps.googleapis.com/maps/api/js?libraries=places&key=' . $api_key;
         }
 

@@ -17,9 +17,6 @@ class FacetWP_Overrides
      * Indexer modifications
      */
     function index_row( $params, $class ) {
-        if ( $class->is_overridden ) {
-            return $params;
-        }
 
         $facet = FWP()->helper->get_facet_by_name( $params['facet_name'] );
 
@@ -47,9 +44,6 @@ class FacetWP_Overrides
      * Make sure that numbers are properly formatted
      */
     function format_numbers( $params, $class ) {
-        if ( $class->is_overridden ) {
-            return $params;
-        }
 
         $value = $params['facet_value'];
         $label = $params['facet_display_value'];

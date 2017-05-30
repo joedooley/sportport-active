@@ -2102,6 +2102,14 @@ function GetNextFieldId(){
         if(parseFloat(form.fields[i].id) > max)
             max = parseFloat(form.fields[i].id);
     }
+
+	if (form.deletedFields) {
+		for (var i = 0; i < form.deletedFields.length; i++) {
+			if (parseFloat(form.deletedFields[i]) > max)
+				max = parseFloat(form.deletedFields[i]);
+		}
+	}
+
     return parseFloat(max) + 1;
 }
 

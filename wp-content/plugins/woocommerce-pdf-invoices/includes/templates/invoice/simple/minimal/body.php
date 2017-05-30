@@ -15,7 +15,7 @@
  * @version 0.0.1
  */
 
-$templater                      = BEWPI()->templater();
+$templater                      = WPI()->templater();
 $order                          = $templater->order;
 $invoice                        = $templater->invoice;
 $formatted_shipping_address     = $order->get_formatted_shipping_address();
@@ -150,7 +150,7 @@ $terms                          = $templater->get_option( 'bewpi_terms' );
 		<td>
 			<?php
 			// Zero Rated VAT message.
-			if ( $templater->get_meta( '_vat_number_is_valid' ) && count( $order->get_tax_totals() ) === 0 ) {
+			if ( 'true' === $templater->get_meta( '_vat_number_is_valid' ) && count( $order->get_tax_totals() ) === 0 ) {
 				_e( 'Zero rated for VAT as customer has supplied EU VAT number', 'woocommerce-pdf-invoices' );
 				printf( '<br />' );
 			}

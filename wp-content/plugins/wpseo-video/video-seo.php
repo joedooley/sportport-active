@@ -1,7 +1,7 @@
 <?php
 /**
 Plugin Name: Yoast SEO: Video
-Version: 4.7
+Version: 4.8
 Plugin URI: https://yoast.com/wordpress/plugins/video-seo/
 Description: This Video SEO module adds all needed metadata and XML Video sitemap capabilities to the metadata capabilities of WordPress SEO to fully optimize your site for video results in the search results.
 Author: Team Yoast
@@ -39,7 +39,7 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload_52.php' ) ) {
 	require dirname( __FILE__ ) . '/vendor/autoload_52.php';
 }
 
-define( 'WPSEO_VIDEO_VERSION', '4.7' );
+define( 'WPSEO_VIDEO_VERSION', '4.8' );
 define( 'WPSEO_VIDEO_FILE', __FILE__ );
 
 if ( ! function_exists( 'wp_installing' ) ) {

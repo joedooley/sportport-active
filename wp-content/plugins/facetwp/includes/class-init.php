@@ -142,6 +142,10 @@ class FacetWP_Init
      * Notify users to install necessary integrations
      */
     function admin_notices() {
+        if ( apply_filters( 'facetwp_dismiss_notices', false ) ) {
+            return;
+        }
+
         $reqs = array(
             'WPML' => array(
                 'is_active' => defined( 'ICL_SITEPRESS_VERSION' ),

@@ -327,7 +327,7 @@ final class FacetWP_Helper
     function safe_value( $value ) {
         $value = remove_accents( $value );
 
-        if ( preg_match( '/[^a-z0-9.\- ]/i', $value ) ) {
+        if ( preg_match( '/[^a-z0-9_.\- ]/i', $value ) ) {
             if ( ! preg_match( '/^\d{4}-(0[1-9]|1[012])-([012]\d|3[01])/', $value ) ) {
                 $value = md5( $value );
             }
@@ -348,7 +348,7 @@ final class FacetWP_Helper
 
         $num = str_replace( $sep_thousands, '', $num );
         $num = ( ',' == $sep_decimal ) ? str_replace( ',', '.', $num ) : $num;
-        $num = preg_replace( '/[^0-9.]/', '', $num );
+        $num = preg_replace( '/[^0-9-.]/', '', $num );
 
         return $num;
     }

@@ -6168,7 +6168,7 @@ function gform_get_meta_values_for_entries( $entry_ids, $meta_keys ) {
 	$meta_key_select_array = array();
 
 	foreach ( $meta_keys as $meta_key ) {
-		$meta_key_select_array[] = "max(case when meta_key = '$meta_key' then meta_value end) as $meta_key";
+		$meta_key_select_array[] = "max(case when meta_key = '$meta_key' then meta_value end) as `$meta_key`";
 	}
 
 	$entry_ids_str = join( ',', $entry_ids );

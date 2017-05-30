@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: FacetWP\n"
-"POT-Creation-Date: 2017-04-26 08:28-0400\n"
+"POT-Creation-Date: 2017-05-15 16:18-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Matt Gibbs <hello@facetwp.com>\n"
 "Language-Team: Johan Falk <johan@wpkonsulterna.se>\n"
@@ -9,33 +9,37 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.2\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: includes/class-ajax.php:200
+#: includes/class-ajax.php:178
+msgid "FacetWP was unable to auto-detect the post listing"
+msgstr ""
+
+#: includes/class-ajax.php:207
 msgid "Settings saved"
 msgstr "Inställningarna uppdaterade"
 
-#: includes/class-ajax.php:203
+#: includes/class-ajax.php:210
 msgid "Error: invalid JSON"
 msgstr "Fel: Ogiltig JSON"
 
-#: includes/class-ajax.php:322
+#: includes/class-ajax.php:329
 msgid "Nothing to import"
 msgstr "Inget att importera"
 
-#: includes/class-ajax.php:358
+#: includes/class-ajax.php:365
 msgid "Imported"
 msgstr "Importerade"
 
-#: includes/class-ajax.php:361
+#: includes/class-ajax.php:368
 msgid "Skipped"
 msgstr "Hoppade över"
 
-#: includes/class-ajax.php:392
+#: includes/class-ajax.php:399
 msgid "Error"
 msgstr "Fel"
 
@@ -43,7 +47,7 @@ msgstr "Fel"
 msgid "of"
 msgstr "av"
 
-#: includes/class-facet.php:497 includes/facets/checkboxes.php:313
+#: includes/class-facet.php:497 includes/facets/checkboxes.php:320
 #: includes/facets/dropdown.php:199 includes/facets/fselect.php:271
 #: includes/facets/hierarchy.php:218 includes/facets/radio.php:214
 msgid "Sort by"
@@ -105,16 +109,16 @@ msgstr "Taxonomier"
 msgid "Custom Fields"
 msgstr "Egna fält"
 
-#: includes/class-init.php:137 templates/page-settings.php:109
+#: includes/class-init.php:135 templates/page-settings.php:109
 msgid "Settings"
 msgstr "Inställningar"
 
-#: includes/class-init.php:165
+#: includes/class-init.php:167
 #, fuzzy
 msgid "integration add-on"
 msgstr "integration add-on"
 
-#: includes/class-init.php:166
+#: includes/class-init.php:168
 #, fuzzy, php-format
 msgid "To use FacetWP with %s, please install the %s, then re-index."
 msgstr "Använd FacetWP med %s, vänligen installera %s, sedan indexera."
@@ -156,102 +160,102 @@ msgstr "Se {num} mer"
 msgid "See less"
 msgstr "Visa färre"
 
-#: includes/facets/checkboxes.php:298 includes/facets/dropdown.php:184
+#: includes/facets/checkboxes.php:305 includes/facets/dropdown.php:184
 #: includes/facets/fselect.php:256 includes/facets/radio.php:199
 msgid "Parent term"
 msgstr "Föräldrabenämning"
 
-#: includes/facets/checkboxes.php:316 includes/facets/dropdown.php:202
+#: includes/facets/checkboxes.php:323 includes/facets/dropdown.php:202
 #: includes/facets/fselect.php:274 includes/facets/hierarchy.php:221
 #: includes/facets/radio.php:217
 msgid "Highest Count"
 msgstr "Högsta antal"
 
-#: includes/facets/checkboxes.php:317 includes/facets/dropdown.php:203
+#: includes/facets/checkboxes.php:324 includes/facets/dropdown.php:203
 #: includes/facets/fselect.php:275 includes/facets/hierarchy.php:222
 #: includes/facets/radio.php:218
 msgid "Display Value"
 msgstr "Visningsvärde"
 
-#: includes/facets/checkboxes.php:318 includes/facets/dropdown.php:204
+#: includes/facets/checkboxes.php:325 includes/facets/dropdown.php:204
 #: includes/facets/fselect.php:276 includes/facets/hierarchy.php:223
 #: includes/facets/radio.php:219
 msgid "Raw Value"
 msgstr "Obearbetat värde"
 
-#: includes/facets/checkboxes.php:324 includes/facets/fselect.php:282
+#: includes/facets/checkboxes.php:331 includes/facets/fselect.php:282
 msgid "Behavior"
 msgstr "Beteende"
 
-#: includes/facets/checkboxes.php:327 includes/facets/fselect.php:285
+#: includes/facets/checkboxes.php:334 includes/facets/fselect.php:285
 msgid "How should multiple selections affect the results?"
 msgstr "Hur ska flera val påverkar resultatet?"
 
-#: includes/facets/checkboxes.php:332 includes/facets/fselect.php:290
+#: includes/facets/checkboxes.php:339 includes/facets/fselect.php:290
 msgid "Narrow the result set"
 msgstr "Begränsa sökresultatet"
 
-#: includes/facets/checkboxes.php:333 includes/facets/fselect.php:291
+#: includes/facets/checkboxes.php:340 includes/facets/fselect.php:291
 msgid "Widen the result set"
 msgstr "Bredda sökresultatet"
 
-#: includes/facets/checkboxes.php:339 includes/facets/dropdown.php:210
+#: includes/facets/checkboxes.php:346 includes/facets/dropdown.php:210
 msgid "Hierarchical"
 msgstr "Hierarkisk"
 
-#: includes/facets/checkboxes.php:342 includes/facets/dropdown.php:213
+#: includes/facets/checkboxes.php:349 includes/facets/dropdown.php:213
 msgid "Is this a hierarchical taxonomy?"
 msgstr "Är detta en hierarkisk taxonomi?"
 
-#: includes/facets/checkboxes.php:347 includes/facets/checkboxes.php:362
-#: includes/facets/checkboxes.php:377 includes/facets/dropdown.php:218
+#: includes/facets/checkboxes.php:354 includes/facets/checkboxes.php:369
+#: includes/facets/checkboxes.php:384 includes/facets/dropdown.php:218
 #: includes/facets/fselect.php:243 includes/facets/radio.php:233
 #: includes/facets/radio.php:248 includes/integrations/acf/acf.php:207
 #: templates/page-settings.php:267 templates/page-settings.php:284
 msgid "No"
 msgstr "Nej"
 
-#: includes/facets/checkboxes.php:348 includes/facets/checkboxes.php:363
-#: includes/facets/checkboxes.php:378 includes/facets/dropdown.php:219
+#: includes/facets/checkboxes.php:355 includes/facets/checkboxes.php:370
+#: includes/facets/checkboxes.php:385 includes/facets/dropdown.php:219
 #: includes/facets/fselect.php:244 includes/facets/radio.php:234
 #: includes/facets/radio.php:249 includes/integrations/acf/acf.php:207
 #: templates/page-settings.php:268 templates/page-settings.php:285
 msgid "Yes"
 msgstr "Ja"
 
-#: includes/facets/checkboxes.php:354 includes/facets/radio.php:225
+#: includes/facets/checkboxes.php:361 includes/facets/radio.php:225
 msgid "Show ghosts"
 msgstr "Visa spöken"
 
-#: includes/facets/checkboxes.php:357 includes/facets/radio.php:228
+#: includes/facets/checkboxes.php:364 includes/facets/radio.php:228
 msgid "Show choices that would return zero results?"
 msgstr "Visa val som skulle inte skulle ge några sökresultat?"
 
-#: includes/facets/checkboxes.php:369 includes/facets/radio.php:240
+#: includes/facets/checkboxes.php:376 includes/facets/radio.php:240
 msgid "Preserve ghost order"
 msgstr "Bevara spökordning"
 
-#: includes/facets/checkboxes.php:372 includes/facets/radio.php:243
+#: includes/facets/checkboxes.php:379 includes/facets/radio.php:243
 msgid "Keep ghost choices in the same order?"
 msgstr "Håll spökval i samma ordning?"
 
-#: includes/facets/checkboxes.php:384 includes/facets/dropdown.php:225
+#: includes/facets/checkboxes.php:391 includes/facets/dropdown.php:225
 #: includes/facets/fselect.php:297 includes/facets/hierarchy.php:229
 #: includes/facets/radio.php:255
 msgid "Count"
 msgstr "Antal"
 
-#: includes/facets/checkboxes.php:387 includes/facets/dropdown.php:228
+#: includes/facets/checkboxes.php:394 includes/facets/dropdown.php:228
 #: includes/facets/fselect.php:300 includes/facets/hierarchy.php:232
 #: includes/facets/radio.php:258
 msgid "The maximum number of facet choices to show"
 msgstr "Det maximala antalet fasettval att visa"
 
-#: includes/facets/checkboxes.php:394
+#: includes/facets/checkboxes.php:401
 msgid "Soft Limit"
 msgstr "Mjuk gräns"
 
-#: includes/facets/checkboxes.php:397
+#: includes/facets/checkboxes.php:404
 msgid "Show a toggle link after this many choices"
 msgstr "Visa en växla link after delta manga val"
 
