@@ -24,6 +24,24 @@ require_once __DIR__ . '/assets/functions/shortcodes.php';
 
 
 /**
+ * Add WooCommerce Support. Added for 3.0 upgrade
+ */
+include_once __DIR__ . '/lib/woocommerce/woocommerce-setup.php';
+
+
+/**
+ * Add the required WooCommerce styles and Customizer CSS.
+ */
+include_once __DIR__ . '/lib/woocommerce/woocommerce-output.php';
+
+
+/**
+ * Add the Genesis Connect WooCommerce notice.
+ */
+include_once __DIR__ . '/lib/woocommerce/woocommerce-notice.php';
+
+
+/**
  * Define Child Theme Constants
  */
 define( 'CHILD_THEME_NAME', 'Epik Theme' );
