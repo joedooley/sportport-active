@@ -26,19 +26,19 @@ require_once __DIR__ . '/assets/functions/shortcodes.php';
 /**
  * Add WooCommerce Support. Added for 3.0 upgrade
  */
-include_once __DIR__ . '/lib/woocommerce/woocommerce-setup.php';
+include_once __DIR__ . '/assets/functions/woocommerce/woocommerce-setup.php';
 
 
 /**
  * Add the required WooCommerce styles and Customizer CSS.
  */
-include_once __DIR__ . '/lib/woocommerce/woocommerce-output.php';
+include_once __DIR__ . '/assets/functions/woocommerce/woocommerce-output.php';
 
 
 /**
  * Add the Genesis Connect WooCommerce notice.
  */
-include_once __DIR__ . '/lib/woocommerce/woocommerce-notice.php';
+include_once __DIR__ . '/assets/functions/woocommerce/woocommerce-notice.php';
 
 
 /**
