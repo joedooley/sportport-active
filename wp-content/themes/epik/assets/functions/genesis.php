@@ -76,6 +76,13 @@ function spa_add_theme_support() {
 	 * Remove inpost layout settings
 	 */
 	remove_theme_support( 'genesis-inpost-layouts' );
+
+	/**
+	 * Add WooCommerce 3.0 gallery features
+	 */
+	add_theme_support( 'wc-product-gallery-zoom' );
+	add_theme_support( 'wc-product-gallery-lightbox' );
+	add_theme_support( 'wc-product-gallery-slider' );
 }
 
 
