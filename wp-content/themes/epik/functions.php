@@ -30,12 +30,6 @@ include_once __DIR__ . '/assets/functions/woocommerce/woocommerce-setup.php';
 
 
 /**
- * Add the required WooCommerce styles and Customizer CSS.
- */
-include_once __DIR__ . '/assets/functions/woocommerce/woocommerce-output.php';
-
-
-/**
  * Add the Genesis Connect WooCommerce notice.
  */
 include_once __DIR__ . '/assets/functions/woocommerce/woocommerce-notice.php';
