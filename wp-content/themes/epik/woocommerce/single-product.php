@@ -1,5 +1,22 @@
 <?php
 /**
+ * The Template for displaying all single products
+ *
+ * This template can be overridden by copying it to yourtheme/woocommerce/single-product.php.
+ *
+ * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * (the theme developer) will need to copy the new files to your theme to
+ * maintain compatibility. We try to do this as little as possible, but it does
+ * happen. When this occurs the version of the template file will be bumped and
+ * the readme will list any important changes.
+ *
+ * @see           https://docs.woocommerce.com/document/template-structure/
+ * @author        WooThemes
+ * @package       WooCommerce/Templates
+ * @version       1.6.4
+ */
+
+/**
  * This template displays the single Product
  *
  * @package genesis_connect_woocommerce
@@ -16,6 +33,7 @@
  * any future updates to this plugin won't wipe out your customisations.
  *
  */
+
 
 /** Remove default Genesis loop */
 remove_action( 'genesis_loop', 'genesis_do_loop' );
@@ -34,12 +52,9 @@ remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wr
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
 
 /** Switch Add To Cart and Summary sections */
-remove_action( 'woocommerce_single_variation',
-	'woocommerce_single_variation_add_to_cart_button', 10 );
-remove_action( 'woocommerce_single_variation',
-	'woocommerce_single_variation_add_to_cart_button', 20 );
-add_action( 'woocommerce_before_add_to_cart_button',
-	'woocommerce_single_variation_add_to_cart_button', 10 );
+remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 10 );
+remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 20 );
+add_action( 'woocommerce_before_add_to_cart_button', 'woocommerce_single_variation_add_to_cart_button', 10 );
 
 
 
@@ -154,16 +169,6 @@ function gencwooc_single_product_loop() {
 				<?php do_action( 'woocommerce_single_product_summary' ); ?>
 
 				<?php echo acf_accordion(); ?>
-
-				<?php
-
-				/**
-				 * Removing due to redundancy in the above-footer widget.
-				 * May have to add back.
-				 */
-				// wc_get_template_part( 'product', 'sociallinks' );
-
-				?>
 
 				<?php do_action( 'woocommerce_after_single_product_summary' ); ?>
 
