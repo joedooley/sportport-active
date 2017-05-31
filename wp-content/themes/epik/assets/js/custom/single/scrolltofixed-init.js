@@ -23,7 +23,7 @@ jQuery(function ($) {
 		if (window.matchMedia("(min-width: 1024px)").matches) {
 
 			//set left height yeah
-			$('.product > .images').height(leftHeight) ;
+			$('.all-images').height(leftHeight) ;
 
 			//set image height
 			$('.product-img-box').height(imageHeight);
@@ -31,12 +31,12 @@ jQuery(function ($) {
 
 			//check if fixed position or not
 			if (footerTop < currScroll + winHeight - scrollHeight) {
-				$('.product > .images').css({
+				$('.all-images').css({
 					'position': 'absolute',
 					'top'     : footerTop - leftHeight - scrollHeight - 15
 				});
 			} else {
-				$('.product > .images').css({
+				$('.all-images').css({
 					'position': 'fixed',
 					'top'     : scrollHeight > currScroll ? scrollHeight - currScroll : 0
 				});
@@ -44,9 +44,8 @@ jQuery(function ($) {
 
 		} else {
 
-
 			//Remove styling for mobile
-			$('.product > .images').attr('style', '');
+			$('.all-images').attr('style', '');
 			$('.product-img-box').attr('style', '');
 
 

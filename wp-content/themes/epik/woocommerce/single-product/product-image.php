@@ -33,7 +33,7 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
 	'images',
 ) );
 ?>
-<div class = "images">
+<div class = "all-images">
 	<div class = "left-container">
 		<div class = "product-img-box">
 
