@@ -1,68 +1,66 @@
 jQuery(function ($) {
 
-	function positionProduct(e) {
+  function positionProduct (e) {
 
-		var winHeight    = window.innerHeight;
-		var headerHeight = $('.site-header').outerHeight();
-		var footerTop    = $('.above-footer-widgets').position().top;
-		var headerTop    = $('.site-header .title-area .site-title img').position().top;
-		var paddingTop   = parseInt($('.images').css('padding-top'));
-		var beforeHeader = $('.before-header').outerHeight();
-		var wcMessage    = $('.woocommerce-message').outerHeight();
-		var wpAdminBar   = $('#wpadminbar').outerHeight();
+    var winHeight = window.innerHeight;
 
-		var scrollHeight = headerHeight + beforeHeader + beforeHeader + wcMessage + wpAdminBar;
+    var wpAdminBar = $('#wpadminbar').outerHeight() || 0;
+    var beforeHeader = $('.before-header').outerHeight() || 0;
+    var headerHeight = $('.site-header').outerHeight();
 
-		var leftHeight = winHeight - headerHeight - beforeHeader;
+    var headerTop = $('.site-header .title-area .site-title img').position().top;
 
-		var currScroll = $(window).scrollTop();
+    var footerTop = $('.above-footer-widgets').position().top;
+    var paddingTop = parseInt($('.all-images').css('padding-top'));
+    var wcMessage = $('.woocommerce-message').outerHeight();
 
-		var imageHeight = leftHeight - paddingTop;
+    var scrollHeight = headerHeight + beforeHeader + beforeHeader + wcMessage + wpAdminBar;
 
+    var leftHeight = winHeight - headerHeight - beforeHeader - wpAdminBar;
 
-		if (window.matchMedia("(min-width: 1024px)").matches) {
+    var currScroll = $(window).scrollTop();
 
-			//set left height yeah
-			$('.all-images').height(leftHeight) ;
+    var imageHeight = leftHeight - paddingTop;
 
-			//set image height
-			$('.product-img-box').height(imageHeight);
+    if (window.matchMedia("(min-width: 1024px)").matches) {
 
+      //set left height yeah
+      $('.all-images').height(leftHeight);
 
-			//check if fixed position or not
-			if (footerTop < currScroll + winHeight - scrollHeight) {
-				$('.all-images').css({
-					'position': 'absolute',
-					'top'     : footerTop - leftHeight - scrollHeight - 15
-				});
-			} else {
-				$('.all-images').css({
-					'position': 'fixed',
-					'top'     : scrollHeight > currScroll ? scrollHeight - currScroll : 0
-				});
-			}
+      //set image height
+      $('.product-img-box').height(imageHeight);
 
-		} else {
+      //check if fixed position or not
+      if (footerTop < currScroll + winHeight - scrollHeight) {
+        $('.all-images').css({
+          'position': 'absolute',
+          'top': footerTop - leftHeight - scrollHeight - 15
+        });
+      } else {
+        $('.all-images').css({
+          'position': 'fixed',
+          'top': scrollHeight > currScroll ? scrollHeight - currScroll : 0
+        });
+      }
 
-			//Remove styling for mobile
-			$('.all-images').attr('style', '');
-			$('.product-img-box').attr('style', '');
+    } else {
 
+      //Remove styling for mobile
+      $('.all-images').attr('style', '');
+      $('.product-img-box').attr('style', '');
 
-		}
-	}
+    }
+  }
 
+  $(window).on('resize', positionProduct);
 
-	$(window).on('resize', positionProduct);
+  $(window).load(function () {
+    setTimeout(positionProduct, 200);
+  });
 
-	$(window).load(function () {
-		setTimeout(positionProduct, 200);
-	});
-
-	$(window).on('scroll', function (e) {
-		positionProduct(e);
-	});
-
+  $(window).on('scroll', function (e) {
+    positionProduct(e);
+  });
 
 });
 
