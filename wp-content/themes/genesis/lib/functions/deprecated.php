@@ -12,6 +12,113 @@
  */
 
 /**
+ * Deprecated. Return registered image sizes.
+ *
+ * Return a two-dimensional array of just the additionally registered image sizes, with width, height and crop sub-keys.
+ *
+ * @since 0.1.7
+ * @deprecated 2.5.0
+ *
+ * @global array $_wp_additional_image_sizes Additionally registered image sizes.
+ *
+ * @return array Two-dimensional, with `width`, `height` and `crop` sub-keys.
+ */
+function genesis_get_additional_image_sizes() {
+
+	_deprecated_function( __FUNCTION__, '2.5.0', 'wp_get_additional_image_sizes' );
+
+	return wp_get_additional_image_sizes();
+}
+
+/**
+ * Deprecated. A list of Genesis contributors for the current development cycle.
+ *
+ * @since 2.0.0
+ * @deprecated 2.5.0
+ *
+ * @return array List of contributors.
+ */
+function genesis_contributors() {
+
+	_deprecated_function( __FUNCTION__, '2.5.0', 'Genesis_Contributors::find_contributors' );
+
+	$people = require GENESIS_CONFIG_DIR . '/contributors.php';
+	$genesis_contributors = new Genesis_Contributors( $people );
+
+	// The original function didn't contain the logic to shuffle the list, so we use the un-shuffled list here.
+	foreach ( $genesis_contributors->find_by_role( 'contributor' ) as $key => $contributor ) {
+		// The collection object currently returns an array of Genesis_Contributor object, so it can't
+		// support a to_array() method where this logic would go.
+		$contributors[ $key ]['name'] = $contributor->get_name();
+		$contributors[ $key ]['url'] = $contributor->get_profile_url();
+		$contributors[ $key ]['gravatar'] = $contributor->get_avatar_url();
+	}
+
+	return $contributors;
+}
+
+/**
+ * Deprecated. Register the scripts that Genesis will use.
+ *
+ * @since 2.0.0
+ * @deprecated 2.5.0
+ */
+function genesis_register_scripts() {
+
+	_deprecated_function( __FUNCTION__, '2.5.0' );
+
+}
+
+/**
+ * Deprecated. Enqueue the scripts used on the front-end of the site.
+ *
+ * Includes comment-reply, superfish and the superfish arguments.
+ *
+ * Applies the `genesis_superfish_enabled`, and `genesis_superfish_args_uri`. filter.
+ *
+ * @since 0.2.0
+ * @deprecated 2.5.0
+ */
+function genesis_load_scripts() {
+
+	_deprecated_function( __FUNCTION__, '2.5.0' );
+
+}
+
+/**
+ * Deprecated. Conditionally enqueue the scripts used in the admin.
+ *
+ * Includes Thickbox, theme preview and a Genesis script (actually enqueued in genesis_load_admin_js()).
+ *
+ * @since 0.2.3
+ * @deprecated 2.5.0
+ *
+ * @param string $hook_suffix Admin page identifier.
+ */
+function genesis_load_admin_scripts( $hook_suffix ) {
+
+	_deprecated_function( __FUNCTION__, '2.5.0' );
+
+}
+
+/**
+ * Deprecated. Enqueues the custom script used in the admin, and localizes several strings or values used in the scripts.
+ *
+ * Applies the `genesis_toggles` filter to toggleable admin settings, so plugin developers can add their own without
+ * having to recreate the whole setup.
+ *
+ * @since 1.8.0
+ * @deprecated 2.5.0
+ */
+function genesis_load_admin_js() {
+
+	_deprecated_function( __FUNCTION__, '2.5.0', 'genesis_scripts()->enqueue_and_localize_admin_scripts()' );
+
+	genesis_scripts()->enqueue_and_localize_admin_scripts();
+
+}
+
+/**
  * Deprecated. Load the html5 shiv for IE8 and below. Can't enqueue with IE conditionals.
  *
  * @since 2.0.0
@@ -77,14 +184,15 @@ function genesis_rel_publisher() {
  * @see genesis_do_subnav()
  *
  * @param array $args Menu arguments.
- * @return string HTML for menu, unless `genesis_pre_nav` filter returns something truthy.
+ * @return null|string HTML for menu, unless `genesis_pre_nav` filter returns something truthy.
  */
 function genesis_nav( $args = array() ) {
 
 	_deprecated_function( __FUNCTION__, '2.2.0', 'genesis_nav_menu' );
 
-	if ( isset( $args['context'] ) )
+	if ( isset( $args['context'] ) ) {
 		_deprecated_argument( __FUNCTION__, '1.2', __( 'The argument, "context", has been replaced with "theme_location" in the $args array.', 'genesis' ) );
+	}
 
 	// Default arguments.
 	$defaults = array(
@@ -103,8 +211,9 @@ function genesis_nav( $args = array() ) {
 
 	// Allow child theme to short-circuit this function.
 	$pre = apply_filters( 'genesis_pre_nav', false, $args );
-	if ( $pre )
+	if ( $pre ) {
 		return $pre;
+	}
 
 	$menu = '';
 
@@ -112,22 +221,24 @@ function genesis_nav( $args = array() ) {
 
 	// Show Home in the menu (mostly copied from WP source).
 	if ( isset( $args['show_home'] ) && ! empty( $args['show_home'] ) ) {
-		if ( true === $args['show_home'] || '1' === $args['show_home'] || 1 === $args['show_home'] )
+		if ( true === $args['show_home'] || '1' === $args['show_home'] || 1 === $args['show_home'] ) {
 			$text = apply_filters( 'genesis_nav_home_text', __( 'Home', 'genesis' ), $args );
-		else
+		} else {
 			$text = $args['show_home'];
+		}
 
-		if ( is_front_page() && ! is_paged() )
+		if ( is_front_page() && ! is_paged() ) {
 			$class = 'class="home current_page_item"';
-		else
+		} else {
 			$class = 'class="home"';
+		}
 
 		$home = '<li ' . $class . '><a href="' . trailingslashit( home_url() ) . '">' . $args['link_before'] . $text . $args['link_after'] . '</a></li>';
 
 		$menu .= genesis_get_seo_option( 'nofollow_home_link' ) ? genesis_rel_nofollow( $home ) : $home;
 
 		// If the front page is a page, add it to the exclude list.
-		if ( 'page' === get_option( 'show_on_front' ) && 'pages' === $args['type'] ) {
+		if ( 'pages' === $args['type'] && 'page' === get_option( 'show_on_front' ) ) {
 			$list_args['exclude'] .= $list_args['exclude'] ? ',' : '';
 
 			$list_args['exclude'] .= get_option( 'page_on_front' );
@@ -138,27 +249,32 @@ function genesis_nav( $args = array() ) {
 	$list_args['title_li'] = '';
 
 	// Add menu items.
-	if ( 'pages' === $args['type'] )
+	if ( 'pages' === $args['type'] ) {
 		$menu .= str_replace( array( "\r", "\n", "\t" ), '', wp_list_pages( $list_args ) );
-	elseif ( 'categories' === $args['type'] )
+	} elseif ( 'categories' === $args['type'] ) {
 		$menu .= str_replace( array( "\r", "\n", "\t" ), '', wp_list_categories( $list_args ) );
+	}
 
 	// Apply filters to the nav items.
 	$menu = apply_filters( 'genesis_nav_items', $menu, $args );
 
-	$menu_class = ( $args['menu_class'] ) ? ' class="' . esc_attr( $args['menu_class'] ) . '"' : '';
-	$menu_id    = ( $args['menu_id'] ) ? ' id="' . esc_attr( $args['menu_id'] ) . '"' : '';
+	$menu_class = $args['menu_class'] ? ' class="' . esc_attr( $args['menu_class'] ) . '"' : '';
+	$menu_id    = $args['menu_id'] ? ' id="' . esc_attr( $args['menu_id'] ) . '"' : '';
 
-	if ( $menu )
+	if ( $menu ) {
 		$menu = '<ul' . $menu_id . $menu_class . '>' . $menu . '</ul>';
+	}
 
 	// Apply filters to the final nav output.
 	$menu = apply_filters( 'genesis_nav', $menu, $args );
 
-	if ( $args['echo'] )
+	if ( $args['echo'] ) {
 		echo $menu;
-	else
+
+		return null;
+	} else {
 		return $menu;
+	}
 
 }
 
@@ -225,22 +341,24 @@ function genesis_older_newer_posts_nav() {
  *
  * @global string $wp_version WordPress version string.
  *
- * @return null Return early if `show_info` setting is falsy, or not a child theme.
+ * @return void Return early if `show_info` setting is falsy, or not a child theme.
  */
 function genesis_show_theme_info_in_head() {
 
 	_deprecated_function( __FUNCTION__, '2.0.0', __( 'data in style sheet files', 'genesis' ) );
 
-	if ( ! genesis_get_option( 'show_info' ) )
+	if ( ! genesis_get_option( 'show_info' ) ) {
 		return;
+	}
 
 	// Show Parent Info.
 	echo "\n" . '<!-- Theme Information -->' . "\n";
 	echo '<meta name="wp_template" content="' . esc_attr( PARENT_THEME_NAME ) . ' ' . esc_attr( PARENT_THEME_VERSION ) . '" />' . "\n";
 
 	// If there is no child theme, don't continue.
-	if ( ! is_child_theme() )
+	if ( ! is_child_theme() ) {
 		return;
+	}
 
 	global $wp_version;
 
@@ -292,7 +410,7 @@ function genesis_theme_files_to_edit() {
  * @link http://www.snipe.net/2009/09/php-twitter-clickable-links/
  *
  * @param string $text A string representing the content of a tweet.
- * @return string Linkified tweet content.
+ * @return string Tweet content with added links.
  */
 function genesis_tweet_linkify( $text ) {
 
@@ -1198,11 +1316,11 @@ function genesis_post_author_posts_link( $label = '' ) {
  *
  * @see genesis_post_comments_shortcode()
  *
- * @param string $zero Optional. Text when there are no comments. Default is "No Comments".
+ * @param string $zero Optional. Text when there are no comments. Default is "Leave a Comment".
  * @param string $one  Optional. Text when there is exactly one comment. Default is "1 Comment".
  * @param string $more Optional. Text when there is more than one comment. Default is "% Comments".
  */
-function genesis_post_comments_link( $zero = false, $one = false, $more = false ) {
+function genesis_post_comments_link( $zero = null, $one = null, $more = null ) {
 
 	_deprecated_function( __FUNCTION__, '1.5.0', 'genesis_post_comments_shortcode()' );
 

@@ -45,6 +45,10 @@ function genesis_footer_backtotop_shortcode( $atts ) {
 
 	$output = sprintf( '%s<a href="%s" %s>%s</a>%s', $atts['before'], esc_url( $atts['href'] ), $nofollow, $atts['text'], $atts['after'] );
 
+	if ( genesis_html5() ) {
+		$output = '';
+	}
+
 	return apply_filters( 'genesis_footer_backtotop_shortcode', $output, $atts );
 
 }
@@ -82,8 +86,9 @@ function genesis_footer_copyright_shortcode( $atts ) {
 
 	$output = $atts['before'] . $atts['copyright'] . '&nbsp;';
 
-	if ( '' != $atts['first'] && date( 'Y' ) != $atts['first'] )
+	if ( '' != $atts['first'] && date( 'Y' ) != $atts['first'] ) {
 		$output .= $atts['first'] . '&#x02013;';
+	}
 
 	$output .= date( 'Y' ) . $atts['after'];
 
@@ -104,13 +109,14 @@ add_shortcode( 'footer_childtheme_link', 'genesis_footer_childtheme_link_shortco
  * @since 1.1.0
  *
  * @param array|string $atts Shortcode attributes. Empty string if no attributes.
- * @return string|null Return early if not a child theme, or `CHILD_THEME_NAME` or `CHILD_THEME_URL`
+ * @return null|string Return empty string early if not a child theme, or `CHILD_THEME_NAME` or `CHILD_THEME_URL`
  *                     are not defined. Otherwise return output for `footer_childtheme_link` shortcode.
  */
 function genesis_footer_childtheme_link_shortcode( $atts ) {
 
-	if ( ! is_child_theme() || ! defined( 'CHILD_THEME_NAME' ) || ! defined( 'CHILD_THEME_URL' ) )
-		return;
+	if ( ! defined( 'CHILD_THEME_NAME' ) || ! defined( 'CHILD_THEME_URL' ) || ! is_child_theme() ) {
+		return null;
+	}
 
 	$defaults = array(
 		'after'  => '',
@@ -297,10 +303,11 @@ function genesis_footer_loginout_shortcode( $atts ) {
 	);
 	$atts = shortcode_atts( $defaults, $atts, 'footer_loginout' );
 
-	if ( ! is_user_logged_in() )
+	if ( ! is_user_logged_in() ) {
 		$link = '<a href="' . esc_url( wp_login_url( $atts['redirect'] ) ) . '">' . __( 'Log in', 'genesis' ) . '</a>';
-	else
+	} else {
 		$link = '<a href="' . esc_url( wp_logout_url( $atts['redirect'] ) ) . '">' . __( 'Log out', 'genesis' ) . '</a>';
+	}
 
 	$output = $atts['before'] . apply_filters( 'loginout', $link ) . $atts['after'];
 

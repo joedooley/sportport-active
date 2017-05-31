@@ -24,6 +24,18 @@ require_once __DIR__ . '/assets/functions/shortcodes.php';
 
 
 /**
+ * Add WooCommerce Support. Added for 3.0 upgrade
+ */
+include_once __DIR__ . '/assets/functions/woocommerce/woocommerce-setup.php';
+
+
+/**
+ * Add the Genesis Connect WooCommerce notice.
+ */
+include_once __DIR__ . '/assets/functions/woocommerce/woocommerce-notice.php';
+
+
+/**
  * Define Child Theme Constants
  */
 define( 'CHILD_THEME_NAME', 'Epik Theme' );
@@ -32,12 +44,6 @@ define( 'CHILD_THEME_VERSION', '1.0.0' );
 define( 'CHILD_THEME_TEXTDOMAIN', 'epik' );
 define( 'CHILD_JS_DIR', get_stylesheet_directory_uri() . '/dist/js/custom' );
 define( 'CHILD_VENDOR_JS_DIR', get_stylesheet_directory_uri() . '/dist/js/vendors' );
-
-
-/**
- * Enable WooCommerce support.
- */
-add_theme_support( 'genesis-connect-woocommerce' );
 
 
 /**

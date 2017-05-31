@@ -76,6 +76,7 @@ function spa_add_theme_support() {
 	 * Remove inpost layout settings
 	 */
 	remove_theme_support( 'genesis-inpost-layouts' );
+
 }
 
 

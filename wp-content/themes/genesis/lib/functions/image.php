@@ -83,11 +83,12 @@ function genesis_get_image( $args = array() ) {
 
 	// Allow child theme to short-circuit this function.
 	$pre = apply_filters( 'genesis_pre_get_image', false, $args, get_post() );
-	if ( false !== $pre )
+	if ( false !== $pre ) {
 		return $pre;
+	}
 
 	// If post thumbnail (native WP) exists, use its id.
-	if ( has_post_thumbnail( $args['post_id'] ) && ( 0 === $args['num'] ) ) {
+	if ( 0 === $args['num'] && has_post_thumbnail( $args['post_id'] ) ) {
 		$id = get_post_thumbnail_id( $args['post_id'] );
 	} elseif ( 'first-attached' === $args['fallback'] ) {
 		// Else if the first (default) image attachment is the fallback, use its id.
@@ -115,15 +116,18 @@ function genesis_get_image( $args = array() ) {
 	$src = str_replace( home_url(), '', $url );
 
 	// Determine output.
-	if ( 'html' === mb_strtolower( $args['format'] ) )
+	if ( 'html' === mb_strtolower( $args['format'] ) ) {
 		$output = $html;
-	elseif ( 'url' === mb_strtolower( $args['format'] ) )
+	} elseif ( 'url' === mb_strtolower( $args['format'] ) ) {
 		$output = $url;
-	else
+	} else {
 		$output = $src;
+	}
 
 	// Return false if $url is blank.
-	if ( empty( $url ) ) $output = false;
+	if ( empty( $url ) ) {
+		$output = false;
+	}
 
 	// Return data, filtered.
 	return apply_filters( 'genesis_get_image', $output, $args, $id, $html, $url, $src );
@@ -142,38 +146,19 @@ function genesis_get_image( $args = array() ) {
  * @since 0.1.0
  *
  * @param array|string $args Optional. Image query arguments. Default is empty array.
- * @return false Returns `false` if URL is empty.
+ * @return null|false Returns `false` if URL is empty.
  */
 function genesis_image( $args = array() ) {
 
 	$image = genesis_get_image( $args );
 
-	if ( $image )
+	if ( $image ) {
 		echo $image;
-	else
+
+		return null;
+	} else {
 		return false;
-
-}
-
-/**
- * Return registered image sizes.
- *
- * Return a two-dimensional array of just the additionally registered image sizes, with width, height and crop sub-keys.
- *
- * @since 0.1.7
- *
- * @global array $_wp_additional_image_sizes Additionally registered image sizes.
- *
- * @return array Two-dimensional, with `width`, `height` and `crop` sub-keys.
- */
-function genesis_get_additional_image_sizes() {
-
-	global $_wp_additional_image_sizes;
-
-	if ( $_wp_additional_image_sizes )
-		return $_wp_additional_image_sizes;
-
-	return array();
+	}
 
 }
 

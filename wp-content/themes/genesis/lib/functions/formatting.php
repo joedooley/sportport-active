@@ -96,7 +96,7 @@ function get_the_content_limit( $max_characters, $more_link_text = '(more...)', 
  */
  function genesis_a11y_more_link( $more_link_text )  {
 
- 	if ( genesis_a11y( 'screen-reader-text' ) && ! empty( $more_link_text ) ) {
+ 	if ( ! empty( $more_link_text ) && genesis_a11y( 'screen-reader-text' ) ) {
 		$more_link_text .= ' <span class="screen-reader-text">' . __( 'about ', 'genesis' ) . get_the_title() . '</span>';
  	}
  	return $more_link_text;
@@ -183,8 +183,9 @@ function genesis_strip_attr( $text, $elements, $attributes, $two_passes = true )
 	// First pass.
 	$text = preg_replace( $patterns, '$1$2', $text );
 
-	if ( $two_passes ) // Second pass.
+	if ( $two_passes ) { // Second pass.
 		$text = preg_replace( $patterns, '$1$2', $text );
+	}
 
 	return $text;
 
@@ -245,10 +246,11 @@ function genesis_sanitize_html_classes( $classes, $return_format = 'input' ) {
 
 	$sanitized_classes = array_map( 'sanitize_html_class', $classes );
 
-	if ( 'array' === $return_format )
+	if ( 'array' === $return_format ) {
 		return $sanitized_classes;
-	else
+	} else {
 		return implode( ' ', $sanitized_classes );
+	}
 
 }
 
@@ -323,8 +325,9 @@ function genesis_human_time_diff( $older_date, $newer_date = false, $relative_de
 	// Difference in seconds.
 	$since = absint( $newer_date - $older_date );
 
-	if ( ! $since )
+	if ( ! $since ) {
 		return '0 ' . _x( 'seconds', 'time difference', 'genesis' );
+	}
 
 	// Hold units of time in seconds, and their pluralised strings (not translated yet).
 	$units = array(
@@ -338,7 +341,7 @@ function genesis_human_time_diff( $older_date, $newer_date = false, $relative_de
 	);
 
 	// Build output with as many units as specified in $relative_depth.
-	$relative_depth = intval( $relative_depth ) ? intval( $relative_depth ) : 2;
+	$relative_depth = (int) $relative_depth ? (int) $relative_depth : 2;
 	$i = 0;
 	$counted_seconds = 0;
 	$date_partials = array();
@@ -346,7 +349,7 @@ function genesis_human_time_diff( $older_date, $newer_date = false, $relative_de
 		$seconds = $units[$i][0];
 		if ( ( $count = floor( ( $since - $counted_seconds ) / $seconds ) ) != 0 ) {
 			$date_partials[] = sprintf( translate_nooped_plural( $units[$i][1], $count, 'genesis' ), $count );
-			$counted_seconds = $counted_seconds + $count * $seconds;
+			$counted_seconds += $count * $seconds;
 		}
 		$i++;
 	}
@@ -386,5 +389,19 @@ function genesis_human_time_diff( $older_date, $newer_date = false, $relative_de
 function genesis_code( $content ) {
 
 	return '<code>' . esc_html( $content ) . '</code>';
+
+}
+
+/**
+ * Remove paragraph tags from content.
+ *
+ * @since 2.5.0
+ *
+ * @param string $content Content possibly containing paragraph tags.
+ * @return string Content without paragraph tags.
+ */
+function genesis_strip_p_tags( $content ) {
+
+	return preg_replace('/<p\b[^>]*>(.*?)<\/p>/i', '$1', $content );
 
 }

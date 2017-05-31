@@ -12,7 +12,7 @@
  */
 
 /**
- * Abstract base class to create menus and settings pages (with or without sortable metaboxes).
+ * Abstract base class to create menus and settings pages (with or without sortable meta boxes).
  *
  * This class is extended by subclasses that define specific types of admin pages.
  *
@@ -78,6 +78,24 @@ abstract class Genesis_Admin {
 	public $page_ops;
 
 	/**
+	 * Help view file base.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @var string
+	 */
+	protected $help_base;
+
+	/**
+	 * Views path base.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @var string
+	 */
+	protected $views_base;
+
+	/**
 	 * Call this method in a subclass constructor to create an admin menu and settings page.
 	 *
 	 * @since 1.8.0
@@ -88,7 +106,7 @@ abstract class Genesis_Admin {
 	 * @param string $settings_field   Optional. Name of the settings field. Default is an empty string.
 	 * @param array  $default_settings Optional. Field name => values for default settings. Default is empty array.
 	 *
-	 * @return null Return early if page ID is not set.
+	 * @return void Return early if page ID is not set.
 	 */
 	public function create( $page_id = '', array $menu_ops = array(), array $page_ops = array(), $settings_field = '', array $default_settings = array() ) {
 
@@ -102,6 +120,8 @@ abstract class Genesis_Admin {
 		$this->page_ops         = $this->page_ops         ? $this->page_ops         : (array) $page_ops;
 		$this->settings_field   = $this->settings_field   ? $this->settings_field   : $settings_field;
 		$this->default_settings = $this->default_settings ? $this->default_settings : (array) $default_settings;
+		$this->help_base        = $this->help_base        ? $this->help_base        : GENESIS_VIEWS_DIR . '/help/' . $page_id . '-';
+		$this->views_base       = $this->views_base       ? $this->views_base       : GENESIS_VIEWS_DIR;
 
 		$this->page_ops = wp_parse_args(
 			$this->page_ops,
@@ -116,8 +136,9 @@ abstract class Genesis_Admin {
 
 
 		// Check to make sure there we are only creating one menu per subclass.
-		if ( isset( $this->menu_ops['submenu'] ) && ( isset( $this->menu_ops['main_menu'] ) || isset( $this->menu_ops['first_submenu'] ) ) )
+		if ( isset( $this->menu_ops['submenu'] ) && ( isset( $this->menu_ops['main_menu'] ) || isset( $this->menu_ops['first_submenu'] ) ) ) {
 			wp_die( sprintf( __( 'You cannot use %s to create two menus in the same subclass. Please use separate subclasses for each menu.', 'genesis' ), 'Genesis_Admin' ) );
+		}
 
 		// Create the menu(s). Conditional logic happens within the separate methods.
 		add_action( 'admin_menu', array( $this, 'maybe_add_main_menu' ), 5 );
@@ -128,7 +149,7 @@ abstract class Genesis_Admin {
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_notices', array( $this, 'notices' ) );
 
-		// Load the page content (metaboxes or custom form).
+		// Load the page content (meta boxes or custom form).
 		add_action( 'admin_init', array( $this, 'settings_init' ) );
 
 		// Load help tab.
@@ -159,8 +180,9 @@ abstract class Genesis_Admin {
 				)
 			);
 
-			if ( $sep['sep_position'] && $sep['sep_capability'] )
+			if ( $sep['sep_position'] && $sep['sep_capability'] ) {
 				$GLOBALS['menu'][$sep['sep_position']] = array( '', $sep['sep_capability'], 'separator', '', 'genesis-separator wp-menu-separator' );
+			}
 		}
 
 		// Maybe add main menu.
@@ -241,25 +263,27 @@ abstract class Genesis_Admin {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @return null Return early if admin page doesn't store settings, or user is not on the correct admin page.
+	 * @return void Return early if admin page doesn't store settings, or user is not on the correct admin page.
 	 */
 	public function register_settings() {
 
 		// If this page doesn't store settings, no need to register them.
-		if ( ! $this->settings_field )
+		if ( ! $this->settings_field ) {
 			return;
+		}
 
-		register_setting( $this->settings_field, $this->settings_field );
-		add_option( $this->settings_field, $this->default_settings );
+		register_setting( $this->settings_field, $this->settings_field, array( 'default' => $this->default_settings ) );
 
-		if ( ! genesis_is_menu_page( $this->page_id ) )
+		if ( ! genesis_is_menu_page( $this->page_id ) ) {
 			return;
+		}
 
 		if ( genesis_get_option( 'reset', $this->settings_field ) ) {
-			if ( update_option( $this->settings_field, $this->default_settings ) )
+			if ( update_option( $this->settings_field, $this->default_settings ) ) {
 				genesis_admin_redirect( $this->page_id, array( 'reset' => 'true' ) );
-			else
+			} else {
 				genesis_admin_redirect( $this->page_id, array( 'error' => 'true' ) );
+			}
 			exit;
 		}
 
@@ -270,19 +294,21 @@ abstract class Genesis_Admin {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @return null Return early if not on the correct admin page.
+	 * @return void Return early if not on the correct admin page.
 	 */
 	public function notices() {
 
-		if ( ! genesis_is_menu_page( $this->page_id ) )
+		if ( ! genesis_is_menu_page( $this->page_id ) ) {
 			return;
+		}
 
-		if ( isset( $_REQUEST['settings-updated'] ) && 'true' === $_REQUEST['settings-updated'] )
+		if ( isset( $_REQUEST['settings-updated'] ) && 'true' === $_REQUEST['settings-updated'] ) {
 			echo '<div id="message" class="updated"><p><strong>' . $this->page_ops['saved_notice_text'] . '</strong></p></div>';
-		elseif ( isset( $_REQUEST['reset'] ) && 'true' === $_REQUEST['reset'] )
+		} elseif ( isset( $_REQUEST['reset'] ) && 'true' === $_REQUEST['reset'] ) {
 			echo '<div id="message" class="updated"><p><strong>' . $this->page_ops['reset_notice_text'] . '</strong></p></div>';
-		elseif ( isset( $_REQUEST['error'] ) && 'true' === $_REQUEST['error'] )
+		} elseif ( isset( $_REQUEST['error'] ) && 'true' === $_REQUEST['error'] ) {
 			echo '<div id="message" class="updated"><p><strong>' . $this->page_ops['error_notice_text'] . '</strong></p></div>';
+		}
 
 	}
 
@@ -323,6 +349,61 @@ abstract class Genesis_Admin {
 		if ( method_exists( $this, 'help' ) ) {
 			add_action( "load-{$this->pagehook}", array( $this, 'help' ) );
 		}
+
+	}
+
+	/**
+	 * Add help tab.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param string $id    Help tab id.
+	 * @param string $title Help tab title.
+	 */
+	public function add_help_tab( $id, $title ) {
+
+		get_current_screen()->add_help_tab( array(
+			'id'       => $this->pagehook . '-' . $id,
+			'title'    => $title,
+			'content'  => '',
+			'callback' => array( $this, 'help_content' ),
+		) );
+
+	}
+
+	/**
+	 * Display a help view file if it exists.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param object $screen Current WP_Screen.
+	 * @param array  $tab    Help tab.
+	 */
+	public function help_content( $screen, $tab ) {
+
+		$hook_len = strlen( $this->pagehook ) + 1;
+		$view = $this->help_base . substr( $tab['id'], $hook_len, strlen( $tab['id'] ) - $hook_len ) . '.php';
+
+		if ( is_file( $view ) ) {
+			include( $view );
+		}
+
+	}
+
+	/**
+	 * Set help sidebar for Genesis screens.
+	 *
+	 * @since 2.5.0
+	 */
+	public function set_help_sidebar() {
+
+		$screen_reader = '<span class="screen-reader-text">. ' . esc_html__( 'Link opens in a new window.', 'genesis' ) . '</span>';
+		get_current_screen()->set_help_sidebar(
+			'<p><strong>' . esc_html__( 'For more information:', 'genesis' ) . '</strong></p>' .
+			'<p><a href="http://my.studiopress.com/help/" target="_blank">' . esc_html__( 'Get Support', 'genesis' ) . $screen_reader . '</a></p>' .
+			'<p><a href="http://my.studiopress.com/snippets/" target="_blank">' . esc_html__( 'Genesis Snippets', 'genesis' ) . $screen_reader . '</a></p>' .
+			'<p><a href="http://my.studiopress.com/tutorials/" target="_blank">' . esc_html__( 'Genesis Tutorials', 'genesis' ) . $screen_reader . '</a></p>'
+		);
 
 	}
 
@@ -479,24 +560,7 @@ abstract class Genesis_Admin_Form extends Genesis_Admin {
 	 */
 	public function admin() {
 
-		?>
-		<div class="wrap genesis-form">
-			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<form method="post" action="options.php">
-
-				<?php settings_fields( $this->settings_field ); ?>
-
-				<?php do_action( "{$this->pagehook}_settings_page_form", $this->pagehook ); ?>
-
-				<div class="bottom-buttons">
-					<?php
-					submit_button( $this->page_ops['save_button_text'], 'primary', 'submit', false );
-					submit_button( $this->page_ops['reset_button_text'], 'secondary genesis-js-confirm-reset', $this->get_field_name( 'reset' ), false );
-					?>
-				</div>
-			</form>
-		</div>
-		<?php
+		include( GENESIS_VIEWS_DIR . '/pages/genesis-admin-form.php' );
 
 	}
 
@@ -515,7 +579,7 @@ abstract class Genesis_Admin_Form extends Genesis_Admin {
 
 /**
  * Abstract subclass of Genesis_Admin which adds support for registering and
- * displaying metaboxes.
+ * displaying meta boxes.
  *
  * This class must be extended when creating an admin page with meta boxes, and
  * the settings_metaboxes() method must be defined in the subclass.
@@ -527,7 +591,7 @@ abstract class Genesis_Admin_Form extends Genesis_Admin {
 abstract class Genesis_Admin_Boxes extends Genesis_Admin {
 
 	/**
-	 * Register the metaboxes.
+	 * Register the meta boxes.
 	 *
 	 * Must be overridden in a subclass, or it obviously won't work.
 	 *
@@ -536,7 +600,7 @@ abstract class Genesis_Admin_Boxes extends Genesis_Admin {
 	abstract public function metaboxes();
 
 	/**
-	 * Include the necessary sortable metabox scripts.
+	 * Include the necessary sortable meta box scripts.
 	 *
 	 * @since 1.8.0
 	 */
@@ -549,75 +613,64 @@ abstract class Genesis_Admin_Boxes extends Genesis_Admin {
 	}
 
 	/**
-	 * Use this as the settings admin callback to create an admin page with sortable metaboxes.
-	 * Create a 'settings_boxes' method to add metaboxes.
+	 * Use this as the settings admin callback to create an admin page with sortable meta boxes.
+	 * Create a 'settings_boxes' method to add meta boxes.
 	 *
 	 * @since 1.8.0
 	 */
 	public function admin() {
 
-		?>
-		<div class="wrap genesis-metaboxes">
-			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<form method="post" action="options.php">
-
-				<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
-				<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
-				<?php settings_fields( $this->settings_field ); ?>
-
-
-				<?php do_action( "{$this->pagehook}_settings_page_boxes", $this->pagehook ); ?>
-
-				<div class="bottom-buttons">
-					<?php
-					submit_button( $this->page_ops['save_button_text'], 'primary', 'submit', false );
-					submit_button( $this->page_ops['reset_button_text'], 'secondary genesis-js-confirm-reset', $this->get_field_name( 'reset' ), false );
-					?>
-				</div>
-			</form>
-		</div>
-		<script type="text/javascript">
-			//<![CDATA[
-			jQuery(document).ready( function ($) {
-				// close postboxes that should be closed
-				$('.if-js-closed').removeClass('if-js-closed').addClass('closed');
-				// postboxes setup
-				postboxes.add_postbox_toggles('<?php echo $this->pagehook; ?>');
-			});
-			//]]>
-		</script>
-		<?php
+		include( GENESIS_VIEWS_DIR . '/pages/genesis-admin-boxes.php' );
 
 	}
 
 	/**
 	 * Echo out the do_meta_boxes() and wrapping markup.
 	 *
-	 * This method can be overwritten in a child class, to adjust the markup surrounding the metaboxes, and optionally
+	 * This method can be overwritten in a child class, to adjust the markup surrounding the meta boxes, and optionally
 	 * call do_meta_boxes() with other contexts. The overwritten method MUST contain div elements with classes of
-	 * metabox-holder and postbox-container.
+	 * `metabox-holder` and `postbox-container`.
 	 *
 	 * @since 2.0.0
 	 *
-	 * @global array $wp_meta_boxes Holds all metaboxes data.
+	 * @global array $wp_meta_boxes Holds all meta boxes data.
 	 */
 	public function do_metaboxes() {
 
-		global $wp_meta_boxes;
+		include( GENESIS_VIEWS_DIR . '/misc/genesis-admin-boxes-holder.php' );
 
-		?>
-		<div class="metabox-holder">
-			<div class="postbox-container">
-				<?php
-				do_action( 'genesis_admin_before_metaboxes', $this->pagehook );
-				do_meta_boxes( $this->pagehook, 'main', null );
-				if ( isset( $wp_meta_boxes[$this->pagehook]['column2'] ) )
-					do_meta_boxes( $this->pagehook, 'column2', null );
-				do_action( 'genesis_admin_after_metaboxes', $this->pagehook );
-				?>
-			</div>
-		</div>
-		<?php
+	}
+
+	/**
+	 * Add meta box to the current admin screen.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param string $handle   Meta box handle.
+	 * @param string $title    Meta box title.
+	 * @param string $priority Optional. Meta box priority.
+	 */
+	public function add_meta_box( $handle, $title, $priority = 'default' ) {
+
+		add_meta_box( $handle, $title, array( $this, 'do_meta_box' ), $this->pagehook, 'main', $priority );
+
+	}
+
+	/**
+	 * Echo out the content of a meta box.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param object $object   Object passed to do_meta_boxes function.
+	 * @param array  $meta_box Array of parameters passed to add_meta_box function.
+	 */
+	public function do_meta_box( $object, $meta_box ) {
+
+		$view = $this->views_base . '/meta-boxes/' . $meta_box['id'] . '.php';
+		if ( is_file( $view ) ) {
+			include( $view );
+		}
+
 	}
 
 	/**
@@ -640,7 +693,7 @@ abstract class Genesis_Admin_Boxes extends Genesis_Admin {
 
 /**
  * Abstract subclass of Genesis_Admin which adds support for creating a basic
- * admin page that doesn't make use of a Settings API form or metaboxes.
+ * admin page that does not make use of a Settings API form or meta boxes.
  *
  * This class must be extended when creating a basic admin page and the admin()
  * method must be redefined.

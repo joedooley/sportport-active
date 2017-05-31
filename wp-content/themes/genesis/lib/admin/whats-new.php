@@ -25,7 +25,7 @@ class Genesis_Admin_Upgraded extends Genesis_Admin_Basic {
 	 *
 	 * @since 1.9.0
 	 */
-	function __construct() {
+	public function __construct() {
 
 		$page_id = 'genesis-upgraded';
 
@@ -33,8 +33,9 @@ class Genesis_Admin_Upgraded extends Genesis_Admin_Basic {
 			'submenu' => array(
 				'parent_slug' => 'admin.php',
 				'menu_title'  => '',
+				/* translators: %s: Genesis version */
 				'page_title'  => sprintf( __( 'Welcome to Genesis %s', 'genesis' ), PARENT_THEME_BRANCH ),
-			)
+			),
 		);
 
 		$this->create( $page_id, $menu_ops );
@@ -50,114 +51,7 @@ class Genesis_Admin_Upgraded extends Genesis_Admin_Basic {
 	 */
 	public function admin() {
 
-		?>
-		<div class="wrap about-wrap">
-
-		<img src="<?php echo get_template_directory_uri() . '/lib/admin/images/whats-new.png'; ?>" class="alignright whats-new" />
-
-		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-
-		<p class="about-text"><?php _e( 'Genesis 2.4 focuses mainly on updating and adding inline documentation, better conforming to the WordPress code standards, and enhancing the Markup API so that most Genesis generated markup is filterable.' , 'genesis' ); ?></p>
-
-
-		<div class="changelog">
-			<div class="feature-section">
-
-			<h3><?php _e( 'Added', 'genesis' ); ?></h3>
-			<ul>
-				<li><?php _e( 'Added <code>unfiltered_or_safe_html</code> sanitizer.', 'genesis' ); ?></li>
-				<li><?php _e( 'Added or corrected lots of inline documentation.', 'genesis' ); ?></li>
-				<li><?php _e( 'Added <code>phpcs.xml</code> file for code standards testing.', 'genesis' ); ?></li>
-				<li><?php _e( 'Added identifying classes to featured posts\' "More Posts" section title and list.', 'genesis' ); ?></li>
-				<li><?php _e( 'Added <code>$wrap</code> and <code>$title</code> to the passed arguments of the <code>genesis_post_title_output</code> filter.', 'genesis' ); ?></li>
-				<li><?php _e( 'Added new features to the Markup API, allowing for open and close arguments, passing content, and new filters.', 'genesis' ); ?></li>
-				<li><?php _e( 'Added <code>js-superfish</code> class to all menus that support it.', 'genesis' ); ?></li>
-				<li><?php _e( 'Added missing "to" in <code>genesis_prev_next_post_nav()</code>\'s comment header.', 'genesis' ); ?></li>
-				<li><?php _e( 'Added new functions that handle the logic for meta and favicon markup, and amended existing output functions to use them.', 'genesis' ); ?></li>
-			</ul>
-
-			<h3><?php _e( 'Changed', 'genesis' ); ?></h3>
-			<ul>
-				<li><?php _e( 'Changed URLs for gravatars on the "What\'s New" page to use HTTPS.', 'genesis' ); ?></li>
-				<li><?php _e( 'Corrected typo on SEO settings screen.', 'genesis' ); ?></li>
-				<li><?php _e( 'Changed Featured Post widget to use placeholder instead of default value for number of posts to show.', 'genesis' ); ?></li>
-				<li><?php _e( 'Updated <code>CHANGELOG.md</code> with release notes going back to 1.6.0.', 'genesis' ); ?></li>
-				<li><?php _e( 'Changed CPT archive intro setting to use <code>unfiltered_or_safe_html</code> sanitizer.', 'genesis' ); ?></li>
-				<li><?php _e( 'Changed some code and all documentation to better match WordPress coding standards.', 'genesis' ); ?></li>
-				<li><?php _e( 'Moved <code>h1</code> elements outside the form on admin settings pages.', 'genesis' ); ?></li>
-				<li><?php _e( 'Changed Featured Post entry header to display <code>&lt;header&gt;</code> wrapper even when only byline is showing.', 'genesis' ); ?></li>
-				<li><?php _e( 'Changed heading on the import/export admin page to <code>h2</code> from <code>h1</code>.', 'genesis' ); ?></li>
-				<li><?php _e( 'Extracted XHTML from Genesis output, and added it back in with new Markup API filters if HTML5 is not supported.', 'genesis' ); ?></li>
-				<li><?php _e( 'Moved SEO tooltips to Help tab on post editor screen.', 'genesis' ); ?></li>
-				<li><?php _e( 'Changed to use of time constants in update check transients.', 'genesis' ); ?></li>
-				<li><?php _e( 'Changed sitemap to hide Posts-related sections if the site has no Posts.', 'genesis' ); ?></li>
-				<li><?php _e( 'Changed <code>genesis_user_meta_default_on()</code> and <code>Genesis_Admin::create()</code> to do return checks earlier.', 'genesis' ); ?></li>
-				<li><?php _e( 'Moved <code>genesis_create_initial_layouts()</code> to the <code>genesis_setup</code> hook. Possible breaking change, in order to ensure compatibility with WordPress 4.7+.', 'genesis' ); ?></li>
-			</ul>
-
-			<h3><?php _e( 'Removed', 'genesis' ); ?></h3>
-			<ul>
-				<li><?php _e( 'Removed colons from labels on settings screens.', 'genesis' ); ?></li>
-				<li><?php _e( 'Removed errant <code>$</code> in the URL used in the "parent theme active" admin notice.', 'genesis' ); ?></li>
-				<li><?php _e( 'Removed unused global for Admin Readme class.', 'genesis' ); ?></li>
-				<li><?php _e( 'Removed dead code in two post shortcode callback functions.', 'genesis' ); ?></li>
-				<li><?php _e( 'Removed unused parameters in <code>genesis_nav_menu_link_attributes()</code>.', 'genesis' ); ?></li>
-			</ul>
-
-			</div>
-		</div>
-
-		<div class="project-leads">
-
-			<h2><?php _e( 'Project Leads', 'genesis' ); ?></h2>
-
-			<ul class="wp-people-group " id="wp-people-group-project-leaders">
-			<li class="wp-person">
-				<a href="http://twitter.com/nathanrice"><img src="https://0.gravatar.com/avatar/fdbd4b13e3bcccb8b48cc18f846efb7f?s=120" class="gravatar" alt="Nathan Rice" /></a>
-				<a class="web" href="http://twitter.com/nathanrice">Nathan Rice</a>
-				<span class="title"><?php _e( 'Lead Developer', 'genesis' ); ?></span>
-			</li>
-			<li class="wp-person">
-				<a href="http://twitter.com/bgardner"><img src="https://0.gravatar.com/avatar/c845c86ebe395cea0d21c03bc4a93957?s=120" class="gravatar" alt="Brian Gardner" /></a>
-				<a class="web" href="http://twitter.com/bgardner">Brian Gardner</a>
-				<span class="title"><?php _e( 'Lead Developer', 'genesis' ); ?></span>
-			</li>
-			</ul>
-
-		</div>
-
-		<div class="contributors">
-
-			<h2><?php _e( 'Contributors', 'genesis' ); ?></h2>
-
-			<ul class="wp-people-group" id="wp-people-group-contributing-developers">
-			<?php
-			$contributors = genesis_contributors();
-
-			shuffle( $contributors );
-
-			foreach ( $contributors as $contributor ) {
-				echo '<li class="wp-person">';
-				printf( '<a href="%s"><img src="%s" alt="%s" class="gravatar" /></a><a class="web" href="%s">%s</a>', esc_url( $contributor['url'] ), esc_url( $contributor['gravatar'] ), esc_attr( $contributor['name'] ), esc_url( $contributor['url'] ), esc_html( $contributor['name'] ) );
-				printf( '<span class="title">%s</span>', __( 'Contributor', 'genesis' ) );
-				echo '</li>' . "\n";
-			}
-			?>
-			</ul>
-
-		</div>
-
-		<div class="return-to-dashboard">
-			<p><a href="<?php echo esc_url( menu_page_url( 'genesis', 0 ) ); ?>"><?php _e( 'Go to Theme Settings &rarr;', 'genesis' ); ?></a></p>
-			<?php
-			if ( ! genesis_seo_disabled() ):
-				?><p><a href="<?php echo esc_url( menu_page_url( 'seo-settings', 0 ) ); ?>"><?php _e( 'Go to SEO Settings &rarr;', 'genesis' ); ?></a></p><?php
-			endif; ?>
-
-		</div>
-
-		</div>
-		<?php
+		require_once( $this->views_base . '/pages/genesis-admin-upgraded.php' );
 
 	}
 

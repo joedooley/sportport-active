@@ -21,13 +21,13 @@
 class Genesis_Settings_Sanitizer {
 
 	/**
-	 * Hold instance of self methods can be accessed staticly.
+	 * Hold instance of self so methods can be accessed statically.
 	 *
 	 * @since 1.7.0
 	 *
 	 * @var Genesis_Settings_Sanitizer
 	 */
-	static $instance;
+	public static $instance;
 
 	/**
 	 * Holds list of all options as array.
@@ -43,7 +43,7 @@ class Genesis_Settings_Sanitizer {
 	 *
 	 * @since 1.7.0
 	 */
-	function __construct() {
+	public function __construct() {
 
 		self::$instance =& $this;
 
@@ -69,16 +69,16 @@ class Genesis_Settings_Sanitizer {
 	 *
 	 * @param string       $filter    Sanitization filter type.
 	 * @param string       $option    Option key.
-	 * @param array|string $suboption Optional. Suboption key.
+	 * @param array|string $suboption Optional. Sub-option key.
 	 * @return bool True when complete.
 	 */
-	function add_filter( $filter, $option, $suboption = null ) {
+	public function add_filter( $filter, $option, $suboption = null ) {
 
 		if ( is_array( $suboption ) ) {
 			foreach ( $suboption as $so ) {
 				$this->options[$option][$so] = $filter;
 			}
-		} elseif ( is_null( $suboption ) ) {
+		} elseif ( null === $suboption ) {
 			$this->options[$option] = $filter;
 		} else {
 			$this->options[$option][$suboption] = $filter;
@@ -100,12 +100,13 @@ class Genesis_Settings_Sanitizer {
 	 * @param string $old_value Previous value.
 	 * @return mixed Filtered value, or submitted value if value is unfiltered.
 	 */
-	function do_filter( $filter, $new_value, $old_value ) {
+	public function do_filter( $filter, $new_value, $old_value ) {
 
 		$available_filters = $this->get_available_filters();
 
-		if ( ! in_array( $filter, array_keys( $available_filters ) ) )
+		if ( ! array_key_exists( $filter, $available_filters ) ) {
 			return $new_value;
+		}
 
 		return call_user_func( $available_filters[$filter], $new_value, $old_value );
 
@@ -122,7 +123,7 @@ class Genesis_Settings_Sanitizer {
 	 * @return array Keys of sanitization types, and values of the
 	 *               filter function name as a callback.
 	 */
-	function get_available_filters() {
+	public function get_available_filters() {
 
 		$default_filters = array(
 			'one_zero'                 => array( $this, 'one_zero'                 ),
@@ -157,7 +158,7 @@ class Genesis_Settings_Sanitizer {
 	 *
 	 * @return mixed Filtered, or unfiltered value.
 	 */
-	function sanitize( $new_value, $option ) {
+	public function sanitize( $new_value, $option ) {
 
 		if ( !isset( $this->options[$option] ) ) {
 			// We are not filtering this option at all.
@@ -166,7 +167,7 @@ class Genesis_Settings_Sanitizer {
 			// Single option value.
 			return $this->do_filter( $this->options[$option], $new_value, get_option( $option ) );
 		} elseif ( is_array( $this->options[$option] ) ) {
-			// Array of suboption values to loop through.
+			// Array of sub-option values to loop through.
 			$old_value = get_option( $option );
 			foreach ( $this->options[$option] as $suboption => $filter ) {
 				$old_value[$suboption] = isset( $old_value[$suboption] ) ? $old_value[$suboption] : '';
@@ -191,7 +192,7 @@ class Genesis_Settings_Sanitizer {
 	 * @param mixed $new_value Should ideally be a 1 or 0 integer passed in.
 	 * @return int `1` or `0`.
 	 */
-	function one_zero( $new_value ) {
+	public function one_zero( $new_value ) {
 
 		return (int) (bool) $new_value;
 
@@ -205,7 +206,7 @@ class Genesis_Settings_Sanitizer {
 	 * @param mixed $new_value Should ideally be a positive integer.
 	 * @return int Positive integer.
 	 */
-	function absint( $new_value ) {
+	public function absint( $new_value ) {
 
 		return absint( $new_value );
 
@@ -219,7 +220,7 @@ class Genesis_Settings_Sanitizer {
 	 * @param string $new_value String, possibly with HTML in it.
 	 * @return string String without HTML in it.
 	 */
-	function no_html( $new_value ) {
+	public function no_html( $new_value ) {
 
 		return strip_tags( $new_value );
 
@@ -233,7 +234,7 @@ class Genesis_Settings_Sanitizer {
 	 * @param string $new_value String, a URL, possibly unsafe.
 	 * @return string String a safe URL.
 	 */
-	function url( $new_value ) {
+	public function url( $new_value ) {
 
 		return esc_url_raw( $new_value );
 
@@ -247,7 +248,7 @@ class Genesis_Settings_Sanitizer {
 	 * @param string $new_value String, an email address, possibly unsafe.
 	 * @return string String a safe email address.
 	 */
-	function email_address( $new_value ) {
+	public function email_address( $new_value ) {
 
 		return sanitize_email( $new_value );
 
@@ -261,7 +262,7 @@ class Genesis_Settings_Sanitizer {
 	 * @param string $new_value String with potentially unsafe HTML in it.
 	 * @return string String with only safe HTML in it.
 	 */
-	function safe_html( $new_value ) {
+	public function safe_html( $new_value ) {
 
 		return wp_kses_post( $new_value );
 
@@ -278,12 +279,13 @@ class Genesis_Settings_Sanitizer {
 	 * @return string New or previous value, depending if user has correct
 	 *                capability or not.
 	 */
-	function requires_unfiltered_html( $new_value, $old_value ) {
+	public function requires_unfiltered_html( $new_value, $old_value ) {
 
-		if ( current_user_can( 'unfiltered_html' ) )
+		if ( current_user_can( 'unfiltered_html' ) ) {
 			return $new_value;
-		else
+		} else {
 			return $old_value;
+		}
 
 	}
 
@@ -298,7 +300,7 @@ class Genesis_Settings_Sanitizer {
 	 * @return string New or safe HTML value, depending if user has correct
 	 *                capability or not.
 	 */
-	function unfiltered_or_safe_html( $new_value, $old_value ) {
+	public function unfiltered_or_safe_html( $new_value, $old_value ) {
 
 		if ( current_user_can( 'unfiltered_html' ) ) {
 			return $new_value;
@@ -314,8 +316,8 @@ class Genesis_Settings_Sanitizer {
 /**
  * Registers an option sanitization filter.
  *
- * If the option is an "array" option type with "suboptions", you have to use the third param to specify the
- * suboption or suboptions you want the filter to apply to. DO NOT call this without the third parameter on an option
+ * If the option is an "array" option type with "sub-options", you have to use the third param to specify the
+ * sub-option or sub-options you want the filter to apply to. DO NOT call this without the third parameter on an option
  * that is an array option, because in that case it will apply that filter to the array(), not each member.
  *
  * Use the 'genesis_settings_sanitizer_init' action to be notified when this function is safe to use
@@ -324,7 +326,7 @@ class Genesis_Settings_Sanitizer {
  *
  * @param string       $filter    The filter to call (see Genesis_Settings_Sanitizer::$available_filters for options).
  * @param string       $option    The WordPress option name.
- * @param string|array $suboption Optional. The suboption or suboptions you want to filter.
+ * @param string|array $suboption Optional. The sub-option or sub-options you want to filter.
  * @return true True when complete.
  */
 function genesis_add_option_filter( $filter, $option, $suboption = null ) {

@@ -72,7 +72,6 @@ button, input[type="button"], input[type="reset"], input[type="submit"] {
   padding: 18px;
   text-decoration: none;
   text-transform: uppercase;
-  -webkit-transition: background-color 150ms ease;
   transition: background-color 150ms ease;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -89,7 +88,6 @@ button, input[type="button"], input[type="reset"], input[type="submit"] {
   button:focus, input[type="button"]:hover, input[type="button"]:focus, input[type="reset"]:hover, input[type="reset"]:focus, input[type="submit"]:hover, input[type="submit"]:focus {
     background-color: #ff9933;
     color: #fff;
-    -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease; }
   .button:focus,
   .entry-content .sp-button:focus,
@@ -206,7 +204,6 @@ select[multiple] {
   box-sizing: border-box;
   font-family: latoregular, sans-serif;
   margin-bottom: 0.65em;
-  -webkit-transition: border-color 150ms ease;
   transition: border-color 150ms ease;
   width: 100%; }
   input[type="color"]:hover, input[type="date"]:hover, input[type="datetime"]:hover, input[type="datetime-local"]:hover, input[type="email"]:hover, input[type="month"]:hover, input[type="number"]:hover, input[type="password"]:hover, input[type="search"]:hover, input[type="tel"]:hover, input[type="text"]:hover, input[type="time"]:hover, input[type="url"]:hover, input[type="week"]:hover, input:not([type]):hover, textarea:hover,
@@ -388,7 +385,6 @@ a {
   color: #000;
   font-weight: 400;
   text-decoration: none;
-  -webkit-transition: color 150ms ease;
   transition: color 150ms ease; }
   a:active, a:focus, a:hover {
     color: #888; }
@@ -421,7 +417,6 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-  -webkit-transition: all 0.3s ease-in;
   transition: all 0.3s ease-in; }
 
 a:focus {
@@ -1968,7 +1963,6 @@ Miscellaneous
       background-color: #89a; }
     .nav-primary a:hover {
       background-color: #ff9933;
-      -webkit-transition: all 0.2s ease-in;
       transition: all 0.2s ease-in; }
   .nav-primary .genesis-nav-menu li.last a {
     padding-right: 0; }
@@ -2178,7 +2172,6 @@ Miscellaneous
     padding: 0;
     height: 0;
     overflow: hidden;
-    -webkit-transition: 0.5s height;
     transition: 0.5s height; }
 
 /* ## Widgets
@@ -3124,7 +3117,6 @@ body.woocommerce div.woocommerce-message div.wrap {
     .archive.woocommerce-page ul.products li.product .button:focus {
       background-color: #ff9933;
       color: #fff;
-      -webkit-transition: all 0.3s ease;
       transition: all 0.3s ease; }
     .archive.woocommerce ul.products li.product .button:active,
     .archive.woocommerce-page ul.products li.product .button:active {
@@ -3235,7 +3227,6 @@ body.woocommerce div.woocommerce-message div.wrap {
   margin: 0; }
 
 .portfolio .post-image:hover {
-  -webkit-transition: all .5s ease;
   transition: all .5s ease;
   opacity: 0.6; }
 
@@ -3330,12 +3321,18 @@ body.single-product {
     margin: 0;
     padding: 0; }
   body.single-product.woocommerce div.product div.images {
+    float: none;
+    width: 100%; }
+    @media screen and (max-width: 1023px) {
+      body.single-product.woocommerce div.product div.images {
+        width: 100%; } }
+  body.single-product.woocommerce div.product div.all-images {
     background: #fff;
     padding-top: 0;
     text-align: center;
     width: 50%; }
     @media screen and (max-width: 1023px) {
-      body.single-product.woocommerce div.product div.images {
+      body.single-product.woocommerce div.product div.all-images {
         width: 100%; } }
   body.single-product.woocommerce div.product div.summary {
     background: #ebebeb;
@@ -3345,7 +3342,7 @@ body.single-product {
       body.single-product.woocommerce div.product div.summary {
         margin-top: 5em;
         width: 100%; } }
-  body.single-product div.product div.images,
+  body.single-product div.product div.all-images,
   body.single-product div.product div.summary {
     margin-bottom: 0; }
   body.single-product div.product .product_title {
@@ -3478,8 +3475,8 @@ body.single-product {
   body.single-product .upsells {
     margin-top: 5em; }
 
-body.single-product div.product div.images .attachment-shop_single.wp-post-image,
-body.single-product div.product div.images .attachment-shop_thumbnail {
+body.single-product div.product div.all-images .attachment-shop_single.wp-post-image,
+body.single-product div.product div.all-images .attachment-shop_thumbnail {
   border: none;
   display: inline;
   width: auto; }
@@ -3493,12 +3490,12 @@ body.woocommerce .quantity .qty {
   color: #333;
   font-size: 1em; }
 
-body.woocommerce div.product div.images div.thumbnails {
+body.woocommerce div.product div.all-images div.thumbnails {
   margin-left: 1em;
   margin-right: 1em;
   margin-top: 5em; }
   @media screen and (max-width: 1023px) {
-    body.woocommerce div.product div.images div.thumbnails {
+    body.woocommerce div.product div.all-images div.thumbnails {
       margin: 1em auto;
       max-width: 750px; } }
 
@@ -3516,6 +3513,69 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 
 .single-product .above-footer-widgets {
   position: relative; }
+
+body.single-product div.product .woocommerce-product-gallery {
+  margin-bottom: 20px;
+  margin-top: 0;
+  position: relative; }
+  body.single-product div.product .woocommerce-product-gallery .zoomImg {
+    background-color: #fff; }
+  body.single-product div.product .woocommerce-product-gallery .woocommerce-product-gallery__trigger {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: block;
+    height: 2em;
+    width: 2em;
+    border-radius: 3px;
+    z-index: 99;
+    text-align: center; }
+  body.single-product div.product .woocommerce-product-gallery img {
+    margin: 0; }
+  body.single-product div.product .woocommerce-product-gallery .flex-viewport {
+    margin-bottom: 30px; }
+  body.single-product div.product .woocommerce-product-gallery .flex-control-thumbs {
+    margin: 0;
+    padding: 0; }
+    body.single-product div.product .woocommerce-product-gallery .flex-control-thumbs::after {
+      clear: both;
+      content: "";
+      display: table; }
+    body.single-product div.product .woocommerce-product-gallery .flex-control-thumbs li {
+      list-style: none;
+      margin-bottom: 20px;
+      cursor: pointer; }
+      body.single-product div.product .woocommerce-product-gallery .flex-control-thumbs li img {
+        opacity: .5;
+        transition: all, ease, .2s; }
+        body.single-product div.product .woocommerce-product-gallery .flex-control-thumbs li img.flex-active {
+          opacity: 1; }
+      body.single-product div.product .woocommerce-product-gallery .flex-control-thumbs li:hover img {
+        opacity: 1; }
+  body.single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-2 .flex-control-thumbs li {
+    width: 50%; }
+    body.single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-2 .flex-control-thumbs li:nth-child(2n) {
+      margin-right: 0; }
+    body.single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-2 .flex-control-thumbs li:nth-child(2n+1) {
+      clear: both; }
+  body.single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-3 .flex-control-thumbs li {
+    width: 33.3333333%; }
+    body.single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-3 .flex-control-thumbs li:nth-child(3n) {
+      margin-right: 0; }
+    body.single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-3 .flex-control-thumbs li:nth-child(3n+1) {
+      clear: both; }
+  body.single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-4 .flex-control-thumbs li {
+    width: 25%; }
+    body.single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-4 .flex-control-thumbs li:nth-child(4n) {
+      margin-right: 0; }
+    body.single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-4 .flex-control-thumbs li:nth-child(4n+1) {
+      clear: both; }
+  body.single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-5 .flex-control-thumbs li {
+    width: 20%; }
+    body.single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-5 .flex-control-thumbs li:nth-child(5n) {
+      margin-right: 0; }
+    body.single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-5 .flex-control-thumbs li:nth-child(5n+1) {
+      clear: both; }
 
 /*! ## Category/Tax Archive
 --------------------------------- */
@@ -3572,7 +3632,6 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
   right: 0;
   text-align: center;
   top: 0;
-  -webkit-transition: opacity 0.2s, z-index 0s 0.2s;
   transition: opacity 0.2s, z-index 0s 0.2s;
   white-space: nowrap;
   z-index: -1; }
@@ -3592,7 +3651,6 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 
 .vanilla-modal.modal-visible .modal {
   opacity: 1;
-  -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s;
   z-index: 99; }
 
@@ -3606,7 +3664,6 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
   position: relative;
   -webkit-transform: scale(0);
           transform: scale(0);
-  -webkit-transition: opacity 0.2s, z-index 0s 0.2s, -webkit-transform 0.2s;
   transition: opacity 0.2s, z-index 0s 0.2s, -webkit-transform 0.2s;
   transition: opacity 0.2s, transform 0.2s, z-index 0s 0.2s;
   transition: opacity 0.2s, transform 0.2s, z-index 0s 0.2s, -webkit-transform 0.2s;
@@ -3616,7 +3673,6 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
   opacity: 1;
   -webkit-transform: scale(1);
           transform: scale(1);
-  -webkit-transition: opacity 0.2s, -webkit-transform 0.2s;
   transition: opacity 0.2s, -webkit-transform 0.2s;
   transition: opacity 0.2s, transform 0.2s;
   transition: opacity 0.2s, transform 0.2s, -webkit-transform 0.2s;

@@ -23,21 +23,23 @@ add_action( 'genesis_before_footer', 'genesis_footer_widget_areas' );
  *
  * @since 1.6.0
  *
- * @return null Return early if number of widget areas could not be determined,
+ * @return void Return early if number of widget areas could not be determined,
  *              or nothing is added to the first widget area.
  */
 function genesis_footer_widget_areas() {
 
 	$footer_widgets = get_theme_support( 'genesis-footer-widgets' );
 
-	if ( ! $footer_widgets || ! isset( $footer_widgets[0] ) || ! is_numeric( $footer_widgets[0] ) )
+	if ( ! $footer_widgets || ! isset( $footer_widgets[0] ) || ! is_numeric( $footer_widgets[0] ) ) {
 		return;
+	}
 
 	$footer_widgets = (int) $footer_widgets[0];
 
 	// Check to see if first widget area has widgets. If not, do nothing. No need to check all footer widget areas.
-	if ( ! is_active_sidebar( 'footer-1' ) )
+	if ( ! is_active_sidebar( 'footer-1' ) ) {
 		return;
+	}
 
 	$inside  = '';
 	$output  = '';
@@ -51,7 +53,18 @@ function genesis_footer_widget_areas() {
 		$widgets = ob_get_clean();
 
 		if ( $widgets ) {
-			$inside .= sprintf( '<div class="footer-widgets-%d widget-area">%s</div>', $counter, $widgets );
+
+			$inside .= genesis_markup( array(
+				'open'    => '<div %s>',
+				'close'   => '</div>',
+				'context' => 'footer-widget-area',
+				'content' => $widgets,
+				'echo'    => false,
+				'params'  => array(
+					'column' => $counter,
+					'count'  => $footer_widgets,
+			) ) );
+
 		}
 
 		$counter++;
@@ -145,8 +158,9 @@ function genesis_do_footer() {
 	$output = $backtotop . $creds;
 
 	// Only use credits if HTML5.
-	if ( genesis_html5() )
-		$output = '<p>' . $creds_text . '</p>';
+	if ( genesis_html5() ) {
+		$output = '<p>' . genesis_strip_p_tags( $creds_text ) . '</p>';
+	}
 
 	echo apply_filters( 'genesis_footer_output', $output, $backtotop_text, $creds_text );
 
@@ -159,10 +173,20 @@ add_action( 'wp_footer', 'genesis_footer_scripts' );
  *
  * Applies the `genesis_footer_scripts` filter to the value returns from the footer_scripts option.
  *
+ * Also outputs page-specific body scripts if their position is set to 'bottom'.
+ *
  * @since 1.1.0
  */
 function genesis_footer_scripts() {
 
-	echo apply_filters( 'genesis_footer_scripts', genesis_option( 'footer_scripts' ) );
+	echo apply_filters( 'genesis_footer_scripts', genesis_get_option( 'footer_scripts' ) );
+
+	if ( ! is_singular() ) {
+		return;
+	}
+
+	if ( 'top' != genesis_get_custom_field( '_genesis_scripts_body_position' ) ) {
+		genesis_custom_field( '_genesis_scripts_body' );
+	}
 
 }

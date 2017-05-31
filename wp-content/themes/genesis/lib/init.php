@@ -22,8 +22,9 @@ add_action( 'genesis_init', 'genesis_i18n' );
  */
 function genesis_i18n() {
 
-	if ( ! defined( 'GENESIS_LANGUAGES_DIR' ) )
+	if ( ! defined( 'GENESIS_LANGUAGES_DIR' ) ) {
 		define( 'GENESIS_LANGUAGES_DIR', get_template_directory() . '/lib/languages' );
+	}
 
 	load_theme_textdomain( 'genesis', GENESIS_LANGUAGES_DIR );
 
@@ -151,46 +152,67 @@ function genesis_constants() {
 
 	// Define Theme Info Constants.
 	define( 'PARENT_THEME_NAME', 'Genesis' );
-	define( 'PARENT_THEME_VERSION', '2.4.2' );
-	define( 'PARENT_THEME_BRANCH', '2.4' );
-	define( 'PARENT_DB_VERSION', '2403' );
-	define( 'PARENT_THEME_RELEASE_DATE', date_i18n( 'F j, Y', '1475539200' ) );
+	define( 'PARENT_THEME_VERSION', '2.5.0' );
+	define( 'PARENT_THEME_BRANCH', '2.5' );
+	define( 'PARENT_DB_VERSION', '2501' );
+	define( 'PARENT_THEME_RELEASE_DATE', date_i18n( 'F j, Y', '1492646400' ) );
 
-	// Define Directory Location Constants.
+	// Define Parent and Child Directory Location and URL Constants.
 	define( 'PARENT_DIR', get_template_directory() );
 	define( 'CHILD_DIR', get_stylesheet_directory() );
-	define( 'GENESIS_IMAGES_DIR', PARENT_DIR . '/images' );
-	define( 'GENESIS_LIB_DIR', PARENT_DIR . '/lib' );
-	define( 'GENESIS_ADMIN_DIR', GENESIS_LIB_DIR . '/admin' );
-	define( 'GENESIS_ADMIN_IMAGES_DIR', GENESIS_LIB_DIR . '/admin/images' );
-	define( 'GENESIS_JS_DIR', GENESIS_LIB_DIR . '/js' );
-	define( 'GENESIS_CSS_DIR', GENESIS_LIB_DIR . '/css' );
-	define( 'GENESIS_CLASSES_DIR', GENESIS_LIB_DIR . '/classes' );
-	define( 'GENESIS_FUNCTIONS_DIR', GENESIS_LIB_DIR . '/functions' );
-	define( 'GENESIS_SHORTCODES_DIR', GENESIS_LIB_DIR . '/shortcodes' );
-	define( 'GENESIS_STRUCTURE_DIR', GENESIS_LIB_DIR . '/structure' );
-	define( 'GENESIS_TOOLS_DIR', GENESIS_LIB_DIR . '/tools' );
-	define( 'GENESIS_WIDGETS_DIR', GENESIS_LIB_DIR . '/widgets' );
-
-	// Define URL Location Constants.
 	define( 'PARENT_URL', get_template_directory_uri() );
 	define( 'CHILD_URL', get_stylesheet_directory_uri() );
-	define( 'GENESIS_IMAGES_URL', PARENT_URL . '/images' );
-	define( 'GENESIS_LIB_URL', PARENT_URL . '/lib' );
-	define( 'GENESIS_ADMIN_URL', GENESIS_LIB_URL . '/admin' );
-	define( 'GENESIS_ADMIN_IMAGES_URL', GENESIS_LIB_URL . '/admin/images' );
-	define( 'GENESIS_JS_URL', GENESIS_LIB_URL . '/js' );
-	define( 'GENESIS_CLASSES_URL', GENESIS_LIB_URL . '/classes' );
-	define( 'GENESIS_CSS_URL', GENESIS_LIB_URL . '/css' );
-	define( 'GENESIS_FUNCTIONS_URL', GENESIS_LIB_URL . '/functions' );
-	define( 'GENESIS_SHORTCODES_URL', GENESIS_LIB_URL . '/shortcodes' );
-	define( 'GENESIS_STRUCTURE_URL', GENESIS_LIB_URL . '/structure' );
-	define( 'GENESIS_WIDGETS_URL', GENESIS_LIB_URL . '/widgets' );
+
+	// Define URL Location Constants.
+	$lib_url = PARENT_URL . '/lib';
+	if ( ! defined( 'GENESIS_IMAGES_URL' ) ) {
+		define( 'GENESIS_IMAGES_URL', PARENT_URL . '/images' );
+	}
+	if ( ! defined( 'GENESIS_ADMIN_IMAGES_URL' ) ) {
+		define( 'GENESIS_ADMIN_IMAGES_URL', $lib_url . '/admin/images' );
+	}
+	if ( ! defined( 'GENESIS_JS_URL' ) ) {
+		define( 'GENESIS_JS_URL', $lib_url . '/js' );
+	}
+	if ( ! defined( 'GENESIS_CSS_URL' ) ) {
+		define( 'GENESIS_CSS_URL', $lib_url . '/css' );
+	}
+
+	// Define directory locations constants.
+	define( 'GENESIS_VIEWS_DIR', PARENT_DIR . '/lib/views' );
+	define( 'GENESIS_CONFIG_DIR', PARENT_DIR . '/config' );
 
 	// Define Settings Field Constants (for DB storage).
-	define( 'GENESIS_SETTINGS_FIELD', apply_filters( 'genesis_settings_field', 'genesis-settings' ) );
-	define( 'GENESIS_SEO_SETTINGS_FIELD', apply_filters( 'genesis_seo_settings_field', 'genesis-seo-settings' ) );
-	define( 'GENESIS_CPT_ARCHIVE_SETTINGS_FIELD_PREFIX', apply_filters( 'genesis_cpt_archive_settings_field_prefix', 'genesis-cpt-archive-settings-' ) );
+	define( 'GENESIS_SETTINGS_FIELD', (string) apply_filters( 'genesis_settings_field', 'genesis-settings' ) );
+	define( 'GENESIS_SEO_SETTINGS_FIELD', (string) apply_filters( 'genesis_seo_settings_field', 'genesis-seo-settings' ) );
+	define( 'GENESIS_CPT_ARCHIVE_SETTINGS_FIELD_PREFIX', (string) apply_filters( 'genesis_cpt_archive_settings_field_prefix', 'genesis-cpt-archive-settings-' ) );
+
+	// Unused in Genesis, considered deprecated.
+	if ( apply_filters( 'genesis_load_deprecated', true ) ) {
+		// Directory Constants.
+		$lib_dir = PARENT_DIR . '/lib';
+		define( 'GENESIS_IMAGES_DIR', PARENT_DIR . '/images' );
+		define( 'GENESIS_ADMIN_IMAGES_DIR', $lib_dir . '/admin/images' );
+		define( 'GENESIS_TOOLS_DIR', $lib_dir . '/tools' );
+		define( 'GENESIS_LIB_DIR', $lib_dir );
+		define( 'GENESIS_ADMIN_DIR', $lib_dir . '/admin' );
+		define( 'GENESIS_JS_DIR', $lib_dir . '/js' );
+		define( 'GENESIS_CSS_DIR', $lib_dir . '/css' );
+		define( 'GENESIS_CLASSES_DIR', $lib_dir . '/classes' );
+		define( 'GENESIS_FUNCTIONS_DIR', $lib_dir . '/functions' );
+		define( 'GENESIS_SHORTCODES_DIR', $lib_dir . '/shortcodes' );
+		define( 'GENESIS_STRUCTURE_DIR', $lib_dir . '/structure' );
+		define( 'GENESIS_WIDGETS_DIR', $lib_dir . '/widgets' );
+
+		// URL Constants.
+		define( 'GENESIS_ADMIN_URL', $lib_url . '/admin' );
+		define( 'GENESIS_LIB_URL', $lib_url );
+		define( 'GENESIS_CLASSES_URL', $lib_url . '/classes' );
+		define( 'GENESIS_FUNCTIONS_URL', $lib_url . '/functions' );
+		define( 'GENESIS_SHORTCODES_URL', $lib_url . '/shortcodes' );
+		define( 'GENESIS_STRUCTURE_URL', $lib_url . '/structure' );
+		define( 'GENESIS_WIDGETS_URL', $lib_url . '/widgets' );
+	}
 
 }
 
@@ -198,6 +220,8 @@ function genesis_constants() {
 add_action( 'genesis_init', 'genesis_load_framework' );
 /**
  * Loads all the framework files and features.
+ *
+ * The function can only be effective once, due to the use of the GENESIS_LOADED FRAMEWORK constant.
  *
  * The genesis_pre_framework action hook is called before any of the files are
  * required().
@@ -208,7 +232,7 @@ add_action( 'genesis_init', 'genesis_load_framework' );
  *
  * @since 1.6.0
  *
- * @global $_genesis_formatting_allowed_tags Array of allowed tags for output formatting.
+ * @global array $_genesis_formatting_allowed_tags Array of allowed tags for output formatting.
  */
 function genesis_load_framework() {
 
@@ -216,75 +240,92 @@ function genesis_load_framework() {
 	do_action( 'genesis_pre_framework' );
 
 	// Short circuit, if necessary.
-	if ( defined( 'GENESIS_LOAD_FRAMEWORK' ) && false === GENESIS_LOAD_FRAMEWORK )
+	if ( defined( 'GENESIS_LOAD_FRAMEWORK' ) && false === GENESIS_LOAD_FRAMEWORK ) {
 		return;
+	}
+
+	$lib_dir = trailingslashit( PARENT_DIR ) . 'lib/';
 
 	// Load Framework.
-	require_once( GENESIS_LIB_DIR . '/framework.php' );
+	require( $lib_dir . 'framework.php' );
 
 	// Load Classes.
-	require_once( GENESIS_CLASSES_DIR . '/admin.php' );
-	require_if_theme_supports( 'genesis-breadcrumbs', GENESIS_CLASSES_DIR . '/breadcrumb.php' );
-	require_once( GENESIS_CLASSES_DIR . '/sanitization.php' );
+	$classes_dir = $lib_dir . 'classes/';
+	require( $classes_dir . 'admin.php' );
+	require_if_theme_supports( 'genesis-breadcrumbs', $classes_dir . 'breadcrumb.php' );
+	require( $classes_dir . 'sanitization.php' );
+	require( $classes_dir . 'class-genesis-contributor.php' );
+	require( $classes_dir . 'class-genesis-contributors.php' );
 
 	// Load Functions.
-	require_once( GENESIS_FUNCTIONS_DIR . '/upgrade.php' );
-	require_once( GENESIS_FUNCTIONS_DIR . '/compat.php' );
-	require_once( GENESIS_FUNCTIONS_DIR . '/general.php' );
-	require_once( GENESIS_FUNCTIONS_DIR . '/options.php' );
-	require_once( GENESIS_FUNCTIONS_DIR . '/image.php' );
-	require_once( GENESIS_FUNCTIONS_DIR . '/markup.php' );
-	require_if_theme_supports( 'genesis-breadcrumbs', GENESIS_FUNCTIONS_DIR . '/breadcrumb.php' );
-	require_once( GENESIS_FUNCTIONS_DIR . '/menu.php' );
-	require_once( GENESIS_FUNCTIONS_DIR . '/layout.php' );
-	require_once( GENESIS_FUNCTIONS_DIR . '/formatting.php' );
-	require_once( GENESIS_FUNCTIONS_DIR . '/seo.php' );
-	require_once( GENESIS_FUNCTIONS_DIR . '/widgetize.php' );
-	require_once( GENESIS_FUNCTIONS_DIR . '/feed.php' );
-	require_once( GENESIS_FUNCTIONS_DIR . '/toolbar.php' );
-	require_once( GENESIS_FUNCTIONS_DIR . '/head.php' );
-	if ( apply_filters( 'genesis_load_deprecated', true ) )
-		require_once( GENESIS_FUNCTIONS_DIR . '/deprecated.php' );
+	$functions_dir = $lib_dir . 'functions/';
+	require( $functions_dir . 'upgrade.php' );
+	require( $functions_dir . 'compat.php' );
+	require( $functions_dir . 'general.php' );
+	require( $functions_dir . 'options.php' );
+	require( $functions_dir . 'image.php' );
+	require( $functions_dir . 'markup.php' );
+	require_if_theme_supports( 'genesis-breadcrumbs', $functions_dir . 'breadcrumb.php' );
+	require( $functions_dir . 'menu.php' );
+	require( $functions_dir . 'layout.php' );
+	require( $functions_dir . 'formatting.php' );
+	require( $functions_dir . 'seo.php' );
+	require( $functions_dir . 'widgetize.php' );
+	require( $functions_dir . 'feed.php' );
+	require( $functions_dir . 'toolbar.php' );
+	require( $functions_dir . 'head.php' );
+
+	if ( apply_filters( 'genesis_load_deprecated', true ) ) {
+		require( $functions_dir . 'deprecated.php' );
+	}
 
 	// Load Shortcodes.
-	require_once( GENESIS_SHORTCODES_DIR . '/post.php' );
-	require_once( GENESIS_SHORTCODES_DIR . '/footer.php' );
+	$shortcodes_dir = $lib_dir . 'shortcodes/';
+	require( $shortcodes_dir . 'post.php' );
+	require( $shortcodes_dir . 'footer.php' );
 
 	// Load Structure.
-	require_once( GENESIS_STRUCTURE_DIR . '/header.php' );
-	require_once( GENESIS_STRUCTURE_DIR . '/footer.php' );
-	require_once( GENESIS_STRUCTURE_DIR . '/menu.php' );
-	require_once( GENESIS_STRUCTURE_DIR . '/layout.php' );
-	require_once( GENESIS_STRUCTURE_DIR . '/post.php' );
-	require_once( GENESIS_STRUCTURE_DIR . '/loops.php' );
-	require_once( GENESIS_STRUCTURE_DIR . '/comments.php' );
-	require_once( GENESIS_STRUCTURE_DIR . '/sidebar.php' );
-	require_once( GENESIS_STRUCTURE_DIR . '/archive.php' );
-	require_once( GENESIS_STRUCTURE_DIR . '/search.php' );
+	$structure_dir = $lib_dir . 'structure/';
+	require( $structure_dir . 'header.php' );
+	require( $structure_dir . 'footer.php' );
+	require( $structure_dir . 'menu.php' );
+	require( $structure_dir . 'layout.php' );
+	require( $structure_dir . 'post.php' );
+	require( $structure_dir . 'loops.php' );
+	require( $structure_dir . 'comments.php' );
+	require( $structure_dir . 'sidebar.php' );
+	require( $structure_dir . 'archive.php' );
+	require( $structure_dir . 'search.php' );
 
 	// Load Admin.
-	if ( is_admin() ) :
-	require_once( GENESIS_ADMIN_DIR . '/menu.php' );
-	require_once( GENESIS_ADMIN_DIR . '/theme-settings.php' );
-	require_once( GENESIS_ADMIN_DIR . '/seo-settings.php' );
-	require_once( GENESIS_ADMIN_DIR . '/cpt-archive-settings.php' );
-	require_once( GENESIS_ADMIN_DIR . '/import-export.php' );
-	require_once( GENESIS_ADMIN_DIR . '/inpost-metaboxes.php' );
-	require_once( GENESIS_ADMIN_DIR . '/use-child-theme.php' );
-	require_once( GENESIS_ADMIN_DIR . '/whats-new.php' );
-	endif;
-	require_once( GENESIS_ADMIN_DIR . '/customizer.php' );
-	require_once( GENESIS_ADMIN_DIR . '/term-meta.php' );
-	require_once( GENESIS_ADMIN_DIR . '/user-meta.php' );
+	$admin_dir = $lib_dir . 'admin/';
+	if ( is_admin() ) {
+		require( $admin_dir . 'menu.php' );
+		require( $admin_dir . 'theme-settings.php' );
+		require( $admin_dir . 'seo-settings.php' );
+		require( $admin_dir . 'cpt-archive-settings.php' );
+		require( $admin_dir . 'admin-functions.php' );
+		require( $admin_dir . 'import-export.php' );
+		require( $admin_dir . 'inpost-metaboxes.php' );
+		require( $admin_dir . 'use-child-theme.php' );
+		require( $admin_dir . 'whats-new.php' );
+	}
+	require( $admin_dir . 'customizer.php' );
+	require( $admin_dir . 'term-meta.php' );
+	require( $admin_dir . 'user-meta.php' );
 
-	// Load Javascript.
-	require_once( GENESIS_JS_DIR . '/load-scripts.php' );
+	// Load JavaScript.
+	require( $lib_dir . '/js/load-scripts.php' );
 
 	// Load CSS.
-	require_once( GENESIS_CSS_DIR . '/load-styles.php' );
+	require( $lib_dir . '/css/load-styles.php' );
 
 	// Load Widgets.
-	require_once( GENESIS_WIDGETS_DIR . '/widgets.php' );
+	$widgets_dir = $lib_dir . 'widgets/';
+	require( $widgets_dir . 'widgets.php' );
+	require( $widgets_dir . 'user-profile-widget.php' );
+	require( $widgets_dir . 'featured-post-widget.php' );
+	require( $widgets_dir . 'featured-page-widget.php' );
 
 	// Load CLI command.
 	if ( defined( 'WP_CLI' ) && WP_CLI ) {
@@ -294,6 +335,7 @@ function genesis_load_framework() {
 	global $_genesis_formatting_allowedtags;
 	$_genesis_formatting_allowedtags = genesis_formatting_allowedtags();
 
+	define( 'GENESIS_LOADED_FRAMEWORK', true );
 }
 
 // Run the genesis_init hook.

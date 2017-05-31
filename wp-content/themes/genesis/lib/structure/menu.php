@@ -19,7 +19,7 @@ add_filter( 'nav_menu_link_attributes', 'genesis_nav_menu_link_attributes' );
  *
  * @since 2.2.0
  *
- * @param array  $atts {
+ * @param array $atts {
  *		The HTML attributes applied to the menu item's link element, empty strings are ignored.
  *
  *		@type string $title Title attribute.
@@ -47,12 +47,13 @@ add_action( 'after_setup_theme', 'genesis_register_nav_menus' );
  *
  * @since 1.8.0
  *
- * @return null Return early if `genesis-menus` are not supported.
+ * @return void Return early if `genesis-menus` are not supported.
  */
 function genesis_register_nav_menus() {
 
-	if ( ! current_theme_supports( 'genesis-menus' ) )
+	if ( ! current_theme_supports( 'genesis-menus' ) ) {
 		return;
+	}
 
 	$menus = get_theme_support( 'genesis-menus' );
 
@@ -73,8 +74,9 @@ add_action( 'genesis_after_header', 'genesis_do_nav' );
 function genesis_do_nav() {
 
 	// Do nothing if menu not supported.
-	if ( ! genesis_nav_menu_supported( 'primary' ) || ! has_nav_menu( 'primary' ) )
+	if ( ! genesis_nav_menu_supported( 'primary' ) || ! has_nav_menu( 'primary' ) ) {
 		return;
+	}
 
 	$class = 'menu genesis-nav-menu menu-primary';
 	if ( genesis_superfish_enabled() ) {
@@ -103,8 +105,9 @@ add_action( 'genesis_after_header', 'genesis_do_subnav' );
 function genesis_do_subnav() {
 
 	// Do nothing if menu not supported.
-	if ( ! genesis_nav_menu_supported( 'secondary' ) )
+	if ( ! genesis_nav_menu_supported( 'secondary' ) ) {
 		return;
+	}
 
 	$class = 'menu genesis-nav-menu menu-secondary';
 	if ( genesis_superfish_enabled() ) {
@@ -136,8 +139,9 @@ function genesis_nav_right( $menu, stdClass $args ) {
 		return $menu;
 	}
 
-	if ( ! genesis_get_option( 'nav_extras' ) || 'primary' !== $args->theme_location )
+	if ( 'primary' !== $args->theme_location || ! genesis_get_option( 'nav_extras' ) ) {
 		return $menu;
+	}
 
 	switch ( genesis_get_option( 'nav_extras' ) ) {
 		case 'rss':
@@ -146,11 +150,7 @@ function genesis_nav_right( $menu, stdClass $args ) {
 			$menu .= '<li class="right rss">' . $rss . '</li>';
 			break;
 		case 'search':
-			// I hate output buffering, but I have no choice.
-			ob_start();
-			get_search_form();
-			$search = ob_get_clean();
-			$menu  .= '<li class="right search">' . $search . '</li>';
+			$menu  .= '<li class="right search">' . get_search_form( false ) . '</li>';
 			break;
 		case 'twitter':
 			$menu .= sprintf( '<li class="right twitter"><a href="%s">%s</a></li>', esc_url( 'http://twitter.com/' . genesis_get_option( 'nav_extras_twitter_id' ) ), esc_html( genesis_get_option( 'nav_extras_twitter_text' ) ) );

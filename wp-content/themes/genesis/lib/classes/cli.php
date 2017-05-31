@@ -28,7 +28,7 @@ class Genesis_CLI_Command extends WP_CLI_Command {
 	 * @alias upgrade_db
 	 *
 	 * @since 2.2.0
-	 * @since 2.4.0 Command now invoked with upgrade-db, not upgrade_db, per WP-CLI standard.
+	 * @since 2.4.0 Command now invoked with `upgrade-db`, not `upgrade_db`, per WP-CLI standard.
 	 *
 	 * @param array $args       Positional arguments.
 	 * @param array $assoc_args Stores all the arguments defined like --key=value or --flag or --no-flag.

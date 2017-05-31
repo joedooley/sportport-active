@@ -79,7 +79,7 @@ add_filter( 'post_class', 'genesis_entry_post_class' );
  */
 function genesis_entry_post_class( $classes ) {
 
-	if ( is_admin() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+	if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) && is_admin() ) {
 		return $classes;
 	}
 
@@ -87,8 +87,9 @@ function genesis_entry_post_class( $classes ) {
 	$classes[] = 'entry';
 
 	// Remove "hentry" from post class array, if HTML5.
-	if ( genesis_html5() )
+	if ( genesis_html5() ) {
 		$classes = array_diff( $classes, array( 'hentry' ) );
+	}
 
 	return $classes;
 
@@ -111,8 +112,9 @@ function genesis_custom_post_class( array $classes ) {
 
 	$new_class = genesis_get_custom_field( '_genesis_custom_post_class' );
 
-	if ( $new_class )
+	if ( $new_class ) {
 		$classes[] = esc_attr( $new_class );
+	}
 
 	return $classes;
 
@@ -133,13 +135,13 @@ function genesis_featured_image_post_class( $classes ) {
 		return $classes;
 	}
 
-    $image = genesis_get_image();
+	$image = genesis_get_image();
 
-    if ( $image && ! is_singular() && genesis_get_option( 'content_archive_thumbnail' ) && ! in_array( 'has-post-thumbnail', $classes ) ) {
-        $classes[] = 'has-post-thumbnail';
-    }
+	if ( $image && ! is_singular() && genesis_get_option( 'content_archive_thumbnail' ) && ! in_array( 'has-post-thumbnail', $classes ) ) {
+		$classes[] = 'has-post-thumbnail';
+	}
 
-    return $classes;
+	return $classes;
 
 }
 
@@ -152,24 +154,27 @@ add_action( 'genesis_before_post_title', 'genesis_do_post_format_image' );
  *
  * @since 1.4.0
  *
- * @return null Return early if `post-formats` or `genesis-post-format-images` are not supported.
+ * @return void Return early if `post-formats` or `genesis-post-format-images` are not supported.
  */
 function genesis_do_post_format_image() {
 
 	// Do nothing if post formats aren't supported.
-	if ( ! current_theme_supports( 'post-formats' ) || ! current_theme_supports( 'genesis-post-format-images' ) )
+	if ( ! current_theme_supports( 'post-formats' ) || ! current_theme_supports( 'genesis-post-format-images' ) ) {
 		return;
+	}
 
 	// Get post format.
 	$post_format = get_post_format();
 
 	// If post format is set, look for post format image.
-	if ( $post_format && file_exists( sprintf( '%s/images/post-formats/%s.png', CHILD_DIR, $post_format ) ) )
+	if ( $post_format && file_exists( sprintf( '%s/images/post-formats/%s.png', CHILD_DIR, $post_format ) ) ) {
 		printf( '<a href="%s" rel="bookmark"><img src="%s" class="post-format-image" alt="%s" /></a>', get_permalink(), sprintf( '%s/images/post-formats/%s.png', CHILD_URL, $post_format ), $post_format );
+	}
 
 	// Else, look for the default post format image.
-	elseif ( file_exists( sprintf( '%s/images/post-formats/default.png', CHILD_DIR ) ) )
+	elseif ( file_exists( sprintf( '%s/images/post-formats/default.png', CHILD_DIR ) ) ) {
 		printf( '<a href="%s" rel="bookmark"><img src="%s/images/post-formats/default.png" class="post-format-image" alt="%s" /></a>', get_permalink(), CHILD_URL, 'post' );
+	}
 
 }
 
@@ -203,14 +208,15 @@ add_action( 'genesis_post_title', 'genesis_do_post_title' );
  *
  * @since 1.1.0
  *
- * @return null Return early if the length of the title string is zero.
+ * @return void Return early if the length of the title string is zero.
  */
 function genesis_do_post_title() {
 
 	$title = apply_filters( 'genesis_post_title_text', get_the_title() );
 
-	if ( 0 === mb_strlen( $title ) )
+	if ( 0 === mb_strlen( $title ) ) {
 		return;
+	}
 
 	// Link it, if necessary.
 	if ( ! is_singular() && apply_filters( 'genesis_link_post_title', true ) ){
@@ -246,7 +252,7 @@ function genesis_do_post_title() {
 		'echo'    => false,
 	) );
 
-	echo apply_filters( 'genesis_post_title_output', "$output \n", $wrap, $title );
+	echo apply_filters( 'genesis_post_title_output', $output, $wrap, $title ) . "\n";
 
 }
 
@@ -263,7 +269,7 @@ add_action( 'genesis_before_post_content', 'genesis_post_info' );
  *
  * @since 0.2.3
  *
- * @return null Return early if post type lacks support for `genesis-entry-meta-before-content`.
+ * @return void Return early if post type lacks support for `genesis-entry-meta-before-content`.
  */
 function genesis_post_info() {
 
@@ -280,7 +286,7 @@ function genesis_post_info() {
 	genesis_markup( array(
 		'open'    => '<p %s>',
 		'close'   => '</p>',
-		'content' => $filtered,
+		'content' => genesis_strip_p_tags( $filtered ),
 		'context' => 'entry-meta-before-content',
 	) );
 
@@ -347,17 +353,19 @@ function genesis_do_post_content() {
 			echo '-->' . "\n";
 		}
 
-		if ( is_page() && apply_filters( 'genesis_edit_post_link', true ) )
+		if ( is_page() && apply_filters( 'genesis_edit_post_link', true ) ) {
 			edit_post_link( __( '(Edit)', 'genesis' ), '', '' );
+		}
 	}
 	elseif ( 'excerpts' === genesis_get_option( 'content_archive' ) ) {
 		the_excerpt();
 	}
 	else {
-		if ( genesis_get_option( 'content_archive_limit' ) )
+		if ( genesis_get_option( 'content_archive_limit' ) ) {
 			the_content_limit( (int) genesis_get_option( 'content_archive_limit' ), genesis_a11y_more_link( __( '[Read more...]', 'genesis' ) ) );
-		else
+		} else {
 			the_content( genesis_a11y_more_link( __( '[Read more...]', 'genesis' ) ) );
+		}
 	}
 
 }
@@ -401,8 +409,9 @@ add_action( 'genesis_post_content', 'genesis_do_post_permalink' );
 function genesis_do_post_permalink() {
 
 	// Don't show on singular views, or if the entry has a title.
-	if ( is_singular() || get_the_title() )
+	if ( is_singular() || get_the_title() ) {
 		return;
+	}
 
 	$permalink = get_permalink();
 
@@ -465,7 +474,7 @@ add_action( 'genesis_after_post_content', 'genesis_post_meta' );
  *
  * @since 0.2.3
  *
- * @return null Return early if post type lacks support for `genesis-entry-meta-after-content`.
+ * @return void Return early if post type lacks support for `genesis-entry-meta-after-content`.
  */
 function genesis_post_meta() {
 
@@ -482,7 +491,7 @@ function genesis_post_meta() {
 	$output = genesis_markup( array(
 		'open'    => '<p %s>',
 		'close'   => '</p>',
-		'content' => $filtered,
+		'content' => genesis_strip_p_tags( $filtered ),
 		'context' => 'entry-meta-after-content',
 	) );
 
@@ -495,15 +504,17 @@ add_action( 'genesis_after_post', 'genesis_do_author_box_single' );
  *
  * @since 1.0.0
  *
- * @return null Return early if not a single post or page, or post type does not support `author`.
+ * @return void Return early if not a single post or page, or post type does not support `author`.
  */
 function genesis_do_author_box_single() {
 
-	if ( ! is_single() || ! post_type_supports( get_post_type(), 'author' ) )
+	if ( ! is_single() || ! post_type_supports( get_post_type(), 'author' ) ) {
 		return;
+	}
 
-	if ( get_the_author_meta( 'genesis_author_box_single', get_the_author_meta( 'ID' ) ) )
+	if ( get_the_author_meta( 'genesis_author_box_single', get_the_author_meta( 'ID' ) ) ) {
 		genesis_author_box( 'single' );
+	}
 
 }
 
@@ -550,12 +561,12 @@ function genesis_author_box( $context = '', $echo = true ) {
 		 */
 		$title = apply_filters( 'genesis_author_box_title', $title, $context );
 
+		$heading_element = 'h1';
+
 		if ( 'single' === $context && ! genesis_get_seo_option( 'semantic_headings' ) ) {
 			$heading_element = 'h4';
 		} elseif ( genesis_a11y( 'headings' ) || get_the_author_meta( 'headline', (int) get_query_var( 'author' ) ) ) {
 			$heading_element = 'h4';
-		} else {
-			$heading_element = 'h1';
 		}
 
 		$pattern  = sprintf( '<section %s>', genesis_attr( 'author-box' ) );
@@ -567,10 +578,10 @@ function genesis_author_box( $context = '', $echo = true ) {
 
 		$title = apply_filters( 'genesis_author_box_title', sprintf( '<strong>%s %s</strong>', __( 'About', 'genesis' ), get_the_author() ), $context );
 
+		$pattern = '<div class="author-box">%s<h1>%s</h1><div>%s</div></div>';
+
 		if ( 'single' === $context || get_the_author_meta( 'headline', (int) get_query_var( 'author' ) ) ) {
 			$pattern = '<div class="author-box"><div>%s %s<br />%s</div></div>';
-		} else {
-			$pattern = '<div class="author-box">%s<h1>%s</h1><div>%s</div></div>';
 		}
 
 	}
@@ -593,10 +604,13 @@ function genesis_author_box( $context = '', $echo = true ) {
 	 */
 	$output = apply_filters( 'genesis_author_box', $output, $context, $pattern, $gravatar, $title, $description );
 
-	if ( $echo )
+	if ( $echo ) {
 		echo $output;
-	else
+
+		return null;
+	} else {
 		return $output;
+	}
 
 }
 
@@ -605,6 +619,8 @@ add_action( 'genesis_after_entry', 'genesis_after_entry_widget_area' );
  * Display after-entry widget area on the genesis_after_entry action hook.
  *
  * @since 2.1.0
+ *
+ * @return void Return early if not singular, or post type does not support after entry widget area.
  */
 function genesis_after_entry_widget_area() {
 
@@ -629,10 +645,11 @@ add_action( 'genesis_after_endwhile', 'genesis_posts_nav' );
  */
 function genesis_posts_nav() {
 
-	if ( 'numeric' === genesis_get_option( 'posts_nav' ) )
+	if ( 'numeric' === genesis_get_option( 'posts_nav' ) ) {
 		genesis_numeric_posts_nav();
-	else
+	} else {
 		genesis_prev_next_posts_nav();
+	}
 
 }
 
@@ -683,25 +700,28 @@ function genesis_prev_next_posts_nav() {
  *
  * @global WP_Query $wp_query Query object.
  *
- * @return null Return early if on a single post or page, or only one page exists.
+ * @return void Return early if on a single post or page, or only one page exists.
  */
 function genesis_numeric_posts_nav() {
 
-	if( is_singular() )
+	if( is_singular() ) {
 		return;
+	}
 
 	global $wp_query;
 
 	// Stop execution if there's only one page.
-	if( $wp_query->max_num_pages <= 1 )
+	if( $wp_query->max_num_pages <= 1 ) {
 		return;
+	}
 
 	$paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
-	$max   = intval( $wp_query->max_num_pages );
+	$max   = (int) $wp_query->max_num_pages;
 
 	// Add current page to the array.
-	if ( $paged >= 1 )
+	if ( $paged >= 1 ) {
 		$links[] = $paged;
+	}
 
 	// Add the pages around the current page to the array.
 	if ( $paged >= 3 ) {
@@ -724,8 +744,9 @@ function genesis_numeric_posts_nav() {
 	echo '<ul>';
 
 	// Previous Post Link.
-	if ( get_previous_posts_link() )
+	if ( get_previous_posts_link() ) {
 		printf( '<li class="pagination-previous">%s</li>' . "\n", get_previous_posts_link( apply_filters( 'genesis_prev_link_text', '&#x000AB; ' . __( 'Previous Page', 'genesis' ) ) ) );
+	}
 
 	// Link to first page, plus ellipses if necessary.
 	if ( ! in_array( 1, $links ) ) {
@@ -743,15 +764,17 @@ function genesis_numeric_posts_nav() {
 	// Link to current page, plus 2 pages in either direction if necessary.
 	sort( $links );
 	foreach ( (array) $links as $link ) {
-		$class = $paged == $link ? ' class="active"  aria-label="' . __( 'Current page', 'genesis' ) . '"' : '';
-		printf( '<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $link ) ), $before_number . $link );
+		$class = $paged == $link ? ' class="active" ' : '';
+		$aria  = $paged == $link ? ' aria-label="' . esc_attr__( 'Current page', 'genesis' ) . '"' : '';
+		printf( '<li%s><a href="%s"%s>%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $link ) ), $aria, $before_number . $link );
 	}
 
 	// Link to last page, plus ellipses if necessary.
 	if ( ! in_array( $max, $links ) ) {
 
-		if ( ! in_array( $max - 1, $links ) )
+		if ( ! in_array( $max - 1, $links ) ) {
 			echo '<li class="pagination-omission">&#x02026;</li>' . "\n";
+		}
 
 		$class = $paged == $max ? ' class="active"' : '';
 		printf( '<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $max ) ), $before_number . $max );
@@ -759,8 +782,9 @@ function genesis_numeric_posts_nav() {
 	}
 
 	// Next Post Link.
-	if ( get_next_posts_link() )
+	if ( get_next_posts_link() ) {
 		printf( '<li class="pagination-next">%s</li>' . "\n", get_next_posts_link( apply_filters( 'genesis_next_link_text', __( 'Next Page', 'genesis' ) . ' &#x000BB;' ) ) );
+	}
 
 	echo '</ul>';
 	genesis_markup( array(
@@ -778,7 +802,7 @@ add_action( 'genesis_after_entry', 'genesis_adjacent_entry_nav' );
  *
  * @since 2.3.0
  *
- * @return null Return early if not singular or post type doesn't support `genesis-adjacent-entry-nav`.
+ * @return void Return early if not singular or post type doesn't support `genesis-adjacent-entry-nav`.
  */
 function genesis_adjacent_entry_nav() {
 

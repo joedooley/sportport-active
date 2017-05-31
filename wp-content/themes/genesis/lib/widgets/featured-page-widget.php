@@ -32,7 +32,7 @@ class Genesis_Featured_Page extends WP_Widget {
 	 *
 	 * @since 0.1.8
 	 */
-	function __construct() {
+	public function __construct() {
 
 		$this->defaults = array(
 			'title'           => '',
@@ -73,7 +73,7 @@ class Genesis_Featured_Page extends WP_Widget {
 	 *                        `before_widget`, and `after_widget`.
 	 * @param array $instance The settings for the particular instance of the widget.
 	 */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 
 		global $wp_query;
 
@@ -83,16 +83,20 @@ class Genesis_Featured_Page extends WP_Widget {
 		echo $args['before_widget'];
 
 		// Set up the author bio.
-		if ( ! empty( $instance['title'] ) )
+		if ( ! empty( $instance['title'] ) ) {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base ) . $args['after_title'];
+		}
 
 		$wp_query = new WP_Query( array( 'page_id' => $instance['page_id'] ) );
 
 		if ( have_posts() ) : while ( have_posts() ) : the_post();
 
 			genesis_markup( array(
-				'open'   => '<article %s>',
+				'open'    => '<article %s>',
 				'context' => 'entry',
+				'params'  => array(
+					'is_widget' => true,
+				),
 			) );
 
 			$image = genesis_get_image( array(
@@ -102,7 +106,7 @@ class Genesis_Featured_Page extends WP_Widget {
 				'attr'    => genesis_parse_attr( 'entry-image-widget', array ( 'alt' => get_the_title() ) ),
 			) );
 
-			if ( $instance['show_image'] && $image ) {
+			if ( $image && $instance['show_image'] ) {
 				$role = empty( $instance['show_title'] ) ? '' : 'aria-hidden="true"';
 				printf( '<a href="%s" class="%s" %s>%s</a>', get_permalink(), esc_attr( $instance['image_alignment'] ), $role, wp_make_content_images_responsive( $image ) );
 			}
@@ -124,8 +128,8 @@ class Genesis_Featured_Page extends WP_Widget {
 				 *     @type int    $page_id         ID of the featured page.
 				 *     @type bool   $show_image      True if featured image should be shown, false
 				 *                                   otherwise.
-				 *     @type string $image_alignment Image alignment: alignnone, alignleft,
-				 *                                   aligncenter or alignright.
+				 *     @type string $image_alignment Image alignment: `alignnone`, `alignleft`,
+				 *                                   `aligncenter` or `alignright`.
 				 *     @type string $image_size      Name of the image size.
 				 *     @type bool   $show_title      True if featured page title should be shown,
 				 *                                   false otherwise.
@@ -146,11 +150,26 @@ class Genesis_Featured_Page extends WP_Widget {
 				$title = apply_filters( 'genesis_featured_page_title', $title, $instance, $args );
 				$heading = genesis_a11y( 'headings' ) ? 'h4' : 'h2';
 
-				genesis_markup( array(
-					'open'    => "<header class=\"entry-header\"><{$heading} class=\"entry-title\">",
-					'close'   => "</{$heading}></header>",
-					'context' => 'widget-entry-title',
+				$entry_title = genesis_markup( array(
+					'open'    => "<{$heading} %s>",
+					'close'   => "</{$heading}>",
+					'context' => 'entry-title',
 					'content' => sprintf( '<a href="%s">%s</a>', get_permalink(), $title ),
+					'params'  => array(
+						'is_widget' => true,
+						'wrap'      => $heading,
+					),
+					'echo'    => false,
+				) );
+
+				genesis_markup( array(
+					'open'    => "<header %s>",
+					'close'   => "</header>",
+					'context' => 'entry-header',
+					'content' => $entry_title,
+					'params'  => array(
+						'is_widget' => true,
+					),
 				) );
 
 			}
@@ -160,6 +179,9 @@ class Genesis_Featured_Page extends WP_Widget {
 				genesis_markup( array(
 					'open'    => '<div %s>',
 					'context' => 'entry-content',
+					'params'  => array(
+						'is_widget' => true,
+					),
 				) );
 
 				if ( empty( $instance['content_limit'] ) ) {
@@ -180,6 +202,9 @@ class Genesis_Featured_Page extends WP_Widget {
 				genesis_markup( array(
 					'close'   => '</div>',
 					'context' => 'entry-content',
+					'params'  => array(
+						'is_widget' => true,
+					),
 				) );
 
 			}
@@ -187,6 +212,9 @@ class Genesis_Featured_Page extends WP_Widget {
 			genesis_markup( array(
 				'close'   => '</article>',
 				'context' => 'entry',
+				'params'  => array(
+					'is_widget' => true,
+				),
 			) );
 
 			endwhile;
@@ -212,7 +240,7 @@ class Genesis_Featured_Page extends WP_Widget {
 	 * @param array $old_instance Old settings for this instance.
 	 * @return array Settings to save or bool false to cancel saving.
 	 */
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 
 		$new_instance['title']     = strip_tags( $new_instance['title'] );
 		$new_instance['more_text'] = strip_tags( $new_instance['more_text'] );
@@ -228,7 +256,7 @@ class Genesis_Featured_Page extends WP_Widget {
 	 * @param array $instance Current settings.
 	 * @return void
 	 */
-	function form( $instance ) {
+	public function form( $instance ) {
 
 		// Merge with defaults.
 		$instance = wp_parse_args( (array) $instance, $this->defaults );
@@ -263,8 +291,9 @@ class Genesis_Featured_Page extends WP_Widget {
 			<select id="<?php echo esc_attr( $this->get_field_id( 'image_size' ) ); ?>" class="genesis-image-size-selector" name="<?php echo esc_attr( $this->get_field_name( 'image_size' ) ); ?>">
 				<?php
 				$sizes = genesis_get_image_sizes();
-				foreach ( (array) $sizes as $name => $size )
+				foreach ( (array) $sizes as $name => $size ) {
 					echo '<option value="' . esc_attr( $name ) . '" ' . selected( $name, $instance['image_size'], false ) . '>' . esc_html( $name ) . ' (' . absint( $size['width'] ) . 'x' . absint( $size['height'] ) . ')</option>';
+				}
 				?>
 			</select>
 		</p>
