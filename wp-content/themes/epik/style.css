@@ -3320,6 +3320,12 @@ body.single-product {
   body.single-product .entry {
     margin: 0;
     padding: 0; }
+  body.single-product.woocommerce div.product div.images {
+    float: none;
+    width: 100%; }
+    @media screen and (max-width: 1023px) {
+      body.single-product.woocommerce div.product div.images {
+        width: 100%; } }
   body.single-product.woocommerce div.product div.all-images {
     background: #fff;
     padding-top: 0;

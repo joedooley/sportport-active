@@ -65,6 +65,15 @@ body.single-product {
 		@include padding(0);
 	}
 
+	&.woocommerce div.product div.images {
+		float: none;
+		width: 100%;
+
+		@include media($xlarge-screen-up) {
+			width: 100%;
+		}
+	}
+
 	&.woocommerce div.product div.all-images {
 		background: #fff;
 		padding-top: 0;
