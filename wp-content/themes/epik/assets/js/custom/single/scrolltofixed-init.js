@@ -2,25 +2,27 @@ jQuery(function ($) {
 
   function positionProduct (e) {
 
-    var winHeight = window.innerHeight;
+    let winHeight = window.innerHeight;
 
-    var wpAdminBar = $('#wpadminbar').outerHeight() || 0;
-    var beforeHeader = $('.before-header').outerHeight() || 0;
-    var headerHeight = $('.site-header').outerHeight();
+    let wpAdminBar = $('#wpadminbar').outerHeight() || 0;
+    let beforeHeader = $('.before-header').outerHeight() || 0;
+    let headerHeight = $('.site-header').outerHeight();
+    let wcMessage = $('.woocommerce-message').outerHeight() || 0;
 
-    var headerTop = $('.site-header .title-area .site-title img').position().top;
+    let totalHeaderHeights = wpAdminBar + beforeHeader + headerHeight + wcMessage
 
-    var footerTop = $('.above-footer-widgets').position().top;
-    var paddingTop = parseInt($('.all-images').css('padding-top'));
-    var wcMessage = $('.woocommerce-message').outerHeight();
+    let headerTop = $('.site-header .title-area .site-title img').position().top;
 
-    var scrollHeight = headerHeight + beforeHeader + beforeHeader + wcMessage + wpAdminBar;
+    let footerTop = $('.above-footer-widgets').position().top;
+    let paddingTop = parseInt($('.all-images').css('padding-top'));
 
-    var leftHeight = winHeight - headerHeight - beforeHeader - wpAdminBar;
+    let scrollHeight = headerHeight + beforeHeader + beforeHeader + wcMessage + wpAdminBar;
 
-    var currScroll = $(window).scrollTop();
+    let leftHeight = winHeight - headerHeight - beforeHeader - wpAdminBar;
 
-    var imageHeight = leftHeight - paddingTop;
+    let currScroll = $(window).scrollTop();
+
+    let imageHeight = leftHeight - paddingTop;
 
     if (window.matchMedia("(min-width: 1024px)").matches) {
 

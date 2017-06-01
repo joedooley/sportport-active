@@ -10,11 +10,13 @@ jQuery(function ($) {
     var beforeHeader = $('.before-header').outerHeight() || 0;
     var headerHeight = $('.site-header').outerHeight();
 
+    var totalHeaderHeights = wpAdminBar + beforeHeader + headerHeight;
+
     var headerTop = $('.site-header .title-area .site-title img').position().top;
 
     var footerTop = $('.above-footer-widgets').position().top;
     var paddingTop = parseInt($('.all-images').css('padding-top'));
-    var wcMessage = $('.woocommerce-message').outerHeight();
+    var wcMessage = $('.woocommerce-message').outerHeight() || 0;
 
     var scrollHeight = headerHeight + beforeHeader + beforeHeader + wcMessage + wpAdminBar;
 

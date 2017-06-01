@@ -3328,7 +3328,7 @@ body.single-product {
         width: 100%; } }
   body.single-product.woocommerce div.product div.all-images {
     background: #fff;
-    padding-top: 0;
+    padding-top: 40px;
     text-align: center;
     width: 50%; }
     @media screen and (max-width: 1023px) {
@@ -3513,6 +3513,9 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 
 .single-product .above-footer-widgets {
   position: relative; }
+
+body.single-product div.product .woocommerce-product-gallery__image {
+  margin-bottom: 100px; }
 
 body.single-product div.product .woocommerce-product-gallery {
   margin-bottom: 20px;
