@@ -3514,6 +3514,9 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 .single-product .above-footer-widgets {
   position: relative; }
 
+body.single-product div.product .woocommerce-product-gallery__image {
+  margin-bottom: 100px; }
+
 body.single-product div.product .woocommerce-product-gallery {
   margin-bottom: 20px;
   margin-top: 0;
