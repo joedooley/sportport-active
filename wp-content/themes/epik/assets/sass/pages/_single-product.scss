@@ -10,6 +10,7 @@ body.single-product {
 	}
 
 	.site-inner {
+		background: #ebebeb;
 		margin-bottom: 0;
 		margin-top: 0;
 		padding-top: 0;
@@ -88,7 +89,7 @@ body.single-product {
 
 	&.woocommerce div.product div.summary {
 		background: #ebebeb;
-		min-height: 100vh;
+		//min-height: 100vh;
 		width: 50%;
 
 		@include media($xlarge-screen-up) {
@@ -221,16 +222,18 @@ body.single-product {
 	// Related Products
 	&.woocommerce .products ul,
 	&.woocommerce ul.products {
+		display: flex;
+		flex-wrap: wrap;
 		margin-bottom: 0;
 	}
 
 	&.woocommerce ul.products li.product,
 	&.woocommerce-page ul.products li.product {
-		@include margin(0 5.9% 2.992em 0);
+		@include margin(0 1% 2.992em 1%);
 		@include padding(0.5em);
 		background-color: $white;
 		min-height: 330px;
-		width: 44.10%;
+		width: 48%;
 
 		@include media($ipad-screen-up) {
 			@include margin(0 auto 2em);
@@ -368,7 +371,9 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 body.single-product div.product {
 
 	.woocommerce-product-gallery__image {
-		margin-bottom: 100px;
+		&:first-child {
+			margin-bottom: 100px;
+		}
 	}
 
 	.woocommerce-product-gallery {
