@@ -89,7 +89,7 @@ body.single-product {
 
 	&.woocommerce div.product div.summary {
 		background: #ebebeb;
-		min-height: 100vh;
+		//min-height: 100vh;
 		width: 50%;
 
 		@include media($xlarge-screen-up) {
