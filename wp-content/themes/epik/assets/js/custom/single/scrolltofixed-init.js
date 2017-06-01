@@ -11,14 +11,16 @@ jQuery(function ($) {
 
     let totalHeaderHeights = wpAdminBar + beforeHeader + headerHeight + wcMessage
 
-    let headerTop = $('.site-header .title-area .site-title img').position().top;
+    //let headerTop = $('.site-header .title-area .site-title img').position().top;
 
     let footerTop = $('.above-footer-widgets').position().top;
     let paddingTop = parseInt($('.all-images').css('padding-top'));
 
-    let scrollHeight = headerHeight + beforeHeader + beforeHeader + wcMessage + wpAdminBar;
+    //let scrollHeight = headerHeight + beforeHeader + beforeHeader + wcMessage + wpAdminBar;
 
-    let leftHeight = winHeight - headerHeight - beforeHeader - wpAdminBar;
+    let scrollHeight = totalHeaderHeights;
+
+    let leftHeight = winHeight - totalHeaderHeights;
 
     let currScroll = $(window).scrollTop();
 
